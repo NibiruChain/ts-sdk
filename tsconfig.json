@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.build.json",
+  "noUnusedLocals": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@nibiruchain/api": [
+        "packages/api"
+      ],
+      "@nibiruchain/tx": [
+        "packages/tx"
+      ],
+      "@nibiruchain/query": [
+        "packages/query"
+      ],
+      "@nibiruchain/common": [
+        "packages/common"
+      ]
+    }
+  }
+}
