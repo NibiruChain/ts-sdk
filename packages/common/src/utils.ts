@@ -1,12 +1,23 @@
 const PRECISION = 18 // number of decimal places
-const INT_MULT = 1e6
+const INT_MULT = 1_000_000
 
-// reimplementation of cosmos-sdk/types/decimal.go
+/**
+ * toSdkDec converts the input float string to an sdk.Dec.
+ * The maximum number of decimal places for an sdk.Dec is 18.
+ * NOTE: An error is thrown if more decimal digits are provided than the
+ * precision, 18.
+ *
+ * ref: Reimplementation of cosmos-sdk/types/decimal.go
+ *
+ * @export
+ * @param {string} dec
+ * @returns {string}
+ */
 export function toSdkDec(dec: string): string {
   /*
   create a decimal from an input decimal.
   valid must come in the form:
-      (-) whole integers (.) decimal integers
+      (-) integer digits (.) fractional digits
   examples of acceptable input include:
       -123.456
       456.7890
@@ -26,100 +37,99 @@ export function toSdkDec(dec: string): string {
 
   // first extract any negative symbol
   let neg = false
-  if (decStr[0] === '-') {
+  if (decStr[0] === "-") {
     neg = true
-    decStr = decStr.slice(1)
+    decStr = decStr.slice(/*start?*/ 1)
   }
 
   if (decStr.length === 0) {
     throw new Error(`Expected decimal string but got: ${decStr}`)
   }
 
-  const strs = decStr.split('.')
-  let lenDecs = 0
-  let combinedStr = strs[0]
+  const digitBlocks = decStr.split(".")
+  let lenDigitBlock = 0
+  let sdkDec = digitBlocks[0]
 
-  if (strs.length === 2) {
+  if (digitBlocks.length === 2) {
     // has a decimal place
-    lenDecs = strs[1].length
-    if (lenDecs === 0 || combinedStr.length === 0) {
+    lenDigitBlock = digitBlocks[1].length
+    if (lenDigitBlock === 0 || sdkDec.length === 0) {
       throw new Error(`Expected decimal string but got: ${decStr}`)
     }
-    combinedStr += strs[1]
-  } else if (strs.length > 2) {
-    throw new Error(`Expected decimal string but got: ${decStr}`)
+    sdkDec += digitBlocks[1]
+  } else if (digitBlocks.length > 2) {
+    throw new Error(`Invalid input has more than one decimal point: ${decStr}`)
   }
 
-  if (lenDecs > PRECISION) {
+  if (lenDigitBlock > PRECISION) {
     throw new Error(
       `value \${decStr}' exceeds max precision by ${
-        PRECISION - lenDecs
+        PRECISION - lenDigitBlock
       } decimal places: max precision ${PRECISION}`,
     )
   }
 
-  // add some extra zero's to correct to the Precision factor
-  const zerosToAdd = PRECISION - lenDecs
-  const zeros = '0'.repeat(zerosToAdd)
-  combinedStr += zeros
+  // An sdk.Dec must take up 18 (PRECISION) digits.
+  // Add some extra zeros to correct to the Precision factor
+  const zerosToAdd = PRECISION - lenDigitBlock
+  const zeros = "0".repeat(zerosToAdd)
+  sdkDec += zeros
 
-  if (Number.isNaN(parseInt(combinedStr, 10))) {
-    throw new Error(`failed to set decimal string with base 10: ${combinedStr}`)
+  if (Number.isNaN(parseInt(sdkDec, 10))) {
+    throw new Error(`failed to set decimal string with base 10: ${sdkDec}`)
   }
 
   if (neg) {
-    return `-${combinedStr}`
+    return `-${sdkDec}`
   }
-  return combinedStr
+  return sdkDec
 }
 
-export function fromSdkDec(dec: string): string {
-  let decStr = dec
-  if (!decStr) {
-    return '0'
+export function fromSdkDec(sdkDec: string): number {
+  if (!sdkDec) {
+    return 0
   }
 
-  if (decStr.indexOf('.') !== -1) {
-    throw new Error(
-      `expected a decimal string but got ${decStr} containing '.'`,
-    )
+  if (sdkDec.indexOf(".") !== -1) {
+    throw new Error(`expected a decimal string but got ${sdkDec} containing '.'`)
   }
 
-  if (Number.isNaN(parseInt(decStr, 10))) {
-    throw new Error(`failed to convert ${decStr} to a number`)
+  if (Number.isNaN(parseInt(sdkDec, 10))) {
+    throw new Error(`failed to convert ${sdkDec} to a number`)
   }
 
+  // Check if the sdkDec is negative.
   let neg = false
-  if (decStr[0] === '-') {
+  if (sdkDec[0] === "-") {
     neg = true
-    decStr = decStr.slice(1)
+    sdkDec = sdkDec.slice(1)
   }
 
-  const inputSize = decStr.length
-  let bzStr = ''
+  const inputSize = sdkDec.length
+  let bzStr = ""
   // case 1, purely decimal
   if (inputSize <= PRECISION) {
     // 0. prefix
-    bzStr = '0.'
+    bzStr = "0."
 
     // set relevant digits to 0
-    bzStr += '0'.repeat(PRECISION - inputSize)
+    bzStr += "0".repeat(PRECISION - inputSize)
 
     // set final digits
-    bzStr += decStr
+    bzStr += sdkDec
   } else {
     // inputSize + 1 to account for the decimal point that is being added
     const decPointPlace = inputSize - PRECISION
 
-    bzStr = decStr.slice(0, decPointPlace) // pre-decimal digits
-    bzStr += '.' // decimal point
-    bzStr += decStr.slice(decPointPlace) // pre-decimal digits
+    bzStr = sdkDec.slice(0, decPointPlace) // pre-decimal digits (integer)
+    bzStr += "." // decimal point
+    bzStr += sdkDec.slice(decPointPlace) // post-decimal digits (fractional)
   }
   if (neg) {
     bzStr = `-${bzStr}`
   }
 
-  return bzStr
+  return parseFloat(bzStr)
 }
 
 export function toSdkInt(i: string): string {

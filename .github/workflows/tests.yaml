@@ -22,3 +22,5 @@ jobs:
         run: yarn
       - name: Build the application
         run: yarn build
+      - name: sdk.Dec tests in the common package
+        run: yarn test -t 'SdkDec'

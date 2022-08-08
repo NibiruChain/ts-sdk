@@ -1,7 +1,7 @@
-import { Registry } from '@cosmjs/proto-signing'
-import * as pb from '@nibiruchain/api/src/perp/v1/tx'
-import { TxMessage } from './common'
-import { toSdkDec, toSdkInt } from '@nibiruchain/common'
+import { Registry } from "@cosmjs/proto-signing"
+import * as pb from "@nibiruchain/api/src/perp/v1/tx"
+import { TxMessage } from "./common"
+import { toSdkDec, toSdkInt } from "@nibiruchain/common"
 
 const path = pb.protobufPackage
 
@@ -41,6 +41,7 @@ export class PerpComposer {
     msg.quoteAssetAmount = toSdkInt(quoteAssetAmount)
     msg.baseAssetAmountLimit = toSdkInt(baseAssetAmountLimit)
     msg.leverage = toSdkDec(leverage)
+    console.log(`msg: ${JSON.stringify(msg)}`)
     return {
       typeUrl: `/${path}.MsgOpenPosition`,
       value: pb.MsgOpenPosition.fromPartial(msg),

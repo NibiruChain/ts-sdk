@@ -1,13 +1,15 @@
-import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
-import * as qpb from '@nibiruchain/api/src/perp/v1/query'
-import * as pbs from '@nibiruchain/api/src/perp/v1/state'
-import { fromSdkDec } from '@nibiruchain/common/src/utils'
+import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
+import * as qpb from "@nibiruchain/api/src/perp/v1/query"
+import * as pbs from "@nibiruchain/api/src/perp/v1/state"
+import { fromSdkDec } from "@nibiruchain/common/src/utils"
 
-function transformTraderPosition(r: qpb.QueryTraderPositionResponse): qpb.QueryTraderPositionResponse {
+function transformTraderPosition(
+  r: qpb.QueryTraderPositionResponse,
+): qpb.QueryTraderPositionResponse {
   const { positionNotional: pn, unrealizedPnl: upnl, marginRatio: mr } = r
-  r.positionNotional = fromSdkDec(pn)
-  r.unrealizedPnl = fromSdkDec(upnl)
-  r.marginRatio = fromSdkDec(mr)
+  r.positionNotional = fromSdkDec(pn).toString()
+  r.unrealizedPnl = fromSdkDec(upnl).toString()
+  r.marginRatio = fromSdkDec(mr).toString()
   return r
 }
 
@@ -17,18 +19,21 @@ function transformParams(p?: pbs.Params): pbs.Params | undefined {
   }
   return {
     ...p,
-    maintenanceMarginRatio: fromSdkDec(p.maintenanceMarginRatio),
-    feePoolFeeRatio: fromSdkDec(p.maintenanceMarginRatio),
-    ecosystemFundFeeRatio: fromSdkDec(p.ecosystemFundFeeRatio),
-    liquidationFeeRatio: fromSdkDec(p.liquidationFeeRatio),
-    partialLiquidationRatio: fromSdkDec(p.partialLiquidationRatio),
+    maintenanceMarginRatio: fromSdkDec(p.maintenanceMarginRatio).toString(),
+    feePoolFeeRatio: fromSdkDec(p.maintenanceMarginRatio).toString(),
+    ecosystemFundFeeRatio: fromSdkDec(p.ecosystemFundFeeRatio).toString(),
+    liquidationFeeRatio: fromSdkDec(p.liquidationFeeRatio).toString(),
+    partialLiquidationRatio: fromSdkDec(p.partialLiquidationRatio).toString(),
   }
 }
 
 export interface PerpExtension {
   readonly perp: {
     readonly params: () => Promise<qpb.QueryParamsResponse>
-    readonly traderPosition: (args: { tokenPair: string; trader: string }) => Promise<qpb.QueryTraderPositionResponse>
+    readonly traderPosition: (args: {
+      tokenPair: string
+      trader: string
+    }) => Promise<qpb.QueryTraderPositionResponse>
   }
 }
 
