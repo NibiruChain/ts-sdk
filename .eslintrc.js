@@ -20,6 +20,7 @@ const common = {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
     'no-console': 'off',
+    'quotes': ['error', 'off'],
     'import/no-named-as-default': 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'no-redeclare': 'off',
@@ -66,7 +67,7 @@ module.exports = {
       },
       settings: {
         'import/resolver': {
-          node: ['.js', '.ts'],
+          // node: ['.js', '.ts'],
           typescript: {},
         },
       },

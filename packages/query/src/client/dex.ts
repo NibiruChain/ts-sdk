@@ -1,12 +1,12 @@
-import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
-import * as qpb from '@nibiruchain/api/src/dex/v1/query'
-import { PageRequest, Coin, fromSdkDec } from '@nibiruchain/common'
-import * as pbPool from '@nibiruchain/api/src/dex/v1/pool'
+import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
+import * as qpb from "@nibiruchain/api/src/dex/v1/query"
+import { PageRequest, Coin, fromSdkDec } from "@nibiruchain/common"
+import * as pbPool from "@nibiruchain/api/src/dex/v1/pool"
 
 function transformPoolParams(pp?: pbPool.PoolParams): pbPool.PoolParams | undefined {
   if (pp) {
-    pp.swapFee = fromSdkDec(pp?.swapFee)
-    pp.exitFee = fromSdkDec(pp?.exitFee)
+    pp.swapFee = fromSdkDec(pp?.swapFee).toString()
+    pp.exitFee = fromSdkDec(pp?.exitFee).toString()
   }
   return pp
 }
@@ -28,7 +28,9 @@ export interface DexExtension {
     readonly poolParams: (poolId: number) => Promise<qpb.QueryPoolParamsResponse>
     readonly numPools: () => Promise<qpb.QueryNumPoolsResponse>
     readonly totalLiquidity: () => Promise<qpb.QueryTotalLiquidityResponse>
-    readonly totalPoolLiquidity: (poolId: number) => Promise<qpb.QueryTotalPoolLiquidityResponse>
+    readonly totalPoolLiquidity: (
+      poolId: number,
+    ) => Promise<qpb.QueryTotalPoolLiquidityResponse>
     readonly totalShares: (poolId: number) => Promise<qpb.QueryTotalSharesResponse>
     readonly spotPrice: (
       poolId: number,
@@ -49,12 +51,16 @@ export interface DexExtension {
       poolId: number,
       tokensIn: Coin[],
     ) => Promise<qpb.QueryJoinExactAmountInResponse>
-    readonly estimateJoinExactAmountOut: (poolId: number) => Promise<qpb.QueryJoinExactAmountOutResponse>
+    readonly estimateJoinExactAmountOut: (
+      poolId: number,
+    ) => Promise<qpb.QueryJoinExactAmountOutResponse>
     readonly estimateExitExactAmountIn: (
       poolId: number,
       poolSharesIn: number,
     ) => Promise<qpb.QueryExitExactAmountInResponse>
-    readonly estimateExitExactAmountOut: (poolId: number) => Promise<qpb.QueryExitExactAmountOutResponse>
+    readonly estimateExitExactAmountOut: (
+      poolId: number,
+    ) => Promise<qpb.QueryExitExactAmountOutResponse>
   }
 }
 
@@ -116,7 +122,11 @@ export function setupDexExtension(base: QueryClient): DexExtension {
         })
         return queryService.SpotPrice(req)
       },
-      estimateSwapExactAmountIn: (poolId: number, tokenOutDenom: string, tokenIn?: Coin) => {
+      estimateSwapExactAmountIn: (
+        poolId: number,
+        tokenOutDenom: string,
+        tokenIn?: Coin,
+      ) => {
         const req = qpb.QuerySwapExactAmountInRequest.fromPartial({
           poolId,
           tokenOutDenom,
@@ -124,7 +134,11 @@ export function setupDexExtension(base: QueryClient): DexExtension {
         })
         return queryService.EstimateSwapExactAmountIn(req)
       },
-      estimateSwapExactAmountOut: (poolId: number, tokenInDenom: string, tokenOut?: Coin) => {
+      estimateSwapExactAmountOut: (
+        poolId: number,
+        tokenInDenom: string,
+        tokenOut?: Coin,
+      ) => {
         const req = qpb.QuerySwapExactAmountOutRequest.fromPartial({
           poolId,
           tokenInDenom,
