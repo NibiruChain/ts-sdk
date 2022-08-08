@@ -1,4 +1,4 @@
-import { LocalNetwork } from '@nibiruchain/common'
+import { DevnetNetwork } from '@nibiruchain/common'
 import { Side } from '@nibiruchain/api/src/perp/v1/state'
 import { coins } from '@cosmjs/proto-signing'
 import * as dotenv from 'dotenv'
@@ -12,7 +12,7 @@ const valMnemonic = process.env.VALIDATOR_MNEMONIC
 
 describe('test tx module', () => {
   it('send tokens', async () => {
-    const client = await initTx(LocalNetwork, valMnemonic)
+    const client = await initTx(DevnetNetwork, valMnemonic)
     const [{ address: sender }] = await client.getAccounts()
     const receiverAcct = await generate()
     const [{ address: receiver }] = await receiverAcct.getAccounts()
@@ -29,7 +29,7 @@ describe('test tx module', () => {
   })
 
   it('dex create pool', async () => {
-    const client = await initTx(LocalNetwork, valMnemonic)
+    const client = await initTx(DevnetNetwork, valMnemonic)
     const [{ address: sender }] = await client.getAccounts()
     const resp = await client.signAndBroadcast(
       DexComposer.createPool({
@@ -57,7 +57,7 @@ describe('test tx module', () => {
   })
 
   it('test perp', async () => {
-    const client = await initTx(LocalNetwork, valMnemonic)
+    const client = await initTx(DevnetNetwork, valMnemonic)
     const [{ address: sender }] = await client.getAccounts()
     const resp = await client.signAndBroadcast(
       PerpComposer.openPosition({

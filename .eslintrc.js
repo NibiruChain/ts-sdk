@@ -30,7 +30,7 @@ const common = {
     'no-await-in-loop': 'off',
     'consistent-return': 'off',
     'no-shadow': 'off',
-    'no-unused-vars': 'off',
+    'no-unused-vars': ['error', 'off'],
     'no-useless-constructor': 'off',
     'jest/require-hook': 'off',
     '@typescript-eslint/no-useless-constructor': 'error',
@@ -64,6 +64,7 @@ module.exports = {
         ...common.rules,
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-use-before-define': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
       },
       settings: {
         'import/resolver': {

@@ -22,5 +22,7 @@ jobs:
         run: yarn
       - name: Build the application
         run: yarn build
-      - name: sdk.Dec tests in the common package
+      - name: test sdk.Dec conversions in the common package
         run: yarn test -t 'SdkDec'
+      - name: test node connections with http
+        run: yarn test -t 'node connection'

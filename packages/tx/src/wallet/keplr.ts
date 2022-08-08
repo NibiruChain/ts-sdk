@@ -62,7 +62,7 @@ export async function getKeplr(network: Network) {
       //   bech32PrefixConsPub: string;
       // }
       bech32Config: {
-        bech32PrefixAccAddr: 'osmo',
+        bech32PrefixAccAddr: 'nibi',
         bech32PrefixAccPub: 'nibipub',
         bech32PrefixValAddr: 'nibivaloper',
         bech32PrefixValPub: 'nibivaloperpub',
@@ -73,7 +73,7 @@ export async function getKeplr(network: Network) {
       currencies: [
         {
           // Coin denomination to be displayed to the user.
-          coinDenom: 'OSMO',
+          coinDenom: 'unibi',
           // Actual denom (i.e. uatom, uscrt) used by the blockchain.
           coinMinimalDenom: 'unibi',
           // # of decimal points to convert minimal denomination to user-facing denomination.
@@ -87,7 +87,7 @@ export async function getKeplr(network: Network) {
       feeCurrencies: [
         {
           // Coin denomination to be displayed to the user.
-          coinDenom: 'NIBI',
+          coinDenom: 'unibi',
           // Actual denom (i.e. uosmo, uscrt) used by the blockchain.
           coinMinimalDenom: 'unibi',
           // # of decimal points to convert minimal denomination to user-facing denomination.
