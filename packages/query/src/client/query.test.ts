@@ -9,8 +9,12 @@ const NETWORK = DevnetNetwork
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
 
 describe("test node connection", () => {
-  const port = 26657
+  const port = DEVNET.tmPort
   const host = DEVNET.host
+  test("has environment variables configured", () => {
+    expect(VAL_ADDRESS).toBeDefined()
+    expect(host).toBeDefined()
+  })
 
   it("query block with get", async () => {
     const resp = await fetch(`http://${host}:${port}/block?height=5`)

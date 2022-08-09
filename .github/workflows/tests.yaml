@@ -7,6 +7,10 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.HOST }}
+      VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
+      VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup NodeJS and npm
