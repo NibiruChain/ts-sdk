@@ -1,4 +1,4 @@
-import { CONFIG_DEVNET, DevnetNetwork } from "@nibiruchain/common"
+import { DEVNET, DevnetNetwork } from "@nibiruchain/common"
 import { initQuery } from "./query"
 import fetch from "node-fetch"
 
@@ -10,7 +10,7 @@ const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
 
 describe("test node connection", () => {
   const port = 26657
-  const host = CONFIG_DEVNET.host
+  const host = DEVNET.host
 
   it("query block with get", async () => {
     const resp = await fetch(`http://${host}:${port}/block?height=5`)

@@ -12,10 +12,12 @@ dotenv.config() // yarn add -D dotenv
  * @typedef {Network}
  */
 export interface Network {
-  /** endpointRpc: endpoint for the gRPC gateway. Usually 26657 or 9090. */
-  endpointRpc: string
-  /** endpointRest: endpoint for the REST server. Also, the LCD endpoint. */
-  endpointRest: string
+  /** endptTm: endpoint for the Tendermint RPC server. Usually on port 26657. */
+  endptTm: string
+  /** endptRest: endpoint for the REST server. Also, the LCD endpoint. */
+  endptRest: string
+  /** endptGrpc: endpoint for the gRPC gateway. Usually on port 9090. */
+  endptGrpc?: string
   /** chainId: identifier for the chain */
   chainId: string
   chainName: string
@@ -23,25 +25,27 @@ export interface Network {
 }
 
 export const LocalNetwork: Network = {
-  endpointRpc: "127.0.0.1:26657",
-  endpointRest: "127.0.0.1:1317",
+  endptTm: "127.0.0.1:26657",
+  endptRest: "127.0.0.1:1317",
   chainId: "nibiru-localnet-0",
   chainName: "Nibiru localnet",
   feeDenom: "unibi",
 }
 
 export const TestnetNetwork: Network = {
-  endpointRpc: "rpc.nibiru.fi:9090",
-  endpointRest: "https://lcd.nibiru.fi",
+  endptTm: "rpc.nibiru.fi:26657",
+  endptRest: "https://lcd.nibiru.fi",
+  endptGrpc: "rpc.nibiru.fi:9090",
   chainId: "nibiru-testnet-3",
   chainName: "Nibiru testnet",
   feeDenom: "unibi",
 }
 
-export const CONFIG_DEVNET = {
+export const DEVNET = {
   host: process.env.HOST,
   lcdPort: 1317,
   grpcPort: 9090,
+  tmPort: 26657,
 }
 
 /**
@@ -50,10 +54,9 @@ export const CONFIG_DEVNET = {
  * testing.
  */
 export const DevnetNetwork: Network = {
-  // endpointRpc: `${CONFIG_DEVNET.host}:${CONFIG_DEVNET.grpcPort}`,
-  endpointRpc: `http://${CONFIG_DEVNET.host}:${26657}`,
-  // endpointRest: `http://${CONFIG_DEVNET.host}.:${CONFIG_DEVNET.lcdPort}`,
-  endpointRest: `http://${CONFIG_DEVNET.host}:${CONFIG_DEVNET.lcdPort}`,
+  endptGrpc: `http://${DEVNET.host}:${DEVNET.tmPort}`,
+  endptTm: `http://${DEVNET.host}:${DEVNET.tmPort}`,
+  endptRest: `http://${DEVNET.host}:${DEVNET.lcdPort}`,
   chainId: "nibiru-localnet-0",
   chainName: "Nibiru devnet",
   feeDenom: "unibi",

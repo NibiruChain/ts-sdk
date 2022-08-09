@@ -42,6 +42,6 @@ export class QueryImpl implements Query {
 }
 
 export async function initQuery(network: Network): Promise<Query> {
-  const tmClient = await Tendermint34Client.connect(network.endpointRpc)
+  const tmClient = await Tendermint34Client.connect(network.endptTm)
   return new QueryImpl(tmClient)
 }

@@ -74,7 +74,7 @@ export async function initTx(network: Network, mnemonic = ""): Promise<TxImpl> {
   const offlineSigner = await getSigner(network, mnemonic)
 
   const client = await SigningStargateClient.connectWithSigner(
-    network.endpointRpc,
+    network.endptTm, // may need endptGrpc
     offlineSigner,
     { registry },
   )

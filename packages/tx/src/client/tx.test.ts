@@ -20,14 +20,10 @@ describe("test tx module", () => {
       valMnemonic as string,
     )
     const client = await SigningStargateClient.connectWithSigner(
-      DevnetNetwork.endpointRpc,
+      DevnetNetwork.endptTm,
       offlineSigner,
     )
     console.log("client: ", client)
-
-    // const foo = await client.getAllBalances(process.env.VALIDATOR_ADDRESS as string)
-    // console.log(foo)
-    // expect(foo).not.toBeNull()
 
     // const [{ address: sender }] = await client.getAccounts()
     // const receiverAcct = await generate()
