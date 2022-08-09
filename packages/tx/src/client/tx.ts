@@ -1,10 +1,10 @@
-import { SigningStargateClient, calculateFee, GasPrice, StdFee } from '@cosmjs/stargate'
-import { GAS_PRICE, Network } from '@nibiruchain/common'
-import { Coin, OfflineDirectSigner } from '@cosmjs/proto-signing'
-import { getKeplr, Keplr } from '../wallet'
-import { registerTypes as registerDex } from './dex'
-import { registerTypes as registerPerp } from './perp'
-import { getRegistry, TxMessage, fromMnemonic } from './common'
+import { SigningStargateClient, calculateFee, GasPrice, StdFee } from "@cosmjs/stargate"
+import { GAS_PRICE, Network } from "@nibiruchain/common"
+import { Coin, OfflineDirectSigner } from "@cosmjs/proto-signing"
+import { getKeplr, Keplr } from "../wallet"
+import { registerTypes as registerDex } from "./dex"
+import { registerTypes as registerPerp } from "./perp"
+import { getRegistry, TxMessage, fromMnemonic } from "./common"
 
 export type Address = string
 
@@ -62,17 +62,21 @@ function registerModules() {
 }
 
 async function getSigner(network: Network, mnemonic: string) {
-  if (mnemonic === '') {
+  if (mnemonic === "") {
     const keplr: Keplr = await getKeplr(network)
     return keplr.getOfflineSigner(network.chainId)
   }
   return fromMnemonic(mnemonic)
 }
 
-export async function initTx(network: Network, mnemonic = ''): Promise<TxImpl> {
+export async function initTx(network: Network, mnemonic = ""): Promise<TxImpl> {
   const registry = registerModules()
   const offlineSigner = await getSigner(network, mnemonic)
 
-  const client = await SigningStargateClient.connectWithSigner(network.endpointRpc, offlineSigner, { registry })
+  const client = await SigningStargateClient.connectWithSigner(
+    network.endpointRpc,
+    offlineSigner,
+    { registry },
+  )
   return new TxImpl(client, offlineSigner)
 }

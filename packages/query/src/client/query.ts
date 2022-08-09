@@ -1,10 +1,20 @@
-import { QueryClient, setupBankExtension, setupAuthExtension, BankExtension, AuthExtension } from '@cosmjs/stargate'
-import { Tendermint34Client } from '@cosmjs/tendermint-rpc'
-import { Network } from '@nibiruchain/common'
-import { setupDexExtension, DexExtension } from './dex'
-import { setupPerpExtension, PerpExtension } from './perp'
+import {
+  QueryClient,
+  setupBankExtension,
+  setupAuthExtension,
+  BankExtension,
+  AuthExtension,
+} from "@cosmjs/stargate"
+import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
+import { Network } from "@nibiruchain/common"
+import { setupDexExtension, DexExtension } from "./dex"
+import { setupPerpExtension, PerpExtension } from "./perp"
 
-type ExtendedClient = QueryClient & BankExtension & AuthExtension & DexExtension & PerpExtension
+type ExtendedClient = BankExtension &
+  QueryClient &
+  AuthExtension &
+  DexExtension &
+  PerpExtension
 export interface Query {
   client: ExtendedClient
   disconnect: () => void

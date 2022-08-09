@@ -4,6 +4,8 @@ import fetch from "node-fetch"
 
 require("dotenv").config() // yarn add -D dotenv
 
+// const NETWORK = LocalNetwork
+const NETWORK = DevnetNetwork
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
 
 describe("test node connection", () => {
@@ -53,36 +55,61 @@ function validateBlock(blockJson: any) {
 }
 
 describe("test query module", () => {
-  it("has environment variables configured", () => {
+  test("has environment variables configured", () => {
     expect(VAL_ADDRESS).toBeDefined()
   })
 
-  it("query bank balances - client.bank.allBalances", async () => {
-    const { client, disconnect } = await initQuery(DevnetNetwork)
+  test("query bank balances - client.bank.allBalances", async () => {
+    const { client, disconnect } = await initQuery(NETWORK)
     const balances = await client.bank.allBalances(VAL_ADDRESS)
-    console.log("%o", balances)
+    console.log("balances: %o", balances)
     expect(balances.length).toBeGreaterThan(0)
     expect(+balances[0].amount).toBeGreaterThan(0)
     expect(balances[0].denom).not.toBe("")
-    disconnect()
+
+    let balanceDenoms: string[] = []
+    {
+      balances.map((coin) => {
+        balanceDenoms.push(coin.denom)
+      })
+    }
+    expect(balanceDenoms).toContain("unibi")
   })
 
-  it("query dex params - client.dex.params", async () => {
-    const { client, disconnect } = await initQuery(DevnetNetwork)
+  test("query dex params - client.dex.params", async () => {
+    const { client, disconnect } = await initQuery(NETWORK)
     const { params } = await client.dex.params()
-    console.log("%o", params)
+    console.log("dex.params: %o", params)
+    const fields: string[] = [
+      "poolCreationFee",
+      "startingPoolNumber",
+      "whitelistedAsset",
+    ]
+    for (const field of fields) {
+      expect(params).toHaveProperty(field)
+    }
     expect(params?.whitelistedAsset.length).toBeGreaterThan(0)
     expect(params?.whitelistedAsset[0]).not.toBe("")
     disconnect()
   })
 
-  it("query perp params - client.perp.params", async () => {
-    const { client, disconnect } = await initQuery(DevnetNetwork)
+  test("query perp params - client.perp.params", async () => {
+    const { client, disconnect } = await initQuery(NETWORK)
     const { params } = await client.perp.params()
-    console.log("%o", params)
+    console.log("perp.params: %o", params)
     expect(params).not.toBeNull()
-    expect(+params!.feePoolFeeRatio).toBeGreaterThan(0)
-    expect(+params!.liquidationFeeRatio).toBeGreaterThan(0)
+    const fields: string[] = [
+      "stopped",
+      "maintenanceMarginRatio",
+      "feePoolFeeRatio",
+      "liquidationFeeRatio",
+      "partialLiquidationRatio",
+      "ecosystemFundFeeRatio",
+      "twapLookbackWindow",
+    ]
+    for (const field of fields) {
+      expect(params).toHaveProperty(field)
+    }
     disconnect()
   })
 })

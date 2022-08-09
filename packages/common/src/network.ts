@@ -50,8 +50,10 @@ export const CONFIG_DEVNET = {
  * testing.
  */
 export const DevnetNetwork: Network = {
-  endpointRpc: `${CONFIG_DEVNET.host}.${CONFIG_DEVNET.grpcPort}`,
-  endpointRest: `http://${CONFIG_DEVNET.host}.:${CONFIG_DEVNET.lcdPort}`,
+  // endpointRpc: `${CONFIG_DEVNET.host}:${CONFIG_DEVNET.grpcPort}`,
+  endpointRpc: `http://${CONFIG_DEVNET.host}:${26657}`,
+  // endpointRest: `http://${CONFIG_DEVNET.host}.:${CONFIG_DEVNET.lcdPort}`,
+  endpointRest: `http://${CONFIG_DEVNET.host}:${CONFIG_DEVNET.lcdPort}`,
   chainId: "nibiru-localnet-0",
   chainName: "Nibiru devnet",
   feeDenom: "unibi",

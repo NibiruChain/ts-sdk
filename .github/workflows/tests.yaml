@@ -1,6 +1,8 @@
 name: Run all tests
 
-on: [push]
+on: 
+  pull_request:
+    branches: ["**"]
 
 jobs:
   tests:
@@ -26,3 +28,5 @@ jobs:
         run: yarn test -t 'SdkDec'
       - name: test node connections with http
         run: yarn test -t 'node connection'
+      - name: test cosmjs and nibiru queries
+        run: yarn test -t 'test query module'
