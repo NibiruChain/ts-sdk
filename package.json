@@ -77,9 +77,10 @@
     "prettier": "^2.4.1",
     "serve": "^12.0.1",
     "ts-jest": "^27.0.5",
+    "ts-node": "^10.9.1",
     "ts-node-dev": "^1.1.8",
     "ts-proto": "^1.117.0",
-    "tsconfig-paths": "^3.11.0",
+    "tsconfig-paths": "^4.1.0",
     "typescript": "^4.4.3"
   }
 }

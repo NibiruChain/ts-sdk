@@ -1,5 +1,5 @@
-import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types'
-import { Network } from '@nibiruchain/common'
+import { Window as KeplrWindow, Keplr } from "@keplr-wallet/types"
+import { Network } from "@nibiruchain/common"
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -8,7 +8,7 @@ declare global {
 
 export async function getKeplr(network: Network) {
   if ((window as any).keplr) {
-    throw Error('Keplr wallet not found')
+    throw Error("Keplr wallet not found")
   }
   const keplr: Keplr = window.keplr!
   const { chainId } = network
@@ -26,16 +26,17 @@ export async function getKeplr(network: Network) {
       // The name of the chain to be displayed to the user.
       chainName: network.chainName,
       // RPC endpoint of the chain. In this case we are using blockapsis, as it's accepts connections from any host currently. No Cors limitations.
-      // TODO: add http:// if this doesn't connect
-      rpc: network.endpointRpc,
+      // NOTE add http:// if this doesn't connect
+      // rpc: network.endptGrpc, // Q: When does this need to switch to gRPC instead of TM?
+      rpc: network.endptTm,
       // REST endpoint of the chain.
-      rest: network.endpointRest,
+      rest: network.endptRest,
       // Staking coin information
       stakeCurrency: {
         // Coin denomination to be displayed to the user.
-        coinDenom: 'NIBI',
+        coinDenom: "NIBI",
         // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-        coinMinimalDenom: 'unibi',
+        coinMinimalDenom: "unibi",
         // # of decimal points to convert minimal denomination to user-facing denomination.
         coinDecimals: 6,
         // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -62,20 +63,20 @@ export async function getKeplr(network: Network) {
       //   bech32PrefixConsPub: string;
       // }
       bech32Config: {
-        bech32PrefixAccAddr: 'osmo',
-        bech32PrefixAccPub: 'nibipub',
-        bech32PrefixValAddr: 'nibivaloper',
-        bech32PrefixValPub: 'nibivaloperpub',
-        bech32PrefixConsAddr: 'nibivalcons',
-        bech32PrefixConsPub: 'nibivalconspub',
+        bech32PrefixAccAddr: "nibi",
+        bech32PrefixAccPub: "nibipub",
+        bech32PrefixValAddr: "nibivaloper",
+        bech32PrefixValPub: "nibivaloperpub",
+        bech32PrefixConsAddr: "nibivalcons",
+        bech32PrefixConsPub: "nibivalconspub",
       },
       // List of all coin/tokens used in this chain.
       currencies: [
         {
           // Coin denomination to be displayed to the user.
-          coinDenom: 'OSMO',
+          coinDenom: "unibi",
           // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-          coinMinimalDenom: 'unibi',
+          coinMinimalDenom: "unibi",
           // # of decimal points to convert minimal denomination to user-facing denomination.
           coinDecimals: 6,
           // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -87,9 +88,9 @@ export async function getKeplr(network: Network) {
       feeCurrencies: [
         {
           // Coin denomination to be displayed to the user.
-          coinDenom: 'NIBI',
+          coinDenom: "unibi",
           // Actual denom (i.e. uosmo, uscrt) used by the blockchain.
-          coinMinimalDenom: 'unibi',
+          coinMinimalDenom: "unibi",
           // # of decimal points to convert minimal denomination to user-facing denomination.
           coinDecimals: 6,
           // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -114,7 +115,7 @@ export async function getKeplr(network: Network) {
       },
     })
   } catch {
-    throw Error('Failed to suggest Nibiru chain to Keplr wallet')
+    throw Error("Failed to suggest Nibiru chain to Keplr wallet")
   }
 
   // Enabling before using the Keplr is recommended.
