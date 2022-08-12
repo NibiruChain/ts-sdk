@@ -1,88 +1,107 @@
 import { DevnetNetwork } from "@nibiruchain/common"
-import { fromMnemonic } from "@nibiruchain/tx"
+import { initQuery } from "@nibiruchain/query"
 import { Side } from "@nibiruchain/api/src/perp/v1/state"
-import { coins, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
+import { AccountData, coins, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
 import * as dotenv from "dotenv"
 import { DexComposer, PerpComposer } from "."
-import { generate, msgSend } from "./common"
+import { generateWallet, msgSend } from "./common"
 import { initTx, TxImpl } from "./tx"
-import { isAminoMsgFundCommunityPool, SigningStargateClient } from "@cosmjs/stargate"
+import {} from "@cosmjs/stargate"
 
 dotenv.config() // yarn add -D dotenv
 
-const valMnemonic = process.env.VALIDATOR_MNEMONIC
+const VAL_MNEMONIC = process.env.VALIDATOR_MNEMONIC
+const NETWORK = DevnetNetwork
+const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
 
 describe("test tx module", () => {
-  it("send tokens", async () => {
-    // const client = await initTx(DevnetNetwork, valMnemonic)
-    // const offlineSigner = await fromMnemonic(valMnemonic as string)
-    const offlineSigner = await DirectSecp256k1HdWallet.fromMnemonic(
-      valMnemonic as string,
-    )
-    const client = await SigningStargateClient.connectWithSigner(
-      DevnetNetwork.endptTm,
-      offlineSigner,
-    )
-    console.log("client: ", client)
+  test("send tokens from the devnet genesis validator to a random account", async () => {
+    expect(VAL_ADDRESS).toBeDefined()
+    expect(VAL_MNEMONIC).toBeDefined()
 
-    // const [{ address: sender }] = await client.getAccounts()
-    // const receiverAcct = await generate()
-    // const [{ address: receiver }] = await receiverAcct.getAccounts()
-    // const tokens = coins(100, "unibi")
-    // console.info("Sending %O from %s to %s", tokens, sender, receiver)
-    // const gasUsed = await client.simulate(msgSend(sender, receiver, tokens))
-    // expect(gasUsed).toBeGreaterThan(0)
-    // const gasLimit = gasUsed * 1.25
-    // const resp = await client.withFee(gasLimit).sendTokens(receiver, tokens)
-    // expect(resp).not.toBeNull()
-    // expect(resp.code).toBe(0)
-    // expect(resp.gasUsed).toBeLessThan(gasLimit)
-    // console.log("%o", resp)
-  })
+    const txCmd: TxImpl = await initTx(NETWORK, VAL_MNEMONIC)
+    const [{ address: fromAddr }]: readonly AccountData[] = await txCmd.getAccounts()
+    expect(fromAddr).toBeDefined()
 
-  it("dex create pool", async () => {
-    const client = await initTx(DevnetNetwork, valMnemonic)
-    const [{ address: sender }] = await client.getAccounts()
-    const resp = await client.signAndBroadcast(
-      DexComposer.createPool({
-        creator: sender,
-        poolAssets: [
-          {
-            token: { amount: "5", denom: "unibi" },
-            weight: "1",
-          },
-          {
-            token: { amount: "50", denom: "unusd" },
-            weight: "1",
-          },
-        ],
-        // Backend bug, throws nilpointer exception if omitted
-        poolParams: {
-          swapFee: "0",
-          exitFee: "0",
-        },
-      }),
+    const toWallet: DirectSecp256k1HdWallet = await generateWallet()
+    const [{ address: toAddr }] = await toWallet.getAccounts()
+    const tokens = coins(5, "unibi")
+    const gasUsed = await txCmd.client.simulate(
+      /*signerAddress*/ fromAddr,
+      /*messages*/ [msgSend(fromAddr, toAddr, tokens)],
+      /*memo*/ "example memo", // undefined,
     )
-    console.log("%o", resp)
-    expect(resp).not.toBeNull()
-    expect(resp.code).toBe(0)
-  })
+    expect(gasUsed).toBeGreaterThan(0)
 
-  it("test perp", async () => {
-    const client = await initTx(DevnetNetwork, valMnemonic)
-    const [{ address: sender }] = await client.getAccounts()
-    const resp = await client.signAndBroadcast(
-      PerpComposer.openPosition({
-        tokenPair: "unibi:unusd",
-        baseAssetAmountLimit: "1",
-        leverage: "1",
-        quoteAssetAmount: "1",
-        sender,
-        side: Side.BUY,
-      }),
+    console.info(
+      `Sending tokens...
+      tokens: %O
+      from: %s
+      to: %s`,
+      tokens,
+      fromAddr,
+      toAddr,
     )
-    console.log("%o", resp)
-    expect(resp).not.toBeNull()
-    expect(resp.code).toBe(0)
-  })
+    const gasLimit = gasUsed * 1.25
+
+    const txResp = await txCmd.withFee(gasLimit).sendTokens(toAddr, tokens)
+    expect(txResp).not.toBeNull()
+    expect(txResp.code).toBe(0)
+    expect(txResp.gasUsed).toBeLessThanOrEqual(gasLimit)
+    console.info("%o", txResp)
+
+    // TODO add tx hash query to the Query interface (output of initQuery)
+    // const query = await initQuery(NETWORK)
+    // let queryResp = await query.
+  }, 10_000 /* This test takes roughly 5.3 seconds. The default timeout is not sufficient. */)
+
+  // TODO commenting out tx commands native to nibiru for now.
+  // - TODO test LPing into a pool, which is called JoinPool
+  // - TODO test swapping on an existing pool
+
+  // test("dex create pool", async () => {
+  //   const client = await initTx(DevnetNetwork, VAL_MNEMONIC)
+  //   const [{ address: fromAddr }] = await client.getAccounts()
+  //   const txResp = await client.signAndBroadcast(
+  //     DexComposer.createPool({
+  //       creator: fromAddr,
+  //       poolAssets: [
+  //         {
+  //           token: { amount: "5", denom: "unibi" },
+  //           weight: "1",
+  //         },
+  //         {
+  //           token: { amount: "50", denom: "unusd" },
+  //           weight: "1",
+  //         },
+  //       ],
+  //       // Backend bug, throws nilpointer exception if omitted
+  //       poolParams: {
+  //         swapFee: "0",
+  //         exitFee: "0",
+  //       },
+  //     }),
+  //   )
+  //   console.log("%o", txResp)
+  //   expect(txResp).not.toBeNull()
+  //   expect(txResp.code).toBe(0)
+  // })
+
+  // test("test perp", async () => {
+  //   const tx = await initTx(DevnetNetwork, VAL_MNEMONIC)
+  //   const [{ address: fromAddr }] = await tx.getAccounts()
+  //   const txResp = await tx.signAndBroadcast(
+  //     PerpComposer.openPosition({
+  //       tokenPair: "ubtc:unusd",
+  //       baseAssetAmountLimit: "1",
+  //       leverage: "1",
+  //       quoteAssetAmount: "1",
+  //       sender: fromAddr,
+  //       side: Side.BUY,
+  //     }),
+  //   )
+  //   console.log("open-position txResp:\n%o", txResp)
+  //   expect(txResp).not.toBeNull()
+  //   expect(txResp.code).toBe(0)
+  // })
 })

@@ -2,7 +2,13 @@ name: Run all tests
 
 on: 
   pull_request:
-    branches: ["**"]
+    branches: ["main", "release/*"]
+  push: 
+    branches: ["main", "release/*"]
+  
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref }}
+  cancel-in-progress: ${{ ! (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/release/')) }}
 
 jobs:
   tests:
@@ -28,9 +34,14 @@ jobs:
         run: yarn
       - name: Build the application
         run: yarn build
-      - name: test sdk.Dec conversions in the common package
-        run: yarn test -t 'SdkDec'
-      - name: test node connections with http
-        run: yarn test -t 'node connection'
-      - name: test cosmjs and nibiru queries
-        run: yarn test -t 'test query module'
+      - name: Run all tests
+        run: yarn test --verbose
+
+      # ---- Individual test flows: In the future, we can separate the 
+      # ---- e2e tests from the unit tests. Testing on a live chain poses challenges.
+      # - name: test sdk.Dec conversions in the common package
+      #   run: yarn test -t 'SdkDec'
+      # - name: test node connections with http
+      #   run: yarn test -t 'node connection'
+      # - name: test cosmjs and nibiru queries
+      #   run: yarn test -t 'test query module'

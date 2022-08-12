@@ -1,6 +1,6 @@
 import { SigningStargateClient, calculateFee, GasPrice, StdFee } from "@cosmjs/stargate"
 import { GAS_PRICE, Network } from "@nibiruchain/common"
-import { Coin, OfflineDirectSigner } from "@cosmjs/proto-signing"
+import { AccountData, Coin, OfflineDirectSigner } from "@cosmjs/proto-signing"
 import { getKeplr, Keplr } from "../wallet"
 import { registerTypes as registerDex } from "./dex"
 import { registerTypes as registerPerp } from "./perp"
@@ -26,15 +26,23 @@ export class TxImpl {
     return this
   }
 
-  async simulate(...msgs: TxMessage[]) {
+  /**
+   * Simulates a transaction containing the given list of tx messages, 'msgs' and
+   * returns an estimate of how many gas units are required.
+   *
+   * @async
+   * @param {...TxMessage[]} msgs
+   * @returns {Promise<number>} - expected gas ost
+   */
+  async simulate(...msgs: TxMessage[]): Promise<number> {
     const addr = await this.directSigner.getAccounts()
     return this.client.simulate(addr[0].address, msgs, undefined)
   }
 
   async signAndBroadcast(...msgs: TxMessage[]) {
-    const addr = await this.directSigner.getAccounts()
+    const accounts = await this.directSigner.getAccounts()
     await this.ensureFee(...msgs)
-    return this.client.signAndBroadcast(addr[0].address, msgs, this.fee!)
+    return this.client.signAndBroadcast(accounts[0].address, msgs, this.fee!)
   }
 
   async ensureFee(...msgs: TxMessage[]) {
@@ -49,7 +57,7 @@ export class TxImpl {
     return this.client.sendTokens(addr[0].address, to, coins, this.fee!)
   }
 
-  getAccounts() {
+  getAccounts(): Promise<readonly AccountData[]> {
     return this.directSigner.getAccounts()
   }
 }
