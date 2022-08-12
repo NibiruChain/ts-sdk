@@ -57,7 +57,11 @@ module.exports = function(root = __dirname) {
     // globalTeardown: null,
 
     // A set of global variables that need to be available in all test environments
-    // globals: {},
+    globals: {
+      window: {
+        location: {}
+      }
+    },
 
     // An array of directory names to be searched recursively up from the requiring module's location
     moduleDirectories: ['.', 'node_modules', 'src'],
@@ -124,7 +128,7 @@ module.exports = function(root = __dirname) {
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
     // snapshotSerializers: [],
 
-    // The test environment that will be used for testing
+    // The test environment that will be used for testing. Options: ["node", "jsdom"]
     testEnvironment: 'node',
 
     // Options that will be passed to the testEnvironment
