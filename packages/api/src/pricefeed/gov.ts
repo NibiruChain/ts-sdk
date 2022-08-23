@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.pricefeed.v1'
+export const protobufPackage = "nibiru.pricefeed.v1"
 
 export interface AddOracleProposal {
   title: string
@@ -12,15 +12,18 @@ export interface AddOracleProposal {
 }
 
 function createBaseAddOracleProposal(): AddOracleProposal {
-  return { title: '', description: '', oracles: [], pairs: [] }
+  return { title: "", description: "", oracles: [], pairs: [] }
 }
 
 export const AddOracleProposal = {
-  encode(message: AddOracleProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.title !== '') {
+  encode(
+    message: AddOracleProposal,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.title !== "") {
       writer.uint32(10).string(message.title)
     }
-    if (message.description !== '') {
+    if (message.description !== "") {
       writer.uint32(18).string(message.description)
     }
     for (const v of message.oracles) {
@@ -61,10 +64,14 @@ export const AddOracleProposal = {
 
   fromJSON(object: any): AddOracleProposal {
     return {
-      title: isSet(object.title) ? String(object.title) : '',
-      description: isSet(object.description) ? String(object.description) : '',
-      oracles: Array.isArray(object?.oracles) ? object.oracles.map((e: any) => String(e)) : [],
-      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => String(e)) : [],
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      oracles: Array.isArray(object?.oracles)
+        ? object.oracles.map((e: any) => String(e))
+        : [],
+      pairs: Array.isArray(object?.pairs)
+        ? object.pairs.map((e: any) => String(e))
+        : [],
     }
   },
 
@@ -85,10 +92,12 @@ export const AddOracleProposal = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddOracleProposal>, I>>(object: I): AddOracleProposal {
+  fromPartial<I extends Exact<DeepPartial<AddOracleProposal>, I>>(
+    object: I,
+  ): AddOracleProposal {
     const message = createBaseAddOracleProposal()
-    message.title = object.title ?? ''
-    message.description = object.description ?? ''
+    message.title = object.title ?? ""
+    message.description = object.description ?? ""
     message.oracles = object.oracles?.map((e) => e) || []
     message.pairs = object.pairs?.map((e) => e) || []
     return message
@@ -112,7 +121,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Timestamp } from '../../../google/protobuf/timestamp'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Timestamp } from "../../../google/protobuf/timestamp"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.evidence.v1beta1'
+export const protobufPackage = "cosmos.evidence.v1beta1"
 
 /**
  * Equivocation implements the Evidence interface and defines evidence of double
@@ -17,7 +17,7 @@ export interface Equivocation {
 }
 
 function createBaseEquivocation(): Equivocation {
-  return { height: Long.ZERO, time: undefined, power: Long.ZERO, consensusAddress: '' }
+  return { height: Long.ZERO, time: undefined, power: Long.ZERO, consensusAddress: "" }
 }
 
 export const Equivocation = {
@@ -31,7 +31,7 @@ export const Equivocation = {
     if (!message.power.isZero()) {
       writer.uint32(24).int64(message.power)
     }
-    if (message.consensusAddress !== '') {
+    if (message.consensusAddress !== "") {
       writer.uint32(34).string(message.consensusAddress)
     }
     return writer
@@ -69,25 +69,35 @@ export const Equivocation = {
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
       power: isSet(object.power) ? Long.fromValue(object.power) : Long.ZERO,
-      consensusAddress: isSet(object.consensusAddress) ? String(object.consensusAddress) : '',
+      consensusAddress: isSet(object.consensusAddress)
+        ? String(object.consensusAddress)
+        : "",
     }
   },
 
   toJSON(message: Equivocation): unknown {
     const obj: any = {}
-    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString())
+    message.height !== undefined &&
+      (obj.height = (message.height || Long.ZERO).toString())
     message.time !== undefined && (obj.time = message.time.toISOString())
     message.power !== undefined && (obj.power = (message.power || Long.ZERO).toString())
-    message.consensusAddress !== undefined && (obj.consensusAddress = message.consensusAddress)
+    message.consensusAddress !== undefined &&
+      (obj.consensusAddress = message.consensusAddress)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<Equivocation>, I>>(object: I): Equivocation {
     const message = createBaseEquivocation()
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO
+    message.height =
+      object.height !== undefined && object.height !== null
+        ? Long.fromValue(object.height)
+        : Long.ZERO
     message.time = object.time ?? undefined
-    message.power = object.power !== undefined && object.power !== null ? Long.fromValue(object.power) : Long.ZERO
-    message.consensusAddress = object.consensusAddress ?? ''
+    message.power =
+      object.power !== undefined && object.power !== null
+        ? Long.fromValue(object.power)
+        : Long.ZERO
+    message.consensusAddress = object.consensusAddress ?? ""
     return message
   },
 }
@@ -109,7 +119,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
@@ -126,7 +139,7 @@ function fromTimestamp(t: Timestamp): Date {
 function fromJsonTimestamp(o: any): Date {
   if (o instanceof Date) {
     return o
-  } else if (typeof o === 'string') {
+  } else if (typeof o === "string") {
     return new Date(o)
   } else {
     return fromTimestamp(Timestamp.fromJSON(o))

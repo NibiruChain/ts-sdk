@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { Coin } from '../../cosmos/base/v1beta1/coin'
-import { Position, Side, sideFromJSON, sideToJSON } from './state'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Coin } from "../../cosmos/base/v1beta1/coin"
+import { Position, Side, sideFromJSON, sideToJSON } from "./state"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.perp.v1'
+export const protobufPackage = "nibiru.perp.v1"
 
 /** MsgRemoveMargin: Msg to remove margin. */
 export interface MsgRemoveMargin {
@@ -100,15 +100,18 @@ export interface MsgClosePositionResponse {
 }
 
 function createBaseMsgRemoveMargin(): MsgRemoveMargin {
-  return { sender: '', tokenPair: '', margin: undefined }
+  return { sender: "", tokenPair: "", margin: undefined }
 }
 
 export const MsgRemoveMargin = {
-  encode(message: MsgRemoveMargin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== '') {
+  encode(
+    message: MsgRemoveMargin,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
-    if (message.tokenPair !== '') {
+    if (message.tokenPair !== "") {
       writer.uint32(18).string(message.tokenPair)
     }
     if (message.margin !== undefined) {
@@ -143,8 +146,8 @@ export const MsgRemoveMargin = {
 
   fromJSON(object: any): MsgRemoveMargin {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : '',
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : '',
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
       margin: isSet(object.margin) ? Coin.fromJSON(object.margin) : undefined,
     }
   },
@@ -153,29 +156,38 @@ export const MsgRemoveMargin = {
     const obj: any = {}
     message.sender !== undefined && (obj.sender = message.sender)
     message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair)
-    message.margin !== undefined && (obj.margin = message.margin ? Coin.toJSON(message.margin) : undefined)
+    message.margin !== undefined &&
+      (obj.margin = message.margin ? Coin.toJSON(message.margin) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRemoveMargin>, I>>(object: I): MsgRemoveMargin {
+  fromPartial<I extends Exact<DeepPartial<MsgRemoveMargin>, I>>(
+    object: I,
+  ): MsgRemoveMargin {
     const message = createBaseMsgRemoveMargin()
-    message.sender = object.sender ?? ''
-    message.tokenPair = object.tokenPair ?? ''
-    message.margin = object.margin !== undefined && object.margin !== null ? Coin.fromPartial(object.margin) : undefined
+    message.sender = object.sender ?? ""
+    message.tokenPair = object.tokenPair ?? ""
+    message.margin =
+      object.margin !== undefined && object.margin !== null
+        ? Coin.fromPartial(object.margin)
+        : undefined
     return message
   },
 }
 
 function createBaseMsgRemoveMarginResponse(): MsgRemoveMarginResponse {
-  return { marginOut: undefined, fundingPayment: '', position: undefined }
+  return { marginOut: undefined, fundingPayment: "", position: undefined }
 }
 
 export const MsgRemoveMarginResponse = {
-  encode(message: MsgRemoveMarginResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgRemoveMarginResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.marginOut !== undefined) {
       Coin.encode(message.marginOut, writer.uint32(10).fork()).ldelim()
     }
-    if (message.fundingPayment !== '') {
+    if (message.fundingPayment !== "") {
       writer.uint32(18).string(message.fundingPayment)
     }
     if (message.position !== undefined) {
@@ -211,40 +223,49 @@ export const MsgRemoveMarginResponse = {
   fromJSON(object: any): MsgRemoveMarginResponse {
     return {
       marginOut: isSet(object.marginOut) ? Coin.fromJSON(object.marginOut) : undefined,
-      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : '',
+      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
       position: isSet(object.position) ? Position.fromJSON(object.position) : undefined,
     }
   },
 
   toJSON(message: MsgRemoveMarginResponse): unknown {
     const obj: any = {}
-    message.marginOut !== undefined && (obj.marginOut = message.marginOut ? Coin.toJSON(message.marginOut) : undefined)
-    message.fundingPayment !== undefined && (obj.fundingPayment = message.fundingPayment)
-    message.position !== undefined && (obj.position = message.position ? Position.toJSON(message.position) : undefined)
+    message.marginOut !== undefined &&
+      (obj.marginOut = message.marginOut ? Coin.toJSON(message.marginOut) : undefined)
+    message.fundingPayment !== undefined &&
+      (obj.fundingPayment = message.fundingPayment)
+    message.position !== undefined &&
+      (obj.position = message.position ? Position.toJSON(message.position) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRemoveMarginResponse>, I>>(object: I): MsgRemoveMarginResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgRemoveMarginResponse>, I>>(
+    object: I,
+  ): MsgRemoveMarginResponse {
     const message = createBaseMsgRemoveMarginResponse()
     message.marginOut =
-      object.marginOut !== undefined && object.marginOut !== null ? Coin.fromPartial(object.marginOut) : undefined
-    message.fundingPayment = object.fundingPayment ?? ''
+      object.marginOut !== undefined && object.marginOut !== null
+        ? Coin.fromPartial(object.marginOut)
+        : undefined
+    message.fundingPayment = object.fundingPayment ?? ""
     message.position =
-      object.position !== undefined && object.position !== null ? Position.fromPartial(object.position) : undefined
+      object.position !== undefined && object.position !== null
+        ? Position.fromPartial(object.position)
+        : undefined
     return message
   },
 }
 
 function createBaseMsgAddMargin(): MsgAddMargin {
-  return { sender: '', tokenPair: '', margin: undefined }
+  return { sender: "", tokenPair: "", margin: undefined }
 }
 
 export const MsgAddMargin = {
   encode(message: MsgAddMargin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== '') {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
-    if (message.tokenPair !== '') {
+    if (message.tokenPair !== "") {
       writer.uint32(18).string(message.tokenPair)
     }
     if (message.margin !== undefined) {
@@ -279,8 +300,8 @@ export const MsgAddMargin = {
 
   fromJSON(object: any): MsgAddMargin {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : '',
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : '',
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
       margin: isSet(object.margin) ? Coin.fromJSON(object.margin) : undefined,
     }
   },
@@ -289,26 +310,33 @@ export const MsgAddMargin = {
     const obj: any = {}
     message.sender !== undefined && (obj.sender = message.sender)
     message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair)
-    message.margin !== undefined && (obj.margin = message.margin ? Coin.toJSON(message.margin) : undefined)
+    message.margin !== undefined &&
+      (obj.margin = message.margin ? Coin.toJSON(message.margin) : undefined)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgAddMargin>, I>>(object: I): MsgAddMargin {
     const message = createBaseMsgAddMargin()
-    message.sender = object.sender ?? ''
-    message.tokenPair = object.tokenPair ?? ''
-    message.margin = object.margin !== undefined && object.margin !== null ? Coin.fromPartial(object.margin) : undefined
+    message.sender = object.sender ?? ""
+    message.tokenPair = object.tokenPair ?? ""
+    message.margin =
+      object.margin !== undefined && object.margin !== null
+        ? Coin.fromPartial(object.margin)
+        : undefined
     return message
   },
 }
 
 function createBaseMsgAddMarginResponse(): MsgAddMarginResponse {
-  return { fundingPayment: '', position: undefined }
+  return { fundingPayment: "", position: undefined }
 }
 
 export const MsgAddMarginResponse = {
-  encode(message: MsgAddMarginResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fundingPayment !== '') {
+  encode(
+    message: MsgAddMarginResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.fundingPayment !== "") {
       writer.uint32(10).string(message.fundingPayment)
     }
     if (message.position !== undefined) {
@@ -340,40 +368,46 @@ export const MsgAddMarginResponse = {
 
   fromJSON(object: any): MsgAddMarginResponse {
     return {
-      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : '',
+      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
       position: isSet(object.position) ? Position.fromJSON(object.position) : undefined,
     }
   },
 
   toJSON(message: MsgAddMarginResponse): unknown {
     const obj: any = {}
-    message.fundingPayment !== undefined && (obj.fundingPayment = message.fundingPayment)
-    message.position !== undefined && (obj.position = message.position ? Position.toJSON(message.position) : undefined)
+    message.fundingPayment !== undefined &&
+      (obj.fundingPayment = message.fundingPayment)
+    message.position !== undefined &&
+      (obj.position = message.position ? Position.toJSON(message.position) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgAddMarginResponse>, I>>(object: I): MsgAddMarginResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgAddMarginResponse>, I>>(
+    object: I,
+  ): MsgAddMarginResponse {
     const message = createBaseMsgAddMarginResponse()
-    message.fundingPayment = object.fundingPayment ?? ''
+    message.fundingPayment = object.fundingPayment ?? ""
     message.position =
-      object.position !== undefined && object.position !== null ? Position.fromPartial(object.position) : undefined
+      object.position !== undefined && object.position !== null
+        ? Position.fromPartial(object.position)
+        : undefined
     return message
   },
 }
 
 function createBaseMsgLiquidate(): MsgLiquidate {
-  return { sender: '', tokenPair: '', trader: '' }
+  return { sender: "", tokenPair: "", trader: "" }
 }
 
 export const MsgLiquidate = {
   encode(message: MsgLiquidate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== '') {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
-    if (message.tokenPair !== '') {
+    if (message.tokenPair !== "") {
       writer.uint32(18).string(message.tokenPair)
     }
-    if (message.trader !== '') {
+    if (message.trader !== "") {
       writer.uint32(26).string(message.trader)
     }
     return writer
@@ -405,9 +439,9 @@ export const MsgLiquidate = {
 
   fromJSON(object: any): MsgLiquidate {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : '',
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : '',
-      trader: isSet(object.trader) ? String(object.trader) : '',
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
+      trader: isSet(object.trader) ? String(object.trader) : "",
     }
   },
 
@@ -421,9 +455,9 @@ export const MsgLiquidate = {
 
   fromPartial<I extends Exact<DeepPartial<MsgLiquidate>, I>>(object: I): MsgLiquidate {
     const message = createBaseMsgLiquidate()
-    message.sender = object.sender ?? ''
-    message.tokenPair = object.tokenPair ?? ''
-    message.trader = object.trader ?? ''
+    message.sender = object.sender ?? ""
+    message.tokenPair = object.tokenPair ?? ""
+    message.trader = object.trader ?? ""
     return message
   },
 }
@@ -433,7 +467,10 @@ function createBaseMsgLiquidateResponse(): MsgLiquidateResponse {
 }
 
 export const MsgLiquidateResponse = {
-  encode(message: MsgLiquidateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgLiquidateResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.feeToLiquidator !== undefined) {
       Coin.encode(message.feeToLiquidator, writer.uint32(10).fork()).ldelim()
     }
@@ -466,7 +503,9 @@ export const MsgLiquidateResponse = {
 
   fromJSON(object: any): MsgLiquidateResponse {
     return {
-      feeToLiquidator: isSet(object.feeToLiquidator) ? Coin.fromJSON(object.feeToLiquidator) : undefined,
+      feeToLiquidator: isSet(object.feeToLiquidator)
+        ? Coin.fromJSON(object.feeToLiquidator)
+        : undefined,
       feeToPerpEcosystemFund: isSet(object.feeToPerpEcosystemFund)
         ? Coin.fromJSON(object.feeToPerpEcosystemFund)
         : undefined,
@@ -476,7 +515,9 @@ export const MsgLiquidateResponse = {
   toJSON(message: MsgLiquidateResponse): unknown {
     const obj: any = {}
     message.feeToLiquidator !== undefined &&
-      (obj.feeToLiquidator = message.feeToLiquidator ? Coin.toJSON(message.feeToLiquidator) : undefined)
+      (obj.feeToLiquidator = message.feeToLiquidator
+        ? Coin.toJSON(message.feeToLiquidator)
+        : undefined)
     message.feeToPerpEcosystemFund !== undefined &&
       (obj.feeToPerpEcosystemFund = message.feeToPerpEcosystemFund
         ? Coin.toJSON(message.feeToPerpEcosystemFund)
@@ -484,14 +525,17 @@ export const MsgLiquidateResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgLiquidateResponse>, I>>(object: I): MsgLiquidateResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgLiquidateResponse>, I>>(
+    object: I,
+  ): MsgLiquidateResponse {
     const message = createBaseMsgLiquidateResponse()
     message.feeToLiquidator =
       object.feeToLiquidator !== undefined && object.feeToLiquidator !== null
         ? Coin.fromPartial(object.feeToLiquidator)
         : undefined
     message.feeToPerpEcosystemFund =
-      object.feeToPerpEcosystemFund !== undefined && object.feeToPerpEcosystemFund !== null
+      object.feeToPerpEcosystemFund !== undefined &&
+      object.feeToPerpEcosystemFund !== null
         ? Coin.fromPartial(object.feeToPerpEcosystemFund)
         : undefined
     return message
@@ -499,27 +543,37 @@ export const MsgLiquidateResponse = {
 }
 
 function createBaseMsgOpenPosition(): MsgOpenPosition {
-  return { sender: '', tokenPair: '', side: 0, quoteAssetAmount: '', leverage: '', baseAssetAmountLimit: '' }
+  return {
+    sender: "",
+    tokenPair: "",
+    side: 0,
+    quoteAssetAmount: "",
+    leverage: "",
+    baseAssetAmountLimit: "",
+  }
 }
 
 export const MsgOpenPosition = {
-  encode(message: MsgOpenPosition, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== '') {
+  encode(
+    message: MsgOpenPosition,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
-    if (message.tokenPair !== '') {
+    if (message.tokenPair !== "") {
       writer.uint32(18).string(message.tokenPair)
     }
     if (message.side !== 0) {
       writer.uint32(24).int32(message.side)
     }
-    if (message.quoteAssetAmount !== '') {
+    if (message.quoteAssetAmount !== "") {
       writer.uint32(34).string(message.quoteAssetAmount)
     }
-    if (message.leverage !== '') {
+    if (message.leverage !== "") {
       writer.uint32(42).string(message.leverage)
     }
-    if (message.baseAssetAmountLimit !== '') {
+    if (message.baseAssetAmountLimit !== "") {
       writer.uint32(50).string(message.baseAssetAmountLimit)
     }
     return writer
@@ -560,12 +614,16 @@ export const MsgOpenPosition = {
 
   fromJSON(object: any): MsgOpenPosition {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : '',
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : '',
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
       side: isSet(object.side) ? sideFromJSON(object.side) : 0,
-      quoteAssetAmount: isSet(object.quoteAssetAmount) ? String(object.quoteAssetAmount) : '',
-      leverage: isSet(object.leverage) ? String(object.leverage) : '',
-      baseAssetAmountLimit: isSet(object.baseAssetAmountLimit) ? String(object.baseAssetAmountLimit) : '',
+      quoteAssetAmount: isSet(object.quoteAssetAmount)
+        ? String(object.quoteAssetAmount)
+        : "",
+      leverage: isSet(object.leverage) ? String(object.leverage) : "",
+      baseAssetAmountLimit: isSet(object.baseAssetAmountLimit)
+        ? String(object.baseAssetAmountLimit)
+        : "",
     }
   },
 
@@ -574,20 +632,24 @@ export const MsgOpenPosition = {
     message.sender !== undefined && (obj.sender = message.sender)
     message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair)
     message.side !== undefined && (obj.side = sideToJSON(message.side))
-    message.quoteAssetAmount !== undefined && (obj.quoteAssetAmount = message.quoteAssetAmount)
+    message.quoteAssetAmount !== undefined &&
+      (obj.quoteAssetAmount = message.quoteAssetAmount)
     message.leverage !== undefined && (obj.leverage = message.leverage)
-    message.baseAssetAmountLimit !== undefined && (obj.baseAssetAmountLimit = message.baseAssetAmountLimit)
+    message.baseAssetAmountLimit !== undefined &&
+      (obj.baseAssetAmountLimit = message.baseAssetAmountLimit)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgOpenPosition>, I>>(object: I): MsgOpenPosition {
+  fromPartial<I extends Exact<DeepPartial<MsgOpenPosition>, I>>(
+    object: I,
+  ): MsgOpenPosition {
     const message = createBaseMsgOpenPosition()
-    message.sender = object.sender ?? ''
-    message.tokenPair = object.tokenPair ?? ''
+    message.sender = object.sender ?? ""
+    message.tokenPair = object.tokenPair ?? ""
     message.side = object.side ?? 0
-    message.quoteAssetAmount = object.quoteAssetAmount ?? ''
-    message.leverage = object.leverage ?? ''
-    message.baseAssetAmountLimit = object.baseAssetAmountLimit ?? ''
+    message.quoteAssetAmount = object.quoteAssetAmount ?? ""
+    message.leverage = object.leverage ?? ""
+    message.baseAssetAmountLimit = object.baseAssetAmountLimit ?? ""
     return message
   },
 }
@@ -595,40 +657,43 @@ export const MsgOpenPosition = {
 function createBaseMsgOpenPositionResponse(): MsgOpenPositionResponse {
   return {
     position: undefined,
-    exchangedNotionalValue: '',
-    exchangedPositionSize: '',
-    fundingPayment: '',
-    realizedPnl: '',
-    unrealizedPnlAfter: '',
-    marginToVault: '',
-    positionNotional: '',
+    exchangedNotionalValue: "",
+    exchangedPositionSize: "",
+    fundingPayment: "",
+    realizedPnl: "",
+    unrealizedPnlAfter: "",
+    marginToVault: "",
+    positionNotional: "",
   }
 }
 
 export const MsgOpenPositionResponse = {
-  encode(message: MsgOpenPositionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgOpenPositionResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.position !== undefined) {
       Position.encode(message.position, writer.uint32(10).fork()).ldelim()
     }
-    if (message.exchangedNotionalValue !== '') {
+    if (message.exchangedNotionalValue !== "") {
       writer.uint32(18).string(message.exchangedNotionalValue)
     }
-    if (message.exchangedPositionSize !== '') {
+    if (message.exchangedPositionSize !== "") {
       writer.uint32(26).string(message.exchangedPositionSize)
     }
-    if (message.fundingPayment !== '') {
+    if (message.fundingPayment !== "") {
       writer.uint32(34).string(message.fundingPayment)
     }
-    if (message.realizedPnl !== '') {
+    if (message.realizedPnl !== "") {
       writer.uint32(42).string(message.realizedPnl)
     }
-    if (message.unrealizedPnlAfter !== '') {
+    if (message.unrealizedPnlAfter !== "") {
       writer.uint32(50).string(message.unrealizedPnlAfter)
     }
-    if (message.marginToVault !== '') {
+    if (message.marginToVault !== "") {
       writer.uint32(58).string(message.marginToVault)
     }
-    if (message.positionNotional !== '') {
+    if (message.positionNotional !== "") {
       writer.uint32(66).string(message.positionNotional)
     }
     return writer
@@ -676,54 +741,75 @@ export const MsgOpenPositionResponse = {
   fromJSON(object: any): MsgOpenPositionResponse {
     return {
       position: isSet(object.position) ? Position.fromJSON(object.position) : undefined,
-      exchangedNotionalValue: isSet(object.exchangedNotionalValue) ? String(object.exchangedNotionalValue) : '',
-      exchangedPositionSize: isSet(object.exchangedPositionSize) ? String(object.exchangedPositionSize) : '',
-      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : '',
-      realizedPnl: isSet(object.realizedPnl) ? String(object.realizedPnl) : '',
-      unrealizedPnlAfter: isSet(object.unrealizedPnlAfter) ? String(object.unrealizedPnlAfter) : '',
-      marginToVault: isSet(object.marginToVault) ? String(object.marginToVault) : '',
-      positionNotional: isSet(object.positionNotional) ? String(object.positionNotional) : '',
+      exchangedNotionalValue: isSet(object.exchangedNotionalValue)
+        ? String(object.exchangedNotionalValue)
+        : "",
+      exchangedPositionSize: isSet(object.exchangedPositionSize)
+        ? String(object.exchangedPositionSize)
+        : "",
+      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
+      realizedPnl: isSet(object.realizedPnl) ? String(object.realizedPnl) : "",
+      unrealizedPnlAfter: isSet(object.unrealizedPnlAfter)
+        ? String(object.unrealizedPnlAfter)
+        : "",
+      marginToVault: isSet(object.marginToVault) ? String(object.marginToVault) : "",
+      positionNotional: isSet(object.positionNotional)
+        ? String(object.positionNotional)
+        : "",
     }
   },
 
   toJSON(message: MsgOpenPositionResponse): unknown {
     const obj: any = {}
-    message.position !== undefined && (obj.position = message.position ? Position.toJSON(message.position) : undefined)
-    message.exchangedNotionalValue !== undefined && (obj.exchangedNotionalValue = message.exchangedNotionalValue)
-    message.exchangedPositionSize !== undefined && (obj.exchangedPositionSize = message.exchangedPositionSize)
-    message.fundingPayment !== undefined && (obj.fundingPayment = message.fundingPayment)
+    message.position !== undefined &&
+      (obj.position = message.position ? Position.toJSON(message.position) : undefined)
+    message.exchangedNotionalValue !== undefined &&
+      (obj.exchangedNotionalValue = message.exchangedNotionalValue)
+    message.exchangedPositionSize !== undefined &&
+      (obj.exchangedPositionSize = message.exchangedPositionSize)
+    message.fundingPayment !== undefined &&
+      (obj.fundingPayment = message.fundingPayment)
     message.realizedPnl !== undefined && (obj.realizedPnl = message.realizedPnl)
-    message.unrealizedPnlAfter !== undefined && (obj.unrealizedPnlAfter = message.unrealizedPnlAfter)
+    message.unrealizedPnlAfter !== undefined &&
+      (obj.unrealizedPnlAfter = message.unrealizedPnlAfter)
     message.marginToVault !== undefined && (obj.marginToVault = message.marginToVault)
-    message.positionNotional !== undefined && (obj.positionNotional = message.positionNotional)
+    message.positionNotional !== undefined &&
+      (obj.positionNotional = message.positionNotional)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgOpenPositionResponse>, I>>(object: I): MsgOpenPositionResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgOpenPositionResponse>, I>>(
+    object: I,
+  ): MsgOpenPositionResponse {
     const message = createBaseMsgOpenPositionResponse()
     message.position =
-      object.position !== undefined && object.position !== null ? Position.fromPartial(object.position) : undefined
-    message.exchangedNotionalValue = object.exchangedNotionalValue ?? ''
-    message.exchangedPositionSize = object.exchangedPositionSize ?? ''
-    message.fundingPayment = object.fundingPayment ?? ''
-    message.realizedPnl = object.realizedPnl ?? ''
-    message.unrealizedPnlAfter = object.unrealizedPnlAfter ?? ''
-    message.marginToVault = object.marginToVault ?? ''
-    message.positionNotional = object.positionNotional ?? ''
+      object.position !== undefined && object.position !== null
+        ? Position.fromPartial(object.position)
+        : undefined
+    message.exchangedNotionalValue = object.exchangedNotionalValue ?? ""
+    message.exchangedPositionSize = object.exchangedPositionSize ?? ""
+    message.fundingPayment = object.fundingPayment ?? ""
+    message.realizedPnl = object.realizedPnl ?? ""
+    message.unrealizedPnlAfter = object.unrealizedPnlAfter ?? ""
+    message.marginToVault = object.marginToVault ?? ""
+    message.positionNotional = object.positionNotional ?? ""
     return message
   },
 }
 
 function createBaseMsgClosePosition(): MsgClosePosition {
-  return { sender: '', tokenPair: '' }
+  return { sender: "", tokenPair: "" }
 }
 
 export const MsgClosePosition = {
-  encode(message: MsgClosePosition, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== '') {
+  encode(
+    message: MsgClosePosition,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
-    if (message.tokenPair !== '') {
+    if (message.tokenPair !== "") {
       writer.uint32(18).string(message.tokenPair)
     }
     return writer
@@ -752,8 +838,8 @@ export const MsgClosePosition = {
 
   fromJSON(object: any): MsgClosePosition {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : '',
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : '',
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
     }
   },
 
@@ -764,39 +850,44 @@ export const MsgClosePosition = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgClosePosition>, I>>(object: I): MsgClosePosition {
+  fromPartial<I extends Exact<DeepPartial<MsgClosePosition>, I>>(
+    object: I,
+  ): MsgClosePosition {
     const message = createBaseMsgClosePosition()
-    message.sender = object.sender ?? ''
-    message.tokenPair = object.tokenPair ?? ''
+    message.sender = object.sender ?? ""
+    message.tokenPair = object.tokenPair ?? ""
     return message
   },
 }
 
 function createBaseMsgClosePositionResponse(): MsgClosePositionResponse {
   return {
-    exchangedNotionalValue: '',
-    exchangedPositionSize: '',
-    fundingPayment: '',
-    realizedPnl: '',
-    marginToTrader: '',
+    exchangedNotionalValue: "",
+    exchangedPositionSize: "",
+    fundingPayment: "",
+    realizedPnl: "",
+    marginToTrader: "",
   }
 }
 
 export const MsgClosePositionResponse = {
-  encode(message: MsgClosePositionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.exchangedNotionalValue !== '') {
+  encode(
+    message: MsgClosePositionResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.exchangedNotionalValue !== "") {
       writer.uint32(10).string(message.exchangedNotionalValue)
     }
-    if (message.exchangedPositionSize !== '') {
+    if (message.exchangedPositionSize !== "") {
       writer.uint32(18).string(message.exchangedPositionSize)
     }
-    if (message.fundingPayment !== '') {
+    if (message.fundingPayment !== "") {
       writer.uint32(26).string(message.fundingPayment)
     }
-    if (message.realizedPnl !== '') {
+    if (message.realizedPnl !== "") {
       writer.uint32(34).string(message.realizedPnl)
     }
-    if (message.marginToTrader !== '') {
+    if (message.marginToTrader !== "") {
       writer.uint32(58).string(message.marginToTrader)
     }
     return writer
@@ -834,31 +925,41 @@ export const MsgClosePositionResponse = {
 
   fromJSON(object: any): MsgClosePositionResponse {
     return {
-      exchangedNotionalValue: isSet(object.exchangedNotionalValue) ? String(object.exchangedNotionalValue) : '',
-      exchangedPositionSize: isSet(object.exchangedPositionSize) ? String(object.exchangedPositionSize) : '',
-      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : '',
-      realizedPnl: isSet(object.realizedPnl) ? String(object.realizedPnl) : '',
-      marginToTrader: isSet(object.marginToTrader) ? String(object.marginToTrader) : '',
+      exchangedNotionalValue: isSet(object.exchangedNotionalValue)
+        ? String(object.exchangedNotionalValue)
+        : "",
+      exchangedPositionSize: isSet(object.exchangedPositionSize)
+        ? String(object.exchangedPositionSize)
+        : "",
+      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
+      realizedPnl: isSet(object.realizedPnl) ? String(object.realizedPnl) : "",
+      marginToTrader: isSet(object.marginToTrader) ? String(object.marginToTrader) : "",
     }
   },
 
   toJSON(message: MsgClosePositionResponse): unknown {
     const obj: any = {}
-    message.exchangedNotionalValue !== undefined && (obj.exchangedNotionalValue = message.exchangedNotionalValue)
-    message.exchangedPositionSize !== undefined && (obj.exchangedPositionSize = message.exchangedPositionSize)
-    message.fundingPayment !== undefined && (obj.fundingPayment = message.fundingPayment)
+    message.exchangedNotionalValue !== undefined &&
+      (obj.exchangedNotionalValue = message.exchangedNotionalValue)
+    message.exchangedPositionSize !== undefined &&
+      (obj.exchangedPositionSize = message.exchangedPositionSize)
+    message.fundingPayment !== undefined &&
+      (obj.fundingPayment = message.fundingPayment)
     message.realizedPnl !== undefined && (obj.realizedPnl = message.realizedPnl)
-    message.marginToTrader !== undefined && (obj.marginToTrader = message.marginToTrader)
+    message.marginToTrader !== undefined &&
+      (obj.marginToTrader = message.marginToTrader)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgClosePositionResponse>, I>>(object: I): MsgClosePositionResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgClosePositionResponse>, I>>(
+    object: I,
+  ): MsgClosePositionResponse {
     const message = createBaseMsgClosePositionResponse()
-    message.exchangedNotionalValue = object.exchangedNotionalValue ?? ''
-    message.exchangedPositionSize = object.exchangedPositionSize ?? ''
-    message.fundingPayment = object.fundingPayment ?? ''
-    message.realizedPnl = object.realizedPnl ?? ''
-    message.marginToTrader = object.marginToTrader ?? ''
+    message.exchangedNotionalValue = object.exchangedNotionalValue ?? ""
+    message.exchangedPositionSize = object.exchangedPositionSize ?? ""
+    message.fundingPayment = object.fundingPayment ?? ""
+    message.realizedPnl = object.realizedPnl ?? ""
+    message.marginToTrader = object.marginToTrader ?? ""
     return message
   },
 }
@@ -888,31 +989,31 @@ export class MsgClientImpl implements Msg {
   }
   RemoveMargin(request: MsgRemoveMargin): Promise<MsgRemoveMarginResponse> {
     const data = MsgRemoveMargin.encode(request).finish()
-    const promise = this.rpc.request('nibiru.perp.v1.Msg', 'RemoveMargin', data)
+    const promise = this.rpc.request("nibiru.perp.v1.Msg", "RemoveMargin", data)
     return promise.then((data) => MsgRemoveMarginResponse.decode(new _m0.Reader(data)))
   }
 
   AddMargin(request: MsgAddMargin): Promise<MsgAddMarginResponse> {
     const data = MsgAddMargin.encode(request).finish()
-    const promise = this.rpc.request('nibiru.perp.v1.Msg', 'AddMargin', data)
+    const promise = this.rpc.request("nibiru.perp.v1.Msg", "AddMargin", data)
     return promise.then((data) => MsgAddMarginResponse.decode(new _m0.Reader(data)))
   }
 
   Liquidate(request: MsgLiquidate): Promise<MsgLiquidateResponse> {
     const data = MsgLiquidate.encode(request).finish()
-    const promise = this.rpc.request('nibiru.perp.v1.Msg', 'Liquidate', data)
+    const promise = this.rpc.request("nibiru.perp.v1.Msg", "Liquidate", data)
     return promise.then((data) => MsgLiquidateResponse.decode(new _m0.Reader(data)))
   }
 
   OpenPosition(request: MsgOpenPosition): Promise<MsgOpenPositionResponse> {
     const data = MsgOpenPosition.encode(request).finish()
-    const promise = this.rpc.request('nibiru.perp.v1.Msg', 'OpenPosition', data)
+    const promise = this.rpc.request("nibiru.perp.v1.Msg", "OpenPosition", data)
     return promise.then((data) => MsgOpenPositionResponse.decode(new _m0.Reader(data)))
   }
 
   ClosePosition(request: MsgClosePosition): Promise<MsgClosePositionResponse> {
     const data = MsgClosePosition.encode(request).finish()
-    const promise = this.rpc.request('nibiru.perp.v1.Msg', 'ClosePosition', data)
+    const promise = this.rpc.request("nibiru.perp.v1.Msg", "ClosePosition", data)
     return promise.then((data) => MsgClosePositionResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -938,7 +1039,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

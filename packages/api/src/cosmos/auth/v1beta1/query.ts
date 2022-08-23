@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination'
-import { Any } from '../../../google/protobuf/any'
-import { Params } from './auth'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination"
+import { Any } from "../../../google/protobuf/any"
+import { Params } from "./auth"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.auth.v1beta1'
+export const protobufPackage = "cosmos.auth.v1beta1"
 
 /**
  * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
@@ -55,7 +55,10 @@ function createBaseQueryAccountsRequest(): QueryAccountsRequest {
 }
 
 export const QueryAccountsRequest = {
-  encode(message: QueryAccountsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryAccountsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
     }
@@ -82,18 +85,24 @@ export const QueryAccountsRequest = {
 
   fromJSON(object: any): QueryAccountsRequest {
     return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: QueryAccountsRequest): unknown {
     const obj: any = {}
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAccountsRequest>, I>>(object: I): QueryAccountsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAccountsRequest>, I>>(
+    object: I,
+  ): QueryAccountsRequest {
     const message = createBaseQueryAccountsRequest()
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -108,7 +117,10 @@ function createBaseQueryAccountsResponse(): QueryAccountsResponse {
 }
 
 export const QueryAccountsResponse = {
-  encode(message: QueryAccountsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryAccountsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.accounts) {
       Any.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -141,8 +153,12 @@ export const QueryAccountsResponse = {
 
   fromJSON(object: any): QueryAccountsResponse {
     return {
-      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => Any.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+      accounts: Array.isArray(object?.accounts)
+        ? object.accounts.map((e: any) => Any.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
@@ -154,11 +170,15 @@ export const QueryAccountsResponse = {
       obj.accounts = []
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAccountsResponse>, I>>(object: I): QueryAccountsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAccountsResponse>, I>>(
+    object: I,
+  ): QueryAccountsResponse {
     const message = createBaseQueryAccountsResponse()
     message.accounts = object.accounts?.map((e) => Any.fromPartial(e)) || []
     message.pagination =
@@ -170,12 +190,15 @@ export const QueryAccountsResponse = {
 }
 
 function createBaseQueryAccountRequest(): QueryAccountRequest {
-  return { address: '' }
+  return { address: "" }
 }
 
 export const QueryAccountRequest = {
-  encode(message: QueryAccountRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== '') {
+  encode(
+    message: QueryAccountRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address)
     }
     return writer
@@ -201,7 +224,7 @@ export const QueryAccountRequest = {
 
   fromJSON(object: any): QueryAccountRequest {
     return {
-      address: isSet(object.address) ? String(object.address) : '',
+      address: isSet(object.address) ? String(object.address) : "",
     }
   },
 
@@ -211,9 +234,11 @@ export const QueryAccountRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAccountRequest>, I>>(object: I): QueryAccountRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAccountRequest>, I>>(
+    object: I,
+  ): QueryAccountRequest {
     const message = createBaseQueryAccountRequest()
-    message.address = object.address ?? ''
+    message.address = object.address ?? ""
     return message
   },
 }
@@ -223,7 +248,10 @@ function createBaseQueryAccountResponse(): QueryAccountResponse {
 }
 
 export const QueryAccountResponse = {
-  encode(message: QueryAccountResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryAccountResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.account !== undefined) {
       Any.encode(message.account, writer.uint32(10).fork()).ldelim()
     }
@@ -256,14 +284,19 @@ export const QueryAccountResponse = {
 
   toJSON(message: QueryAccountResponse): unknown {
     const obj: any = {}
-    message.account !== undefined && (obj.account = message.account ? Any.toJSON(message.account) : undefined)
+    message.account !== undefined &&
+      (obj.account = message.account ? Any.toJSON(message.account) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAccountResponse>, I>>(object: I): QueryAccountResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAccountResponse>, I>>(
+    object: I,
+  ): QueryAccountResponse {
     const message = createBaseQueryAccountResponse()
     message.account =
-      object.account !== undefined && object.account !== null ? Any.fromPartial(object.account) : undefined
+      object.account !== undefined && object.account !== null
+        ? Any.fromPartial(object.account)
+        : undefined
     return message
   },
 }
@@ -301,7 +334,9 @@ export const QueryParamsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(
+    _: I,
+  ): QueryParamsRequest {
     const message = createBaseQueryParamsRequest()
     return message
   },
@@ -312,7 +347,10 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
 }
 
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryParamsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim()
     }
@@ -345,14 +383,19 @@ export const QueryParamsResponse = {
 
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {}
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(
+    object: I,
+  ): QueryParamsResponse {
     const message = createBaseQueryParamsResponse()
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
     return message
   },
 }
@@ -381,19 +424,19 @@ export class QueryClientImpl implements Query {
   }
   Accounts(request: QueryAccountsRequest): Promise<QueryAccountsResponse> {
     const data = QueryAccountsRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.auth.v1beta1.Query', 'Accounts', data)
+    const promise = this.rpc.request("cosmos.auth.v1beta1.Query", "Accounts", data)
     return promise.then((data) => QueryAccountsResponse.decode(new _m0.Reader(data)))
   }
 
   Account(request: QueryAccountRequest): Promise<QueryAccountResponse> {
     const data = QueryAccountRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.auth.v1beta1.Query', 'Account', data)
+    const promise = this.rpc.request("cosmos.auth.v1beta1.Query", "Account", data)
     return promise.then((data) => QueryAccountResponse.decode(new _m0.Reader(data)))
   }
 
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.auth.v1beta1.Query', 'Params', data)
+    const promise = this.rpc.request("cosmos.auth.v1beta1.Query", "Params", data)
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -419,7 +462,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { Lock } from './lock'
-import { PageRequest, PageResponse } from '../../cosmos/base/query/v1beta1/pagination'
-import Long from 'long'
-import { Coin } from '../../cosmos/base/v1beta1/coin'
-import _m0 from 'protobufjs/minimal'
+import { Lock } from "./lock"
+import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination"
+import Long from "long"
+import { Coin } from "../../cosmos/base/v1beta1/coin"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.lockup.v1'
+export const protobufPackage = "nibiru.lockup.v1"
 
 export interface QueryLockedCoinsRequest {
   address: string
@@ -34,12 +34,15 @@ export interface QueryLocksByAddressResponse {
 }
 
 function createBaseQueryLockedCoinsRequest(): QueryLockedCoinsRequest {
-  return { address: '' }
+  return { address: "" }
 }
 
 export const QueryLockedCoinsRequest = {
-  encode(message: QueryLockedCoinsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== '') {
+  encode(
+    message: QueryLockedCoinsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address)
     }
     return writer
@@ -65,7 +68,7 @@ export const QueryLockedCoinsRequest = {
 
   fromJSON(object: any): QueryLockedCoinsRequest {
     return {
-      address: isSet(object.address) ? String(object.address) : '',
+      address: isSet(object.address) ? String(object.address) : "",
     }
   },
 
@@ -75,9 +78,11 @@ export const QueryLockedCoinsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLockedCoinsRequest>, I>>(object: I): QueryLockedCoinsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryLockedCoinsRequest>, I>>(
+    object: I,
+  ): QueryLockedCoinsRequest {
     const message = createBaseQueryLockedCoinsRequest()
-    message.address = object.address ?? ''
+    message.address = object.address ?? ""
     return message
   },
 }
@@ -87,7 +92,10 @@ function createBaseQueryLockedCoinsResponse(): QueryLockedCoinsResponse {
 }
 
 export const QueryLockedCoinsResponse = {
-  encode(message: QueryLockedCoinsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryLockedCoinsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.lockedCoins) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim()
     }
@@ -114,7 +122,9 @@ export const QueryLockedCoinsResponse = {
 
   fromJSON(object: any): QueryLockedCoinsResponse {
     return {
-      lockedCoins: Array.isArray(object?.lockedCoins) ? object.lockedCoins.map((e: any) => Coin.fromJSON(e)) : [],
+      lockedCoins: Array.isArray(object?.lockedCoins)
+        ? object.lockedCoins.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
@@ -128,7 +138,9 @@ export const QueryLockedCoinsResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLockedCoinsResponse>, I>>(object: I): QueryLockedCoinsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryLockedCoinsResponse>, I>>(
+    object: I,
+  ): QueryLockedCoinsResponse {
     const message = createBaseQueryLockedCoinsResponse()
     message.lockedCoins = object.lockedCoins?.map((e) => Coin.fromPartial(e)) || []
     return message
@@ -140,7 +152,10 @@ function createBaseQueryLockRequest(): QueryLockRequest {
 }
 
 export const QueryLockRequest = {
-  encode(message: QueryLockRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryLockRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id)
     }
@@ -177,9 +192,14 @@ export const QueryLockRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLockRequest>, I>>(object: I): QueryLockRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryLockRequest>, I>>(
+    object: I,
+  ): QueryLockRequest {
     const message = createBaseQueryLockRequest()
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO
     return message
   },
 }
@@ -189,7 +209,10 @@ function createBaseQueryLockResponse(): QueryLockResponse {
 }
 
 export const QueryLockResponse = {
-  encode(message: QueryLockResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryLockResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.lock !== undefined) {
       Lock.encode(message.lock, writer.uint32(10).fork()).ldelim()
     }
@@ -222,24 +245,33 @@ export const QueryLockResponse = {
 
   toJSON(message: QueryLockResponse): unknown {
     const obj: any = {}
-    message.lock !== undefined && (obj.lock = message.lock ? Lock.toJSON(message.lock) : undefined)
+    message.lock !== undefined &&
+      (obj.lock = message.lock ? Lock.toJSON(message.lock) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLockResponse>, I>>(object: I): QueryLockResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryLockResponse>, I>>(
+    object: I,
+  ): QueryLockResponse {
     const message = createBaseQueryLockResponse()
-    message.lock = object.lock !== undefined && object.lock !== null ? Lock.fromPartial(object.lock) : undefined
+    message.lock =
+      object.lock !== undefined && object.lock !== null
+        ? Lock.fromPartial(object.lock)
+        : undefined
     return message
   },
 }
 
 function createBaseQueryLocksByAddress(): QueryLocksByAddress {
-  return { address: '', pagination: undefined }
+  return { address: "", pagination: undefined }
 }
 
 export const QueryLocksByAddress = {
-  encode(message: QueryLocksByAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== '') {
+  encode(
+    message: QueryLocksByAddress,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address)
     }
     if (message.pagination !== undefined) {
@@ -271,8 +303,10 @@ export const QueryLocksByAddress = {
 
   fromJSON(object: any): QueryLocksByAddress {
     return {
-      address: isSet(object.address) ? String(object.address) : '',
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      address: isSet(object.address) ? String(object.address) : "",
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
@@ -280,13 +314,17 @@ export const QueryLocksByAddress = {
     const obj: any = {}
     message.address !== undefined && (obj.address = message.address)
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLocksByAddress>, I>>(object: I): QueryLocksByAddress {
+  fromPartial<I extends Exact<DeepPartial<QueryLocksByAddress>, I>>(
+    object: I,
+  ): QueryLocksByAddress {
     const message = createBaseQueryLocksByAddress()
-    message.address = object.address ?? ''
+    message.address = object.address ?? ""
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -300,7 +338,10 @@ function createBaseQueryLocksByAddressResponse(): QueryLocksByAddressResponse {
 }
 
 export const QueryLocksByAddressResponse = {
-  encode(message: QueryLocksByAddressResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryLocksByAddressResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.locks) {
       Lock.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -333,8 +374,12 @@ export const QueryLocksByAddressResponse = {
 
   fromJSON(object: any): QueryLocksByAddressResponse {
     return {
-      locks: Array.isArray(object?.locks) ? object.locks.map((e: any) => Lock.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+      locks: Array.isArray(object?.locks)
+        ? object.locks.map((e: any) => Lock.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
@@ -346,11 +391,15 @@ export const QueryLocksByAddressResponse = {
       obj.locks = []
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLocksByAddressResponse>, I>>(object: I): QueryLocksByAddressResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryLocksByAddressResponse>, I>>(
+    object: I,
+  ): QueryLocksByAddressResponse {
     const message = createBaseQueryLocksByAddressResponse()
     message.locks = object.locks?.map((e) => Lock.fromPartial(e)) || []
     message.pagination =
@@ -377,20 +426,22 @@ export class QueryClientImpl implements Query {
   }
   LockedCoins(request: QueryLockedCoinsRequest): Promise<QueryLockedCoinsResponse> {
     const data = QueryLockedCoinsRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.lockup.v1.Query', 'LockedCoins', data)
+    const promise = this.rpc.request("nibiru.lockup.v1.Query", "LockedCoins", data)
     return promise.then((data) => QueryLockedCoinsResponse.decode(new _m0.Reader(data)))
   }
 
   Lock(request: QueryLockRequest): Promise<QueryLockResponse> {
     const data = QueryLockRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.lockup.v1.Query', 'Lock', data)
+    const promise = this.rpc.request("nibiru.lockup.v1.Query", "Lock", data)
     return promise.then((data) => QueryLockResponse.decode(new _m0.Reader(data)))
   }
 
   LocksByAddress(request: QueryLocksByAddress): Promise<QueryLocksByAddressResponse> {
     const data = QueryLocksByAddress.encode(request).finish()
-    const promise = this.rpc.request('nibiru.lockup.v1.Query', 'LocksByAddress', data)
-    return promise.then((data) => QueryLocksByAddressResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request("nibiru.lockup.v1.Query", "LocksByAddress", data)
+    return promise.then((data) =>
+      QueryLocksByAddressResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
@@ -415,7 +466,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

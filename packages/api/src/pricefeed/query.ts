@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { Params } from './params'
-import { Timestamp } from '../google/protobuf/timestamp'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Params } from "./params"
+import { Timestamp } from "../google/protobuf/timestamp"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.pricefeed.v1'
+export const protobufPackage = "nibiru.pricefeed.v1"
 
 /**
  * QueryParamsRequest defines the request type for querying x/pricefeed
@@ -84,7 +84,10 @@ export interface PostedPriceResponse {
  */
 export interface CurrentPriceResponse {
   pairId: string
+  /** most current price of the trading pair */
   price: string
+  /** twap of the trading pair */
+  twap: string
 }
 
 /** Market defines an asset in the pricefeed. */
@@ -127,7 +130,9 @@ export const QueryParamsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(
+    _: I,
+  ): QueryParamsRequest {
     const message = createBaseQueryParamsRequest()
     return message
   },
@@ -138,7 +143,10 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
 }
 
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryParamsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim()
     }
@@ -171,25 +179,33 @@ export const QueryParamsResponse = {
 
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {}
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(
+    object: I,
+  ): QueryParamsResponse {
     const message = createBaseQueryParamsResponse()
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
     return message
   },
 }
 
 function createBaseQueryPriceRequest(): QueryPriceRequest {
-  return { pairId: '' }
+  return { pairId: "" }
 }
 
 export const QueryPriceRequest = {
-  encode(message: QueryPriceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+  encode(
+    message: QueryPriceRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
     return writer
@@ -215,7 +231,7 @@ export const QueryPriceRequest = {
 
   fromJSON(object: any): QueryPriceRequest {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
     }
   },
 
@@ -225,9 +241,11 @@ export const QueryPriceRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPriceRequest>, I>>(object: I): QueryPriceRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryPriceRequest>, I>>(
+    object: I,
+  ): QueryPriceRequest {
     const message = createBaseQueryPriceRequest()
-    message.pairId = object.pairId ?? ''
+    message.pairId = object.pairId ?? ""
     return message
   },
 }
@@ -237,7 +255,10 @@ function createBaseQueryPriceResponse(): QueryPriceResponse {
 }
 
 export const QueryPriceResponse = {
-  encode(message: QueryPriceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryPriceResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.price !== undefined) {
       CurrentPriceResponse.encode(message.price, writer.uint32(10).fork()).ldelim()
     }
@@ -264,20 +285,29 @@ export const QueryPriceResponse = {
 
   fromJSON(object: any): QueryPriceResponse {
     return {
-      price: isSet(object.price) ? CurrentPriceResponse.fromJSON(object.price) : undefined,
+      price: isSet(object.price)
+        ? CurrentPriceResponse.fromJSON(object.price)
+        : undefined,
     }
   },
 
   toJSON(message: QueryPriceResponse): unknown {
     const obj: any = {}
-    message.price !== undefined && (obj.price = message.price ? CurrentPriceResponse.toJSON(message.price) : undefined)
+    message.price !== undefined &&
+      (obj.price = message.price
+        ? CurrentPriceResponse.toJSON(message.price)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPriceResponse>, I>>(object: I): QueryPriceResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryPriceResponse>, I>>(
+    object: I,
+  ): QueryPriceResponse {
     const message = createBaseQueryPriceResponse()
     message.price =
-      object.price !== undefined && object.price !== null ? CurrentPriceResponse.fromPartial(object.price) : undefined
+      object.price !== undefined && object.price !== null
+        ? CurrentPriceResponse.fromPartial(object.price)
+        : undefined
     return message
   },
 }
@@ -315,7 +345,9 @@ export const QueryPricesRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPricesRequest>, I>>(_: I): QueryPricesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryPricesRequest>, I>>(
+    _: I,
+  ): QueryPricesRequest {
     const message = createBaseQueryPricesRequest()
     return message
   },
@@ -326,7 +358,10 @@ function createBaseQueryPricesResponse(): QueryPricesResponse {
 }
 
 export const QueryPricesResponse = {
-  encode(message: QueryPricesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryPricesResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.prices) {
       CurrentPriceResponse.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -353,34 +388,44 @@ export const QueryPricesResponse = {
 
   fromJSON(object: any): QueryPricesResponse {
     return {
-      prices: Array.isArray(object?.prices) ? object.prices.map((e: any) => CurrentPriceResponse.fromJSON(e)) : [],
+      prices: Array.isArray(object?.prices)
+        ? object.prices.map((e: any) => CurrentPriceResponse.fromJSON(e))
+        : [],
     }
   },
 
   toJSON(message: QueryPricesResponse): unknown {
     const obj: any = {}
     if (message.prices) {
-      obj.prices = message.prices.map((e) => (e ? CurrentPriceResponse.toJSON(e) : undefined))
+      obj.prices = message.prices.map((e) =>
+        e ? CurrentPriceResponse.toJSON(e) : undefined,
+      )
     } else {
       obj.prices = []
     }
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPricesResponse>, I>>(object: I): QueryPricesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryPricesResponse>, I>>(
+    object: I,
+  ): QueryPricesResponse {
     const message = createBaseQueryPricesResponse()
-    message.prices = object.prices?.map((e) => CurrentPriceResponse.fromPartial(e)) || []
+    message.prices =
+      object.prices?.map((e) => CurrentPriceResponse.fromPartial(e)) || []
     return message
   },
 }
 
 function createBaseQueryRawPricesRequest(): QueryRawPricesRequest {
-  return { pairId: '' }
+  return { pairId: "" }
 }
 
 export const QueryRawPricesRequest = {
-  encode(message: QueryRawPricesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+  encode(
+    message: QueryRawPricesRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
     return writer
@@ -406,7 +451,7 @@ export const QueryRawPricesRequest = {
 
   fromJSON(object: any): QueryRawPricesRequest {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
     }
   },
 
@@ -416,9 +461,11 @@ export const QueryRawPricesRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryRawPricesRequest>, I>>(object: I): QueryRawPricesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryRawPricesRequest>, I>>(
+    object: I,
+  ): QueryRawPricesRequest {
     const message = createBaseQueryRawPricesRequest()
-    message.pairId = object.pairId ?? ''
+    message.pairId = object.pairId ?? ""
     return message
   },
 }
@@ -428,7 +475,10 @@ function createBaseQueryRawPricesResponse(): QueryRawPricesResponse {
 }
 
 export const QueryRawPricesResponse = {
-  encode(message: QueryRawPricesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryRawPricesResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.rawPrices) {
       PostedPriceResponse.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -464,27 +514,35 @@ export const QueryRawPricesResponse = {
   toJSON(message: QueryRawPricesResponse): unknown {
     const obj: any = {}
     if (message.rawPrices) {
-      obj.rawPrices = message.rawPrices.map((e) => (e ? PostedPriceResponse.toJSON(e) : undefined))
+      obj.rawPrices = message.rawPrices.map((e) =>
+        e ? PostedPriceResponse.toJSON(e) : undefined,
+      )
     } else {
       obj.rawPrices = []
     }
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryRawPricesResponse>, I>>(object: I): QueryRawPricesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryRawPricesResponse>, I>>(
+    object: I,
+  ): QueryRawPricesResponse {
     const message = createBaseQueryRawPricesResponse()
-    message.rawPrices = object.rawPrices?.map((e) => PostedPriceResponse.fromPartial(e)) || []
+    message.rawPrices =
+      object.rawPrices?.map((e) => PostedPriceResponse.fromPartial(e)) || []
     return message
   },
 }
 
 function createBaseQueryOraclesRequest(): QueryOraclesRequest {
-  return { pairId: '' }
+  return { pairId: "" }
 }
 
 export const QueryOraclesRequest = {
-  encode(message: QueryOraclesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+  encode(
+    message: QueryOraclesRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
     return writer
@@ -510,7 +568,7 @@ export const QueryOraclesRequest = {
 
   fromJSON(object: any): QueryOraclesRequest {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
     }
   },
 
@@ -520,9 +578,11 @@ export const QueryOraclesRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryOraclesRequest>, I>>(object: I): QueryOraclesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryOraclesRequest>, I>>(
+    object: I,
+  ): QueryOraclesRequest {
     const message = createBaseQueryOraclesRequest()
-    message.pairId = object.pairId ?? ''
+    message.pairId = object.pairId ?? ""
     return message
   },
 }
@@ -532,7 +592,10 @@ function createBaseQueryOraclesResponse(): QueryOraclesResponse {
 }
 
 export const QueryOraclesResponse = {
-  encode(message: QueryOraclesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryOraclesResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.oracles) {
       writer.uint32(10).string(v!)
     }
@@ -559,7 +622,9 @@ export const QueryOraclesResponse = {
 
   fromJSON(object: any): QueryOraclesResponse {
     return {
-      oracles: Array.isArray(object?.oracles) ? object.oracles.map((e: any) => String(e)) : [],
+      oracles: Array.isArray(object?.oracles)
+        ? object.oracles.map((e: any) => String(e))
+        : [],
     }
   },
 
@@ -573,7 +638,9 @@ export const QueryOraclesResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryOraclesResponse>, I>>(object: I): QueryOraclesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryOraclesResponse>, I>>(
+    object: I,
+  ): QueryOraclesResponse {
     const message = createBaseQueryOraclesResponse()
     message.oracles = object.oracles?.map((e) => e) || []
     return message
@@ -613,7 +680,9 @@ export const QueryMarketsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryMarketsRequest>, I>>(_: I): QueryMarketsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryMarketsRequest>, I>>(
+    _: I,
+  ): QueryMarketsRequest {
     const message = createBaseQueryMarketsRequest()
     return message
   },
@@ -624,7 +693,10 @@ function createBaseQueryMarketsResponse(): QueryMarketsResponse {
 }
 
 export const QueryMarketsResponse = {
-  encode(message: QueryMarketsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryMarketsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.markets) {
       Market.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -651,7 +723,9 @@ export const QueryMarketsResponse = {
 
   fromJSON(object: any): QueryMarketsResponse {
     return {
-      markets: Array.isArray(object?.markets) ? object.markets.map((e: any) => Market.fromJSON(e)) : [],
+      markets: Array.isArray(object?.markets)
+        ? object.markets.map((e: any) => Market.fromJSON(e))
+        : [],
     }
   },
 
@@ -665,7 +739,9 @@ export const QueryMarketsResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryMarketsResponse>, I>>(object: I): QueryMarketsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryMarketsResponse>, I>>(
+    object: I,
+  ): QueryMarketsResponse {
     const message = createBaseQueryMarketsResponse()
     message.markets = object.markets?.map((e) => Market.fromPartial(e)) || []
     return message
@@ -673,18 +749,21 @@ export const QueryMarketsResponse = {
 }
 
 function createBasePostedPriceResponse(): PostedPriceResponse {
-  return { pairId: '', oracleAddress: '', price: '', expiry: undefined }
+  return { pairId: "", oracleAddress: "", price: "", expiry: undefined }
 }
 
 export const PostedPriceResponse = {
-  encode(message: PostedPriceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+  encode(
+    message: PostedPriceResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
-    if (message.oracleAddress !== '') {
+    if (message.oracleAddress !== "") {
       writer.uint32(18).string(message.oracleAddress)
     }
-    if (message.price !== '') {
+    if (message.price !== "") {
       writer.uint32(26).string(message.price)
     }
     if (message.expiry !== undefined) {
@@ -722,9 +801,9 @@ export const PostedPriceResponse = {
 
   fromJSON(object: any): PostedPriceResponse {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
-      oracleAddress: isSet(object.oracleAddress) ? String(object.oracleAddress) : '',
-      price: isSet(object.price) ? String(object.price) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
+      oracleAddress: isSet(object.oracleAddress) ? String(object.oracleAddress) : "",
+      price: isSet(object.price) ? String(object.price) : "",
       expiry: isSet(object.expiry) ? fromJsonTimestamp(object.expiry) : undefined,
     }
   },
@@ -738,27 +817,35 @@ export const PostedPriceResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<PostedPriceResponse>, I>>(object: I): PostedPriceResponse {
+  fromPartial<I extends Exact<DeepPartial<PostedPriceResponse>, I>>(
+    object: I,
+  ): PostedPriceResponse {
     const message = createBasePostedPriceResponse()
-    message.pairId = object.pairId ?? ''
-    message.oracleAddress = object.oracleAddress ?? ''
-    message.price = object.price ?? ''
+    message.pairId = object.pairId ?? ""
+    message.oracleAddress = object.oracleAddress ?? ""
+    message.price = object.price ?? ""
     message.expiry = object.expiry ?? undefined
     return message
   },
 }
 
 function createBaseCurrentPriceResponse(): CurrentPriceResponse {
-  return { pairId: '', price: '' }
+  return { pairId: "", price: "", twap: "" }
 }
 
 export const CurrentPriceResponse = {
-  encode(message: CurrentPriceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+  encode(
+    message: CurrentPriceResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
-    if (message.price !== '') {
+    if (message.price !== "") {
       writer.uint32(18).string(message.price)
+    }
+    if (message.twap !== "") {
+      writer.uint32(26).string(message.twap)
     }
     return writer
   },
@@ -776,6 +863,9 @@ export const CurrentPriceResponse = {
         case 2:
           message.price = reader.string()
           break
+        case 3:
+          message.twap = reader.string()
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -786,8 +876,9 @@ export const CurrentPriceResponse = {
 
   fromJSON(object: any): CurrentPriceResponse {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
-      price: isSet(object.price) ? String(object.price) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
+      price: isSet(object.price) ? String(object.price) : "",
+      twap: isSet(object.twap) ? String(object.twap) : "",
     }
   },
 
@@ -795,24 +886,28 @@ export const CurrentPriceResponse = {
     const obj: any = {}
     message.pairId !== undefined && (obj.pairId = message.pairId)
     message.price !== undefined && (obj.price = message.price)
+    message.twap !== undefined && (obj.twap = message.twap)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<CurrentPriceResponse>, I>>(object: I): CurrentPriceResponse {
+  fromPartial<I extends Exact<DeepPartial<CurrentPriceResponse>, I>>(
+    object: I,
+  ): CurrentPriceResponse {
     const message = createBaseCurrentPriceResponse()
-    message.pairId = object.pairId ?? ''
-    message.price = object.price ?? ''
+    message.pairId = object.pairId ?? ""
+    message.price = object.price ?? ""
+    message.twap = object.twap ?? ""
     return message
   },
 }
 
 function createBaseMarket(): Market {
-  return { pairId: '', oracles: [], active: false }
+  return { pairId: "", oracles: [], active: false }
 }
 
 export const Market = {
   encode(message: Market, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
     for (const v of message.oracles) {
@@ -850,8 +945,10 @@ export const Market = {
 
   fromJSON(object: any): Market {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
-      oracles: Array.isArray(object?.oracles) ? object.oracles.map((e: any) => String(e)) : [],
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
+      oracles: Array.isArray(object?.oracles)
+        ? object.oracles.map((e: any) => String(e))
+        : [],
       active: isSet(object.active) ? Boolean(object.active) : false,
     }
   },
@@ -870,7 +967,7 @@ export const Market = {
 
   fromPartial<I extends Exact<DeepPartial<Market>, I>>(object: I): Market {
     const message = createBaseMarket()
-    message.pairId = object.pairId ?? ''
+    message.pairId = object.pairId ?? ""
     message.oracles = object.oracles?.map((e) => e) || []
     message.active = object.active ?? false
     return message
@@ -906,37 +1003,41 @@ export class QueryClientImpl implements Query {
   }
   QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.pricefeed.v1.Query', 'QueryParams', data)
+    const promise = this.rpc.request("nibiru.pricefeed.v1.Query", "QueryParams", data)
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)))
   }
 
   QueryPrice(request: QueryPriceRequest): Promise<QueryPriceResponse> {
     const data = QueryPriceRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.pricefeed.v1.Query', 'QueryPrice', data)
+    const promise = this.rpc.request("nibiru.pricefeed.v1.Query", "QueryPrice", data)
     return promise.then((data) => QueryPriceResponse.decode(new _m0.Reader(data)))
   }
 
   QueryPrices(request: QueryPricesRequest): Promise<QueryPricesResponse> {
     const data = QueryPricesRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.pricefeed.v1.Query', 'QueryPrices', data)
+    const promise = this.rpc.request("nibiru.pricefeed.v1.Query", "QueryPrices", data)
     return promise.then((data) => QueryPricesResponse.decode(new _m0.Reader(data)))
   }
 
   QueryRawPrices(request: QueryRawPricesRequest): Promise<QueryRawPricesResponse> {
     const data = QueryRawPricesRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.pricefeed.v1.Query', 'QueryRawPrices', data)
+    const promise = this.rpc.request(
+      "nibiru.pricefeed.v1.Query",
+      "QueryRawPrices",
+      data,
+    )
     return promise.then((data) => QueryRawPricesResponse.decode(new _m0.Reader(data)))
   }
 
   QueryOracles(request: QueryOraclesRequest): Promise<QueryOraclesResponse> {
     const data = QueryOraclesRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.pricefeed.v1.Query', 'QueryOracles', data)
+    const promise = this.rpc.request("nibiru.pricefeed.v1.Query", "QueryOracles", data)
     return promise.then((data) => QueryOraclesResponse.decode(new _m0.Reader(data)))
   }
 
   QueryMarkets(request: QueryMarketsRequest): Promise<QueryMarketsResponse> {
     const data = QueryMarketsRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.pricefeed.v1.Query', 'QueryMarkets', data)
+    const promise = this.rpc.request("nibiru.pricefeed.v1.Query", "QueryMarkets", data)
     return promise.then((data) => QueryMarketsResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -962,7 +1063,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
@@ -979,7 +1083,7 @@ function fromTimestamp(t: Timestamp): Date {
 function fromJsonTimestamp(o: any): Date {
   if (o instanceof Date) {
     return o
-  } else if (typeof o === 'string') {
+  } else if (typeof o === "string") {
     return new Date(o)
   } else {
     return fromTimestamp(Timestamp.fromJSON(o))

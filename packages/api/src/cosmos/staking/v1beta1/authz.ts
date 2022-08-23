@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Coin } from '../../base/v1beta1/coin'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Coin } from "../../base/v1beta1/coin"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.staking.v1beta1'
+export const protobufPackage = "cosmos.staking.v1beta1"
 
 /**
  * AuthorizationType defines the type of staking module authorization type
@@ -25,19 +25,19 @@ export enum AuthorizationType {
 export function authorizationTypeFromJSON(object: any): AuthorizationType {
   switch (object) {
     case 0:
-    case 'AUTHORIZATION_TYPE_UNSPECIFIED':
+    case "AUTHORIZATION_TYPE_UNSPECIFIED":
       return AuthorizationType.AUTHORIZATION_TYPE_UNSPECIFIED
     case 1:
-    case 'AUTHORIZATION_TYPE_DELEGATE':
+    case "AUTHORIZATION_TYPE_DELEGATE":
       return AuthorizationType.AUTHORIZATION_TYPE_DELEGATE
     case 2:
-    case 'AUTHORIZATION_TYPE_UNDELEGATE':
+    case "AUTHORIZATION_TYPE_UNDELEGATE":
       return AuthorizationType.AUTHORIZATION_TYPE_UNDELEGATE
     case 3:
-    case 'AUTHORIZATION_TYPE_REDELEGATE':
+    case "AUTHORIZATION_TYPE_REDELEGATE":
       return AuthorizationType.AUTHORIZATION_TYPE_REDELEGATE
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return AuthorizationType.UNRECOGNIZED
   }
@@ -46,16 +46,16 @@ export function authorizationTypeFromJSON(object: any): AuthorizationType {
 export function authorizationTypeToJSON(object: AuthorizationType): string {
   switch (object) {
     case AuthorizationType.AUTHORIZATION_TYPE_UNSPECIFIED:
-      return 'AUTHORIZATION_TYPE_UNSPECIFIED'
+      return "AUTHORIZATION_TYPE_UNSPECIFIED"
     case AuthorizationType.AUTHORIZATION_TYPE_DELEGATE:
-      return 'AUTHORIZATION_TYPE_DELEGATE'
+      return "AUTHORIZATION_TYPE_DELEGATE"
     case AuthorizationType.AUTHORIZATION_TYPE_UNDELEGATE:
-      return 'AUTHORIZATION_TYPE_UNDELEGATE'
+      return "AUTHORIZATION_TYPE_UNDELEGATE"
     case AuthorizationType.AUTHORIZATION_TYPE_REDELEGATE:
-      return 'AUTHORIZATION_TYPE_REDELEGATE'
+      return "AUTHORIZATION_TYPE_REDELEGATE"
     case AuthorizationType.UNRECOGNIZED:
     default:
-      return 'UNRECOGNIZED'
+      return "UNRECOGNIZED"
   }
 }
 
@@ -87,19 +87,33 @@ export interface StakeAuthorization_Validators {
 }
 
 function createBaseStakeAuthorization(): StakeAuthorization {
-  return { maxTokens: undefined, allowList: undefined, denyList: undefined, authorizationType: 0 }
+  return {
+    maxTokens: undefined,
+    allowList: undefined,
+    denyList: undefined,
+    authorizationType: 0,
+  }
 }
 
 export const StakeAuthorization = {
-  encode(message: StakeAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: StakeAuthorization,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.maxTokens !== undefined) {
       Coin.encode(message.maxTokens, writer.uint32(10).fork()).ldelim()
     }
     if (message.allowList !== undefined) {
-      StakeAuthorization_Validators.encode(message.allowList, writer.uint32(18).fork()).ldelim()
+      StakeAuthorization_Validators.encode(
+        message.allowList,
+        writer.uint32(18).fork(),
+      ).ldelim()
     }
     if (message.denyList !== undefined) {
-      StakeAuthorization_Validators.encode(message.denyList, writer.uint32(26).fork()).ldelim()
+      StakeAuthorization_Validators.encode(
+        message.denyList,
+        writer.uint32(26).fork(),
+      ).ldelim()
     }
     if (message.authorizationType !== 0) {
       writer.uint32(32).int32(message.authorizationType)
@@ -118,10 +132,16 @@ export const StakeAuthorization = {
           message.maxTokens = Coin.decode(reader, reader.uint32())
           break
         case 2:
-          message.allowList = StakeAuthorization_Validators.decode(reader, reader.uint32())
+          message.allowList = StakeAuthorization_Validators.decode(
+            reader,
+            reader.uint32(),
+          )
           break
         case 3:
-          message.denyList = StakeAuthorization_Validators.decode(reader, reader.uint32())
+          message.denyList = StakeAuthorization_Validators.decode(
+            reader,
+            reader.uint32(),
+          )
           break
         case 4:
           message.authorizationType = reader.int32() as any
@@ -137,28 +157,43 @@ export const StakeAuthorization = {
   fromJSON(object: any): StakeAuthorization {
     return {
       maxTokens: isSet(object.maxTokens) ? Coin.fromJSON(object.maxTokens) : undefined,
-      allowList: isSet(object.allowList) ? StakeAuthorization_Validators.fromJSON(object.allowList) : undefined,
-      denyList: isSet(object.denyList) ? StakeAuthorization_Validators.fromJSON(object.denyList) : undefined,
-      authorizationType: isSet(object.authorizationType) ? authorizationTypeFromJSON(object.authorizationType) : 0,
+      allowList: isSet(object.allowList)
+        ? StakeAuthorization_Validators.fromJSON(object.allowList)
+        : undefined,
+      denyList: isSet(object.denyList)
+        ? StakeAuthorization_Validators.fromJSON(object.denyList)
+        : undefined,
+      authorizationType: isSet(object.authorizationType)
+        ? authorizationTypeFromJSON(object.authorizationType)
+        : 0,
     }
   },
 
   toJSON(message: StakeAuthorization): unknown {
     const obj: any = {}
-    message.maxTokens !== undefined && (obj.maxTokens = message.maxTokens ? Coin.toJSON(message.maxTokens) : undefined)
+    message.maxTokens !== undefined &&
+      (obj.maxTokens = message.maxTokens ? Coin.toJSON(message.maxTokens) : undefined)
     message.allowList !== undefined &&
-      (obj.allowList = message.allowList ? StakeAuthorization_Validators.toJSON(message.allowList) : undefined)
+      (obj.allowList = message.allowList
+        ? StakeAuthorization_Validators.toJSON(message.allowList)
+        : undefined)
     message.denyList !== undefined &&
-      (obj.denyList = message.denyList ? StakeAuthorization_Validators.toJSON(message.denyList) : undefined)
+      (obj.denyList = message.denyList
+        ? StakeAuthorization_Validators.toJSON(message.denyList)
+        : undefined)
     message.authorizationType !== undefined &&
       (obj.authorizationType = authorizationTypeToJSON(message.authorizationType))
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<StakeAuthorization>, I>>(object: I): StakeAuthorization {
+  fromPartial<I extends Exact<DeepPartial<StakeAuthorization>, I>>(
+    object: I,
+  ): StakeAuthorization {
     const message = createBaseStakeAuthorization()
     message.maxTokens =
-      object.maxTokens !== undefined && object.maxTokens !== null ? Coin.fromPartial(object.maxTokens) : undefined
+      object.maxTokens !== undefined && object.maxTokens !== null
+        ? Coin.fromPartial(object.maxTokens)
+        : undefined
     message.allowList =
       object.allowList !== undefined && object.allowList !== null
         ? StakeAuthorization_Validators.fromPartial(object.allowList)
@@ -177,14 +212,20 @@ function createBaseStakeAuthorization_Validators(): StakeAuthorization_Validator
 }
 
 export const StakeAuthorization_Validators = {
-  encode(message: StakeAuthorization_Validators, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: StakeAuthorization_Validators,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.address) {
       writer.uint32(10).string(v!)
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): StakeAuthorization_Validators {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): StakeAuthorization_Validators {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseStakeAuthorization_Validators()
@@ -204,7 +245,9 @@ export const StakeAuthorization_Validators = {
 
   fromJSON(object: any): StakeAuthorization_Validators {
     return {
-      address: Array.isArray(object?.address) ? object.address.map((e: any) => String(e)) : [],
+      address: Array.isArray(object?.address)
+        ? object.address.map((e: any) => String(e))
+        : [],
     }
   },
 
@@ -244,7 +287,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Coin } from '../../base/v1beta1/coin'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Coin } from "../../base/v1beta1/coin"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.crisis.v1beta1'
+export const protobufPackage = "cosmos.crisis.v1beta1"
 
 /** GenesisState defines the crisis module's genesis state. */
 export interface GenesisState {
@@ -46,21 +46,27 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      constantFee: isSet(object.constantFee) ? Coin.fromJSON(object.constantFee) : undefined,
+      constantFee: isSet(object.constantFee)
+        ? Coin.fromJSON(object.constantFee)
+        : undefined,
     }
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
     message.constantFee !== undefined &&
-      (obj.constantFee = message.constantFee ? Coin.toJSON(message.constantFee) : undefined)
+      (obj.constantFee = message.constantFee
+        ? Coin.toJSON(message.constantFee)
+        : undefined)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState()
     message.constantFee =
-      object.constantFee !== undefined && object.constantFee !== null ? Coin.fromPartial(object.constantFee) : undefined
+      object.constantFee !== undefined && object.constantFee !== null
+        ? Coin.fromPartial(object.constantFee)
+        : undefined
     return message
   },
 }
@@ -82,7 +88,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

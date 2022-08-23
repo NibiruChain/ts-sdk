@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { Params } from './params'
-import { Coin } from '../cosmos/base/v1beta1/coin'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Params } from "./params"
+import { Coin } from "../cosmos/base/v1beta1/coin"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.stablecoin.v1'
+export const protobufPackage = "nibiru.stablecoin.v1"
 
 /** GenesisState defines the stablecoin module's genesis state. */
 export interface GenesisState {
@@ -51,22 +51,29 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      moduleAccountBalance: isSet(object.moduleAccountBalance) ? Coin.fromJSON(object.moduleAccountBalance) : undefined,
+      moduleAccountBalance: isSet(object.moduleAccountBalance)
+        ? Coin.fromJSON(object.moduleAccountBalance)
+        : undefined,
     }
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     message.moduleAccountBalance !== undefined &&
-      (obj.moduleAccountBalance = message.moduleAccountBalance ? Coin.toJSON(message.moduleAccountBalance) : undefined)
+      (obj.moduleAccountBalance = message.moduleAccountBalance
+        ? Coin.toJSON(message.moduleAccountBalance)
+        : undefined)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState()
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
     message.moduleAccountBalance =
       object.moduleAccountBalance !== undefined && object.moduleAccountBalance !== null
         ? Coin.fromPartial(object.moduleAccountBalance)
@@ -92,7 +99,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

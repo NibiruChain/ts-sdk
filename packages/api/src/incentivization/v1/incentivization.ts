@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { Duration } from '../../google/protobuf/duration'
-import { PageRequest, PageResponse } from '../../cosmos/base/query/v1beta1/pagination'
-import { Timestamp } from '../../google/protobuf/timestamp'
-import Long from 'long'
-import { Coin } from '../../cosmos/base/v1beta1/coin'
-import _m0 from 'protobufjs/minimal'
+import { Duration } from "../../google/protobuf/duration"
+import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination"
+import { Timestamp } from "../../google/protobuf/timestamp"
+import Long from "long"
+import { Coin } from "../../cosmos/base/v1beta1/coin"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.incentivization.v1'
+export const protobufPackage = "nibiru.incentivization.v1"
 
 /** MsgCreateIncentivizationProgram is the request needed for the CreateIncentivizationProgram RPC. */
 export interface MsgCreateIncentivizationProgram {
@@ -99,8 +99,8 @@ export interface QueryIncentivizationProgramsResponse {
 
 function createBaseMsgCreateIncentivizationProgram(): MsgCreateIncentivizationProgram {
   return {
-    sender: '',
-    lpDenom: '',
+    sender: "",
+    lpDenom: "",
     minLockupDuration: undefined,
     startTime: undefined,
     epochs: Long.ZERO,
@@ -109,18 +109,24 @@ function createBaseMsgCreateIncentivizationProgram(): MsgCreateIncentivizationPr
 }
 
 export const MsgCreateIncentivizationProgram = {
-  encode(message: MsgCreateIncentivizationProgram, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== '') {
+  encode(
+    message: MsgCreateIncentivizationProgram,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
-    if (message.lpDenom !== '') {
+    if (message.lpDenom !== "") {
       writer.uint32(18).string(message.lpDenom)
     }
     if (message.minLockupDuration !== undefined) {
       Duration.encode(message.minLockupDuration, writer.uint32(26).fork()).ldelim()
     }
     if (message.startTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.startTime), writer.uint32(34).fork()).ldelim()
+      Timestamp.encode(
+        toTimestamp(message.startTime),
+        writer.uint32(34).fork(),
+      ).ldelim()
     }
     if (!message.epochs.isZero()) {
       writer.uint32(40).int64(message.epochs)
@@ -131,7 +137,10 @@ export const MsgCreateIncentivizationProgram = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateIncentivizationProgram {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): MsgCreateIncentivizationProgram {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgCreateIncentivizationProgram()
@@ -166,12 +175,18 @@ export const MsgCreateIncentivizationProgram = {
 
   fromJSON(object: any): MsgCreateIncentivizationProgram {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : '',
-      lpDenom: isSet(object.lpDenom) ? String(object.lpDenom) : '',
-      minLockupDuration: isSet(object.minLockupDuration) ? Duration.fromJSON(object.minLockupDuration) : undefined,
-      startTime: isSet(object.startTime) ? fromJsonTimestamp(object.startTime) : undefined,
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      lpDenom: isSet(object.lpDenom) ? String(object.lpDenom) : "",
+      minLockupDuration: isSet(object.minLockupDuration)
+        ? Duration.fromJSON(object.minLockupDuration)
+        : undefined,
+      startTime: isSet(object.startTime)
+        ? fromJsonTimestamp(object.startTime)
+        : undefined,
       epochs: isSet(object.epochs) ? Long.fromValue(object.epochs) : Long.ZERO,
-      initialFunds: Array.isArray(object?.initialFunds) ? object.initialFunds.map((e: any) => Coin.fromJSON(e)) : [],
+      initialFunds: Array.isArray(object?.initialFunds)
+        ? object.initialFunds.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
@@ -180,11 +195,16 @@ export const MsgCreateIncentivizationProgram = {
     message.sender !== undefined && (obj.sender = message.sender)
     message.lpDenom !== undefined && (obj.lpDenom = message.lpDenom)
     message.minLockupDuration !== undefined &&
-      (obj.minLockupDuration = message.minLockupDuration ? Duration.toJSON(message.minLockupDuration) : undefined)
+      (obj.minLockupDuration = message.minLockupDuration
+        ? Duration.toJSON(message.minLockupDuration)
+        : undefined)
     message.startTime !== undefined && (obj.startTime = message.startTime.toISOString())
-    message.epochs !== undefined && (obj.epochs = (message.epochs || Long.ZERO).toString())
+    message.epochs !== undefined &&
+      (obj.epochs = (message.epochs || Long.ZERO).toString())
     if (message.initialFunds) {
-      obj.initialFunds = message.initialFunds.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.initialFunds = message.initialFunds.map((e) =>
+        e ? Coin.toJSON(e) : undefined,
+      )
     } else {
       obj.initialFunds = []
     }
@@ -195,14 +215,17 @@ export const MsgCreateIncentivizationProgram = {
     object: I,
   ): MsgCreateIncentivizationProgram {
     const message = createBaseMsgCreateIncentivizationProgram()
-    message.sender = object.sender ?? ''
-    message.lpDenom = object.lpDenom ?? ''
+    message.sender = object.sender ?? ""
+    message.lpDenom = object.lpDenom ?? ""
     message.minLockupDuration =
       object.minLockupDuration !== undefined && object.minLockupDuration !== null
         ? Duration.fromPartial(object.minLockupDuration)
         : undefined
     message.startTime = object.startTime ?? undefined
-    message.epochs = object.epochs !== undefined && object.epochs !== null ? Long.fromValue(object.epochs) : Long.ZERO
+    message.epochs =
+      object.epochs !== undefined && object.epochs !== null
+        ? Long.fromValue(object.epochs)
+        : Long.ZERO
     message.initialFunds = object.initialFunds?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
@@ -213,14 +236,20 @@ function createBaseMsgCreateIncentivizationProgramResponse(): MsgCreateIncentivi
 }
 
 export const MsgCreateIncentivizationProgramResponse = {
-  encode(message: MsgCreateIncentivizationProgramResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgCreateIncentivizationProgramResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.programId.isZero()) {
       writer.uint32(8).uint64(message.programId)
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateIncentivizationProgramResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): MsgCreateIncentivizationProgramResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgCreateIncentivizationProgramResponse()
@@ -240,13 +269,16 @@ export const MsgCreateIncentivizationProgramResponse = {
 
   fromJSON(object: any): MsgCreateIncentivizationProgramResponse {
     return {
-      programId: isSet(object.programId) ? Long.fromValue(object.programId) : Long.UZERO,
+      programId: isSet(object.programId)
+        ? Long.fromValue(object.programId)
+        : Long.UZERO,
     }
   },
 
   toJSON(message: MsgCreateIncentivizationProgramResponse): unknown {
     const obj: any = {}
-    message.programId !== undefined && (obj.programId = (message.programId || Long.UZERO).toString())
+    message.programId !== undefined &&
+      (obj.programId = (message.programId || Long.UZERO).toString())
     return obj
   },
 
@@ -255,18 +287,23 @@ export const MsgCreateIncentivizationProgramResponse = {
   ): MsgCreateIncentivizationProgramResponse {
     const message = createBaseMsgCreateIncentivizationProgramResponse()
     message.programId =
-      object.programId !== undefined && object.programId !== null ? Long.fromValue(object.programId) : Long.UZERO
+      object.programId !== undefined && object.programId !== null
+        ? Long.fromValue(object.programId)
+        : Long.UZERO
     return message
   },
 }
 
 function createBaseMsgFundIncentivizationProgram(): MsgFundIncentivizationProgram {
-  return { sender: '', id: Long.UZERO, funds: [] }
+  return { sender: "", id: Long.UZERO, funds: [] }
 }
 
 export const MsgFundIncentivizationProgram = {
-  encode(message: MsgFundIncentivizationProgram, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== '') {
+  encode(
+    message: MsgFundIncentivizationProgram,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
     if (!message.id.isZero()) {
@@ -278,7 +315,10 @@ export const MsgFundIncentivizationProgram = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundIncentivizationProgram {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): MsgFundIncentivizationProgram {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgFundIncentivizationProgram()
@@ -304,9 +344,11 @@ export const MsgFundIncentivizationProgram = {
 
   fromJSON(object: any): MsgFundIncentivizationProgram {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : '',
+      sender: isSet(object.sender) ? String(object.sender) : "",
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      funds: Array.isArray(object?.funds) ? object.funds.map((e: any) => Coin.fromJSON(e)) : [],
+      funds: Array.isArray(object?.funds)
+        ? object.funds.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
@@ -326,8 +368,11 @@ export const MsgFundIncentivizationProgram = {
     object: I,
   ): MsgFundIncentivizationProgram {
     const message = createBaseMsgFundIncentivizationProgram()
-    message.sender = object.sender ?? ''
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO
+    message.sender = object.sender ?? ""
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO
     message.funds = object.funds?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
@@ -338,11 +383,17 @@ function createBaseMsgFundIncentivizationProgramResponse(): MsgFundIncentivizati
 }
 
 export const MsgFundIncentivizationProgramResponse = {
-  encode(_: MsgFundIncentivizationProgramResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: MsgFundIncentivizationProgramResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundIncentivizationProgramResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): MsgFundIncentivizationProgramResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgFundIncentivizationProgramResponse()
@@ -377,33 +428,39 @@ export const MsgFundIncentivizationProgramResponse = {
 function createBaseIncentivizationProgram(): IncentivizationProgram {
   return {
     id: Long.UZERO,
-    escrowAddress: '',
+    escrowAddress: "",
     remainingEpochs: Long.ZERO,
-    lpDenom: '',
+    lpDenom: "",
     minLockupDuration: undefined,
     startTime: undefined,
   }
 }
 
 export const IncentivizationProgram = {
-  encode(message: IncentivizationProgram, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: IncentivizationProgram,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id)
     }
-    if (message.escrowAddress !== '') {
+    if (message.escrowAddress !== "") {
       writer.uint32(18).string(message.escrowAddress)
     }
     if (!message.remainingEpochs.isZero()) {
       writer.uint32(24).int64(message.remainingEpochs)
     }
-    if (message.lpDenom !== '') {
+    if (message.lpDenom !== "") {
       writer.uint32(34).string(message.lpDenom)
     }
     if (message.minLockupDuration !== undefined) {
       Duration.encode(message.minLockupDuration, writer.uint32(42).fork()).ldelim()
     }
     if (message.startTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.startTime), writer.uint32(50).fork()).ldelim()
+      Timestamp.encode(
+        toTimestamp(message.startTime),
+        writer.uint32(50).fork(),
+      ).ldelim()
     }
     return writer
   },
@@ -444,11 +501,17 @@ export const IncentivizationProgram = {
   fromJSON(object: any): IncentivizationProgram {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      escrowAddress: isSet(object.escrowAddress) ? String(object.escrowAddress) : '',
-      remainingEpochs: isSet(object.remainingEpochs) ? Long.fromValue(object.remainingEpochs) : Long.ZERO,
-      lpDenom: isSet(object.lpDenom) ? String(object.lpDenom) : '',
-      minLockupDuration: isSet(object.minLockupDuration) ? Duration.fromJSON(object.minLockupDuration) : undefined,
-      startTime: isSet(object.startTime) ? fromJsonTimestamp(object.startTime) : undefined,
+      escrowAddress: isSet(object.escrowAddress) ? String(object.escrowAddress) : "",
+      remainingEpochs: isSet(object.remainingEpochs)
+        ? Long.fromValue(object.remainingEpochs)
+        : Long.ZERO,
+      lpDenom: isSet(object.lpDenom) ? String(object.lpDenom) : "",
+      minLockupDuration: isSet(object.minLockupDuration)
+        ? Duration.fromJSON(object.minLockupDuration)
+        : undefined,
+      startTime: isSet(object.startTime)
+        ? fromJsonTimestamp(object.startTime)
+        : undefined,
     }
   },
 
@@ -456,23 +519,31 @@ export const IncentivizationProgram = {
     const obj: any = {}
     message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString())
     message.escrowAddress !== undefined && (obj.escrowAddress = message.escrowAddress)
-    message.remainingEpochs !== undefined && (obj.remainingEpochs = (message.remainingEpochs || Long.ZERO).toString())
+    message.remainingEpochs !== undefined &&
+      (obj.remainingEpochs = (message.remainingEpochs || Long.ZERO).toString())
     message.lpDenom !== undefined && (obj.lpDenom = message.lpDenom)
     message.minLockupDuration !== undefined &&
-      (obj.minLockupDuration = message.minLockupDuration ? Duration.toJSON(message.minLockupDuration) : undefined)
+      (obj.minLockupDuration = message.minLockupDuration
+        ? Duration.toJSON(message.minLockupDuration)
+        : undefined)
     message.startTime !== undefined && (obj.startTime = message.startTime.toISOString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<IncentivizationProgram>, I>>(object: I): IncentivizationProgram {
+  fromPartial<I extends Exact<DeepPartial<IncentivizationProgram>, I>>(
+    object: I,
+  ): IncentivizationProgram {
     const message = createBaseIncentivizationProgram()
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO
-    message.escrowAddress = object.escrowAddress ?? ''
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO
+    message.escrowAddress = object.escrowAddress ?? ""
     message.remainingEpochs =
       object.remainingEpochs !== undefined && object.remainingEpochs !== null
         ? Long.fromValue(object.remainingEpochs)
         : Long.ZERO
-    message.lpDenom = object.lpDenom ?? ''
+    message.lpDenom = object.lpDenom ?? ""
     message.minLockupDuration =
       object.minLockupDuration !== undefined && object.minLockupDuration !== null
         ? Duration.fromPartial(object.minLockupDuration)
@@ -502,7 +573,9 @@ export const GenesisState = {
       const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
-          message.incentivizationPrograms.push(IncentivizationProgram.decode(reader, reader.uint32()))
+          message.incentivizationPrograms.push(
+            IncentivizationProgram.decode(reader, reader.uint32()),
+          )
           break
         default:
           reader.skipType(tag & 7)
@@ -515,7 +588,9 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       incentivizationPrograms: Array.isArray(object?.incentivizationPrograms)
-        ? object.incentivizationPrograms.map((e: any) => IncentivizationProgram.fromJSON(e))
+        ? object.incentivizationPrograms.map((e: any) =>
+            IncentivizationProgram.fromJSON(e),
+          )
         : [],
     }
   },
@@ -535,7 +610,9 @@ export const GenesisState = {
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState()
     message.incentivizationPrograms =
-      object.incentivizationPrograms?.map((e) => IncentivizationProgram.fromPartial(e)) || []
+      object.incentivizationPrograms?.map((e) =>
+        IncentivizationProgram.fromPartial(e),
+      ) || []
     return message
   },
 }
@@ -545,14 +622,20 @@ function createBaseQueryIncentivizationProgramRequest(): QueryIncentivizationPro
 }
 
 export const QueryIncentivizationProgramRequest = {
-  encode(message: QueryIncentivizationProgramRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryIncentivizationProgramRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id)
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryIncentivizationProgramRequest {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): QueryIncentivizationProgramRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryIncentivizationProgramRequest()
@@ -586,7 +669,10 @@ export const QueryIncentivizationProgramRequest = {
     object: I,
   ): QueryIncentivizationProgramRequest {
     const message = createBaseQueryIncentivizationProgramRequest()
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO
     return message
   },
 }
@@ -596,14 +682,23 @@ function createBaseQueryIncentivizationProgramResponse(): QueryIncentivizationPr
 }
 
 export const QueryIncentivizationProgramResponse = {
-  encode(message: QueryIncentivizationProgramResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryIncentivizationProgramResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.incentivizationProgram !== undefined) {
-      IncentivizationProgram.encode(message.incentivizationProgram, writer.uint32(10).fork()).ldelim()
+      IncentivizationProgram.encode(
+        message.incentivizationProgram,
+        writer.uint32(10).fork(),
+      ).ldelim()
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryIncentivizationProgramResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): QueryIncentivizationProgramResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryIncentivizationProgramResponse()
@@ -611,7 +706,10 @@ export const QueryIncentivizationProgramResponse = {
       const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
-          message.incentivizationProgram = IncentivizationProgram.decode(reader, reader.uint32())
+          message.incentivizationProgram = IncentivizationProgram.decode(
+            reader,
+            reader.uint32(),
+          )
           break
         default:
           reader.skipType(tag & 7)
@@ -643,7 +741,8 @@ export const QueryIncentivizationProgramResponse = {
   ): QueryIncentivizationProgramResponse {
     const message = createBaseQueryIncentivizationProgramResponse()
     message.incentivizationProgram =
-      object.incentivizationProgram !== undefined && object.incentivizationProgram !== null
+      object.incentivizationProgram !== undefined &&
+      object.incentivizationProgram !== null
         ? IncentivizationProgram.fromPartial(object.incentivizationProgram)
         : undefined
     return message
@@ -655,14 +754,20 @@ function createBaseQueryIncentivizationProgramsRequest(): QueryIncentivizationPr
 }
 
 export const QueryIncentivizationProgramsRequest = {
-  encode(message: QueryIncentivizationProgramsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryIncentivizationProgramsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryIncentivizationProgramsRequest {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): QueryIncentivizationProgramsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryIncentivizationProgramsRequest()
@@ -682,14 +787,18 @@ export const QueryIncentivizationProgramsRequest = {
 
   fromJSON(object: any): QueryIncentivizationProgramsRequest {
     return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: QueryIncentivizationProgramsRequest): unknown {
     const obj: any = {}
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
@@ -710,7 +819,10 @@ function createBaseQueryIncentivizationProgramsResponse(): QueryIncentivizationP
 }
 
 export const QueryIncentivizationProgramsResponse = {
-  encode(message: QueryIncentivizationProgramsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryIncentivizationProgramsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.incentivizationPrograms) {
       IncentivizationProgram.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -720,7 +832,10 @@ export const QueryIncentivizationProgramsResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryIncentivizationProgramsResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): QueryIncentivizationProgramsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryIncentivizationProgramsResponse()
@@ -728,7 +843,9 @@ export const QueryIncentivizationProgramsResponse = {
       const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
-          message.incentivizationPrograms.push(IncentivizationProgram.decode(reader, reader.uint32()))
+          message.incentivizationPrograms.push(
+            IncentivizationProgram.decode(reader, reader.uint32()),
+          )
           break
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32())
@@ -744,9 +861,13 @@ export const QueryIncentivizationProgramsResponse = {
   fromJSON(object: any): QueryIncentivizationProgramsResponse {
     return {
       incentivizationPrograms: Array.isArray(object?.incentivizationPrograms)
-        ? object.incentivizationPrograms.map((e: any) => IncentivizationProgram.fromJSON(e))
+        ? object.incentivizationPrograms.map((e: any) =>
+            IncentivizationProgram.fromJSON(e),
+          )
         : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
@@ -760,7 +881,9 @@ export const QueryIncentivizationProgramsResponse = {
       obj.incentivizationPrograms = []
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
@@ -769,7 +892,9 @@ export const QueryIncentivizationProgramsResponse = {
   ): QueryIncentivizationProgramsResponse {
     const message = createBaseQueryIncentivizationProgramsResponse()
     message.incentivizationPrograms =
-      object.incentivizationPrograms?.map((e) => IncentivizationProgram.fromPartial(e)) || []
+      object.incentivizationPrograms?.map((e) =>
+        IncentivizationProgram.fromPartial(e),
+      ) || []
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -784,7 +909,9 @@ export interface Msg {
     request: MsgCreateIncentivizationProgram,
   ): Promise<MsgCreateIncentivizationProgramResponse>
   /** FundIncentivizationProgram allows an entity to fund an already existing incentivization program with more coins. */
-  FundIncentivizationProgram(request: MsgFundIncentivizationProgram): Promise<MsgFundIncentivizationProgramResponse>
+  FundIncentivizationProgram(
+    request: MsgFundIncentivizationProgram,
+  ): Promise<MsgFundIncentivizationProgramResponse>
 }
 
 export class MsgClientImpl implements Msg {
@@ -798,20 +925,38 @@ export class MsgClientImpl implements Msg {
     request: MsgCreateIncentivizationProgram,
   ): Promise<MsgCreateIncentivizationProgramResponse> {
     const data = MsgCreateIncentivizationProgram.encode(request).finish()
-    const promise = this.rpc.request('nibiru.incentivization.v1.Msg', 'CreateIncentivizationProgram', data)
-    return promise.then((data) => MsgCreateIncentivizationProgramResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "nibiru.incentivization.v1.Msg",
+      "CreateIncentivizationProgram",
+      data,
+    )
+    return promise.then((data) =>
+      MsgCreateIncentivizationProgramResponse.decode(new _m0.Reader(data)),
+    )
   }
 
-  FundIncentivizationProgram(request: MsgFundIncentivizationProgram): Promise<MsgFundIncentivizationProgramResponse> {
+  FundIncentivizationProgram(
+    request: MsgFundIncentivizationProgram,
+  ): Promise<MsgFundIncentivizationProgramResponse> {
     const data = MsgFundIncentivizationProgram.encode(request).finish()
-    const promise = this.rpc.request('nibiru.incentivization.v1.Msg', 'FundIncentivizationProgram', data)
-    return promise.then((data) => MsgFundIncentivizationProgramResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "nibiru.incentivization.v1.Msg",
+      "FundIncentivizationProgram",
+      data,
+    )
+    return promise.then((data) =>
+      MsgFundIncentivizationProgramResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
 export interface Query {
-  IncentivizationProgram(request: QueryIncentivizationProgramRequest): Promise<QueryIncentivizationProgramResponse>
-  IncentivizationPrograms(request: QueryIncentivizationProgramsRequest): Promise<QueryIncentivizationProgramsResponse>
+  IncentivizationProgram(
+    request: QueryIncentivizationProgramRequest,
+  ): Promise<QueryIncentivizationProgramResponse>
+  IncentivizationPrograms(
+    request: QueryIncentivizationProgramsRequest,
+  ): Promise<QueryIncentivizationProgramsResponse>
 }
 
 export class QueryClientImpl implements Query {
@@ -821,16 +966,32 @@ export class QueryClientImpl implements Query {
     this.IncentivizationProgram = this.IncentivizationProgram.bind(this)
     this.IncentivizationPrograms = this.IncentivizationPrograms.bind(this)
   }
-  IncentivizationProgram(request: QueryIncentivizationProgramRequest): Promise<QueryIncentivizationProgramResponse> {
+  IncentivizationProgram(
+    request: QueryIncentivizationProgramRequest,
+  ): Promise<QueryIncentivizationProgramResponse> {
     const data = QueryIncentivizationProgramRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.incentivization.v1.Query', 'IncentivizationProgram', data)
-    return promise.then((data) => QueryIncentivizationProgramResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "nibiru.incentivization.v1.Query",
+      "IncentivizationProgram",
+      data,
+    )
+    return promise.then((data) =>
+      QueryIncentivizationProgramResponse.decode(new _m0.Reader(data)),
+    )
   }
 
-  IncentivizationPrograms(request: QueryIncentivizationProgramsRequest): Promise<QueryIncentivizationProgramsResponse> {
+  IncentivizationPrograms(
+    request: QueryIncentivizationProgramsRequest,
+  ): Promise<QueryIncentivizationProgramsResponse> {
     const data = QueryIncentivizationProgramsRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.incentivization.v1.Query', 'IncentivizationPrograms', data)
-    return promise.then((data) => QueryIncentivizationProgramsResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "nibiru.incentivization.v1.Query",
+      "IncentivizationPrograms",
+      data,
+    )
+    return promise.then((data) =>
+      QueryIncentivizationProgramsResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
@@ -855,7 +1016,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
@@ -872,7 +1036,7 @@ function fromTimestamp(t: Timestamp): Date {
 function fromJsonTimestamp(o: any): Date {
   if (o instanceof Date) {
     return o
-  } else if (typeof o === 'string') {
+  } else if (typeof o === "string") {
     return new Date(o)
   } else {
     return fromTimestamp(Timestamp.fromJSON(o))

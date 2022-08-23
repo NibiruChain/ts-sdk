@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { Duration } from '../../google/protobuf/duration'
-import { Timestamp } from '../../google/protobuf/timestamp'
-import Long from 'long'
-import { Coin } from '../../cosmos/base/v1beta1/coin'
-import _m0 from 'protobufjs/minimal'
+import { Duration } from "../../google/protobuf/duration"
+import { Timestamp } from "../../google/protobuf/timestamp"
+import Long from "long"
+import { Coin } from "../../cosmos/base/v1beta1/coin"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.lockup.v1'
+export const protobufPackage = "nibiru.lockup.v1"
 
 export interface MsgLockTokens {
   owner: string
@@ -53,12 +53,12 @@ export interface EventUnlock {
 }
 
 function createBaseMsgLockTokens(): MsgLockTokens {
-  return { owner: '', duration: undefined, coins: [] }
+  return { owner: "", duration: undefined, coins: [] }
 }
 
 export const MsgLockTokens = {
   encode(message: MsgLockTokens, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.owner !== '') {
+    if (message.owner !== "") {
       writer.uint32(10).string(message.owner)
     }
     if (message.duration !== undefined) {
@@ -96,16 +96,19 @@ export const MsgLockTokens = {
 
   fromJSON(object: any): MsgLockTokens {
     return {
-      owner: isSet(object.owner) ? String(object.owner) : '',
+      owner: isSet(object.owner) ? String(object.owner) : "",
       duration: isSet(object.duration) ? Duration.fromJSON(object.duration) : undefined,
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
+      coins: Array.isArray(object?.coins)
+        ? object.coins.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
   toJSON(message: MsgLockTokens): unknown {
     const obj: any = {}
     message.owner !== undefined && (obj.owner = message.owner)
-    message.duration !== undefined && (obj.duration = message.duration ? Duration.toJSON(message.duration) : undefined)
+    message.duration !== undefined &&
+      (obj.duration = message.duration ? Duration.toJSON(message.duration) : undefined)
     if (message.coins) {
       obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
@@ -114,11 +117,15 @@ export const MsgLockTokens = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgLockTokens>, I>>(object: I): MsgLockTokens {
+  fromPartial<I extends Exact<DeepPartial<MsgLockTokens>, I>>(
+    object: I,
+  ): MsgLockTokens {
     const message = createBaseMsgLockTokens()
-    message.owner = object.owner ?? ''
+    message.owner = object.owner ?? ""
     message.duration =
-      object.duration !== undefined && object.duration !== null ? Duration.fromPartial(object.duration) : undefined
+      object.duration !== undefined && object.duration !== null
+        ? Duration.fromPartial(object.duration)
+        : undefined
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
@@ -129,7 +136,10 @@ function createBaseMsgLockTokensResponse(): MsgLockTokensResponse {
 }
 
 export const MsgLockTokensResponse = {
-  encode(message: MsgLockTokensResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgLockTokensResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.lockId.isZero()) {
       writer.uint32(8).uint64(message.lockId)
     }
@@ -162,24 +172,33 @@ export const MsgLockTokensResponse = {
 
   toJSON(message: MsgLockTokensResponse): unknown {
     const obj: any = {}
-    message.lockId !== undefined && (obj.lockId = (message.lockId || Long.UZERO).toString())
+    message.lockId !== undefined &&
+      (obj.lockId = (message.lockId || Long.UZERO).toString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgLockTokensResponse>, I>>(object: I): MsgLockTokensResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgLockTokensResponse>, I>>(
+    object: I,
+  ): MsgLockTokensResponse {
     const message = createBaseMsgLockTokensResponse()
-    message.lockId = object.lockId !== undefined && object.lockId !== null ? Long.fromValue(object.lockId) : Long.UZERO
+    message.lockId =
+      object.lockId !== undefined && object.lockId !== null
+        ? Long.fromValue(object.lockId)
+        : Long.UZERO
     return message
   },
 }
 
 function createBaseMsgInitiateUnlock(): MsgInitiateUnlock {
-  return { owner: '', lockId: Long.UZERO }
+  return { owner: "", lockId: Long.UZERO }
 }
 
 export const MsgInitiateUnlock = {
-  encode(message: MsgInitiateUnlock, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.owner !== '') {
+  encode(
+    message: MsgInitiateUnlock,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.owner !== "") {
       writer.uint32(10).string(message.owner)
     }
     if (!message.lockId.isZero()) {
@@ -211,7 +230,7 @@ export const MsgInitiateUnlock = {
 
   fromJSON(object: any): MsgInitiateUnlock {
     return {
-      owner: isSet(object.owner) ? String(object.owner) : '',
+      owner: isSet(object.owner) ? String(object.owner) : "",
       lockId: isSet(object.lockId) ? Long.fromValue(object.lockId) : Long.UZERO,
     }
   },
@@ -219,14 +238,20 @@ export const MsgInitiateUnlock = {
   toJSON(message: MsgInitiateUnlock): unknown {
     const obj: any = {}
     message.owner !== undefined && (obj.owner = message.owner)
-    message.lockId !== undefined && (obj.lockId = (message.lockId || Long.UZERO).toString())
+    message.lockId !== undefined &&
+      (obj.lockId = (message.lockId || Long.UZERO).toString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgInitiateUnlock>, I>>(object: I): MsgInitiateUnlock {
+  fromPartial<I extends Exact<DeepPartial<MsgInitiateUnlock>, I>>(
+    object: I,
+  ): MsgInitiateUnlock {
     const message = createBaseMsgInitiateUnlock()
-    message.owner = object.owner ?? ''
-    message.lockId = object.lockId !== undefined && object.lockId !== null ? Long.fromValue(object.lockId) : Long.UZERO
+    message.owner = object.owner ?? ""
+    message.lockId =
+      object.lockId !== undefined && object.lockId !== null
+        ? Long.fromValue(object.lockId)
+        : Long.UZERO
     return message
   },
 }
@@ -236,7 +261,10 @@ function createBaseMsgInitiateUnlockResponse(): MsgInitiateUnlockResponse {
 }
 
 export const MsgInitiateUnlockResponse = {
-  encode(_: MsgInitiateUnlockResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: MsgInitiateUnlockResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
@@ -264,19 +292,21 @@ export const MsgInitiateUnlockResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgInitiateUnlockResponse>, I>>(_: I): MsgInitiateUnlockResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgInitiateUnlockResponse>, I>>(
+    _: I,
+  ): MsgInitiateUnlockResponse {
     const message = createBaseMsgInitiateUnlockResponse()
     return message
   },
 }
 
 function createBaseMsgUnlock(): MsgUnlock {
-  return { owner: '', lockId: Long.UZERO }
+  return { owner: "", lockId: Long.UZERO }
 }
 
 export const MsgUnlock = {
   encode(message: MsgUnlock, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.owner !== '') {
+    if (message.owner !== "") {
       writer.uint32(10).string(message.owner)
     }
     if (!message.lockId.isZero()) {
@@ -308,7 +338,7 @@ export const MsgUnlock = {
 
   fromJSON(object: any): MsgUnlock {
     return {
-      owner: isSet(object.owner) ? String(object.owner) : '',
+      owner: isSet(object.owner) ? String(object.owner) : "",
       lockId: isSet(object.lockId) ? Long.fromValue(object.lockId) : Long.UZERO,
     }
   },
@@ -316,14 +346,18 @@ export const MsgUnlock = {
   toJSON(message: MsgUnlock): unknown {
     const obj: any = {}
     message.owner !== undefined && (obj.owner = message.owner)
-    message.lockId !== undefined && (obj.lockId = (message.lockId || Long.UZERO).toString())
+    message.lockId !== undefined &&
+      (obj.lockId = (message.lockId || Long.UZERO).toString())
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgUnlock>, I>>(object: I): MsgUnlock {
     const message = createBaseMsgUnlock()
-    message.owner = object.owner ?? ''
-    message.lockId = object.lockId !== undefined && object.lockId !== null ? Long.fromValue(object.lockId) : Long.UZERO
+    message.owner = object.owner ?? ""
+    message.lockId =
+      object.lockId !== undefined && object.lockId !== null
+        ? Long.fromValue(object.lockId)
+        : Long.UZERO
     return message
   },
 }
@@ -361,14 +395,16 @@ export const MsgUnlockResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgUnlockResponse>, I>>(_: I): MsgUnlockResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgUnlockResponse>, I>>(
+    _: I,
+  ): MsgUnlockResponse {
     const message = createBaseMsgUnlockResponse()
     return message
   },
 }
 
 function createBaseEventLock(): EventLock {
-  return { lockId: Long.UZERO, owner: '', duration: undefined, coins: [] }
+  return { lockId: Long.UZERO, owner: "", duration: undefined, coins: [] }
 }
 
 export const EventLock = {
@@ -376,7 +412,7 @@ export const EventLock = {
     if (!message.lockId.isZero()) {
       writer.uint32(8).uint64(message.lockId)
     }
-    if (message.owner !== '') {
+    if (message.owner !== "") {
       writer.uint32(18).string(message.owner)
     }
     if (message.duration !== undefined) {
@@ -418,17 +454,21 @@ export const EventLock = {
   fromJSON(object: any): EventLock {
     return {
       lockId: isSet(object.lockId) ? Long.fromValue(object.lockId) : Long.UZERO,
-      owner: isSet(object.owner) ? String(object.owner) : '',
+      owner: isSet(object.owner) ? String(object.owner) : "",
       duration: isSet(object.duration) ? Duration.fromJSON(object.duration) : undefined,
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
+      coins: Array.isArray(object?.coins)
+        ? object.coins.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
   toJSON(message: EventLock): unknown {
     const obj: any = {}
-    message.lockId !== undefined && (obj.lockId = (message.lockId || Long.UZERO).toString())
+    message.lockId !== undefined &&
+      (obj.lockId = (message.lockId || Long.UZERO).toString())
     message.owner !== undefined && (obj.owner = message.owner)
-    message.duration !== undefined && (obj.duration = message.duration ? Duration.toJSON(message.duration) : undefined)
+    message.duration !== undefined &&
+      (obj.duration = message.duration ? Duration.toJSON(message.duration) : undefined)
     if (message.coins) {
       obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
@@ -439,32 +479,43 @@ export const EventLock = {
 
   fromPartial<I extends Exact<DeepPartial<EventLock>, I>>(object: I): EventLock {
     const message = createBaseEventLock()
-    message.lockId = object.lockId !== undefined && object.lockId !== null ? Long.fromValue(object.lockId) : Long.UZERO
-    message.owner = object.owner ?? ''
+    message.lockId =
+      object.lockId !== undefined && object.lockId !== null
+        ? Long.fromValue(object.lockId)
+        : Long.UZERO
+    message.owner = object.owner ?? ""
     message.duration =
-      object.duration !== undefined && object.duration !== null ? Duration.fromPartial(object.duration) : undefined
+      object.duration !== undefined && object.duration !== null
+        ? Duration.fromPartial(object.duration)
+        : undefined
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
 }
 
 function createBaseEventUnlockInitiated(): EventUnlockInitiated {
-  return { lockId: Long.UZERO, owner: '', coins: [], unlockingAt: undefined }
+  return { lockId: Long.UZERO, owner: "", coins: [], unlockingAt: undefined }
 }
 
 export const EventUnlockInitiated = {
-  encode(message: EventUnlockInitiated, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: EventUnlockInitiated,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.lockId.isZero()) {
       writer.uint32(8).uint64(message.lockId)
     }
-    if (message.owner !== '') {
+    if (message.owner !== "") {
       writer.uint32(18).string(message.owner)
     }
     for (const v of message.coins) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim()
     }
     if (message.unlockingAt !== undefined) {
-      Timestamp.encode(toTimestamp(message.unlockingAt), writer.uint32(34).fork()).ldelim()
+      Timestamp.encode(
+        toTimestamp(message.unlockingAt),
+        writer.uint32(34).fork(),
+      ).ldelim()
     }
     return writer
   },
@@ -499,29 +550,40 @@ export const EventUnlockInitiated = {
   fromJSON(object: any): EventUnlockInitiated {
     return {
       lockId: isSet(object.lockId) ? Long.fromValue(object.lockId) : Long.UZERO,
-      owner: isSet(object.owner) ? String(object.owner) : '',
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
-      unlockingAt: isSet(object.unlockingAt) ? fromJsonTimestamp(object.unlockingAt) : undefined,
+      owner: isSet(object.owner) ? String(object.owner) : "",
+      coins: Array.isArray(object?.coins)
+        ? object.coins.map((e: any) => Coin.fromJSON(e))
+        : [],
+      unlockingAt: isSet(object.unlockingAt)
+        ? fromJsonTimestamp(object.unlockingAt)
+        : undefined,
     }
   },
 
   toJSON(message: EventUnlockInitiated): unknown {
     const obj: any = {}
-    message.lockId !== undefined && (obj.lockId = (message.lockId || Long.UZERO).toString())
+    message.lockId !== undefined &&
+      (obj.lockId = (message.lockId || Long.UZERO).toString())
     message.owner !== undefined && (obj.owner = message.owner)
     if (message.coins) {
       obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
       obj.coins = []
     }
-    message.unlockingAt !== undefined && (obj.unlockingAt = message.unlockingAt.toISOString())
+    message.unlockingAt !== undefined &&
+      (obj.unlockingAt = message.unlockingAt.toISOString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventUnlockInitiated>, I>>(object: I): EventUnlockInitiated {
+  fromPartial<I extends Exact<DeepPartial<EventUnlockInitiated>, I>>(
+    object: I,
+  ): EventUnlockInitiated {
     const message = createBaseEventUnlockInitiated()
-    message.lockId = object.lockId !== undefined && object.lockId !== null ? Long.fromValue(object.lockId) : Long.UZERO
-    message.owner = object.owner ?? ''
+    message.lockId =
+      object.lockId !== undefined && object.lockId !== null
+        ? Long.fromValue(object.lockId)
+        : Long.UZERO
+    message.owner = object.owner ?? ""
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || []
     message.unlockingAt = object.unlockingAt ?? undefined
     return message
@@ -529,7 +591,7 @@ export const EventUnlockInitiated = {
 }
 
 function createBaseEventUnlock(): EventUnlock {
-  return { lockId: Long.UZERO, owner: '', coins: [] }
+  return { lockId: Long.UZERO, owner: "", coins: [] }
 }
 
 export const EventUnlock = {
@@ -537,7 +599,7 @@ export const EventUnlock = {
     if (!message.lockId.isZero()) {
       writer.uint32(8).uint64(message.lockId)
     }
-    if (message.owner !== '') {
+    if (message.owner !== "") {
       writer.uint32(18).string(message.owner)
     }
     for (const v of message.coins) {
@@ -573,14 +635,17 @@ export const EventUnlock = {
   fromJSON(object: any): EventUnlock {
     return {
       lockId: isSet(object.lockId) ? Long.fromValue(object.lockId) : Long.UZERO,
-      owner: isSet(object.owner) ? String(object.owner) : '',
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
+      owner: isSet(object.owner) ? String(object.owner) : "",
+      coins: Array.isArray(object?.coins)
+        ? object.coins.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
   toJSON(message: EventUnlock): unknown {
     const obj: any = {}
-    message.lockId !== undefined && (obj.lockId = (message.lockId || Long.UZERO).toString())
+    message.lockId !== undefined &&
+      (obj.lockId = (message.lockId || Long.UZERO).toString())
     message.owner !== undefined && (obj.owner = message.owner)
     if (message.coins) {
       obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined))
@@ -592,8 +657,11 @@ export const EventUnlock = {
 
   fromPartial<I extends Exact<DeepPartial<EventUnlock>, I>>(object: I): EventUnlock {
     const message = createBaseEventUnlock()
-    message.lockId = object.lockId !== undefined && object.lockId !== null ? Long.fromValue(object.lockId) : Long.UZERO
-    message.owner = object.owner ?? ''
+    message.lockId =
+      object.lockId !== undefined && object.lockId !== null
+        ? Long.fromValue(object.lockId)
+        : Long.UZERO
+    message.owner = object.owner ?? ""
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
@@ -617,19 +685,21 @@ export class MsgClientImpl implements Msg {
   }
   LockTokens(request: MsgLockTokens): Promise<MsgLockTokensResponse> {
     const data = MsgLockTokens.encode(request).finish()
-    const promise = this.rpc.request('nibiru.lockup.v1.Msg', 'LockTokens', data)
+    const promise = this.rpc.request("nibiru.lockup.v1.Msg", "LockTokens", data)
     return promise.then((data) => MsgLockTokensResponse.decode(new _m0.Reader(data)))
   }
 
   InitiateUnlock(request: MsgInitiateUnlock): Promise<MsgInitiateUnlockResponse> {
     const data = MsgInitiateUnlock.encode(request).finish()
-    const promise = this.rpc.request('nibiru.lockup.v1.Msg', 'InitiateUnlock', data)
-    return promise.then((data) => MsgInitiateUnlockResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request("nibiru.lockup.v1.Msg", "InitiateUnlock", data)
+    return promise.then((data) =>
+      MsgInitiateUnlockResponse.decode(new _m0.Reader(data)),
+    )
   }
 
   Unlock(request: MsgUnlock): Promise<MsgUnlockResponse> {
     const data = MsgUnlock.encode(request).finish()
-    const promise = this.rpc.request('nibiru.lockup.v1.Msg', 'Unlock', data)
+    const promise = this.rpc.request("nibiru.lockup.v1.Msg", "Unlock", data)
     return promise.then((data) => MsgUnlockResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -655,7 +725,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
@@ -672,7 +745,7 @@ function fromTimestamp(t: Timestamp): Date {
 function fromJsonTimestamp(o: any): Date {
   if (o instanceof Date) {
     return o
-  } else if (typeof o === 'string') {
+  } else if (typeof o === "string") {
     return new Date(o)
   } else {
     return fromTimestamp(Timestamp.fromJSON(o))

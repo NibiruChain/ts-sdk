@@ -80,6 +80,7 @@ describe("test query module", () => {
     expect(balanceDenoms).toContain("unibi")
   })
 
+  /*  // NOTE dex on hold for public testnet
   test("query dex params - client.dex.params", async () => {
     const { client, disconnect } = await initQuery(NETWORK)
     const { params } = await client.dex.params()
@@ -96,15 +97,15 @@ describe("test query module", () => {
     expect(params?.whitelistedAsset[0]).not.toBe("")
     disconnect()
   })
+  */
 
   test("query perp params - client.perp.params", async () => {
     const { client, disconnect } = await initQuery(NETWORK)
     const { params } = await client.perp.params()
-    console.log("perp.params: %o", params)
+    console.log("perp.params: %o", JSON.stringify(params))
     expect(params).not.toBeNull()
     const fields: string[] = [
       "stopped",
-      "maintenanceMarginRatio",
       "feePoolFeeRatio",
       "liquidationFeeRatio",
       "partialLiquidationRatio",

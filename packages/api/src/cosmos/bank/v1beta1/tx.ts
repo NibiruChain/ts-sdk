@@ -1,10 +1,10 @@
 /* eslint-disable */
-import Long from 'long'
-import { Coin } from '../../base/v1beta1/coin'
-import { Input, Output } from './bank'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import { Coin } from "../../base/v1beta1/coin"
+import { Input, Output } from "./bank"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.bank.v1beta1'
+export const protobufPackage = "cosmos.bank.v1beta1"
 
 /** MsgSend represents a message to send coins from one account to another. */
 export interface MsgSend {
@@ -26,15 +26,15 @@ export interface MsgMultiSend {
 export interface MsgMultiSendResponse {}
 
 function createBaseMsgSend(): MsgSend {
-  return { fromAddress: '', toAddress: '', amount: [] }
+  return { fromAddress: "", toAddress: "", amount: [] }
 }
 
 export const MsgSend = {
   encode(message: MsgSend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fromAddress !== '') {
+    if (message.fromAddress !== "") {
       writer.uint32(10).string(message.fromAddress)
     }
-    if (message.toAddress !== '') {
+    if (message.toAddress !== "") {
       writer.uint32(18).string(message.toAddress)
     }
     for (const v of message.amount) {
@@ -69,9 +69,11 @@ export const MsgSend = {
 
   fromJSON(object: any): MsgSend {
     return {
-      fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : '',
-      toAddress: isSet(object.toAddress) ? String(object.toAddress) : '',
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
+      fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
+      toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
+      amount: Array.isArray(object?.amount)
+        ? object.amount.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
@@ -89,8 +91,8 @@ export const MsgSend = {
 
   fromPartial<I extends Exact<DeepPartial<MsgSend>, I>>(object: I): MsgSend {
     const message = createBaseMsgSend()
-    message.fromAddress = object.fromAddress ?? ''
-    message.toAddress = object.toAddress ?? ''
+    message.fromAddress = object.fromAddress ?? ""
+    message.toAddress = object.toAddress ?? ""
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
@@ -173,8 +175,12 @@ export const MsgMultiSend = {
 
   fromJSON(object: any): MsgMultiSend {
     return {
-      inputs: Array.isArray(object?.inputs) ? object.inputs.map((e: any) => Input.fromJSON(e)) : [],
-      outputs: Array.isArray(object?.outputs) ? object.outputs.map((e: any) => Output.fromJSON(e)) : [],
+      inputs: Array.isArray(object?.inputs)
+        ? object.inputs.map((e: any) => Input.fromJSON(e))
+        : [],
+      outputs: Array.isArray(object?.outputs)
+        ? object.outputs.map((e: any) => Output.fromJSON(e))
+        : [],
     }
   },
 
@@ -206,7 +212,10 @@ function createBaseMsgMultiSendResponse(): MsgMultiSendResponse {
 }
 
 export const MsgMultiSendResponse = {
-  encode(_: MsgMultiSendResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: MsgMultiSendResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
@@ -234,7 +243,9 @@ export const MsgMultiSendResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgMultiSendResponse>, I>>(_: I): MsgMultiSendResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgMultiSendResponse>, I>>(
+    _: I,
+  ): MsgMultiSendResponse {
     const message = createBaseMsgMultiSendResponse()
     return message
   },
@@ -257,13 +268,13 @@ export class MsgClientImpl implements Msg {
   }
   Send(request: MsgSend): Promise<MsgSendResponse> {
     const data = MsgSend.encode(request).finish()
-    const promise = this.rpc.request('cosmos.bank.v1beta1.Msg', 'Send', data)
+    const promise = this.rpc.request("cosmos.bank.v1beta1.Msg", "Send", data)
     return promise.then((data) => MsgSendResponse.decode(new _m0.Reader(data)))
   }
 
   MultiSend(request: MsgMultiSend): Promise<MsgMultiSendResponse> {
     const data = MsgMultiSend.encode(request).finish()
-    const promise = this.rpc.request('cosmos.bank.v1beta1.Msg', 'MultiSend', data)
+    const promise = this.rpc.request("cosmos.bank.v1beta1.Msg", "MultiSend", data)
     return promise.then((data) => MsgMultiSendResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -289,7 +300,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

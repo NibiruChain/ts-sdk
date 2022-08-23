@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { Duration } from '../../google/protobuf/duration'
-import { AssetPair } from '../../common/common'
-import Long from 'long'
-import { Coin } from '../../cosmos/base/v1beta1/coin'
-import _m0 from 'protobufjs/minimal'
+import { Duration } from "../../google/protobuf/duration"
+import { AssetPair } from "../../common/common"
+import Long from "long"
+import { Coin } from "../../cosmos/base/v1beta1/coin"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.perp.v1'
+export const protobufPackage = "nibiru.perp.v1"
 
 export enum Side {
   SIDE_UNSPECIFIED = 0,
@@ -17,16 +17,16 @@ export enum Side {
 export function sideFromJSON(object: any): Side {
   switch (object) {
     case 0:
-    case 'SIDE_UNSPECIFIED':
+    case "SIDE_UNSPECIFIED":
       return Side.SIDE_UNSPECIFIED
     case 1:
-    case 'BUY':
+    case "BUY":
       return Side.BUY
     case 2:
-    case 'SELL':
+    case "SELL":
       return Side.SELL
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return Side.UNRECOGNIZED
   }
@@ -35,14 +35,14 @@ export function sideFromJSON(object: any): Side {
 export function sideToJSON(object: Side): string {
   switch (object) {
     case Side.SIDE_UNSPECIFIED:
-      return 'SIDE_UNSPECIFIED'
+      return "SIDE_UNSPECIFIED"
     case Side.BUY:
-      return 'BUY'
+      return "BUY"
     case Side.SELL:
-      return 'SELL'
+      return "SELL"
     case Side.UNRECOGNIZED:
     default:
-      return 'UNRECOGNIZED'
+      return "UNRECOGNIZED"
   }
 }
 
@@ -57,19 +57,19 @@ export enum PnLCalcOption {
 export function pnLCalcOptionFromJSON(object: any): PnLCalcOption {
   switch (object) {
     case 0:
-    case 'PNL_CALC_OPTION_UNSPECIFIED':
+    case "PNL_CALC_OPTION_UNSPECIFIED":
       return PnLCalcOption.PNL_CALC_OPTION_UNSPECIFIED
     case 1:
-    case 'SPOT_PRICE':
+    case "SPOT_PRICE":
       return PnLCalcOption.SPOT_PRICE
     case 2:
-    case 'TWAP':
+    case "TWAP":
       return PnLCalcOption.TWAP
     case 3:
-    case 'ORACLE':
+    case "ORACLE":
       return PnLCalcOption.ORACLE
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return PnLCalcOption.UNRECOGNIZED
   }
@@ -78,16 +78,16 @@ export function pnLCalcOptionFromJSON(object: any): PnLCalcOption {
 export function pnLCalcOptionToJSON(object: PnLCalcOption): string {
   switch (object) {
     case PnLCalcOption.PNL_CALC_OPTION_UNSPECIFIED:
-      return 'PNL_CALC_OPTION_UNSPECIFIED'
+      return "PNL_CALC_OPTION_UNSPECIFIED"
     case PnLCalcOption.SPOT_PRICE:
-      return 'SPOT_PRICE'
+      return "SPOT_PRICE"
     case PnLCalcOption.TWAP:
-      return 'TWAP'
+      return "TWAP"
     case PnLCalcOption.ORACLE:
-      return 'ORACLE'
+      return "ORACLE"
     case PnLCalcOption.UNRECOGNIZED:
     default:
-      return 'UNRECOGNIZED'
+      return "UNRECOGNIZED"
   }
 }
 
@@ -101,16 +101,16 @@ export enum PnLPreferenceOption {
 export function pnLPreferenceOptionFromJSON(object: any): PnLPreferenceOption {
   switch (object) {
     case 0:
-    case 'PNL_PREFERENCE_UNSPECIFIED':
+    case "PNL_PREFERENCE_UNSPECIFIED":
       return PnLPreferenceOption.PNL_PREFERENCE_UNSPECIFIED
     case 1:
-    case 'MAX':
+    case "MAX":
       return PnLPreferenceOption.MAX
     case 2:
-    case 'MIN':
+    case "MIN":
       return PnLPreferenceOption.MIN
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return PnLPreferenceOption.UNRECOGNIZED
   }
@@ -119,14 +119,14 @@ export function pnLPreferenceOptionFromJSON(object: any): PnLPreferenceOption {
 export function pnLPreferenceOptionToJSON(object: PnLPreferenceOption): string {
   switch (object) {
     case PnLPreferenceOption.PNL_PREFERENCE_UNSPECIFIED:
-      return 'PNL_PREFERENCE_UNSPECIFIED'
+      return "PNL_PREFERENCE_UNSPECIFIED"
     case PnLPreferenceOption.MAX:
-      return 'MAX'
+      return "MAX"
     case PnLPreferenceOption.MIN:
-      return 'MIN'
+      return "MIN"
     case PnLPreferenceOption.UNRECOGNIZED:
     default:
-      return 'UNRECOGNIZED'
+      return "UNRECOGNIZED"
   }
 }
 
@@ -138,47 +138,50 @@ export enum MarginCalculationPriceOption {
   UNRECOGNIZED = -1,
 }
 
-export function marginCalculationPriceOptionFromJSON(object: any): MarginCalculationPriceOption {
+export function marginCalculationPriceOptionFromJSON(
+  object: any,
+): MarginCalculationPriceOption {
   switch (object) {
     case 0:
-    case 'MARGIN_CALCULATION_PRICE_OPTION_UNSPECIFIED':
+    case "MARGIN_CALCULATION_PRICE_OPTION_UNSPECIFIED":
       return MarginCalculationPriceOption.MARGIN_CALCULATION_PRICE_OPTION_UNSPECIFIED
     case 1:
-    case 'SPOT':
+    case "SPOT":
       return MarginCalculationPriceOption.SPOT
     case 2:
-    case 'INDEX':
+    case "INDEX":
       return MarginCalculationPriceOption.INDEX
     case 3:
-    case 'MAX_PNL':
+    case "MAX_PNL":
       return MarginCalculationPriceOption.MAX_PNL
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return MarginCalculationPriceOption.UNRECOGNIZED
   }
 }
 
-export function marginCalculationPriceOptionToJSON(object: MarginCalculationPriceOption): string {
+export function marginCalculationPriceOptionToJSON(
+  object: MarginCalculationPriceOption,
+): string {
   switch (object) {
     case MarginCalculationPriceOption.MARGIN_CALCULATION_PRICE_OPTION_UNSPECIFIED:
-      return 'MARGIN_CALCULATION_PRICE_OPTION_UNSPECIFIED'
+      return "MARGIN_CALCULATION_PRICE_OPTION_UNSPECIFIED"
     case MarginCalculationPriceOption.SPOT:
-      return 'SPOT'
+      return "SPOT"
     case MarginCalculationPriceOption.INDEX:
-      return 'INDEX'
+      return "INDEX"
     case MarginCalculationPriceOption.MAX_PNL:
-      return 'MAX_PNL'
+      return "MAX_PNL"
     case MarginCalculationPriceOption.UNRECOGNIZED:
     default:
-      return 'UNRECOGNIZED'
+      return "UNRECOGNIZED"
   }
 }
 
 export interface Params {
   /** stopped identifies if the perp exchange is stopped or not */
   stopped: boolean
-  maintenanceMarginRatio: string
   /** FeePoolFeeRatio is the ratio transferred to the the fee pool */
   feePoolFeeRatio: string
   /** EcosystemFundFeeRatio is the ratio transferred to the PerpEF. */
@@ -191,8 +194,8 @@ export interface Params {
   liquidationFeeRatio: string
   /** PartialLiquidationRatio is the share we try to liquidate if the margin is higher than liquidation fee */
   partialLiquidationRatio: string
-  /** specifies the interval on which the fundingPayment is being updated */
-  epochIdentifier: string
+  /** specifies the interval on which the funding rate is updated */
+  fundingRateInterval: string
   /** amount of time to look back for TWAP calculations */
   twapLookbackWindow?: Duration
 }
@@ -289,12 +292,11 @@ export interface PrepaidBadDebt {
 function createBaseParams(): Params {
   return {
     stopped: false,
-    maintenanceMarginRatio: '',
-    feePoolFeeRatio: '',
-    ecosystemFundFeeRatio: '',
-    liquidationFeeRatio: '',
-    partialLiquidationRatio: '',
-    epochIdentifier: '',
+    feePoolFeeRatio: "",
+    ecosystemFundFeeRatio: "",
+    liquidationFeeRatio: "",
+    partialLiquidationRatio: "",
+    fundingRateInterval: "",
     twapLookbackWindow: undefined,
   }
 }
@@ -304,23 +306,20 @@ export const Params = {
     if (message.stopped === true) {
       writer.uint32(8).bool(message.stopped)
     }
-    if (message.maintenanceMarginRatio !== '') {
-      writer.uint32(18).string(message.maintenanceMarginRatio)
-    }
-    if (message.feePoolFeeRatio !== '') {
+    if (message.feePoolFeeRatio !== "") {
       writer.uint32(26).string(message.feePoolFeeRatio)
     }
-    if (message.ecosystemFundFeeRatio !== '') {
+    if (message.ecosystemFundFeeRatio !== "") {
       writer.uint32(34).string(message.ecosystemFundFeeRatio)
     }
-    if (message.liquidationFeeRatio !== '') {
+    if (message.liquidationFeeRatio !== "") {
       writer.uint32(42).string(message.liquidationFeeRatio)
     }
-    if (message.partialLiquidationRatio !== '') {
+    if (message.partialLiquidationRatio !== "") {
       writer.uint32(50).string(message.partialLiquidationRatio)
     }
-    if (message.epochIdentifier !== '') {
-      writer.uint32(58).string(message.epochIdentifier)
+    if (message.fundingRateInterval !== "") {
+      writer.uint32(58).string(message.fundingRateInterval)
     }
     if (message.twapLookbackWindow !== undefined) {
       Duration.encode(message.twapLookbackWindow, writer.uint32(66).fork()).ldelim()
@@ -338,9 +337,6 @@ export const Params = {
         case 1:
           message.stopped = reader.bool()
           break
-        case 2:
-          message.maintenanceMarginRatio = reader.string()
-          break
         case 3:
           message.feePoolFeeRatio = reader.string()
           break
@@ -354,7 +350,7 @@ export const Params = {
           message.partialLiquidationRatio = reader.string()
           break
         case 7:
-          message.epochIdentifier = reader.string()
+          message.fundingRateInterval = reader.string()
           break
         case 8:
           message.twapLookbackWindow = Duration.decode(reader, reader.uint32())
@@ -370,39 +366,55 @@ export const Params = {
   fromJSON(object: any): Params {
     return {
       stopped: isSet(object.stopped) ? Boolean(object.stopped) : false,
-      maintenanceMarginRatio: isSet(object.maintenanceMarginRatio) ? String(object.maintenanceMarginRatio) : '',
-      feePoolFeeRatio: isSet(object.feePoolFeeRatio) ? String(object.feePoolFeeRatio) : '',
-      ecosystemFundFeeRatio: isSet(object.ecosystemFundFeeRatio) ? String(object.ecosystemFundFeeRatio) : '',
-      liquidationFeeRatio: isSet(object.liquidationFeeRatio) ? String(object.liquidationFeeRatio) : '',
-      partialLiquidationRatio: isSet(object.partialLiquidationRatio) ? String(object.partialLiquidationRatio) : '',
-      epochIdentifier: isSet(object.epochIdentifier) ? String(object.epochIdentifier) : '',
-      twapLookbackWindow: isSet(object.twapLookbackWindow) ? Duration.fromJSON(object.twapLookbackWindow) : undefined,
+      feePoolFeeRatio: isSet(object.feePoolFeeRatio)
+        ? String(object.feePoolFeeRatio)
+        : "",
+      ecosystemFundFeeRatio: isSet(object.ecosystemFundFeeRatio)
+        ? String(object.ecosystemFundFeeRatio)
+        : "",
+      liquidationFeeRatio: isSet(object.liquidationFeeRatio)
+        ? String(object.liquidationFeeRatio)
+        : "",
+      partialLiquidationRatio: isSet(object.partialLiquidationRatio)
+        ? String(object.partialLiquidationRatio)
+        : "",
+      fundingRateInterval: isSet(object.fundingRateInterval)
+        ? String(object.fundingRateInterval)
+        : "",
+      twapLookbackWindow: isSet(object.twapLookbackWindow)
+        ? Duration.fromJSON(object.twapLookbackWindow)
+        : undefined,
     }
   },
 
   toJSON(message: Params): unknown {
     const obj: any = {}
     message.stopped !== undefined && (obj.stopped = message.stopped)
-    message.maintenanceMarginRatio !== undefined && (obj.maintenanceMarginRatio = message.maintenanceMarginRatio)
-    message.feePoolFeeRatio !== undefined && (obj.feePoolFeeRatio = message.feePoolFeeRatio)
-    message.ecosystemFundFeeRatio !== undefined && (obj.ecosystemFundFeeRatio = message.ecosystemFundFeeRatio)
-    message.liquidationFeeRatio !== undefined && (obj.liquidationFeeRatio = message.liquidationFeeRatio)
-    message.partialLiquidationRatio !== undefined && (obj.partialLiquidationRatio = message.partialLiquidationRatio)
-    message.epochIdentifier !== undefined && (obj.epochIdentifier = message.epochIdentifier)
+    message.feePoolFeeRatio !== undefined &&
+      (obj.feePoolFeeRatio = message.feePoolFeeRatio)
+    message.ecosystemFundFeeRatio !== undefined &&
+      (obj.ecosystemFundFeeRatio = message.ecosystemFundFeeRatio)
+    message.liquidationFeeRatio !== undefined &&
+      (obj.liquidationFeeRatio = message.liquidationFeeRatio)
+    message.partialLiquidationRatio !== undefined &&
+      (obj.partialLiquidationRatio = message.partialLiquidationRatio)
+    message.fundingRateInterval !== undefined &&
+      (obj.fundingRateInterval = message.fundingRateInterval)
     message.twapLookbackWindow !== undefined &&
-      (obj.twapLookbackWindow = message.twapLookbackWindow ? Duration.toJSON(message.twapLookbackWindow) : undefined)
+      (obj.twapLookbackWindow = message.twapLookbackWindow
+        ? Duration.toJSON(message.twapLookbackWindow)
+        : undefined)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams()
     message.stopped = object.stopped ?? false
-    message.maintenanceMarginRatio = object.maintenanceMarginRatio ?? ''
-    message.feePoolFeeRatio = object.feePoolFeeRatio ?? ''
-    message.ecosystemFundFeeRatio = object.ecosystemFundFeeRatio ?? ''
-    message.liquidationFeeRatio = object.liquidationFeeRatio ?? ''
-    message.partialLiquidationRatio = object.partialLiquidationRatio ?? ''
-    message.epochIdentifier = object.epochIdentifier ?? ''
+    message.feePoolFeeRatio = object.feePoolFeeRatio ?? ""
+    message.ecosystemFundFeeRatio = object.ecosystemFundFeeRatio ?? ""
+    message.liquidationFeeRatio = object.liquidationFeeRatio ?? ""
+    message.partialLiquidationRatio = object.partialLiquidationRatio ?? ""
+    message.fundingRateInterval = object.fundingRateInterval ?? ""
     message.twapLookbackWindow =
       object.twapLookbackWindow !== undefined && object.twapLookbackWindow !== null
         ? Duration.fromPartial(object.twapLookbackWindow)
@@ -495,15 +507,21 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      vaultBalance: Array.isArray(object?.vaultBalance) ? object.vaultBalance.map((e: any) => Coin.fromJSON(e)) : [],
-      perpEfBalance: Array.isArray(object?.perpEfBalance) ? object.perpEfBalance.map((e: any) => Coin.fromJSON(e)) : [],
+      vaultBalance: Array.isArray(object?.vaultBalance)
+        ? object.vaultBalance.map((e: any) => Coin.fromJSON(e))
+        : [],
+      perpEfBalance: Array.isArray(object?.perpEfBalance)
+        ? object.perpEfBalance.map((e: any) => Coin.fromJSON(e))
+        : [],
       feePoolBalance: Array.isArray(object?.feePoolBalance)
         ? object.feePoolBalance.map((e: any) => Coin.fromJSON(e))
         : [],
       pairMetadata: Array.isArray(object?.pairMetadata)
         ? object.pairMetadata.map((e: any) => PairMetadata.fromJSON(e))
         : [],
-      positions: Array.isArray(object?.positions) ? object.positions.map((e: any) => Position.fromJSON(e)) : [],
+      positions: Array.isArray(object?.positions)
+        ? object.positions.map((e: any) => Position.fromJSON(e))
+        : [],
       prepaidBadDebts: Array.isArray(object?.prepaidBadDebts)
         ? object.prepaidBadDebts.map((e: any) => PrepaidBadDebt.fromJSON(e))
         : [],
@@ -515,24 +533,33 @@ export const GenesisState = {
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     if (message.vaultBalance) {
-      obj.vaultBalance = message.vaultBalance.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.vaultBalance = message.vaultBalance.map((e) =>
+        e ? Coin.toJSON(e) : undefined,
+      )
     } else {
       obj.vaultBalance = []
     }
     if (message.perpEfBalance) {
-      obj.perpEfBalance = message.perpEfBalance.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.perpEfBalance = message.perpEfBalance.map((e) =>
+        e ? Coin.toJSON(e) : undefined,
+      )
     } else {
       obj.perpEfBalance = []
     }
     if (message.feePoolBalance) {
-      obj.feePoolBalance = message.feePoolBalance.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.feePoolBalance = message.feePoolBalance.map((e) =>
+        e ? Coin.toJSON(e) : undefined,
+      )
     } else {
       obj.feePoolBalance = []
     }
     if (message.pairMetadata) {
-      obj.pairMetadata = message.pairMetadata.map((e) => (e ? PairMetadata.toJSON(e) : undefined))
+      obj.pairMetadata = message.pairMetadata.map((e) =>
+        e ? PairMetadata.toJSON(e) : undefined,
+      )
     } else {
       obj.pairMetadata = []
     }
@@ -542,7 +569,9 @@ export const GenesisState = {
       obj.positions = []
     }
     if (message.prepaidBadDebts) {
-      obj.prepaidBadDebts = message.prepaidBadDebts.map((e) => (e ? PrepaidBadDebt.toJSON(e) : undefined))
+      obj.prepaidBadDebts = message.prepaidBadDebts.map((e) =>
+        e ? PrepaidBadDebt.toJSON(e) : undefined,
+      )
     } else {
       obj.prepaidBadDebts = []
     }
@@ -557,13 +586,18 @@ export const GenesisState = {
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState()
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
     message.vaultBalance = object.vaultBalance?.map((e) => Coin.fromPartial(e)) || []
     message.perpEfBalance = object.perpEfBalance?.map((e) => Coin.fromPartial(e)) || []
-    message.feePoolBalance = object.feePoolBalance?.map((e) => Coin.fromPartial(e)) || []
-    message.pairMetadata = object.pairMetadata?.map((e) => PairMetadata.fromPartial(e)) || []
+    message.feePoolBalance =
+      object.feePoolBalance?.map((e) => Coin.fromPartial(e)) || []
+    message.pairMetadata =
+      object.pairMetadata?.map((e) => PairMetadata.fromPartial(e)) || []
     message.positions = object.positions?.map((e) => Position.fromPartial(e)) || []
-    message.prepaidBadDebts = object.prepaidBadDebts?.map((e) => PrepaidBadDebt.fromPartial(e)) || []
+    message.prepaidBadDebts =
+      object.prepaidBadDebts?.map((e) => PrepaidBadDebt.fromPartial(e)) || []
     message.whitelistedAddresses = object.whitelistedAddresses?.map((e) => e) || []
     return message
   },
@@ -571,34 +605,34 @@ export const GenesisState = {
 
 function createBasePosition(): Position {
   return {
-    traderAddress: '',
+    traderAddress: "",
     pair: undefined,
-    size: '',
-    margin: '',
-    openNotional: '',
-    lastUpdateCumulativePremiumFraction: '',
+    size: "",
+    margin: "",
+    openNotional: "",
+    lastUpdateCumulativePremiumFraction: "",
     blockNumber: Long.ZERO,
   }
 }
 
 export const Position = {
   encode(message: Position, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.traderAddress !== '') {
+    if (message.traderAddress !== "") {
       writer.uint32(10).string(message.traderAddress)
     }
     if (message.pair !== undefined) {
       AssetPair.encode(message.pair, writer.uint32(18).fork()).ldelim()
     }
-    if (message.size !== '') {
+    if (message.size !== "") {
       writer.uint32(26).string(message.size)
     }
-    if (message.margin !== '') {
+    if (message.margin !== "") {
       writer.uint32(34).string(message.margin)
     }
-    if (message.openNotional !== '') {
+    if (message.openNotional !== "") {
       writer.uint32(42).string(message.openNotional)
     }
-    if (message.lastUpdateCumulativePremiumFraction !== '') {
+    if (message.lastUpdateCumulativePremiumFraction !== "") {
       writer.uint32(50).string(message.lastUpdateCumulativePremiumFraction)
     }
     if (!message.blockNumber.isZero()) {
@@ -645,41 +679,54 @@ export const Position = {
 
   fromJSON(object: any): Position {
     return {
-      traderAddress: isSet(object.traderAddress) ? String(object.traderAddress) : '',
+      traderAddress: isSet(object.traderAddress) ? String(object.traderAddress) : "",
       pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
-      size: isSet(object.size) ? String(object.size) : '',
-      margin: isSet(object.margin) ? String(object.margin) : '',
-      openNotional: isSet(object.openNotional) ? String(object.openNotional) : '',
-      lastUpdateCumulativePremiumFraction: isSet(object.lastUpdateCumulativePremiumFraction)
+      size: isSet(object.size) ? String(object.size) : "",
+      margin: isSet(object.margin) ? String(object.margin) : "",
+      openNotional: isSet(object.openNotional) ? String(object.openNotional) : "",
+      lastUpdateCumulativePremiumFraction: isSet(
+        object.lastUpdateCumulativePremiumFraction,
+      )
         ? String(object.lastUpdateCumulativePremiumFraction)
-        : '',
-      blockNumber: isSet(object.blockNumber) ? Long.fromValue(object.blockNumber) : Long.ZERO,
+        : "",
+      blockNumber: isSet(object.blockNumber)
+        ? Long.fromValue(object.blockNumber)
+        : Long.ZERO,
     }
   },
 
   toJSON(message: Position): unknown {
     const obj: any = {}
     message.traderAddress !== undefined && (obj.traderAddress = message.traderAddress)
-    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined)
+    message.pair !== undefined &&
+      (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined)
     message.size !== undefined && (obj.size = message.size)
     message.margin !== undefined && (obj.margin = message.margin)
     message.openNotional !== undefined && (obj.openNotional = message.openNotional)
     message.lastUpdateCumulativePremiumFraction !== undefined &&
-      (obj.lastUpdateCumulativePremiumFraction = message.lastUpdateCumulativePremiumFraction)
-    message.blockNumber !== undefined && (obj.blockNumber = (message.blockNumber || Long.ZERO).toString())
+      (obj.lastUpdateCumulativePremiumFraction =
+        message.lastUpdateCumulativePremiumFraction)
+    message.blockNumber !== undefined &&
+      (obj.blockNumber = (message.blockNumber || Long.ZERO).toString())
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<Position>, I>>(object: I): Position {
     const message = createBasePosition()
-    message.traderAddress = object.traderAddress ?? ''
-    message.pair = object.pair !== undefined && object.pair !== null ? AssetPair.fromPartial(object.pair) : undefined
-    message.size = object.size ?? ''
-    message.margin = object.margin ?? ''
-    message.openNotional = object.openNotional ?? ''
-    message.lastUpdateCumulativePremiumFraction = object.lastUpdateCumulativePremiumFraction ?? ''
+    message.traderAddress = object.traderAddress ?? ""
+    message.pair =
+      object.pair !== undefined && object.pair !== null
+        ? AssetPair.fromPartial(object.pair)
+        : undefined
+    message.size = object.size ?? ""
+    message.margin = object.margin ?? ""
+    message.openNotional = object.openNotional ?? ""
+    message.lastUpdateCumulativePremiumFraction =
+      object.lastUpdateCumulativePremiumFraction ?? ""
     message.blockNumber =
-      object.blockNumber !== undefined && object.blockNumber !== null ? Long.fromValue(object.blockNumber) : Long.ZERO
+      object.blockNumber !== undefined && object.blockNumber !== null
+        ? Long.fromValue(object.blockNumber)
+        : Long.ZERO
     return message
   },
 }
@@ -687,14 +734,14 @@ export const Position = {
 function createBasePositionResp(): PositionResp {
   return {
     position: undefined,
-    exchangedNotionalValue: '',
-    exchangedPositionSize: '',
-    badDebt: '',
-    fundingPayment: '',
-    realizedPnl: '',
-    unrealizedPnlAfter: '',
-    marginToVault: '',
-    positionNotional: '',
+    exchangedNotionalValue: "",
+    exchangedPositionSize: "",
+    badDebt: "",
+    fundingPayment: "",
+    realizedPnl: "",
+    unrealizedPnlAfter: "",
+    marginToVault: "",
+    positionNotional: "",
   }
 }
 
@@ -703,28 +750,28 @@ export const PositionResp = {
     if (message.position !== undefined) {
       Position.encode(message.position, writer.uint32(10).fork()).ldelim()
     }
-    if (message.exchangedNotionalValue !== '') {
+    if (message.exchangedNotionalValue !== "") {
       writer.uint32(18).string(message.exchangedNotionalValue)
     }
-    if (message.exchangedPositionSize !== '') {
+    if (message.exchangedPositionSize !== "") {
       writer.uint32(26).string(message.exchangedPositionSize)
     }
-    if (message.badDebt !== '') {
+    if (message.badDebt !== "") {
       writer.uint32(34).string(message.badDebt)
     }
-    if (message.fundingPayment !== '') {
+    if (message.fundingPayment !== "") {
       writer.uint32(42).string(message.fundingPayment)
     }
-    if (message.realizedPnl !== '') {
+    if (message.realizedPnl !== "") {
       writer.uint32(50).string(message.realizedPnl)
     }
-    if (message.unrealizedPnlAfter !== '') {
+    if (message.unrealizedPnlAfter !== "") {
       writer.uint32(58).string(message.unrealizedPnlAfter)
     }
-    if (message.marginToVault !== '') {
+    if (message.marginToVault !== "") {
       writer.uint32(66).string(message.marginToVault)
     }
-    if (message.positionNotional !== '') {
+    if (message.positionNotional !== "") {
       writer.uint32(74).string(message.positionNotional)
     }
     return writer
@@ -775,63 +822,85 @@ export const PositionResp = {
   fromJSON(object: any): PositionResp {
     return {
       position: isSet(object.position) ? Position.fromJSON(object.position) : undefined,
-      exchangedNotionalValue: isSet(object.exchangedNotionalValue) ? String(object.exchangedNotionalValue) : '',
-      exchangedPositionSize: isSet(object.exchangedPositionSize) ? String(object.exchangedPositionSize) : '',
-      badDebt: isSet(object.badDebt) ? String(object.badDebt) : '',
-      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : '',
-      realizedPnl: isSet(object.realizedPnl) ? String(object.realizedPnl) : '',
-      unrealizedPnlAfter: isSet(object.unrealizedPnlAfter) ? String(object.unrealizedPnlAfter) : '',
-      marginToVault: isSet(object.marginToVault) ? String(object.marginToVault) : '',
-      positionNotional: isSet(object.positionNotional) ? String(object.positionNotional) : '',
+      exchangedNotionalValue: isSet(object.exchangedNotionalValue)
+        ? String(object.exchangedNotionalValue)
+        : "",
+      exchangedPositionSize: isSet(object.exchangedPositionSize)
+        ? String(object.exchangedPositionSize)
+        : "",
+      badDebt: isSet(object.badDebt) ? String(object.badDebt) : "",
+      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
+      realizedPnl: isSet(object.realizedPnl) ? String(object.realizedPnl) : "",
+      unrealizedPnlAfter: isSet(object.unrealizedPnlAfter)
+        ? String(object.unrealizedPnlAfter)
+        : "",
+      marginToVault: isSet(object.marginToVault) ? String(object.marginToVault) : "",
+      positionNotional: isSet(object.positionNotional)
+        ? String(object.positionNotional)
+        : "",
     }
   },
 
   toJSON(message: PositionResp): unknown {
     const obj: any = {}
-    message.position !== undefined && (obj.position = message.position ? Position.toJSON(message.position) : undefined)
-    message.exchangedNotionalValue !== undefined && (obj.exchangedNotionalValue = message.exchangedNotionalValue)
-    message.exchangedPositionSize !== undefined && (obj.exchangedPositionSize = message.exchangedPositionSize)
+    message.position !== undefined &&
+      (obj.position = message.position ? Position.toJSON(message.position) : undefined)
+    message.exchangedNotionalValue !== undefined &&
+      (obj.exchangedNotionalValue = message.exchangedNotionalValue)
+    message.exchangedPositionSize !== undefined &&
+      (obj.exchangedPositionSize = message.exchangedPositionSize)
     message.badDebt !== undefined && (obj.badDebt = message.badDebt)
-    message.fundingPayment !== undefined && (obj.fundingPayment = message.fundingPayment)
+    message.fundingPayment !== undefined &&
+      (obj.fundingPayment = message.fundingPayment)
     message.realizedPnl !== undefined && (obj.realizedPnl = message.realizedPnl)
-    message.unrealizedPnlAfter !== undefined && (obj.unrealizedPnlAfter = message.unrealizedPnlAfter)
+    message.unrealizedPnlAfter !== undefined &&
+      (obj.unrealizedPnlAfter = message.unrealizedPnlAfter)
     message.marginToVault !== undefined && (obj.marginToVault = message.marginToVault)
-    message.positionNotional !== undefined && (obj.positionNotional = message.positionNotional)
+    message.positionNotional !== undefined &&
+      (obj.positionNotional = message.positionNotional)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<PositionResp>, I>>(object: I): PositionResp {
     const message = createBasePositionResp()
     message.position =
-      object.position !== undefined && object.position !== null ? Position.fromPartial(object.position) : undefined
-    message.exchangedNotionalValue = object.exchangedNotionalValue ?? ''
-    message.exchangedPositionSize = object.exchangedPositionSize ?? ''
-    message.badDebt = object.badDebt ?? ''
-    message.fundingPayment = object.fundingPayment ?? ''
-    message.realizedPnl = object.realizedPnl ?? ''
-    message.unrealizedPnlAfter = object.unrealizedPnlAfter ?? ''
-    message.marginToVault = object.marginToVault ?? ''
-    message.positionNotional = object.positionNotional ?? ''
+      object.position !== undefined && object.position !== null
+        ? Position.fromPartial(object.position)
+        : undefined
+    message.exchangedNotionalValue = object.exchangedNotionalValue ?? ""
+    message.exchangedPositionSize = object.exchangedPositionSize ?? ""
+    message.badDebt = object.badDebt ?? ""
+    message.fundingPayment = object.fundingPayment ?? ""
+    message.realizedPnl = object.realizedPnl ?? ""
+    message.unrealizedPnlAfter = object.unrealizedPnlAfter ?? ""
+    message.marginToVault = object.marginToVault ?? ""
+    message.positionNotional = object.positionNotional ?? ""
     return message
   },
 }
 
 function createBaseLiquidateResp(): LiquidateResp {
-  return { badDebt: '', feeToLiquidator: '', feeToPerpEcosystemFund: '', liquidator: '', positionResp: undefined }
+  return {
+    badDebt: "",
+    feeToLiquidator: "",
+    feeToPerpEcosystemFund: "",
+    liquidator: "",
+    positionResp: undefined,
+  }
 }
 
 export const LiquidateResp = {
   encode(message: LiquidateResp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.badDebt !== '') {
+    if (message.badDebt !== "") {
       writer.uint32(10).string(message.badDebt)
     }
-    if (message.feeToLiquidator !== '') {
+    if (message.feeToLiquidator !== "") {
       writer.uint32(18).string(message.feeToLiquidator)
     }
-    if (message.feeToPerpEcosystemFund !== '') {
+    if (message.feeToPerpEcosystemFund !== "") {
       writer.uint32(26).string(message.feeToPerpEcosystemFund)
     }
-    if (message.liquidator !== '') {
+    if (message.liquidator !== "") {
       writer.uint32(34).string(message.liquidator)
     }
     if (message.positionResp !== undefined) {
@@ -872,31 +941,43 @@ export const LiquidateResp = {
 
   fromJSON(object: any): LiquidateResp {
     return {
-      badDebt: isSet(object.badDebt) ? String(object.badDebt) : '',
-      feeToLiquidator: isSet(object.feeToLiquidator) ? String(object.feeToLiquidator) : '',
-      feeToPerpEcosystemFund: isSet(object.feeToPerpEcosystemFund) ? String(object.feeToPerpEcosystemFund) : '',
-      liquidator: isSet(object.liquidator) ? String(object.liquidator) : '',
-      positionResp: isSet(object.positionResp) ? PositionResp.fromJSON(object.positionResp) : undefined,
+      badDebt: isSet(object.badDebt) ? String(object.badDebt) : "",
+      feeToLiquidator: isSet(object.feeToLiquidator)
+        ? String(object.feeToLiquidator)
+        : "",
+      feeToPerpEcosystemFund: isSet(object.feeToPerpEcosystemFund)
+        ? String(object.feeToPerpEcosystemFund)
+        : "",
+      liquidator: isSet(object.liquidator) ? String(object.liquidator) : "",
+      positionResp: isSet(object.positionResp)
+        ? PositionResp.fromJSON(object.positionResp)
+        : undefined,
     }
   },
 
   toJSON(message: LiquidateResp): unknown {
     const obj: any = {}
     message.badDebt !== undefined && (obj.badDebt = message.badDebt)
-    message.feeToLiquidator !== undefined && (obj.feeToLiquidator = message.feeToLiquidator)
-    message.feeToPerpEcosystemFund !== undefined && (obj.feeToPerpEcosystemFund = message.feeToPerpEcosystemFund)
+    message.feeToLiquidator !== undefined &&
+      (obj.feeToLiquidator = message.feeToLiquidator)
+    message.feeToPerpEcosystemFund !== undefined &&
+      (obj.feeToPerpEcosystemFund = message.feeToPerpEcosystemFund)
     message.liquidator !== undefined && (obj.liquidator = message.liquidator)
     message.positionResp !== undefined &&
-      (obj.positionResp = message.positionResp ? PositionResp.toJSON(message.positionResp) : undefined)
+      (obj.positionResp = message.positionResp
+        ? PositionResp.toJSON(message.positionResp)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<LiquidateResp>, I>>(object: I): LiquidateResp {
+  fromPartial<I extends Exact<DeepPartial<LiquidateResp>, I>>(
+    object: I,
+  ): LiquidateResp {
     const message = createBaseLiquidateResp()
-    message.badDebt = object.badDebt ?? ''
-    message.feeToLiquidator = object.feeToLiquidator ?? ''
-    message.feeToPerpEcosystemFund = object.feeToPerpEcosystemFund ?? ''
-    message.liquidator = object.liquidator ?? ''
+    message.badDebt = object.badDebt ?? ""
+    message.feeToLiquidator = object.feeToLiquidator ?? ""
+    message.feeToPerpEcosystemFund = object.feeToPerpEcosystemFund ?? ""
+    message.liquidator = object.liquidator ?? ""
     message.positionResp =
       object.positionResp !== undefined && object.positionResp !== null
         ? PositionResp.fromPartial(object.positionResp)
@@ -952,7 +1033,8 @@ export const PairMetadata = {
 
   toJSON(message: PairMetadata): unknown {
     const obj: any = {}
-    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined)
+    message.pair !== undefined &&
+      (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined)
     if (message.cumulativePremiumFractions) {
       obj.cumulativePremiumFractions = message.cumulativePremiumFractions.map((e) => e)
     } else {
@@ -963,22 +1045,29 @@ export const PairMetadata = {
 
   fromPartial<I extends Exact<DeepPartial<PairMetadata>, I>>(object: I): PairMetadata {
     const message = createBasePairMetadata()
-    message.pair = object.pair !== undefined && object.pair !== null ? AssetPair.fromPartial(object.pair) : undefined
-    message.cumulativePremiumFractions = object.cumulativePremiumFractions?.map((e) => e) || []
+    message.pair =
+      object.pair !== undefined && object.pair !== null
+        ? AssetPair.fromPartial(object.pair)
+        : undefined
+    message.cumulativePremiumFractions =
+      object.cumulativePremiumFractions?.map((e) => e) || []
     return message
   },
 }
 
 function createBasePrepaidBadDebt(): PrepaidBadDebt {
-  return { denom: '', amount: '' }
+  return { denom: "", amount: "" }
 }
 
 export const PrepaidBadDebt = {
-  encode(message: PrepaidBadDebt, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.denom !== '') {
+  encode(
+    message: PrepaidBadDebt,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.denom !== "") {
       writer.uint32(10).string(message.denom)
     }
-    if (message.amount !== '') {
+    if (message.amount !== "") {
       writer.uint32(18).string(message.amount)
     }
     return writer
@@ -1007,8 +1096,8 @@ export const PrepaidBadDebt = {
 
   fromJSON(object: any): PrepaidBadDebt {
     return {
-      denom: isSet(object.denom) ? String(object.denom) : '',
-      amount: isSet(object.amount) ? String(object.amount) : '',
+      denom: isSet(object.denom) ? String(object.denom) : "",
+      amount: isSet(object.amount) ? String(object.amount) : "",
     }
   },
 
@@ -1019,10 +1108,12 @@ export const PrepaidBadDebt = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<PrepaidBadDebt>, I>>(object: I): PrepaidBadDebt {
+  fromPartial<I extends Exact<DeepPartial<PrepaidBadDebt>, I>>(
+    object: I,
+  ): PrepaidBadDebt {
     const message = createBasePrepaidBadDebt()
-    message.denom = object.denom ?? ''
-    message.amount = object.amount ?? ''
+    message.denom = object.denom ?? ""
+    message.amount = object.amount ?? ""
     return message
   },
 }
@@ -1044,7 +1135,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

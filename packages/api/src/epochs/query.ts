@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from 'long'
-import { EpochInfo } from './genesis'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import { EpochInfo } from "./genesis"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.epochs.v1beta1'
+export const protobufPackage = "nibiru.epochs.v1beta1"
 
 export interface QueryEpochsInfoRequest {}
 
@@ -24,7 +24,10 @@ function createBaseQueryEpochsInfoRequest(): QueryEpochsInfoRequest {
 }
 
 export const QueryEpochsInfoRequest = {
-  encode(_: QueryEpochsInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: QueryEpochsInfoRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
@@ -52,7 +55,9 @@ export const QueryEpochsInfoRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryEpochsInfoRequest>, I>>(_: I): QueryEpochsInfoRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryEpochsInfoRequest>, I>>(
+    _: I,
+  ): QueryEpochsInfoRequest {
     const message = createBaseQueryEpochsInfoRequest()
     return message
   },
@@ -63,7 +68,10 @@ function createBaseQueryEpochsInfoResponse(): QueryEpochsInfoResponse {
 }
 
 export const QueryEpochsInfoResponse = {
-  encode(message: QueryEpochsInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryEpochsInfoResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.epochs) {
       EpochInfo.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -90,7 +98,9 @@ export const QueryEpochsInfoResponse = {
 
   fromJSON(object: any): QueryEpochsInfoResponse {
     return {
-      epochs: Array.isArray(object?.epochs) ? object.epochs.map((e: any) => EpochInfo.fromJSON(e)) : [],
+      epochs: Array.isArray(object?.epochs)
+        ? object.epochs.map((e: any) => EpochInfo.fromJSON(e))
+        : [],
     }
   },
 
@@ -104,7 +114,9 @@ export const QueryEpochsInfoResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryEpochsInfoResponse>, I>>(object: I): QueryEpochsInfoResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryEpochsInfoResponse>, I>>(
+    object: I,
+  ): QueryEpochsInfoResponse {
     const message = createBaseQueryEpochsInfoResponse()
     message.epochs = object.epochs?.map((e) => EpochInfo.fromPartial(e)) || []
     return message
@@ -112,12 +124,15 @@ export const QueryEpochsInfoResponse = {
 }
 
 function createBaseQueryCurrentEpochRequest(): QueryCurrentEpochRequest {
-  return { identifier: '' }
+  return { identifier: "" }
 }
 
 export const QueryCurrentEpochRequest = {
-  encode(message: QueryCurrentEpochRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.identifier !== '') {
+  encode(
+    message: QueryCurrentEpochRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.identifier !== "") {
       writer.uint32(10).string(message.identifier)
     }
     return writer
@@ -143,7 +158,7 @@ export const QueryCurrentEpochRequest = {
 
   fromJSON(object: any): QueryCurrentEpochRequest {
     return {
-      identifier: isSet(object.identifier) ? String(object.identifier) : '',
+      identifier: isSet(object.identifier) ? String(object.identifier) : "",
     }
   },
 
@@ -153,9 +168,11 @@ export const QueryCurrentEpochRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryCurrentEpochRequest>, I>>(object: I): QueryCurrentEpochRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryCurrentEpochRequest>, I>>(
+    object: I,
+  ): QueryCurrentEpochRequest {
     const message = createBaseQueryCurrentEpochRequest()
-    message.identifier = object.identifier ?? ''
+    message.identifier = object.identifier ?? ""
     return message
   },
 }
@@ -165,7 +182,10 @@ function createBaseQueryCurrentEpochResponse(): QueryCurrentEpochResponse {
 }
 
 export const QueryCurrentEpochResponse = {
-  encode(message: QueryCurrentEpochResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryCurrentEpochResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.currentEpoch.isZero()) {
       writer.uint32(8).int64(message.currentEpoch)
     }
@@ -192,17 +212,22 @@ export const QueryCurrentEpochResponse = {
 
   fromJSON(object: any): QueryCurrentEpochResponse {
     return {
-      currentEpoch: isSet(object.currentEpoch) ? Long.fromValue(object.currentEpoch) : Long.ZERO,
+      currentEpoch: isSet(object.currentEpoch)
+        ? Long.fromValue(object.currentEpoch)
+        : Long.ZERO,
     }
   },
 
   toJSON(message: QueryCurrentEpochResponse): unknown {
     const obj: any = {}
-    message.currentEpoch !== undefined && (obj.currentEpoch = (message.currentEpoch || Long.ZERO).toString())
+    message.currentEpoch !== undefined &&
+      (obj.currentEpoch = (message.currentEpoch || Long.ZERO).toString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryCurrentEpochResponse>, I>>(object: I): QueryCurrentEpochResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryCurrentEpochResponse>, I>>(
+    object: I,
+  ): QueryCurrentEpochResponse {
     const message = createBaseQueryCurrentEpochResponse()
     message.currentEpoch =
       object.currentEpoch !== undefined && object.currentEpoch !== null
@@ -229,14 +254,20 @@ export class QueryClientImpl implements Query {
   }
   EpochInfos(request: QueryEpochsInfoRequest): Promise<QueryEpochsInfoResponse> {
     const data = QueryEpochsInfoRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.epochs.v1beta1.Query', 'EpochInfos', data)
+    const promise = this.rpc.request("nibiru.epochs.v1beta1.Query", "EpochInfos", data)
     return promise.then((data) => QueryEpochsInfoResponse.decode(new _m0.Reader(data)))
   }
 
   CurrentEpoch(request: QueryCurrentEpochRequest): Promise<QueryCurrentEpochResponse> {
     const data = QueryCurrentEpochRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.epochs.v1beta1.Query', 'CurrentEpoch', data)
-    return promise.then((data) => QueryCurrentEpochResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "nibiru.epochs.v1beta1.Query",
+      "CurrentEpoch",
+      data,
+    )
+    return promise.then((data) =>
+      QueryCurrentEpochResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
@@ -261,7 +292,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

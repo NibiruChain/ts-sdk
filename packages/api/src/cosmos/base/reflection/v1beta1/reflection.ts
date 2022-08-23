@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.base.reflection.v1beta1'
+export const protobufPackage = "cosmos.base.reflection.v1beta1"
 
 /** ListAllInterfacesRequest is the request type of the ListAllInterfaces RPC. */
 export interface ListAllInterfacesRequest {}
@@ -35,7 +35,10 @@ function createBaseListAllInterfacesRequest(): ListAllInterfacesRequest {
 }
 
 export const ListAllInterfacesRequest = {
-  encode(_: ListAllInterfacesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: ListAllInterfacesRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
@@ -63,7 +66,9 @@ export const ListAllInterfacesRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<ListAllInterfacesRequest>, I>>(_: I): ListAllInterfacesRequest {
+  fromPartial<I extends Exact<DeepPartial<ListAllInterfacesRequest>, I>>(
+    _: I,
+  ): ListAllInterfacesRequest {
     const message = createBaseListAllInterfacesRequest()
     return message
   },
@@ -74,7 +79,10 @@ function createBaseListAllInterfacesResponse(): ListAllInterfacesResponse {
 }
 
 export const ListAllInterfacesResponse = {
-  encode(message: ListAllInterfacesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: ListAllInterfacesResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.interfaceNames) {
       writer.uint32(10).string(v!)
     }
@@ -101,7 +109,9 @@ export const ListAllInterfacesResponse = {
 
   fromJSON(object: any): ListAllInterfacesResponse {
     return {
-      interfaceNames: Array.isArray(object?.interfaceNames) ? object.interfaceNames.map((e: any) => String(e)) : [],
+      interfaceNames: Array.isArray(object?.interfaceNames)
+        ? object.interfaceNames.map((e: any) => String(e))
+        : [],
     }
   },
 
@@ -115,7 +125,9 @@ export const ListAllInterfacesResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<ListAllInterfacesResponse>, I>>(object: I): ListAllInterfacesResponse {
+  fromPartial<I extends Exact<DeepPartial<ListAllInterfacesResponse>, I>>(
+    object: I,
+  ): ListAllInterfacesResponse {
     const message = createBaseListAllInterfacesResponse()
     message.interfaceNames = object.interfaceNames?.map((e) => e) || []
     return message
@@ -123,12 +135,15 @@ export const ListAllInterfacesResponse = {
 }
 
 function createBaseListImplementationsRequest(): ListImplementationsRequest {
-  return { interfaceName: '' }
+  return { interfaceName: "" }
 }
 
 export const ListImplementationsRequest = {
-  encode(message: ListImplementationsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.interfaceName !== '') {
+  encode(
+    message: ListImplementationsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.interfaceName !== "") {
       writer.uint32(10).string(message.interfaceName)
     }
     return writer
@@ -154,7 +169,7 @@ export const ListImplementationsRequest = {
 
   fromJSON(object: any): ListImplementationsRequest {
     return {
-      interfaceName: isSet(object.interfaceName) ? String(object.interfaceName) : '',
+      interfaceName: isSet(object.interfaceName) ? String(object.interfaceName) : "",
     }
   },
 
@@ -164,9 +179,11 @@ export const ListImplementationsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<ListImplementationsRequest>, I>>(object: I): ListImplementationsRequest {
+  fromPartial<I extends Exact<DeepPartial<ListImplementationsRequest>, I>>(
+    object: I,
+  ): ListImplementationsRequest {
     const message = createBaseListImplementationsRequest()
-    message.interfaceName = object.interfaceName ?? ''
+    message.interfaceName = object.interfaceName ?? ""
     return message
   },
 }
@@ -176,7 +193,10 @@ function createBaseListImplementationsResponse(): ListImplementationsResponse {
 }
 
 export const ListImplementationsResponse = {
-  encode(message: ListImplementationsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: ListImplementationsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.implementationMessageNames) {
       writer.uint32(10).string(v!)
     }
@@ -219,9 +239,12 @@ export const ListImplementationsResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<ListImplementationsResponse>, I>>(object: I): ListImplementationsResponse {
+  fromPartial<I extends Exact<DeepPartial<ListImplementationsResponse>, I>>(
+    object: I,
+  ): ListImplementationsResponse {
     const message = createBaseListImplementationsResponse()
-    message.implementationMessageNames = object.implementationMessageNames?.map((e) => e) || []
+    message.implementationMessageNames =
+      object.implementationMessageNames?.map((e) => e) || []
     return message
   },
 }
@@ -232,12 +255,16 @@ export interface ReflectionService {
    * ListAllInterfaces lists all the interfaces registered in the interface
    * registry.
    */
-  ListAllInterfaces(request: ListAllInterfacesRequest): Promise<ListAllInterfacesResponse>
+  ListAllInterfaces(
+    request: ListAllInterfacesRequest,
+  ): Promise<ListAllInterfacesResponse>
   /**
    * ListImplementations list all the concrete types that implement a given
    * interface.
    */
-  ListImplementations(request: ListImplementationsRequest): Promise<ListImplementationsResponse>
+  ListImplementations(
+    request: ListImplementationsRequest,
+  ): Promise<ListImplementationsResponse>
 }
 
 export class ReflectionServiceClientImpl implements ReflectionService {
@@ -247,16 +274,32 @@ export class ReflectionServiceClientImpl implements ReflectionService {
     this.ListAllInterfaces = this.ListAllInterfaces.bind(this)
     this.ListImplementations = this.ListImplementations.bind(this)
   }
-  ListAllInterfaces(request: ListAllInterfacesRequest): Promise<ListAllInterfacesResponse> {
+  ListAllInterfaces(
+    request: ListAllInterfacesRequest,
+  ): Promise<ListAllInterfacesResponse> {
     const data = ListAllInterfacesRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.base.reflection.v1beta1.ReflectionService', 'ListAllInterfaces', data)
-    return promise.then((data) => ListAllInterfacesResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "cosmos.base.reflection.v1beta1.ReflectionService",
+      "ListAllInterfaces",
+      data,
+    )
+    return promise.then((data) =>
+      ListAllInterfacesResponse.decode(new _m0.Reader(data)),
+    )
   }
 
-  ListImplementations(request: ListImplementationsRequest): Promise<ListImplementationsResponse> {
+  ListImplementations(
+    request: ListImplementationsRequest,
+  ): Promise<ListImplementationsResponse> {
     const data = ListImplementationsRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.base.reflection.v1beta1.ReflectionService', 'ListImplementations', data)
-    return promise.then((data) => ListImplementationsResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "cosmos.base.reflection.v1beta1.ReflectionService",
+      "ListImplementations",
+      data,
+    )
+    return promise.then((data) =>
+      ListImplementationsResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
@@ -281,7 +324,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

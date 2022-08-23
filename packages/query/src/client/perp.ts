@@ -4,26 +4,31 @@ import * as pbs from "@nibiruchain/api/src/perp/v1/state"
 import { fromSdkDec } from "@nibiruchain/common/src/utils"
 
 function transformTraderPosition(
-  r: qpb.QueryTraderPositionResponse,
+  resp: qpb.QueryTraderPositionResponse,
 ): qpb.QueryTraderPositionResponse {
-  const { positionNotional: pn, unrealizedPnl: upnl, marginRatio: mr } = r
-  r.positionNotional = fromSdkDec(pn).toString()
-  r.unrealizedPnl = fromSdkDec(upnl).toString()
-  r.marginRatio = fromSdkDec(mr).toString()
-  return r
+  const {
+    positionNotional: pn,
+    unrealizedPnl: upnl,
+    marginRatioMark: mr,
+    marginRatioIndex: mri,
+  } = resp
+  resp.positionNotional = fromSdkDec(pn).toString()
+  resp.unrealizedPnl = fromSdkDec(upnl).toString()
+  resp.marginRatioMark = fromSdkDec(mr).toString()
+  resp.marginRatioIndex = fromSdkDec(mri).toString()
+  return resp
 }
 
-function transformParams(p?: pbs.Params): pbs.Params | undefined {
-  if (!p) {
-    return p
+function transformParams(pbParams?: pbs.Params): pbs.Params | undefined {
+  if (!pbParams) {
+    return pbParams
   }
   return {
-    ...p,
-    maintenanceMarginRatio: fromSdkDec(p.maintenanceMarginRatio).toString(),
-    feePoolFeeRatio: fromSdkDec(p.maintenanceMarginRatio).toString(),
-    ecosystemFundFeeRatio: fromSdkDec(p.ecosystemFundFeeRatio).toString(),
-    liquidationFeeRatio: fromSdkDec(p.liquidationFeeRatio).toString(),
-    partialLiquidationRatio: fromSdkDec(p.partialLiquidationRatio).toString(),
+    ...pbParams,
+    feePoolFeeRatio: fromSdkDec(pbParams.feePoolFeeRatio).toString(),
+    ecosystemFundFeeRatio: fromSdkDec(pbParams.ecosystemFundFeeRatio).toString(),
+    liquidationFeeRatio: fromSdkDec(pbParams.liquidationFeeRatio).toString(),
+    partialLiquidationRatio: fromSdkDec(pbParams.partialLiquidationRatio).toString(),
   }
 }
 
@@ -51,7 +56,7 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
       },
       traderPosition: async (args: { tokenPair: string; trader: string }) => {
         const req = qpb.QueryTraderPositionRequest.fromPartial(args)
-        const resp = await queryService.TraderPosition(req)
+        const resp = await queryService.QueryTraderPosition(req)
         return transformTraderPosition(resp)
       },
     },

@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from 'long'
-import { Any } from '../protobuf/any'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import { Any } from "../protobuf/any"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'google.api'
+export const protobufPackage = "google.api"
 
 /**
  * Message that represents an arbitrary HTTP body. It should only be used for
@@ -59,12 +59,12 @@ export interface HttpBody {
 }
 
 function createBaseHttpBody(): HttpBody {
-  return { contentType: '', data: new Uint8Array(), extensions: [] }
+  return { contentType: "", data: new Uint8Array(), extensions: [] }
 }
 
 export const HttpBody = {
   encode(message: HttpBody, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.contentType !== '') {
+    if (message.contentType !== "") {
       writer.uint32(10).string(message.contentType)
     }
     if (message.data.length !== 0) {
@@ -102,9 +102,11 @@ export const HttpBody = {
 
   fromJSON(object: any): HttpBody {
     return {
-      contentType: isSet(object.contentType) ? String(object.contentType) : '',
+      contentType: isSet(object.contentType) ? String(object.contentType) : "",
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-      extensions: Array.isArray(object?.extensions) ? object.extensions.map((e: any) => Any.fromJSON(e)) : [],
+      extensions: Array.isArray(object?.extensions)
+        ? object.extensions.map((e: any) => Any.fromJSON(e))
+        : [],
     }
   },
 
@@ -112,7 +114,9 @@ export const HttpBody = {
     const obj: any = {}
     message.contentType !== undefined && (obj.contentType = message.contentType)
     message.data !== undefined &&
-      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()))
+      (obj.data = base64FromBytes(
+        message.data !== undefined ? message.data : new Uint8Array(),
+      ))
     if (message.extensions) {
       obj.extensions = message.extensions.map((e) => (e ? Any.toJSON(e) : undefined))
     } else {
@@ -123,7 +127,7 @@ export const HttpBody = {
 
   fromPartial<I extends Exact<DeepPartial<HttpBody>, I>>(object: I): HttpBody {
     const message = createBaseHttpBody()
-    message.contentType = object.contentType ?? ''
+    message.contentType = object.contentType ?? ""
     message.data = object.data ?? new Uint8Array()
     message.extensions = object.extensions?.map((e) => Any.fromPartial(e)) || []
     return message
@@ -134,15 +138,15 @@ declare var self: any | undefined
 declare var window: any | undefined
 declare var global: any | undefined
 var globalThis: any = (() => {
-  if (typeof globalThis !== 'undefined') return globalThis
-  if (typeof self !== 'undefined') return self
-  if (typeof window !== 'undefined') return window
-  if (typeof global !== 'undefined') return global
-  throw 'Unable to locate global object'
+  if (typeof globalThis !== "undefined") return globalThis
+  if (typeof self !== "undefined") return self
+  if (typeof window !== "undefined") return window
+  if (typeof global !== "undefined") return global
+  throw "Unable to locate global object"
 })()
 
 const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'))
+  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"))
 function bytesFromBase64(b64: string): Uint8Array {
   const bin = atob(b64)
   const arr = new Uint8Array(bin.length)
@@ -153,13 +157,13 @@ function bytesFromBase64(b64: string): Uint8Array {
 }
 
 const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'))
+  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"))
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = []
   arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte))
   })
-  return btoa(bin.join(''))
+  return btoa(bin.join(""))
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
@@ -179,7 +183,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

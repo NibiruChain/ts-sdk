@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { Params } from './params'
-import { Coin } from '../cosmos/base/v1beta1/coin'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Params } from "./params"
+import { Coin } from "../cosmos/base/v1beta1/coin"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.stablecoin.v1'
+export const protobufPackage = "nibiru.stablecoin.v1"
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -92,7 +92,9 @@ export const QueryParamsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(
+    _: I,
+  ): QueryParamsRequest {
     const message = createBaseQueryParamsRequest()
     return message
   },
@@ -103,7 +105,10 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
 }
 
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryParamsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim()
     }
@@ -136,14 +141,19 @@ export const QueryParamsResponse = {
 
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {}
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(
+    object: I,
+  ): QueryParamsResponse {
     const message = createBaseQueryParamsResponse()
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
     return message
   },
 }
@@ -153,7 +163,10 @@ function createBaseQueryModuleAccountBalances(): QueryModuleAccountBalances {
 }
 
 export const QueryModuleAccountBalances = {
-  encode(_: QueryModuleAccountBalances, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: QueryModuleAccountBalances,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
@@ -181,7 +194,9 @@ export const QueryModuleAccountBalances = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryModuleAccountBalances>, I>>(_: I): QueryModuleAccountBalances {
+  fromPartial<I extends Exact<DeepPartial<QueryModuleAccountBalances>, I>>(
+    _: I,
+  ): QueryModuleAccountBalances {
     const message = createBaseQueryModuleAccountBalances()
     return message
   },
@@ -192,14 +207,20 @@ function createBaseQueryModuleAccountBalancesResponse(): QueryModuleAccountBalan
 }
 
 export const QueryModuleAccountBalancesResponse = {
-  encode(message: QueryModuleAccountBalancesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryModuleAccountBalancesResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.moduleAccountBalances) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim()
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountBalancesResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): QueryModuleAccountBalancesResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryModuleAccountBalancesResponse()
@@ -228,7 +249,9 @@ export const QueryModuleAccountBalancesResponse = {
   toJSON(message: QueryModuleAccountBalancesResponse): unknown {
     const obj: any = {}
     if (message.moduleAccountBalances) {
-      obj.moduleAccountBalances = message.moduleAccountBalances.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.moduleAccountBalances = message.moduleAccountBalances.map((e) =>
+        e ? Coin.toJSON(e) : undefined,
+      )
     } else {
       obj.moduleAccountBalances = []
     }
@@ -239,7 +262,8 @@ export const QueryModuleAccountBalancesResponse = {
     object: I,
   ): QueryModuleAccountBalancesResponse {
     const message = createBaseQueryModuleAccountBalancesResponse()
-    message.moduleAccountBalances = object.moduleAccountBalances?.map((e) => Coin.fromPartial(e)) || []
+    message.moduleAccountBalances =
+      object.moduleAccountBalances?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
 }
@@ -249,7 +273,10 @@ function createBaseQueryCirculatingSupplies(): QueryCirculatingSupplies {
 }
 
 export const QueryCirculatingSupplies = {
-  encode(_: QueryCirculatingSupplies, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: QueryCirculatingSupplies,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
@@ -277,7 +304,9 @@ export const QueryCirculatingSupplies = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryCirculatingSupplies>, I>>(_: I): QueryCirculatingSupplies {
+  fromPartial<I extends Exact<DeepPartial<QueryCirculatingSupplies>, I>>(
+    _: I,
+  ): QueryCirculatingSupplies {
     const message = createBaseQueryCirculatingSupplies()
     return message
   },
@@ -288,7 +317,10 @@ function createBaseQueryCirculatingSuppliesResponse(): QueryCirculatingSuppliesR
 }
 
 export const QueryCirculatingSuppliesResponse = {
-  encode(message: QueryCirculatingSuppliesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryCirculatingSuppliesResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.nibi !== undefined) {
       Coin.encode(message.nibi, writer.uint32(10).fork()).ldelim()
     }
@@ -298,7 +330,10 @@ export const QueryCirculatingSuppliesResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryCirculatingSuppliesResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): QueryCirculatingSuppliesResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryCirculatingSuppliesResponse()
@@ -328,8 +363,10 @@ export const QueryCirculatingSuppliesResponse = {
 
   toJSON(message: QueryCirculatingSuppliesResponse): unknown {
     const obj: any = {}
-    message.nibi !== undefined && (obj.nibi = message.nibi ? Coin.toJSON(message.nibi) : undefined)
-    message.nusd !== undefined && (obj.nusd = message.nusd ? Coin.toJSON(message.nusd) : undefined)
+    message.nibi !== undefined &&
+      (obj.nibi = message.nibi ? Coin.toJSON(message.nibi) : undefined)
+    message.nusd !== undefined &&
+      (obj.nusd = message.nusd ? Coin.toJSON(message.nusd) : undefined)
     return obj
   },
 
@@ -337,8 +374,14 @@ export const QueryCirculatingSuppliesResponse = {
     object: I,
   ): QueryCirculatingSuppliesResponse {
     const message = createBaseQueryCirculatingSuppliesResponse()
-    message.nibi = object.nibi !== undefined && object.nibi !== null ? Coin.fromPartial(object.nibi) : undefined
-    message.nusd = object.nusd !== undefined && object.nusd !== null ? Coin.fromPartial(object.nusd) : undefined
+    message.nibi =
+      object.nibi !== undefined && object.nibi !== null
+        ? Coin.fromPartial(object.nibi)
+        : undefined
+    message.nusd =
+      object.nusd !== undefined && object.nusd !== null
+        ? Coin.fromPartial(object.nusd)
+        : undefined
     return message
   },
 }
@@ -348,7 +391,10 @@ function createBaseQueryGovToMintStable(): QueryGovToMintStable {
 }
 
 export const QueryGovToMintStable = {
-  encode(message: QueryGovToMintStable, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryGovToMintStable,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.collateral !== undefined) {
       Coin.encode(message.collateral, writer.uint32(10).fork()).ldelim()
     }
@@ -375,21 +421,29 @@ export const QueryGovToMintStable = {
 
   fromJSON(object: any): QueryGovToMintStable {
     return {
-      collateral: isSet(object.collateral) ? Coin.fromJSON(object.collateral) : undefined,
+      collateral: isSet(object.collateral)
+        ? Coin.fromJSON(object.collateral)
+        : undefined,
     }
   },
 
   toJSON(message: QueryGovToMintStable): unknown {
     const obj: any = {}
     message.collateral !== undefined &&
-      (obj.collateral = message.collateral ? Coin.toJSON(message.collateral) : undefined)
+      (obj.collateral = message.collateral
+        ? Coin.toJSON(message.collateral)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGovToMintStable>, I>>(object: I): QueryGovToMintStable {
+  fromPartial<I extends Exact<DeepPartial<QueryGovToMintStable>, I>>(
+    object: I,
+  ): QueryGovToMintStable {
     const message = createBaseQueryGovToMintStable()
     message.collateral =
-      object.collateral !== undefined && object.collateral !== null ? Coin.fromPartial(object.collateral) : undefined
+      object.collateral !== undefined && object.collateral !== null
+        ? Coin.fromPartial(object.collateral)
+        : undefined
     return message
   },
 }
@@ -399,14 +453,20 @@ function createBaseQueryGovToMintStableResponse(): QueryGovToMintStableResponse 
 }
 
 export const QueryGovToMintStableResponse = {
-  encode(message: QueryGovToMintStableResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryGovToMintStableResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.gov !== undefined) {
       Coin.encode(message.gov, writer.uint32(10).fork()).ldelim()
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGovToMintStableResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): QueryGovToMintStableResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryGovToMintStableResponse()
@@ -432,30 +492,39 @@ export const QueryGovToMintStableResponse = {
 
   toJSON(message: QueryGovToMintStableResponse): unknown {
     const obj: any = {}
-    message.gov !== undefined && (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined)
+    message.gov !== undefined &&
+      (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGovToMintStableResponse>, I>>(object: I): QueryGovToMintStableResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryGovToMintStableResponse>, I>>(
+    object: I,
+  ): QueryGovToMintStableResponse {
     const message = createBaseQueryGovToMintStableResponse()
-    message.gov = object.gov !== undefined && object.gov !== null ? Coin.fromPartial(object.gov) : undefined
+    message.gov =
+      object.gov !== undefined && object.gov !== null
+        ? Coin.fromPartial(object.gov)
+        : undefined
     return message
   },
 }
 
 function createBaseLiquidityRatioInfo(): LiquidityRatioInfo {
-  return { liquidityRatio: '', upperBand: '', lowerBand: '' }
+  return { liquidityRatio: "", upperBand: "", lowerBand: "" }
 }
 
 export const LiquidityRatioInfo = {
-  encode(message: LiquidityRatioInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.liquidityRatio !== '') {
+  encode(
+    message: LiquidityRatioInfo,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.liquidityRatio !== "") {
       writer.uint32(10).string(message.liquidityRatio)
     }
-    if (message.upperBand !== '') {
+    if (message.upperBand !== "") {
       writer.uint32(18).string(message.upperBand)
     }
-    if (message.lowerBand !== '') {
+    if (message.lowerBand !== "") {
       writer.uint32(26).string(message.lowerBand)
     }
     return writer
@@ -487,25 +556,28 @@ export const LiquidityRatioInfo = {
 
   fromJSON(object: any): LiquidityRatioInfo {
     return {
-      liquidityRatio: isSet(object.liquidityRatio) ? String(object.liquidityRatio) : '',
-      upperBand: isSet(object.upperBand) ? String(object.upperBand) : '',
-      lowerBand: isSet(object.lowerBand) ? String(object.lowerBand) : '',
+      liquidityRatio: isSet(object.liquidityRatio) ? String(object.liquidityRatio) : "",
+      upperBand: isSet(object.upperBand) ? String(object.upperBand) : "",
+      lowerBand: isSet(object.lowerBand) ? String(object.lowerBand) : "",
     }
   },
 
   toJSON(message: LiquidityRatioInfo): unknown {
     const obj: any = {}
-    message.liquidityRatio !== undefined && (obj.liquidityRatio = message.liquidityRatio)
+    message.liquidityRatio !== undefined &&
+      (obj.liquidityRatio = message.liquidityRatio)
     message.upperBand !== undefined && (obj.upperBand = message.upperBand)
     message.lowerBand !== undefined && (obj.lowerBand = message.lowerBand)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<LiquidityRatioInfo>, I>>(object: I): LiquidityRatioInfo {
+  fromPartial<I extends Exact<DeepPartial<LiquidityRatioInfo>, I>>(
+    object: I,
+  ): LiquidityRatioInfo {
     const message = createBaseLiquidityRatioInfo()
-    message.liquidityRatio = object.liquidityRatio ?? ''
-    message.upperBand = object.upperBand ?? ''
-    message.lowerBand = object.lowerBand ?? ''
+    message.liquidityRatio = object.liquidityRatio ?? ""
+    message.upperBand = object.upperBand ?? ""
+    message.lowerBand = object.lowerBand ?? ""
     return message
   },
 }
@@ -515,11 +587,17 @@ function createBaseQueryLiquidityRatioInfoRequest(): QueryLiquidityRatioInfoRequ
 }
 
 export const QueryLiquidityRatioInfoRequest = {
-  encode(_: QueryLiquidityRatioInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: QueryLiquidityRatioInfoRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityRatioInfoRequest {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): QueryLiquidityRatioInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryLiquidityRatioInfoRequest()
@@ -543,7 +621,9 @@ export const QueryLiquidityRatioInfoRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLiquidityRatioInfoRequest>, I>>(_: I): QueryLiquidityRatioInfoRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryLiquidityRatioInfoRequest>, I>>(
+    _: I,
+  ): QueryLiquidityRatioInfoRequest {
     const message = createBaseQueryLiquidityRatioInfoRequest()
     return message
   },
@@ -554,14 +634,20 @@ function createBaseQueryLiquidityRatioInfoResponse(): QueryLiquidityRatioInfoRes
 }
 
 export const QueryLiquidityRatioInfoResponse = {
-  encode(message: QueryLiquidityRatioInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryLiquidityRatioInfoResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.info !== undefined) {
       LiquidityRatioInfo.encode(message.info, writer.uint32(10).fork()).ldelim()
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityRatioInfoResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): QueryLiquidityRatioInfoResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryLiquidityRatioInfoResponse()
@@ -587,7 +673,8 @@ export const QueryLiquidityRatioInfoResponse = {
 
   toJSON(message: QueryLiquidityRatioInfoResponse): unknown {
     const obj: any = {}
-    message.info !== undefined && (obj.info = message.info ? LiquidityRatioInfo.toJSON(message.info) : undefined)
+    message.info !== undefined &&
+      (obj.info = message.info ? LiquidityRatioInfo.toJSON(message.info) : undefined)
     return obj
   },
 
@@ -596,7 +683,9 @@ export const QueryLiquidityRatioInfoResponse = {
   ): QueryLiquidityRatioInfoResponse {
     const message = createBaseQueryLiquidityRatioInfoResponse()
     message.info =
-      object.info !== undefined && object.info !== null ? LiquidityRatioInfo.fromPartial(object.info) : undefined
+      object.info !== undefined && object.info !== null
+        ? LiquidityRatioInfo.fromPartial(object.info)
+        : undefined
     return message
   },
 }
@@ -606,9 +695,15 @@ export interface Query {
   /** Parameters queries the parameters of the x/stablecoin module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>
   /** ModuleAccountBalances queries the account balance of x/stablecoin. */
-  ModuleAccountBalances(request: QueryModuleAccountBalances): Promise<QueryModuleAccountBalancesResponse>
-  CirculatingSupplies(request: QueryCirculatingSupplies): Promise<QueryCirculatingSuppliesResponse>
-  LiquidityRatioInfo(request: QueryLiquidityRatioInfoRequest): Promise<QueryLiquidityRatioInfoResponse>
+  ModuleAccountBalances(
+    request: QueryModuleAccountBalances,
+  ): Promise<QueryModuleAccountBalancesResponse>
+  CirculatingSupplies(
+    request: QueryCirculatingSupplies,
+  ): Promise<QueryCirculatingSuppliesResponse>
+  LiquidityRatioInfo(
+    request: QueryLiquidityRatioInfoRequest,
+  ): Promise<QueryLiquidityRatioInfoResponse>
 }
 
 export class QueryClientImpl implements Query {
@@ -622,26 +717,50 @@ export class QueryClientImpl implements Query {
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.stablecoin.v1.Query', 'Params', data)
+    const promise = this.rpc.request("nibiru.stablecoin.v1.Query", "Params", data)
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)))
   }
 
-  ModuleAccountBalances(request: QueryModuleAccountBalances): Promise<QueryModuleAccountBalancesResponse> {
+  ModuleAccountBalances(
+    request: QueryModuleAccountBalances,
+  ): Promise<QueryModuleAccountBalancesResponse> {
     const data = QueryModuleAccountBalances.encode(request).finish()
-    const promise = this.rpc.request('nibiru.stablecoin.v1.Query', 'ModuleAccountBalances', data)
-    return promise.then((data) => QueryModuleAccountBalancesResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "nibiru.stablecoin.v1.Query",
+      "ModuleAccountBalances",
+      data,
+    )
+    return promise.then((data) =>
+      QueryModuleAccountBalancesResponse.decode(new _m0.Reader(data)),
+    )
   }
 
-  CirculatingSupplies(request: QueryCirculatingSupplies): Promise<QueryCirculatingSuppliesResponse> {
+  CirculatingSupplies(
+    request: QueryCirculatingSupplies,
+  ): Promise<QueryCirculatingSuppliesResponse> {
     const data = QueryCirculatingSupplies.encode(request).finish()
-    const promise = this.rpc.request('nibiru.stablecoin.v1.Query', 'CirculatingSupplies', data)
-    return promise.then((data) => QueryCirculatingSuppliesResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "nibiru.stablecoin.v1.Query",
+      "CirculatingSupplies",
+      data,
+    )
+    return promise.then((data) =>
+      QueryCirculatingSuppliesResponse.decode(new _m0.Reader(data)),
+    )
   }
 
-  LiquidityRatioInfo(request: QueryLiquidityRatioInfoRequest): Promise<QueryLiquidityRatioInfoResponse> {
+  LiquidityRatioInfo(
+    request: QueryLiquidityRatioInfoRequest,
+  ): Promise<QueryLiquidityRatioInfoResponse> {
     const data = QueryLiquidityRatioInfoRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.stablecoin.v1.Query', 'LiquidityRatioInfo', data)
-    return promise.then((data) => QueryLiquidityRatioInfoResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "nibiru.stablecoin.v1.Query",
+      "LiquidityRatioInfo",
+      data,
+    )
+    return promise.then((data) =>
+      QueryLiquidityRatioInfoResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
@@ -666,7 +785,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

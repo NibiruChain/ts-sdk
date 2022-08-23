@@ -10,12 +10,12 @@ import {
   TallyResult,
   proposalStatusFromJSON,
   proposalStatusToJSON,
-} from './gov'
-import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+} from "./gov"
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.gov.v1beta1'
+export const protobufPackage = "cosmos.gov.v1beta1"
 
 /** QueryProposalRequest is the request type for the Query/Proposal RPC method. */
 export interface QueryProposalRequest {
@@ -145,7 +145,10 @@ function createBaseQueryProposalRequest(): QueryProposalRequest {
 }
 
 export const QueryProposalRequest = {
-  encode(message: QueryProposalRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryProposalRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId)
     }
@@ -172,20 +175,27 @@ export const QueryProposalRequest = {
 
   fromJSON(object: any): QueryProposalRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId)
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO,
     }
   },
 
   toJSON(message: QueryProposalRequest): unknown {
     const obj: any = {}
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString())
+    message.proposalId !== undefined &&
+      (obj.proposalId = (message.proposalId || Long.UZERO).toString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryProposalRequest>, I>>(object: I): QueryProposalRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryProposalRequest>, I>>(
+    object: I,
+  ): QueryProposalRequest {
     const message = createBaseQueryProposalRequest()
     message.proposalId =
-      object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO
     return message
   },
 }
@@ -195,7 +205,10 @@ function createBaseQueryProposalResponse(): QueryProposalResponse {
 }
 
 export const QueryProposalResponse = {
-  encode(message: QueryProposalResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryProposalResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.proposal !== undefined) {
       Proposal.encode(message.proposal, writer.uint32(10).fork()).ldelim()
     }
@@ -228,31 +241,39 @@ export const QueryProposalResponse = {
 
   toJSON(message: QueryProposalResponse): unknown {
     const obj: any = {}
-    message.proposal !== undefined && (obj.proposal = message.proposal ? Proposal.toJSON(message.proposal) : undefined)
+    message.proposal !== undefined &&
+      (obj.proposal = message.proposal ? Proposal.toJSON(message.proposal) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryProposalResponse>, I>>(object: I): QueryProposalResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryProposalResponse>, I>>(
+    object: I,
+  ): QueryProposalResponse {
     const message = createBaseQueryProposalResponse()
     message.proposal =
-      object.proposal !== undefined && object.proposal !== null ? Proposal.fromPartial(object.proposal) : undefined
+      object.proposal !== undefined && object.proposal !== null
+        ? Proposal.fromPartial(object.proposal)
+        : undefined
     return message
   },
 }
 
 function createBaseQueryProposalsRequest(): QueryProposalsRequest {
-  return { proposalStatus: 0, voter: '', depositor: '', pagination: undefined }
+  return { proposalStatus: 0, voter: "", depositor: "", pagination: undefined }
 }
 
 export const QueryProposalsRequest = {
-  encode(message: QueryProposalsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryProposalsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.proposalStatus !== 0) {
       writer.uint32(8).int32(message.proposalStatus)
     }
-    if (message.voter !== '') {
+    if (message.voter !== "") {
       writer.uint32(18).string(message.voter)
     }
-    if (message.depositor !== '') {
+    if (message.depositor !== "") {
       writer.uint32(26).string(message.depositor)
     }
     if (message.pagination !== undefined) {
@@ -290,28 +311,37 @@ export const QueryProposalsRequest = {
 
   fromJSON(object: any): QueryProposalsRequest {
     return {
-      proposalStatus: isSet(object.proposalStatus) ? proposalStatusFromJSON(object.proposalStatus) : 0,
-      voter: isSet(object.voter) ? String(object.voter) : '',
-      depositor: isSet(object.depositor) ? String(object.depositor) : '',
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      proposalStatus: isSet(object.proposalStatus)
+        ? proposalStatusFromJSON(object.proposalStatus)
+        : 0,
+      voter: isSet(object.voter) ? String(object.voter) : "",
+      depositor: isSet(object.depositor) ? String(object.depositor) : "",
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: QueryProposalsRequest): unknown {
     const obj: any = {}
-    message.proposalStatus !== undefined && (obj.proposalStatus = proposalStatusToJSON(message.proposalStatus))
+    message.proposalStatus !== undefined &&
+      (obj.proposalStatus = proposalStatusToJSON(message.proposalStatus))
     message.voter !== undefined && (obj.voter = message.voter)
     message.depositor !== undefined && (obj.depositor = message.depositor)
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryProposalsRequest>, I>>(object: I): QueryProposalsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryProposalsRequest>, I>>(
+    object: I,
+  ): QueryProposalsRequest {
     const message = createBaseQueryProposalsRequest()
     message.proposalStatus = object.proposalStatus ?? 0
-    message.voter = object.voter ?? ''
-    message.depositor = object.depositor ?? ''
+    message.voter = object.voter ?? ""
+    message.depositor = object.depositor ?? ""
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -325,7 +355,10 @@ function createBaseQueryProposalsResponse(): QueryProposalsResponse {
 }
 
 export const QueryProposalsResponse = {
-  encode(message: QueryProposalsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryProposalsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.proposals) {
       Proposal.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -358,8 +391,12 @@ export const QueryProposalsResponse = {
 
   fromJSON(object: any): QueryProposalsResponse {
     return {
-      proposals: Array.isArray(object?.proposals) ? object.proposals.map((e: any) => Proposal.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+      proposals: Array.isArray(object?.proposals)
+        ? object.proposals.map((e: any) => Proposal.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
@@ -371,11 +408,15 @@ export const QueryProposalsResponse = {
       obj.proposals = []
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryProposalsResponse>, I>>(object: I): QueryProposalsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryProposalsResponse>, I>>(
+    object: I,
+  ): QueryProposalsResponse {
     const message = createBaseQueryProposalsResponse()
     message.proposals = object.proposals?.map((e) => Proposal.fromPartial(e)) || []
     message.pagination =
@@ -387,15 +428,18 @@ export const QueryProposalsResponse = {
 }
 
 function createBaseQueryVoteRequest(): QueryVoteRequest {
-  return { proposalId: Long.UZERO, voter: '' }
+  return { proposalId: Long.UZERO, voter: "" }
 }
 
 export const QueryVoteRequest = {
-  encode(message: QueryVoteRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryVoteRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId)
     }
-    if (message.voter !== '') {
+    if (message.voter !== "") {
       writer.uint32(18).string(message.voter)
     }
     return writer
@@ -424,23 +468,30 @@ export const QueryVoteRequest = {
 
   fromJSON(object: any): QueryVoteRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-      voter: isSet(object.voter) ? String(object.voter) : '',
+      proposalId: isSet(object.proposalId)
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO,
+      voter: isSet(object.voter) ? String(object.voter) : "",
     }
   },
 
   toJSON(message: QueryVoteRequest): unknown {
     const obj: any = {}
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString())
+    message.proposalId !== undefined &&
+      (obj.proposalId = (message.proposalId || Long.UZERO).toString())
     message.voter !== undefined && (obj.voter = message.voter)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVoteRequest>, I>>(object: I): QueryVoteRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryVoteRequest>, I>>(
+    object: I,
+  ): QueryVoteRequest {
     const message = createBaseQueryVoteRequest()
     message.proposalId =
-      object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO
-    message.voter = object.voter ?? ''
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO
+    message.voter = object.voter ?? ""
     return message
   },
 }
@@ -450,7 +501,10 @@ function createBaseQueryVoteResponse(): QueryVoteResponse {
 }
 
 export const QueryVoteResponse = {
-  encode(message: QueryVoteResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryVoteResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.vote !== undefined) {
       Vote.encode(message.vote, writer.uint32(10).fork()).ldelim()
     }
@@ -483,13 +537,19 @@ export const QueryVoteResponse = {
 
   toJSON(message: QueryVoteResponse): unknown {
     const obj: any = {}
-    message.vote !== undefined && (obj.vote = message.vote ? Vote.toJSON(message.vote) : undefined)
+    message.vote !== undefined &&
+      (obj.vote = message.vote ? Vote.toJSON(message.vote) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVoteResponse>, I>>(object: I): QueryVoteResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryVoteResponse>, I>>(
+    object: I,
+  ): QueryVoteResponse {
     const message = createBaseQueryVoteResponse()
-    message.vote = object.vote !== undefined && object.vote !== null ? Vote.fromPartial(object.vote) : undefined
+    message.vote =
+      object.vote !== undefined && object.vote !== null
+        ? Vote.fromPartial(object.vote)
+        : undefined
     return message
   },
 }
@@ -499,7 +559,10 @@ function createBaseQueryVotesRequest(): QueryVotesRequest {
 }
 
 export const QueryVotesRequest = {
-  encode(message: QueryVotesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryVotesRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId)
     }
@@ -532,23 +595,34 @@ export const QueryVotesRequest = {
 
   fromJSON(object: any): QueryVotesRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      proposalId: isSet(object.proposalId)
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO,
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: QueryVotesRequest): unknown {
     const obj: any = {}
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString())
+    message.proposalId !== undefined &&
+      (obj.proposalId = (message.proposalId || Long.UZERO).toString())
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVotesRequest>, I>>(object: I): QueryVotesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryVotesRequest>, I>>(
+    object: I,
+  ): QueryVotesRequest {
     const message = createBaseQueryVotesRequest()
     message.proposalId =
-      object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -562,7 +636,10 @@ function createBaseQueryVotesResponse(): QueryVotesResponse {
 }
 
 export const QueryVotesResponse = {
-  encode(message: QueryVotesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryVotesResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.votes) {
       Vote.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -595,8 +672,12 @@ export const QueryVotesResponse = {
 
   fromJSON(object: any): QueryVotesResponse {
     return {
-      votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => Vote.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+      votes: Array.isArray(object?.votes)
+        ? object.votes.map((e: any) => Vote.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
@@ -608,11 +689,15 @@ export const QueryVotesResponse = {
       obj.votes = []
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVotesResponse>, I>>(object: I): QueryVotesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryVotesResponse>, I>>(
+    object: I,
+  ): QueryVotesResponse {
     const message = createBaseQueryVotesResponse()
     message.votes = object.votes?.map((e) => Vote.fromPartial(e)) || []
     message.pagination =
@@ -624,12 +709,15 @@ export const QueryVotesResponse = {
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return { paramsType: '' }
+  return { paramsType: "" }
 }
 
 export const QueryParamsRequest = {
-  encode(message: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.paramsType !== '') {
+  encode(
+    message: QueryParamsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.paramsType !== "") {
       writer.uint32(10).string(message.paramsType)
     }
     return writer
@@ -655,7 +743,7 @@ export const QueryParamsRequest = {
 
   fromJSON(object: any): QueryParamsRequest {
     return {
-      paramsType: isSet(object.paramsType) ? String(object.paramsType) : '',
+      paramsType: isSet(object.paramsType) ? String(object.paramsType) : "",
     }
   },
 
@@ -665,9 +753,11 @@ export const QueryParamsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(object: I): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(
+    object: I,
+  ): QueryParamsRequest {
     const message = createBaseQueryParamsRequest()
-    message.paramsType = object.paramsType ?? ''
+    message.paramsType = object.paramsType ?? ""
     return message
   },
 }
@@ -677,7 +767,10 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
 }
 
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryParamsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.votingParams !== undefined) {
       VotingParams.encode(message.votingParams, writer.uint32(10).fork()).ldelim()
     }
@@ -716,24 +809,38 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     return {
-      votingParams: isSet(object.votingParams) ? VotingParams.fromJSON(object.votingParams) : undefined,
-      depositParams: isSet(object.depositParams) ? DepositParams.fromJSON(object.depositParams) : undefined,
-      tallyParams: isSet(object.tallyParams) ? TallyParams.fromJSON(object.tallyParams) : undefined,
+      votingParams: isSet(object.votingParams)
+        ? VotingParams.fromJSON(object.votingParams)
+        : undefined,
+      depositParams: isSet(object.depositParams)
+        ? DepositParams.fromJSON(object.depositParams)
+        : undefined,
+      tallyParams: isSet(object.tallyParams)
+        ? TallyParams.fromJSON(object.tallyParams)
+        : undefined,
     }
   },
 
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {}
     message.votingParams !== undefined &&
-      (obj.votingParams = message.votingParams ? VotingParams.toJSON(message.votingParams) : undefined)
+      (obj.votingParams = message.votingParams
+        ? VotingParams.toJSON(message.votingParams)
+        : undefined)
     message.depositParams !== undefined &&
-      (obj.depositParams = message.depositParams ? DepositParams.toJSON(message.depositParams) : undefined)
+      (obj.depositParams = message.depositParams
+        ? DepositParams.toJSON(message.depositParams)
+        : undefined)
     message.tallyParams !== undefined &&
-      (obj.tallyParams = message.tallyParams ? TallyParams.toJSON(message.tallyParams) : undefined)
+      (obj.tallyParams = message.tallyParams
+        ? TallyParams.toJSON(message.tallyParams)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(
+    object: I,
+  ): QueryParamsResponse {
     const message = createBaseQueryParamsResponse()
     message.votingParams =
       object.votingParams !== undefined && object.votingParams !== null
@@ -752,15 +859,18 @@ export const QueryParamsResponse = {
 }
 
 function createBaseQueryDepositRequest(): QueryDepositRequest {
-  return { proposalId: Long.UZERO, depositor: '' }
+  return { proposalId: Long.UZERO, depositor: "" }
 }
 
 export const QueryDepositRequest = {
-  encode(message: QueryDepositRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryDepositRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId)
     }
-    if (message.depositor !== '') {
+    if (message.depositor !== "") {
       writer.uint32(18).string(message.depositor)
     }
     return writer
@@ -789,23 +899,30 @@ export const QueryDepositRequest = {
 
   fromJSON(object: any): QueryDepositRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-      depositor: isSet(object.depositor) ? String(object.depositor) : '',
+      proposalId: isSet(object.proposalId)
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO,
+      depositor: isSet(object.depositor) ? String(object.depositor) : "",
     }
   },
 
   toJSON(message: QueryDepositRequest): unknown {
     const obj: any = {}
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString())
+    message.proposalId !== undefined &&
+      (obj.proposalId = (message.proposalId || Long.UZERO).toString())
     message.depositor !== undefined && (obj.depositor = message.depositor)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryDepositRequest>, I>>(object: I): QueryDepositRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDepositRequest>, I>>(
+    object: I,
+  ): QueryDepositRequest {
     const message = createBaseQueryDepositRequest()
     message.proposalId =
-      object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO
-    message.depositor = object.depositor ?? ''
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO
+    message.depositor = object.depositor ?? ""
     return message
   },
 }
@@ -815,7 +932,10 @@ function createBaseQueryDepositResponse(): QueryDepositResponse {
 }
 
 export const QueryDepositResponse = {
-  encode(message: QueryDepositResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryDepositResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.deposit !== undefined) {
       Deposit.encode(message.deposit, writer.uint32(10).fork()).ldelim()
     }
@@ -848,14 +968,19 @@ export const QueryDepositResponse = {
 
   toJSON(message: QueryDepositResponse): unknown {
     const obj: any = {}
-    message.deposit !== undefined && (obj.deposit = message.deposit ? Deposit.toJSON(message.deposit) : undefined)
+    message.deposit !== undefined &&
+      (obj.deposit = message.deposit ? Deposit.toJSON(message.deposit) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryDepositResponse>, I>>(object: I): QueryDepositResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDepositResponse>, I>>(
+    object: I,
+  ): QueryDepositResponse {
     const message = createBaseQueryDepositResponse()
     message.deposit =
-      object.deposit !== undefined && object.deposit !== null ? Deposit.fromPartial(object.deposit) : undefined
+      object.deposit !== undefined && object.deposit !== null
+        ? Deposit.fromPartial(object.deposit)
+        : undefined
     return message
   },
 }
@@ -865,7 +990,10 @@ function createBaseQueryDepositsRequest(): QueryDepositsRequest {
 }
 
 export const QueryDepositsRequest = {
-  encode(message: QueryDepositsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryDepositsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId)
     }
@@ -898,23 +1026,34 @@ export const QueryDepositsRequest = {
 
   fromJSON(object: any): QueryDepositsRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      proposalId: isSet(object.proposalId)
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO,
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: QueryDepositsRequest): unknown {
     const obj: any = {}
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString())
+    message.proposalId !== undefined &&
+      (obj.proposalId = (message.proposalId || Long.UZERO).toString())
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryDepositsRequest>, I>>(object: I): QueryDepositsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDepositsRequest>, I>>(
+    object: I,
+  ): QueryDepositsRequest {
     const message = createBaseQueryDepositsRequest()
     message.proposalId =
-      object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -928,7 +1067,10 @@ function createBaseQueryDepositsResponse(): QueryDepositsResponse {
 }
 
 export const QueryDepositsResponse = {
-  encode(message: QueryDepositsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryDepositsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.deposits) {
       Deposit.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -961,8 +1103,12 @@ export const QueryDepositsResponse = {
 
   fromJSON(object: any): QueryDepositsResponse {
     return {
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+      deposits: Array.isArray(object?.deposits)
+        ? object.deposits.map((e: any) => Deposit.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
@@ -974,11 +1120,15 @@ export const QueryDepositsResponse = {
       obj.deposits = []
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryDepositsResponse>, I>>(object: I): QueryDepositsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDepositsResponse>, I>>(
+    object: I,
+  ): QueryDepositsResponse {
     const message = createBaseQueryDepositsResponse()
     message.deposits = object.deposits?.map((e) => Deposit.fromPartial(e)) || []
     message.pagination =
@@ -994,7 +1144,10 @@ function createBaseQueryTallyResultRequest(): QueryTallyResultRequest {
 }
 
 export const QueryTallyResultRequest = {
-  encode(message: QueryTallyResultRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryTallyResultRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId)
     }
@@ -1021,20 +1174,27 @@ export const QueryTallyResultRequest = {
 
   fromJSON(object: any): QueryTallyResultRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId)
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO,
     }
   },
 
   toJSON(message: QueryTallyResultRequest): unknown {
     const obj: any = {}
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString())
+    message.proposalId !== undefined &&
+      (obj.proposalId = (message.proposalId || Long.UZERO).toString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTallyResultRequest>, I>>(object: I): QueryTallyResultRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryTallyResultRequest>, I>>(
+    object: I,
+  ): QueryTallyResultRequest {
     const message = createBaseQueryTallyResultRequest()
     message.proposalId =
-      object.proposalId !== undefined && object.proposalId !== null ? Long.fromValue(object.proposalId) : Long.UZERO
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO
     return message
   },
 }
@@ -1044,7 +1204,10 @@ function createBaseQueryTallyResultResponse(): QueryTallyResultResponse {
 }
 
 export const QueryTallyResultResponse = {
-  encode(message: QueryTallyResultResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryTallyResultResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.tally !== undefined) {
       TallyResult.encode(message.tally, writer.uint32(10).fork()).ldelim()
     }
@@ -1077,14 +1240,19 @@ export const QueryTallyResultResponse = {
 
   toJSON(message: QueryTallyResultResponse): unknown {
     const obj: any = {}
-    message.tally !== undefined && (obj.tally = message.tally ? TallyResult.toJSON(message.tally) : undefined)
+    message.tally !== undefined &&
+      (obj.tally = message.tally ? TallyResult.toJSON(message.tally) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTallyResultResponse>, I>>(object: I): QueryTallyResultResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryTallyResultResponse>, I>>(
+    object: I,
+  ): QueryTallyResultResponse {
     const message = createBaseQueryTallyResultResponse()
     message.tally =
-      object.tally !== undefined && object.tally !== null ? TallyResult.fromPartial(object.tally) : undefined
+      object.tally !== undefined && object.tally !== null
+        ? TallyResult.fromPartial(object.tally)
+        : undefined
     return message
   },
 }
@@ -1124,49 +1292,49 @@ export class QueryClientImpl implements Query {
   }
   Proposal(request: QueryProposalRequest): Promise<QueryProposalResponse> {
     const data = QueryProposalRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.gov.v1beta1.Query', 'Proposal', data)
+    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Proposal", data)
     return promise.then((data) => QueryProposalResponse.decode(new _m0.Reader(data)))
   }
 
   Proposals(request: QueryProposalsRequest): Promise<QueryProposalsResponse> {
     const data = QueryProposalsRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.gov.v1beta1.Query', 'Proposals', data)
+    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Proposals", data)
     return promise.then((data) => QueryProposalsResponse.decode(new _m0.Reader(data)))
   }
 
   Vote(request: QueryVoteRequest): Promise<QueryVoteResponse> {
     const data = QueryVoteRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.gov.v1beta1.Query', 'Vote', data)
+    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Vote", data)
     return promise.then((data) => QueryVoteResponse.decode(new _m0.Reader(data)))
   }
 
   Votes(request: QueryVotesRequest): Promise<QueryVotesResponse> {
     const data = QueryVotesRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.gov.v1beta1.Query', 'Votes', data)
+    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Votes", data)
     return promise.then((data) => QueryVotesResponse.decode(new _m0.Reader(data)))
   }
 
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.gov.v1beta1.Query', 'Params', data)
+    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Params", data)
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)))
   }
 
   Deposit(request: QueryDepositRequest): Promise<QueryDepositResponse> {
     const data = QueryDepositRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.gov.v1beta1.Query', 'Deposit', data)
+    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Deposit", data)
     return promise.then((data) => QueryDepositResponse.decode(new _m0.Reader(data)))
   }
 
   Deposits(request: QueryDepositsRequest): Promise<QueryDepositsResponse> {
     const data = QueryDepositsRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.gov.v1beta1.Query', 'Deposits', data)
+    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Deposits", data)
     return promise.then((data) => QueryDepositsResponse.decode(new _m0.Reader(data)))
   }
 
   TallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse> {
     const data = QueryTallyResultRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.gov.v1beta1.Query', 'TallyResult', data)
+    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "TallyResult", data)
     return promise.then((data) => QueryTallyResultResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -1192,7 +1360,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

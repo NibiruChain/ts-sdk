@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.stablecoin.v1'
+export const protobufPackage = "nibiru.stablecoin.v1"
 
 /** Params defines the parameters for the module. */
 export interface Params {
@@ -35,7 +35,7 @@ function createBaseParams(): Params {
     feeRatio: Long.ZERO,
     efFeeRatio: Long.ZERO,
     bonusRateRecoll: Long.ZERO,
-    distrEpochIdentifier: '',
+    distrEpochIdentifier: "",
     adjustmentStep: Long.ZERO,
     priceLowerBound: Long.ZERO,
     priceUpperBound: Long.ZERO,
@@ -57,7 +57,7 @@ export const Params = {
     if (!message.bonusRateRecoll.isZero()) {
       writer.uint32(32).int64(message.bonusRateRecoll)
     }
-    if (message.distrEpochIdentifier !== '') {
+    if (message.distrEpochIdentifier !== "") {
       writer.uint32(42).string(message.distrEpochIdentifier)
     }
     if (!message.adjustmentStep.isZero()) {
@@ -121,43 +121,72 @@ export const Params = {
     return {
       collRatio: isSet(object.collRatio) ? Long.fromValue(object.collRatio) : Long.ZERO,
       feeRatio: isSet(object.feeRatio) ? Long.fromValue(object.feeRatio) : Long.ZERO,
-      efFeeRatio: isSet(object.efFeeRatio) ? Long.fromValue(object.efFeeRatio) : Long.ZERO,
-      bonusRateRecoll: isSet(object.bonusRateRecoll) ? Long.fromValue(object.bonusRateRecoll) : Long.ZERO,
-      distrEpochIdentifier: isSet(object.distrEpochIdentifier) ? String(object.distrEpochIdentifier) : '',
-      adjustmentStep: isSet(object.adjustmentStep) ? Long.fromValue(object.adjustmentStep) : Long.ZERO,
-      priceLowerBound: isSet(object.priceLowerBound) ? Long.fromValue(object.priceLowerBound) : Long.ZERO,
-      priceUpperBound: isSet(object.priceUpperBound) ? Long.fromValue(object.priceUpperBound) : Long.ZERO,
-      isCollateralRatioValid: isSet(object.isCollateralRatioValid) ? Boolean(object.isCollateralRatioValid) : false,
+      efFeeRatio: isSet(object.efFeeRatio)
+        ? Long.fromValue(object.efFeeRatio)
+        : Long.ZERO,
+      bonusRateRecoll: isSet(object.bonusRateRecoll)
+        ? Long.fromValue(object.bonusRateRecoll)
+        : Long.ZERO,
+      distrEpochIdentifier: isSet(object.distrEpochIdentifier)
+        ? String(object.distrEpochIdentifier)
+        : "",
+      adjustmentStep: isSet(object.adjustmentStep)
+        ? Long.fromValue(object.adjustmentStep)
+        : Long.ZERO,
+      priceLowerBound: isSet(object.priceLowerBound)
+        ? Long.fromValue(object.priceLowerBound)
+        : Long.ZERO,
+      priceUpperBound: isSet(object.priceUpperBound)
+        ? Long.fromValue(object.priceUpperBound)
+        : Long.ZERO,
+      isCollateralRatioValid: isSet(object.isCollateralRatioValid)
+        ? Boolean(object.isCollateralRatioValid)
+        : false,
     }
   },
 
   toJSON(message: Params): unknown {
     const obj: any = {}
-    message.collRatio !== undefined && (obj.collRatio = (message.collRatio || Long.ZERO).toString())
-    message.feeRatio !== undefined && (obj.feeRatio = (message.feeRatio || Long.ZERO).toString())
-    message.efFeeRatio !== undefined && (obj.efFeeRatio = (message.efFeeRatio || Long.ZERO).toString())
-    message.bonusRateRecoll !== undefined && (obj.bonusRateRecoll = (message.bonusRateRecoll || Long.ZERO).toString())
-    message.distrEpochIdentifier !== undefined && (obj.distrEpochIdentifier = message.distrEpochIdentifier)
-    message.adjustmentStep !== undefined && (obj.adjustmentStep = (message.adjustmentStep || Long.ZERO).toString())
-    message.priceLowerBound !== undefined && (obj.priceLowerBound = (message.priceLowerBound || Long.ZERO).toString())
-    message.priceUpperBound !== undefined && (obj.priceUpperBound = (message.priceUpperBound || Long.ZERO).toString())
-    message.isCollateralRatioValid !== undefined && (obj.isCollateralRatioValid = message.isCollateralRatioValid)
+    message.collRatio !== undefined &&
+      (obj.collRatio = (message.collRatio || Long.ZERO).toString())
+    message.feeRatio !== undefined &&
+      (obj.feeRatio = (message.feeRatio || Long.ZERO).toString())
+    message.efFeeRatio !== undefined &&
+      (obj.efFeeRatio = (message.efFeeRatio || Long.ZERO).toString())
+    message.bonusRateRecoll !== undefined &&
+      (obj.bonusRateRecoll = (message.bonusRateRecoll || Long.ZERO).toString())
+    message.distrEpochIdentifier !== undefined &&
+      (obj.distrEpochIdentifier = message.distrEpochIdentifier)
+    message.adjustmentStep !== undefined &&
+      (obj.adjustmentStep = (message.adjustmentStep || Long.ZERO).toString())
+    message.priceLowerBound !== undefined &&
+      (obj.priceLowerBound = (message.priceLowerBound || Long.ZERO).toString())
+    message.priceUpperBound !== undefined &&
+      (obj.priceUpperBound = (message.priceUpperBound || Long.ZERO).toString())
+    message.isCollateralRatioValid !== undefined &&
+      (obj.isCollateralRatioValid = message.isCollateralRatioValid)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams()
     message.collRatio =
-      object.collRatio !== undefined && object.collRatio !== null ? Long.fromValue(object.collRatio) : Long.ZERO
+      object.collRatio !== undefined && object.collRatio !== null
+        ? Long.fromValue(object.collRatio)
+        : Long.ZERO
     message.feeRatio =
-      object.feeRatio !== undefined && object.feeRatio !== null ? Long.fromValue(object.feeRatio) : Long.ZERO
+      object.feeRatio !== undefined && object.feeRatio !== null
+        ? Long.fromValue(object.feeRatio)
+        : Long.ZERO
     message.efFeeRatio =
-      object.efFeeRatio !== undefined && object.efFeeRatio !== null ? Long.fromValue(object.efFeeRatio) : Long.ZERO
+      object.efFeeRatio !== undefined && object.efFeeRatio !== null
+        ? Long.fromValue(object.efFeeRatio)
+        : Long.ZERO
     message.bonusRateRecoll =
       object.bonusRateRecoll !== undefined && object.bonusRateRecoll !== null
         ? Long.fromValue(object.bonusRateRecoll)
         : Long.ZERO
-    message.distrEpochIdentifier = object.distrEpochIdentifier ?? ''
+    message.distrEpochIdentifier = object.distrEpochIdentifier ?? ""
     message.adjustmentStep =
       object.adjustmentStep !== undefined && object.adjustmentStep !== null
         ? Long.fromValue(object.adjustmentStep)
@@ -192,7 +221,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

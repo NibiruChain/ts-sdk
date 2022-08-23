@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Coin } from '../../cosmos/base/v1beta1/coin'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Coin } from "../../cosmos/base/v1beta1/coin"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.dex.v1'
+export const protobufPackage = "nibiru.dex.v1"
 
 /** Configuration parameters for the pool. */
 export interface PoolParams {
@@ -41,15 +41,15 @@ export interface Pool {
 }
 
 function createBasePoolParams(): PoolParams {
-  return { swapFee: '', exitFee: '' }
+  return { swapFee: "", exitFee: "" }
 }
 
 export const PoolParams = {
   encode(message: PoolParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.swapFee !== '') {
+    if (message.swapFee !== "") {
       writer.uint32(10).string(message.swapFee)
     }
-    if (message.exitFee !== '') {
+    if (message.exitFee !== "") {
       writer.uint32(18).string(message.exitFee)
     }
     return writer
@@ -78,8 +78,8 @@ export const PoolParams = {
 
   fromJSON(object: any): PoolParams {
     return {
-      swapFee: isSet(object.swapFee) ? String(object.swapFee) : '',
-      exitFee: isSet(object.exitFee) ? String(object.exitFee) : '',
+      swapFee: isSet(object.swapFee) ? String(object.swapFee) : "",
+      exitFee: isSet(object.exitFee) ? String(object.exitFee) : "",
     }
   },
 
@@ -92,14 +92,14 @@ export const PoolParams = {
 
   fromPartial<I extends Exact<DeepPartial<PoolParams>, I>>(object: I): PoolParams {
     const message = createBasePoolParams()
-    message.swapFee = object.swapFee ?? ''
-    message.exitFee = object.exitFee ?? ''
+    message.swapFee = object.swapFee ?? ""
+    message.exitFee = object.exitFee ?? ""
     return message
   },
 }
 
 function createBasePoolAsset(): PoolAsset {
-  return { token: undefined, weight: '' }
+  return { token: undefined, weight: "" }
 }
 
 export const PoolAsset = {
@@ -107,7 +107,7 @@ export const PoolAsset = {
     if (message.token !== undefined) {
       Coin.encode(message.token, writer.uint32(10).fork()).ldelim()
     }
-    if (message.weight !== '') {
+    if (message.weight !== "") {
       writer.uint32(18).string(message.weight)
     }
     return writer
@@ -137,27 +137,38 @@ export const PoolAsset = {
   fromJSON(object: any): PoolAsset {
     return {
       token: isSet(object.token) ? Coin.fromJSON(object.token) : undefined,
-      weight: isSet(object.weight) ? String(object.weight) : '',
+      weight: isSet(object.weight) ? String(object.weight) : "",
     }
   },
 
   toJSON(message: PoolAsset): unknown {
     const obj: any = {}
-    message.token !== undefined && (obj.token = message.token ? Coin.toJSON(message.token) : undefined)
+    message.token !== undefined &&
+      (obj.token = message.token ? Coin.toJSON(message.token) : undefined)
     message.weight !== undefined && (obj.weight = message.weight)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<PoolAsset>, I>>(object: I): PoolAsset {
     const message = createBasePoolAsset()
-    message.token = object.token !== undefined && object.token !== null ? Coin.fromPartial(object.token) : undefined
-    message.weight = object.weight ?? ''
+    message.token =
+      object.token !== undefined && object.token !== null
+        ? Coin.fromPartial(object.token)
+        : undefined
+    message.weight = object.weight ?? ""
     return message
   },
 }
 
 function createBasePool(): Pool {
-  return { id: Long.UZERO, address: '', poolParams: undefined, poolAssets: [], totalWeight: '', totalShares: undefined }
+  return {
+    id: Long.UZERO,
+    address: "",
+    poolParams: undefined,
+    poolAssets: [],
+    totalWeight: "",
+    totalShares: undefined,
+  }
 }
 
 export const Pool = {
@@ -165,7 +176,7 @@ export const Pool = {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id)
     }
-    if (message.address !== '') {
+    if (message.address !== "") {
       writer.uint32(18).string(message.address)
     }
     if (message.poolParams !== undefined) {
@@ -174,7 +185,7 @@ export const Pool = {
     for (const v of message.poolAssets) {
       PoolAsset.encode(v!, writer.uint32(34).fork()).ldelim()
     }
-    if (message.totalWeight !== '') {
+    if (message.totalWeight !== "") {
       writer.uint32(42).string(message.totalWeight)
     }
     if (message.totalShares !== undefined) {
@@ -219,11 +230,17 @@ export const Pool = {
   fromJSON(object: any): Pool {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      address: isSet(object.address) ? String(object.address) : '',
-      poolParams: isSet(object.poolParams) ? PoolParams.fromJSON(object.poolParams) : undefined,
-      poolAssets: Array.isArray(object?.poolAssets) ? object.poolAssets.map((e: any) => PoolAsset.fromJSON(e)) : [],
-      totalWeight: isSet(object.totalWeight) ? String(object.totalWeight) : '',
-      totalShares: isSet(object.totalShares) ? Coin.fromJSON(object.totalShares) : undefined,
+      address: isSet(object.address) ? String(object.address) : "",
+      poolParams: isSet(object.poolParams)
+        ? PoolParams.fromJSON(object.poolParams)
+        : undefined,
+      poolAssets: Array.isArray(object?.poolAssets)
+        ? object.poolAssets.map((e: any) => PoolAsset.fromJSON(e))
+        : [],
+      totalWeight: isSet(object.totalWeight) ? String(object.totalWeight) : "",
+      totalShares: isSet(object.totalShares)
+        ? Coin.fromJSON(object.totalShares)
+        : undefined,
     }
   },
 
@@ -232,30 +249,41 @@ export const Pool = {
     message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString())
     message.address !== undefined && (obj.address = message.address)
     message.poolParams !== undefined &&
-      (obj.poolParams = message.poolParams ? PoolParams.toJSON(message.poolParams) : undefined)
+      (obj.poolParams = message.poolParams
+        ? PoolParams.toJSON(message.poolParams)
+        : undefined)
     if (message.poolAssets) {
-      obj.poolAssets = message.poolAssets.map((e) => (e ? PoolAsset.toJSON(e) : undefined))
+      obj.poolAssets = message.poolAssets.map((e) =>
+        e ? PoolAsset.toJSON(e) : undefined,
+      )
     } else {
       obj.poolAssets = []
     }
     message.totalWeight !== undefined && (obj.totalWeight = message.totalWeight)
     message.totalShares !== undefined &&
-      (obj.totalShares = message.totalShares ? Coin.toJSON(message.totalShares) : undefined)
+      (obj.totalShares = message.totalShares
+        ? Coin.toJSON(message.totalShares)
+        : undefined)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<Pool>, I>>(object: I): Pool {
     const message = createBasePool()
-    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO
-    message.address = object.address ?? ''
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO
+    message.address = object.address ?? ""
     message.poolParams =
       object.poolParams !== undefined && object.poolParams !== null
         ? PoolParams.fromPartial(object.poolParams)
         : undefined
     message.poolAssets = object.poolAssets?.map((e) => PoolAsset.fromPartial(e)) || []
-    message.totalWeight = object.totalWeight ?? ''
+    message.totalWeight = object.totalWeight ?? ""
     message.totalShares =
-      object.totalShares !== undefined && object.totalShares !== null ? Coin.fromPartial(object.totalShares) : undefined
+      object.totalShares !== undefined && object.totalShares !== null
+        ? Coin.fromPartial(object.totalShares)
+        : undefined
     return message
   },
 }
@@ -277,7 +305,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

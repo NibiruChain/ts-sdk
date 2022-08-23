@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { Params, ValidatorSigningInfo } from './slashing'
-import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Params, ValidatorSigningInfo } from "./slashing"
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.slashing.v1beta1'
+export const protobufPackage = "cosmos.slashing.v1beta1"
 
 /** QueryParamsRequest is the request type for the Query/Params RPC method */
 export interface QueryParamsRequest {}
@@ -83,7 +83,9 @@ export const QueryParamsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(
+    _: I,
+  ): QueryParamsRequest {
     const message = createBaseQueryParamsRequest()
     return message
   },
@@ -94,7 +96,10 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
 }
 
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryParamsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim()
     }
@@ -127,25 +132,33 @@ export const QueryParamsResponse = {
 
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {}
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(
+    object: I,
+  ): QueryParamsResponse {
     const message = createBaseQueryParamsResponse()
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
     return message
   },
 }
 
 function createBaseQuerySigningInfoRequest(): QuerySigningInfoRequest {
-  return { consAddress: '' }
+  return { consAddress: "" }
 }
 
 export const QuerySigningInfoRequest = {
-  encode(message: QuerySigningInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.consAddress !== '') {
+  encode(
+    message: QuerySigningInfoRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.consAddress !== "") {
       writer.uint32(10).string(message.consAddress)
     }
     return writer
@@ -171,7 +184,7 @@ export const QuerySigningInfoRequest = {
 
   fromJSON(object: any): QuerySigningInfoRequest {
     return {
-      consAddress: isSet(object.consAddress) ? String(object.consAddress) : '',
+      consAddress: isSet(object.consAddress) ? String(object.consAddress) : "",
     }
   },
 
@@ -181,9 +194,11 @@ export const QuerySigningInfoRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QuerySigningInfoRequest>, I>>(object: I): QuerySigningInfoRequest {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfoRequest>, I>>(
+    object: I,
+  ): QuerySigningInfoRequest {
     const message = createBaseQuerySigningInfoRequest()
-    message.consAddress = object.consAddress ?? ''
+    message.consAddress = object.consAddress ?? ""
     return message
   },
 }
@@ -193,9 +208,15 @@ function createBaseQuerySigningInfoResponse(): QuerySigningInfoResponse {
 }
 
 export const QuerySigningInfoResponse = {
-  encode(message: QuerySigningInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QuerySigningInfoResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.valSigningInfo !== undefined) {
-      ValidatorSigningInfo.encode(message.valSigningInfo, writer.uint32(10).fork()).ldelim()
+      ValidatorSigningInfo.encode(
+        message.valSigningInfo,
+        writer.uint32(10).fork(),
+      ).ldelim()
     }
     return writer
   },
@@ -220,18 +241,24 @@ export const QuerySigningInfoResponse = {
 
   fromJSON(object: any): QuerySigningInfoResponse {
     return {
-      valSigningInfo: isSet(object.valSigningInfo) ? ValidatorSigningInfo.fromJSON(object.valSigningInfo) : undefined,
+      valSigningInfo: isSet(object.valSigningInfo)
+        ? ValidatorSigningInfo.fromJSON(object.valSigningInfo)
+        : undefined,
     }
   },
 
   toJSON(message: QuerySigningInfoResponse): unknown {
     const obj: any = {}
     message.valSigningInfo !== undefined &&
-      (obj.valSigningInfo = message.valSigningInfo ? ValidatorSigningInfo.toJSON(message.valSigningInfo) : undefined)
+      (obj.valSigningInfo = message.valSigningInfo
+        ? ValidatorSigningInfo.toJSON(message.valSigningInfo)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QuerySigningInfoResponse>, I>>(object: I): QuerySigningInfoResponse {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfoResponse>, I>>(
+    object: I,
+  ): QuerySigningInfoResponse {
     const message = createBaseQuerySigningInfoResponse()
     message.valSigningInfo =
       object.valSigningInfo !== undefined && object.valSigningInfo !== null
@@ -246,7 +273,10 @@ function createBaseQuerySigningInfosRequest(): QuerySigningInfosRequest {
 }
 
 export const QuerySigningInfosRequest = {
-  encode(message: QuerySigningInfosRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QuerySigningInfosRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
     }
@@ -273,18 +303,24 @@ export const QuerySigningInfosRequest = {
 
   fromJSON(object: any): QuerySigningInfosRequest {
     return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: QuerySigningInfosRequest): unknown {
     const obj: any = {}
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QuerySigningInfosRequest>, I>>(object: I): QuerySigningInfosRequest {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfosRequest>, I>>(
+    object: I,
+  ): QuerySigningInfosRequest {
     const message = createBaseQuerySigningInfosRequest()
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -299,7 +335,10 @@ function createBaseQuerySigningInfosResponse(): QuerySigningInfosResponse {
 }
 
 export const QuerySigningInfosResponse = {
-  encode(message: QuerySigningInfosResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QuerySigningInfosResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.info) {
       ValidatorSigningInfo.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -332,24 +371,34 @@ export const QuerySigningInfosResponse = {
 
   fromJSON(object: any): QuerySigningInfosResponse {
     return {
-      info: Array.isArray(object?.info) ? object.info.map((e: any) => ValidatorSigningInfo.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+      info: Array.isArray(object?.info)
+        ? object.info.map((e: any) => ValidatorSigningInfo.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: QuerySigningInfosResponse): unknown {
     const obj: any = {}
     if (message.info) {
-      obj.info = message.info.map((e) => (e ? ValidatorSigningInfo.toJSON(e) : undefined))
+      obj.info = message.info.map((e) =>
+        e ? ValidatorSigningInfo.toJSON(e) : undefined,
+      )
     } else {
       obj.info = []
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QuerySigningInfosResponse>, I>>(object: I): QuerySigningInfosResponse {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfosResponse>, I>>(
+    object: I,
+  ): QuerySigningInfosResponse {
     const message = createBaseQuerySigningInfosResponse()
     message.info = object.info?.map((e) => ValidatorSigningInfo.fromPartial(e)) || []
     message.pagination =
@@ -380,20 +429,30 @@ export class QueryClientImpl implements Query {
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.slashing.v1beta1.Query', 'Params', data)
+    const promise = this.rpc.request("cosmos.slashing.v1beta1.Query", "Params", data)
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)))
   }
 
   SigningInfo(request: QuerySigningInfoRequest): Promise<QuerySigningInfoResponse> {
     const data = QuerySigningInfoRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.slashing.v1beta1.Query', 'SigningInfo', data)
+    const promise = this.rpc.request(
+      "cosmos.slashing.v1beta1.Query",
+      "SigningInfo",
+      data,
+    )
     return promise.then((data) => QuerySigningInfoResponse.decode(new _m0.Reader(data)))
   }
 
   SigningInfos(request: QuerySigningInfosRequest): Promise<QuerySigningInfosResponse> {
     const data = QuerySigningInfosRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.slashing.v1beta1.Query', 'SigningInfos', data)
-    return promise.then((data) => QuerySigningInfosResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "cosmos.slashing.v1beta1.Query",
+      "SigningInfos",
+      data,
+    )
+    return promise.then((data) =>
+      QuerySigningInfosResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
@@ -418,7 +477,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

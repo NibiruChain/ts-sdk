@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from 'long'
-import { GrantAuthorization } from './authz'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import { GrantAuthorization } from "./authz"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.authz.v1beta1'
+export const protobufPackage = "cosmos.authz.v1beta1"
 
 /** Since: cosmos-sdk 0.43 */
 
@@ -53,7 +53,9 @@ export const GenesisState = {
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
     if (message.authorization) {
-      obj.authorization = message.authorization.map((e) => (e ? GrantAuthorization.toJSON(e) : undefined))
+      obj.authorization = message.authorization.map((e) =>
+        e ? GrantAuthorization.toJSON(e) : undefined,
+      )
     } else {
       obj.authorization = []
     }
@@ -62,7 +64,8 @@ export const GenesisState = {
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState()
-    message.authorization = object.authorization?.map((e) => GrantAuthorization.fromPartial(e)) || []
+    message.authorization =
+      object.authorization?.map((e) => GrantAuthorization.fromPartial(e)) || []
     return message
   },
 }
@@ -84,7 +87,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

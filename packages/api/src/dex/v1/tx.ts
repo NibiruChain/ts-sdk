@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { PoolParams, Pool, PoolAsset } from './pool'
-import { Coin } from '../../cosmos/base/v1beta1/coin'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { PoolParams, Pool, PoolAsset } from "./pool"
+import { Coin } from "../../cosmos/base/v1beta1/coin"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.dex.v1'
+export const protobufPackage = "nibiru.dex.v1"
 
 export interface MsgCreatePool {
   creator: string
@@ -82,12 +82,12 @@ export interface EventAssetsSwapped {
 }
 
 function createBaseMsgCreatePool(): MsgCreatePool {
-  return { creator: '', poolParams: undefined, poolAssets: [] }
+  return { creator: "", poolParams: undefined, poolAssets: [] }
 }
 
 export const MsgCreatePool = {
   encode(message: MsgCreatePool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.creator !== '') {
+    if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
     }
     if (message.poolParams !== undefined) {
@@ -125,9 +125,13 @@ export const MsgCreatePool = {
 
   fromJSON(object: any): MsgCreatePool {
     return {
-      creator: isSet(object.creator) ? String(object.creator) : '',
-      poolParams: isSet(object.poolParams) ? PoolParams.fromJSON(object.poolParams) : undefined,
-      poolAssets: Array.isArray(object?.poolAssets) ? object.poolAssets.map((e: any) => PoolAsset.fromJSON(e)) : [],
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      poolParams: isSet(object.poolParams)
+        ? PoolParams.fromJSON(object.poolParams)
+        : undefined,
+      poolAssets: Array.isArray(object?.poolAssets)
+        ? object.poolAssets.map((e: any) => PoolAsset.fromJSON(e))
+        : [],
     }
   },
 
@@ -135,18 +139,24 @@ export const MsgCreatePool = {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
     message.poolParams !== undefined &&
-      (obj.poolParams = message.poolParams ? PoolParams.toJSON(message.poolParams) : undefined)
+      (obj.poolParams = message.poolParams
+        ? PoolParams.toJSON(message.poolParams)
+        : undefined)
     if (message.poolAssets) {
-      obj.poolAssets = message.poolAssets.map((e) => (e ? PoolAsset.toJSON(e) : undefined))
+      obj.poolAssets = message.poolAssets.map((e) =>
+        e ? PoolAsset.toJSON(e) : undefined,
+      )
     } else {
       obj.poolAssets = []
     }
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCreatePool>, I>>(object: I): MsgCreatePool {
+  fromPartial<I extends Exact<DeepPartial<MsgCreatePool>, I>>(
+    object: I,
+  ): MsgCreatePool {
     const message = createBaseMsgCreatePool()
-    message.creator = object.creator ?? ''
+    message.creator = object.creator ?? ""
     message.poolParams =
       object.poolParams !== undefined && object.poolParams !== null
         ? PoolParams.fromPartial(object.poolParams)
@@ -161,7 +171,10 @@ function createBaseMsgCreatePoolResponse(): MsgCreatePoolResponse {
 }
 
 export const MsgCreatePoolResponse = {
-  encode(message: MsgCreatePoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgCreatePoolResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.poolId.isZero()) {
       writer.uint32(8).uint64(message.poolId)
     }
@@ -194,24 +207,30 @@ export const MsgCreatePoolResponse = {
 
   toJSON(message: MsgCreatePoolResponse): unknown {
     const obj: any = {}
-    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString())
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCreatePoolResponse>, I>>(object: I): MsgCreatePoolResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgCreatePoolResponse>, I>>(
+    object: I,
+  ): MsgCreatePoolResponse {
     const message = createBaseMsgCreatePoolResponse()
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? Long.fromValue(object.poolId) : Long.UZERO
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO
     return message
   },
 }
 
 function createBaseMsgJoinPool(): MsgJoinPool {
-  return { sender: '', poolId: Long.UZERO, tokensIn: [] }
+  return { sender: "", poolId: Long.UZERO, tokensIn: [] }
 }
 
 export const MsgJoinPool = {
   encode(message: MsgJoinPool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== '') {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
     if (!message.poolId.isZero()) {
@@ -249,16 +268,19 @@ export const MsgJoinPool = {
 
   fromJSON(object: any): MsgJoinPool {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : '',
+      sender: isSet(object.sender) ? String(object.sender) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      tokensIn: Array.isArray(object?.tokensIn) ? object.tokensIn.map((e: any) => Coin.fromJSON(e)) : [],
+      tokensIn: Array.isArray(object?.tokensIn)
+        ? object.tokensIn.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
   toJSON(message: MsgJoinPool): unknown {
     const obj: any = {}
     message.sender !== undefined && (obj.sender = message.sender)
-    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString())
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString())
     if (message.tokensIn) {
       obj.tokensIn = message.tokensIn.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
@@ -269,8 +291,11 @@ export const MsgJoinPool = {
 
   fromPartial<I extends Exact<DeepPartial<MsgJoinPool>, I>>(object: I): MsgJoinPool {
     const message = createBaseMsgJoinPool()
-    message.sender = object.sender ?? ''
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? Long.fromValue(object.poolId) : Long.UZERO
+    message.sender = object.sender ?? ""
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO
     message.tokensIn = object.tokensIn?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
@@ -281,7 +306,10 @@ function createBaseMsgJoinPoolResponse(): MsgJoinPoolResponse {
 }
 
 export const MsgJoinPoolResponse = {
-  encode(message: MsgJoinPoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgJoinPoolResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.pool !== undefined) {
       Pool.encode(message.pool, writer.uint32(10).fork()).ldelim()
     }
@@ -321,7 +349,9 @@ export const MsgJoinPoolResponse = {
   fromJSON(object: any): MsgJoinPoolResponse {
     return {
       pool: isSet(object.pool) ? Pool.fromJSON(object.pool) : undefined,
-      numPoolSharesOut: isSet(object.numPoolSharesOut) ? Coin.fromJSON(object.numPoolSharesOut) : undefined,
+      numPoolSharesOut: isSet(object.numPoolSharesOut)
+        ? Coin.fromJSON(object.numPoolSharesOut)
+        : undefined,
       remainingCoins: Array.isArray(object?.remainingCoins)
         ? object.remainingCoins.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -330,36 +360,47 @@ export const MsgJoinPoolResponse = {
 
   toJSON(message: MsgJoinPoolResponse): unknown {
     const obj: any = {}
-    message.pool !== undefined && (obj.pool = message.pool ? Pool.toJSON(message.pool) : undefined)
+    message.pool !== undefined &&
+      (obj.pool = message.pool ? Pool.toJSON(message.pool) : undefined)
     message.numPoolSharesOut !== undefined &&
-      (obj.numPoolSharesOut = message.numPoolSharesOut ? Coin.toJSON(message.numPoolSharesOut) : undefined)
+      (obj.numPoolSharesOut = message.numPoolSharesOut
+        ? Coin.toJSON(message.numPoolSharesOut)
+        : undefined)
     if (message.remainingCoins) {
-      obj.remainingCoins = message.remainingCoins.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.remainingCoins = message.remainingCoins.map((e) =>
+        e ? Coin.toJSON(e) : undefined,
+      )
     } else {
       obj.remainingCoins = []
     }
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgJoinPoolResponse>, I>>(object: I): MsgJoinPoolResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgJoinPoolResponse>, I>>(
+    object: I,
+  ): MsgJoinPoolResponse {
     const message = createBaseMsgJoinPoolResponse()
-    message.pool = object.pool !== undefined && object.pool !== null ? Pool.fromPartial(object.pool) : undefined
+    message.pool =
+      object.pool !== undefined && object.pool !== null
+        ? Pool.fromPartial(object.pool)
+        : undefined
     message.numPoolSharesOut =
       object.numPoolSharesOut !== undefined && object.numPoolSharesOut !== null
         ? Coin.fromPartial(object.numPoolSharesOut)
         : undefined
-    message.remainingCoins = object.remainingCoins?.map((e) => Coin.fromPartial(e)) || []
+    message.remainingCoins =
+      object.remainingCoins?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
 }
 
 function createBaseMsgExitPool(): MsgExitPool {
-  return { sender: '', poolId: Long.UZERO, poolShares: undefined }
+  return { sender: "", poolId: Long.UZERO, poolShares: undefined }
 }
 
 export const MsgExitPool = {
   encode(message: MsgExitPool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== '') {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
     if (!message.poolId.isZero()) {
@@ -397,27 +438,37 @@ export const MsgExitPool = {
 
   fromJSON(object: any): MsgExitPool {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : '',
+      sender: isSet(object.sender) ? String(object.sender) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      poolShares: isSet(object.poolShares) ? Coin.fromJSON(object.poolShares) : undefined,
+      poolShares: isSet(object.poolShares)
+        ? Coin.fromJSON(object.poolShares)
+        : undefined,
     }
   },
 
   toJSON(message: MsgExitPool): unknown {
     const obj: any = {}
     message.sender !== undefined && (obj.sender = message.sender)
-    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString())
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString())
     message.poolShares !== undefined &&
-      (obj.poolShares = message.poolShares ? Coin.toJSON(message.poolShares) : undefined)
+      (obj.poolShares = message.poolShares
+        ? Coin.toJSON(message.poolShares)
+        : undefined)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgExitPool>, I>>(object: I): MsgExitPool {
     const message = createBaseMsgExitPool()
-    message.sender = object.sender ?? ''
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? Long.fromValue(object.poolId) : Long.UZERO
+    message.sender = object.sender ?? ""
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO
     message.poolShares =
-      object.poolShares !== undefined && object.poolShares !== null ? Coin.fromPartial(object.poolShares) : undefined
+      object.poolShares !== undefined && object.poolShares !== null
+        ? Coin.fromPartial(object.poolShares)
+        : undefined
     return message
   },
 }
@@ -427,7 +478,10 @@ function createBaseMsgExitPoolResponse(): MsgExitPoolResponse {
 }
 
 export const MsgExitPoolResponse = {
-  encode(message: MsgExitPoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgExitPoolResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.tokensOut) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim()
     }
@@ -454,7 +508,9 @@ export const MsgExitPoolResponse = {
 
   fromJSON(object: any): MsgExitPoolResponse {
     return {
-      tokensOut: Array.isArray(object?.tokensOut) ? object.tokensOut.map((e: any) => Coin.fromJSON(e)) : [],
+      tokensOut: Array.isArray(object?.tokensOut)
+        ? object.tokensOut.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
@@ -468,7 +524,9 @@ export const MsgExitPoolResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgExitPoolResponse>, I>>(object: I): MsgExitPoolResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgExitPoolResponse>, I>>(
+    object: I,
+  ): MsgExitPoolResponse {
     const message = createBaseMsgExitPoolResponse()
     message.tokensOut = object.tokensOut?.map((e) => Coin.fromPartial(e)) || []
     return message
@@ -476,12 +534,12 @@ export const MsgExitPoolResponse = {
 }
 
 function createBaseMsgSwapAssets(): MsgSwapAssets {
-  return { sender: '', poolId: Long.UZERO, tokenIn: undefined, tokenOutDenom: '' }
+  return { sender: "", poolId: Long.UZERO, tokenIn: undefined, tokenOutDenom: "" }
 }
 
 export const MsgSwapAssets = {
   encode(message: MsgSwapAssets, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== '') {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
     if (!message.poolId.isZero()) {
@@ -490,7 +548,7 @@ export const MsgSwapAssets = {
     if (message.tokenIn !== undefined) {
       Coin.encode(message.tokenIn, writer.uint32(26).fork()).ldelim()
     }
-    if (message.tokenOutDenom !== '') {
+    if (message.tokenOutDenom !== "") {
       writer.uint32(34).string(message.tokenOutDenom)
     }
     return writer
@@ -525,29 +583,38 @@ export const MsgSwapAssets = {
 
   fromJSON(object: any): MsgSwapAssets {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : '',
+      sender: isSet(object.sender) ? String(object.sender) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       tokenIn: isSet(object.tokenIn) ? Coin.fromJSON(object.tokenIn) : undefined,
-      tokenOutDenom: isSet(object.tokenOutDenom) ? String(object.tokenOutDenom) : '',
+      tokenOutDenom: isSet(object.tokenOutDenom) ? String(object.tokenOutDenom) : "",
     }
   },
 
   toJSON(message: MsgSwapAssets): unknown {
     const obj: any = {}
     message.sender !== undefined && (obj.sender = message.sender)
-    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString())
-    message.tokenIn !== undefined && (obj.tokenIn = message.tokenIn ? Coin.toJSON(message.tokenIn) : undefined)
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString())
+    message.tokenIn !== undefined &&
+      (obj.tokenIn = message.tokenIn ? Coin.toJSON(message.tokenIn) : undefined)
     message.tokenOutDenom !== undefined && (obj.tokenOutDenom = message.tokenOutDenom)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgSwapAssets>, I>>(object: I): MsgSwapAssets {
+  fromPartial<I extends Exact<DeepPartial<MsgSwapAssets>, I>>(
+    object: I,
+  ): MsgSwapAssets {
     const message = createBaseMsgSwapAssets()
-    message.sender = object.sender ?? ''
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? Long.fromValue(object.poolId) : Long.UZERO
+    message.sender = object.sender ?? ""
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO
     message.tokenIn =
-      object.tokenIn !== undefined && object.tokenIn !== null ? Coin.fromPartial(object.tokenIn) : undefined
-    message.tokenOutDenom = object.tokenOutDenom ?? ''
+      object.tokenIn !== undefined && object.tokenIn !== null
+        ? Coin.fromPartial(object.tokenIn)
+        : undefined
+    message.tokenOutDenom = object.tokenOutDenom ?? ""
     return message
   },
 }
@@ -557,7 +624,10 @@ function createBaseMsgSwapAssetsResponse(): MsgSwapAssetsResponse {
 }
 
 export const MsgSwapAssetsResponse = {
-  encode(message: MsgSwapAssetsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgSwapAssetsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.tokenOut !== undefined) {
       Coin.encode(message.tokenOut, writer.uint32(26).fork()).ldelim()
     }
@@ -590,25 +660,39 @@ export const MsgSwapAssetsResponse = {
 
   toJSON(message: MsgSwapAssetsResponse): unknown {
     const obj: any = {}
-    message.tokenOut !== undefined && (obj.tokenOut = message.tokenOut ? Coin.toJSON(message.tokenOut) : undefined)
+    message.tokenOut !== undefined &&
+      (obj.tokenOut = message.tokenOut ? Coin.toJSON(message.tokenOut) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgSwapAssetsResponse>, I>>(object: I): MsgSwapAssetsResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgSwapAssetsResponse>, I>>(
+    object: I,
+  ): MsgSwapAssetsResponse {
     const message = createBaseMsgSwapAssetsResponse()
     message.tokenOut =
-      object.tokenOut !== undefined && object.tokenOut !== null ? Coin.fromPartial(object.tokenOut) : undefined
+      object.tokenOut !== undefined && object.tokenOut !== null
+        ? Coin.fromPartial(object.tokenOut)
+        : undefined
     return message
   },
 }
 
 function createBaseEventPoolJoined(): EventPoolJoined {
-  return { address: '', poolId: Long.UZERO, tokensIn: [], poolSharesOut: undefined, remCoins: [] }
+  return {
+    address: "",
+    poolId: Long.UZERO,
+    tokensIn: [],
+    poolSharesOut: undefined,
+    remCoins: [],
+  }
 }
 
 export const EventPoolJoined = {
-  encode(message: EventPoolJoined, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== '') {
+  encode(
+    message: EventPoolJoined,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address)
     }
     if (!message.poolId.isZero()) {
@@ -658,25 +742,34 @@ export const EventPoolJoined = {
 
   fromJSON(object: any): EventPoolJoined {
     return {
-      address: isSet(object.address) ? String(object.address) : '',
+      address: isSet(object.address) ? String(object.address) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      tokensIn: Array.isArray(object?.tokensIn) ? object.tokensIn.map((e: any) => Coin.fromJSON(e)) : [],
-      poolSharesOut: isSet(object.poolSharesOut) ? Coin.fromJSON(object.poolSharesOut) : undefined,
-      remCoins: Array.isArray(object?.remCoins) ? object.remCoins.map((e: any) => Coin.fromJSON(e)) : [],
+      tokensIn: Array.isArray(object?.tokensIn)
+        ? object.tokensIn.map((e: any) => Coin.fromJSON(e))
+        : [],
+      poolSharesOut: isSet(object.poolSharesOut)
+        ? Coin.fromJSON(object.poolSharesOut)
+        : undefined,
+      remCoins: Array.isArray(object?.remCoins)
+        ? object.remCoins.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
   toJSON(message: EventPoolJoined): unknown {
     const obj: any = {}
     message.address !== undefined && (obj.address = message.address)
-    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString())
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString())
     if (message.tokensIn) {
       obj.tokensIn = message.tokensIn.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
       obj.tokensIn = []
     }
     message.poolSharesOut !== undefined &&
-      (obj.poolSharesOut = message.poolSharesOut ? Coin.toJSON(message.poolSharesOut) : undefined)
+      (obj.poolSharesOut = message.poolSharesOut
+        ? Coin.toJSON(message.poolSharesOut)
+        : undefined)
     if (message.remCoins) {
       obj.remCoins = message.remCoins.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
@@ -685,10 +778,15 @@ export const EventPoolJoined = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventPoolJoined>, I>>(object: I): EventPoolJoined {
+  fromPartial<I extends Exact<DeepPartial<EventPoolJoined>, I>>(
+    object: I,
+  ): EventPoolJoined {
     const message = createBaseEventPoolJoined()
-    message.address = object.address ?? ''
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? Long.fromValue(object.poolId) : Long.UZERO
+    message.address = object.address ?? ""
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO
     message.tokensIn = object.tokensIn?.map((e) => Coin.fromPartial(e)) || []
     message.poolSharesOut =
       object.poolSharesOut !== undefined && object.poolSharesOut !== null
@@ -700,12 +798,15 @@ export const EventPoolJoined = {
 }
 
 function createBaseEventPoolCreated(): EventPoolCreated {
-  return { creator: '', poolId: Long.UZERO }
+  return { creator: "", poolId: Long.UZERO }
 }
 
 export const EventPoolCreated = {
-  encode(message: EventPoolCreated, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.creator !== '') {
+  encode(
+    message: EventPoolCreated,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
     }
     if (!message.poolId.isZero()) {
@@ -737,7 +838,7 @@ export const EventPoolCreated = {
 
   fromJSON(object: any): EventPoolCreated {
     return {
-      creator: isSet(object.creator) ? String(object.creator) : '',
+      creator: isSet(object.creator) ? String(object.creator) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
     }
   },
@@ -745,25 +846,34 @@ export const EventPoolCreated = {
   toJSON(message: EventPoolCreated): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
-    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString())
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventPoolCreated>, I>>(object: I): EventPoolCreated {
+  fromPartial<I extends Exact<DeepPartial<EventPoolCreated>, I>>(
+    object: I,
+  ): EventPoolCreated {
     const message = createBaseEventPoolCreated()
-    message.creator = object.creator ?? ''
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? Long.fromValue(object.poolId) : Long.UZERO
+    message.creator = object.creator ?? ""
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO
     return message
   },
 }
 
 function createBaseEventPoolExited(): EventPoolExited {
-  return { address: '', poolId: Long.UZERO, poolSharesIn: undefined, tokensOut: [] }
+  return { address: "", poolId: Long.UZERO, poolSharesIn: undefined, tokensOut: [] }
 }
 
 export const EventPoolExited = {
-  encode(message: EventPoolExited, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== '') {
+  encode(
+    message: EventPoolExited,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address)
     }
     if (!message.poolId.isZero()) {
@@ -807,19 +917,26 @@ export const EventPoolExited = {
 
   fromJSON(object: any): EventPoolExited {
     return {
-      address: isSet(object.address) ? String(object.address) : '',
+      address: isSet(object.address) ? String(object.address) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      poolSharesIn: isSet(object.poolSharesIn) ? Coin.fromJSON(object.poolSharesIn) : undefined,
-      tokensOut: Array.isArray(object?.tokensOut) ? object.tokensOut.map((e: any) => Coin.fromJSON(e)) : [],
+      poolSharesIn: isSet(object.poolSharesIn)
+        ? Coin.fromJSON(object.poolSharesIn)
+        : undefined,
+      tokensOut: Array.isArray(object?.tokensOut)
+        ? object.tokensOut.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
   toJSON(message: EventPoolExited): unknown {
     const obj: any = {}
     message.address !== undefined && (obj.address = message.address)
-    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString())
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString())
     message.poolSharesIn !== undefined &&
-      (obj.poolSharesIn = message.poolSharesIn ? Coin.toJSON(message.poolSharesIn) : undefined)
+      (obj.poolSharesIn = message.poolSharesIn
+        ? Coin.toJSON(message.poolSharesIn)
+        : undefined)
     if (message.tokensOut) {
       obj.tokensOut = message.tokensOut.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
@@ -828,10 +945,15 @@ export const EventPoolExited = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventPoolExited>, I>>(object: I): EventPoolExited {
+  fromPartial<I extends Exact<DeepPartial<EventPoolExited>, I>>(
+    object: I,
+  ): EventPoolExited {
     const message = createBaseEventPoolExited()
-    message.address = object.address ?? ''
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? Long.fromValue(object.poolId) : Long.UZERO
+    message.address = object.address ?? ""
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO
     message.poolSharesIn =
       object.poolSharesIn !== undefined && object.poolSharesIn !== null
         ? Coin.fromPartial(object.poolSharesIn)
@@ -842,12 +964,15 @@ export const EventPoolExited = {
 }
 
 function createBaseEventAssetsSwapped(): EventAssetsSwapped {
-  return { address: '', poolId: Long.UZERO, tokenIn: undefined, tokenOut: undefined }
+  return { address: "", poolId: Long.UZERO, tokenIn: undefined, tokenOut: undefined }
 }
 
 export const EventAssetsSwapped = {
-  encode(message: EventAssetsSwapped, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== '') {
+  encode(
+    message: EventAssetsSwapped,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address)
     }
     if (!message.poolId.isZero()) {
@@ -891,7 +1016,7 @@ export const EventAssetsSwapped = {
 
   fromJSON(object: any): EventAssetsSwapped {
     return {
-      address: isSet(object.address) ? String(object.address) : '',
+      address: isSet(object.address) ? String(object.address) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       tokenIn: isSet(object.tokenIn) ? Coin.fromJSON(object.tokenIn) : undefined,
       tokenOut: isSet(object.tokenOut) ? Coin.fromJSON(object.tokenOut) : undefined,
@@ -901,20 +1026,32 @@ export const EventAssetsSwapped = {
   toJSON(message: EventAssetsSwapped): unknown {
     const obj: any = {}
     message.address !== undefined && (obj.address = message.address)
-    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString())
-    message.tokenIn !== undefined && (obj.tokenIn = message.tokenIn ? Coin.toJSON(message.tokenIn) : undefined)
-    message.tokenOut !== undefined && (obj.tokenOut = message.tokenOut ? Coin.toJSON(message.tokenOut) : undefined)
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString())
+    message.tokenIn !== undefined &&
+      (obj.tokenIn = message.tokenIn ? Coin.toJSON(message.tokenIn) : undefined)
+    message.tokenOut !== undefined &&
+      (obj.tokenOut = message.tokenOut ? Coin.toJSON(message.tokenOut) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventAssetsSwapped>, I>>(object: I): EventAssetsSwapped {
+  fromPartial<I extends Exact<DeepPartial<EventAssetsSwapped>, I>>(
+    object: I,
+  ): EventAssetsSwapped {
     const message = createBaseEventAssetsSwapped()
-    message.address = object.address ?? ''
-    message.poolId = object.poolId !== undefined && object.poolId !== null ? Long.fromValue(object.poolId) : Long.UZERO
+    message.address = object.address ?? ""
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO
     message.tokenIn =
-      object.tokenIn !== undefined && object.tokenIn !== null ? Coin.fromPartial(object.tokenIn) : undefined
+      object.tokenIn !== undefined && object.tokenIn !== null
+        ? Coin.fromPartial(object.tokenIn)
+        : undefined
     message.tokenOut =
-      object.tokenOut !== undefined && object.tokenOut !== null ? Coin.fromPartial(object.tokenOut) : undefined
+      object.tokenOut !== undefined && object.tokenOut !== null
+        ? Coin.fromPartial(object.tokenOut)
+        : undefined
     return message
   },
 }
@@ -942,25 +1079,25 @@ export class MsgClientImpl implements Msg {
   }
   CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse> {
     const data = MsgCreatePool.encode(request).finish()
-    const promise = this.rpc.request('nibiru.dex.v1.Msg', 'CreatePool', data)
+    const promise = this.rpc.request("nibiru.dex.v1.Msg", "CreatePool", data)
     return promise.then((data) => MsgCreatePoolResponse.decode(new _m0.Reader(data)))
   }
 
   JoinPool(request: MsgJoinPool): Promise<MsgJoinPoolResponse> {
     const data = MsgJoinPool.encode(request).finish()
-    const promise = this.rpc.request('nibiru.dex.v1.Msg', 'JoinPool', data)
+    const promise = this.rpc.request("nibiru.dex.v1.Msg", "JoinPool", data)
     return promise.then((data) => MsgJoinPoolResponse.decode(new _m0.Reader(data)))
   }
 
   ExitPool(request: MsgExitPool): Promise<MsgExitPoolResponse> {
     const data = MsgExitPool.encode(request).finish()
-    const promise = this.rpc.request('nibiru.dex.v1.Msg', 'ExitPool', data)
+    const promise = this.rpc.request("nibiru.dex.v1.Msg", "ExitPool", data)
     return promise.then((data) => MsgExitPoolResponse.decode(new _m0.Reader(data)))
   }
 
   SwapAssets(request: MsgSwapAssets): Promise<MsgSwapAssetsResponse> {
     const data = MsgSwapAssets.encode(request).finish()
-    const promise = this.rpc.request('nibiru.dex.v1.Msg', 'SwapAssets', data)
+    const promise = this.rpc.request("nibiru.dex.v1.Msg", "SwapAssets", data)
     return promise.then((data) => MsgSwapAssetsResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -986,7 +1123,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

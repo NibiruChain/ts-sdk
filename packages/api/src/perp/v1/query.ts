@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Params, Position } from './state'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Params, Position } from "./state"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.perp.v1'
+export const protobufPackage = "nibiru.perp.v1"
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -30,8 +30,19 @@ export interface QueryTraderPositionResponse {
   positionNotional: string
   /** The position's unrealized PnL. */
   unrealizedPnl: string
-  /** The position's margin ratio, calculated from margin, unrealized PnL, and position notional. */
-  marginRatio: string
+  /**
+   * margin ratio of the position based on the mark price, mark TWAP. The higher
+   * value of the possible margin ratios (TWAP and instantaneous) is taken to be
+   * 'marginRatioMark'. Calculated from margin, unrealized PnL, and position notional.
+   */
+  marginRatioMark: string
+  /**
+   * margin ratio of the position based on the index price. Calculated from margin,
+   * unrealized PnL, and position notional.
+   */
+  marginRatioIndex: string
+  /** BlockNumber is current block number at the time of query. */
+  blockNumber: Long
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -67,7 +78,9 @@ export const QueryParamsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(
+    _: I,
+  ): QueryParamsRequest {
     const message = createBaseQueryParamsRequest()
     return message
   },
@@ -78,7 +91,10 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
 }
 
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryParamsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim()
     }
@@ -111,28 +127,36 @@ export const QueryParamsResponse = {
 
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {}
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(
+    object: I,
+  ): QueryParamsResponse {
     const message = createBaseQueryParamsResponse()
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
     return message
   },
 }
 
 function createBaseQueryTraderPositionRequest(): QueryTraderPositionRequest {
-  return { tokenPair: '', trader: '' }
+  return { tokenPair: "", trader: "" }
 }
 
 export const QueryTraderPositionRequest = {
-  encode(message: QueryTraderPositionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.tokenPair !== '') {
+  encode(
+    message: QueryTraderPositionRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.tokenPair !== "") {
       writer.uint32(10).string(message.tokenPair)
     }
-    if (message.trader !== '') {
+    if (message.trader !== "") {
       writer.uint32(18).string(message.trader)
     }
     return writer
@@ -161,8 +185,8 @@ export const QueryTraderPositionRequest = {
 
   fromJSON(object: any): QueryTraderPositionRequest {
     return {
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : '',
-      trader: isSet(object.trader) ? String(object.trader) : '',
+      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
+      trader: isSet(object.trader) ? String(object.trader) : "",
     }
   },
 
@@ -173,31 +197,49 @@ export const QueryTraderPositionRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTraderPositionRequest>, I>>(object: I): QueryTraderPositionRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryTraderPositionRequest>, I>>(
+    object: I,
+  ): QueryTraderPositionRequest {
     const message = createBaseQueryTraderPositionRequest()
-    message.tokenPair = object.tokenPair ?? ''
-    message.trader = object.trader ?? ''
+    message.tokenPair = object.tokenPair ?? ""
+    message.trader = object.trader ?? ""
     return message
   },
 }
 
 function createBaseQueryTraderPositionResponse(): QueryTraderPositionResponse {
-  return { position: undefined, positionNotional: '', unrealizedPnl: '', marginRatio: '' }
+  return {
+    position: undefined,
+    positionNotional: "",
+    unrealizedPnl: "",
+    marginRatioMark: "",
+    marginRatioIndex: "",
+    blockNumber: Long.ZERO,
+  }
 }
 
 export const QueryTraderPositionResponse = {
-  encode(message: QueryTraderPositionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryTraderPositionResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.position !== undefined) {
       Position.encode(message.position, writer.uint32(10).fork()).ldelim()
     }
-    if (message.positionNotional !== '') {
+    if (message.positionNotional !== "") {
       writer.uint32(18).string(message.positionNotional)
     }
-    if (message.unrealizedPnl !== '') {
+    if (message.unrealizedPnl !== "") {
       writer.uint32(26).string(message.unrealizedPnl)
     }
-    if (message.marginRatio !== '') {
-      writer.uint32(34).string(message.marginRatio)
+    if (message.marginRatioMark !== "") {
+      writer.uint32(34).string(message.marginRatioMark)
+    }
+    if (message.marginRatioIndex !== "") {
+      writer.uint32(42).string(message.marginRatioIndex)
+    }
+    if (!message.blockNumber.isZero()) {
+      writer.uint32(56).int64(message.blockNumber)
     }
     return writer
   },
@@ -219,7 +261,13 @@ export const QueryTraderPositionResponse = {
           message.unrealizedPnl = reader.string()
           break
         case 4:
-          message.marginRatio = reader.string()
+          message.marginRatioMark = reader.string()
+          break
+        case 5:
+          message.marginRatioIndex = reader.string()
+          break
+        case 7:
+          message.blockNumber = reader.int64() as Long
           break
         default:
           reader.skipType(tag & 7)
@@ -232,28 +280,54 @@ export const QueryTraderPositionResponse = {
   fromJSON(object: any): QueryTraderPositionResponse {
     return {
       position: isSet(object.position) ? Position.fromJSON(object.position) : undefined,
-      positionNotional: isSet(object.positionNotional) ? String(object.positionNotional) : '',
-      unrealizedPnl: isSet(object.unrealizedPnl) ? String(object.unrealizedPnl) : '',
-      marginRatio: isSet(object.marginRatio) ? String(object.marginRatio) : '',
+      positionNotional: isSet(object.positionNotional)
+        ? String(object.positionNotional)
+        : "",
+      unrealizedPnl: isSet(object.unrealizedPnl) ? String(object.unrealizedPnl) : "",
+      marginRatioMark: isSet(object.marginRatioMark)
+        ? String(object.marginRatioMark)
+        : "",
+      marginRatioIndex: isSet(object.marginRatioIndex)
+        ? String(object.marginRatioIndex)
+        : "",
+      blockNumber: isSet(object.blockNumber)
+        ? Long.fromValue(object.blockNumber)
+        : Long.ZERO,
     }
   },
 
   toJSON(message: QueryTraderPositionResponse): unknown {
     const obj: any = {}
-    message.position !== undefined && (obj.position = message.position ? Position.toJSON(message.position) : undefined)
-    message.positionNotional !== undefined && (obj.positionNotional = message.positionNotional)
+    message.position !== undefined &&
+      (obj.position = message.position ? Position.toJSON(message.position) : undefined)
+    message.positionNotional !== undefined &&
+      (obj.positionNotional = message.positionNotional)
     message.unrealizedPnl !== undefined && (obj.unrealizedPnl = message.unrealizedPnl)
-    message.marginRatio !== undefined && (obj.marginRatio = message.marginRatio)
+    message.marginRatioMark !== undefined &&
+      (obj.marginRatioMark = message.marginRatioMark)
+    message.marginRatioIndex !== undefined &&
+      (obj.marginRatioIndex = message.marginRatioIndex)
+    message.blockNumber !== undefined &&
+      (obj.blockNumber = (message.blockNumber || Long.ZERO).toString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTraderPositionResponse>, I>>(object: I): QueryTraderPositionResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryTraderPositionResponse>, I>>(
+    object: I,
+  ): QueryTraderPositionResponse {
     const message = createBaseQueryTraderPositionResponse()
     message.position =
-      object.position !== undefined && object.position !== null ? Position.fromPartial(object.position) : undefined
-    message.positionNotional = object.positionNotional ?? ''
-    message.unrealizedPnl = object.unrealizedPnl ?? ''
-    message.marginRatio = object.marginRatio ?? ''
+      object.position !== undefined && object.position !== null
+        ? Position.fromPartial(object.position)
+        : undefined
+    message.positionNotional = object.positionNotional ?? ""
+    message.unrealizedPnl = object.unrealizedPnl ?? ""
+    message.marginRatioMark = object.marginRatioMark ?? ""
+    message.marginRatioIndex = object.marginRatioIndex ?? ""
+    message.blockNumber =
+      object.blockNumber !== undefined && object.blockNumber !== null
+        ? Long.fromValue(object.blockNumber)
+        : Long.ZERO
     return message
   },
 }
@@ -262,7 +336,9 @@ export const QueryTraderPositionResponse = {
 export interface Query {
   /** Parameters queries the parameters of the x/perp module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>
-  TraderPosition(request: QueryTraderPositionRequest): Promise<QueryTraderPositionResponse>
+  QueryTraderPosition(
+    request: QueryTraderPositionRequest,
+  ): Promise<QueryTraderPositionResponse>
 }
 
 export class QueryClientImpl implements Query {
@@ -270,18 +346,26 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
     this.Params = this.Params.bind(this)
-    this.TraderPosition = this.TraderPosition.bind(this)
+    this.QueryTraderPosition = this.QueryTraderPosition.bind(this)
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.perp.v1.Query', 'Params', data)
+    const promise = this.rpc.request("nibiru.perp.v1.Query", "Params", data)
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)))
   }
 
-  TraderPosition(request: QueryTraderPositionRequest): Promise<QueryTraderPositionResponse> {
+  QueryTraderPosition(
+    request: QueryTraderPositionRequest,
+  ): Promise<QueryTraderPositionResponse> {
     const data = QueryTraderPositionRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.perp.v1.Query', 'TraderPosition', data)
-    return promise.then((data) => QueryTraderPositionResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "nibiru.perp.v1.Query",
+      "QueryTraderPosition",
+      data,
+    )
+    return promise.then((data) =>
+      QueryTraderPositionResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
@@ -306,7 +390,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

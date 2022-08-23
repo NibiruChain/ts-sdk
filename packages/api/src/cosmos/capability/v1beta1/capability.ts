@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.capability.v1beta1'
+export const protobufPackage = "cosmos.capability.v1beta1"
 
 /**
  * Capability defines an implementation of an object capability. The index
@@ -67,27 +67,31 @@ export const Capability = {
 
   toJSON(message: Capability): unknown {
     const obj: any = {}
-    message.index !== undefined && (obj.index = (message.index || Long.UZERO).toString())
+    message.index !== undefined &&
+      (obj.index = (message.index || Long.UZERO).toString())
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<Capability>, I>>(object: I): Capability {
     const message = createBaseCapability()
-    message.index = object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO
+    message.index =
+      object.index !== undefined && object.index !== null
+        ? Long.fromValue(object.index)
+        : Long.UZERO
     return message
   },
 }
 
 function createBaseOwner(): Owner {
-  return { module: '', name: '' }
+  return { module: "", name: "" }
 }
 
 export const Owner = {
   encode(message: Owner, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.module !== '') {
+    if (message.module !== "") {
       writer.uint32(10).string(message.module)
     }
-    if (message.name !== '') {
+    if (message.name !== "") {
       writer.uint32(18).string(message.name)
     }
     return writer
@@ -116,8 +120,8 @@ export const Owner = {
 
   fromJSON(object: any): Owner {
     return {
-      module: isSet(object.module) ? String(object.module) : '',
-      name: isSet(object.name) ? String(object.name) : '',
+      module: isSet(object.module) ? String(object.module) : "",
+      name: isSet(object.name) ? String(object.name) : "",
     }
   },
 
@@ -130,8 +134,8 @@ export const Owner = {
 
   fromPartial<I extends Exact<DeepPartial<Owner>, I>>(object: I): Owner {
     const message = createBaseOwner()
-    message.module = object.module ?? ''
-    message.name = object.name ?? ''
+    message.module = object.module ?? ""
+    message.name = object.name ?? ""
     return message
   },
 }
@@ -141,7 +145,10 @@ function createBaseCapabilityOwners(): CapabilityOwners {
 }
 
 export const CapabilityOwners = {
-  encode(message: CapabilityOwners, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: CapabilityOwners,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.owners) {
       Owner.encode(v!, writer.uint32(10).fork()).ldelim()
     }
@@ -168,7 +175,9 @@ export const CapabilityOwners = {
 
   fromJSON(object: any): CapabilityOwners {
     return {
-      owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => Owner.fromJSON(e)) : [],
+      owners: Array.isArray(object?.owners)
+        ? object.owners.map((e: any) => Owner.fromJSON(e))
+        : [],
     }
   },
 
@@ -182,7 +191,9 @@ export const CapabilityOwners = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<CapabilityOwners>, I>>(object: I): CapabilityOwners {
+  fromPartial<I extends Exact<DeepPartial<CapabilityOwners>, I>>(
+    object: I,
+  ): CapabilityOwners {
     const message = createBaseCapabilityOwners()
     message.owners = object.owners?.map((e) => Owner.fromPartial(e)) || []
     return message
@@ -206,7 +217,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

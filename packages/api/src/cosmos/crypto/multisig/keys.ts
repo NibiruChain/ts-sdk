@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from 'long'
-import { Any } from '../../../google/protobuf/any'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import { Any } from "../../../google/protobuf/any"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.crypto.multisig'
+export const protobufPackage = "cosmos.crypto.multisig"
 
 /**
  * LegacyAminoPubKey specifies a public key type
@@ -20,7 +20,10 @@ function createBaseLegacyAminoPubKey(): LegacyAminoPubKey {
 }
 
 export const LegacyAminoPubKey = {
-  encode(message: LegacyAminoPubKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: LegacyAminoPubKey,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.threshold !== 0) {
       writer.uint32(8).uint32(message.threshold)
     }
@@ -54,7 +57,9 @@ export const LegacyAminoPubKey = {
   fromJSON(object: any): LegacyAminoPubKey {
     return {
       threshold: isSet(object.threshold) ? Number(object.threshold) : 0,
-      publicKeys: Array.isArray(object?.publicKeys) ? object.publicKeys.map((e: any) => Any.fromJSON(e)) : [],
+      publicKeys: Array.isArray(object?.publicKeys)
+        ? object.publicKeys.map((e: any) => Any.fromJSON(e))
+        : [],
     }
   },
 
@@ -69,7 +74,9 @@ export const LegacyAminoPubKey = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<LegacyAminoPubKey>, I>>(object: I): LegacyAminoPubKey {
+  fromPartial<I extends Exact<DeepPartial<LegacyAminoPubKey>, I>>(
+    object: I,
+  ): LegacyAminoPubKey {
     const message = createBaseLegacyAminoPubKey()
     message.threshold = object.threshold ?? 0
     message.publicKeys = object.publicKeys?.map((e) => Any.fromPartial(e)) || []
@@ -94,7 +101,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

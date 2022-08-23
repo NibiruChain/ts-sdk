@@ -1,13 +1,13 @@
 /* eslint-disable */
-import { PageRequest, PageResponse } from '../../query/v1beta1/pagination'
-import { Any } from '../../../../google/protobuf/any'
-import { BlockID } from '../../../../tendermint/types/types'
-import { Block } from '../../../../tendermint/types/block'
-import { DefaultNodeInfo } from '../../../../tendermint/p2p/types'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from "../../query/v1beta1/pagination"
+import { Any } from "../../../../google/protobuf/any"
+import { BlockID } from "../../../../tendermint/types/types"
+import { Block } from "../../../../tendermint/types/block"
+import { DefaultNodeInfo } from "../../../../tendermint/p2p/types"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.base.tendermint.v1beta1'
+export const protobufPackage = "cosmos.base.tendermint.v1beta1"
 
 /** GetValidatorSetByHeightRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetValidatorSetByHeightRequest {
@@ -111,7 +111,10 @@ function createBaseGetValidatorSetByHeightRequest(): GetValidatorSetByHeightRequ
 }
 
 export const GetValidatorSetByHeightRequest = {
-  encode(message: GetValidatorSetByHeightRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GetValidatorSetByHeightRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height)
     }
@@ -121,7 +124,10 @@ export const GetValidatorSetByHeightRequest = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): GetValidatorSetByHeightRequest {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): GetValidatorSetByHeightRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseGetValidatorSetByHeightRequest()
@@ -145,15 +151,20 @@ export const GetValidatorSetByHeightRequest = {
   fromJSON(object: any): GetValidatorSetByHeightRequest {
     return {
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: GetValidatorSetByHeightRequest): unknown {
     const obj: any = {}
-    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString())
+    message.height !== undefined &&
+      (obj.height = (message.height || Long.ZERO).toString())
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
@@ -161,7 +172,10 @@ export const GetValidatorSetByHeightRequest = {
     object: I,
   ): GetValidatorSetByHeightRequest {
     const message = createBaseGetValidatorSetByHeightRequest()
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO
+    message.height =
+      object.height !== undefined && object.height !== null
+        ? Long.fromValue(object.height)
+        : Long.ZERO
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -175,7 +189,10 @@ function createBaseGetValidatorSetByHeightResponse(): GetValidatorSetByHeightRes
 }
 
 export const GetValidatorSetByHeightResponse = {
-  encode(message: GetValidatorSetByHeightResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GetValidatorSetByHeightResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.blockHeight.isZero()) {
       writer.uint32(8).int64(message.blockHeight)
     }
@@ -188,7 +205,10 @@ export const GetValidatorSetByHeightResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): GetValidatorSetByHeightResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): GetValidatorSetByHeightResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseGetValidatorSetByHeightResponse()
@@ -214,22 +234,33 @@ export const GetValidatorSetByHeightResponse = {
 
   fromJSON(object: any): GetValidatorSetByHeightResponse {
     return {
-      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
-      validators: Array.isArray(object?.validators) ? object.validators.map((e: any) => Validator.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+      blockHeight: isSet(object.blockHeight)
+        ? Long.fromValue(object.blockHeight)
+        : Long.ZERO,
+      validators: Array.isArray(object?.validators)
+        ? object.validators.map((e: any) => Validator.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: GetValidatorSetByHeightResponse): unknown {
     const obj: any = {}
-    message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString())
+    message.blockHeight !== undefined &&
+      (obj.blockHeight = (message.blockHeight || Long.ZERO).toString())
     if (message.validators) {
-      obj.validators = message.validators.map((e) => (e ? Validator.toJSON(e) : undefined))
+      obj.validators = message.validators.map((e) =>
+        e ? Validator.toJSON(e) : undefined,
+      )
     } else {
       obj.validators = []
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
@@ -238,7 +269,9 @@ export const GetValidatorSetByHeightResponse = {
   ): GetValidatorSetByHeightResponse {
     const message = createBaseGetValidatorSetByHeightResponse()
     message.blockHeight =
-      object.blockHeight !== undefined && object.blockHeight !== null ? Long.fromValue(object.blockHeight) : Long.ZERO
+      object.blockHeight !== undefined && object.blockHeight !== null
+        ? Long.fromValue(object.blockHeight)
+        : Long.ZERO
     message.validators = object.validators?.map((e) => Validator.fromPartial(e)) || []
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -253,14 +286,20 @@ function createBaseGetLatestValidatorSetRequest(): GetLatestValidatorSetRequest 
 }
 
 export const GetLatestValidatorSetRequest = {
-  encode(message: GetLatestValidatorSetRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GetLatestValidatorSetRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): GetLatestValidatorSetRequest {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): GetLatestValidatorSetRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseGetLatestValidatorSetRequest()
@@ -280,18 +319,24 @@ export const GetLatestValidatorSetRequest = {
 
   fromJSON(object: any): GetLatestValidatorSetRequest {
     return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: GetLatestValidatorSetRequest): unknown {
     const obj: any = {}
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetLatestValidatorSetRequest>, I>>(object: I): GetLatestValidatorSetRequest {
+  fromPartial<I extends Exact<DeepPartial<GetLatestValidatorSetRequest>, I>>(
+    object: I,
+  ): GetLatestValidatorSetRequest {
     const message = createBaseGetLatestValidatorSetRequest()
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -306,7 +351,10 @@ function createBaseGetLatestValidatorSetResponse(): GetLatestValidatorSetRespons
 }
 
 export const GetLatestValidatorSetResponse = {
-  encode(message: GetLatestValidatorSetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GetLatestValidatorSetResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.blockHeight.isZero()) {
       writer.uint32(8).int64(message.blockHeight)
     }
@@ -319,7 +367,10 @@ export const GetLatestValidatorSetResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): GetLatestValidatorSetResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): GetLatestValidatorSetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseGetLatestValidatorSetResponse()
@@ -345,22 +396,33 @@ export const GetLatestValidatorSetResponse = {
 
   fromJSON(object: any): GetLatestValidatorSetResponse {
     return {
-      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
-      validators: Array.isArray(object?.validators) ? object.validators.map((e: any) => Validator.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+      blockHeight: isSet(object.blockHeight)
+        ? Long.fromValue(object.blockHeight)
+        : Long.ZERO,
+      validators: Array.isArray(object?.validators)
+        ? object.validators.map((e: any) => Validator.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     }
   },
 
   toJSON(message: GetLatestValidatorSetResponse): unknown {
     const obj: any = {}
-    message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString())
+    message.blockHeight !== undefined &&
+      (obj.blockHeight = (message.blockHeight || Long.ZERO).toString())
     if (message.validators) {
-      obj.validators = message.validators.map((e) => (e ? Validator.toJSON(e) : undefined))
+      obj.validators = message.validators.map((e) =>
+        e ? Validator.toJSON(e) : undefined,
+      )
     } else {
       obj.validators = []
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined)
     return obj
   },
 
@@ -369,7 +431,9 @@ export const GetLatestValidatorSetResponse = {
   ): GetLatestValidatorSetResponse {
     const message = createBaseGetLatestValidatorSetResponse()
     message.blockHeight =
-      object.blockHeight !== undefined && object.blockHeight !== null ? Long.fromValue(object.blockHeight) : Long.ZERO
+      object.blockHeight !== undefined && object.blockHeight !== null
+        ? Long.fromValue(object.blockHeight)
+        : Long.ZERO
     message.validators = object.validators?.map((e) => Validator.fromPartial(e)) || []
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -380,12 +444,17 @@ export const GetLatestValidatorSetResponse = {
 }
 
 function createBaseValidator(): Validator {
-  return { address: '', pubKey: undefined, votingPower: Long.ZERO, proposerPriority: Long.ZERO }
+  return {
+    address: "",
+    pubKey: undefined,
+    votingPower: Long.ZERO,
+    proposerPriority: Long.ZERO,
+  }
 }
 
 export const Validator = {
   encode(message: Validator, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== '') {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address)
     }
     if (message.pubKey !== undefined) {
@@ -429,18 +498,24 @@ export const Validator = {
 
   fromJSON(object: any): Validator {
     return {
-      address: isSet(object.address) ? String(object.address) : '',
+      address: isSet(object.address) ? String(object.address) : "",
       pubKey: isSet(object.pubKey) ? Any.fromJSON(object.pubKey) : undefined,
-      votingPower: isSet(object.votingPower) ? Long.fromValue(object.votingPower) : Long.ZERO,
-      proposerPriority: isSet(object.proposerPriority) ? Long.fromValue(object.proposerPriority) : Long.ZERO,
+      votingPower: isSet(object.votingPower)
+        ? Long.fromValue(object.votingPower)
+        : Long.ZERO,
+      proposerPriority: isSet(object.proposerPriority)
+        ? Long.fromValue(object.proposerPriority)
+        : Long.ZERO,
     }
   },
 
   toJSON(message: Validator): unknown {
     const obj: any = {}
     message.address !== undefined && (obj.address = message.address)
-    message.pubKey !== undefined && (obj.pubKey = message.pubKey ? Any.toJSON(message.pubKey) : undefined)
-    message.votingPower !== undefined && (obj.votingPower = (message.votingPower || Long.ZERO).toString())
+    message.pubKey !== undefined &&
+      (obj.pubKey = message.pubKey ? Any.toJSON(message.pubKey) : undefined)
+    message.votingPower !== undefined &&
+      (obj.votingPower = (message.votingPower || Long.ZERO).toString())
     message.proposerPriority !== undefined &&
       (obj.proposerPriority = (message.proposerPriority || Long.ZERO).toString())
     return obj
@@ -448,10 +523,15 @@ export const Validator = {
 
   fromPartial<I extends Exact<DeepPartial<Validator>, I>>(object: I): Validator {
     const message = createBaseValidator()
-    message.address = object.address ?? ''
-    message.pubKey = object.pubKey !== undefined && object.pubKey !== null ? Any.fromPartial(object.pubKey) : undefined
+    message.address = object.address ?? ""
+    message.pubKey =
+      object.pubKey !== undefined && object.pubKey !== null
+        ? Any.fromPartial(object.pubKey)
+        : undefined
     message.votingPower =
-      object.votingPower !== undefined && object.votingPower !== null ? Long.fromValue(object.votingPower) : Long.ZERO
+      object.votingPower !== undefined && object.votingPower !== null
+        ? Long.fromValue(object.votingPower)
+        : Long.ZERO
     message.proposerPriority =
       object.proposerPriority !== undefined && object.proposerPriority !== null
         ? Long.fromValue(object.proposerPriority)
@@ -465,7 +545,10 @@ function createBaseGetBlockByHeightRequest(): GetBlockByHeightRequest {
 }
 
 export const GetBlockByHeightRequest = {
-  encode(message: GetBlockByHeightRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GetBlockByHeightRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height)
     }
@@ -498,13 +581,19 @@ export const GetBlockByHeightRequest = {
 
   toJSON(message: GetBlockByHeightRequest): unknown {
     const obj: any = {}
-    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString())
+    message.height !== undefined &&
+      (obj.height = (message.height || Long.ZERO).toString())
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetBlockByHeightRequest>, I>>(object: I): GetBlockByHeightRequest {
+  fromPartial<I extends Exact<DeepPartial<GetBlockByHeightRequest>, I>>(
+    object: I,
+  ): GetBlockByHeightRequest {
     const message = createBaseGetBlockByHeightRequest()
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO
+    message.height =
+      object.height !== undefined && object.height !== null
+        ? Long.fromValue(object.height)
+        : Long.ZERO
     return message
   },
 }
@@ -514,7 +603,10 @@ function createBaseGetBlockByHeightResponse(): GetBlockByHeightResponse {
 }
 
 export const GetBlockByHeightResponse = {
-  encode(message: GetBlockByHeightResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GetBlockByHeightResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.blockId !== undefined) {
       BlockID.encode(message.blockId, writer.uint32(10).fork()).ldelim()
     }
@@ -554,16 +646,25 @@ export const GetBlockByHeightResponse = {
 
   toJSON(message: GetBlockByHeightResponse): unknown {
     const obj: any = {}
-    message.blockId !== undefined && (obj.blockId = message.blockId ? BlockID.toJSON(message.blockId) : undefined)
-    message.block !== undefined && (obj.block = message.block ? Block.toJSON(message.block) : undefined)
+    message.blockId !== undefined &&
+      (obj.blockId = message.blockId ? BlockID.toJSON(message.blockId) : undefined)
+    message.block !== undefined &&
+      (obj.block = message.block ? Block.toJSON(message.block) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetBlockByHeightResponse>, I>>(object: I): GetBlockByHeightResponse {
+  fromPartial<I extends Exact<DeepPartial<GetBlockByHeightResponse>, I>>(
+    object: I,
+  ): GetBlockByHeightResponse {
     const message = createBaseGetBlockByHeightResponse()
     message.blockId =
-      object.blockId !== undefined && object.blockId !== null ? BlockID.fromPartial(object.blockId) : undefined
-    message.block = object.block !== undefined && object.block !== null ? Block.fromPartial(object.block) : undefined
+      object.blockId !== undefined && object.blockId !== null
+        ? BlockID.fromPartial(object.blockId)
+        : undefined
+    message.block =
+      object.block !== undefined && object.block !== null
+        ? Block.fromPartial(object.block)
+        : undefined
     return message
   },
 }
@@ -573,7 +674,10 @@ function createBaseGetLatestBlockRequest(): GetLatestBlockRequest {
 }
 
 export const GetLatestBlockRequest = {
-  encode(_: GetLatestBlockRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: GetLatestBlockRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
@@ -601,7 +705,9 @@ export const GetLatestBlockRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetLatestBlockRequest>, I>>(_: I): GetLatestBlockRequest {
+  fromPartial<I extends Exact<DeepPartial<GetLatestBlockRequest>, I>>(
+    _: I,
+  ): GetLatestBlockRequest {
     const message = createBaseGetLatestBlockRequest()
     return message
   },
@@ -612,7 +718,10 @@ function createBaseGetLatestBlockResponse(): GetLatestBlockResponse {
 }
 
 export const GetLatestBlockResponse = {
-  encode(message: GetLatestBlockResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GetLatestBlockResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.blockId !== undefined) {
       BlockID.encode(message.blockId, writer.uint32(10).fork()).ldelim()
     }
@@ -652,16 +761,25 @@ export const GetLatestBlockResponse = {
 
   toJSON(message: GetLatestBlockResponse): unknown {
     const obj: any = {}
-    message.blockId !== undefined && (obj.blockId = message.blockId ? BlockID.toJSON(message.blockId) : undefined)
-    message.block !== undefined && (obj.block = message.block ? Block.toJSON(message.block) : undefined)
+    message.blockId !== undefined &&
+      (obj.blockId = message.blockId ? BlockID.toJSON(message.blockId) : undefined)
+    message.block !== undefined &&
+      (obj.block = message.block ? Block.toJSON(message.block) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetLatestBlockResponse>, I>>(object: I): GetLatestBlockResponse {
+  fromPartial<I extends Exact<DeepPartial<GetLatestBlockResponse>, I>>(
+    object: I,
+  ): GetLatestBlockResponse {
     const message = createBaseGetLatestBlockResponse()
     message.blockId =
-      object.blockId !== undefined && object.blockId !== null ? BlockID.fromPartial(object.blockId) : undefined
-    message.block = object.block !== undefined && object.block !== null ? Block.fromPartial(object.block) : undefined
+      object.blockId !== undefined && object.blockId !== null
+        ? BlockID.fromPartial(object.blockId)
+        : undefined
+    message.block =
+      object.block !== undefined && object.block !== null
+        ? Block.fromPartial(object.block)
+        : undefined
     return message
   },
 }
@@ -699,7 +817,9 @@ export const GetSyncingRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetSyncingRequest>, I>>(_: I): GetSyncingRequest {
+  fromPartial<I extends Exact<DeepPartial<GetSyncingRequest>, I>>(
+    _: I,
+  ): GetSyncingRequest {
     const message = createBaseGetSyncingRequest()
     return message
   },
@@ -710,7 +830,10 @@ function createBaseGetSyncingResponse(): GetSyncingResponse {
 }
 
 export const GetSyncingResponse = {
-  encode(message: GetSyncingResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GetSyncingResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.syncing === true) {
       writer.uint32(8).bool(message.syncing)
     }
@@ -747,7 +870,9 @@ export const GetSyncingResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetSyncingResponse>, I>>(object: I): GetSyncingResponse {
+  fromPartial<I extends Exact<DeepPartial<GetSyncingResponse>, I>>(
+    object: I,
+  ): GetSyncingResponse {
     const message = createBaseGetSyncingResponse()
     message.syncing = object.syncing ?? false
     return message
@@ -787,7 +912,9 @@ export const GetNodeInfoRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetNodeInfoRequest>, I>>(_: I): GetNodeInfoRequest {
+  fromPartial<I extends Exact<DeepPartial<GetNodeInfoRequest>, I>>(
+    _: I,
+  ): GetNodeInfoRequest {
     const message = createBaseGetNodeInfoRequest()
     return message
   },
@@ -798,7 +925,10 @@ function createBaseGetNodeInfoResponse(): GetNodeInfoResponse {
 }
 
 export const GetNodeInfoResponse = {
-  encode(message: GetNodeInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GetNodeInfoResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.defaultNodeInfo !== undefined) {
       DefaultNodeInfo.encode(message.defaultNodeInfo, writer.uint32(10).fork()).ldelim()
     }
@@ -831,7 +961,9 @@ export const GetNodeInfoResponse = {
 
   fromJSON(object: any): GetNodeInfoResponse {
     return {
-      defaultNodeInfo: isSet(object.defaultNodeInfo) ? DefaultNodeInfo.fromJSON(object.defaultNodeInfo) : undefined,
+      defaultNodeInfo: isSet(object.defaultNodeInfo)
+        ? DefaultNodeInfo.fromJSON(object.defaultNodeInfo)
+        : undefined,
       applicationVersion: isSet(object.applicationVersion)
         ? VersionInfo.fromJSON(object.applicationVersion)
         : undefined,
@@ -841,13 +973,19 @@ export const GetNodeInfoResponse = {
   toJSON(message: GetNodeInfoResponse): unknown {
     const obj: any = {}
     message.defaultNodeInfo !== undefined &&
-      (obj.defaultNodeInfo = message.defaultNodeInfo ? DefaultNodeInfo.toJSON(message.defaultNodeInfo) : undefined)
+      (obj.defaultNodeInfo = message.defaultNodeInfo
+        ? DefaultNodeInfo.toJSON(message.defaultNodeInfo)
+        : undefined)
     message.applicationVersion !== undefined &&
-      (obj.applicationVersion = message.applicationVersion ? VersionInfo.toJSON(message.applicationVersion) : undefined)
+      (obj.applicationVersion = message.applicationVersion
+        ? VersionInfo.toJSON(message.applicationVersion)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<GetNodeInfoResponse>, I>>(object: I): GetNodeInfoResponse {
+  fromPartial<I extends Exact<DeepPartial<GetNodeInfoResponse>, I>>(
+    object: I,
+  ): GetNodeInfoResponse {
     const message = createBaseGetNodeInfoResponse()
     message.defaultNodeInfo =
       object.defaultNodeInfo !== undefined && object.defaultNodeInfo !== null
@@ -863,41 +1001,41 @@ export const GetNodeInfoResponse = {
 
 function createBaseVersionInfo(): VersionInfo {
   return {
-    name: '',
-    appName: '',
-    version: '',
-    gitCommit: '',
-    buildTags: '',
-    goVersion: '',
+    name: "",
+    appName: "",
+    version: "",
+    gitCommit: "",
+    buildTags: "",
+    goVersion: "",
     buildDeps: [],
-    cosmosSdkVersion: '',
+    cosmosSdkVersion: "",
   }
 }
 
 export const VersionInfo = {
   encode(message: VersionInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.name !== '') {
+    if (message.name !== "") {
       writer.uint32(10).string(message.name)
     }
-    if (message.appName !== '') {
+    if (message.appName !== "") {
       writer.uint32(18).string(message.appName)
     }
-    if (message.version !== '') {
+    if (message.version !== "") {
       writer.uint32(26).string(message.version)
     }
-    if (message.gitCommit !== '') {
+    if (message.gitCommit !== "") {
       writer.uint32(34).string(message.gitCommit)
     }
-    if (message.buildTags !== '') {
+    if (message.buildTags !== "") {
       writer.uint32(42).string(message.buildTags)
     }
-    if (message.goVersion !== '') {
+    if (message.goVersion !== "") {
       writer.uint32(50).string(message.goVersion)
     }
     for (const v of message.buildDeps) {
       Module.encode(v!, writer.uint32(58).fork()).ldelim()
     }
-    if (message.cosmosSdkVersion !== '') {
+    if (message.cosmosSdkVersion !== "") {
       writer.uint32(66).string(message.cosmosSdkVersion)
     }
     return writer
@@ -944,14 +1082,18 @@ export const VersionInfo = {
 
   fromJSON(object: any): VersionInfo {
     return {
-      name: isSet(object.name) ? String(object.name) : '',
-      appName: isSet(object.appName) ? String(object.appName) : '',
-      version: isSet(object.version) ? String(object.version) : '',
-      gitCommit: isSet(object.gitCommit) ? String(object.gitCommit) : '',
-      buildTags: isSet(object.buildTags) ? String(object.buildTags) : '',
-      goVersion: isSet(object.goVersion) ? String(object.goVersion) : '',
-      buildDeps: Array.isArray(object?.buildDeps) ? object.buildDeps.map((e: any) => Module.fromJSON(e)) : [],
-      cosmosSdkVersion: isSet(object.cosmosSdkVersion) ? String(object.cosmosSdkVersion) : '',
+      name: isSet(object.name) ? String(object.name) : "",
+      appName: isSet(object.appName) ? String(object.appName) : "",
+      version: isSet(object.version) ? String(object.version) : "",
+      gitCommit: isSet(object.gitCommit) ? String(object.gitCommit) : "",
+      buildTags: isSet(object.buildTags) ? String(object.buildTags) : "",
+      goVersion: isSet(object.goVersion) ? String(object.goVersion) : "",
+      buildDeps: Array.isArray(object?.buildDeps)
+        ? object.buildDeps.map((e: any) => Module.fromJSON(e))
+        : [],
+      cosmosSdkVersion: isSet(object.cosmosSdkVersion)
+        ? String(object.cosmosSdkVersion)
+        : "",
     }
   },
 
@@ -968,37 +1110,38 @@ export const VersionInfo = {
     } else {
       obj.buildDeps = []
     }
-    message.cosmosSdkVersion !== undefined && (obj.cosmosSdkVersion = message.cosmosSdkVersion)
+    message.cosmosSdkVersion !== undefined &&
+      (obj.cosmosSdkVersion = message.cosmosSdkVersion)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<VersionInfo>, I>>(object: I): VersionInfo {
     const message = createBaseVersionInfo()
-    message.name = object.name ?? ''
-    message.appName = object.appName ?? ''
-    message.version = object.version ?? ''
-    message.gitCommit = object.gitCommit ?? ''
-    message.buildTags = object.buildTags ?? ''
-    message.goVersion = object.goVersion ?? ''
+    message.name = object.name ?? ""
+    message.appName = object.appName ?? ""
+    message.version = object.version ?? ""
+    message.gitCommit = object.gitCommit ?? ""
+    message.buildTags = object.buildTags ?? ""
+    message.goVersion = object.goVersion ?? ""
     message.buildDeps = object.buildDeps?.map((e) => Module.fromPartial(e)) || []
-    message.cosmosSdkVersion = object.cosmosSdkVersion ?? ''
+    message.cosmosSdkVersion = object.cosmosSdkVersion ?? ""
     return message
   },
 }
 
 function createBaseModule(): Module {
-  return { path: '', version: '', sum: '' }
+  return { path: "", version: "", sum: "" }
 }
 
 export const Module = {
   encode(message: Module, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.path !== '') {
+    if (message.path !== "") {
       writer.uint32(10).string(message.path)
     }
-    if (message.version !== '') {
+    if (message.version !== "") {
       writer.uint32(18).string(message.version)
     }
-    if (message.sum !== '') {
+    if (message.sum !== "") {
       writer.uint32(26).string(message.sum)
     }
     return writer
@@ -1030,9 +1173,9 @@ export const Module = {
 
   fromJSON(object: any): Module {
     return {
-      path: isSet(object.path) ? String(object.path) : '',
-      version: isSet(object.version) ? String(object.version) : '',
-      sum: isSet(object.sum) ? String(object.sum) : '',
+      path: isSet(object.path) ? String(object.path) : "",
+      version: isSet(object.version) ? String(object.version) : "",
+      sum: isSet(object.sum) ? String(object.sum) : "",
     }
   },
 
@@ -1046,9 +1189,9 @@ export const Module = {
 
   fromPartial<I extends Exact<DeepPartial<Module>, I>>(object: I): Module {
     const message = createBaseModule()
-    message.path = object.path ?? ''
-    message.version = object.version ?? ''
-    message.sum = object.sum ?? ''
+    message.path = object.path ?? ""
+    message.version = object.version ?? ""
+    message.sum = object.sum ?? ""
     return message
   },
 }
@@ -1064,9 +1207,13 @@ export interface Service {
   /** GetBlockByHeight queries block for given height. */
   GetBlockByHeight(request: GetBlockByHeightRequest): Promise<GetBlockByHeightResponse>
   /** GetLatestValidatorSet queries latest validator-set. */
-  GetLatestValidatorSet(request: GetLatestValidatorSetRequest): Promise<GetLatestValidatorSetResponse>
+  GetLatestValidatorSet(
+    request: GetLatestValidatorSetRequest,
+  ): Promise<GetLatestValidatorSetResponse>
   /** GetValidatorSetByHeight queries validator-set at a given height. */
-  GetValidatorSetByHeight(request: GetValidatorSetByHeightRequest): Promise<GetValidatorSetByHeightResponse>
+  GetValidatorSetByHeight(
+    request: GetValidatorSetByHeightRequest,
+  ): Promise<GetValidatorSetByHeightResponse>
 }
 
 export class ServiceClientImpl implements Service {
@@ -1082,38 +1229,72 @@ export class ServiceClientImpl implements Service {
   }
   GetNodeInfo(request: GetNodeInfoRequest): Promise<GetNodeInfoResponse> {
     const data = GetNodeInfoRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.base.tendermint.v1beta1.Service', 'GetNodeInfo', data)
+    const promise = this.rpc.request(
+      "cosmos.base.tendermint.v1beta1.Service",
+      "GetNodeInfo",
+      data,
+    )
     return promise.then((data) => GetNodeInfoResponse.decode(new _m0.Reader(data)))
   }
 
   GetSyncing(request: GetSyncingRequest): Promise<GetSyncingResponse> {
     const data = GetSyncingRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.base.tendermint.v1beta1.Service', 'GetSyncing', data)
+    const promise = this.rpc.request(
+      "cosmos.base.tendermint.v1beta1.Service",
+      "GetSyncing",
+      data,
+    )
     return promise.then((data) => GetSyncingResponse.decode(new _m0.Reader(data)))
   }
 
   GetLatestBlock(request: GetLatestBlockRequest): Promise<GetLatestBlockResponse> {
     const data = GetLatestBlockRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.base.tendermint.v1beta1.Service', 'GetLatestBlock', data)
+    const promise = this.rpc.request(
+      "cosmos.base.tendermint.v1beta1.Service",
+      "GetLatestBlock",
+      data,
+    )
     return promise.then((data) => GetLatestBlockResponse.decode(new _m0.Reader(data)))
   }
 
-  GetBlockByHeight(request: GetBlockByHeightRequest): Promise<GetBlockByHeightResponse> {
+  GetBlockByHeight(
+    request: GetBlockByHeightRequest,
+  ): Promise<GetBlockByHeightResponse> {
     const data = GetBlockByHeightRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.base.tendermint.v1beta1.Service', 'GetBlockByHeight', data)
+    const promise = this.rpc.request(
+      "cosmos.base.tendermint.v1beta1.Service",
+      "GetBlockByHeight",
+      data,
+    )
     return promise.then((data) => GetBlockByHeightResponse.decode(new _m0.Reader(data)))
   }
 
-  GetLatestValidatorSet(request: GetLatestValidatorSetRequest): Promise<GetLatestValidatorSetResponse> {
+  GetLatestValidatorSet(
+    request: GetLatestValidatorSetRequest,
+  ): Promise<GetLatestValidatorSetResponse> {
     const data = GetLatestValidatorSetRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.base.tendermint.v1beta1.Service', 'GetLatestValidatorSet', data)
-    return promise.then((data) => GetLatestValidatorSetResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "cosmos.base.tendermint.v1beta1.Service",
+      "GetLatestValidatorSet",
+      data,
+    )
+    return promise.then((data) =>
+      GetLatestValidatorSetResponse.decode(new _m0.Reader(data)),
+    )
   }
 
-  GetValidatorSetByHeight(request: GetValidatorSetByHeightRequest): Promise<GetValidatorSetByHeightResponse> {
+  GetValidatorSetByHeight(
+    request: GetValidatorSetByHeightRequest,
+  ): Promise<GetValidatorSetByHeightResponse> {
     const data = GetValidatorSetByHeightRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.base.tendermint.v1beta1.Service', 'GetValidatorSetByHeight', data)
-    return promise.then((data) => GetValidatorSetByHeightResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "cosmos.base.tendermint.v1beta1.Service",
+      "GetValidatorSetByHeight",
+      data,
+    )
+    return promise.then((data) =>
+      GetValidatorSetByHeightResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
@@ -1138,7 +1319,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

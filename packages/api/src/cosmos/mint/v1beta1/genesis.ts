@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Minter, Params } from './mint'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Minter, Params } from "./mint"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.mint.v1beta1'
+export const protobufPackage = "cosmos.mint.v1beta1"
 
 /** GenesisState defines the mint module's genesis state. */
 export interface GenesisState {
@@ -58,17 +58,23 @@ export const GenesisState = {
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
-    message.minter !== undefined && (obj.minter = message.minter ? Minter.toJSON(message.minter) : undefined)
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.minter !== undefined &&
+      (obj.minter = message.minter ? Minter.toJSON(message.minter) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState()
     message.minter =
-      object.minter !== undefined && object.minter !== null ? Minter.fromPartial(object.minter) : undefined
+      object.minter !== undefined && object.minter !== null
+        ? Minter.fromPartial(object.minter)
+        : undefined
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
     return message
   },
 }
@@ -90,7 +96,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

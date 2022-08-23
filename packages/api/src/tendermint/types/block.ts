@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { Header, Data, Commit } from './types'
-import { EvidenceList } from './evidence'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Header, Data, Commit } from "./types"
+import { EvidenceList } from "./evidence"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'tendermint.types'
+export const protobufPackage = "tendermint.types"
 
 export interface Block {
   header?: Header
@@ -14,7 +14,12 @@ export interface Block {
 }
 
 function createBaseBlock(): Block {
-  return { header: undefined, data: undefined, evidence: undefined, lastCommit: undefined }
+  return {
+    header: undefined,
+    data: undefined,
+    evidence: undefined,
+    lastCommit: undefined,
+  }
 }
 
 export const Block = {
@@ -65,31 +70,50 @@ export const Block = {
     return {
       header: isSet(object.header) ? Header.fromJSON(object.header) : undefined,
       data: isSet(object.data) ? Data.fromJSON(object.data) : undefined,
-      evidence: isSet(object.evidence) ? EvidenceList.fromJSON(object.evidence) : undefined,
-      lastCommit: isSet(object.lastCommit) ? Commit.fromJSON(object.lastCommit) : undefined,
+      evidence: isSet(object.evidence)
+        ? EvidenceList.fromJSON(object.evidence)
+        : undefined,
+      lastCommit: isSet(object.lastCommit)
+        ? Commit.fromJSON(object.lastCommit)
+        : undefined,
     }
   },
 
   toJSON(message: Block): unknown {
     const obj: any = {}
-    message.header !== undefined && (obj.header = message.header ? Header.toJSON(message.header) : undefined)
-    message.data !== undefined && (obj.data = message.data ? Data.toJSON(message.data) : undefined)
+    message.header !== undefined &&
+      (obj.header = message.header ? Header.toJSON(message.header) : undefined)
+    message.data !== undefined &&
+      (obj.data = message.data ? Data.toJSON(message.data) : undefined)
     message.evidence !== undefined &&
-      (obj.evidence = message.evidence ? EvidenceList.toJSON(message.evidence) : undefined)
+      (obj.evidence = message.evidence
+        ? EvidenceList.toJSON(message.evidence)
+        : undefined)
     message.lastCommit !== undefined &&
-      (obj.lastCommit = message.lastCommit ? Commit.toJSON(message.lastCommit) : undefined)
+      (obj.lastCommit = message.lastCommit
+        ? Commit.toJSON(message.lastCommit)
+        : undefined)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<Block>, I>>(object: I): Block {
     const message = createBaseBlock()
     message.header =
-      object.header !== undefined && object.header !== null ? Header.fromPartial(object.header) : undefined
-    message.data = object.data !== undefined && object.data !== null ? Data.fromPartial(object.data) : undefined
+      object.header !== undefined && object.header !== null
+        ? Header.fromPartial(object.header)
+        : undefined
+    message.data =
+      object.data !== undefined && object.data !== null
+        ? Data.fromPartial(object.data)
+        : undefined
     message.evidence =
-      object.evidence !== undefined && object.evidence !== null ? EvidenceList.fromPartial(object.evidence) : undefined
+      object.evidence !== undefined && object.evidence !== null
+        ? EvidenceList.fromPartial(object.evidence)
+        : undefined
     message.lastCommit =
-      object.lastCommit !== undefined && object.lastCommit !== null ? Commit.fromPartial(object.lastCommit) : undefined
+      object.lastCommit !== undefined && object.lastCommit !== null
+        ? Commit.fromPartial(object.lastCommit)
+        : undefined
     return message
   },
 }
@@ -111,7 +135,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'google.protobuf'
+export const protobufPackage = "google.protobuf"
 
 /**
  * A Duration represents a signed, fixed-length span of time represented
@@ -26,7 +26,7 @@ export const protobufPackage = 'google.protobuf'
  *     if (duration.seconds < 0 && duration.nanos > 0) {
  *       duration.seconds += 1;
  *       duration.nanos -= 1000000000;
- *     } else if (duration.seconds > 0 && duration.nanos < 0) {
+ *     } else if (durations.seconds > 0 && duration.nanos < 0) {
  *       duration.seconds -= 1;
  *       duration.nanos += 1000000000;
  *     }
@@ -127,7 +127,8 @@ export const Duration = {
 
   toJSON(message: Duration): unknown {
     const obj: any = {}
-    message.seconds !== undefined && (obj.seconds = (message.seconds || Long.ZERO).toString())
+    message.seconds !== undefined &&
+      (obj.seconds = (message.seconds || Long.ZERO).toString())
     message.nanos !== undefined && (obj.nanos = Math.round(message.nanos))
     return obj
   },
@@ -135,7 +136,9 @@ export const Duration = {
   fromPartial<I extends Exact<DeepPartial<Duration>, I>>(object: I): Duration {
     const message = createBaseDuration()
     message.seconds =
-      object.seconds !== undefined && object.seconds !== null ? Long.fromValue(object.seconds) : Long.ZERO
+      object.seconds !== undefined && object.seconds !== null
+        ? Long.fromValue(object.seconds)
+        : Long.ZERO
     message.nanos = object.nanos ?? 0
     return message
   },
@@ -158,7 +161,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

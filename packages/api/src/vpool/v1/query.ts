@@ -1,9 +1,15 @@
 /* eslint-disable */
-import { Direction, Pool, directionFromJSON, directionToJSON } from './vpool'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import {
+  Direction,
+  Pool,
+  PoolPrices,
+  directionFromJSON,
+  directionToJSON,
+} from "./vpool"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.vpool.v1'
+export const protobufPackage = "nibiru.vpool.v1"
 
 export interface QueryReserveAssetsRequest {
   /** always BASE:QUOTE, e.g. BTC:NUSD or ETH:NUSD */
@@ -21,6 +27,7 @@ export interface QueryAllPoolsRequest {}
 
 export interface QueryAllPoolsResponse {
   pools: Pool[]
+  prices: PoolPrices[]
 }
 
 export interface QueryBaseAssetPriceRequest {
@@ -35,12 +42,15 @@ export interface QueryBaseAssetPriceResponse {
 }
 
 function createBaseQueryReserveAssetsRequest(): QueryReserveAssetsRequest {
-  return { pair: '' }
+  return { pair: "" }
 }
 
 export const QueryReserveAssetsRequest = {
-  encode(message: QueryReserveAssetsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== '') {
+  encode(
+    message: QueryReserveAssetsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
     }
     return writer
@@ -66,7 +76,7 @@ export const QueryReserveAssetsRequest = {
 
   fromJSON(object: any): QueryReserveAssetsRequest {
     return {
-      pair: isSet(object.pair) ? String(object.pair) : '',
+      pair: isSet(object.pair) ? String(object.pair) : "",
     }
   },
 
@@ -76,23 +86,28 @@ export const QueryReserveAssetsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryReserveAssetsRequest>, I>>(object: I): QueryReserveAssetsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryReserveAssetsRequest>, I>>(
+    object: I,
+  ): QueryReserveAssetsRequest {
     const message = createBaseQueryReserveAssetsRequest()
-    message.pair = object.pair ?? ''
+    message.pair = object.pair ?? ""
     return message
   },
 }
 
 function createBaseQueryReserveAssetsResponse(): QueryReserveAssetsResponse {
-  return { baseAssetReserve: '', quoteAssetReserve: '' }
+  return { baseAssetReserve: "", quoteAssetReserve: "" }
 }
 
 export const QueryReserveAssetsResponse = {
-  encode(message: QueryReserveAssetsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.baseAssetReserve !== '') {
+  encode(
+    message: QueryReserveAssetsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.baseAssetReserve !== "") {
       writer.uint32(10).string(message.baseAssetReserve)
     }
-    if (message.quoteAssetReserve !== '') {
+    if (message.quoteAssetReserve !== "") {
       writer.uint32(18).string(message.quoteAssetReserve)
     }
     return writer
@@ -121,22 +136,30 @@ export const QueryReserveAssetsResponse = {
 
   fromJSON(object: any): QueryReserveAssetsResponse {
     return {
-      baseAssetReserve: isSet(object.baseAssetReserve) ? String(object.baseAssetReserve) : '',
-      quoteAssetReserve: isSet(object.quoteAssetReserve) ? String(object.quoteAssetReserve) : '',
+      baseAssetReserve: isSet(object.baseAssetReserve)
+        ? String(object.baseAssetReserve)
+        : "",
+      quoteAssetReserve: isSet(object.quoteAssetReserve)
+        ? String(object.quoteAssetReserve)
+        : "",
     }
   },
 
   toJSON(message: QueryReserveAssetsResponse): unknown {
     const obj: any = {}
-    message.baseAssetReserve !== undefined && (obj.baseAssetReserve = message.baseAssetReserve)
-    message.quoteAssetReserve !== undefined && (obj.quoteAssetReserve = message.quoteAssetReserve)
+    message.baseAssetReserve !== undefined &&
+      (obj.baseAssetReserve = message.baseAssetReserve)
+    message.quoteAssetReserve !== undefined &&
+      (obj.quoteAssetReserve = message.quoteAssetReserve)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryReserveAssetsResponse>, I>>(object: I): QueryReserveAssetsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryReserveAssetsResponse>, I>>(
+    object: I,
+  ): QueryReserveAssetsResponse {
     const message = createBaseQueryReserveAssetsResponse()
-    message.baseAssetReserve = object.baseAssetReserve ?? ''
-    message.quoteAssetReserve = object.quoteAssetReserve ?? ''
+    message.baseAssetReserve = object.baseAssetReserve ?? ""
+    message.quoteAssetReserve = object.quoteAssetReserve ?? ""
     return message
   },
 }
@@ -146,7 +169,10 @@ function createBaseQueryAllPoolsRequest(): QueryAllPoolsRequest {
 }
 
 export const QueryAllPoolsRequest = {
-  encode(_: QueryAllPoolsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: QueryAllPoolsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
@@ -174,20 +200,28 @@ export const QueryAllPoolsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllPoolsRequest>, I>>(_: I): QueryAllPoolsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAllPoolsRequest>, I>>(
+    _: I,
+  ): QueryAllPoolsRequest {
     const message = createBaseQueryAllPoolsRequest()
     return message
   },
 }
 
 function createBaseQueryAllPoolsResponse(): QueryAllPoolsResponse {
-  return { pools: [] }
+  return { pools: [], prices: [] }
 }
 
 export const QueryAllPoolsResponse = {
-  encode(message: QueryAllPoolsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryAllPoolsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.pools) {
       Pool.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    for (const v of message.prices) {
+      PoolPrices.encode(v!, writer.uint32(18).fork()).ldelim()
     }
     return writer
   },
@@ -202,6 +236,9 @@ export const QueryAllPoolsResponse = {
         case 1:
           message.pools.push(Pool.decode(reader, reader.uint32()))
           break
+        case 2:
+          message.prices.push(PoolPrices.decode(reader, reader.uint32()))
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -212,7 +249,12 @@ export const QueryAllPoolsResponse = {
 
   fromJSON(object: any): QueryAllPoolsResponse {
     return {
-      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => Pool.fromJSON(e)) : [],
+      pools: Array.isArray(object?.pools)
+        ? object.pools.map((e: any) => Pool.fromJSON(e))
+        : [],
+      prices: Array.isArray(object?.prices)
+        ? object.prices.map((e: any) => PoolPrices.fromJSON(e))
+        : [],
     }
   },
 
@@ -223,29 +265,40 @@ export const QueryAllPoolsResponse = {
     } else {
       obj.pools = []
     }
+    if (message.prices) {
+      obj.prices = message.prices.map((e) => (e ? PoolPrices.toJSON(e) : undefined))
+    } else {
+      obj.prices = []
+    }
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllPoolsResponse>, I>>(object: I): QueryAllPoolsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAllPoolsResponse>, I>>(
+    object: I,
+  ): QueryAllPoolsResponse {
     const message = createBaseQueryAllPoolsResponse()
     message.pools = object.pools?.map((e) => Pool.fromPartial(e)) || []
+    message.prices = object.prices?.map((e) => PoolPrices.fromPartial(e)) || []
     return message
   },
 }
 
 function createBaseQueryBaseAssetPriceRequest(): QueryBaseAssetPriceRequest {
-  return { pair: '', direction: 0, baseAssetAmount: '' }
+  return { pair: "", direction: 0, baseAssetAmount: "" }
 }
 
 export const QueryBaseAssetPriceRequest = {
-  encode(message: QueryBaseAssetPriceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== '') {
+  encode(
+    message: QueryBaseAssetPriceRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
     }
     if (message.direction !== 0) {
       writer.uint32(16).int32(message.direction)
     }
-    if (message.baseAssetAmount !== '') {
+    if (message.baseAssetAmount !== "") {
       writer.uint32(26).string(message.baseAssetAmount)
     }
     return writer
@@ -277,36 +330,45 @@ export const QueryBaseAssetPriceRequest = {
 
   fromJSON(object: any): QueryBaseAssetPriceRequest {
     return {
-      pair: isSet(object.pair) ? String(object.pair) : '',
+      pair: isSet(object.pair) ? String(object.pair) : "",
       direction: isSet(object.direction) ? directionFromJSON(object.direction) : 0,
-      baseAssetAmount: isSet(object.baseAssetAmount) ? String(object.baseAssetAmount) : '',
+      baseAssetAmount: isSet(object.baseAssetAmount)
+        ? String(object.baseAssetAmount)
+        : "",
     }
   },
 
   toJSON(message: QueryBaseAssetPriceRequest): unknown {
     const obj: any = {}
     message.pair !== undefined && (obj.pair = message.pair)
-    message.direction !== undefined && (obj.direction = directionToJSON(message.direction))
-    message.baseAssetAmount !== undefined && (obj.baseAssetAmount = message.baseAssetAmount)
+    message.direction !== undefined &&
+      (obj.direction = directionToJSON(message.direction))
+    message.baseAssetAmount !== undefined &&
+      (obj.baseAssetAmount = message.baseAssetAmount)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryBaseAssetPriceRequest>, I>>(object: I): QueryBaseAssetPriceRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryBaseAssetPriceRequest>, I>>(
+    object: I,
+  ): QueryBaseAssetPriceRequest {
     const message = createBaseQueryBaseAssetPriceRequest()
-    message.pair = object.pair ?? ''
+    message.pair = object.pair ?? ""
     message.direction = object.direction ?? 0
-    message.baseAssetAmount = object.baseAssetAmount ?? ''
+    message.baseAssetAmount = object.baseAssetAmount ?? ""
     return message
   },
 }
 
 function createBaseQueryBaseAssetPriceResponse(): QueryBaseAssetPriceResponse {
-  return { priceInQuoteDenom: '' }
+  return { priceInQuoteDenom: "" }
 }
 
 export const QueryBaseAssetPriceResponse = {
-  encode(message: QueryBaseAssetPriceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.priceInQuoteDenom !== '') {
+  encode(
+    message: QueryBaseAssetPriceResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.priceInQuoteDenom !== "") {
       writer.uint32(10).string(message.priceInQuoteDenom)
     }
     return writer
@@ -332,19 +394,24 @@ export const QueryBaseAssetPriceResponse = {
 
   fromJSON(object: any): QueryBaseAssetPriceResponse {
     return {
-      priceInQuoteDenom: isSet(object.priceInQuoteDenom) ? String(object.priceInQuoteDenom) : '',
+      priceInQuoteDenom: isSet(object.priceInQuoteDenom)
+        ? String(object.priceInQuoteDenom)
+        : "",
     }
   },
 
   toJSON(message: QueryBaseAssetPriceResponse): unknown {
     const obj: any = {}
-    message.priceInQuoteDenom !== undefined && (obj.priceInQuoteDenom = message.priceInQuoteDenom)
+    message.priceInQuoteDenom !== undefined &&
+      (obj.priceInQuoteDenom = message.priceInQuoteDenom)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryBaseAssetPriceResponse>, I>>(object: I): QueryBaseAssetPriceResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryBaseAssetPriceResponse>, I>>(
+    object: I,
+  ): QueryBaseAssetPriceResponse {
     const message = createBaseQueryBaseAssetPriceResponse()
-    message.priceInQuoteDenom = object.priceInQuoteDenom ?? ''
+    message.priceInQuoteDenom = object.priceInQuoteDenom ?? ""
     return message
   },
 }
@@ -356,7 +423,9 @@ export interface Query {
   /** Queries all virtual pools. */
   AllPools(request: QueryAllPoolsRequest): Promise<QueryAllPoolsResponse>
   /** Queries prices */
-  BaseAssetPrice(request: QueryBaseAssetPriceRequest): Promise<QueryBaseAssetPriceResponse>
+  BaseAssetPrice(
+    request: QueryBaseAssetPriceRequest,
+  ): Promise<QueryBaseAssetPriceResponse>
 }
 
 export class QueryClientImpl implements Query {
@@ -367,22 +436,30 @@ export class QueryClientImpl implements Query {
     this.AllPools = this.AllPools.bind(this)
     this.BaseAssetPrice = this.BaseAssetPrice.bind(this)
   }
-  ReserveAssets(request: QueryReserveAssetsRequest): Promise<QueryReserveAssetsResponse> {
+  ReserveAssets(
+    request: QueryReserveAssetsRequest,
+  ): Promise<QueryReserveAssetsResponse> {
     const data = QueryReserveAssetsRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.vpool.v1.Query', 'ReserveAssets', data)
-    return promise.then((data) => QueryReserveAssetsResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request("nibiru.vpool.v1.Query", "ReserveAssets", data)
+    return promise.then((data) =>
+      QueryReserveAssetsResponse.decode(new _m0.Reader(data)),
+    )
   }
 
   AllPools(request: QueryAllPoolsRequest): Promise<QueryAllPoolsResponse> {
     const data = QueryAllPoolsRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.vpool.v1.Query', 'AllPools', data)
+    const promise = this.rpc.request("nibiru.vpool.v1.Query", "AllPools", data)
     return promise.then((data) => QueryAllPoolsResponse.decode(new _m0.Reader(data)))
   }
 
-  BaseAssetPrice(request: QueryBaseAssetPriceRequest): Promise<QueryBaseAssetPriceResponse> {
+  BaseAssetPrice(
+    request: QueryBaseAssetPriceRequest,
+  ): Promise<QueryBaseAssetPriceResponse> {
     const data = QueryBaseAssetPriceRequest.encode(request).finish()
-    const promise = this.rpc.request('nibiru.vpool.v1.Query', 'BaseAssetPrice', data)
-    return promise.then((data) => QueryBaseAssetPriceResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request("nibiru.vpool.v1.Query", "BaseAssetPrice", data)
+    return promise.then((data) =>
+      QueryBaseAssetPriceResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
@@ -407,7 +484,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

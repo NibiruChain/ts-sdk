@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { Params } from './params'
-import Long from 'long'
-import { Pool } from './vpool'
-import _m0 from 'protobufjs/minimal'
+import { Params } from "./params"
+import Long from "long"
+import { Pool } from "./vpool"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.vpool.v1'
+export const protobufPackage = "nibiru.vpool.v1"
 
 /** GenesisState defines the vpool module's genesis state. */
 export interface GenesisState {
@@ -50,7 +50,9 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      vpools: Array.isArray(object?.vpools) ? object.vpools.map((e: any) => Pool.fromJSON(e)) : [],
+      vpools: Array.isArray(object?.vpools)
+        ? object.vpools.map((e: any) => Pool.fromJSON(e))
+        : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     }
   },
@@ -62,7 +64,8 @@ export const GenesisState = {
     } else {
       obj.vpools = []
     }
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     return obj
   },
 
@@ -70,7 +73,9 @@ export const GenesisState = {
     const message = createBaseGenesisState()
     message.vpools = object.vpools?.map((e) => Pool.fromPartial(e)) || []
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
     return message
   },
 }
@@ -92,7 +97,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

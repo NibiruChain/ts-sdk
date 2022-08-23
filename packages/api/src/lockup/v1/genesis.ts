@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from 'long'
-import { Lock } from './lock'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import { Lock } from "./lock"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.lockup.v1'
+export const protobufPackage = "nibiru.lockup.v1"
 
 /** GenesisState defines the lockup module's genesis state. */
 export interface GenesisState {
@@ -42,7 +42,9 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      locks: Array.isArray(object?.locks) ? object.locks.map((e: any) => Lock.fromJSON(e)) : [],
+      locks: Array.isArray(object?.locks)
+        ? object.locks.map((e: any) => Lock.fromJSON(e))
+        : [],
     }
   },
 
@@ -80,7 +82,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any
