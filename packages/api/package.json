@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/api",
   "description": "Types to interact with the Nibiru Chain",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
