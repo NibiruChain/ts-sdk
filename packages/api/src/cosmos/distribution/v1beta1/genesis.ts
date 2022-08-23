@@ -7,12 +7,12 @@ import {
   ValidatorSlashEvent,
   Params,
   FeePool,
-} from './distribution'
-import Long from 'long'
-import { DecCoin } from '../../base/v1beta1/coin'
-import _m0 from 'protobufjs/minimal'
+} from "./distribution"
+import Long from "long"
+import { DecCoin } from "../../base/v1beta1/coin"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.distribution.v1beta1'
+export const protobufPackage = "cosmos.distribution.v1beta1"
 
 /**
  * DelegatorWithdrawInfo is the address for where distributions rewards are
@@ -113,15 +113,18 @@ export interface GenesisState {
 }
 
 function createBaseDelegatorWithdrawInfo(): DelegatorWithdrawInfo {
-  return { delegatorAddress: '', withdrawAddress: '' }
+  return { delegatorAddress: "", withdrawAddress: "" }
 }
 
 export const DelegatorWithdrawInfo = {
-  encode(message: DelegatorWithdrawInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.delegatorAddress !== '') {
+  encode(
+    message: DelegatorWithdrawInfo,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress)
     }
-    if (message.withdrawAddress !== '') {
+    if (message.withdrawAddress !== "") {
       writer.uint32(18).string(message.withdrawAddress)
     }
     return writer
@@ -150,33 +153,44 @@ export const DelegatorWithdrawInfo = {
 
   fromJSON(object: any): DelegatorWithdrawInfo {
     return {
-      delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : '',
-      withdrawAddress: isSet(object.withdrawAddress) ? String(object.withdrawAddress) : '',
+      delegatorAddress: isSet(object.delegatorAddress)
+        ? String(object.delegatorAddress)
+        : "",
+      withdrawAddress: isSet(object.withdrawAddress)
+        ? String(object.withdrawAddress)
+        : "",
     }
   },
 
   toJSON(message: DelegatorWithdrawInfo): unknown {
     const obj: any = {}
-    message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress)
-    message.withdrawAddress !== undefined && (obj.withdrawAddress = message.withdrawAddress)
+    message.delegatorAddress !== undefined &&
+      (obj.delegatorAddress = message.delegatorAddress)
+    message.withdrawAddress !== undefined &&
+      (obj.withdrawAddress = message.withdrawAddress)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<DelegatorWithdrawInfo>, I>>(object: I): DelegatorWithdrawInfo {
+  fromPartial<I extends Exact<DeepPartial<DelegatorWithdrawInfo>, I>>(
+    object: I,
+  ): DelegatorWithdrawInfo {
     const message = createBaseDelegatorWithdrawInfo()
-    message.delegatorAddress = object.delegatorAddress ?? ''
-    message.withdrawAddress = object.withdrawAddress ?? ''
+    message.delegatorAddress = object.delegatorAddress ?? ""
+    message.withdrawAddress = object.withdrawAddress ?? ""
     return message
   },
 }
 
 function createBaseValidatorOutstandingRewardsRecord(): ValidatorOutstandingRewardsRecord {
-  return { validatorAddress: '', outstandingRewards: [] }
+  return { validatorAddress: "", outstandingRewards: [] }
 }
 
 export const ValidatorOutstandingRewardsRecord = {
-  encode(message: ValidatorOutstandingRewardsRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.validatorAddress !== '') {
+  encode(
+    message: ValidatorOutstandingRewardsRecord,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress)
     }
     for (const v of message.outstandingRewards) {
@@ -185,7 +199,10 @@ export const ValidatorOutstandingRewardsRecord = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ValidatorOutstandingRewardsRecord {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): ValidatorOutstandingRewardsRecord {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseValidatorOutstandingRewardsRecord()
@@ -208,7 +225,9 @@ export const ValidatorOutstandingRewardsRecord = {
 
   fromJSON(object: any): ValidatorOutstandingRewardsRecord {
     return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : '',
+      validatorAddress: isSet(object.validatorAddress)
+        ? String(object.validatorAddress)
+        : "",
       outstandingRewards: Array.isArray(object?.outstandingRewards)
         ? object.outstandingRewards.map((e: any) => DecCoin.fromJSON(e))
         : [],
@@ -217,9 +236,12 @@ export const ValidatorOutstandingRewardsRecord = {
 
   toJSON(message: ValidatorOutstandingRewardsRecord): unknown {
     const obj: any = {}
-    message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress)
+    message.validatorAddress !== undefined &&
+      (obj.validatorAddress = message.validatorAddress)
     if (message.outstandingRewards) {
-      obj.outstandingRewards = message.outstandingRewards.map((e) => (e ? DecCoin.toJSON(e) : undefined))
+      obj.outstandingRewards = message.outstandingRewards.map((e) =>
+        e ? DecCoin.toJSON(e) : undefined,
+      )
     } else {
       obj.outstandingRewards = []
     }
@@ -230,28 +252,38 @@ export const ValidatorOutstandingRewardsRecord = {
     object: I,
   ): ValidatorOutstandingRewardsRecord {
     const message = createBaseValidatorOutstandingRewardsRecord()
-    message.validatorAddress = object.validatorAddress ?? ''
-    message.outstandingRewards = object.outstandingRewards?.map((e) => DecCoin.fromPartial(e)) || []
+    message.validatorAddress = object.validatorAddress ?? ""
+    message.outstandingRewards =
+      object.outstandingRewards?.map((e) => DecCoin.fromPartial(e)) || []
     return message
   },
 }
 
 function createBaseValidatorAccumulatedCommissionRecord(): ValidatorAccumulatedCommissionRecord {
-  return { validatorAddress: '', accumulated: undefined }
+  return { validatorAddress: "", accumulated: undefined }
 }
 
 export const ValidatorAccumulatedCommissionRecord = {
-  encode(message: ValidatorAccumulatedCommissionRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.validatorAddress !== '') {
+  encode(
+    message: ValidatorAccumulatedCommissionRecord,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress)
     }
     if (message.accumulated !== undefined) {
-      ValidatorAccumulatedCommission.encode(message.accumulated, writer.uint32(18).fork()).ldelim()
+      ValidatorAccumulatedCommission.encode(
+        message.accumulated,
+        writer.uint32(18).fork(),
+      ).ldelim()
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ValidatorAccumulatedCommissionRecord {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): ValidatorAccumulatedCommissionRecord {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseValidatorAccumulatedCommissionRecord()
@@ -262,7 +294,10 @@ export const ValidatorAccumulatedCommissionRecord = {
           message.validatorAddress = reader.string()
           break
         case 2:
-          message.accumulated = ValidatorAccumulatedCommission.decode(reader, reader.uint32())
+          message.accumulated = ValidatorAccumulatedCommission.decode(
+            reader,
+            reader.uint32(),
+          )
           break
         default:
           reader.skipType(tag & 7)
@@ -274,16 +309,23 @@ export const ValidatorAccumulatedCommissionRecord = {
 
   fromJSON(object: any): ValidatorAccumulatedCommissionRecord {
     return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : '',
-      accumulated: isSet(object.accumulated) ? ValidatorAccumulatedCommission.fromJSON(object.accumulated) : undefined,
+      validatorAddress: isSet(object.validatorAddress)
+        ? String(object.validatorAddress)
+        : "",
+      accumulated: isSet(object.accumulated)
+        ? ValidatorAccumulatedCommission.fromJSON(object.accumulated)
+        : undefined,
     }
   },
 
   toJSON(message: ValidatorAccumulatedCommissionRecord): unknown {
     const obj: any = {}
-    message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress)
+    message.validatorAddress !== undefined &&
+      (obj.validatorAddress = message.validatorAddress)
     message.accumulated !== undefined &&
-      (obj.accumulated = message.accumulated ? ValidatorAccumulatedCommission.toJSON(message.accumulated) : undefined)
+      (obj.accumulated = message.accumulated
+        ? ValidatorAccumulatedCommission.toJSON(message.accumulated)
+        : undefined)
     return obj
   },
 
@@ -291,7 +333,7 @@ export const ValidatorAccumulatedCommissionRecord = {
     object: I,
   ): ValidatorAccumulatedCommissionRecord {
     const message = createBaseValidatorAccumulatedCommissionRecord()
-    message.validatorAddress = object.validatorAddress ?? ''
+    message.validatorAddress = object.validatorAddress ?? ""
     message.accumulated =
       object.accumulated !== undefined && object.accumulated !== null
         ? ValidatorAccumulatedCommission.fromPartial(object.accumulated)
@@ -301,24 +343,33 @@ export const ValidatorAccumulatedCommissionRecord = {
 }
 
 function createBaseValidatorHistoricalRewardsRecord(): ValidatorHistoricalRewardsRecord {
-  return { validatorAddress: '', period: Long.UZERO, rewards: undefined }
+  return { validatorAddress: "", period: Long.UZERO, rewards: undefined }
 }
 
 export const ValidatorHistoricalRewardsRecord = {
-  encode(message: ValidatorHistoricalRewardsRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.validatorAddress !== '') {
+  encode(
+    message: ValidatorHistoricalRewardsRecord,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress)
     }
     if (!message.period.isZero()) {
       writer.uint32(16).uint64(message.period)
     }
     if (message.rewards !== undefined) {
-      ValidatorHistoricalRewards.encode(message.rewards, writer.uint32(26).fork()).ldelim()
+      ValidatorHistoricalRewards.encode(
+        message.rewards,
+        writer.uint32(26).fork(),
+      ).ldelim()
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ValidatorHistoricalRewardsRecord {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): ValidatorHistoricalRewardsRecord {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseValidatorHistoricalRewardsRecord()
@@ -344,18 +395,26 @@ export const ValidatorHistoricalRewardsRecord = {
 
   fromJSON(object: any): ValidatorHistoricalRewardsRecord {
     return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : '',
+      validatorAddress: isSet(object.validatorAddress)
+        ? String(object.validatorAddress)
+        : "",
       period: isSet(object.period) ? Long.fromValue(object.period) : Long.UZERO,
-      rewards: isSet(object.rewards) ? ValidatorHistoricalRewards.fromJSON(object.rewards) : undefined,
+      rewards: isSet(object.rewards)
+        ? ValidatorHistoricalRewards.fromJSON(object.rewards)
+        : undefined,
     }
   },
 
   toJSON(message: ValidatorHistoricalRewardsRecord): unknown {
     const obj: any = {}
-    message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress)
-    message.period !== undefined && (obj.period = (message.period || Long.UZERO).toString())
+    message.validatorAddress !== undefined &&
+      (obj.validatorAddress = message.validatorAddress)
+    message.period !== undefined &&
+      (obj.period = (message.period || Long.UZERO).toString())
     message.rewards !== undefined &&
-      (obj.rewards = message.rewards ? ValidatorHistoricalRewards.toJSON(message.rewards) : undefined)
+      (obj.rewards = message.rewards
+        ? ValidatorHistoricalRewards.toJSON(message.rewards)
+        : undefined)
     return obj
   },
 
@@ -363,8 +422,11 @@ export const ValidatorHistoricalRewardsRecord = {
     object: I,
   ): ValidatorHistoricalRewardsRecord {
     const message = createBaseValidatorHistoricalRewardsRecord()
-    message.validatorAddress = object.validatorAddress ?? ''
-    message.period = object.period !== undefined && object.period !== null ? Long.fromValue(object.period) : Long.UZERO
+    message.validatorAddress = object.validatorAddress ?? ""
+    message.period =
+      object.period !== undefined && object.period !== null
+        ? Long.fromValue(object.period)
+        : Long.UZERO
     message.rewards =
       object.rewards !== undefined && object.rewards !== null
         ? ValidatorHistoricalRewards.fromPartial(object.rewards)
@@ -374,12 +436,15 @@ export const ValidatorHistoricalRewardsRecord = {
 }
 
 function createBaseValidatorCurrentRewardsRecord(): ValidatorCurrentRewardsRecord {
-  return { validatorAddress: '', rewards: undefined }
+  return { validatorAddress: "", rewards: undefined }
 }
 
 export const ValidatorCurrentRewardsRecord = {
-  encode(message: ValidatorCurrentRewardsRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.validatorAddress !== '') {
+  encode(
+    message: ValidatorCurrentRewardsRecord,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress)
     }
     if (message.rewards !== undefined) {
@@ -388,7 +453,10 @@ export const ValidatorCurrentRewardsRecord = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ValidatorCurrentRewardsRecord {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number,
+  ): ValidatorCurrentRewardsRecord {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseValidatorCurrentRewardsRecord()
@@ -411,16 +479,23 @@ export const ValidatorCurrentRewardsRecord = {
 
   fromJSON(object: any): ValidatorCurrentRewardsRecord {
     return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : '',
-      rewards: isSet(object.rewards) ? ValidatorCurrentRewards.fromJSON(object.rewards) : undefined,
+      validatorAddress: isSet(object.validatorAddress)
+        ? String(object.validatorAddress)
+        : "",
+      rewards: isSet(object.rewards)
+        ? ValidatorCurrentRewards.fromJSON(object.rewards)
+        : undefined,
     }
   },
 
   toJSON(message: ValidatorCurrentRewardsRecord): unknown {
     const obj: any = {}
-    message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress)
+    message.validatorAddress !== undefined &&
+      (obj.validatorAddress = message.validatorAddress)
     message.rewards !== undefined &&
-      (obj.rewards = message.rewards ? ValidatorCurrentRewards.toJSON(message.rewards) : undefined)
+      (obj.rewards = message.rewards
+        ? ValidatorCurrentRewards.toJSON(message.rewards)
+        : undefined)
     return obj
   },
 
@@ -428,7 +503,7 @@ export const ValidatorCurrentRewardsRecord = {
     object: I,
   ): ValidatorCurrentRewardsRecord {
     const message = createBaseValidatorCurrentRewardsRecord()
-    message.validatorAddress = object.validatorAddress ?? ''
+    message.validatorAddress = object.validatorAddress ?? ""
     message.rewards =
       object.rewards !== undefined && object.rewards !== null
         ? ValidatorCurrentRewards.fromPartial(object.rewards)
@@ -438,19 +513,25 @@ export const ValidatorCurrentRewardsRecord = {
 }
 
 function createBaseDelegatorStartingInfoRecord(): DelegatorStartingInfoRecord {
-  return { delegatorAddress: '', validatorAddress: '', startingInfo: undefined }
+  return { delegatorAddress: "", validatorAddress: "", startingInfo: undefined }
 }
 
 export const DelegatorStartingInfoRecord = {
-  encode(message: DelegatorStartingInfoRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.delegatorAddress !== '') {
+  encode(
+    message: DelegatorStartingInfoRecord,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress)
     }
-    if (message.validatorAddress !== '') {
+    if (message.validatorAddress !== "") {
       writer.uint32(18).string(message.validatorAddress)
     }
     if (message.startingInfo !== undefined) {
-      DelegatorStartingInfo.encode(message.startingInfo, writer.uint32(26).fork()).ldelim()
+      DelegatorStartingInfo.encode(
+        message.startingInfo,
+        writer.uint32(26).fork(),
+      ).ldelim()
     }
     return writer
   },
@@ -481,25 +562,37 @@ export const DelegatorStartingInfoRecord = {
 
   fromJSON(object: any): DelegatorStartingInfoRecord {
     return {
-      delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : '',
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : '',
-      startingInfo: isSet(object.startingInfo) ? DelegatorStartingInfo.fromJSON(object.startingInfo) : undefined,
+      delegatorAddress: isSet(object.delegatorAddress)
+        ? String(object.delegatorAddress)
+        : "",
+      validatorAddress: isSet(object.validatorAddress)
+        ? String(object.validatorAddress)
+        : "",
+      startingInfo: isSet(object.startingInfo)
+        ? DelegatorStartingInfo.fromJSON(object.startingInfo)
+        : undefined,
     }
   },
 
   toJSON(message: DelegatorStartingInfoRecord): unknown {
     const obj: any = {}
-    message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress)
-    message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress)
+    message.delegatorAddress !== undefined &&
+      (obj.delegatorAddress = message.delegatorAddress)
+    message.validatorAddress !== undefined &&
+      (obj.validatorAddress = message.validatorAddress)
     message.startingInfo !== undefined &&
-      (obj.startingInfo = message.startingInfo ? DelegatorStartingInfo.toJSON(message.startingInfo) : undefined)
+      (obj.startingInfo = message.startingInfo
+        ? DelegatorStartingInfo.toJSON(message.startingInfo)
+        : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<DelegatorStartingInfoRecord>, I>>(object: I): DelegatorStartingInfoRecord {
+  fromPartial<I extends Exact<DeepPartial<DelegatorStartingInfoRecord>, I>>(
+    object: I,
+  ): DelegatorStartingInfoRecord {
     const message = createBaseDelegatorStartingInfoRecord()
-    message.delegatorAddress = object.delegatorAddress ?? ''
-    message.validatorAddress = object.validatorAddress ?? ''
+    message.delegatorAddress = object.delegatorAddress ?? ""
+    message.validatorAddress = object.validatorAddress ?? ""
     message.startingInfo =
       object.startingInfo !== undefined && object.startingInfo !== null
         ? DelegatorStartingInfo.fromPartial(object.startingInfo)
@@ -509,12 +602,20 @@ export const DelegatorStartingInfoRecord = {
 }
 
 function createBaseValidatorSlashEventRecord(): ValidatorSlashEventRecord {
-  return { validatorAddress: '', height: Long.UZERO, period: Long.UZERO, validatorSlashEvent: undefined }
+  return {
+    validatorAddress: "",
+    height: Long.UZERO,
+    period: Long.UZERO,
+    validatorSlashEvent: undefined,
+  }
 }
 
 export const ValidatorSlashEventRecord = {
-  encode(message: ValidatorSlashEventRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.validatorAddress !== '') {
+  encode(
+    message: ValidatorSlashEventRecord,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress)
     }
     if (!message.height.isZero()) {
@@ -524,7 +625,10 @@ export const ValidatorSlashEventRecord = {
       writer.uint32(24).uint64(message.period)
     }
     if (message.validatorSlashEvent !== undefined) {
-      ValidatorSlashEvent.encode(message.validatorSlashEvent, writer.uint32(34).fork()).ldelim()
+      ValidatorSlashEvent.encode(
+        message.validatorSlashEvent,
+        writer.uint32(34).fork(),
+      ).ldelim()
     }
     return writer
   },
@@ -546,7 +650,10 @@ export const ValidatorSlashEventRecord = {
           message.period = reader.uint64() as Long
           break
         case 4:
-          message.validatorSlashEvent = ValidatorSlashEvent.decode(reader, reader.uint32())
+          message.validatorSlashEvent = ValidatorSlashEvent.decode(
+            reader,
+            reader.uint32(),
+          )
           break
         default:
           reader.skipType(tag & 7)
@@ -558,7 +665,9 @@ export const ValidatorSlashEventRecord = {
 
   fromJSON(object: any): ValidatorSlashEventRecord {
     return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : '',
+      validatorAddress: isSet(object.validatorAddress)
+        ? String(object.validatorAddress)
+        : "",
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.UZERO,
       period: isSet(object.period) ? Long.fromValue(object.period) : Long.UZERO,
       validatorSlashEvent: isSet(object.validatorSlashEvent)
@@ -569,9 +678,12 @@ export const ValidatorSlashEventRecord = {
 
   toJSON(message: ValidatorSlashEventRecord): unknown {
     const obj: any = {}
-    message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress)
-    message.height !== undefined && (obj.height = (message.height || Long.UZERO).toString())
-    message.period !== undefined && (obj.period = (message.period || Long.UZERO).toString())
+    message.validatorAddress !== undefined &&
+      (obj.validatorAddress = message.validatorAddress)
+    message.height !== undefined &&
+      (obj.height = (message.height || Long.UZERO).toString())
+    message.period !== undefined &&
+      (obj.period = (message.period || Long.UZERO).toString())
     message.validatorSlashEvent !== undefined &&
       (obj.validatorSlashEvent = message.validatorSlashEvent
         ? ValidatorSlashEvent.toJSON(message.validatorSlashEvent)
@@ -579,11 +691,19 @@ export const ValidatorSlashEventRecord = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorSlashEventRecord>, I>>(object: I): ValidatorSlashEventRecord {
+  fromPartial<I extends Exact<DeepPartial<ValidatorSlashEventRecord>, I>>(
+    object: I,
+  ): ValidatorSlashEventRecord {
     const message = createBaseValidatorSlashEventRecord()
-    message.validatorAddress = object.validatorAddress ?? ''
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO
-    message.period = object.period !== undefined && object.period !== null ? Long.fromValue(object.period) : Long.UZERO
+    message.validatorAddress = object.validatorAddress ?? ""
+    message.height =
+      object.height !== undefined && object.height !== null
+        ? Long.fromValue(object.height)
+        : Long.UZERO
+    message.period =
+      object.period !== undefined && object.period !== null
+        ? Long.fromValue(object.period)
+        : Long.UZERO
     message.validatorSlashEvent =
       object.validatorSlashEvent !== undefined && object.validatorSlashEvent !== null
         ? ValidatorSlashEvent.fromPartial(object.validatorSlashEvent)
@@ -597,7 +717,7 @@ function createBaseGenesisState(): GenesisState {
     params: undefined,
     feePool: undefined,
     delegatorWithdrawInfos: [],
-    previousProposer: '',
+    previousProposer: "",
     outstandingRewards: [],
     validatorAccumulatedCommissions: [],
     validatorHistoricalRewards: [],
@@ -618,7 +738,7 @@ export const GenesisState = {
     for (const v of message.delegatorWithdrawInfos) {
       DelegatorWithdrawInfo.encode(v!, writer.uint32(26).fork()).ldelim()
     }
-    if (message.previousProposer !== '') {
+    if (message.previousProposer !== "") {
       writer.uint32(34).string(message.previousProposer)
     }
     for (const v of message.outstandingRewards) {
@@ -656,13 +776,17 @@ export const GenesisState = {
           message.feePool = FeePool.decode(reader, reader.uint32())
           break
         case 3:
-          message.delegatorWithdrawInfos.push(DelegatorWithdrawInfo.decode(reader, reader.uint32()))
+          message.delegatorWithdrawInfos.push(
+            DelegatorWithdrawInfo.decode(reader, reader.uint32()),
+          )
           break
         case 4:
           message.previousProposer = reader.string()
           break
         case 5:
-          message.outstandingRewards.push(ValidatorOutstandingRewardsRecord.decode(reader, reader.uint32()))
+          message.outstandingRewards.push(
+            ValidatorOutstandingRewardsRecord.decode(reader, reader.uint32()),
+          )
           break
         case 6:
           message.validatorAccumulatedCommissions.push(
@@ -670,16 +794,24 @@ export const GenesisState = {
           )
           break
         case 7:
-          message.validatorHistoricalRewards.push(ValidatorHistoricalRewardsRecord.decode(reader, reader.uint32()))
+          message.validatorHistoricalRewards.push(
+            ValidatorHistoricalRewardsRecord.decode(reader, reader.uint32()),
+          )
           break
         case 8:
-          message.validatorCurrentRewards.push(ValidatorCurrentRewardsRecord.decode(reader, reader.uint32()))
+          message.validatorCurrentRewards.push(
+            ValidatorCurrentRewardsRecord.decode(reader, reader.uint32()),
+          )
           break
         case 9:
-          message.delegatorStartingInfos.push(DelegatorStartingInfoRecord.decode(reader, reader.uint32()))
+          message.delegatorStartingInfos.push(
+            DelegatorStartingInfoRecord.decode(reader, reader.uint32()),
+          )
           break
         case 10:
-          message.validatorSlashEvents.push(ValidatorSlashEventRecord.decode(reader, reader.uint32()))
+          message.validatorSlashEvents.push(
+            ValidatorSlashEventRecord.decode(reader, reader.uint32()),
+          )
           break
         default:
           reader.skipType(tag & 7)
@@ -694,34 +826,54 @@ export const GenesisState = {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       feePool: isSet(object.feePool) ? FeePool.fromJSON(object.feePool) : undefined,
       delegatorWithdrawInfos: Array.isArray(object?.delegatorWithdrawInfos)
-        ? object.delegatorWithdrawInfos.map((e: any) => DelegatorWithdrawInfo.fromJSON(e))
+        ? object.delegatorWithdrawInfos.map((e: any) =>
+            DelegatorWithdrawInfo.fromJSON(e),
+          )
         : [],
-      previousProposer: isSet(object.previousProposer) ? String(object.previousProposer) : '',
+      previousProposer: isSet(object.previousProposer)
+        ? String(object.previousProposer)
+        : "",
       outstandingRewards: Array.isArray(object?.outstandingRewards)
-        ? object.outstandingRewards.map((e: any) => ValidatorOutstandingRewardsRecord.fromJSON(e))
+        ? object.outstandingRewards.map((e: any) =>
+            ValidatorOutstandingRewardsRecord.fromJSON(e),
+          )
         : [],
-      validatorAccumulatedCommissions: Array.isArray(object?.validatorAccumulatedCommissions)
-        ? object.validatorAccumulatedCommissions.map((e: any) => ValidatorAccumulatedCommissionRecord.fromJSON(e))
+      validatorAccumulatedCommissions: Array.isArray(
+        object?.validatorAccumulatedCommissions,
+      )
+        ? object.validatorAccumulatedCommissions.map((e: any) =>
+            ValidatorAccumulatedCommissionRecord.fromJSON(e),
+          )
         : [],
       validatorHistoricalRewards: Array.isArray(object?.validatorHistoricalRewards)
-        ? object.validatorHistoricalRewards.map((e: any) => ValidatorHistoricalRewardsRecord.fromJSON(e))
+        ? object.validatorHistoricalRewards.map((e: any) =>
+            ValidatorHistoricalRewardsRecord.fromJSON(e),
+          )
         : [],
       validatorCurrentRewards: Array.isArray(object?.validatorCurrentRewards)
-        ? object.validatorCurrentRewards.map((e: any) => ValidatorCurrentRewardsRecord.fromJSON(e))
+        ? object.validatorCurrentRewards.map((e: any) =>
+            ValidatorCurrentRewardsRecord.fromJSON(e),
+          )
         : [],
       delegatorStartingInfos: Array.isArray(object?.delegatorStartingInfos)
-        ? object.delegatorStartingInfos.map((e: any) => DelegatorStartingInfoRecord.fromJSON(e))
+        ? object.delegatorStartingInfos.map((e: any) =>
+            DelegatorStartingInfoRecord.fromJSON(e),
+          )
         : [],
       validatorSlashEvents: Array.isArray(object?.validatorSlashEvents)
-        ? object.validatorSlashEvents.map((e: any) => ValidatorSlashEventRecord.fromJSON(e))
+        ? object.validatorSlashEvents.map((e: any) =>
+            ValidatorSlashEventRecord.fromJSON(e),
+          )
         : [],
     }
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
-    message.feePool !== undefined && (obj.feePool = message.feePool ? FeePool.toJSON(message.feePool) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.feePool !== undefined &&
+      (obj.feePool = message.feePool ? FeePool.toJSON(message.feePool) : undefined)
     if (message.delegatorWithdrawInfos) {
       obj.delegatorWithdrawInfos = message.delegatorWithdrawInfos.map((e) =>
         e ? DelegatorWithdrawInfo.toJSON(e) : undefined,
@@ -729,7 +881,8 @@ export const GenesisState = {
     } else {
       obj.delegatorWithdrawInfos = []
     }
-    message.previousProposer !== undefined && (obj.previousProposer = message.previousProposer)
+    message.previousProposer !== undefined &&
+      (obj.previousProposer = message.previousProposer)
     if (message.outstandingRewards) {
       obj.outstandingRewards = message.outstandingRewards.map((e) =>
         e ? ValidatorOutstandingRewardsRecord.toJSON(e) : undefined,
@@ -738,8 +891,8 @@ export const GenesisState = {
       obj.outstandingRewards = []
     }
     if (message.validatorAccumulatedCommissions) {
-      obj.validatorAccumulatedCommissions = message.validatorAccumulatedCommissions.map((e) =>
-        e ? ValidatorAccumulatedCommissionRecord.toJSON(e) : undefined,
+      obj.validatorAccumulatedCommissions = message.validatorAccumulatedCommissions.map(
+        (e) => (e ? ValidatorAccumulatedCommissionRecord.toJSON(e) : undefined),
       )
     } else {
       obj.validatorAccumulatedCommissions = []
@@ -778,24 +931,41 @@ export const GenesisState = {
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState()
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
     message.feePool =
-      object.feePool !== undefined && object.feePool !== null ? FeePool.fromPartial(object.feePool) : undefined
+      object.feePool !== undefined && object.feePool !== null
+        ? FeePool.fromPartial(object.feePool)
+        : undefined
     message.delegatorWithdrawInfos =
-      object.delegatorWithdrawInfos?.map((e) => DelegatorWithdrawInfo.fromPartial(e)) || []
-    message.previousProposer = object.previousProposer ?? ''
+      object.delegatorWithdrawInfos?.map((e) => DelegatorWithdrawInfo.fromPartial(e)) ||
+      []
+    message.previousProposer = object.previousProposer ?? ""
     message.outstandingRewards =
-      object.outstandingRewards?.map((e) => ValidatorOutstandingRewardsRecord.fromPartial(e)) || []
+      object.outstandingRewards?.map((e) =>
+        ValidatorOutstandingRewardsRecord.fromPartial(e),
+      ) || []
     message.validatorAccumulatedCommissions =
-      object.validatorAccumulatedCommissions?.map((e) => ValidatorAccumulatedCommissionRecord.fromPartial(e)) || []
+      object.validatorAccumulatedCommissions?.map((e) =>
+        ValidatorAccumulatedCommissionRecord.fromPartial(e),
+      ) || []
     message.validatorHistoricalRewards =
-      object.validatorHistoricalRewards?.map((e) => ValidatorHistoricalRewardsRecord.fromPartial(e)) || []
+      object.validatorHistoricalRewards?.map((e) =>
+        ValidatorHistoricalRewardsRecord.fromPartial(e),
+      ) || []
     message.validatorCurrentRewards =
-      object.validatorCurrentRewards?.map((e) => ValidatorCurrentRewardsRecord.fromPartial(e)) || []
+      object.validatorCurrentRewards?.map((e) =>
+        ValidatorCurrentRewardsRecord.fromPartial(e),
+      ) || []
     message.delegatorStartingInfos =
-      object.delegatorStartingInfos?.map((e) => DelegatorStartingInfoRecord.fromPartial(e)) || []
+      object.delegatorStartingInfos?.map((e) =>
+        DelegatorStartingInfoRecord.fromPartial(e),
+      ) || []
     message.validatorSlashEvents =
-      object.validatorSlashEvents?.map((e) => ValidatorSlashEventRecord.fromPartial(e)) || []
+      object.validatorSlashEvents?.map((e) =>
+        ValidatorSlashEventRecord.fromPartial(e),
+      ) || []
     return message
   },
 }
@@ -817,7 +987,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

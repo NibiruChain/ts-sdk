@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Timestamp } from '../../google/protobuf/timestamp'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Timestamp } from "../../google/protobuf/timestamp"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.vpool.v1'
+export const protobufPackage = "nibiru.vpool.v1"
 
 export interface ReserveSnapshotSavedEvent {
   pair: string
@@ -30,18 +30,21 @@ export interface MarkPriceChanged {
 }
 
 function createBaseReserveSnapshotSavedEvent(): ReserveSnapshotSavedEvent {
-  return { pair: '', quoteReserve: '', baseReserve: '' }
+  return { pair: "", quoteReserve: "", baseReserve: "" }
 }
 
 export const ReserveSnapshotSavedEvent = {
-  encode(message: ReserveSnapshotSavedEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== '') {
+  encode(
+    message: ReserveSnapshotSavedEvent,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
     }
-    if (message.quoteReserve !== '') {
+    if (message.quoteReserve !== "") {
       writer.uint32(18).string(message.quoteReserve)
     }
-    if (message.baseReserve !== '') {
+    if (message.baseReserve !== "") {
       writer.uint32(26).string(message.baseReserve)
     }
     return writer
@@ -73,9 +76,9 @@ export const ReserveSnapshotSavedEvent = {
 
   fromJSON(object: any): ReserveSnapshotSavedEvent {
     return {
-      pair: isSet(object.pair) ? String(object.pair) : '',
-      quoteReserve: isSet(object.quoteReserve) ? String(object.quoteReserve) : '',
-      baseReserve: isSet(object.baseReserve) ? String(object.baseReserve) : '',
+      pair: isSet(object.pair) ? String(object.pair) : "",
+      quoteReserve: isSet(object.quoteReserve) ? String(object.quoteReserve) : "",
+      baseReserve: isSet(object.baseReserve) ? String(object.baseReserve) : "",
     }
   },
 
@@ -87,28 +90,33 @@ export const ReserveSnapshotSavedEvent = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<ReserveSnapshotSavedEvent>, I>>(object: I): ReserveSnapshotSavedEvent {
+  fromPartial<I extends Exact<DeepPartial<ReserveSnapshotSavedEvent>, I>>(
+    object: I,
+  ): ReserveSnapshotSavedEvent {
     const message = createBaseReserveSnapshotSavedEvent()
-    message.pair = object.pair ?? ''
-    message.quoteReserve = object.quoteReserve ?? ''
-    message.baseReserve = object.baseReserve ?? ''
+    message.pair = object.pair ?? ""
+    message.quoteReserve = object.quoteReserve ?? ""
+    message.baseReserve = object.baseReserve ?? ""
     return message
   },
 }
 
 function createBaseSwapQuoteForBaseEvent(): SwapQuoteForBaseEvent {
-  return { pair: '', quoteAmount: '', baseAmount: '' }
+  return { pair: "", quoteAmount: "", baseAmount: "" }
 }
 
 export const SwapQuoteForBaseEvent = {
-  encode(message: SwapQuoteForBaseEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== '') {
+  encode(
+    message: SwapQuoteForBaseEvent,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
     }
-    if (message.quoteAmount !== '') {
+    if (message.quoteAmount !== "") {
       writer.uint32(18).string(message.quoteAmount)
     }
-    if (message.baseAmount !== '') {
+    if (message.baseAmount !== "") {
       writer.uint32(26).string(message.baseAmount)
     }
     return writer
@@ -140,9 +148,9 @@ export const SwapQuoteForBaseEvent = {
 
   fromJSON(object: any): SwapQuoteForBaseEvent {
     return {
-      pair: isSet(object.pair) ? String(object.pair) : '',
-      quoteAmount: isSet(object.quoteAmount) ? String(object.quoteAmount) : '',
-      baseAmount: isSet(object.baseAmount) ? String(object.baseAmount) : '',
+      pair: isSet(object.pair) ? String(object.pair) : "",
+      quoteAmount: isSet(object.quoteAmount) ? String(object.quoteAmount) : "",
+      baseAmount: isSet(object.baseAmount) ? String(object.baseAmount) : "",
     }
   },
 
@@ -154,28 +162,33 @@ export const SwapQuoteForBaseEvent = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<SwapQuoteForBaseEvent>, I>>(object: I): SwapQuoteForBaseEvent {
+  fromPartial<I extends Exact<DeepPartial<SwapQuoteForBaseEvent>, I>>(
+    object: I,
+  ): SwapQuoteForBaseEvent {
     const message = createBaseSwapQuoteForBaseEvent()
-    message.pair = object.pair ?? ''
-    message.quoteAmount = object.quoteAmount ?? ''
-    message.baseAmount = object.baseAmount ?? ''
+    message.pair = object.pair ?? ""
+    message.quoteAmount = object.quoteAmount ?? ""
+    message.baseAmount = object.baseAmount ?? ""
     return message
   },
 }
 
 function createBaseSwapBaseForQuoteEvent(): SwapBaseForQuoteEvent {
-  return { pair: '', quoteAmount: '', baseAmount: '' }
+  return { pair: "", quoteAmount: "", baseAmount: "" }
 }
 
 export const SwapBaseForQuoteEvent = {
-  encode(message: SwapBaseForQuoteEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== '') {
+  encode(
+    message: SwapBaseForQuoteEvent,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
     }
-    if (message.quoteAmount !== '') {
+    if (message.quoteAmount !== "") {
       writer.uint32(18).string(message.quoteAmount)
     }
-    if (message.baseAmount !== '') {
+    if (message.baseAmount !== "") {
       writer.uint32(26).string(message.baseAmount)
     }
     return writer
@@ -207,9 +220,9 @@ export const SwapBaseForQuoteEvent = {
 
   fromJSON(object: any): SwapBaseForQuoteEvent {
     return {
-      pair: isSet(object.pair) ? String(object.pair) : '',
-      quoteAmount: isSet(object.quoteAmount) ? String(object.quoteAmount) : '',
-      baseAmount: isSet(object.baseAmount) ? String(object.baseAmount) : '',
+      pair: isSet(object.pair) ? String(object.pair) : "",
+      quoteAmount: isSet(object.quoteAmount) ? String(object.quoteAmount) : "",
+      baseAmount: isSet(object.baseAmount) ? String(object.baseAmount) : "",
     }
   },
 
@@ -221,29 +234,37 @@ export const SwapBaseForQuoteEvent = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<SwapBaseForQuoteEvent>, I>>(object: I): SwapBaseForQuoteEvent {
+  fromPartial<I extends Exact<DeepPartial<SwapBaseForQuoteEvent>, I>>(
+    object: I,
+  ): SwapBaseForQuoteEvent {
     const message = createBaseSwapBaseForQuoteEvent()
-    message.pair = object.pair ?? ''
-    message.quoteAmount = object.quoteAmount ?? ''
-    message.baseAmount = object.baseAmount ?? ''
+    message.pair = object.pair ?? ""
+    message.quoteAmount = object.quoteAmount ?? ""
+    message.baseAmount = object.baseAmount ?? ""
     return message
   },
 }
 
 function createBaseMarkPriceChanged(): MarkPriceChanged {
-  return { pair: '', price: '', timestamp: undefined }
+  return { pair: "", price: "", timestamp: undefined }
 }
 
 export const MarkPriceChanged = {
-  encode(message: MarkPriceChanged, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== '') {
+  encode(
+    message: MarkPriceChanged,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
     }
-    if (message.price !== '') {
+    if (message.price !== "") {
       writer.uint32(18).string(message.price)
     }
     if (message.timestamp !== undefined) {
-      Timestamp.encode(toTimestamp(message.timestamp), writer.uint32(26).fork()).ldelim()
+      Timestamp.encode(
+        toTimestamp(message.timestamp),
+        writer.uint32(26).fork(),
+      ).ldelim()
     }
     return writer
   },
@@ -274,9 +295,11 @@ export const MarkPriceChanged = {
 
   fromJSON(object: any): MarkPriceChanged {
     return {
-      pair: isSet(object.pair) ? String(object.pair) : '',
-      price: isSet(object.price) ? String(object.price) : '',
-      timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
+      pair: isSet(object.pair) ? String(object.pair) : "",
+      price: isSet(object.price) ? String(object.price) : "",
+      timestamp: isSet(object.timestamp)
+        ? fromJsonTimestamp(object.timestamp)
+        : undefined,
     }
   },
 
@@ -288,10 +311,12 @@ export const MarkPriceChanged = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MarkPriceChanged>, I>>(object: I): MarkPriceChanged {
+  fromPartial<I extends Exact<DeepPartial<MarkPriceChanged>, I>>(
+    object: I,
+  ): MarkPriceChanged {
     const message = createBaseMarkPriceChanged()
-    message.pair = object.pair ?? ''
-    message.price = object.price ?? ''
+    message.pair = object.pair ?? ""
+    message.price = object.price ?? ""
     message.timestamp = object.timestamp ?? undefined
     return message
   },
@@ -314,7 +339,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
@@ -331,7 +359,7 @@ function fromTimestamp(t: Timestamp): Date {
 function fromJsonTimestamp(o: any): Date {
   if (o instanceof Date) {
     return o
-  } else if (typeof o === 'string') {
+  } else if (typeof o === "string") {
     return new Date(o)
   } else {
     return fromTimestamp(Timestamp.fromJSON(o))

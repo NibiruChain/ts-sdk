@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Coin } from '../cosmos/base/v1beta1/coin'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Coin } from "../cosmos/base/v1beta1/coin"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.stablecoin.v1'
+export const protobufPackage = "nibiru.stablecoin.v1"
 
 /**
  * MsgMintStable: Msg to mint NUSD. A user deposits NIBI and collateral and gets
@@ -74,12 +74,12 @@ export interface MsgBuybackResponse {
 }
 
 function createBaseMsgMintStable(): MsgMintStable {
-  return { creator: '', stable: undefined }
+  return { creator: "", stable: undefined }
 }
 
 export const MsgMintStable = {
   encode(message: MsgMintStable, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.creator !== '') {
+    if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
     }
     if (message.stable !== undefined) {
@@ -111,7 +111,7 @@ export const MsgMintStable = {
 
   fromJSON(object: any): MsgMintStable {
     return {
-      creator: isSet(object.creator) ? String(object.creator) : '',
+      creator: isSet(object.creator) ? String(object.creator) : "",
       stable: isSet(object.stable) ? Coin.fromJSON(object.stable) : undefined,
     }
   },
@@ -119,14 +119,20 @@ export const MsgMintStable = {
   toJSON(message: MsgMintStable): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
-    message.stable !== undefined && (obj.stable = message.stable ? Coin.toJSON(message.stable) : undefined)
+    message.stable !== undefined &&
+      (obj.stable = message.stable ? Coin.toJSON(message.stable) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgMintStable>, I>>(object: I): MsgMintStable {
+  fromPartial<I extends Exact<DeepPartial<MsgMintStable>, I>>(
+    object: I,
+  ): MsgMintStable {
     const message = createBaseMsgMintStable()
-    message.creator = object.creator ?? ''
-    message.stable = object.stable !== undefined && object.stable !== null ? Coin.fromPartial(object.stable) : undefined
+    message.creator = object.creator ?? ""
+    message.stable =
+      object.stable !== undefined && object.stable !== null
+        ? Coin.fromPartial(object.stable)
+        : undefined
     return message
   },
 }
@@ -136,7 +142,10 @@ function createBaseMsgMintStableResponse(): MsgMintStableResponse {
 }
 
 export const MsgMintStableResponse = {
-  encode(message: MsgMintStableResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgMintStableResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.stable !== undefined) {
       Coin.encode(message.stable, writer.uint32(10).fork()).ldelim()
     }
@@ -176,14 +185,19 @@ export const MsgMintStableResponse = {
   fromJSON(object: any): MsgMintStableResponse {
     return {
       stable: isSet(object.stable) ? Coin.fromJSON(object.stable) : undefined,
-      usedCoins: Array.isArray(object?.usedCoins) ? object.usedCoins.map((e: any) => Coin.fromJSON(e)) : [],
-      feesPayed: Array.isArray(object?.feesPayed) ? object.feesPayed.map((e: any) => Coin.fromJSON(e)) : [],
+      usedCoins: Array.isArray(object?.usedCoins)
+        ? object.usedCoins.map((e: any) => Coin.fromJSON(e))
+        : [],
+      feesPayed: Array.isArray(object?.feesPayed)
+        ? object.feesPayed.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
   toJSON(message: MsgMintStableResponse): unknown {
     const obj: any = {}
-    message.stable !== undefined && (obj.stable = message.stable ? Coin.toJSON(message.stable) : undefined)
+    message.stable !== undefined &&
+      (obj.stable = message.stable ? Coin.toJSON(message.stable) : undefined)
     if (message.usedCoins) {
       obj.usedCoins = message.usedCoins.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
@@ -197,9 +211,14 @@ export const MsgMintStableResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgMintStableResponse>, I>>(object: I): MsgMintStableResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgMintStableResponse>, I>>(
+    object: I,
+  ): MsgMintStableResponse {
     const message = createBaseMsgMintStableResponse()
-    message.stable = object.stable !== undefined && object.stable !== null ? Coin.fromPartial(object.stable) : undefined
+    message.stable =
+      object.stable !== undefined && object.stable !== null
+        ? Coin.fromPartial(object.stable)
+        : undefined
     message.usedCoins = object.usedCoins?.map((e) => Coin.fromPartial(e)) || []
     message.feesPayed = object.feesPayed?.map((e) => Coin.fromPartial(e)) || []
     return message
@@ -207,12 +226,12 @@ export const MsgMintStableResponse = {
 }
 
 function createBaseMsgBurnStable(): MsgBurnStable {
-  return { creator: '', stable: undefined }
+  return { creator: "", stable: undefined }
 }
 
 export const MsgBurnStable = {
   encode(message: MsgBurnStable, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.creator !== '') {
+    if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
     }
     if (message.stable !== undefined) {
@@ -244,7 +263,7 @@ export const MsgBurnStable = {
 
   fromJSON(object: any): MsgBurnStable {
     return {
-      creator: isSet(object.creator) ? String(object.creator) : '',
+      creator: isSet(object.creator) ? String(object.creator) : "",
       stable: isSet(object.stable) ? Coin.fromJSON(object.stable) : undefined,
     }
   },
@@ -252,14 +271,20 @@ export const MsgBurnStable = {
   toJSON(message: MsgBurnStable): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
-    message.stable !== undefined && (obj.stable = message.stable ? Coin.toJSON(message.stable) : undefined)
+    message.stable !== undefined &&
+      (obj.stable = message.stable ? Coin.toJSON(message.stable) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgBurnStable>, I>>(object: I): MsgBurnStable {
+  fromPartial<I extends Exact<DeepPartial<MsgBurnStable>, I>>(
+    object: I,
+  ): MsgBurnStable {
     const message = createBaseMsgBurnStable()
-    message.creator = object.creator ?? ''
-    message.stable = object.stable !== undefined && object.stable !== null ? Coin.fromPartial(object.stable) : undefined
+    message.creator = object.creator ?? ""
+    message.stable =
+      object.stable !== undefined && object.stable !== null
+        ? Coin.fromPartial(object.stable)
+        : undefined
     return message
   },
 }
@@ -269,7 +294,10 @@ function createBaseMsgBurnStableResponse(): MsgBurnStableResponse {
 }
 
 export const MsgBurnStableResponse = {
-  encode(message: MsgBurnStableResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgBurnStableResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.collateral !== undefined) {
       Coin.encode(message.collateral, writer.uint32(10).fork()).ldelim()
     }
@@ -308,17 +336,24 @@ export const MsgBurnStableResponse = {
 
   fromJSON(object: any): MsgBurnStableResponse {
     return {
-      collateral: isSet(object.collateral) ? Coin.fromJSON(object.collateral) : undefined,
+      collateral: isSet(object.collateral)
+        ? Coin.fromJSON(object.collateral)
+        : undefined,
       gov: isSet(object.gov) ? Coin.fromJSON(object.gov) : undefined,
-      feesPayed: Array.isArray(object?.feesPayed) ? object.feesPayed.map((e: any) => Coin.fromJSON(e)) : [],
+      feesPayed: Array.isArray(object?.feesPayed)
+        ? object.feesPayed.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
   toJSON(message: MsgBurnStableResponse): unknown {
     const obj: any = {}
     message.collateral !== undefined &&
-      (obj.collateral = message.collateral ? Coin.toJSON(message.collateral) : undefined)
-    message.gov !== undefined && (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined)
+      (obj.collateral = message.collateral
+        ? Coin.toJSON(message.collateral)
+        : undefined)
+    message.gov !== undefined &&
+      (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined)
     if (message.feesPayed) {
       obj.feesPayed = message.feesPayed.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
@@ -327,23 +362,33 @@ export const MsgBurnStableResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgBurnStableResponse>, I>>(object: I): MsgBurnStableResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgBurnStableResponse>, I>>(
+    object: I,
+  ): MsgBurnStableResponse {
     const message = createBaseMsgBurnStableResponse()
     message.collateral =
-      object.collateral !== undefined && object.collateral !== null ? Coin.fromPartial(object.collateral) : undefined
-    message.gov = object.gov !== undefined && object.gov !== null ? Coin.fromPartial(object.gov) : undefined
+      object.collateral !== undefined && object.collateral !== null
+        ? Coin.fromPartial(object.collateral)
+        : undefined
+    message.gov =
+      object.gov !== undefined && object.gov !== null
+        ? Coin.fromPartial(object.gov)
+        : undefined
     message.feesPayed = object.feesPayed?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
 }
 
 function createBaseMsgRecollateralize(): MsgRecollateralize {
-  return { creator: '', coll: undefined }
+  return { creator: "", coll: undefined }
 }
 
 export const MsgRecollateralize = {
-  encode(message: MsgRecollateralize, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.creator !== '') {
+  encode(
+    message: MsgRecollateralize,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
     }
     if (message.coll !== undefined) {
@@ -375,7 +420,7 @@ export const MsgRecollateralize = {
 
   fromJSON(object: any): MsgRecollateralize {
     return {
-      creator: isSet(object.creator) ? String(object.creator) : '',
+      creator: isSet(object.creator) ? String(object.creator) : "",
       coll: isSet(object.coll) ? Coin.fromJSON(object.coll) : undefined,
     }
   },
@@ -383,14 +428,20 @@ export const MsgRecollateralize = {
   toJSON(message: MsgRecollateralize): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
-    message.coll !== undefined && (obj.coll = message.coll ? Coin.toJSON(message.coll) : undefined)
+    message.coll !== undefined &&
+      (obj.coll = message.coll ? Coin.toJSON(message.coll) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRecollateralize>, I>>(object: I): MsgRecollateralize {
+  fromPartial<I extends Exact<DeepPartial<MsgRecollateralize>, I>>(
+    object: I,
+  ): MsgRecollateralize {
     const message = createBaseMsgRecollateralize()
-    message.creator = object.creator ?? ''
-    message.coll = object.coll !== undefined && object.coll !== null ? Coin.fromPartial(object.coll) : undefined
+    message.creator = object.creator ?? ""
+    message.coll =
+      object.coll !== undefined && object.coll !== null
+        ? Coin.fromPartial(object.coll)
+        : undefined
     return message
   },
 }
@@ -400,7 +451,10 @@ function createBaseMsgRecollateralizeResponse(): MsgRecollateralizeResponse {
 }
 
 export const MsgRecollateralizeResponse = {
-  encode(message: MsgRecollateralizeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgRecollateralizeResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.gov !== undefined) {
       Coin.encode(message.gov, writer.uint32(10).fork()).ldelim()
     }
@@ -433,24 +487,30 @@ export const MsgRecollateralizeResponse = {
 
   toJSON(message: MsgRecollateralizeResponse): unknown {
     const obj: any = {}
-    message.gov !== undefined && (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined)
+    message.gov !== undefined &&
+      (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRecollateralizeResponse>, I>>(object: I): MsgRecollateralizeResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgRecollateralizeResponse>, I>>(
+    object: I,
+  ): MsgRecollateralizeResponse {
     const message = createBaseMsgRecollateralizeResponse()
-    message.gov = object.gov !== undefined && object.gov !== null ? Coin.fromPartial(object.gov) : undefined
+    message.gov =
+      object.gov !== undefined && object.gov !== null
+        ? Coin.fromPartial(object.gov)
+        : undefined
     return message
   },
 }
 
 function createBaseMsgBuyback(): MsgBuyback {
-  return { creator: '', gov: undefined }
+  return { creator: "", gov: undefined }
 }
 
 export const MsgBuyback = {
   encode(message: MsgBuyback, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.creator !== '') {
+    if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
     }
     if (message.gov !== undefined) {
@@ -482,7 +542,7 @@ export const MsgBuyback = {
 
   fromJSON(object: any): MsgBuyback {
     return {
-      creator: isSet(object.creator) ? String(object.creator) : '',
+      creator: isSet(object.creator) ? String(object.creator) : "",
       gov: isSet(object.gov) ? Coin.fromJSON(object.gov) : undefined,
     }
   },
@@ -490,14 +550,18 @@ export const MsgBuyback = {
   toJSON(message: MsgBuyback): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
-    message.gov !== undefined && (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined)
+    message.gov !== undefined &&
+      (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgBuyback>, I>>(object: I): MsgBuyback {
     const message = createBaseMsgBuyback()
-    message.creator = object.creator ?? ''
-    message.gov = object.gov !== undefined && object.gov !== null ? Coin.fromPartial(object.gov) : undefined
+    message.creator = object.creator ?? ""
+    message.gov =
+      object.gov !== undefined && object.gov !== null
+        ? Coin.fromPartial(object.gov)
+        : undefined
     return message
   },
 }
@@ -507,7 +571,10 @@ function createBaseMsgBuybackResponse(): MsgBuybackResponse {
 }
 
 export const MsgBuybackResponse = {
-  encode(message: MsgBuybackResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgBuybackResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.coll !== undefined) {
       Coin.encode(message.coll, writer.uint32(10).fork()).ldelim()
     }
@@ -540,13 +607,19 @@ export const MsgBuybackResponse = {
 
   toJSON(message: MsgBuybackResponse): unknown {
     const obj: any = {}
-    message.coll !== undefined && (obj.coll = message.coll ? Coin.toJSON(message.coll) : undefined)
+    message.coll !== undefined &&
+      (obj.coll = message.coll ? Coin.toJSON(message.coll) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgBuybackResponse>, I>>(object: I): MsgBuybackResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgBuybackResponse>, I>>(
+    object: I,
+  ): MsgBuybackResponse {
     const message = createBaseMsgBuybackResponse()
-    message.coll = object.coll !== undefined && object.coll !== null ? Coin.fromPartial(object.coll) : undefined
+    message.coll =
+      object.coll !== undefined && object.coll !== null
+        ? Coin.fromPartial(object.coll)
+        : undefined
     return message
   },
 }
@@ -589,25 +662,31 @@ export class MsgClientImpl implements Msg {
   }
   MintStable(request: MsgMintStable): Promise<MsgMintStableResponse> {
     const data = MsgMintStable.encode(request).finish()
-    const promise = this.rpc.request('nibiru.stablecoin.v1.Msg', 'MintStable', data)
+    const promise = this.rpc.request("nibiru.stablecoin.v1.Msg", "MintStable", data)
     return promise.then((data) => MsgMintStableResponse.decode(new _m0.Reader(data)))
   }
 
   BurnStable(request: MsgBurnStable): Promise<MsgBurnStableResponse> {
     const data = MsgBurnStable.encode(request).finish()
-    const promise = this.rpc.request('nibiru.stablecoin.v1.Msg', 'BurnStable', data)
+    const promise = this.rpc.request("nibiru.stablecoin.v1.Msg", "BurnStable", data)
     return promise.then((data) => MsgBurnStableResponse.decode(new _m0.Reader(data)))
   }
 
   Recollateralize(request: MsgRecollateralize): Promise<MsgRecollateralizeResponse> {
     const data = MsgRecollateralize.encode(request).finish()
-    const promise = this.rpc.request('nibiru.stablecoin.v1.Msg', 'Recollateralize', data)
-    return promise.then((data) => MsgRecollateralizeResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "nibiru.stablecoin.v1.Msg",
+      "Recollateralize",
+      data,
+    )
+    return promise.then((data) =>
+      MsgRecollateralizeResponse.decode(new _m0.Reader(data)),
+    )
   }
 
   Buyback(request: MsgBuyback): Promise<MsgBuybackResponse> {
     const data = MsgBuyback.encode(request).finish()
-    const promise = this.rpc.request('nibiru.stablecoin.v1.Msg', 'Buyback', data)
+    const promise = this.rpc.request("nibiru.stablecoin.v1.Msg", "Buyback", data)
     return promise.then((data) => MsgBuybackResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -633,7 +712,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

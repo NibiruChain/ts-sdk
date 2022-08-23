@@ -1,9 +1,16 @@
 /* eslint-disable */
-import { DepositParams, VotingParams, TallyParams, Deposit, Vote, Proposal } from './gov'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import {
+  DepositParams,
+  VotingParams,
+  TallyParams,
+  Deposit,
+  Vote,
+  Proposal,
+} from "./gov"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.gov.v1beta1'
+export const protobufPackage = "cosmos.gov.v1beta1"
 
 /** GenesisState defines the gov module's genesis state. */
 export interface GenesisState {
@@ -99,13 +106,27 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      startingProposalId: isSet(object.startingProposalId) ? Long.fromValue(object.startingProposalId) : Long.UZERO,
-      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromJSON(e)) : [],
-      votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => Vote.fromJSON(e)) : [],
-      proposals: Array.isArray(object?.proposals) ? object.proposals.map((e: any) => Proposal.fromJSON(e)) : [],
-      depositParams: isSet(object.depositParams) ? DepositParams.fromJSON(object.depositParams) : undefined,
-      votingParams: isSet(object.votingParams) ? VotingParams.fromJSON(object.votingParams) : undefined,
-      tallyParams: isSet(object.tallyParams) ? TallyParams.fromJSON(object.tallyParams) : undefined,
+      startingProposalId: isSet(object.startingProposalId)
+        ? Long.fromValue(object.startingProposalId)
+        : Long.UZERO,
+      deposits: Array.isArray(object?.deposits)
+        ? object.deposits.map((e: any) => Deposit.fromJSON(e))
+        : [],
+      votes: Array.isArray(object?.votes)
+        ? object.votes.map((e: any) => Vote.fromJSON(e))
+        : [],
+      proposals: Array.isArray(object?.proposals)
+        ? object.proposals.map((e: any) => Proposal.fromJSON(e))
+        : [],
+      depositParams: isSet(object.depositParams)
+        ? DepositParams.fromJSON(object.depositParams)
+        : undefined,
+      votingParams: isSet(object.votingParams)
+        ? VotingParams.fromJSON(object.votingParams)
+        : undefined,
+      tallyParams: isSet(object.tallyParams)
+        ? TallyParams.fromJSON(object.tallyParams)
+        : undefined,
     }
   },
 
@@ -129,11 +150,17 @@ export const GenesisState = {
       obj.proposals = []
     }
     message.depositParams !== undefined &&
-      (obj.depositParams = message.depositParams ? DepositParams.toJSON(message.depositParams) : undefined)
+      (obj.depositParams = message.depositParams
+        ? DepositParams.toJSON(message.depositParams)
+        : undefined)
     message.votingParams !== undefined &&
-      (obj.votingParams = message.votingParams ? VotingParams.toJSON(message.votingParams) : undefined)
+      (obj.votingParams = message.votingParams
+        ? VotingParams.toJSON(message.votingParams)
+        : undefined)
     message.tallyParams !== undefined &&
-      (obj.tallyParams = message.tallyParams ? TallyParams.toJSON(message.tallyParams) : undefined)
+      (obj.tallyParams = message.tallyParams
+        ? TallyParams.toJSON(message.tallyParams)
+        : undefined)
     return obj
   },
 
@@ -179,7 +206,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

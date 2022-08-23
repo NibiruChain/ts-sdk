@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from 'long'
-import { Coin } from '../../cosmos/base/v1beta1/coin'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import { Coin } from "../../cosmos/base/v1beta1/coin"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.dex.v1'
+export const protobufPackage = "nibiru.dex.v1"
 
 /** Params defines the parameters for the module. */
 export interface Params {
@@ -59,7 +59,9 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      startingPoolNumber: isSet(object.startingPoolNumber) ? Long.fromValue(object.startingPoolNumber) : Long.UZERO,
+      startingPoolNumber: isSet(object.startingPoolNumber)
+        ? Long.fromValue(object.startingPoolNumber)
+        : Long.UZERO,
       poolCreationFee: Array.isArray(object?.poolCreationFee)
         ? object.poolCreationFee.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -74,7 +76,9 @@ export const Params = {
     message.startingPoolNumber !== undefined &&
       (obj.startingPoolNumber = (message.startingPoolNumber || Long.UZERO).toString())
     if (message.poolCreationFee) {
-      obj.poolCreationFee = message.poolCreationFee.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.poolCreationFee = message.poolCreationFee.map((e) =>
+        e ? Coin.toJSON(e) : undefined,
+      )
     } else {
       obj.poolCreationFee = []
     }
@@ -92,7 +96,8 @@ export const Params = {
       object.startingPoolNumber !== undefined && object.startingPoolNumber !== null
         ? Long.fromValue(object.startingPoolNumber)
         : Long.UZERO
-    message.poolCreationFee = object.poolCreationFee?.map((e) => Coin.fromPartial(e)) || []
+    message.poolCreationFee =
+      object.poolCreationFee?.map((e) => Coin.fromPartial(e)) || []
     message.whitelistedAsset = object.whitelistedAsset?.map((e) => e) || []
     return message
   },
@@ -115,7 +120,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

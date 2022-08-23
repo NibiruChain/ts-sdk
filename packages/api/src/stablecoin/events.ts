@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Coin } from '../cosmos/base/v1beta1/coin'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Coin } from "../cosmos/base/v1beta1/coin"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.stablecoin.v1'
+export const protobufPackage = "nibiru.stablecoin.v1"
 
 export interface EventTransfer {
   coin?: Coin
@@ -42,7 +42,7 @@ export interface EventBuyback {
 }
 
 function createBaseEventTransfer(): EventTransfer {
-  return { coin: undefined, from: '', to: '' }
+  return { coin: undefined, from: "", to: "" }
 }
 
 export const EventTransfer = {
@@ -50,10 +50,10 @@ export const EventTransfer = {
     if (message.coin !== undefined) {
       Coin.encode(message.coin, writer.uint32(10).fork()).ldelim()
     }
-    if (message.from !== '') {
+    if (message.from !== "") {
       writer.uint32(18).string(message.from)
     }
-    if (message.to !== '') {
+    if (message.to !== "") {
       writer.uint32(26).string(message.to)
     }
     return writer
@@ -86,35 +86,44 @@ export const EventTransfer = {
   fromJSON(object: any): EventTransfer {
     return {
       coin: isSet(object.coin) ? Coin.fromJSON(object.coin) : undefined,
-      from: isSet(object.from) ? String(object.from) : '',
-      to: isSet(object.to) ? String(object.to) : '',
+      from: isSet(object.from) ? String(object.from) : "",
+      to: isSet(object.to) ? String(object.to) : "",
     }
   },
 
   toJSON(message: EventTransfer): unknown {
     const obj: any = {}
-    message.coin !== undefined && (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined)
+    message.coin !== undefined &&
+      (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined)
     message.from !== undefined && (obj.from = message.from)
     message.to !== undefined && (obj.to = message.to)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventTransfer>, I>>(object: I): EventTransfer {
+  fromPartial<I extends Exact<DeepPartial<EventTransfer>, I>>(
+    object: I,
+  ): EventTransfer {
     const message = createBaseEventTransfer()
-    message.coin = object.coin !== undefined && object.coin !== null ? Coin.fromPartial(object.coin) : undefined
-    message.from = object.from ?? ''
-    message.to = object.to ?? ''
+    message.coin =
+      object.coin !== undefined && object.coin !== null
+        ? Coin.fromPartial(object.coin)
+        : undefined
+    message.from = object.from ?? ""
+    message.to = object.to ?? ""
     return message
   },
 }
 
 function createBaseEventMintStable(): EventMintStable {
-  return { amount: '' }
+  return { amount: "" }
 }
 
 export const EventMintStable = {
-  encode(message: EventMintStable, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.amount !== '') {
+  encode(
+    message: EventMintStable,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.amount !== "") {
       writer.uint32(10).string(message.amount)
     }
     return writer
@@ -140,7 +149,7 @@ export const EventMintStable = {
 
   fromJSON(object: any): EventMintStable {
     return {
-      amount: isSet(object.amount) ? String(object.amount) : '',
+      amount: isSet(object.amount) ? String(object.amount) : "",
     }
   },
 
@@ -150,20 +159,25 @@ export const EventMintStable = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventMintStable>, I>>(object: I): EventMintStable {
+  fromPartial<I extends Exact<DeepPartial<EventMintStable>, I>>(
+    object: I,
+  ): EventMintStable {
     const message = createBaseEventMintStable()
-    message.amount = object.amount ?? ''
+    message.amount = object.amount ?? ""
     return message
   },
 }
 
 function createBaseEventBurnStable(): EventBurnStable {
-  return { amount: '' }
+  return { amount: "" }
 }
 
 export const EventBurnStable = {
-  encode(message: EventBurnStable, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.amount !== '') {
+  encode(
+    message: EventBurnStable,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.amount !== "") {
       writer.uint32(10).string(message.amount)
     }
     return writer
@@ -189,7 +203,7 @@ export const EventBurnStable = {
 
   fromJSON(object: any): EventBurnStable {
     return {
-      amount: isSet(object.amount) ? String(object.amount) : '',
+      amount: isSet(object.amount) ? String(object.amount) : "",
     }
   },
 
@@ -199,20 +213,22 @@ export const EventBurnStable = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventBurnStable>, I>>(object: I): EventBurnStable {
+  fromPartial<I extends Exact<DeepPartial<EventBurnStable>, I>>(
+    object: I,
+  ): EventBurnStable {
     const message = createBaseEventBurnStable()
-    message.amount = object.amount ?? ''
+    message.amount = object.amount ?? ""
     return message
   },
 }
 
 function createBaseEventMintNIBI(): EventMintNIBI {
-  return { amount: '' }
+  return { amount: "" }
 }
 
 export const EventMintNIBI = {
   encode(message: EventMintNIBI, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.amount !== '') {
+    if (message.amount !== "") {
       writer.uint32(10).string(message.amount)
     }
     return writer
@@ -238,7 +254,7 @@ export const EventMintNIBI = {
 
   fromJSON(object: any): EventMintNIBI {
     return {
-      amount: isSet(object.amount) ? String(object.amount) : '',
+      amount: isSet(object.amount) ? String(object.amount) : "",
     }
   },
 
@@ -248,20 +264,22 @@ export const EventMintNIBI = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventMintNIBI>, I>>(object: I): EventMintNIBI {
+  fromPartial<I extends Exact<DeepPartial<EventMintNIBI>, I>>(
+    object: I,
+  ): EventMintNIBI {
     const message = createBaseEventMintNIBI()
-    message.amount = object.amount ?? ''
+    message.amount = object.amount ?? ""
     return message
   },
 }
 
 function createBaseEventBurnNIBI(): EventBurnNIBI {
-  return { amount: '' }
+  return { amount: "" }
 }
 
 export const EventBurnNIBI = {
   encode(message: EventBurnNIBI, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.amount !== '') {
+    if (message.amount !== "") {
       writer.uint32(10).string(message.amount)
     }
     return writer
@@ -287,7 +305,7 @@ export const EventBurnNIBI = {
 
   fromJSON(object: any): EventBurnNIBI {
     return {
-      amount: isSet(object.amount) ? String(object.amount) : '',
+      amount: isSet(object.amount) ? String(object.amount) : "",
     }
   },
 
@@ -297,20 +315,25 @@ export const EventBurnNIBI = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventBurnNIBI>, I>>(object: I): EventBurnNIBI {
+  fromPartial<I extends Exact<DeepPartial<EventBurnNIBI>, I>>(
+    object: I,
+  ): EventBurnNIBI {
     const message = createBaseEventBurnNIBI()
-    message.amount = object.amount ?? ''
+    message.amount = object.amount ?? ""
     return message
   },
 }
 
 function createBaseEventRecollateralize(): EventRecollateralize {
-  return { caller: '', inCoin: undefined, outCoin: undefined, collRatio: '' }
+  return { caller: "", inCoin: undefined, outCoin: undefined, collRatio: "" }
 }
 
 export const EventRecollateralize = {
-  encode(message: EventRecollateralize, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.caller !== '') {
+  encode(
+    message: EventRecollateralize,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.caller !== "") {
       writer.uint32(10).string(message.caller)
     }
     if (message.inCoin !== undefined) {
@@ -319,7 +342,7 @@ export const EventRecollateralize = {
     if (message.outCoin !== undefined) {
       Coin.encode(message.outCoin, writer.uint32(26).fork()).ldelim()
     }
-    if (message.collRatio !== '') {
+    if (message.collRatio !== "") {
       writer.uint32(34).string(message.collRatio)
     }
     return writer
@@ -354,40 +377,49 @@ export const EventRecollateralize = {
 
   fromJSON(object: any): EventRecollateralize {
     return {
-      caller: isSet(object.caller) ? String(object.caller) : '',
+      caller: isSet(object.caller) ? String(object.caller) : "",
       inCoin: isSet(object.inCoin) ? Coin.fromJSON(object.inCoin) : undefined,
       outCoin: isSet(object.outCoin) ? Coin.fromJSON(object.outCoin) : undefined,
-      collRatio: isSet(object.collRatio) ? String(object.collRatio) : '',
+      collRatio: isSet(object.collRatio) ? String(object.collRatio) : "",
     }
   },
 
   toJSON(message: EventRecollateralize): unknown {
     const obj: any = {}
     message.caller !== undefined && (obj.caller = message.caller)
-    message.inCoin !== undefined && (obj.inCoin = message.inCoin ? Coin.toJSON(message.inCoin) : undefined)
-    message.outCoin !== undefined && (obj.outCoin = message.outCoin ? Coin.toJSON(message.outCoin) : undefined)
+    message.inCoin !== undefined &&
+      (obj.inCoin = message.inCoin ? Coin.toJSON(message.inCoin) : undefined)
+    message.outCoin !== undefined &&
+      (obj.outCoin = message.outCoin ? Coin.toJSON(message.outCoin) : undefined)
     message.collRatio !== undefined && (obj.collRatio = message.collRatio)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventRecollateralize>, I>>(object: I): EventRecollateralize {
+  fromPartial<I extends Exact<DeepPartial<EventRecollateralize>, I>>(
+    object: I,
+  ): EventRecollateralize {
     const message = createBaseEventRecollateralize()
-    message.caller = object.caller ?? ''
-    message.inCoin = object.inCoin !== undefined && object.inCoin !== null ? Coin.fromPartial(object.inCoin) : undefined
+    message.caller = object.caller ?? ""
+    message.inCoin =
+      object.inCoin !== undefined && object.inCoin !== null
+        ? Coin.fromPartial(object.inCoin)
+        : undefined
     message.outCoin =
-      object.outCoin !== undefined && object.outCoin !== null ? Coin.fromPartial(object.outCoin) : undefined
-    message.collRatio = object.collRatio ?? ''
+      object.outCoin !== undefined && object.outCoin !== null
+        ? Coin.fromPartial(object.outCoin)
+        : undefined
+    message.collRatio = object.collRatio ?? ""
     return message
   },
 }
 
 function createBaseEventBuyback(): EventBuyback {
-  return { caller: '', inCoin: undefined, outCoin: undefined, collRatio: '' }
+  return { caller: "", inCoin: undefined, outCoin: undefined, collRatio: "" }
 }
 
 export const EventBuyback = {
   encode(message: EventBuyback, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.caller !== '') {
+    if (message.caller !== "") {
       writer.uint32(10).string(message.caller)
     }
     if (message.inCoin !== undefined) {
@@ -396,7 +428,7 @@ export const EventBuyback = {
     if (message.outCoin !== undefined) {
       Coin.encode(message.outCoin, writer.uint32(26).fork()).ldelim()
     }
-    if (message.collRatio !== '') {
+    if (message.collRatio !== "") {
       writer.uint32(34).string(message.collRatio)
     }
     return writer
@@ -431,29 +463,36 @@ export const EventBuyback = {
 
   fromJSON(object: any): EventBuyback {
     return {
-      caller: isSet(object.caller) ? String(object.caller) : '',
+      caller: isSet(object.caller) ? String(object.caller) : "",
       inCoin: isSet(object.inCoin) ? Coin.fromJSON(object.inCoin) : undefined,
       outCoin: isSet(object.outCoin) ? Coin.fromJSON(object.outCoin) : undefined,
-      collRatio: isSet(object.collRatio) ? String(object.collRatio) : '',
+      collRatio: isSet(object.collRatio) ? String(object.collRatio) : "",
     }
   },
 
   toJSON(message: EventBuyback): unknown {
     const obj: any = {}
     message.caller !== undefined && (obj.caller = message.caller)
-    message.inCoin !== undefined && (obj.inCoin = message.inCoin ? Coin.toJSON(message.inCoin) : undefined)
-    message.outCoin !== undefined && (obj.outCoin = message.outCoin ? Coin.toJSON(message.outCoin) : undefined)
+    message.inCoin !== undefined &&
+      (obj.inCoin = message.inCoin ? Coin.toJSON(message.inCoin) : undefined)
+    message.outCoin !== undefined &&
+      (obj.outCoin = message.outCoin ? Coin.toJSON(message.outCoin) : undefined)
     message.collRatio !== undefined && (obj.collRatio = message.collRatio)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<EventBuyback>, I>>(object: I): EventBuyback {
     const message = createBaseEventBuyback()
-    message.caller = object.caller ?? ''
-    message.inCoin = object.inCoin !== undefined && object.inCoin !== null ? Coin.fromPartial(object.inCoin) : undefined
+    message.caller = object.caller ?? ""
+    message.inCoin =
+      object.inCoin !== undefined && object.inCoin !== null
+        ? Coin.fromPartial(object.inCoin)
+        : undefined
     message.outCoin =
-      object.outCoin !== undefined && object.outCoin !== null ? Coin.fromPartial(object.outCoin) : undefined
-    message.collRatio = object.collRatio ?? ''
+      object.outCoin !== undefined && object.outCoin !== null
+        ? Coin.fromPartial(object.outCoin)
+        : undefined
+    message.collRatio = object.collRatio ?? ""
     return message
   },
 }
@@ -475,7 +514,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

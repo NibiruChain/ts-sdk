@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { Duration } from '../../google/protobuf/duration'
-import { Timestamp } from '../../google/protobuf/timestamp'
-import Long from 'long'
-import { Coin } from '../../cosmos/base/v1beta1/coin'
-import _m0 from 'protobufjs/minimal'
+import { Duration } from "../../google/protobuf/duration"
+import { Timestamp } from "../../google/protobuf/timestamp"
+import Long from "long"
+import { Coin } from "../../cosmos/base/v1beta1/coin"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.lockup.v1'
+export const protobufPackage = "nibiru.lockup.v1"
 
 /**
  * Lock represents a users locked tokens for a period of time.
@@ -25,7 +25,13 @@ export interface Lock {
 }
 
 function createBaseLock(): Lock {
-  return { lockId: Long.UZERO, owner: '', duration: undefined, endTime: undefined, coins: [] }
+  return {
+    lockId: Long.UZERO,
+    owner: "",
+    duration: undefined,
+    endTime: undefined,
+    coins: [],
+  }
 }
 
 export const Lock = {
@@ -33,7 +39,7 @@ export const Lock = {
     if (!message.lockId.isZero()) {
       writer.uint32(8).uint64(message.lockId)
     }
-    if (message.owner !== '') {
+    if (message.owner !== "") {
       writer.uint32(18).string(message.owner)
     }
     if (message.duration !== undefined) {
@@ -81,18 +87,22 @@ export const Lock = {
   fromJSON(object: any): Lock {
     return {
       lockId: isSet(object.lockId) ? Long.fromValue(object.lockId) : Long.UZERO,
-      owner: isSet(object.owner) ? String(object.owner) : '',
+      owner: isSet(object.owner) ? String(object.owner) : "",
       duration: isSet(object.duration) ? Duration.fromJSON(object.duration) : undefined,
       endTime: isSet(object.endTime) ? fromJsonTimestamp(object.endTime) : undefined,
-      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
+      coins: Array.isArray(object?.coins)
+        ? object.coins.map((e: any) => Coin.fromJSON(e))
+        : [],
     }
   },
 
   toJSON(message: Lock): unknown {
     const obj: any = {}
-    message.lockId !== undefined && (obj.lockId = (message.lockId || Long.UZERO).toString())
+    message.lockId !== undefined &&
+      (obj.lockId = (message.lockId || Long.UZERO).toString())
     message.owner !== undefined && (obj.owner = message.owner)
-    message.duration !== undefined && (obj.duration = message.duration ? Duration.toJSON(message.duration) : undefined)
+    message.duration !== undefined &&
+      (obj.duration = message.duration ? Duration.toJSON(message.duration) : undefined)
     message.endTime !== undefined && (obj.endTime = message.endTime.toISOString())
     if (message.coins) {
       obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined))
@@ -104,10 +114,15 @@ export const Lock = {
 
   fromPartial<I extends Exact<DeepPartial<Lock>, I>>(object: I): Lock {
     const message = createBaseLock()
-    message.lockId = object.lockId !== undefined && object.lockId !== null ? Long.fromValue(object.lockId) : Long.UZERO
-    message.owner = object.owner ?? ''
+    message.lockId =
+      object.lockId !== undefined && object.lockId !== null
+        ? Long.fromValue(object.lockId)
+        : Long.UZERO
+    message.owner = object.owner ?? ""
     message.duration =
-      object.duration !== undefined && object.duration !== null ? Duration.fromPartial(object.duration) : undefined
+      object.duration !== undefined && object.duration !== null
+        ? Duration.fromPartial(object.duration)
+        : undefined
     message.endTime = object.endTime ?? undefined
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || []
     return message
@@ -131,7 +146,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
@@ -148,7 +166,7 @@ function fromTimestamp(t: Timestamp): Date {
 function fromJsonTimestamp(o: any): Date {
   if (o instanceof Date) {
     return o
-  } else if (typeof o === 'string') {
+  } else if (typeof o === "string") {
     return new Date(o)
   } else {
     return fromTimestamp(Timestamp.fromJSON(o))

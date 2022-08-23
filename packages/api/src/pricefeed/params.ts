@@ -1,10 +1,11 @@
 /* eslint-disable */
-import { Timestamp } from '../google/protobuf/timestamp'
-import Long from 'long'
-import { AssetPair } from '../common/common'
-import _m0 from 'protobufjs/minimal'
+import { Duration } from "../google/protobuf/duration"
+import { Timestamp } from "../google/protobuf/timestamp"
+import Long from "long"
+import { AssetPair } from "../common/common"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.pricefeed.v1'
+export const protobufPackage = "nibiru.pricefeed.v1"
 
 /** Params defines the parameters for the x/pricefeed module. */
 export interface Params {
@@ -13,6 +14,8 @@ export interface Params {
    * Add new trading pairs
    */
   pairs: AssetPair[]
+  /** amount of time to look back for TWAP calculations */
+  twapLookbackWindow?: Duration
 }
 
 /**
@@ -57,13 +60,16 @@ export interface CurrentTWAP {
 }
 
 function createBaseParams(): Params {
-  return { pairs: [] }
+  return { pairs: [], twapLookbackWindow: undefined }
 }
 
 export const Params = {
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.pairs) {
       AssetPair.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.twapLookbackWindow !== undefined) {
+      Duration.encode(message.twapLookbackWindow, writer.uint32(18).fork()).ldelim()
     }
     return writer
   },
@@ -78,6 +84,9 @@ export const Params = {
         case 1:
           message.pairs.push(AssetPair.decode(reader, reader.uint32()))
           break
+        case 2:
+          message.twapLookbackWindow = Duration.decode(reader, reader.uint32())
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -88,7 +97,12 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => AssetPair.fromJSON(e)) : [],
+      pairs: Array.isArray(object?.pairs)
+        ? object.pairs.map((e: any) => AssetPair.fromJSON(e))
+        : [],
+      twapLookbackWindow: isSet(object.twapLookbackWindow)
+        ? Duration.fromJSON(object.twapLookbackWindow)
+        : undefined,
     }
   },
 
@@ -99,12 +113,20 @@ export const Params = {
     } else {
       obj.pairs = []
     }
+    message.twapLookbackWindow !== undefined &&
+      (obj.twapLookbackWindow = message.twapLookbackWindow
+        ? Duration.toJSON(message.twapLookbackWindow)
+        : undefined)
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams()
     message.pairs = object.pairs?.map((e) => AssetPair.fromPartial(e)) || []
+    message.twapLookbackWindow =
+      object.twapLookbackWindow !== undefined && object.twapLookbackWindow !== null
+        ? Duration.fromPartial(object.twapLookbackWindow)
+        : undefined
     return message
   },
 }
@@ -114,7 +136,10 @@ function createBaseOraclesMarshaler(): OraclesMarshaler {
 }
 
 export const OraclesMarshaler = {
-  encode(message: OraclesMarshaler, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: OraclesMarshaler,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.oracles) {
       writer.uint32(10).bytes(v!)
     }
@@ -141,21 +166,27 @@ export const OraclesMarshaler = {
 
   fromJSON(object: any): OraclesMarshaler {
     return {
-      oracles: Array.isArray(object?.oracles) ? object.oracles.map((e: any) => bytesFromBase64(e)) : [],
+      oracles: Array.isArray(object?.oracles)
+        ? object.oracles.map((e: any) => bytesFromBase64(e))
+        : [],
     }
   },
 
   toJSON(message: OraclesMarshaler): unknown {
     const obj: any = {}
     if (message.oracles) {
-      obj.oracles = message.oracles.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()))
+      obj.oracles = message.oracles.map((e) =>
+        base64FromBytes(e !== undefined ? e : new Uint8Array()),
+      )
     } else {
       obj.oracles = []
     }
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<OraclesMarshaler>, I>>(object: I): OraclesMarshaler {
+  fromPartial<I extends Exact<DeepPartial<OraclesMarshaler>, I>>(
+    object: I,
+  ): OraclesMarshaler {
     const message = createBaseOraclesMarshaler()
     message.oracles = object.oracles?.map((e) => e) || []
     return message
@@ -167,7 +198,10 @@ function createBaseActivePairMarshaler(): ActivePairMarshaler {
 }
 
 export const ActivePairMarshaler = {
-  encode(message: ActivePairMarshaler, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: ActivePairMarshaler,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.isActive === true) {
       writer.uint32(8).bool(message.isActive)
     }
@@ -204,7 +238,9 @@ export const ActivePairMarshaler = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<ActivePairMarshaler>, I>>(object: I): ActivePairMarshaler {
+  fromPartial<I extends Exact<DeepPartial<ActivePairMarshaler>, I>>(
+    object: I,
+  ): ActivePairMarshaler {
     const message = createBaseActivePairMarshaler()
     message.isActive = object.isActive ?? false
     return message
@@ -212,18 +248,18 @@ export const ActivePairMarshaler = {
 }
 
 function createBasePostedPrice(): PostedPrice {
-  return { pairId: '', oracle: '', price: '', expiry: undefined }
+  return { pairId: "", oracle: "", price: "", expiry: undefined }
 }
 
 export const PostedPrice = {
   encode(message: PostedPrice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
-    if (message.oracle !== '') {
+    if (message.oracle !== "") {
       writer.uint32(18).string(message.oracle)
     }
-    if (message.price !== '') {
+    if (message.price !== "") {
       writer.uint32(26).string(message.price)
     }
     if (message.expiry !== undefined) {
@@ -261,9 +297,9 @@ export const PostedPrice = {
 
   fromJSON(object: any): PostedPrice {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
-      oracle: isSet(object.oracle) ? String(object.oracle) : '',
-      price: isSet(object.price) ? String(object.price) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
+      oracle: isSet(object.oracle) ? String(object.oracle) : "",
+      price: isSet(object.price) ? String(object.price) : "",
       expiry: isSet(object.expiry) ? fromJsonTimestamp(object.expiry) : undefined,
     }
   },
@@ -279,24 +315,24 @@ export const PostedPrice = {
 
   fromPartial<I extends Exact<DeepPartial<PostedPrice>, I>>(object: I): PostedPrice {
     const message = createBasePostedPrice()
-    message.pairId = object.pairId ?? ''
-    message.oracle = object.oracle ?? ''
-    message.price = object.price ?? ''
+    message.pairId = object.pairId ?? ""
+    message.oracle = object.oracle ?? ""
+    message.price = object.price ?? ""
     message.expiry = object.expiry ?? undefined
     return message
   },
 }
 
 function createBaseCurrentPrice(): CurrentPrice {
-  return { pairId: '', price: '' }
+  return { pairId: "", price: "" }
 }
 
 export const CurrentPrice = {
   encode(message: CurrentPrice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
-    if (message.price !== '') {
+    if (message.price !== "") {
       writer.uint32(18).string(message.price)
     }
     return writer
@@ -325,8 +361,8 @@ export const CurrentPrice = {
 
   fromJSON(object: any): CurrentPrice {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
-      price: isSet(object.price) ? String(object.price) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
+      price: isSet(object.price) ? String(object.price) : "",
     }
   },
 
@@ -339,28 +375,28 @@ export const CurrentPrice = {
 
   fromPartial<I extends Exact<DeepPartial<CurrentPrice>, I>>(object: I): CurrentPrice {
     const message = createBaseCurrentPrice()
-    message.pairId = object.pairId ?? ''
-    message.price = object.price ?? ''
+    message.pairId = object.pairId ?? ""
+    message.price = object.price ?? ""
     return message
   },
 }
 
 function createBaseCurrentTWAP(): CurrentTWAP {
-  return { pairId: '', numerator: '', denominator: '', price: '' }
+  return { pairId: "", numerator: "", denominator: "", price: "" }
 }
 
 export const CurrentTWAP = {
   encode(message: CurrentTWAP, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
-    if (message.numerator !== '') {
+    if (message.numerator !== "") {
       writer.uint32(18).string(message.numerator)
     }
-    if (message.denominator !== '') {
+    if (message.denominator !== "") {
       writer.uint32(26).string(message.denominator)
     }
-    if (message.price !== '') {
+    if (message.price !== "") {
       writer.uint32(34).string(message.price)
     }
     return writer
@@ -395,10 +431,10 @@ export const CurrentTWAP = {
 
   fromJSON(object: any): CurrentTWAP {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
-      numerator: isSet(object.numerator) ? String(object.numerator) : '',
-      denominator: isSet(object.denominator) ? String(object.denominator) : '',
-      price: isSet(object.price) ? String(object.price) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
+      numerator: isSet(object.numerator) ? String(object.numerator) : "",
+      denominator: isSet(object.denominator) ? String(object.denominator) : "",
+      price: isSet(object.price) ? String(object.price) : "",
     }
   },
 
@@ -413,10 +449,10 @@ export const CurrentTWAP = {
 
   fromPartial<I extends Exact<DeepPartial<CurrentTWAP>, I>>(object: I): CurrentTWAP {
     const message = createBaseCurrentTWAP()
-    message.pairId = object.pairId ?? ''
-    message.numerator = object.numerator ?? ''
-    message.denominator = object.denominator ?? ''
-    message.price = object.price ?? ''
+    message.pairId = object.pairId ?? ""
+    message.numerator = object.numerator ?? ""
+    message.denominator = object.denominator ?? ""
+    message.price = object.price ?? ""
     return message
   },
 }
@@ -425,15 +461,15 @@ declare var self: any | undefined
 declare var window: any | undefined
 declare var global: any | undefined
 var globalThis: any = (() => {
-  if (typeof globalThis !== 'undefined') return globalThis
-  if (typeof self !== 'undefined') return self
-  if (typeof window !== 'undefined') return window
-  if (typeof global !== 'undefined') return global
-  throw 'Unable to locate global object'
+  if (typeof globalThis !== "undefined") return globalThis
+  if (typeof self !== "undefined") return self
+  if (typeof window !== "undefined") return window
+  if (typeof global !== "undefined") return global
+  throw "Unable to locate global object"
 })()
 
 const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'))
+  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"))
 function bytesFromBase64(b64: string): Uint8Array {
   const bin = atob(b64)
   const arr = new Uint8Array(bin.length)
@@ -444,13 +480,13 @@ function bytesFromBase64(b64: string): Uint8Array {
 }
 
 const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'))
+  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"))
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = []
   arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte))
   })
-  return btoa(bin.join(''))
+  return btoa(bin.join(""))
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
@@ -470,7 +506,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
@@ -487,7 +526,7 @@ function fromTimestamp(t: Timestamp): Date {
 function fromJsonTimestamp(o: any): Date {
   if (o instanceof Date) {
     return o
-  } else if (typeof o === 'string') {
+  } else if (typeof o === "string") {
     return new Date(o)
   } else {
     return fromTimestamp(Timestamp.fromJSON(o))

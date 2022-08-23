@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { ParamChange } from './params'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { ParamChange } from "./params"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.params.v1beta1'
+export const protobufPackage = "cosmos.params.v1beta1"
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -20,15 +20,18 @@ export interface QueryParamsResponse {
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return { subspace: '', key: '' }
+  return { subspace: "", key: "" }
 }
 
 export const QueryParamsRequest = {
-  encode(message: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.subspace !== '') {
+  encode(
+    message: QueryParamsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.subspace !== "") {
       writer.uint32(10).string(message.subspace)
     }
-    if (message.key !== '') {
+    if (message.key !== "") {
       writer.uint32(18).string(message.key)
     }
     return writer
@@ -57,8 +60,8 @@ export const QueryParamsRequest = {
 
   fromJSON(object: any): QueryParamsRequest {
     return {
-      subspace: isSet(object.subspace) ? String(object.subspace) : '',
-      key: isSet(object.key) ? String(object.key) : '',
+      subspace: isSet(object.subspace) ? String(object.subspace) : "",
+      key: isSet(object.key) ? String(object.key) : "",
     }
   },
 
@@ -69,10 +72,12 @@ export const QueryParamsRequest = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(object: I): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(
+    object: I,
+  ): QueryParamsRequest {
     const message = createBaseQueryParamsRequest()
-    message.subspace = object.subspace ?? ''
-    message.key = object.key ?? ''
+    message.subspace = object.subspace ?? ""
+    message.key = object.key ?? ""
     return message
   },
 }
@@ -82,7 +87,10 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
 }
 
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryParamsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.param !== undefined) {
       ParamChange.encode(message.param, writer.uint32(10).fork()).ldelim()
     }
@@ -115,14 +123,19 @@ export const QueryParamsResponse = {
 
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {}
-    message.param !== undefined && (obj.param = message.param ? ParamChange.toJSON(message.param) : undefined)
+    message.param !== undefined &&
+      (obj.param = message.param ? ParamChange.toJSON(message.param) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(
+    object: I,
+  ): QueryParamsResponse {
     const message = createBaseQueryParamsResponse()
     message.param =
-      object.param !== undefined && object.param !== null ? ParamChange.fromPartial(object.param) : undefined
+      object.param !== undefined && object.param !== null
+        ? ParamChange.fromPartial(object.param)
+        : undefined
     return message
   },
 }
@@ -144,7 +157,7 @@ export class QueryClientImpl implements Query {
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish()
-    const promise = this.rpc.request('cosmos.params.v1beta1.Query', 'Params', data)
+    const promise = this.rpc.request("cosmos.params.v1beta1.Query", "Params", data)
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -170,7 +183,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

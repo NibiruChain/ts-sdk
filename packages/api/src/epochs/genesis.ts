@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { Duration } from '../google/protobuf/duration'
-import { Timestamp } from '../google/protobuf/timestamp'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Duration } from "../google/protobuf/duration"
+import { Timestamp } from "../google/protobuf/timestamp"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.epochs.v1beta1'
+export const protobufPackage = "nibiru.epochs.v1beta1"
 
 export interface EpochInfo {
   /** A string identifier for the epoch. e.g. "15min" or "1hour" */
@@ -30,7 +30,7 @@ export interface GenesisState {
 
 function createBaseEpochInfo(): EpochInfo {
   return {
-    identifier: '',
+    identifier: "",
     startTime: undefined,
     duration: undefined,
     currentEpoch: Long.ZERO,
@@ -42,11 +42,14 @@ function createBaseEpochInfo(): EpochInfo {
 
 export const EpochInfo = {
   encode(message: EpochInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.identifier !== '') {
+    if (message.identifier !== "") {
       writer.uint32(10).string(message.identifier)
     }
     if (message.startTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.startTime), writer.uint32(18).fork()).ldelim()
+      Timestamp.encode(
+        toTimestamp(message.startTime),
+        writer.uint32(18).fork(),
+      ).ldelim()
     }
     if (message.duration !== undefined) {
       Duration.encode(message.duration, writer.uint32(26).fork()).ldelim()
@@ -55,7 +58,10 @@ export const EpochInfo = {
       writer.uint32(32).int64(message.currentEpoch)
     }
     if (message.currentEpochStartTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.currentEpochStartTime), writer.uint32(42).fork()).ldelim()
+      Timestamp.encode(
+        toTimestamp(message.currentEpochStartTime),
+        writer.uint32(42).fork(),
+      ).ldelim()
     }
     if (message.epochCountingStarted === true) {
       writer.uint32(48).bool(message.epochCountingStarted)
@@ -86,7 +92,9 @@ export const EpochInfo = {
           message.currentEpoch = reader.int64() as Long
           break
         case 5:
-          message.currentEpochStartTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()))
+          message.currentEpochStartTime = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32()),
+          )
           break
         case 6:
           message.epochCountingStarted = reader.bool()
@@ -104,14 +112,20 @@ export const EpochInfo = {
 
   fromJSON(object: any): EpochInfo {
     return {
-      identifier: isSet(object.identifier) ? String(object.identifier) : '',
-      startTime: isSet(object.startTime) ? fromJsonTimestamp(object.startTime) : undefined,
+      identifier: isSet(object.identifier) ? String(object.identifier) : "",
+      startTime: isSet(object.startTime)
+        ? fromJsonTimestamp(object.startTime)
+        : undefined,
       duration: isSet(object.duration) ? Duration.fromJSON(object.duration) : undefined,
-      currentEpoch: isSet(object.currentEpoch) ? Long.fromValue(object.currentEpoch) : Long.ZERO,
+      currentEpoch: isSet(object.currentEpoch)
+        ? Long.fromValue(object.currentEpoch)
+        : Long.ZERO,
       currentEpochStartTime: isSet(object.currentEpochStartTime)
         ? fromJsonTimestamp(object.currentEpochStartTime)
         : undefined,
-      epochCountingStarted: isSet(object.epochCountingStarted) ? Boolean(object.epochCountingStarted) : false,
+      epochCountingStarted: isSet(object.epochCountingStarted)
+        ? Boolean(object.epochCountingStarted)
+        : false,
       currentEpochStartHeight: isSet(object.currentEpochStartHeight)
         ? Long.fromValue(object.currentEpochStartHeight)
         : Long.ZERO,
@@ -122,22 +136,29 @@ export const EpochInfo = {
     const obj: any = {}
     message.identifier !== undefined && (obj.identifier = message.identifier)
     message.startTime !== undefined && (obj.startTime = message.startTime.toISOString())
-    message.duration !== undefined && (obj.duration = message.duration ? Duration.toJSON(message.duration) : undefined)
-    message.currentEpoch !== undefined && (obj.currentEpoch = (message.currentEpoch || Long.ZERO).toString())
+    message.duration !== undefined &&
+      (obj.duration = message.duration ? Duration.toJSON(message.duration) : undefined)
+    message.currentEpoch !== undefined &&
+      (obj.currentEpoch = (message.currentEpoch || Long.ZERO).toString())
     message.currentEpochStartTime !== undefined &&
       (obj.currentEpochStartTime = message.currentEpochStartTime.toISOString())
-    message.epochCountingStarted !== undefined && (obj.epochCountingStarted = message.epochCountingStarted)
+    message.epochCountingStarted !== undefined &&
+      (obj.epochCountingStarted = message.epochCountingStarted)
     message.currentEpochStartHeight !== undefined &&
-      (obj.currentEpochStartHeight = (message.currentEpochStartHeight || Long.ZERO).toString())
+      (obj.currentEpochStartHeight = (
+        message.currentEpochStartHeight || Long.ZERO
+      ).toString())
     return obj
   },
 
   fromPartial<I extends Exact<DeepPartial<EpochInfo>, I>>(object: I): EpochInfo {
     const message = createBaseEpochInfo()
-    message.identifier = object.identifier ?? ''
+    message.identifier = object.identifier ?? ""
     message.startTime = object.startTime ?? undefined
     message.duration =
-      object.duration !== undefined && object.duration !== null ? Duration.fromPartial(object.duration) : undefined
+      object.duration !== undefined && object.duration !== null
+        ? Duration.fromPartial(object.duration)
+        : undefined
     message.currentEpoch =
       object.currentEpoch !== undefined && object.currentEpoch !== null
         ? Long.fromValue(object.currentEpoch)
@@ -145,7 +166,8 @@ export const EpochInfo = {
     message.currentEpochStartTime = object.currentEpochStartTime ?? undefined
     message.epochCountingStarted = object.epochCountingStarted ?? false
     message.currentEpochStartHeight =
-      object.currentEpochStartHeight !== undefined && object.currentEpochStartHeight !== null
+      object.currentEpochStartHeight !== undefined &&
+      object.currentEpochStartHeight !== null
         ? Long.fromValue(object.currentEpochStartHeight)
         : Long.ZERO
     return message
@@ -184,7 +206,9 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      epochs: Array.isArray(object?.epochs) ? object.epochs.map((e: any) => EpochInfo.fromJSON(e)) : [],
+      epochs: Array.isArray(object?.epochs)
+        ? object.epochs.map((e: any) => EpochInfo.fromJSON(e))
+        : [],
     }
   },
 
@@ -222,7 +246,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
@@ -239,7 +266,7 @@ function fromTimestamp(t: Timestamp): Date {
 function fromJsonTimestamp(o: any): Date {
   if (o instanceof Date) {
     return o
-  } else if (typeof o === 'string') {
+  } else if (typeof o === "string") {
     return new Date(o)
   } else {
     return fromTimestamp(Timestamp.fromJSON(o))

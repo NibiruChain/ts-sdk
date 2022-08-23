@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Timestamp } from '../google/protobuf/timestamp'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Timestamp } from "../google/protobuf/timestamp"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.pricefeed.v1'
+export const protobufPackage = "nibiru.pricefeed.v1"
 
 /** MsgPostPrice represents a method for creating a new post price */
 export interface MsgPostPrice {
@@ -34,21 +34,21 @@ export interface EventPairPriceUpdated {
 }
 
 function createBaseMsgPostPrice(): MsgPostPrice {
-  return { oracle: '', token0: '', token1: '', price: '', expiry: undefined }
+  return { oracle: "", token0: "", token1: "", price: "", expiry: undefined }
 }
 
 export const MsgPostPrice = {
   encode(message: MsgPostPrice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.oracle !== '') {
+    if (message.oracle !== "") {
       writer.uint32(10).string(message.oracle)
     }
-    if (message.token0 !== '') {
+    if (message.token0 !== "") {
       writer.uint32(18).string(message.token0)
     }
-    if (message.token1 !== '') {
+    if (message.token1 !== "") {
       writer.uint32(26).string(message.token1)
     }
-    if (message.price !== '') {
+    if (message.price !== "") {
       writer.uint32(34).string(message.price)
     }
     if (message.expiry !== undefined) {
@@ -89,10 +89,10 @@ export const MsgPostPrice = {
 
   fromJSON(object: any): MsgPostPrice {
     return {
-      oracle: isSet(object.oracle) ? String(object.oracle) : '',
-      token0: isSet(object.token0) ? String(object.token0) : '',
-      token1: isSet(object.token1) ? String(object.token1) : '',
-      price: isSet(object.price) ? String(object.price) : '',
+      oracle: isSet(object.oracle) ? String(object.oracle) : "",
+      token0: isSet(object.token0) ? String(object.token0) : "",
+      token1: isSet(object.token1) ? String(object.token1) : "",
+      price: isSet(object.price) ? String(object.price) : "",
       expiry: isSet(object.expiry) ? fromJsonTimestamp(object.expiry) : undefined,
     }
   },
@@ -109,10 +109,10 @@ export const MsgPostPrice = {
 
   fromPartial<I extends Exact<DeepPartial<MsgPostPrice>, I>>(object: I): MsgPostPrice {
     const message = createBaseMsgPostPrice()
-    message.oracle = object.oracle ?? ''
-    message.token0 = object.token0 ?? ''
-    message.token1 = object.token1 ?? ''
-    message.price = object.price ?? ''
+    message.oracle = object.oracle ?? ""
+    message.token0 = object.token0 ?? ""
+    message.token1 = object.token1 ?? ""
+    message.price = object.price ?? ""
     message.expiry = object.expiry ?? undefined
     return message
   },
@@ -123,7 +123,10 @@ function createBaseMsgPostPriceResponse(): MsgPostPriceResponse {
 }
 
 export const MsgPostPriceResponse = {
-  encode(_: MsgPostPriceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: MsgPostPriceResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     return writer
   },
 
@@ -151,25 +154,30 @@ export const MsgPostPriceResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgPostPriceResponse>, I>>(_: I): MsgPostPriceResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgPostPriceResponse>, I>>(
+    _: I,
+  ): MsgPostPriceResponse {
     const message = createBaseMsgPostPriceResponse()
     return message
   },
 }
 
 function createBaseEventOracleUpdatePrice(): EventOracleUpdatePrice {
-  return { pairId: '', oracle: '', pairPrice: '', expiry: undefined }
+  return { pairId: "", oracle: "", pairPrice: "", expiry: undefined }
 }
 
 export const EventOracleUpdatePrice = {
-  encode(message: EventOracleUpdatePrice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+  encode(
+    message: EventOracleUpdatePrice,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
-    if (message.oracle !== '') {
+    if (message.oracle !== "") {
       writer.uint32(18).string(message.oracle)
     }
-    if (message.pairPrice !== '') {
+    if (message.pairPrice !== "") {
       writer.uint32(26).string(message.pairPrice)
     }
     if (message.expiry !== undefined) {
@@ -207,9 +215,9 @@ export const EventOracleUpdatePrice = {
 
   fromJSON(object: any): EventOracleUpdatePrice {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
-      oracle: isSet(object.oracle) ? String(object.oracle) : '',
-      pairPrice: isSet(object.pairPrice) ? String(object.pairPrice) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
+      oracle: isSet(object.oracle) ? String(object.oracle) : "",
+      pairPrice: isSet(object.pairPrice) ? String(object.pairPrice) : "",
       expiry: isSet(object.expiry) ? fromJsonTimestamp(object.expiry) : undefined,
     }
   },
@@ -223,26 +231,31 @@ export const EventOracleUpdatePrice = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventOracleUpdatePrice>, I>>(object: I): EventOracleUpdatePrice {
+  fromPartial<I extends Exact<DeepPartial<EventOracleUpdatePrice>, I>>(
+    object: I,
+  ): EventOracleUpdatePrice {
     const message = createBaseEventOracleUpdatePrice()
-    message.pairId = object.pairId ?? ''
-    message.oracle = object.oracle ?? ''
-    message.pairPrice = object.pairPrice ?? ''
+    message.pairId = object.pairId ?? ""
+    message.oracle = object.oracle ?? ""
+    message.pairPrice = object.pairPrice ?? ""
     message.expiry = object.expiry ?? undefined
     return message
   },
 }
 
 function createBaseEventPairPriceUpdated(): EventPairPriceUpdated {
-  return { pairId: '', pairPrice: '' }
+  return { pairId: "", pairPrice: "" }
 }
 
 export const EventPairPriceUpdated = {
-  encode(message: EventPairPriceUpdated, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+  encode(
+    message: EventPairPriceUpdated,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
-    if (message.pairPrice !== '') {
+    if (message.pairPrice !== "") {
       writer.uint32(18).string(message.pairPrice)
     }
     return writer
@@ -271,8 +284,8 @@ export const EventPairPriceUpdated = {
 
   fromJSON(object: any): EventPairPriceUpdated {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
-      pairPrice: isSet(object.pairPrice) ? String(object.pairPrice) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
+      pairPrice: isSet(object.pairPrice) ? String(object.pairPrice) : "",
     }
   },
 
@@ -283,10 +296,12 @@ export const EventPairPriceUpdated = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventPairPriceUpdated>, I>>(object: I): EventPairPriceUpdated {
+  fromPartial<I extends Exact<DeepPartial<EventPairPriceUpdated>, I>>(
+    object: I,
+  ): EventPairPriceUpdated {
     const message = createBaseEventPairPriceUpdated()
-    message.pairId = object.pairId ?? ''
-    message.pairPrice = object.pairPrice ?? ''
+    message.pairId = object.pairId ?? ""
+    message.pairPrice = object.pairPrice ?? ""
     return message
   },
 }
@@ -305,7 +320,7 @@ export class MsgClientImpl implements Msg {
   }
   PostPrice(request: MsgPostPrice): Promise<MsgPostPriceResponse> {
     const data = MsgPostPrice.encode(request).finish()
-    const promise = this.rpc.request('nibiru.pricefeed.v1.Msg', 'PostPrice', data)
+    const promise = this.rpc.request("nibiru.pricefeed.v1.Msg", "PostPrice", data)
     return promise.then((data) => MsgPostPriceResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -331,7 +346,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
@@ -348,7 +366,7 @@ function fromTimestamp(t: Timestamp): Date {
 function fromJsonTimestamp(o: any): Date {
   if (o instanceof Date) {
     return o
-  } else if (typeof o === 'string') {
+  } else if (typeof o === "string") {
     return new Date(o)
   } else {
     return fromTimestamp(Timestamp.fromJSON(o))

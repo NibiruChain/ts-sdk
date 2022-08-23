@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'tendermint.libs.bits'
+export const protobufPackage = "tendermint.libs.bits"
 
 export interface BitArray {
   bits: Long
@@ -57,7 +57,9 @@ export const BitArray = {
   fromJSON(object: any): BitArray {
     return {
       bits: isSet(object.bits) ? Long.fromValue(object.bits) : Long.ZERO,
-      elems: Array.isArray(object?.elems) ? object.elems.map((e: any) => Long.fromValue(e)) : [],
+      elems: Array.isArray(object?.elems)
+        ? object.elems.map((e: any) => Long.fromValue(e))
+        : [],
     }
   },
 
@@ -74,7 +76,10 @@ export const BitArray = {
 
   fromPartial<I extends Exact<DeepPartial<BitArray>, I>>(object: I): BitArray {
     const message = createBaseBitArray()
-    message.bits = object.bits !== undefined && object.bits !== null ? Long.fromValue(object.bits) : Long.ZERO
+    message.bits =
+      object.bits !== undefined && object.bits !== null
+        ? Long.fromValue(object.bits)
+        : Long.ZERO
     message.elems = object.elems?.map((e) => Long.fromValue(e)) || []
     return message
   },
@@ -97,7 +102,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

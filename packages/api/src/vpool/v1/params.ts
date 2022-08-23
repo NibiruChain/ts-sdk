@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.vpool.v1'
+export const protobufPackage = "nibiru.vpool.v1"
 
 /** Params defines the parameters for the module. */
 export interface Params {}
@@ -55,21 +55,21 @@ export const Params = {
 }
 
 function createBaseCurrentTWAP(): CurrentTWAP {
-  return { pairId: '', numerator: '', denominator: '', price: '' }
+  return { pairId: "", numerator: "", denominator: "", price: "" }
 }
 
 export const CurrentTWAP = {
   encode(message: CurrentTWAP, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pairId !== '') {
+    if (message.pairId !== "") {
       writer.uint32(10).string(message.pairId)
     }
-    if (message.numerator !== '') {
+    if (message.numerator !== "") {
       writer.uint32(18).string(message.numerator)
     }
-    if (message.denominator !== '') {
+    if (message.denominator !== "") {
       writer.uint32(26).string(message.denominator)
     }
-    if (message.price !== '') {
+    if (message.price !== "") {
       writer.uint32(34).string(message.price)
     }
     return writer
@@ -104,10 +104,10 @@ export const CurrentTWAP = {
 
   fromJSON(object: any): CurrentTWAP {
     return {
-      pairId: isSet(object.pairId) ? String(object.pairId) : '',
-      numerator: isSet(object.numerator) ? String(object.numerator) : '',
-      denominator: isSet(object.denominator) ? String(object.denominator) : '',
-      price: isSet(object.price) ? String(object.price) : '',
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
+      numerator: isSet(object.numerator) ? String(object.numerator) : "",
+      denominator: isSet(object.denominator) ? String(object.denominator) : "",
+      price: isSet(object.price) ? String(object.price) : "",
     }
   },
 
@@ -122,10 +122,10 @@ export const CurrentTWAP = {
 
   fromPartial<I extends Exact<DeepPartial<CurrentTWAP>, I>>(object: I): CurrentTWAP {
     const message = createBaseCurrentTWAP()
-    message.pairId = object.pairId ?? ''
-    message.numerator = object.numerator ?? ''
-    message.denominator = object.denominator ?? ''
-    message.price = object.price ?? ''
+    message.pairId = object.pairId ?? ""
+    message.numerator = object.numerator ?? ""
+    message.denominator = object.denominator ?? ""
+    message.price = object.price ?? ""
     return message
   },
 }
@@ -147,7 +147,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

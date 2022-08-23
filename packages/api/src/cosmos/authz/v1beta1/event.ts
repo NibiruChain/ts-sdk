@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.authz.v1beta1'
+export const protobufPackage = "cosmos.authz.v1beta1"
 
 /** Since: cosmos-sdk 0.43 */
 
@@ -27,18 +27,18 @@ export interface EventRevoke {
 }
 
 function createBaseEventGrant(): EventGrant {
-  return { msgTypeUrl: '', granter: '', grantee: '' }
+  return { msgTypeUrl: "", granter: "", grantee: "" }
 }
 
 export const EventGrant = {
   encode(message: EventGrant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.msgTypeUrl !== '') {
+    if (message.msgTypeUrl !== "") {
       writer.uint32(18).string(message.msgTypeUrl)
     }
-    if (message.granter !== '') {
+    if (message.granter !== "") {
       writer.uint32(26).string(message.granter)
     }
-    if (message.grantee !== '') {
+    if (message.grantee !== "") {
       writer.uint32(34).string(message.grantee)
     }
     return writer
@@ -70,9 +70,9 @@ export const EventGrant = {
 
   fromJSON(object: any): EventGrant {
     return {
-      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : '',
-      granter: isSet(object.granter) ? String(object.granter) : '',
-      grantee: isSet(object.grantee) ? String(object.grantee) : '',
+      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : "",
+      granter: isSet(object.granter) ? String(object.granter) : "",
+      grantee: isSet(object.grantee) ? String(object.grantee) : "",
     }
   },
 
@@ -86,26 +86,26 @@ export const EventGrant = {
 
   fromPartial<I extends Exact<DeepPartial<EventGrant>, I>>(object: I): EventGrant {
     const message = createBaseEventGrant()
-    message.msgTypeUrl = object.msgTypeUrl ?? ''
-    message.granter = object.granter ?? ''
-    message.grantee = object.grantee ?? ''
+    message.msgTypeUrl = object.msgTypeUrl ?? ""
+    message.granter = object.granter ?? ""
+    message.grantee = object.grantee ?? ""
     return message
   },
 }
 
 function createBaseEventRevoke(): EventRevoke {
-  return { msgTypeUrl: '', granter: '', grantee: '' }
+  return { msgTypeUrl: "", granter: "", grantee: "" }
 }
 
 export const EventRevoke = {
   encode(message: EventRevoke, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.msgTypeUrl !== '') {
+    if (message.msgTypeUrl !== "") {
       writer.uint32(18).string(message.msgTypeUrl)
     }
-    if (message.granter !== '') {
+    if (message.granter !== "") {
       writer.uint32(26).string(message.granter)
     }
-    if (message.grantee !== '') {
+    if (message.grantee !== "") {
       writer.uint32(34).string(message.grantee)
     }
     return writer
@@ -137,9 +137,9 @@ export const EventRevoke = {
 
   fromJSON(object: any): EventRevoke {
     return {
-      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : '',
-      granter: isSet(object.granter) ? String(object.granter) : '',
-      grantee: isSet(object.grantee) ? String(object.grantee) : '',
+      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : "",
+      granter: isSet(object.granter) ? String(object.granter) : "",
+      grantee: isSet(object.grantee) ? String(object.grantee) : "",
     }
   },
 
@@ -153,9 +153,9 @@ export const EventRevoke = {
 
   fromPartial<I extends Exact<DeepPartial<EventRevoke>, I>>(object: I): EventRevoke {
     const message = createBaseEventRevoke()
-    message.msgTypeUrl = object.msgTypeUrl ?? ''
-    message.granter = object.granter ?? ''
-    message.grantee = object.grantee ?? ''
+    message.msgTypeUrl = object.msgTypeUrl ?? ""
+    message.granter = object.granter ?? ""
+    message.grantee = object.grantee ?? ""
     return message
   },
 }
@@ -177,7 +177,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

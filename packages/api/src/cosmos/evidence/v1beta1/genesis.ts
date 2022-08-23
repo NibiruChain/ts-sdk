@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from 'long'
-import { Any } from '../../../google/protobuf/any'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import { Any } from "../../../google/protobuf/any"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.evidence.v1beta1'
+export const protobufPackage = "cosmos.evidence.v1beta1"
 
 /** GenesisState defines the evidence module's genesis state. */
 export interface GenesisState {
@@ -43,7 +43,9 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      evidence: Array.isArray(object?.evidence) ? object.evidence.map((e: any) => Any.fromJSON(e)) : [],
+      evidence: Array.isArray(object?.evidence)
+        ? object.evidence.map((e: any) => Any.fromJSON(e))
+        : [],
     }
   },
 
@@ -81,7 +83,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Any } from '../../../google/protobuf/any'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Any } from "../../../google/protobuf/any"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.evidence.v1beta1'
+export const protobufPackage = "cosmos.evidence.v1beta1"
 
 /**
  * MsgSubmitEvidence represents a message that supports submitting arbitrary
@@ -21,12 +21,15 @@ export interface MsgSubmitEvidenceResponse {
 }
 
 function createBaseMsgSubmitEvidence(): MsgSubmitEvidence {
-  return { submitter: '', evidence: undefined }
+  return { submitter: "", evidence: undefined }
 }
 
 export const MsgSubmitEvidence = {
-  encode(message: MsgSubmitEvidence, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.submitter !== '') {
+  encode(
+    message: MsgSubmitEvidence,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.submitter !== "") {
       writer.uint32(10).string(message.submitter)
     }
     if (message.evidence !== undefined) {
@@ -58,7 +61,7 @@ export const MsgSubmitEvidence = {
 
   fromJSON(object: any): MsgSubmitEvidence {
     return {
-      submitter: isSet(object.submitter) ? String(object.submitter) : '',
+      submitter: isSet(object.submitter) ? String(object.submitter) : "",
       evidence: isSet(object.evidence) ? Any.fromJSON(object.evidence) : undefined,
     }
   },
@@ -66,15 +69,20 @@ export const MsgSubmitEvidence = {
   toJSON(message: MsgSubmitEvidence): unknown {
     const obj: any = {}
     message.submitter !== undefined && (obj.submitter = message.submitter)
-    message.evidence !== undefined && (obj.evidence = message.evidence ? Any.toJSON(message.evidence) : undefined)
+    message.evidence !== undefined &&
+      (obj.evidence = message.evidence ? Any.toJSON(message.evidence) : undefined)
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgSubmitEvidence>, I>>(object: I): MsgSubmitEvidence {
+  fromPartial<I extends Exact<DeepPartial<MsgSubmitEvidence>, I>>(
+    object: I,
+  ): MsgSubmitEvidence {
     const message = createBaseMsgSubmitEvidence()
-    message.submitter = object.submitter ?? ''
+    message.submitter = object.submitter ?? ""
     message.evidence =
-      object.evidence !== undefined && object.evidence !== null ? Any.fromPartial(object.evidence) : undefined
+      object.evidence !== undefined && object.evidence !== null
+        ? Any.fromPartial(object.evidence)
+        : undefined
     return message
   },
 }
@@ -84,7 +92,10 @@ function createBaseMsgSubmitEvidenceResponse(): MsgSubmitEvidenceResponse {
 }
 
 export const MsgSubmitEvidenceResponse = {
-  encode(message: MsgSubmitEvidenceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgSubmitEvidenceResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.hash.length !== 0) {
       writer.uint32(34).bytes(message.hash)
     }
@@ -118,11 +129,15 @@ export const MsgSubmitEvidenceResponse = {
   toJSON(message: MsgSubmitEvidenceResponse): unknown {
     const obj: any = {}
     message.hash !== undefined &&
-      (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()))
+      (obj.hash = base64FromBytes(
+        message.hash !== undefined ? message.hash : new Uint8Array(),
+      ))
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgSubmitEvidenceResponse>, I>>(object: I): MsgSubmitEvidenceResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgSubmitEvidenceResponse>, I>>(
+    object: I,
+  ): MsgSubmitEvidenceResponse {
     const message = createBaseMsgSubmitEvidenceResponse()
     message.hash = object.hash ?? new Uint8Array()
     return message
@@ -146,8 +161,14 @@ export class MsgClientImpl implements Msg {
   }
   SubmitEvidence(request: MsgSubmitEvidence): Promise<MsgSubmitEvidenceResponse> {
     const data = MsgSubmitEvidence.encode(request).finish()
-    const promise = this.rpc.request('cosmos.evidence.v1beta1.Msg', 'SubmitEvidence', data)
-    return promise.then((data) => MsgSubmitEvidenceResponse.decode(new _m0.Reader(data)))
+    const promise = this.rpc.request(
+      "cosmos.evidence.v1beta1.Msg",
+      "SubmitEvidence",
+      data,
+    )
+    return promise.then((data) =>
+      MsgSubmitEvidenceResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
@@ -159,15 +180,15 @@ declare var self: any | undefined
 declare var window: any | undefined
 declare var global: any | undefined
 var globalThis: any = (() => {
-  if (typeof globalThis !== 'undefined') return globalThis
-  if (typeof self !== 'undefined') return self
-  if (typeof window !== 'undefined') return window
-  if (typeof global !== 'undefined') return global
-  throw 'Unable to locate global object'
+  if (typeof globalThis !== "undefined") return globalThis
+  if (typeof self !== "undefined") return self
+  if (typeof window !== "undefined") return window
+  if (typeof global !== "undefined") return global
+  throw "Unable to locate global object"
 })()
 
 const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'))
+  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"))
 function bytesFromBase64(b64: string): Uint8Array {
   const bin = atob(b64)
   const arr = new Uint8Array(bin.length)
@@ -178,13 +199,13 @@ function bytesFromBase64(b64: string): Uint8Array {
 }
 
 const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'))
+  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"))
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = []
   arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte))
   })
-  return btoa(bin.join(''))
+  return btoa(bin.join(""))
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
@@ -204,7 +225,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

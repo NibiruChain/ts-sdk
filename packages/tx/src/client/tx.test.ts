@@ -4,7 +4,7 @@ import { Side } from "@nibiruchain/api/src/perp/v1/state"
 import { AccountData, coins, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
 import * as dotenv from "dotenv"
 import { DexComposer, PerpComposer } from "."
-import { generateWallet, msgSend } from "./common"
+import { generateWallet, msgSend, TxMessage } from "./common"
 import { initTx, TxImpl } from "./tx"
 import {} from "@cosmjs/stargate"
 
@@ -59,49 +59,53 @@ describe("test tx module", () => {
   // - TODO test LPing into a pool, which is called JoinPool
   // - TODO test swapping on an existing pool
 
-  // test("dex create pool", async () => {
-  //   const client = await initTx(DevnetNetwork, VAL_MNEMONIC)
-  //   const [{ address: fromAddr }] = await client.getAccounts()
-  //   const txResp = await client.signAndBroadcast(
-  //     DexComposer.createPool({
-  //       creator: fromAddr,
-  //       poolAssets: [
-  //         {
-  //           token: { amount: "5", denom: "unibi" },
-  //           weight: "1",
-  //         },
-  //         {
-  //           token: { amount: "50", denom: "unusd" },
-  //           weight: "1",
-  //         },
-  //       ],
-  //       // Backend bug, throws nilpointer exception if omitted
-  //       poolParams: {
-  //         swapFee: "0",
-  //         exitFee: "0",
-  //       },
-  //     }),
-  //   )
-  //   console.log("%o", txResp)
-  //   expect(txResp).not.toBeNull()
-  //   expect(txResp.code).toBe(0)
-  // })
+  /* 
+  // NOTE commented out dex commands until public testnet
+  test("dex create pool", async () => {
+    const client = await initTx(DevnetNetwork, VAL_MNEMONIC)
+    const [{ address: fromAddr }] = await client.getAccounts()
+    const txResp = await client.signAndBroadcast(
+      DexComposer.createPool({
+        creator: fromAddr,
+        poolAssets: [
+          {
+            token: { amount: "5", denom: "unibi" },
+            weight: "1",
+          },
+          {
+            token: { amount: "50", denom: "unusd" },
+            weight: "1",
+          },
+        ],
+        // Backend bug, throws nilpointer exception if omitted
+        poolParams: {
+          swapFee: "0",
+          exitFee: "0",
+        },
+      }),
+    )
+    console.log("%o", txResp)
+    expect(txResp).not.toBeNull()
+    expect(txResp.code).toBe(0)
+  })
+ */
 
-  // test("test perp", async () => {
-  //   const tx = await initTx(DevnetNetwork, VAL_MNEMONIC)
-  //   const [{ address: fromAddr }] = await tx.getAccounts()
-  //   const txResp = await tx.signAndBroadcast(
-  //     PerpComposer.openPosition({
-  //       tokenPair: "ubtc:unusd",
-  //       baseAssetAmountLimit: "1",
-  //       leverage: "1",
-  //       quoteAssetAmount: "1",
-  //       sender: fromAddr,
-  //       side: Side.BUY,
-  //     }),
-  //   )
-  //   console.log("open-position txResp:\n%o", txResp)
-  //   expect(txResp).not.toBeNull()
-  //   expect(txResp.code).toBe(0)
-  // })
+  test("nibid tx perp open-position", async () => {
+    const tx = await initTx(DevnetNetwork, VAL_MNEMONIC)
+    const [{ address: fromAddr }] = await tx.getAccounts()
+    const msgs: TxMessage[] = [
+      PerpComposer.openPosition({
+        tokenPair: "ubtc:unusd",
+        baseAssetAmountLimit: "0",
+        leverage: "1",
+        quoteAssetAmount: "10",
+        sender: fromAddr,
+        side: Side.BUY,
+      }),
+    ]
+    const txResp = await tx.signAndBroadcast(...msgs)
+    expect(txResp.code).toBe(0)
+    console.log("open-position txResp:\n", JSON.stringify(await txResp.rawLog, null, 2))
+    expect(txResp).not.toBeNull()
+  }, 10_000 /* This test takes roughly 5.3 seconds. The default timeout is not sufficient. */)
 })

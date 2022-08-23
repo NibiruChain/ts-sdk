@@ -15,30 +15,51 @@ protoc_gen_gocosmos() {
 
   # get protoc executions
   go get github.com/regen-network/cosmos-proto/protoc-gen-gocosmos@latest 2>/dev/null
+  # go get github.com/gogo/protobuf/proto 2>/dev/null
   # get cosmos sdk from github
-  go get github.com/cosmos/cosmos-sdk 2>/dev/null
+  go get github.com/cosmos/cosmos-sdk@v0.45.6 2>/dev/null
 }
 
+skip_line() {
+  printf "\n--------------------------------------------------\n"
+}
+
+echo "grabbing cosmos-sdk proto file locations from disk"
+echo "current dir: $(pwd)"
 cd ../nibiru;
 protoc_gen_gocosmos
-
 cosmos_sdk_dir=$(go list -f '{{ .Dir }}' -m github.com/cosmos/cosmos-sdk)
-OUT_DIR=./packages/api/src
+
+skip_line
+echo "grab all of the proto directories"
+echo "current dir: $(pwd)"
 cd -;
+echo "current dir: $(pwd)"
 proto_dirs=$(find $cosmos_sdk_dir/proto $cosmos_sdk_dir/third_party/proto/ ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
-echo $proto_dirs
+echo "Proto Directories: "
+for dir in $proto_dirs; do \
+  echo $dir
+done;
+
+skip_line
+OUT_DIR=./packages/api/src
 echo "Clearing $OUT_DIR"
 rm -rf $OUT_DIR/*
+
+skip_line
 for dir in $proto_dirs; do \
-  echo "generating $dir"
-  echo "$cosmos_sdk_dir"
+  # echo "generating $dir"
+  string=$dir
+  prefix=$HOME/go/pkg/mod/github.com
+  prefix_removed_string=${string/#$prefix}
+  echo "generating $prefix_removed_string ----------------------------------------" 
   # mkdir -p ./packages/api/src/${dir}; \
   protoc \
     --plugin=./node_modules/.bin/protoc-gen-ts_proto \
-    -I proto \
     -I "$cosmos_sdk_dir/third_party/proto" \
     -I "$cosmos_sdk_dir/proto" \
-    --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=true" \
+    -I proto/proto \
+    --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
     --ts_proto_out=$OUT_DIR \
     $(find "${dir}" -type f -name '*.proto')
 done; \

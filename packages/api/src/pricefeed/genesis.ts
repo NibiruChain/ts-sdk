@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Params, PostedPrice } from './params'
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import { Params, PostedPrice } from "./params"
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'nibiru.pricefeed.v1'
+export const protobufPackage = "nibiru.pricefeed.v1"
 
 /** GenesisState defines the pricefeed module's genesis state. */
 export interface GenesisState {
@@ -61,15 +61,20 @@ export const GenesisState = {
       postedPrices: Array.isArray(object?.postedPrices)
         ? object.postedPrices.map((e: any) => PostedPrice.fromJSON(e))
         : [],
-      genesisOracles: Array.isArray(object?.genesisOracles) ? object.genesisOracles.map((e: any) => String(e)) : [],
+      genesisOracles: Array.isArray(object?.genesisOracles)
+        ? object.genesisOracles.map((e: any) => String(e))
+        : [],
     }
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined)
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     if (message.postedPrices) {
-      obj.postedPrices = message.postedPrices.map((e) => (e ? PostedPrice.toJSON(e) : undefined))
+      obj.postedPrices = message.postedPrices.map((e) =>
+        e ? PostedPrice.toJSON(e) : undefined,
+      )
     } else {
       obj.postedPrices = []
     }
@@ -84,8 +89,11 @@ export const GenesisState = {
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState()
     message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined
-    message.postedPrices = object.postedPrices?.map((e) => PostedPrice.fromPartial(e)) || []
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined
+    message.postedPrices =
+      object.postedPrices?.map((e) => PostedPrice.fromPartial(e)) || []
     message.genesisOracles = object.genesisOracles?.map((e) => e) || []
     return message
   },
@@ -108,7 +116,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

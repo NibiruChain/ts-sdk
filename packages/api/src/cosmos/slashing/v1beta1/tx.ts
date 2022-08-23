@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.slashing.v1beta1'
+export const protobufPackage = "cosmos.slashing.v1beta1"
 
 /** MsgUnjail defines the Msg/Unjail request type */
 export interface MsgUnjail {
@@ -13,12 +13,12 @@ export interface MsgUnjail {
 export interface MsgUnjailResponse {}
 
 function createBaseMsgUnjail(): MsgUnjail {
-  return { validatorAddr: '' }
+  return { validatorAddr: "" }
 }
 
 export const MsgUnjail = {
   encode(message: MsgUnjail, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.validatorAddr !== '') {
+    if (message.validatorAddr !== "") {
       writer.uint32(10).string(message.validatorAddr)
     }
     return writer
@@ -44,7 +44,7 @@ export const MsgUnjail = {
 
   fromJSON(object: any): MsgUnjail {
     return {
-      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : '',
+      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "",
     }
   },
 
@@ -56,7 +56,7 @@ export const MsgUnjail = {
 
   fromPartial<I extends Exact<DeepPartial<MsgUnjail>, I>>(object: I): MsgUnjail {
     const message = createBaseMsgUnjail()
-    message.validatorAddr = object.validatorAddr ?? ''
+    message.validatorAddr = object.validatorAddr ?? ""
     return message
   },
 }
@@ -94,7 +94,9 @@ export const MsgUnjailResponse = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgUnjailResponse>, I>>(_: I): MsgUnjailResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgUnjailResponse>, I>>(
+    _: I,
+  ): MsgUnjailResponse {
     const message = createBaseMsgUnjailResponse()
     return message
   },
@@ -118,7 +120,7 @@ export class MsgClientImpl implements Msg {
   }
   Unjail(request: MsgUnjail): Promise<MsgUnjailResponse> {
     const data = MsgUnjail.encode(request).finish()
-    const promise = this.rpc.request('cosmos.slashing.v1beta1.Msg', 'Unjail', data)
+    const promise = this.rpc.request("cosmos.slashing.v1beta1.Msg", "Unjail", data)
     return promise.then((data) => MsgUnjailResponse.decode(new _m0.Reader(data)))
   }
 }
@@ -144,7 +146,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any

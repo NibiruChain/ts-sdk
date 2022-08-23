@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from 'long'
-import _m0 from 'protobufjs/minimal'
+import Long from "long"
+import _m0 from "protobufjs/minimal"
 
-export const protobufPackage = 'cosmos.params.v1beta1'
+export const protobufPackage = "cosmos.params.v1beta1"
 
 /** ParameterChangeProposal defines a proposal to change one or more parameters. */
 export interface ParameterChangeProposal {
@@ -22,15 +22,18 @@ export interface ParamChange {
 }
 
 function createBaseParameterChangeProposal(): ParameterChangeProposal {
-  return { title: '', description: '', changes: [] }
+  return { title: "", description: "", changes: [] }
 }
 
 export const ParameterChangeProposal = {
-  encode(message: ParameterChangeProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.title !== '') {
+  encode(
+    message: ParameterChangeProposal,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.title !== "") {
       writer.uint32(10).string(message.title)
     }
-    if (message.description !== '') {
+    if (message.description !== "") {
       writer.uint32(18).string(message.description)
     }
     for (const v of message.changes) {
@@ -65,9 +68,11 @@ export const ParameterChangeProposal = {
 
   fromJSON(object: any): ParameterChangeProposal {
     return {
-      title: isSet(object.title) ? String(object.title) : '',
-      description: isSet(object.description) ? String(object.description) : '',
-      changes: Array.isArray(object?.changes) ? object.changes.map((e: any) => ParamChange.fromJSON(e)) : [],
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      changes: Array.isArray(object?.changes)
+        ? object.changes.map((e: any) => ParamChange.fromJSON(e))
+        : [],
     }
   },
 
@@ -83,28 +88,30 @@ export const ParameterChangeProposal = {
     return obj
   },
 
-  fromPartial<I extends Exact<DeepPartial<ParameterChangeProposal>, I>>(object: I): ParameterChangeProposal {
+  fromPartial<I extends Exact<DeepPartial<ParameterChangeProposal>, I>>(
+    object: I,
+  ): ParameterChangeProposal {
     const message = createBaseParameterChangeProposal()
-    message.title = object.title ?? ''
-    message.description = object.description ?? ''
+    message.title = object.title ?? ""
+    message.description = object.description ?? ""
     message.changes = object.changes?.map((e) => ParamChange.fromPartial(e)) || []
     return message
   },
 }
 
 function createBaseParamChange(): ParamChange {
-  return { subspace: '', key: '', value: '' }
+  return { subspace: "", key: "", value: "" }
 }
 
 export const ParamChange = {
   encode(message: ParamChange, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.subspace !== '') {
+    if (message.subspace !== "") {
       writer.uint32(10).string(message.subspace)
     }
-    if (message.key !== '') {
+    if (message.key !== "") {
       writer.uint32(18).string(message.key)
     }
-    if (message.value !== '') {
+    if (message.value !== "") {
       writer.uint32(26).string(message.value)
     }
     return writer
@@ -136,9 +143,9 @@ export const ParamChange = {
 
   fromJSON(object: any): ParamChange {
     return {
-      subspace: isSet(object.subspace) ? String(object.subspace) : '',
-      key: isSet(object.key) ? String(object.key) : '',
-      value: isSet(object.value) ? String(object.value) : '',
+      subspace: isSet(object.subspace) ? String(object.subspace) : "",
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value) ? String(object.value) : "",
     }
   },
 
@@ -152,9 +159,9 @@ export const ParamChange = {
 
   fromPartial<I extends Exact<DeepPartial<ParamChange>, I>>(object: I): ParamChange {
     const message = createBaseParamChange()
-    message.subspace = object.subspace ?? ''
-    message.key = object.key ?? ''
-    message.value = object.value ?? ''
+    message.subspace = object.subspace ?? ""
+    message.key = object.key ?? ""
+    message.value = object.value ?? ""
     return message
   },
 }
@@ -176,7 +183,10 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any
