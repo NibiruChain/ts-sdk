@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/common",
   "description": "SDK in TypeScript for building Nibiru applications in a Node environment.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
