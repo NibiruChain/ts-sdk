@@ -42,7 +42,7 @@ export const TestnetNetwork: Network = {
 }
 
 export const DEVNET = {
-  host: process.env.HOST,
+  host: process.env.CHAIN_HOST,
   lcdPort: 1317,
   grpcPort: 9090,
   tmPort: 26657,
