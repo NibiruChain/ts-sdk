@@ -27,6 +27,7 @@
     "start": "node dist/index.js"
   },
   "devDependencies": {
+    "@nibiruchain/api": "^0.1.0",
     "jest": "^28.1.3",
     "link-module-alias": "^1.2.0",
     "shx": "^0.3.2",

@@ -38,7 +38,7 @@
     "@cosmjs/proto-signing": "^0.28.11",
     "@cosmjs/stargate": "^0.28.11",
     "@keplr-wallet/types": "^0.10.13",
-    "@nibiruchain/api": "^0.0.1",
-    "@nibiruchain/common": "^0.0.1"
+    "@nibiruchain/api": "^0.1.0",
+    "@nibiruchain/common": "^0.2.0"
   }
 }

@@ -35,8 +35,8 @@
   "dependencies": {
     "@cosmjs/stargate": "^0.28.11",
     "@cosmjs/tendermint-rpc": "^0.28.11",
-    "@nibiruchain/api": "^0.0.1",
-    "@nibiruchain/common": "^0.0.1",
+    "@nibiruchain/api": "^0.1.0",
+    "@nibiruchain/common": "^0.2.0",
     "@types/node-fetch": "^2.6.2"
   }
 }
