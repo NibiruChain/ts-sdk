@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/query",
   "description": "SDK in TypeScript for building Nibiru applications in a Node environment.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -35,8 +35,8 @@
   "dependencies": {
     "@cosmjs/stargate": "^0.28.11",
     "@cosmjs/tendermint-rpc": "^0.28.11",
-    "@nibiruchain/api": "^0.0.1",
-    "@nibiruchain/common": "^0.0.1",
+    "@nibiruchain/api": "^0.1.0",
+    "@nibiruchain/common": "^0.2.0",
     "@types/node-fetch": "^2.6.2"
   }
 }
