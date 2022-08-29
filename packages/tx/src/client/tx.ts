@@ -1,6 +1,6 @@
 import { SigningStargateClient, calculateFee, GasPrice, StdFee } from "@cosmjs/stargate"
 import { GAS_PRICE, Network } from "@nibiruchain/common"
-import { AccountData, Coin, OfflineDirectSigner } from "@cosmjs/proto-signing"
+import { AccountData, Coin, OfflineDirectSigner, Registry } from "@cosmjs/proto-signing"
 import { getKeplr, Keplr } from "../wallet"
 import { registerTypes as registerDex } from "./dex"
 import { registerTypes as registerPerp } from "./perp"
@@ -62,7 +62,7 @@ export class TxImpl {
   }
 }
 
-function registerModules() {
+function registerModules(): Registry {
   const registry = getRegistry()
   registerDex(registry)
   registerPerp(registry)
