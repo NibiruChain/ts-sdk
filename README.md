@@ -14,7 +14,6 @@ To get a sense of the packages and their functionality, we are going to list the
 
 - `@nibiruchain/api` provides all the available types from Cosmos and Nibiru Chain. Interaction with this layer directly should be kept to a minimum.
 
-
 - `@nibiruchain/common` is home to several commonly needed types, constants and configurations such as Network.
 
 - `@nibiruchain/query` contains abstractions to query state from Cosmos and Nibiru modules.
@@ -25,15 +24,24 @@ To get a sense of the packages and their functionality, we are going to list the
 
 ## 📜 Contribution and Development Instructions
 
-First install yarn.
-```sh
-npm install -g yarn
-```
 
-Use `yarn` at the root of the repository. Then, compile the code in each package using the following.
-```sh
-yarn build
-```
+#### Quick Start 
+
+1. First install yarn.
+    ```sh
+    npm install -g yarn
+    ```
+
+2. Then, install package dependencies. At the root of the repository, run 
+    ```sh
+    yarn 
+    ```
+3. Lastly, compile the code in each package.
+    ```sh
+    yarn build
+    ```
+
+See [HACKING.md](./HACKING.md) for the full development guide. 
 
 ---
 
