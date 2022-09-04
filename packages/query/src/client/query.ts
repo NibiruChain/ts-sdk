@@ -22,8 +22,7 @@ export interface Query {
 
 export class QueryImpl implements Query {
   client: ExtendedClient
-
-  private tmClient: Tendermint34Client
+  tmClient: Tendermint34Client
 
   constructor(tmClient: Tendermint34Client) {
     this.tmClient = tmClient
@@ -41,7 +40,7 @@ export class QueryImpl implements Query {
   }
 }
 
-export async function initQuery(network: Network): Promise<Query> {
+export async function initQuery(network: Network): Promise<QueryImpl> {
   const tmClient = await Tendermint34Client.connect(network.endptTm)
   return new QueryImpl(tmClient)
 }

@@ -28,16 +28,16 @@ export const LocalNetwork: Network = {
   endptTm: "127.0.0.1:26657",
   endptRest: "127.0.0.1:1317",
   chainId: "nibiru-localnet-0",
-  chainName: "Nibiru localnet",
+  chainName: "Nibiru Localnet",
   feeDenom: "unibi",
 }
 
 export const TestnetNetwork: Network = {
-  endptTm: "rpc.nibiru.fi:26657",
-  endptRest: "https://lcd.nibiru.fi",
-  endptGrpc: "rpc.nibiru.fi:9090",
+  endptTm: "https://rpc.testnet-3.nibiru.fi",
+  endptRest: "https://lcd.testnet-3.nibiru.fi",
+  endptGrpc: "",
   chainId: "nibiru-testnet-3",
-  chainName: "Nibiru testnet",
+  chainName: "nibiru-testnet-3",
   feeDenom: "unibi",
 }
 
@@ -58,6 +58,6 @@ export const DevnetNetwork: Network = {
   endptTm: `http://${DEVNET.host}:${DEVNET.tmPort}`,
   endptRest: `http://${DEVNET.host}:${DEVNET.lcdPort}`,
   chainId: "nibiru-localnet-0",
-  chainName: "Nibiru devnet",
+  chainName: "Nibiru Chaosnet",
   feeDenom: "unibi",
 }

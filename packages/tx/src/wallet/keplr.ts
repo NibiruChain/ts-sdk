@@ -6,7 +6,7 @@ declare global {
   interface Window extends KeplrWindow {}
 }
 
-export async function getKeplr(network: Network) {
+export async function getKeplr(network: Network): Promise<Keplr> {
   if ((window as any).keplr) {
     throw Error("Keplr wallet not found")
   }
