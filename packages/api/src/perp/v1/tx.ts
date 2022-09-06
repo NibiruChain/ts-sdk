@@ -22,7 +22,13 @@ export interface MsgRemoveMarginResponse {
   position?: Position
 }
 
-/** MsgAddMargin: Msg to remove margin. */
+/** MsgAddMargin: Msg to remove margin.
+ *
+ * Attributes:
+ * - sender (string)
+ * - tokenPair (string)
+ * - margin? (Coin)
+ */
 export interface MsgAddMargin {
   sender: string
   tokenPair: string

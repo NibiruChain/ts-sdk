@@ -15,6 +15,7 @@ describe("network connections", () => {
     const blockHeight = 5
     const blockResp = await queryCmd.tmClient.block(blockHeight)
     validateBlock(blockResp.block, network)
+    queryCmd.disconnect()
   }
   test("testnet", async () => {
     testNetworkConnection(TestnetNetwork)
