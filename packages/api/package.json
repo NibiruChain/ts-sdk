@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/api",
   "description": "Types to interact with the Nibiru Chain",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,7 @@
     "~api": "dist"
   },
   "scripts": {
-    "postinstall": "shx mkdir -p dist && link-module-alias",
+    "postinstall": "npx shx mkdir -p dist && npx link-module-alias",
     "build:watch": "tsc --build -w tsconfig.build.json && link-module-alias",
     "build": "tsc --build tsconfig.build.json && link-module-alias",
     "clean": "tsc --build tsconfig.build.json --clean && shx rm -rf coverage *.log junit.xml dist && jest --clearCache",

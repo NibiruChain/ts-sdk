@@ -1,12 +1,28 @@
-import { DEVNET, DevnetNetwork } from "@nibiruchain/common"
+import { DEVNET, DevnetNetwork, Network, TestnetNetwork } from "@nibiruchain/common"
 import { initQuery } from "./query"
 import fetch from "node-fetch"
+import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"
 
 require("dotenv").config() // yarn add -D dotenv
 
 // const NETWORK = LocalNetwork
 const NETWORK = DevnetNetwork
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
+
+describe("network connections", () => {
+  const testNetworkConnection = async (network: Network) => {
+    const queryCmd = await initQuery(network)
+    const blockHeight = 5
+    const blockResp = await queryCmd.tmClient.block(blockHeight)
+    validateBlock(blockResp.block, network)
+  }
+  test("testnet", async () => {
+    testNetworkConnection(TestnetNetwork)
+  })
+  test("chaosnet", async () => {
+    testNetworkConnection(DevnetNetwork)
+  })
+})
 
 describe("test node connection", () => {
   const port = DEVNET.tmPort
@@ -20,7 +36,7 @@ describe("test node connection", () => {
     const resp = await fetch(`http://${host}:${port}/block?height=5`)
     const respJson = await resp.json()
     const blockJson = respJson.result.block
-    validateBlock(blockJson)
+    validateBlockFromJsonRpc(blockJson)
   })
 
   it("query block with post", async () => {
@@ -32,11 +48,19 @@ describe("test node connection", () => {
     })
     const respJson = await resp.json()
     const blockJson = respJson.result.block
-    validateBlock(blockJson)
+    validateBlockFromJsonRpc(blockJson)
   })
 })
 
-function validateBlock(blockJson: any) {
+function validateBlock(block: Block, network: Network) {
+  expect(block.header.chainId).toEqual(network.chainId)
+  expect(block.header.time).toBeDefined()
+  expect(block.header.height).toBeGreaterThanOrEqual(1)
+  expect(block).toHaveProperty("txs")
+  expect(block).toHaveProperty("lastCommit")
+}
+
+function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
     header: ["version", "chain_id", "height", "last_block_id"].concat(
       ["last_commit_hash", "data_hash", "validators_hash", "next_validators_hash"],
@@ -80,7 +104,7 @@ describe("test query module", () => {
     expect(balanceDenoms).toContain("unibi")
   })
 
-  /*  // NOTE dex on hold for public testnet
+  /*  // NOTE The dex module is on hold for public testnet
   test("query dex params - client.dex.params", async () => {
     const { client, disconnect } = await initQuery(NETWORK)
     const { params } = await client.dex.params()
