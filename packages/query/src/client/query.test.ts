@@ -13,7 +13,7 @@ describe("network connections", () => {
   const testNetworkConnection = async (network: Network) => {
     const queryCmd = await initQuery(network)
     const blockHeight = 5
-    const blockResp = await queryCmd.tmClient.block(blockHeight)
+    const blockResp: BlockResponse = await queryCmd.tmClient.block(blockHeight)
     validateBlock(blockResp.block, network)
     queryCmd.disconnect()
   }
