@@ -26,7 +26,6 @@ import { MsgTypeUrls } from "./perp"
 dotenv.config() // yarn add -D dotenv
 
 const VAL_MNEMONIC = process.env.VALIDATOR_MNEMONIC
-const NETWORK = Chaosnet
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
 
 function prettyTmLogs(tmLogs: string): string {
@@ -63,7 +62,7 @@ describe("test tx module", () => {
     expect(VAL_ADDRESS).toBeDefined()
     expect(VAL_MNEMONIC).toBeDefined()
 
-    const sdk = await createSdk(NETWORK, VAL_MNEMONIC!)
+    const sdk = await createSdk(Chaosnet, VAL_MNEMONIC!)
     const [{ address: fromAddr }]: readonly AccountData[] = await sdk.tx.getAccounts()
     expect(fromAddr).toBeDefined()
 
