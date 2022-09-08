@@ -88,8 +88,8 @@ describe("test query module", () => {
   })
 
   test("query bank balances - client.bank.allBalances", async () => {
-    const { client, disconnect } = await initQueryCmd(NETWORK)
-    const balances = await client.bank.allBalances(VAL_ADDRESS)
+    const { client: query, disconnect } = await initQueryCmd(NETWORK)
+    const balances = await query.bank.allBalances(VAL_ADDRESS)
     console.log("balances: %o", balances)
     expect(balances.length).toBeGreaterThan(0)
     expect(+balances[0].amount).toBeGreaterThan(0)
@@ -102,6 +102,7 @@ describe("test query module", () => {
       })
     }
     expect(balanceDenoms).toContain("unibi")
+    disconnect()
   })
 
   /*  // NOTE The dex module is on hold for public testnet

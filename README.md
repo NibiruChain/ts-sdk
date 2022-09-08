@@ -1,6 +1,6 @@
 <!-- # 🌟 nibijs - Nibiru TypeScript SDK -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/NibiruChain/nibijs.png" width="100%">
+<img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibijs.png" width="100%">
 </p>
 
 <p align="center">
@@ -9,7 +9,7 @@ The official TypeScript SDK for the Nibiru blockchain
 
 [![downloads](https://img.shields.io/npm/dm/@nibiruchain/nibijs.svg)](https://www.npmjs.com/package/@nibiruchain/nibijs)
 [![npm-version](https://img.shields.io/npm/v/@nibiruchain/nibijs.svg)](https://www.npmjs.com/package/@nibiruchain/nibijs)
-[![license](https://img.shields.io/npm/l/express.svg)]()
+[![license](https://img.shields.io/npm/l/express.svg)](https://github.com/NibiruChain/ts-sdk/blob/main/LICENSE)
 
 The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions. 
 
@@ -26,12 +26,11 @@ To learn more about Nibiru, see [docs.nibiru.fi](https://docs.nibiru.fi)
 
 ---
 
-
 ## Installation 
 
 [@nibiruchain/nibijs][npm-nibijs] is available on the npm registry.
 
-[npm-nibijs]: https://www.npmjs.com/package/@terra-money/terra.js
+[npm-nibijs]: https://www.npmjs.com/package/@nibiruchain/nibijs
 
 ```
 npm install @nibiruchain/nibijs # or yarn add
@@ -39,7 +38,7 @@ npm install @nibiruchain/nibijs # or yarn add
 
 ## Usage 
 
-The entrypoint for `nibijs` is the `Sdk` object. It's meant to mimic the root of a command line interface and can be used for both queries and transactions.
+The entrypoint for `nibijs` is the `Sdk` object, which is meant to mimic the root of a command line interface. It can be used for both queries and transactions.
 
 #### Example: Querying a block 
 
@@ -132,5 +131,5 @@ This software is licensed under the MIT license. See [LICENSE](./LICENSE) for fu
 © 2022 Nibi, Inc.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/NibiruChain/nibi-logo-onwhite.png" width="300">
+<img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibi-logo-onwhite.png" width="300">
 </p>
