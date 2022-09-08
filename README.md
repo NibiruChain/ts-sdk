@@ -1,31 +1,111 @@
-# 🌟 Nibiru's TypeScript Monorepo
+<!-- # 🌟 nibijs - Nibiru TypeScript SDK -->
+<p align="center">
+<img src="https://raw.githubusercontent.com/NibiruChain/nibijs.png" width="100%">
+</p>
 
-Nibiru Protocol is an integrated system that allows users to trade perpetual futures, swap and LP on AMM pools, and mint or burn stable assets.
+<p align="center">
+The official TypeScript SDK for the Nibiru blockchain
+</p>
 
-`sdk-ts` is a TypeScript monorepo that contains packages which can be used to interact with Nibiru from a Node.js or browser environment and which provide simple abstractions over core data structures, serialization, key management, and API request generation, etc. The packages can be found in the `packages` folder and each package is a `npm` module that is published on the `npm` registry.
+[![downloads](https://img.shields.io/npm/dm/@nibiruchain/nibijs.svg)](https://www.npmjs.com/package/@nibiruchain/nibijs)
+[![npm-version](https://img.shields.io/npm/v/@nibiruchain/nibijs.svg)](https://www.npmjs.com/package/@nibiruchain/nibijs)
+[![license](https://img.shields.io/npm/l/express.svg)]()
+
+The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions. 
+
+The `nibijs` source code can be found in the ["packages" directory](./packages).  The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/api`. 
+
+#### Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Codebase structure](#codebase-structure)
+- [Development Quick Start](#development-quick-start)
+- [🔓 License](#-license)
+
+To learn more about Nibiru, see [docs.nibiru.fi](https://docs.nibiru.fi) 
 
 ---
 
-## 📚 Overview
 
-To get a sense of the packages and their functionality, we are going to list them a provide a simple explanation about their core functionality and how they can be used by developers to build applications on top Nibiru.
+## Installation 
 
-**Detailed documentation and usage can be found within each package's respective folder in the `packages` folder**
+[@nibiruchain/nibijs][npm-nibijs] is available on the npm registry.
 
-- `@nibiruchain/api` provides all the available types from Cosmos and Nibiru Chain. Interaction with this layer directly should be kept to a minimum.
+[npm-nibijs]: https://www.npmjs.com/package/@terra-money/terra.js
 
-- `@nibiruchain/common` is home to several commonly needed types, constants and configurations such as Network.
+```
+npm install @nibiruchain/nibijs # or yarn add
+```
 
-- `@nibiruchain/query` contains abstractions to query state from Cosmos and Nibiru modules.
+## Usage 
 
-- `@nibiruchain/tx` contains abstractions to submit transactions to the various Cosmos and Nibiru modules.
+The entrypoint for `nibijs` is the `Sdk` object. It's meant to mimic the root of a command line interface and can be used for both queries and transactions.
+
+#### Example: Querying a block 
+
+```ts
+import { Testnet, newSdk } from "@nibiruchain/nibijs"
+const sdk = newSdk(Testnet, myMnemonic)
+const blockHeight = 1
+const block = sdk.tmClient.block(blockHeight)
+```
+
+#### Example: Sending funds
+
+```ts
+import { Testnet, newSdk, newCoins, Coin } from "@nibiruchain/nibijs"
+const sdk = newSdk(Testnet, myMnemonic)
+const tokens: Coin[] = newCoins(5, "unibi")
+const toAddr: string = "..." // bech32 address of the receiving party
+let txResp = sdk.tx.sendTokens(toAddr, tokens)
+```
+
+#### Example: Transaction with arbitrary messages
+
+```ts
+import { Testnet, newSdk, newCoins, Coin, DeliverTxResponse } from "@nibiruchain/nibijs"
+import { Msg } from "@nibiruchain/nibijs/msg"
+
+const sdk = newSdk(Testnet, myMnemonic)
+let msgs: TxMessage[] = [
+  Msg.perp.openPosition({
+    tokenPair: pair,
+    baseAssetAmountLimit: "0",
+    leverage: "1",
+    quoteAssetAmount: "10",
+    sender: fromAddr,
+    side: Side.BUY,
+  }),
+  Msg.perp.addMargin({
+    sender: fromAddr,
+    tokenPair: pair,
+    margin: newCoin("20", "unusd"),
+  }),
+]
+let txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(...msgs)
+```
+
+## Codebase structure
+
+| Directories of `@nibiruchain/nibijs` | Purpose/Utility |
+| :-------- | -------- |
+| `common` | home to several commonly needed types, constants and configurations such as Network.
+| `msg`    | Implements functions for creating messages (`Msg`s). These are objects that trigger state-transitions and get wrapped into transactions. 
+| `query`  | For querying state via the consensus engine of a full-node and the application blockchain interface (ABCI).
+| `tx`     | For signing and to submitting transactions given a set of `Msg` objects.
+| `wallet` | A simple wrapper around the Keplr wallet. This module will grow as support is added for other wallets (like MetaMask). |
+
+`@nibiruchain/api` provides types generated from the protocol buffers of the Cosmos-SDK, Tendermint Core, and Nibiru Chain. For most use cases, it won't be necessary to interact with this layer.
 
 ---
 
-## 📜 Contribution and Development Instructions
+<!-- 
+## 📜 Contribution Guidelines  
 
+TODO
+-->
 
-#### Quick Start 
+## Development Quick Start 
 
 1. First install yarn.
     ```sh
@@ -48,3 +128,9 @@ See [HACKING.md](./HACKING.md) for the full development guide.
 ## 🔓 License
 
 This software is licensed under the MIT license. See [LICENSE](./LICENSE) for full disclosure.
+
+© 2022 Nibi, Inc.
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/NibiruChain/nibi-logo-onwhite.png" width="300">
+</p>

@@ -36,7 +36,8 @@ export async function newSdk(network: Network, mnemonic: string): Promise<Sdk> {
  * ```ts
  * import { Testnet, newSdk } from "@nibiruchain/nibijs"
  * const sdk = newSdk(Testnet, myMnemonic)
- * const block = sdk.tmClient.block(1)
+ * const blockHeight = 1
+ * const block = sdk.tmClient.block(blockHeight)
  * ```
  *
  * @example sending funds

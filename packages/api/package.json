@@ -1,6 +1,6 @@
 {
   "name": "@nibiruchain/api",
-  "description": "Types to interact with the Nibiru Chain",
+  "description": "Protobuf-generated types for Nibiru Chain",
   "version": "0.1.2",
   "license": "MIT",
   "main": "dist/index.js",
