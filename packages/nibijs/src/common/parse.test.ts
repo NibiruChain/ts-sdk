@@ -1,4 +1,4 @@
-import { toSdkDec, fromSdkDec } from "./utils"
+import { toSdkDec, fromSdkDec } from "./parse"
 
 interface TestCases {
   name: string

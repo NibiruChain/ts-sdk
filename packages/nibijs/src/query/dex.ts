@@ -1,9 +1,9 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
+import * as pb from "@nibiruchain/api/src/dex/v1/pool"
 import * as qpb from "@nibiruchain/api/src/dex/v1/query"
-import { PageRequest, Coin, fromSdkDec } from "../common"
-import * as pbPool from "@nibiruchain/api/src/dex/v1/pool"
+import { Coin, fromSdkDec } from "../common"
 
-function transformPoolParams(pp?: pbPool.PoolParams): pbPool.PoolParams | undefined {
+function transformPoolParams(pp?: pb.PoolParams): pb.PoolParams | undefined {
   if (pp) {
     pp.swapFee = fromSdkDec(pp?.swapFee).toString()
     pp.exitFee = fromSdkDec(pp?.exitFee).toString()
@@ -11,7 +11,7 @@ function transformPoolParams(pp?: pbPool.PoolParams): pbPool.PoolParams | undefi
   return pp
 }
 
-function transformPool(p?: pbPool.Pool): pbPool.Pool | undefined {
+function transformPool(p?: pb.Pool): pb.Pool | undefined {
   if (!p) {
     return p
   }
@@ -174,4 +174,47 @@ export function setupDexExtension(base: QueryClient): DexExtension {
       },
     },
   }
+}
+
+/**
+ * An offset pagination request.
+ *
+ * Pagination is the process of dividing a document into discrete pages.
+ * Pagination in the context of API requests resembles this process.
+ *
+ * @export
+ * @interface PageRequest
+ * @typedef {PageRequest}
+ */
+export interface PageRequest {
+  /**
+   * key is a value returned in PageResponse.next_key to begin
+   * querying the next page most efficiently. Only one of offset or key
+   * should be set.
+   */
+  key: Uint8Array
+  /**
+   * offset is a numeric offset that can be used when key is unavailable.
+   * It is less efficient than using key. Only one of offset or key should
+   * be set.
+   */
+  offset: number
+  /**
+   * limit is the total number of results to be returned in the result page.
+   * If left empty it will default to a value to be set by each app.
+   */
+  limit: number
+  /**
+   * count_total is set to true  to indicate that the result set should include
+   * a count of the total number of items available for pagination in UIs.
+   * count_total is only respected when offset is used. It is ignored when key
+   * is set.
+   */
+  countTotal: boolean
+  /**
+   * reverse is set to true if results are to be returned in the descending order.
+   *
+   * Since: cosmos-sdk 0.43
+   */
+  reverse: boolean
 }

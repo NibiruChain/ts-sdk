@@ -6,7 +6,7 @@ import {
   AuthExtension,
 } from "@cosmjs/stargate"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
-import { network } from "../common"
+import { Network } from "../common"
 import { setupDexExtension, DexExtension } from "./dex"
 import { setupPerpExtension, PerpExtension } from "./perp"
 
@@ -42,7 +42,7 @@ export class QueryCmd implements IQueryCmd {
   }
 }
 
-export async function initQueryCmd(network: network.Network): Promise<QueryCmd> {
+export async function initQueryCmd(network: Network): Promise<QueryCmd> {
   const tmClient = await Tendermint34Client.connect(network.endptTm)
   return new QueryCmd(tmClient)
 }

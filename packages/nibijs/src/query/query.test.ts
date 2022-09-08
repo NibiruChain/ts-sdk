@@ -1,4 +1,4 @@
-import { network } from "../common"
+import * as network from "../common"
 import { initQueryCmd } from "./query"
 import fetch from "node-fetch"
 import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"

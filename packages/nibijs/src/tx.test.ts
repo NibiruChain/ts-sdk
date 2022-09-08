@@ -2,26 +2,19 @@
  * @fileoverview Tests transactions with a signing client.
  *
  * Modules and Methods tested:
- * - perp
- * - bank send
+ * - perp module
+ * - bank module | TODO MultiSend
  */
-import { Chaosnet } from "../common"
-import { initQueryCmd } from "../query"
+import { Chaosnet } from "./common"
 import { Side } from "@nibiruchain/api/src/perp/v1/state"
-import {
-  AccountData,
-  coin,
-  coins,
-  DirectSecp256k1HdWallet,
-} from "@cosmjs/proto-signing"
+import { AccountData, newCoin, newCoins, DirectSecp256k1HdWallet } from "./common/types"
 import * as dotenv from "dotenv"
-import { DexComposer, PerpComposer } from "."
-import { generateWallet, msgSend, TxMessage } from "./common"
-import { initTx, TxCmd } from "./tx"
-import { createSdk } from "../sdk"
+import { Msg, TxMessage } from "./msg"
+import { newRandomWallet } from "./tx"
+import { newSdk } from "./sdk"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
 import { QueryTraderPositionResponse } from "@nibiruchain/api/src/perp/v1/query"
-import { MsgTypeUrls } from "./perp"
+import { PerpMsgTypeUrls } from "./msg/perp"
 
 dotenv.config() // yarn add -D dotenv
 
@@ -37,7 +30,7 @@ function expectTxToSucceed(txResp: DeliverTxResponse) {
   assertIsDeliverTxSuccess(txResp)
 }
 
-function eventTypesForMsg(
+function eventTypesForPerpMsg(
   msgType: string,
   events: { type: string; attributes: any[] }[],
 ): string[] {
@@ -46,7 +39,7 @@ function eventTypesForMsg(
     if (eventType == "message") {
       expect(events[eventIdx].attributes).toContainEqual({
         key: "action",
-        value: MsgTypeUrls[msgType],
+        value: PerpMsgTypeUrls[msgType],
       })
     }
   })
@@ -62,16 +55,16 @@ describe("test tx module", () => {
     expect(VAL_ADDRESS).toBeDefined()
     expect(VAL_MNEMONIC).toBeDefined()
 
-    const sdk = await createSdk(Chaosnet, VAL_MNEMONIC!)
+    const sdk = await newSdk(Chaosnet, VAL_MNEMONIC!)
     const [{ address: fromAddr }]: readonly AccountData[] = await sdk.tx.getAccounts()
     expect(fromAddr).toBeDefined()
 
-    const toWallet: DirectSecp256k1HdWallet = await generateWallet()
+    const toWallet: DirectSecp256k1HdWallet = await newRandomWallet()
     const [{ address: toAddr }] = await toWallet.getAccounts()
-    const tokens = coins(5, "unibi")
+    const tokens = newCoins(5, "unibi")
     const gasUsed = await sdk.tx.client.simulate(
       /*signerAddress*/ fromAddr,
-      /*messages*/ [msgSend(fromAddr, toAddr, tokens)],
+      /*messages*/ [Msg.bank.Send(fromAddr, toAddr, tokens)],
       /*memo*/ "example memo", // undefined,
     )
     expect(gasUsed).toBeGreaterThan(0)
@@ -95,11 +88,11 @@ describe("test tx module", () => {
 
 describe("perp module transactions", () => {
   test("open-position, add-margin, remove-margin, close-position", async () => {
-    const sdk = await createSdk(Chaosnet, VAL_MNEMONIC!)
+    const sdk = await newSdk(Chaosnet, VAL_MNEMONIC!)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const pair = "ubtc:unusd"
     let msgs: TxMessage[] = [
-      PerpComposer.openPosition({
+      Msg.perp.openPosition({
         tokenPair: pair,
         baseAssetAmountLimit: "0",
         leverage: "1",
@@ -107,15 +100,15 @@ describe("perp module transactions", () => {
         sender: fromAddr,
         side: Side.BUY,
       }),
-      PerpComposer.addMargin({
+      Msg.perp.addMargin({
         sender: fromAddr,
         tokenPair: pair,
-        margin: coin("20", "unusd"),
+        margin: newCoin("20", "unusd"),
       }),
-      PerpComposer.removeMargin({
+      Msg.perp.removeMargin({
         tokenPair: pair,
         sender: fromAddr,
-        margin: coin("5", "unusd"),
+        margin: newCoin("5", "unusd"),
       }),
       // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
     ]
@@ -124,10 +117,9 @@ describe("perp module transactions", () => {
 
     const txLogs: TxLog[] = JSON.parse(prettyTmLogs(txResp.rawLog!))
     console.debug(JSON.stringify(txLogs))
-    // console.debug(JSON.stringify(txLogs, null, 2))
 
     // perp tx open-position events
-    let eventTypes: string[] = eventTypesForMsg("MsgOpenPosition", txLogs[0].events)
+    let eventTypes: string[] = eventTypesForPerpMsg("MsgOpenPosition", txLogs[0].events)
     expect(eventTypes).toContain("nibiru.vpool.v1.SwapQuoteForBaseEvent")
     expect(eventTypes).toContain("nibiru.vpool.v1.ReserveSnapshotSavedEvent")
     expect(eventTypes).toContain("nibiru.vpool.v1.MarkPriceChanged")
@@ -135,23 +127,21 @@ describe("perp module transactions", () => {
     expect(eventTypes).toContain("transfer")
 
     // perp tx add-margin events
-    eventTypes = eventTypesForMsg("MsgAddMargin", txLogs[1].events)
+    eventTypes = eventTypesForPerpMsg("MsgAddMargin", txLogs[1].events)
     expect(eventTypes).not.toContain("nibiru.vpool.v1.MarkPriceChanged")
     expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
     expect(eventTypes).toContain("transfer")
 
     // perp tx remove-margin events
-    eventTypes = eventTypesForMsg("MsgRemoveMargin", txLogs[2].events)
+    eventTypes = eventTypesForPerpMsg("MsgRemoveMargin", txLogs[2].events)
     expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
     expect(eventTypes).toContain("transfer")
 
     // Query and validate the trader's position
-    const queryCmd = await initQueryCmd(Chaosnet)
-    let queryResp: QueryTraderPositionResponse =
-      await queryCmd.client.perp.traderPosition({
-        tokenPair: pair,
-        trader: fromAddr,
-      })
+    let queryResp: QueryTraderPositionResponse = await sdk.query.perp.traderPosition({
+      tokenPair: pair,
+      trader: fromAddr,
+    })
     const fields = [
       queryResp.blockNumber,
       queryResp.position,
@@ -163,7 +153,7 @@ describe("perp module transactions", () => {
     fields.forEach((val) => expect(val).toBeDefined())
 
     // close the position
-    msgs = [PerpComposer.closePosition({ sender: fromAddr, tokenPair: pair })]
+    msgs = [Msg.perp.closePosition({ sender: fromAddr, tokenPair: pair })]
     txResp = await sdk.tx.signAndBroadcast(...msgs)
     expectTxToSucceed(txResp)
   }, 14_000 /* This test takes roughly 12 seconds, so the default timeout is not sufficient. */)
@@ -182,7 +172,7 @@ describe("perp module transactions", () => {
     const client = await initTx(Chaosnet, VAL_MNEMONIC)
     const [{ address: fromAddr }] = await client.getAccounts()
     const txResp = await client.signAndBroadcast(
-      DexComposer.createPool({
+      DexMsgs.createPool({
         creator: fromAddr,
         poolAssets: [
           {

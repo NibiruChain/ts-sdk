@@ -2,9 +2,10 @@ import { SigningStargateClient, calculateFee, GasPrice, StdFee } from "@cosmjs/s
 import { GAS_PRICE, Network } from "../common"
 import { AccountData, Coin, OfflineDirectSigner, Registry } from "@cosmjs/proto-signing"
 import { getKeplr, Keplr } from "../wallet"
-import { registerTypes as registerDex } from "./dex"
-import { registerTypes as registerPerp } from "./perp"
-import { getRegistry, TxMessage, fromMnemonic } from "./common"
+import { registerTypes as registerDex } from "../msg/dex"
+import { registerTypes as registerPerp } from "../msg/perp"
+import { getRegistry, newWalletFromMnemonic } from "./signer"
+import { TxMessage } from "../msg/types"
 
 export type Address = string
 
@@ -81,7 +82,7 @@ async function getSigner(network: Network, mnemonic: string) {
     const keplr: Keplr = await getKeplr(network)
     return keplr.getOfflineSigner(network.chainId)
   }
-  return fromMnemonic(mnemonic)
+  return newWalletFromMnemonic(mnemonic)
 }
 
 export async function initTx(network: Network, mnemonic = ""): Promise<TxCmd> {

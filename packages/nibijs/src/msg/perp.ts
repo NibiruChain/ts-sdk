@@ -1,13 +1,9 @@
-import { GeneratedType, Registry } from "@cosmjs/proto-signing"
+import { Registry } from "@cosmjs/proto-signing"
 import * as pb from "@nibiruchain/api/src/perp/v1/tx"
-import { TxMessage } from "./common"
+import { TxMessage, MsgTypeUrls } from "./types"
 import { toSdkDec, toSdkInt } from "../common"
 
-interface MsgTypeUrl {
-  [msg: string]: string
-}
-
-export const MsgTypeUrls: MsgTypeUrl = {
+export const PerpMsgTypeUrls: MsgTypeUrls = {
   MsgAddMargin: `/${pb.protobufPackage}.MsgAddMargin`,
   MsgRemoveMargin: `/${pb.protobufPackage}.MsgRemoveMargin`,
   MsgLiquidate: `/${pb.protobufPackage}.MsgLiquidate`,
@@ -16,18 +12,18 @@ export const MsgTypeUrls: MsgTypeUrl = {
 }
 
 export function registerTypes(registry: Registry) {
-  registry.register(MsgTypeUrls.MsgRemoveMargin, pb.MsgRemoveMargin)
-  registry.register(MsgTypeUrls.MsgAddMargin, pb.MsgAddMargin)
-  registry.register(MsgTypeUrls.MsgLiquidate, pb.MsgLiquidate)
-  registry.register(MsgTypeUrls.MsgOpenPosition, pb.MsgOpenPosition)
-  registry.register(MsgTypeUrls.MsgClosePosition, pb.MsgClosePosition)
+  registry.register(PerpMsgTypeUrls.MsgRemoveMargin, pb.MsgRemoveMargin)
+  registry.register(PerpMsgTypeUrls.MsgAddMargin, pb.MsgAddMargin)
+  registry.register(PerpMsgTypeUrls.MsgLiquidate, pb.MsgLiquidate)
+  registry.register(PerpMsgTypeUrls.MsgOpenPosition, pb.MsgOpenPosition)
+  registry.register(PerpMsgTypeUrls.MsgClosePosition, pb.MsgClosePosition)
   return registry
 }
 
-export class PerpComposer {
+export class PerpMsgs {
   static removeMargin(msg: pb.MsgRemoveMargin): TxMessage {
     return {
-      typeUrl: MsgTypeUrls.MsgRemoveMargin,
+      typeUrl: PerpMsgTypeUrls.MsgRemoveMargin,
       value: pb.MsgRemoveMargin.fromPartial(msg),
     }
   }
@@ -41,14 +37,14 @@ export class PerpComposer {
    */
   static addMargin(msg: pb.MsgAddMargin): TxMessage {
     return {
-      typeUrl: MsgTypeUrls.MsgAddMargin,
+      typeUrl: PerpMsgTypeUrls.MsgAddMargin,
       value: pb.MsgAddMargin.fromPartial(msg),
     }
   }
 
   static liquidate(msg: pb.MsgLiquidate): TxMessage {
     return {
-      typeUrl: MsgTypeUrls.MsgLiquidate,
+      typeUrl: PerpMsgTypeUrls.MsgLiquidate,
       value: pb.MsgLiquidate.fromPartial(msg),
     }
   }
@@ -59,14 +55,14 @@ export class PerpComposer {
     msg.baseAssetAmountLimit = toSdkInt(baseAssetAmountLimit)
     msg.leverage = toSdkDec(leverage)
     return {
-      typeUrl: MsgTypeUrls.MsgOpenPosition,
+      typeUrl: PerpMsgTypeUrls.MsgOpenPosition,
       value: pb.MsgOpenPosition.fromPartial(msg),
     }
   }
 
   static closePosition(msg: pb.MsgClosePosition): TxMessage {
     return {
-      typeUrl: MsgTypeUrls.MsgClosePosition,
+      typeUrl: PerpMsgTypeUrls.MsgClosePosition,
       value: pb.MsgClosePosition.fromPartial(msg),
     }
   }
