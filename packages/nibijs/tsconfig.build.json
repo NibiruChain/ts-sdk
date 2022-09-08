@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "tsBuildInfoFile": "../../.build-cache/sdk-ts.tsbuildinfo",
+    "composite": true
+  },
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "references": [ 
+    {
+      "path": "../api"
+    }
+  ]
+}

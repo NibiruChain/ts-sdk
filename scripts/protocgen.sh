@@ -2,10 +2,25 @@
 
 set -eo pipefail
 
-rm -rf proto
-mkdir -p proto
-cp -r ../nibiru/proto/ proto/
-echo "Copied protos"
+# NIBIRU_REPO: local directory for the NibiruChain/nibiru repo
+NIBIRU_REPO="../nibiru"    
+# OUT_DIR:     
+OUT_DIR="./packages/api/src"
+
+check_for_nibiru_repo() {
+  if [ ! -d $NIBIRU_REPO/proto ]; then 
+    echo "Missing Nibiru protos expected in the $NIBIRU_REPO/proto directory"
+    echo "current dir: $(pwd)"
+    return 1
+  fi
+}
+
+copy_protos_from_nibiru_repo() {
+  echo "Copying protos from the 'nibiru' repo"
+  rm -rf proto
+  mkdir -p proto
+  cp -r $NIBIRU_REPO/proto/ proto/
+}
 
 protoc_gen_gocosmos() {
   if ! grep "github.com/gogo/protobuf => github.com/regen-network/protobuf" go.mod &>/dev/null; then
@@ -24,14 +39,21 @@ skip_line() {
   printf "\n--------------------------------------------------\n"
 }
 
-echo "grabbing cosmos-sdk proto file locations from disk"
+# -----------------------------------------------------------------------------
+# Beginning of Script Execution
+# -----------------------------------------------------------------------------
+
+check_for_nibiru_repo
+copy_protos_from_nibiru_repo
+
+echo "Grabbing cosmos-sdk proto file locations from disk"
 echo "current dir: $(pwd)"
 cd ../nibiru;
 protoc_gen_gocosmos
 cosmos_sdk_dir=$(go list -f '{{ .Dir }}' -m github.com/cosmos/cosmos-sdk)
 
 skip_line
-echo "grab all of the proto directories"
+echo "Grabbing all of the Cosmos-SDK and third party protos"
 echo "current dir: $(pwd)"
 cd -;
 echo "current dir: $(pwd)"
@@ -42,13 +64,11 @@ for dir in $proto_dirs; do \
 done;
 
 skip_line
-OUT_DIR=./packages/api/src
 echo "Clearing $OUT_DIR"
 rm -rf $OUT_DIR/*
 
 skip_line
 for dir in $proto_dirs; do \
-  # echo "generating $dir"
   string=$dir
   prefix=$HOME/go/pkg/mod/github.com
   prefix_removed_string=${string/#$prefix}
