@@ -1,13 +1,22 @@
 import { SigningStargateClient, calculateFee, GasPrice, StdFee } from "@cosmjs/stargate"
 import { GAS_PRICE, Network } from "../common"
-import { AccountData, Coin, OfflineDirectSigner, Registry } from "@cosmjs/proto-signing"
-import { getKeplr, Keplr } from "../wallet"
+import {
+  AccountData,
+  Coin,
+  DirectSecp256k1HdWallet,
+  OfflineDirectSigner,
+  OfflineSigner,
+  Registry,
+} from "@cosmjs/proto-signing"
 import { registerTypes as registerDex } from "../msg/dex"
 import { registerTypes as registerPerp } from "../msg/perp"
-import { getRegistry, newWalletFromMnemonic } from "./signer"
+import { getRegistry } from "./signer"
 import { TxMessage } from "../msg/types"
 
 export type Address = string
+export type CosmosSigner =
+  | (OfflineSigner & OfflineDirectSigner)
+  | DirectSecp256k1HdWallet
 
 /**
  * TODO docs
@@ -77,22 +86,15 @@ function registerModules(): Registry {
   return registry
 }
 
-async function getSigner(network: Network, mnemonic: string) {
-  if (mnemonic === "") {
-    const keplr: Keplr = await getKeplr(network)
-    return keplr.getOfflineSigner(network.chainId)
-  }
-  return newWalletFromMnemonic(mnemonic)
-}
-
-export async function initTx(network: Network, mnemonic = ""): Promise<TxCmd> {
+export async function newTxCmd(
+  network: Network,
+  signer: (OfflineSigner & OfflineDirectSigner) | DirectSecp256k1HdWallet,
+): Promise<TxCmd> {
   const registry = registerModules()
-  const offlineSigner = await getSigner(network, mnemonic)
-
   const client = await SigningStargateClient.connectWithSigner(
     network.endptTm, // may need endptGrpc
-    offlineSigner,
+    signer,
     { registry },
   )
-  return new TxCmd(client, offlineSigner)
+  return new TxCmd(client, signer)
 }
