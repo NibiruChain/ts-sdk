@@ -8,7 +8,7 @@
 
 import { Network } from "./common"
 import { ExtendedQueryClient, initQueryCmd, QueryCmd } from "./query"
-import { initTx, TxCmd } from "./tx"
+import { newSignerFromMnemonic, newTxCmd, TxCmd } from "./tx"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 
 /**
@@ -22,9 +22,17 @@ import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
  * @returns {Promise<Sdk>}
  */
 export async function newSdk(network: Network, mnemonic: string): Promise<Sdk> {
-  const txCmd = await initTx(network, mnemonic)
+  const signer = await newSignerFromMnemonic(mnemonic)
+  const txCmd = await newTxCmd(network, signer)
   const queryCmd = await initQueryCmd(network)
   return new Sdk({ network, txCmd, queryCmd })
+}
+
+export interface ISdk {
+  network: Network
+  tx: TxCmd
+  query: ExtendedQueryClient
+  tmClient: Tendermint34Client
 }
 
 /**
@@ -49,7 +57,7 @@ export async function newSdk(network: Network, mnemonic: string): Promise<Sdk> {
  * let txResp = sdk.tx.sendTokens(toAddr, tokens)
  * ```
  */
-class Sdk {
+class Sdk implements ISdk {
   network: Network
   tx: TxCmd
   query: ExtendedQueryClient

@@ -1,6 +1,12 @@
-import { Registry, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
+import {
+  Registry,
+  DirectSecp256k1HdWallet,
+  OfflineSigner,
+  OfflineDirectSigner,
+} from "@cosmjs/proto-signing"
 import { defaultRegistryTypes as defaultStargateTypes } from "@cosmjs/stargate"
 import { BECH32_ADDR_ACC_PREFIX } from "../common"
+import { Keplr } from "../wallet"
 
 export function getRegistry() {
   return new Registry(defaultStargateTypes)
@@ -14,11 +20,18 @@ export function getRegistry() {
  * @param prefix - (optional) Bech32 address prefix. Defaults to "nibi".
  * @returns A wallet for protobuf based signing using SIGN_MODE_DIRECT
  */
-export async function newWalletFromMnemonic(
+export async function newSignerFromMnemonic(
   mnemonic: string,
   prefix = BECH32_ADDR_ACC_PREFIX,
 ): Promise<DirectSecp256k1HdWallet> {
   return DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix })
+}
+
+function newSignerFromKeplr(
+  keplr: Keplr,
+  chainId: string,
+): OfflineSigner & OfflineDirectSigner {
+  return keplr.getOfflineSigner(chainId)
 }
 
 /**

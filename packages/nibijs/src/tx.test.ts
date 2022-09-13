@@ -169,7 +169,7 @@ describe("perp module transactions", () => {
 /* 
   // NOTE commented out dex commands until public testnet
   test("dex create pool", async () => {
-    const client = await initTx(Chaosnet, VAL_MNEMONIC)
+    const client = await newTxCmd(Chaosnet, VAL_MNEMONIC)
     const [{ address: fromAddr }] = await client.getAccounts()
     const txResp = await client.signAndBroadcast(
       DexMsgs.createPool({
