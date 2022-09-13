@@ -1,14 +1,11 @@
 /**
- * @fileoverview High-level description of the file.
+ * @fileoverview Implements the 'Sdk' object, the main entrypoint to the
+ * Nibiru TypeScript SDK. The SDK is accessible from the 'newSdk' function.
  *
- *
- * - item 0
- * - item 1
  */
-
 import { Network } from "./common"
 import { ExtendedQueryClient, initQueryCmd, QueryCmd } from "./query"
-import { newSignerFromMnemonic, newTxCmd, TxCmd } from "./tx"
+import { CosmosSigner, newTxCmd, TxCmd } from "./tx"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 
 /**
@@ -18,11 +15,10 @@ import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
  * mnemonic. The querier and Tendermint client will still function normally.
  *
  * @param {Network} network
- * @param {string} mnemonic
+ * @param {CosmosSigner} signer
  * @returns {Promise<Sdk>}
  */
-export async function newSdk(network: Network, mnemonic: string): Promise<Sdk> {
-  const signer = await newSignerFromMnemonic(mnemonic)
+export async function newSdk(network: Network, signer: CosmosSigner): Promise<Sdk> {
   const txCmd = await newTxCmd(network, signer)
   const queryCmd = await initQueryCmd(network)
   return new Sdk({ network, txCmd, queryCmd })

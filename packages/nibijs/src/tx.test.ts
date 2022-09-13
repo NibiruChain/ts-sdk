@@ -10,7 +10,7 @@ import { Side } from "@nibiruchain/api/src/perp/v1/state"
 import { AccountData, newCoin, newCoins, DirectSecp256k1HdWallet } from "./common/types"
 import * as dotenv from "dotenv"
 import { Msg, TxMessage } from "./msg"
-import { newRandomWallet } from "./tx"
+import { newRandomWallet, newSignerFromMnemonic } from "./tx"
 import { newSdk } from "./sdk"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
 import { QueryTraderPositionResponse } from "@nibiruchain/api/src/perp/v1/query"
@@ -55,7 +55,8 @@ describe("test tx module", () => {
     expect(VAL_ADDRESS).toBeDefined()
     expect(VAL_MNEMONIC).toBeDefined()
 
-    const sdk = await newSdk(Chaosnet, VAL_MNEMONIC!)
+    const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
+    const sdk = await newSdk(Chaosnet, signer)
     const [{ address: fromAddr }]: readonly AccountData[] = await sdk.tx.getAccounts()
     expect(fromAddr).toBeDefined()
 
@@ -88,7 +89,8 @@ describe("test tx module", () => {
 
 describe("perp module transactions", () => {
   test("open-position, add-margin, remove-margin, close-position", async () => {
-    const sdk = await newSdk(Chaosnet, VAL_MNEMONIC!)
+    const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
+    const sdk = await newSdk(Chaosnet, signer)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const pair = "ubtc:unusd"
     let msgs: TxMessage[] = [

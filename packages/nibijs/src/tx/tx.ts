@@ -8,13 +8,15 @@ import {
   OfflineSigner,
   Registry,
 } from "@cosmjs/proto-signing"
-import { getKeplr, Keplr } from "../wallet"
 import { registerTypes as registerDex } from "../msg/dex"
 import { registerTypes as registerPerp } from "../msg/perp"
-import { getRegistry, newSignerFromMnemonic } from "./signer"
+import { getRegistry } from "./signer"
 import { TxMessage } from "../msg/types"
 
 export type Address = string
+export type CosmosSigner =
+  | (OfflineSigner & OfflineDirectSigner)
+  | DirectSecp256k1HdWallet
 
 /**
  * TODO docs
