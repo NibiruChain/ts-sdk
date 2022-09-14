@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/nibijs",
   "description": "The TypeScript SDK for the Nibiru blockchain.",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,7 +32,7 @@
     "@cosmjs/stargate": "^0.28.11",
     "@cosmjs/tendermint-rpc": "^0.28.11",
     "@keplr-wallet/types": "^0.10.13",
-    "@nibiruchain/api": "^0.1.2"
+    "@nibiruchain/api": "^0.2.0"
   },
   "devDependencies": {
     "@types/node-fetch": "^2.6.2",
