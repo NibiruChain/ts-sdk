@@ -6,14 +6,14 @@
  * - bank module | TODO MultiSend
  */
 import { Chaosnet } from "./common"
-import { Side } from "@nibiruchain/api/src/perp/v1/state"
+import { Side } from "@nibiruchain/api/dist/perp/v1/state"
 import { AccountData, newCoin, newCoins, DirectSecp256k1HdWallet } from "./common/types"
 import * as dotenv from "dotenv"
 import { Msg, TxMessage } from "./msg"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
 import { newSdk } from "./sdk"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
-import { QueryTraderPositionResponse } from "@nibiruchain/api/src/perp/v1/query"
+import { QueryTraderPositionResponse } from "@nibiruchain/api/dist/perp/v1/query"
 import { PerpMsgTypeUrls } from "./msg/perp"
 
 dotenv.config() // yarn add -D dotenv

@@ -27,7 +27,7 @@ export async function newSignerFromMnemonic(
   return DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix })
 }
 
-function newSignerFromKeplr(
+export function newSignerFromKeplr(
   keplr: Keplr,
   chainId: string,
 ): OfflineSigner & OfflineDirectSigner {
