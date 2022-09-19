@@ -22,6 +22,34 @@ export interface IQueryCmd {
   disconnect: () => void
 }
 
+export async function waitForNextBlock(chain: Chain): Promise<void> {
+  const queryCmd = await initQueryCmd(chain)
+  const getLatestBlockHeight = async () =>
+    (await queryCmd.tmClient.abciInfo()).lastBlockHeight
+  const startBlock = await getLatestBlockHeight()
+  while (startBlock! >= (await getLatestBlockHeight())!) {
+    await new Promise((resolve) => setTimeout(resolve, 300))
+  }
+}
+
+export async function waitForBlockHeight(args: {
+  chain: Chain
+  height: number
+}): Promise<void> {
+  const { chain, height } = args
+  const queryCmd = await initQueryCmd(chain)
+  const getLatestBlockHeight = async () =>
+    (await queryCmd.tmClient.abciInfo()).lastBlockHeight
+
+  if (height < (await getLatestBlockHeight())!) {
+    return
+  } else {
+    while ((await getLatestBlockHeight())! < height) {
+      await new Promise((resolve) => setTimeout(resolve, 300))
+    }
+  }
+}
+
 export class QueryCmd implements IQueryCmd {
   client: ExtendedQueryClient
   tmClient: Tendermint34Client
@@ -37,7 +65,7 @@ export class QueryCmd implements IQueryCmd {
     )
   }
 
-  disconnect = () => {
+  disconnect = (): void => {
     this.tmClient.disconnect()
   }
 }
