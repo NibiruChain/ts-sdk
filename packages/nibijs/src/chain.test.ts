@@ -1,4 +1,4 @@
-import { setupAuthExtension, SigningStargateClient } from "@cosmjs/stargate"
+import { SigningStargateClient } from "@cosmjs/stargate"
 import {
   Chain,
   Coin,
@@ -12,11 +12,12 @@ import {
   Testnet,
   useFaucet,
   WalletHD,
+  assert,
 } from "./chain"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
 import { newSdk } from "./sdk"
-import { initQueryCmd } from "./query/query"
+import { initQueryCmd, waitForBlockHeight, waitForNextBlock } from "./query/query"
 import { Msg } from "./msg"
 
 describe("chain connections", () => {
@@ -55,7 +56,10 @@ describe("chain connections", () => {
 })
 
 test("faucet utility works", async () => {
-  const setup = async (): Promise<string> => {
+  const setupFaucetTest = async (): Promise<{
+    toAddr: string
+    blockHeight: number
+  }> => {
     const wallet: WalletHD = await newRandomWallet()
     const [{ address: toAddr }] = await wallet.getAccounts()
     const valMnemonic = process.env.VALIDATOR_MNEMONIC
@@ -76,12 +80,13 @@ test("faucet utility works", async () => {
       .sendTokens(toAddr, tokens)
     expect(txResp).not.toBeNull()
     assertIsDeliverTxSuccess(txResp)
-    return toAddr
+    return { toAddr, blockHeight: txResp.height }
   }
 
-  let address: string = await setup()
+  let { toAddr: address, blockHeight: setupBlockHeight } = await setupFaucetTest()
 
   const chain = Testnet
+  await waitForBlockHeight({ chain, height: setupBlockHeight + 1 })
   const queryCmd = await initQueryCmd(chain)
   const balancesStart = newCoinMapFromCoins(
     await queryCmd.client.bank.allBalances(address),
@@ -95,14 +100,13 @@ test("faucet utility works", async () => {
   console.log("DEBUG balancesStart:", balancesStart)
 
   await useFaucet(address)
-  await new Promise((r) => setTimeout(r, 2200))
 
   const balances = newCoinMapFromCoins(await queryCmd.client.bank.allBalances(address))
   console.log("DEBUG balances:", balances)
   // Expect to receive 10 NIBI and 100_000 NUSD
   expect(balances["unusd"] - balancesStart["unusd"]).toEqual(100_000 * 1_000_000)
   expect(balances["unibi"] - balancesStart["unibi"]).toEqual(10 * 1_000_000)
-}, 32_000) // 32 seconds
+}, 50_000) // 50 seconds
 
 describe("chain/types", () => {
   const coinsIn: Coin[] = [
@@ -114,7 +118,12 @@ describe("chain/types", () => {
     const coins: CoinMap = newCoinMapFromCoins(coinsIn)
     expect(coins).toHaveProperty("unusd", 10)
     expect(coins).toHaveProperty("unibi", 50)
-    expect(coins).not.toHaveProperty("unibi", 42.42)
     expect(coins).toHaveProperty("uatom", 42)
   })
+})
+
+test("custom assert fn", () => {
+  expect(() => assert(false)).toThrow()
+  const err = "useful error message"
+  expect(() => assert(false, err)).toThrowError(err)
 })

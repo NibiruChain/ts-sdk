@@ -16,9 +16,10 @@ export async function go<T>(promise: Promise<T>): Promise<[T | undefined, any]> 
   }
 }
 
-export function assert(condition: boolean, message: string) {
+export function assert(condition: boolean, message?: string) {
   if (!condition) {
-    throw new Error(message || "AssertionError")
+    const errMsg = message ? "AssertionError: " + message : "AssertionError"
+    throw new Error(errMsg)
   }
 }
 
