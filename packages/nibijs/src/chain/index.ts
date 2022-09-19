@@ -1,4 +1,4 @@
 export * from "./constants"
-export * from "./network"
+export * from "./chain"
 export * from "./parse"
 export * from "./types"

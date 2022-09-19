@@ -3,7 +3,7 @@
  * Nibiru TypeScript SDK. The SDK is accessible from the 'newSdk' function.
  *
  */
-import { Network } from "./common"
+import { Chain } from "./chain"
 import { ExtendedQueryClient, initQueryCmd, QueryCmd } from "./query"
 import { CosmosSigner, newTxCmd, TxCmd } from "./tx"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
@@ -14,18 +14,18 @@ import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
  * If transaction signing is not needed, simply pass an empty string for the
  * mnemonic. The querier and Tendermint client will still function normally.
  *
- * @param {Network} network
+ * @param {Chain} chain
  * @param {CosmosSigner} signer
  * @returns {Promise<Sdk>}
  */
-export async function newSdk(network: Network, signer: CosmosSigner): Promise<Sdk> {
-  const txCmd = await newTxCmd(network, signer)
-  const queryCmd = await initQueryCmd(network)
-  return new Sdk({ network, txCmd, queryCmd })
+export async function newSdk(chain: Chain, signer: CosmosSigner): Promise<Sdk> {
+  const txCmd = await newTxCmd(chain, signer)
+  const queryCmd = await initQueryCmd(chain)
+  return new Sdk({ chain, txCmd, queryCmd })
 }
 
 export interface ISdk {
-  network: Network
+  chain: Chain
   tx: TxCmd
   query: ExtendedQueryClient
   tmClient: Tendermint34Client
@@ -54,7 +54,7 @@ export interface ISdk {
  * ```
  */
 class Sdk implements ISdk {
-  network: Network
+  chain: Chain
   tx: TxCmd
   query: ExtendedQueryClient
   tmClient: Tendermint34Client
@@ -63,11 +63,11 @@ class Sdk implements ISdk {
    * Creates an instance of Sdk.
    *
    * @constructor
-   * @param {{ network: Network; txCmd: TxCmd; query: QueryCmd }} args
+   * @param {{ chain: Chain; txCmd: TxCmd; query: QueryCmd }} args
    */
-  constructor(args: { network: Network; txCmd: TxCmd; queryCmd: QueryCmd }) {
-    const { network, txCmd, queryCmd } = args
-    this.network = network
+  constructor(args: { chain: Chain; txCmd: TxCmd; queryCmd: QueryCmd }) {
+    const { chain, txCmd, queryCmd } = args
+    this.chain = chain
     this.tx = txCmd
     this.query = queryCmd.client
     this.tmClient = queryCmd.tmClient

@@ -1,32 +1,31 @@
-import * as network from "../common"
+import { Chain, Chaosnet, Testnet, CHAOSNET_CONFIG } from "../chain"
 import { initQueryCmd } from "./query"
 import fetch from "node-fetch"
 import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"
 
 require("dotenv").config() // yarn add -D dotenv
 
-// const NETWORK = LocalNetwork
-const NETWORK = network.Chaosnet
+const CHAIN = Chaosnet
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
 
-describe("network connections", () => {
-  const testNetworkConnection = async (network: network.Network) => {
-    const queryCmd = await initQueryCmd(network)
+describe("chain connections", () => {
+  const testChainConnection = async (chain: Chain) => {
+    const queryCmd = await initQueryCmd(chain)
     const blockHeight = 5
     const blockResp: BlockResponse = await queryCmd.tmClient.block(blockHeight)
-    validateBlock(blockResp.block, network)
+    validateBlock(blockResp.block, chain)
   }
   test("testnet", async () => {
-    testNetworkConnection(network.Testnet)
+    testChainConnection(Testnet)
   })
   test("chaosnet", async () => {
-    testNetworkConnection(network.Chaosnet)
+    testChainConnection(Chaosnet)
   })
 })
 
 describe("test node connection", () => {
-  const port = network.CHAOSNET_CONFIG.tmPort
-  const host = network.CHAOSNET_CONFIG.host
+  const port = CHAOSNET_CONFIG.tmPort
+  const host = CHAOSNET_CONFIG.host
   test("has environment variables configured", () => {
     expect(VAL_ADDRESS).toBeDefined()
     expect(host).toBeDefined()
@@ -52,8 +51,8 @@ describe("test node connection", () => {
   })
 })
 
-function validateBlock(block: Block, network: network.Network) {
-  expect(block.header.chainId).toEqual(network.chainId)
+function validateBlock(block: Block, chain: Chain) {
+  expect(block.header.chainId).toEqual(chain.chainId)
   expect(block.header.time).toBeDefined()
   expect(block.header.height).toBeGreaterThanOrEqual(1)
   expect(block).toHaveProperty("txs")
@@ -88,7 +87,7 @@ describe("test query module", () => {
   })
 
   test("query bank balances - client.bank.allBalances", async () => {
-    const { client: query, disconnect } = await initQueryCmd(NETWORK)
+    const { client: query, disconnect } = await initQueryCmd(CHAIN)
     const balances = await query.bank.allBalances(VAL_ADDRESS)
     console.log("balances: %o", balances)
     expect(balances.length).toBeGreaterThan(0)
@@ -107,7 +106,7 @@ describe("test query module", () => {
 
   /*  // NOTE The dex module is on hold for public testnet
   test("query dex params - client.dex.params", async () => {
-    const { client, disconnect } = await initQueryCmd(NETWORK)
+    const { client, disconnect } = await initQueryCmd(CHAIN)
     const { params } = await client.dex.params()
     console.log("dex.params: %o", params)
     const fields: string[] = [
@@ -125,7 +124,7 @@ describe("test query module", () => {
   */
 
   test("query perp params - client.perp.params", async () => {
-    const { client, disconnect } = await initQueryCmd(NETWORK)
+    const { client, disconnect } = await initQueryCmd(CHAIN)
     const { params } = await client.perp.params()
     console.log("perp.params: %o", JSON.stringify(params))
     expect(params).not.toBeNull()

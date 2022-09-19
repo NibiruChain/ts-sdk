@@ -1,6 +1,6 @@
 import { Registry } from "@cosmjs/proto-signing"
 import * as pb from "@nibiruchain/api/dist/dex/v1/tx"
-import { toSdkDec } from "../common"
+import { toSdkDec } from "../chain"
 import { TxMessage } from "./types"
 
 export function registerTypes(registry: Registry) {
