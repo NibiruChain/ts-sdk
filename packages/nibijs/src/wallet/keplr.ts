@@ -11,7 +11,7 @@ export async function getKeplr(chain: Chain): Promise<Keplr> {
     throw Error("Keplr wallet not found")
   }
   const keplr: Keplr = window.keplr!
-  const { chainId } = network
+  const { chainId } = chain
 
   try {
     // Keplr v0.6.4 introduces an experimental feature that supports the feature to suggests the chain from a webpage.
@@ -24,13 +24,13 @@ export async function getKeplr(chain: Chain): Promise<Keplr> {
       // Chain-id of the Osmosis chain.
       chainId,
       // The name of the chain to be displayed to the user.
-      chainName: network.chainName,
+      chainName: chain.chainName,
       // RPC endpoint of the chain. In this case we are using blockapsis, as it's accepts connections from any host currently. No Cors limitations.
       // NOTE add http:// if this doesn't connect
-      // rpc: network.endptGrpc, // Q: When does this need to switch to gRPC instead of TM?
-      rpc: network.endptTm,
+      // rpc: chain.endptGrpc, // Q: When does this need to switch to gRPC instead of TM?
+      rpc: chain.endptTm,
       // REST endpoint of the chain.
-      rest: network.endptRest,
+      rest: chain.endptRest,
       // Staking coin information
       stakeCurrency: {
         // Coin denomination to be displayed to the user.
