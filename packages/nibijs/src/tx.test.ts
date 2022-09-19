@@ -5,15 +5,15 @@
  * - perp module
  * - bank module | TODO MultiSend
  */
-import { Chaosnet } from "./common"
-import { Side } from "@nibiruchain/api/src/perp/v1/state"
-import { AccountData, newCoin, newCoins, DirectSecp256k1HdWallet } from "./common/types"
+import { Chaosnet } from "./chain"
+import { Side } from "@nibiruchain/api/dist/perp/v1/state"
+import { AccountData, newCoin, newCoins, WalletHD } from "./chain/types"
 import * as dotenv from "dotenv"
 import { Msg, TxMessage } from "./msg"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
 import { newSdk } from "./sdk"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
-import { QueryTraderPositionResponse } from "@nibiruchain/api/src/perp/v1/query"
+import { QueryTraderPositionResponse } from "@nibiruchain/api/dist/perp/v1/query"
 import { PerpMsgTypeUrls } from "./msg/perp"
 
 dotenv.config() // yarn add -D dotenv
@@ -60,7 +60,7 @@ describe("test tx module", () => {
     const [{ address: fromAddr }]: readonly AccountData[] = await sdk.tx.getAccounts()
     expect(fromAddr).toBeDefined()
 
-    const toWallet: DirectSecp256k1HdWallet = await newRandomWallet()
+    const toWallet: WalletHD = await newRandomWallet()
     const [{ address: toAddr }] = await toWallet.getAccounts()
     const tokens = newCoins(5, "unibi")
     const gasUsed = await sdk.tx.client.simulate(

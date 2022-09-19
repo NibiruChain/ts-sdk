@@ -1,5 +1,5 @@
 import { SigningStargateClient, calculateFee, GasPrice, StdFee } from "@cosmjs/stargate"
-import { GAS_PRICE, Network } from "../common"
+import { GAS_PRICE, Chain } from "../chain"
 import {
   AccountData,
   Coin,
@@ -87,12 +87,12 @@ function registerModules(): Registry {
 }
 
 export async function newTxCmd(
-  network: Network,
+  chain: Chain,
   signer: (OfflineSigner & OfflineDirectSigner) | DirectSecp256k1HdWallet,
 ): Promise<TxCmd> {
   const registry = registerModules()
   const client = await SigningStargateClient.connectWithSigner(
-    network.endptTm, // may need endptGrpc
+    chain.endptTm, // may need endptGrpc
     signer,
     { registry },
   )

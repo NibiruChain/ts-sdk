@@ -1,7 +1,7 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
-import * as qpb from "@nibiruchain/api/src/perp/v1/query"
-import * as pbs from "@nibiruchain/api/src/perp/v1/state"
-import { fromSdkDec } from "../common"
+import * as qpb from "@nibiruchain/api/dist/perp/v1/query"
+import * as pbs from "@nibiruchain/api/dist/perp/v1/state"
+import { fromSdkDec } from "../chain"
 
 function transformTraderPosition(
   resp: qpb.QueryTraderPositionResponse,
