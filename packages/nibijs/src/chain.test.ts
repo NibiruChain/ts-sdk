@@ -88,6 +88,7 @@ test("faucet utility works", async () => {
   const chain = Testnet
   await waitForBlockHeight({ chain, height: setupBlockHeight + 1 })
   const queryCmd = await initQueryCmd(chain)
+  await waitForNextBlock(chain)
   const balancesStart = newCoinMapFromCoins(
     await queryCmd.client.bank.allBalances(address),
   )

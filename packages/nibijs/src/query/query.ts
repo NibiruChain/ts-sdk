@@ -9,12 +9,14 @@ import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 import { Chain } from "../chain"
 import { setupDexExtension, DexExtension } from "./dex"
 import { setupPerpExtension, PerpExtension } from "./perp"
+import { setupVpoolExtension, VpoolExtension } from "./vpool"
 
 export type ExtendedQueryClient = BankExtension &
   QueryClient &
   AuthExtension &
   DexExtension &
-  PerpExtension
+  PerpExtension &
+  VpoolExtension
 
 export interface IQueryCmd {
   client: ExtendedQueryClient
@@ -62,6 +64,7 @@ export class QueryCmd implements IQueryCmd {
       setupAuthExtension,
       setupDexExtension,
       setupPerpExtension,
+      setupVpoolExtension,
     )
   }
 
