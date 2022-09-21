@@ -1,9 +1,7 @@
-name: Run all tests
+name: ⛓️ Tests
 
 on: 
   pull_request:
-    branches: ["main", "release/*"]
-  push: 
     branches: ["main", "release/*"]
   
 concurrency:

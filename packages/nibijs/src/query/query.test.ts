@@ -91,7 +91,8 @@ describe("test query module", () => {
     const balances = await query.bank.allBalances(VAL_ADDRESS)
     console.log("balances: %o", balances)
     expect(balances.length).toBeGreaterThan(0)
-    expect(+balances[0].amount).toBeGreaterThan(0)
+    const amount: number = +balances[0].amount
+    expect(amount).toBeGreaterThan(0)
     expect(balances[0].denom).not.toBe("")
 
     let balanceDenoms: string[] = []
