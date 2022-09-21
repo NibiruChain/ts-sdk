@@ -1,4 +1,3 @@
-<!-- # 🌟 nibijs - Nibiru TypeScript SDK -->
 <p align="center">
 <img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibijs.png" width="100%">
 </p>
@@ -7,9 +6,16 @@
 The official TypeScript SDK for the Nibiru blockchain
 </p>
 
-[![downloads](https://img.shields.io/npm/dm/@nibiruchain/nibijs.svg)](https://www.npmjs.com/package/@nibiruchain/nibijs)
-[![npm-version](https://img.shields.io/npm/v/@nibiruchain/nibijs.svg)](https://www.npmjs.com/package/@nibiruchain/nibijs)
-[![license](https://img.shields.io/npm/l/express.svg)](https://github.com/NibiruChain/ts-sdk/blob/main/LICENSE)
+[![npm-version](https://img.shields.io/npm/v/@nibiruchain/nibijs.svg?color=AE8CCD)](https://www.npmjs.com/package/@nibiruchain/nibijs)
+[![Nibiru Test workflow][tests-badge]][tests-workflow]
+[![downloads][badge-downloads]](https://www.npmjs.com/package/@nibiruchain/nibijs)
+[![license](https://img.shields.io/npm/l/express.svg?color=050505)](https://github.com/NibiruChain/ts-sdk/blob/main/LICENSE)
+[![social-discord](https://dcbadge.vercel.app/api/server/sgPw8ZYfpQ?style=flat)](https://discord.gg/sgPw8ZYfpQ)
+
+[badge-downloads]: https://img.shields.io/npm/dm/@nibiruchain/nibijs.svg?color=FFF3CD
+[downloads-link]: https://www.npmjs.com/package/@nibiruchain/nibijs
+[tests-badge]: https://github.com/NibiruChain/ts-sdk/actions/workflows/tests.yaml/badge.svg
+[tests-workflow]: https://github.com/NibiruChain/ts-sdk/actions/workflows/tests.yaml
 
 The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions. 
 
