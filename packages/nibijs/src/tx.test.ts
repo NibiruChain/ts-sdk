@@ -158,7 +158,7 @@ describe("perp module transactions", () => {
     msgs = [Msg.perp.closePosition({ sender: fromAddr, tokenPair: pair })]
     txResp = await sdk.tx.signAndBroadcast(...msgs)
     expectTxToSucceed(txResp)
-  }, 14_000 /* This test takes roughly 12 seconds, so the default timeout is not sufficient. */)
+  }, 20_000 /* This test takes roughly 12 seconds, so the default timeout is not sufficient. */)
 })
 
 // ------------------------------------------------------------------------
