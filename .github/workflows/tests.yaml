@@ -3,8 +3,6 @@ name: ⛓️ Tests
 on: 
   pull_request:
     branches: ["main", "release/*"]
-  push: 
-    branches: ["main", "release/*"]
   
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref }}
