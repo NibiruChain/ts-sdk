@@ -19,5 +19,3 @@ async function runExample() {
 runExample().then(async () => {
   console.log("Completed example: 02_queries.ts")
 })
-
-// import { initQueryCmd } from "../packages/nibijs/src/query"

@@ -98,12 +98,9 @@ test("faucet utility works", async () => {
   if (balancesStart["unibi"] === undefined) {
     balancesStart["unibi"] = 0
   }
-  console.log("DEBUG balancesStart:", balancesStart)
-
   await useFaucet(address)
 
   const balances = newCoinMapFromCoins(await queryCmd.client.bank.allBalances(address))
-  console.log("DEBUG balances:", balances)
   // Expect to receive 10 NIBI and 100_000 NUSD
   expect(balances["unusd"] - balancesStart["unusd"]).toEqual(100_000 * 1_000_000)
   expect(balances["unibi"] - balancesStart["unibi"]).toEqual(10 * 1_000_000)
