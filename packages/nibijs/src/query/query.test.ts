@@ -5,8 +5,7 @@ import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"
 
 require("dotenv").config() // yarn add -D dotenv
 
-const CHAIN = Chaosnet
-const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
+const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS
 
 describe("chain connections", () => {
   const testChainConnection = async (chain: Chain) => {
@@ -86,9 +85,14 @@ describe("test query module", () => {
     expect(VAL_ADDRESS).toBeDefined()
   })
 
+  const chain = Chaosnet
+
   test("query bank balances - client.bank.allBalances", async () => {
-    const { client: query, disconnect } = await initQueryCmd(CHAIN)
-    const balances = await query.bank.allBalances(VAL_ADDRESS)
+    const { client: query, disconnect } = await initQueryCmd(chain)
+    if (!VAL_ADDRESS) {
+      throw Error("VAL_ADDRESS is not set in the .env")
+    }
+    const balances = await query.bank.allBalances(VAL_ADDRESS ?? "")
     console.log("balances: %o", balances)
     expect(balances.length).toBeGreaterThan(0)
     const amount: number = +balances[0].amount
@@ -107,7 +111,7 @@ describe("test query module", () => {
 
   /*  // NOTE The dex module is on hold for public testnet
   test("query dex params - client.dex.params", async () => {
-    const { client, disconnect } = await initQueryCmd(CHAIN)
+    const { client, disconnect } = await initQueryCmd(chain)
     const { params } = await client.dex.params()
     console.log("dex.params: %o", params)
     const fields: string[] = [
@@ -125,7 +129,7 @@ describe("test query module", () => {
   */
 
   test("query perp params - client.perp.params", async () => {
-    const { client, disconnect } = await initQueryCmd(CHAIN)
+    const { client, disconnect } = await initQueryCmd(chain)
     const { params } = await client.perp.params()
     console.log("perp.params: %o", JSON.stringify(params))
     expect(params).not.toBeNull()
@@ -141,5 +145,28 @@ describe("test query module", () => {
       expect(params).toHaveProperty(field)
     }
     disconnect()
+  })
+})
+
+describe("vpool module queries", () => {
+  const chain = Testnet
+
+  test("nibid query vpool all-pools", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const queryResp = await query.vpool.allPools()
+    expect(queryResp.pools.length).toBeGreaterThan(0)
+    expect(queryResp.prices).toHaveLength(queryResp.pools.length)
+    console.info("query vpool all-pools: %o", queryResp)
+  })
+
+  test("nibid query vpool prices", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const { priceInQuoteDenom: basePrice } = await query.vpool.basePrice({
+      pair: "ubtc:unusd",
+      goLong: true,
+      baseAssetAmount: 1_000,
+    })
+    expect(basePrice.length).toBeGreaterThan(0)
+    expect(parseFloat(basePrice)).toBeGreaterThan(0)
   })
 })
