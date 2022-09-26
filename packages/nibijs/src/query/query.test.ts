@@ -170,3 +170,51 @@ describe("vpool module queries", () => {
     expect(parseFloat(basePrice)).toBeGreaterThan(0)
   })
 })
+
+describe("'pricefeed' module queries", () => {
+  const chain = Testnet
+  const pairId = "ubtc:unusd"
+
+  test("nibid query pricefeed markets", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const { markets } = await query.pricefeed.markets()
+    expect(markets.length).toBeGreaterThan(0)
+    expect(markets[0].oracles.length).toBeGreaterThan(0)
+    expect(markets[0].active).toBeTruthy()
+    console.info("query pricefeed markets: %o", markets.slice(0, 2))
+  })
+
+  test("nibid query pricefeed params", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const { params: moduleParams } = await query.pricefeed.params()
+    expect(moduleParams).toBeDefined()
+    expect(moduleParams!.pairs.length).toBeGreaterThan(0)
+    console.info("nibid query pricefeed params: %o", moduleParams)
+  })
+
+  test("nibid query pricefeed price", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const { price } = await query.pricefeed.price({ pairId })
+    expect(price).toBeDefined()
+    for (const field of ["pairId", "price", "twap"]) {
+      expect(price).toHaveProperty(field)
+    }
+    console.info("nibid query pricefeed price: %o", price)
+  })
+
+  test("nibid query pricefeed prices", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const { prices } = await query.pricefeed.prices()
+    expect(prices).toBeDefined()
+    expect(prices.length).toBeGreaterThan(0)
+    console.info("nibid query pricefeed prices: %o", prices)
+  })
+
+  test("nibid query pricefeed raw-prices", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const resp = await query.pricefeed.pricesRaw({ pairId })
+    const { rawPrices } = resp
+    expect(rawPrices).toBeDefined()
+    console.info("nibid query pricefeed raw-prices: %o", rawPrices)
+  })
+})
