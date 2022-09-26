@@ -151,24 +151,33 @@ describe("test query module", () => {
 describe("vpool module queries", () => {
   const chain = Testnet
 
-  test("nibid query vpool all-pools", async () => {
-    const { client: query } = await initQueryCmd(chain)
-    const queryResp = await query.vpool.allPools()
-    expect(queryResp.pools.length).toBeGreaterThan(0)
-    expect(queryResp.prices).toHaveLength(queryResp.pools.length)
-    console.info("query vpool all-pools: %o", queryResp)
-  })
+  let timeoutMs = 8_000
+  test(
+    "nibid query vpool all-pools",
+    async () => {
+      const { client: query } = await initQueryCmd(chain)
+      const queryResp = await query.vpool.allPools()
+      expect(queryResp.pools.length).toBeGreaterThan(0)
+      expect(queryResp.prices).toHaveLength(queryResp.pools.length)
+      console.info("query vpool all-pools: %o", queryResp)
+    },
+    timeoutMs,
+  )
 
-  test("nibid query vpool prices", async () => {
-    const { client: query } = await initQueryCmd(chain)
-    const { priceInQuoteDenom: basePrice } = await query.vpool.basePrice({
-      pair: "ubtc:unusd",
-      goLong: true,
-      baseAssetAmount: 1_000,
-    })
-    expect(basePrice.length).toBeGreaterThan(0)
-    expect(parseFloat(basePrice)).toBeGreaterThan(0)
-  })
+  test(
+    "nibid query vpool prices",
+    async () => {
+      const { client: query } = await initQueryCmd(chain)
+      const { priceInQuoteDenom: basePrice } = await query.vpool.basePrice({
+        pair: "ubtc:unusd",
+        goLong: true,
+        baseAssetAmount: 1_000,
+      })
+      expect(basePrice.length).toBeGreaterThan(0)
+      expect(parseFloat(basePrice)).toBeGreaterThan(0)
+    },
+    timeoutMs,
+  )
 })
 
 describe("'pricefeed' module queries", () => {
