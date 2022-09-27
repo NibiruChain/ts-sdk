@@ -5,15 +5,15 @@
  * - perp module
  * - bank module | TODO MultiSend
  */
-import { Chaosnet } from "./chain"
 import { Side } from "@nibiruchain/api/dist/perp/v1/state"
-import { AccountData, newCoin, newCoins, WalletHD } from "./chain/types"
 import * as dotenv from "dotenv"
+import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
+import { QueryTraderPositionResponse } from "@nibiruchain/api/dist/perp/v1/query"
+import { Chaosnet } from "./chain"
+import { AccountData, newCoin, newCoins, WalletHD } from "./chain/types"
 import { Msg, TxMessage } from "./msg"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
 import { newSdk } from "./sdk"
-import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
-import { QueryTraderPositionResponse } from "@nibiruchain/api/dist/perp/v1/query"
 import { PerpMsgTypeUrls } from "./msg/perp"
 
 dotenv.config() // yarn add -D dotenv
@@ -35,7 +35,7 @@ function eventTypesForPerpMsg(
   events: { type: string; attributes: any[] }[],
 ): string[] {
   const eventTypes: string[] = events.map((event) => event.type)
-  eventTypes.map((eventType, eventIdx) => {
+  eventTypes.forEach((eventType, eventIdx) => {
     if (eventType == "message") {
       expect(events[eventIdx].attributes).toContainEqual({
         key: "action",
@@ -64,9 +64,9 @@ describe("test tx module", () => {
     const [{ address: toAddr }] = await toWallet.getAccounts()
     const tokens = newCoins(5, "unibi")
     const gasUsed = await sdk.tx.client.simulate(
-      /*signerAddress*/ fromAddr,
-      /*messages*/ [Msg.bank.Send(fromAddr, toAddr, tokens)],
-      /*memo*/ "example memo", // undefined,
+      /* signerAddress */ fromAddr,
+      /* messages */ [Msg.bank.Send(fromAddr, toAddr, tokens)],
+      /* memo */ "example memo", // undefined,
     )
     expect(gasUsed).toBeGreaterThan(0)
 
@@ -140,7 +140,7 @@ describe("perp module transactions", () => {
     expect(eventTypes).toContain("transfer")
 
     // Query and validate the trader's position
-    let queryResp: QueryTraderPositionResponse = await sdk.query.perp.traderPosition({
+    const queryResp: QueryTraderPositionResponse = await sdk.query.perp.traderPosition({
       tokenPair: pair,
       trader: fromAddr,
     })

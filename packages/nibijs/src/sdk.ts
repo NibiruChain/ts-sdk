@@ -3,10 +3,10 @@
  * Nibiru TypeScript SDK. The SDK is accessible from the 'newSdk' function.
  *
  */
+import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 import { Chain } from "./chain"
 import { ExtendedQueryClient, initQueryCmd, QueryCmd } from "./query"
 import { CosmosSigner, newTxCmd, TxCmd } from "./tx"
-import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 
 /**
  * Assembles an all-purpose SDK for interacting with the Nibiru blockchain.
@@ -55,8 +55,11 @@ export interface ISdk {
  */
 class Sdk implements ISdk {
   chain: Chain
+
   tx: TxCmd
+
   query: ExtendedQueryClient
+
   tmClient: Tendermint34Client
 
   /**

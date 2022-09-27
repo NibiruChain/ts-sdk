@@ -35,7 +35,7 @@ export function setupVpoolExtension(base: QueryClient): VpoolExtension {
           : pbvpool.Direction.REMOVE_FROM_POOL
         const req = qpb.QueryBaseAssetPriceRequest.fromPartial({
           pair: args.pair,
-          direction: direction,
+          direction,
           baseAssetAmount: args.baseAssetAmount.toString(),
         })
         const resp = await queryService.BaseAssetPrice(req)
@@ -48,28 +48,24 @@ export function setupVpoolExtension(base: QueryClient): VpoolExtension {
 type TransformFn<T> = (resp: T) => T
 
 const transformAllPoolsResponse: TransformFn<qpb.QueryAllPoolsResponse> = (resp) => {
-  const pools = resp.pools.map((vpool: pbvpool.Pool) => {
-    return {
-      ...vpool,
-      pair: vpool.pair,
-      baseAssetReserve: fromSdkDec(vpool.baseAssetReserve).toString(),
-      quoteAssetReserve: fromSdkDec(vpool.quoteAssetReserve).toString(),
-      tradeLimitRatio: fromSdkDec(vpool.tradeLimitRatio).toString(),
-      fluctuationLimitRatio: fromSdkDec(vpool.fluctuationLimitRatio).toString(),
-      maxOracleSpreadRatio: fromSdkDec(vpool.maxOracleSpreadRatio).toString(),
-      maintenanceMarginRatio: fromSdkDec(vpool.maintenanceMarginRatio).toString(),
-      maxLeverage: fromSdkDec(vpool.maxLeverage).toString(),
-    }
-  })
-  const prices = resp.prices.map((pp: pbvpool.PoolPrices) => {
-    return {
-      ...pp,
-      indexPrice: !(parseFloat(pp.indexPrice) == 0)
-        ? fromSdkDec(pp.indexPrice).toString()
-        : "",
-      twapMark: fromSdkDec(pp.twapMark).toString(),
-      markPrice: fromSdkDec(pp.markPrice).toString(),
-    }
-  })
+  const pools = resp.pools.map((vpool: pbvpool.Pool) => ({
+    ...vpool,
+    pair: vpool.pair,
+    baseAssetReserve: fromSdkDec(vpool.baseAssetReserve).toString(),
+    quoteAssetReserve: fromSdkDec(vpool.quoteAssetReserve).toString(),
+    tradeLimitRatio: fromSdkDec(vpool.tradeLimitRatio).toString(),
+    fluctuationLimitRatio: fromSdkDec(vpool.fluctuationLimitRatio).toString(),
+    maxOracleSpreadRatio: fromSdkDec(vpool.maxOracleSpreadRatio).toString(),
+    maintenanceMarginRatio: fromSdkDec(vpool.maintenanceMarginRatio).toString(),
+    maxLeverage: fromSdkDec(vpool.maxLeverage).toString(),
+  }))
+  const prices = resp.prices.map((pp: pbvpool.PoolPrices) => ({
+    ...pp,
+    indexPrice: !(parseFloat(pp.indexPrice) == 0)
+      ? fromSdkDec(pp.indexPrice).toString()
+      : "",
+    twapMark: fromSdkDec(pp.twapMark).toString(),
+    markPrice: fromSdkDec(pp.markPrice).toString(),
+  }))
   return { pools, prices }
 }

@@ -71,8 +71,8 @@ export async function useFaucet(address: string): Promise<void> {
   const amtNibi = 10
   const amtNusd = 100_000
   const coins: string[] = [
-    (amtNibi * 1_000_000).toString() + "unibi",
-    (amtNusd * 1_000_000).toString() + "unusd",
+    `${(amtNibi * 1_000_000).toString()}unibi`,
+    `${(amtNusd * 1_000_000).toString()}unusd`,
   ]
 
   await fetch("https://faucet.testnet-3.nibiru.fi/", {
@@ -91,7 +91,7 @@ export async function queryChainIdWithRest(
   chain: Chain,
 ): Promise<[string | undefined, Error | undefined]> {
   const queryChainId = async (chain: Chain): Promise<string> => {
-    const response = await fetch(chain.endptRest + "/node_info")
+    const response = await fetch(`${chain.endptRest}/node_info`)
     const nodeInfo: { node_info: { network: string } } = await response.json()
     return nodeInfo.node_info.network
   }

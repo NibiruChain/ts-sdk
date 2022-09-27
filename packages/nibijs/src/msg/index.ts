@@ -4,7 +4,9 @@ import { PerpMsgs } from "./perp"
 
 class MsgFactory {
   bank = BankMsgs
+
   dex = DexMsgs
+
   perp = PerpMsgs
 }
 

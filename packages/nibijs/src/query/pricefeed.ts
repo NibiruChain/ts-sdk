@@ -75,35 +75,25 @@ export function setupPricefeedExtension(base: QueryClient): PricefeedExtension {
 
 type TransformFn<T> = (resp: T) => T
 
-const transformPricesResponse: TransformFn<qpb.QueryPricesResponse> = (resp) => {
-  return {
-    prices: resp.prices.map((currPrice: qpb.CurrentPriceResponse) => {
-      return {
-        ...currPrice,
-        price: fromSdkDec(currPrice.price).toString(),
-        twap: fromSdkDec(currPrice.twap).toString(),
-      }
-    }),
-  }
-}
+const transformPricesResponse: TransformFn<qpb.QueryPricesResponse> = (resp) => ({
+  prices: resp.prices.map((currPrice: qpb.CurrentPriceResponse) => ({
+    ...currPrice,
+    price: fromSdkDec(currPrice.price).toString(),
+    twap: fromSdkDec(currPrice.twap).toString(),
+  })),
+})
 
-const transformRawPricesResponse: TransformFn<qpb.QueryRawPricesResponse> = (resp) => {
-  return {
-    rawPrices: resp.rawPrices.map((rawPrice: qpb.PostedPriceResponse) => {
-      return {
-        ...rawPrice,
-        price: fromSdkDec(rawPrice.price).toString(),
-      }
-    }),
-  }
-}
+const transformRawPricesResponse: TransformFn<qpb.QueryRawPricesResponse> = (resp) => ({
+  rawPrices: resp.rawPrices.map((rawPrice: qpb.PostedPriceResponse) => ({
+    ...rawPrice,
+    price: fromSdkDec(rawPrice.price).toString(),
+  })),
+})
 
-const transformPriceResponse: TransformFn<qpb.QueryPriceResponse> = (resp) => {
-  return {
-    price: {
-      pairId: resp.price!.pairId,
-      price: fromSdkDec(resp.price!.price).toString() ?? resp.price?.price,
-      twap: fromSdkDec(resp.price!.twap).toString() ?? resp.price?.twap,
-    },
-  }
-}
+const transformPriceResponse: TransformFn<qpb.QueryPriceResponse> = (resp) => ({
+  price: {
+    pairId: resp.price!.pairId,
+    price: fromSdkDec(resp.price!.price).toString() ?? resp.price?.price,
+    twap: fromSdkDec(resp.price!.twap).toString() ?? resp.price?.twap,
+  },
+})

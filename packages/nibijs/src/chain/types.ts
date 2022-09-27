@@ -6,6 +6,7 @@ import {
   Coin,
   DirectSecp256k1HdWallet as WalletHD,
 } from "@cosmjs/proto-signing"
+
 export { AccountData, newCoin, newCoins, Coin, parseCoins, WalletHD }
 
 export async function go<T>(promise: Promise<T>): Promise<[T | undefined, any]> {
@@ -18,7 +19,7 @@ export async function go<T>(promise: Promise<T>): Promise<[T | undefined, any]> 
 
 export function assert(condition: boolean, message?: string) {
   if (!condition) {
-    const errMsg = message ? "AssertionError: " + message : "AssertionError"
+    const errMsg = message ? `AssertionError: ${message}` : "AssertionError"
     throw new Error(errMsg)
   }
 }

@@ -48,7 +48,7 @@ export function newRandomWallet(
   length?: 12 | 15 | 18 | 21 | 24,
   prefix = BECH32_ADDR_ACC_PREFIX,
 ): Promise<DirectSecp256k1HdWallet> {
-  return DirectSecp256k1HdWallet.generate(length ? length : 24, { prefix })
+  return DirectSecp256k1HdWallet.generate(length || 24, { prefix })
 }
 
 export enum Signer {
