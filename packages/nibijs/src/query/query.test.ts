@@ -5,8 +5,7 @@ import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"
 
 require("dotenv").config() // yarn add -D dotenv
 
-const CHAIN = Chaosnet
-const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
+const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS
 
 describe("chain connections", () => {
   const testChainConnection = async (chain: Chain) => {
@@ -86,9 +85,14 @@ describe("test query module", () => {
     expect(VAL_ADDRESS).toBeDefined()
   })
 
+  const chain = Chaosnet
+
   test("query bank balances - client.bank.allBalances", async () => {
-    const { client: query, disconnect } = await initQueryCmd(CHAIN)
-    const balances = await query.bank.allBalances(VAL_ADDRESS)
+    const { client: query, disconnect } = await initQueryCmd(chain)
+    if (!VAL_ADDRESS) {
+      throw Error("VAL_ADDRESS is not set in the .env")
+    }
+    const balances = await query.bank.allBalances(VAL_ADDRESS ?? "")
     console.log("balances: %o", balances)
     expect(balances.length).toBeGreaterThan(0)
     const amount: number = +balances[0].amount
@@ -107,7 +111,7 @@ describe("test query module", () => {
 
   /*  // NOTE The dex module is on hold for public testnet
   test("query dex params - client.dex.params", async () => {
-    const { client, disconnect } = await initQueryCmd(CHAIN)
+    const { client, disconnect } = await initQueryCmd(chain)
     const { params } = await client.dex.params()
     console.log("dex.params: %o", params)
     const fields: string[] = [
@@ -125,7 +129,7 @@ describe("test query module", () => {
   */
 
   test("query perp params - client.perp.params", async () => {
-    const { client, disconnect } = await initQueryCmd(CHAIN)
+    const { client, disconnect } = await initQueryCmd(chain)
     const { params } = await client.perp.params()
     console.log("perp.params: %o", JSON.stringify(params))
     expect(params).not.toBeNull()
@@ -141,5 +145,85 @@ describe("test query module", () => {
       expect(params).toHaveProperty(field)
     }
     disconnect()
+  })
+})
+
+describe("vpool module queries", () => {
+  const chain = Testnet
+
+  let timeoutMs = 8_000
+  test(
+    "nibid query vpool all-pools",
+    async () => {
+      const { client: query } = await initQueryCmd(chain)
+      const queryResp = await query.vpool.allPools()
+      expect(queryResp.pools.length).toBeGreaterThan(0)
+      expect(queryResp.prices).toHaveLength(queryResp.pools.length)
+      console.info("query vpool all-pools: %o", queryResp)
+    },
+    timeoutMs,
+  )
+
+  test(
+    "nibid query vpool prices",
+    async () => {
+      const { client: query } = await initQueryCmd(chain)
+      const { priceInQuoteDenom: basePrice } = await query.vpool.basePrice({
+        pair: "ubtc:unusd",
+        goLong: true,
+        baseAssetAmount: 1_000,
+      })
+      expect(basePrice.length).toBeGreaterThan(0)
+      expect(parseFloat(basePrice)).toBeGreaterThan(0)
+    },
+    timeoutMs,
+  )
+})
+
+describe("'pricefeed' module queries", () => {
+  const chain = Testnet
+  const pairId = "ubtc:unusd"
+
+  test("nibid query pricefeed markets", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const { markets } = await query.pricefeed.markets()
+    expect(markets.length).toBeGreaterThan(0)
+    expect(markets[0].oracles.length).toBeGreaterThan(0)
+    expect(markets[0].active).toBeTruthy()
+    console.info("query pricefeed markets: %o", markets.slice(0, 2))
+  })
+
+  test("nibid query pricefeed params", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const { params: moduleParams } = await query.pricefeed.params()
+    expect(moduleParams).toBeDefined()
+    expect(moduleParams!.pairs.length).toBeGreaterThan(0)
+    console.info("nibid query pricefeed params: %o", moduleParams)
+  })
+
+  test("nibid query pricefeed price", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const { price } = await query.pricefeed.price({ pairId })
+    expect(price).toBeDefined()
+    for (const field of ["pairId", "price", "twap"]) {
+      expect(price).toHaveProperty(field)
+    }
+    console.info("nibid query pricefeed price: %o", price)
+  })
+
+  test("nibid query pricefeed prices", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const { prices } = await query.pricefeed.prices()
+    expect(prices).toBeDefined()
+    expect(prices.length).toBeGreaterThan(0)
+    console.info("nibid query pricefeed prices: %o", prices)
+  })
+
+  test("nibid query pricefeed raw-prices", async () => {
+    const { client: query } = await initQueryCmd(chain)
+    const resp = await query.pricefeed.pricesRaw({ pairId })
+    const { rawPrices } = resp
+    expect(rawPrices).toBeDefined()
+    console.info("nibid query pricefeed raw-prices: %o", rawPrices)
   })
 })
