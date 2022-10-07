@@ -1,5 +1,4 @@
 import { SigningStargateClient, calculateFee, GasPrice, StdFee } from "@cosmjs/stargate"
-import { GAS_PRICE, Chain } from "../chain"
 import {
   AccountData,
   Coin,
@@ -8,6 +7,7 @@ import {
   OfflineSigner,
   Registry,
 } from "@cosmjs/proto-signing"
+import { GAS_PRICE, Chain } from "../chain"
 import { registerTypes as registerDex } from "../msg/dex"
 import { registerTypes as registerPerp } from "../msg/perp"
 import { getRegistry } from "./signer"

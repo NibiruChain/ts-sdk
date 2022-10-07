@@ -3,8 +3,8 @@ import { newRandomWallet, newSignerFromMnemonic, WalletHD } from "./signer"
 test("newRandomWallet", async () => {
   const wallet: WalletHD = await newRandomWallet(24)
   const [{ address }] = await wallet.getAccounts()
-  expect(address.length).toEqual(43)
-  expect(wallet.mnemonic.split(" ").length).toEqual(24)
+  expect(address).toHaveLength(43)
+  expect(wallet.mnemonic.split(" ")).toHaveLength(24)
 })
 
 // ANKI HD wallet is heirarchical deterministic

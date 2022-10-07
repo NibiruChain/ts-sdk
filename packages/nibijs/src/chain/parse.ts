@@ -39,7 +39,7 @@ export function toSdkDec(dec: string): string {
   let neg = false
   if (decStr[0] === "-") {
     neg = true
-    decStr = decStr.slice(/*start?*/ 1)
+    decStr = decStr.slice(/* start? */ 1)
   }
 
   if (decStr.length === 0) {

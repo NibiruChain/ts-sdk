@@ -31,7 +31,7 @@ describe("toSdkDec - float to sdk.Dec conversion", () => {
     },
   ]
 
-  it.each(tests)("%o", (tt) => {
+  test.each(tests)("%o", (tt) => {
     let failed = false
     try {
       const res = toSdkDec(tt.in)
@@ -93,7 +93,7 @@ describe("fromSdkDec - sdk.Dec to float conversion", () => {
     casesWithFractional,
   )
 
-  it.each(tests)("%o", (tt) => {
+  test.each(tests)("%o", (tt) => {
     let failed = false
     try {
       const res: number = fromSdkDec(tt.in as string)

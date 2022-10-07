@@ -32,7 +32,9 @@ export async function waitForNextBlock(chain: Chain): Promise<void> {
     (await queryCmd.tmClient.abciInfo()).lastBlockHeight
   const startBlock = await getLatestBlockHeight()
   while (startBlock! >= (await getLatestBlockHeight())!) {
-    await new Promise((resolve) => setTimeout(resolve, 300))
+    await new Promise((resolve): void => {
+      setTimeout(resolve, 300)
+    })
   }
 }
 
@@ -45,17 +47,18 @@ export async function waitForBlockHeight(args: {
   const getLatestBlockHeight = async () =>
     (await queryCmd.tmClient.abciInfo()).lastBlockHeight
 
-  if (height < (await getLatestBlockHeight())!) {
-    return
-  } else {
+  if (!(height < (await getLatestBlockHeight())!)) {
     while ((await getLatestBlockHeight())! < height) {
-      await new Promise((resolve) => setTimeout(resolve, 300))
+      await new Promise((resolve): void => {
+        setTimeout(resolve, 300)
+      })
     }
   }
 }
 
 export class QueryCmd implements IQueryCmd {
   client: ExtendedQueryClient
+
   tmClient: Tendermint34Client
 
   constructor(tmClient: Tendermint34Client) {

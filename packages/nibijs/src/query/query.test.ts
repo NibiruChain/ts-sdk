@@ -1,62 +1,11 @@
-import { Chain, Chaosnet, Testnet, CHAOSNET_CONFIG } from "../chain"
-import { initQueryCmd } from "./query"
 import fetch from "node-fetch"
 import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"
+import { Chain, Chaosnet, Testnet, CHAOSNET_CONFIG } from "../chain"
+import { initQueryCmd } from "./query"
 
 require("dotenv").config() // yarn add -D dotenv
 
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS
-
-describe("chain connections", () => {
-  const testChainConnection = async (chain: Chain) => {
-    const queryCmd = await initQueryCmd(chain)
-    const blockHeight = 5
-    const blockResp: BlockResponse = await queryCmd.tmClient.block(blockHeight)
-    validateBlock(blockResp.block, chain)
-  }
-  test("testnet", async () => {
-    testChainConnection(Testnet)
-  })
-  test("chaosnet", async () => {
-    testChainConnection(Chaosnet)
-  })
-})
-
-describe("test node connection", () => {
-  const port = CHAOSNET_CONFIG.tmPort
-  const host = CHAOSNET_CONFIG.host
-  test("has environment variables configured", () => {
-    expect(VAL_ADDRESS).toBeDefined()
-    expect(host).toBeDefined()
-  })
-
-  it("query block with get", async () => {
-    const resp = await fetch(`http://${host}:${port}/block?height=5`)
-    const respJson = await resp.json()
-    const blockJson = respJson.result.block
-    validateBlockFromJsonRpc(blockJson)
-  })
-
-  it("query block with post", async () => {
-    const body = { method: "block", params: ["5"], id: 1 }
-    const resp = await fetch(`http://${host}:${port}`, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: { "Content-Type": "application/json" },
-    })
-    const respJson = await resp.json()
-    const blockJson = respJson.result.block
-    validateBlockFromJsonRpc(blockJson)
-  })
-})
-
-function validateBlock(block: Block, chain: Chain) {
-  expect(block.header.chainId).toEqual(chain.chainId)
-  expect(block.header.time).toBeDefined()
-  expect(block.header.height).toBeGreaterThanOrEqual(1)
-  expect(block).toHaveProperty("txs")
-  expect(block).toHaveProperty("lastCommit")
-}
 
 function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
@@ -80,6 +29,61 @@ function validateBlockFromJsonRpc(blockJson: any) {
   }
 }
 
+function validateBlock(block: Block, chain: Chain) {
+  expect(block.header.chainId).toEqual(chain.chainId)
+  expect(block.header.time).toBeDefined()
+  expect(block.header.height).toBeGreaterThanOrEqual(1)
+  expect(block).toHaveProperty("txs")
+  expect(block).toHaveProperty("lastCommit")
+}
+
+describe("chain connections", () => {
+  const testChainConnection = async (chain: Chain) => {
+    const queryCmd = await initQueryCmd(chain)
+    const blockHeight = 5
+    const blockResp: BlockResponse = await queryCmd.tmClient.block(blockHeight)
+    validateBlock(blockResp.block, chain)
+  }
+  test("testnet", async () => {
+    testChainConnection(Testnet)
+  })
+  test("chaosnet", async () => {
+    testChainConnection(Chaosnet)
+  })
+})
+
+describe("test node connection", () => {
+  const port = CHAOSNET_CONFIG.tmPort
+  const { host } = CHAOSNET_CONFIG
+  test("has environment variables configured", () => {
+    expect(VAL_ADDRESS).toBeDefined()
+    expect(host).toBeDefined()
+  })
+
+  interface BlockResp {
+    result: { block: any }
+  }
+
+  test("query block with get", async () => {
+    const resp = await fetch(`http://${host}:${port}/block?height=5`)
+    const respJson = (await resp.json()) as BlockResp
+    const blockJson = respJson.result.block
+    validateBlockFromJsonRpc(blockJson)
+  })
+
+  test("query block with post", async () => {
+    const body = { method: "block", params: ["5"], id: 1 }
+    const resp = await fetch(`http://${host}:${port}`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+    })
+    const respJson = (await resp.json()) as BlockResp
+    const blockJson = respJson.result.block
+    validateBlockFromJsonRpc(blockJson)
+  })
+})
+
 describe("test query module", () => {
   test("has environment variables configured", () => {
     expect(VAL_ADDRESS).toBeDefined()
@@ -99,12 +103,7 @@ describe("test query module", () => {
     expect(amount).toBeGreaterThan(0)
     expect(balances[0].denom).not.toBe("")
 
-    let balanceDenoms: string[] = []
-    {
-      balances.map((coin) => {
-        balanceDenoms.push(coin.denom)
-      })
-    }
+    const balanceDenoms: string[] = balances.map((coin) => coin.denom)
     expect(balanceDenoms).toContain("unibi")
     disconnect()
   })
@@ -151,7 +150,7 @@ describe("test query module", () => {
 describe("vpool module queries", () => {
   const chain = Testnet
 
-  let timeoutMs = 8_000
+  const timeoutMs = 8_000
   test(
     "nibid query vpool all-pools",
     async () => {

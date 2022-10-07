@@ -1,4 +1,8 @@
-import { SigningStargateClient } from "@cosmjs/stargate"
+import {
+  SigningStargateClient,
+  DeliverTxResponse,
+  assertIsDeliverTxSuccess,
+} from "@cosmjs/stargate"
 import {
   Chain,
   Coin,
@@ -14,7 +18,6 @@ import {
   WalletHD,
   assert,
 } from "./chain"
-import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
 import { newSdk } from "./sdk"
 import { initQueryCmd, waitForBlockHeight, waitForNextBlock } from "./query/query"
@@ -36,8 +39,8 @@ describe("chain connections", () => {
     expect(err).toBeUndefined()
   })
   test("testnet lcd/rest endpoint validation functions", async () => {
-    expect(await isRestEndptLive(chain)).toBeTruthy()
-    expect(await isRestEndptValid(chain)).toBeTruthy()
+    await expect(isRestEndptLive(chain)).resolves.toBeTruthy()
+    await expect(isRestEndptValid(chain)).resolves.toBeTruthy()
   })
   test("inactive chain validation cases", async () => {
     const inactiveChain: Chain = {
@@ -50,8 +53,8 @@ describe("chain connections", () => {
     const [chainId, err] = await queryChainIdWithRest(inactiveChain)
     expect(chainId).toBeUndefined()
     expect(err).toBeDefined()
-    expect(await isRestEndptLive(inactiveChain)).toBeFalsy()
-    expect(await isRestEndptValid(inactiveChain)).toBeFalsy()
+    await expect(isRestEndptLive(inactiveChain)).resolves.toBeFalsy()
+    await expect(isRestEndptValid(inactiveChain)).resolves.toBeFalsy()
   })
 })
 
@@ -69,9 +72,9 @@ test("faucet utility works", async () => {
     const [{ address: fromAddr }] = await signer.getAccounts()
     const tokens = newCoins(5, "unibi")
     const gasUsed = await sdk.tx.client.simulate(
-      /*signerAddress*/ fromAddr,
-      /*messages*/ [Msg.bank.Send(fromAddr, toAddr, tokens)],
-      /*memo*/ "example memo", // undefined,
+      /* signerAddress */ fromAddr,
+      /* messages */ [Msg.bank.Send(fromAddr, toAddr, tokens)],
+      /* memo */ "example memo", // undefined,
     )
     expect(gasUsed).toBeGreaterThan(0)
     const gasLimit = gasUsed * 1.25
@@ -83,7 +86,7 @@ test("faucet utility works", async () => {
     return { toAddr, blockHeight: txResp.height }
   }
 
-  let { toAddr: address, blockHeight: setupBlockHeight } = await setupFaucetTest()
+  const { toAddr: address, blockHeight: setupBlockHeight } = await setupFaucetTest()
 
   const chain = Testnet
   await waitForBlockHeight({ chain, height: setupBlockHeight + 1 })
@@ -92,18 +95,18 @@ test("faucet utility works", async () => {
   const balancesStart = newCoinMapFromCoins(
     await queryCmd.client.bank.allBalances(address),
   )
-  if (balancesStart["unusd"] === undefined) {
-    balancesStart["unusd"] = 0
+  if (balancesStart.unusd === undefined) {
+    balancesStart.unusd = 0
   }
-  if (balancesStart["unibi"] === undefined) {
-    balancesStart["unibi"] = 0
+  if (balancesStart.unibi === undefined) {
+    balancesStart.unibi = 0
   }
   await useFaucet(address)
 
   const balances = newCoinMapFromCoins(await queryCmd.client.bank.allBalances(address))
   // Expect to receive 10 NIBI and 100_000 NUSD
-  expect(balances["unusd"] - balancesStart["unusd"]).toEqual(100_000 * 1_000_000)
-  expect(balances["unibi"] - balancesStart["unibi"]).toEqual(10 * 1_000_000)
+  expect(balances.unusd - balancesStart.unusd).toEqual(100_000 * 1_000_000)
+  expect(balances.unibi - balancesStart.unibi).toEqual(10 * 1_000_000)
 }, 50_000) // 50 seconds
 
 describe("chain/types", () => {
@@ -123,5 +126,5 @@ describe("chain/types", () => {
 test("custom assert fn", () => {
   expect(() => assert(false)).toThrow()
   const err = "useful error message"
-  expect(() => assert(false, err)).toThrowError(err)
+  expect(() => assert(false, err)).toThrow(err)
 })

@@ -6,14 +6,8 @@
       "@nibiruchain/api": [
         "packages/api"
       ],
-      "@nibiruchain/tx": [
-        "packages/tx"
-      ],
-      "@nibiruchain/query": [
-        "packages/query"
-      ],
-      "@nibiruchain/common": [
-        "packages/common"
+      "@nibiruchain/nibijs": [
+        "packages/nibijs"
       ]
     }
   }
