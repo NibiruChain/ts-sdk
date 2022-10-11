@@ -1,28 +1,28 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
-import * as qpb from "@nibiruchain/api/dist/vpool/v1/query"
-import * as pbvpool from "@nibiruchain/api/dist/vpool/v1/vpool"
+import * as vpoolquery from "@nibiruchain/api/dist/vpool/v1/query"
+import * as vpoolstate from "@nibiruchain/api/dist/vpool/v1/state"
 import { fromSdkDec } from "../chain"
 
 export interface VpoolExtension {
   readonly vpool: {
-    readonly allPools: () => Promise<qpb.QueryAllPoolsResponse>
+    readonly allPools: () => Promise<vpoolquery.QueryAllPoolsResponse>
     readonly basePrice: (args: {
       pair: string
       goLong: boolean
       baseAssetAmount: number
-    }) => Promise<qpb.QueryBaseAssetPriceResponse>
+    }) => Promise<vpoolquery.QueryBaseAssetPriceResponse>
   }
 }
 
 export function setupVpoolExtension(base: QueryClient): VpoolExtension {
   const rpcClient = createProtobufRpcClient(base)
-  const queryService = new qpb.QueryClientImpl(rpcClient)
+  const queryService = new vpoolquery.QueryClientImpl(rpcClient)
 
   return {
     vpool: {
-      allPools: async (): Promise<qpb.QueryAllPoolsResponse> => {
-        const req = qpb.QueryAllPoolsRequest.fromPartial({})
-        const resp: qpb.QueryAllPoolsResponse = await queryService.AllPools(req)
+      allPools: async (): Promise<vpoolquery.QueryAllPoolsResponse> => {
+        const req = vpoolquery.QueryAllPoolsRequest.fromPartial({})
+        const resp: vpoolquery.QueryAllPoolsResponse = await queryService.AllPools(req)
         return transformAllPoolsResponse(resp)
       },
       basePrice: async (args: {
@@ -30,10 +30,10 @@ export function setupVpoolExtension(base: QueryClient): VpoolExtension {
         goLong: boolean
         baseAssetAmount: number
       }) => {
-        const direction: pbvpool.Direction = args.goLong
-          ? pbvpool.Direction.ADD_TO_POOL
-          : pbvpool.Direction.REMOVE_FROM_POOL
-        const req = qpb.QueryBaseAssetPriceRequest.fromPartial({
+        const direction: vpoolstate.Direction = args.goLong
+          ? vpoolstate.Direction.ADD_TO_POOL
+          : vpoolstate.Direction.REMOVE_FROM_POOL
+        const req = vpoolquery.QueryBaseAssetPriceRequest.fromPartial({
           pair: args.pair,
           direction,
           baseAssetAmount: args.baseAssetAmount.toString(),
@@ -47,8 +47,10 @@ export function setupVpoolExtension(base: QueryClient): VpoolExtension {
 
 type TransformFn<T> = (resp: T) => T
 
-const transformAllPoolsResponse: TransformFn<qpb.QueryAllPoolsResponse> = (resp) => {
-  const pools = resp.pools.map((vpool: pbvpool.Pool) => ({
+const transformAllPoolsResponse: TransformFn<vpoolquery.QueryAllPoolsResponse> = (
+  resp: vpoolquery.QueryAllPoolsResponse,
+) => {
+  const pools = resp.pools.map((vpool: vpoolstate.VPool) => ({
     ...vpool,
     pair: vpool.pair,
     baseAssetReserve: fromSdkDec(vpool.baseAssetReserve).toString(),
@@ -59,7 +61,7 @@ const transformAllPoolsResponse: TransformFn<qpb.QueryAllPoolsResponse> = (resp)
     maintenanceMarginRatio: fromSdkDec(vpool.maintenanceMarginRatio).toString(),
     maxLeverage: fromSdkDec(vpool.maxLeverage).toString(),
   }))
-  const prices = resp.prices.map((pp: pbvpool.PoolPrices) => ({
+  const prices = resp.prices.map((pp: vpoolstate.PoolPrices) => ({
     ...pp,
     indexPrice: !(parseFloat(pp.indexPrice) == 0)
       ? fromSdkDec(pp.indexPrice).toString()
