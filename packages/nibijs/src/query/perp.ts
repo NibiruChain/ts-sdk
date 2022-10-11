@@ -3,9 +3,7 @@ import * as qpb from "@nibiruchain/api/dist/perp/v1/query"
 import * as pbs from "@nibiruchain/api/dist/perp/v1/state"
 import { fromSdkDec } from "../chain"
 
-function transformTraderPosition(
-  resp: qpb.QueryTraderPositionResponse,
-): qpb.QueryTraderPositionResponse {
+function transformPosition(resp: qpb.QueryPositionResponse): qpb.QueryPositionResponse {
   const {
     positionNotional: pn,
     unrealizedPnl: upnl,
@@ -35,10 +33,10 @@ function transformParams(pbParams?: pbs.Params): pbs.Params | undefined {
 export interface PerpExtension {
   readonly perp: {
     readonly params: () => Promise<qpb.QueryParamsResponse>
-    readonly traderPosition: (args: {
+    readonly position: (args: {
       tokenPair: string
       trader: string
-    }) => Promise<qpb.QueryTraderPositionResponse>
+    }) => Promise<qpb.QueryPositionResponse>
   }
 }
 
@@ -54,10 +52,10 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
         resp.params = transformParams(resp.params)
         return resp
       },
-      traderPosition: async (args: { tokenPair: string; trader: string }) => {
-        const req = qpb.QueryTraderPositionRequest.fromPartial(args)
-        const resp = await queryService.QueryTraderPosition(req)
-        return transformTraderPosition(resp)
+      position: async (args: { tokenPair: string; trader: string }) => {
+        const req = qpb.QueryPositionRequest.fromPartial(args)
+        const resp = await queryService.QueryPosition(req)
+        return transformPosition(resp)
       },
     },
   }

@@ -8,7 +8,7 @@
 import { Side } from "@nibiruchain/api/dist/perp/v1/state"
 import * as dotenv from "dotenv"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
-import { QueryTraderPositionResponse } from "@nibiruchain/api/dist/perp/v1/query"
+import { QueryPositionResponse } from "@nibiruchain/api/dist/perp/v1/query"
 import { Chaosnet } from "./chain"
 import { AccountData, newCoin, newCoins, WalletHD } from "./chain/types"
 import { Msg, TxMessage } from "./msg"
@@ -123,8 +123,7 @@ describe("perp module transactions", () => {
     // perp tx open-position events
     let eventTypes: string[] = eventTypesForPerpMsg("MsgOpenPosition", txLogs[0].events)
     expect(eventTypes).toContain("nibiru.vpool.v1.SwapQuoteForBaseEvent")
-    expect(eventTypes).toContain("nibiru.vpool.v1.ReserveSnapshotSavedEvent")
-    expect(eventTypes).toContain("nibiru.vpool.v1.MarkPriceChanged")
+    expect(eventTypes).toContain("nibiru.vpool.v1.MarkPriceChangedEvent")
     expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
     expect(eventTypes).toContain("transfer")
 
@@ -140,7 +139,7 @@ describe("perp module transactions", () => {
     expect(eventTypes).toContain("transfer")
 
     // Query and validate the trader's position
-    const queryResp: QueryTraderPositionResponse = await sdk.query.perp.traderPosition({
+    const queryResp: QueryPositionResponse = await sdk.query.perp.position({
       tokenPair: pair,
       trader: fromAddr,
     })
