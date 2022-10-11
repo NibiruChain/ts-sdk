@@ -48,6 +48,25 @@ export interface MsgLiquidateResponse {
   feeToPerpEcosystemFund?: Coin;
 }
 
+export interface MsgMultiLiquidate {
+  sender: string;
+  liquidations: MsgMultiLiquidate_MultiLiquidation[];
+}
+
+export interface MsgMultiLiquidate_MultiLiquidation {
+  tokenPair: string;
+  trader: string;
+}
+
+export interface MsgMultiLiquidateResponse {
+  liquidationResponses: MsgMultiLiquidateResponse_MultiLiquidateResponse[];
+}
+
+export interface MsgMultiLiquidateResponse_MultiLiquidateResponse {
+  error: string | undefined;
+  liquidation?: MsgLiquidateResponse | undefined;
+}
+
 export interface MsgOpenPosition {
   sender: string;
   tokenPair: string;
@@ -503,6 +522,256 @@ export const MsgLiquidateResponse = {
   },
 };
 
+function createBaseMsgMultiLiquidate(): MsgMultiLiquidate {
+  return { sender: "", liquidations: [] };
+}
+
+export const MsgMultiLiquidate = {
+  encode(message: MsgMultiLiquidate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    for (const v of message.liquidations) {
+      MsgMultiLiquidate_MultiLiquidation.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidate {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgMultiLiquidate();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sender = reader.string();
+          break;
+        case 2:
+          message.liquidations.push(MsgMultiLiquidate_MultiLiquidation.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgMultiLiquidate {
+    return {
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      liquidations: Array.isArray(object?.liquidations)
+        ? object.liquidations.map((e: any) => MsgMultiLiquidate_MultiLiquidation.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: MsgMultiLiquidate): unknown {
+    const obj: any = {};
+    message.sender !== undefined && (obj.sender = message.sender);
+    if (message.liquidations) {
+      obj.liquidations = message.liquidations.map((e) => e ? MsgMultiLiquidate_MultiLiquidation.toJSON(e) : undefined);
+    } else {
+      obj.liquidations = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidate>, I>>(object: I): MsgMultiLiquidate {
+    const message = createBaseMsgMultiLiquidate();
+    message.sender = object.sender ?? "";
+    message.liquidations = object.liquidations?.map((e) => MsgMultiLiquidate_MultiLiquidation.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseMsgMultiLiquidate_MultiLiquidation(): MsgMultiLiquidate_MultiLiquidation {
+  return { tokenPair: "", trader: "" };
+}
+
+export const MsgMultiLiquidate_MultiLiquidation = {
+  encode(message: MsgMultiLiquidate_MultiLiquidation, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.tokenPair !== "") {
+      writer.uint32(18).string(message.tokenPair);
+    }
+    if (message.trader !== "") {
+      writer.uint32(26).string(message.trader);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidate_MultiLiquidation {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgMultiLiquidate_MultiLiquidation();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 2:
+          message.tokenPair = reader.string();
+          break;
+        case 3:
+          message.trader = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgMultiLiquidate_MultiLiquidation {
+    return {
+      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
+      trader: isSet(object.trader) ? String(object.trader) : "",
+    };
+  },
+
+  toJSON(message: MsgMultiLiquidate_MultiLiquidation): unknown {
+    const obj: any = {};
+    message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair);
+    message.trader !== undefined && (obj.trader = message.trader);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidate_MultiLiquidation>, I>>(
+    object: I,
+  ): MsgMultiLiquidate_MultiLiquidation {
+    const message = createBaseMsgMultiLiquidate_MultiLiquidation();
+    message.tokenPair = object.tokenPair ?? "";
+    message.trader = object.trader ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgMultiLiquidateResponse(): MsgMultiLiquidateResponse {
+  return { liquidationResponses: [] };
+}
+
+export const MsgMultiLiquidateResponse = {
+  encode(message: MsgMultiLiquidateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.liquidationResponses) {
+      MsgMultiLiquidateResponse_MultiLiquidateResponse.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidateResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgMultiLiquidateResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.liquidationResponses.push(
+            MsgMultiLiquidateResponse_MultiLiquidateResponse.decode(reader, reader.uint32()),
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgMultiLiquidateResponse {
+    return {
+      liquidationResponses: Array.isArray(object?.liquidationResponses)
+        ? object.liquidationResponses.map((e: any) => MsgMultiLiquidateResponse_MultiLiquidateResponse.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: MsgMultiLiquidateResponse): unknown {
+    const obj: any = {};
+    if (message.liquidationResponses) {
+      obj.liquidationResponses = message.liquidationResponses.map((e) =>
+        e ? MsgMultiLiquidateResponse_MultiLiquidateResponse.toJSON(e) : undefined
+      );
+    } else {
+      obj.liquidationResponses = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidateResponse>, I>>(object: I): MsgMultiLiquidateResponse {
+    const message = createBaseMsgMultiLiquidateResponse();
+    message.liquidationResponses =
+      object.liquidationResponses?.map((e) => MsgMultiLiquidateResponse_MultiLiquidateResponse.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseMsgMultiLiquidateResponse_MultiLiquidateResponse(): MsgMultiLiquidateResponse_MultiLiquidateResponse {
+  return { error: undefined, liquidation: undefined };
+}
+
+export const MsgMultiLiquidateResponse_MultiLiquidateResponse = {
+  encode(
+    message: MsgMultiLiquidateResponse_MultiLiquidateResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.error !== undefined) {
+      writer.uint32(10).string(message.error);
+    }
+    if (message.liquidation !== undefined) {
+      MsgLiquidateResponse.encode(message.liquidation, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidateResponse_MultiLiquidateResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgMultiLiquidateResponse_MultiLiquidateResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.error = reader.string();
+          break;
+        case 2:
+          message.liquidation = MsgLiquidateResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgMultiLiquidateResponse_MultiLiquidateResponse {
+    return {
+      error: isSet(object.error) ? String(object.error) : undefined,
+      liquidation: isSet(object.liquidation) ? MsgLiquidateResponse.fromJSON(object.liquidation) : undefined,
+    };
+  },
+
+  toJSON(message: MsgMultiLiquidateResponse_MultiLiquidateResponse): unknown {
+    const obj: any = {};
+    message.error !== undefined && (obj.error = message.error);
+    message.liquidation !== undefined &&
+      (obj.liquidation = message.liquidation ? MsgLiquidateResponse.toJSON(message.liquidation) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidateResponse_MultiLiquidateResponse>, I>>(
+    object: I,
+  ): MsgMultiLiquidateResponse_MultiLiquidateResponse {
+    const message = createBaseMsgMultiLiquidateResponse_MultiLiquidateResponse();
+    message.error = object.error ?? undefined;
+    message.liquidation = (object.liquidation !== undefined && object.liquidation !== null)
+      ? MsgLiquidateResponse.fromPartial(object.liquidation)
+      : undefined;
+    return message;
+  },
+};
+
 function createBaseMsgOpenPosition(): MsgOpenPosition {
   return { sender: "", tokenPair: "", side: 0, quoteAssetAmount: "", leverage: "", baseAssetAmountLimit: "" };
 }
@@ -878,6 +1147,7 @@ export interface Msg {
    * liquidate an existing position.
    */
   Liquidate(request: MsgLiquidate): Promise<MsgLiquidateResponse>;
+  MultiLiquidate(request: MsgMultiLiquidate): Promise<MsgMultiLiquidateResponse>;
   OpenPosition(request: MsgOpenPosition): Promise<MsgOpenPositionResponse>;
   ClosePosition(request: MsgClosePosition): Promise<MsgClosePositionResponse>;
 }
@@ -889,6 +1159,7 @@ export class MsgClientImpl implements Msg {
     this.RemoveMargin = this.RemoveMargin.bind(this);
     this.AddMargin = this.AddMargin.bind(this);
     this.Liquidate = this.Liquidate.bind(this);
+    this.MultiLiquidate = this.MultiLiquidate.bind(this);
     this.OpenPosition = this.OpenPosition.bind(this);
     this.ClosePosition = this.ClosePosition.bind(this);
   }
@@ -908,6 +1179,12 @@ export class MsgClientImpl implements Msg {
     const data = MsgLiquidate.encode(request).finish();
     const promise = this.rpc.request("nibiru.perp.v1.Msg", "Liquidate", data);
     return promise.then((data) => MsgLiquidateResponse.decode(new _m0.Reader(data)));
+  }
+
+  MultiLiquidate(request: MsgMultiLiquidate): Promise<MsgMultiLiquidateResponse> {
+    const data = MsgMultiLiquidate.encode(request).finish();
+    const promise = this.rpc.request("nibiru.perp.v1.Msg", "MultiLiquidate", data);
+    return promise.then((data) => MsgMultiLiquidateResponse.decode(new _m0.Reader(data)));
   }
 
   OpenPosition(request: MsgOpenPosition): Promise<MsgOpenPositionResponse> {

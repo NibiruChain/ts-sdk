@@ -1,20 +1,20 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Params, PostedPrice } from "./state";
+import { PairMetadata, Params, Position, PrepaidBadDebt } from "./state";
 
-export const protobufPackage = "nibiru.pricefeed.v1";
+export const protobufPackage = "nibiru.perp.v1";
 
-/** GenesisState defines the pricefeed module's genesis state. */
+/** GenesisState defines the perp module's genesis state. */
 export interface GenesisState {
-  /** params defines all the paramaters of the module. */
   params?: Params;
-  postedPrices: PostedPrice[];
-  genesisOracles: string[];
+  pairMetadata: PairMetadata[];
+  positions: Position[];
+  prepaidBadDebts: PrepaidBadDebt[];
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { params: undefined, postedPrices: [], genesisOracles: [] };
+  return { params: undefined, pairMetadata: [], positions: [], prepaidBadDebts: [] };
 }
 
 export const GenesisState = {
@@ -22,11 +22,14 @@ export const GenesisState = {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
-    for (const v of message.postedPrices) {
-      PostedPrice.encode(v!, writer.uint32(18).fork()).ldelim();
+    for (const v of message.pairMetadata) {
+      PairMetadata.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    for (const v of message.genesisOracles) {
-      writer.uint32(26).string(v!);
+    for (const v of message.positions) {
+      Position.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    for (const v of message.prepaidBadDebts) {
+      PrepaidBadDebt.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -42,10 +45,13 @@ export const GenesisState = {
           message.params = Params.decode(reader, reader.uint32());
           break;
         case 2:
-          message.postedPrices.push(PostedPrice.decode(reader, reader.uint32()));
+          message.pairMetadata.push(PairMetadata.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.genesisOracles.push(reader.string());
+          message.positions.push(Position.decode(reader, reader.uint32()));
+          break;
+        case 4:
+          message.prepaidBadDebts.push(PrepaidBadDebt.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -58,25 +64,33 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      postedPrices: Array.isArray(object?.postedPrices)
-        ? object.postedPrices.map((e: any) => PostedPrice.fromJSON(e))
+      pairMetadata: Array.isArray(object?.pairMetadata)
+        ? object.pairMetadata.map((e: any) => PairMetadata.fromJSON(e))
         : [],
-      genesisOracles: Array.isArray(object?.genesisOracles) ? object.genesisOracles.map((e: any) => String(e)) : [],
+      positions: Array.isArray(object?.positions) ? object.positions.map((e: any) => Position.fromJSON(e)) : [],
+      prepaidBadDebts: Array.isArray(object?.prepaidBadDebts)
+        ? object.prepaidBadDebts.map((e: any) => PrepaidBadDebt.fromJSON(e))
+        : [],
     };
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    if (message.postedPrices) {
-      obj.postedPrices = message.postedPrices.map((e) => e ? PostedPrice.toJSON(e) : undefined);
+    if (message.pairMetadata) {
+      obj.pairMetadata = message.pairMetadata.map((e) => e ? PairMetadata.toJSON(e) : undefined);
     } else {
-      obj.postedPrices = [];
+      obj.pairMetadata = [];
     }
-    if (message.genesisOracles) {
-      obj.genesisOracles = message.genesisOracles.map((e) => e);
+    if (message.positions) {
+      obj.positions = message.positions.map((e) => e ? Position.toJSON(e) : undefined);
     } else {
-      obj.genesisOracles = [];
+      obj.positions = [];
+    }
+    if (message.prepaidBadDebts) {
+      obj.prepaidBadDebts = message.prepaidBadDebts.map((e) => e ? PrepaidBadDebt.toJSON(e) : undefined);
+    } else {
+      obj.prepaidBadDebts = [];
     }
     return obj;
   },
@@ -86,8 +100,9 @@ export const GenesisState = {
     message.params = (object.params !== undefined && object.params !== null)
       ? Params.fromPartial(object.params)
       : undefined;
-    message.postedPrices = object.postedPrices?.map((e) => PostedPrice.fromPartial(e)) || [];
-    message.genesisOracles = object.genesisOracles?.map((e) => e) || [];
+    message.pairMetadata = object.pairMetadata?.map((e) => PairMetadata.fromPartial(e)) || [];
+    message.positions = object.positions?.map((e) => Position.fromPartial(e)) || [];
+    message.prepaidBadDebts = object.prepaidBadDebts?.map((e) => PrepaidBadDebt.fromPartial(e)) || [];
     return message;
   },
 };

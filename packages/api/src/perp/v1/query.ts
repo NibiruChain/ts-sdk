@@ -15,35 +15,61 @@ export interface QueryParamsResponse {
   params?: Params;
 }
 
+/** ---------------------------------------- Positions */
+export interface QueryPositionsRequest {
+  trader: string;
+}
+
+export interface QueryPositionsResponse {
+  positions: QueryPositionResponse[];
+}
+
 /**
- * QueryTraderPositionRequest is the request type for the position of the
- * x/perp module account.
+ * QueryPositionRequest is the request type for the position of the x/perp
+ * module account.
  */
-export interface QueryTraderPositionRequest {
+export interface QueryPositionRequest {
   tokenPair: string;
   trader: string;
 }
 
-export interface QueryTraderPositionResponse {
+export interface QueryPositionResponse {
   /** The position as it exists in the blockchain state */
   position?: Position;
-  /** The position's current notional value, if it were to be entirely closed (in margin units). */
+  /**
+   * The position's current notional value, if it were to be entirely closed (in
+   * margin units).
+   */
   positionNotional: string;
   /** The position's unrealized PnL. */
   unrealizedPnl: string;
   /**
    * margin ratio of the position based on the mark price, mark TWAP. The higher
    * value of the possible margin ratios (TWAP and instantaneous) is taken to be
-   * 'marginRatioMark'. Calculated from margin, unrealized PnL, and position notional.
+   * 'marginRatioMark'. Calculated from margin, unrealized PnL, and position
+   * notional.
    */
   marginRatioMark: string;
   /**
-   * margin ratio of the position based on the index price. Calculated from margin,
-   * unrealized PnL, and position notional.
+   * margin ratio of the position based on the index price. Calculated from
+   * margin, unrealized PnL, and position notional.
    */
   marginRatioIndex: string;
   /** BlockNumber is current block number at the time of query. */
   blockNumber: Long;
+}
+
+export interface QueryFundingRatesRequest {
+  /** the pair to query for */
+  pair: string;
+}
+
+export interface QueryFundingRatesResponse {
+  /**
+   * a historical list of cumulative funding rates, with the most recent one
+   * last
+   */
+  cumulativeFundingRates: string[];
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -134,12 +160,114 @@ export const QueryParamsResponse = {
   },
 };
 
-function createBaseQueryTraderPositionRequest(): QueryTraderPositionRequest {
+function createBaseQueryPositionsRequest(): QueryPositionsRequest {
+  return { trader: "" };
+}
+
+export const QueryPositionsRequest = {
+  encode(message: QueryPositionsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.trader !== "") {
+      writer.uint32(10).string(message.trader);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryPositionsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.trader = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryPositionsRequest {
+    return { trader: isSet(object.trader) ? String(object.trader) : "" };
+  },
+
+  toJSON(message: QueryPositionsRequest): unknown {
+    const obj: any = {};
+    message.trader !== undefined && (obj.trader = message.trader);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPositionsRequest>, I>>(object: I): QueryPositionsRequest {
+    const message = createBaseQueryPositionsRequest();
+    message.trader = object.trader ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryPositionsResponse(): QueryPositionsResponse {
+  return { positions: [] };
+}
+
+export const QueryPositionsResponse = {
+  encode(message: QueryPositionsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.positions) {
+      QueryPositionResponse.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryPositionsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.positions.push(QueryPositionResponse.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryPositionsResponse {
+    return {
+      positions: Array.isArray(object?.positions)
+        ? object.positions.map((e: any) => QueryPositionResponse.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: QueryPositionsResponse): unknown {
+    const obj: any = {};
+    if (message.positions) {
+      obj.positions = message.positions.map((e) => e ? QueryPositionResponse.toJSON(e) : undefined);
+    } else {
+      obj.positions = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPositionsResponse>, I>>(object: I): QueryPositionsResponse {
+    const message = createBaseQueryPositionsResponse();
+    message.positions = object.positions?.map((e) => QueryPositionResponse.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseQueryPositionRequest(): QueryPositionRequest {
   return { tokenPair: "", trader: "" };
 }
 
-export const QueryTraderPositionRequest = {
-  encode(message: QueryTraderPositionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const QueryPositionRequest = {
+  encode(message: QueryPositionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.tokenPair !== "") {
       writer.uint32(10).string(message.tokenPair);
     }
@@ -149,10 +277,10 @@ export const QueryTraderPositionRequest = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryTraderPositionRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryTraderPositionRequest();
+    const message = createBaseQueryPositionRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -170,29 +298,29 @@ export const QueryTraderPositionRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryTraderPositionRequest {
+  fromJSON(object: any): QueryPositionRequest {
     return {
       tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
       trader: isSet(object.trader) ? String(object.trader) : "",
     };
   },
 
-  toJSON(message: QueryTraderPositionRequest): unknown {
+  toJSON(message: QueryPositionRequest): unknown {
     const obj: any = {};
     message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair);
     message.trader !== undefined && (obj.trader = message.trader);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTraderPositionRequest>, I>>(object: I): QueryTraderPositionRequest {
-    const message = createBaseQueryTraderPositionRequest();
+  fromPartial<I extends Exact<DeepPartial<QueryPositionRequest>, I>>(object: I): QueryPositionRequest {
+    const message = createBaseQueryPositionRequest();
     message.tokenPair = object.tokenPair ?? "";
     message.trader = object.trader ?? "";
     return message;
   },
 };
 
-function createBaseQueryTraderPositionResponse(): QueryTraderPositionResponse {
+function createBaseQueryPositionResponse(): QueryPositionResponse {
   return {
     position: undefined,
     positionNotional: "",
@@ -203,8 +331,8 @@ function createBaseQueryTraderPositionResponse(): QueryTraderPositionResponse {
   };
 }
 
-export const QueryTraderPositionResponse = {
-  encode(message: QueryTraderPositionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const QueryPositionResponse = {
+  encode(message: QueryPositionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.position !== undefined) {
       Position.encode(message.position, writer.uint32(10).fork()).ldelim();
     }
@@ -226,10 +354,10 @@ export const QueryTraderPositionResponse = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryTraderPositionResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryTraderPositionResponse();
+    const message = createBaseQueryPositionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -259,7 +387,7 @@ export const QueryTraderPositionResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryTraderPositionResponse {
+  fromJSON(object: any): QueryPositionResponse {
     return {
       position: isSet(object.position) ? Position.fromJSON(object.position) : undefined,
       positionNotional: isSet(object.positionNotional) ? String(object.positionNotional) : "",
@@ -270,7 +398,7 @@ export const QueryTraderPositionResponse = {
     };
   },
 
-  toJSON(message: QueryTraderPositionResponse): unknown {
+  toJSON(message: QueryPositionResponse): unknown {
     const obj: any = {};
     message.position !== undefined && (obj.position = message.position ? Position.toJSON(message.position) : undefined);
     message.positionNotional !== undefined && (obj.positionNotional = message.positionNotional);
@@ -281,8 +409,8 @@ export const QueryTraderPositionResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTraderPositionResponse>, I>>(object: I): QueryTraderPositionResponse {
-    const message = createBaseQueryTraderPositionResponse();
+  fromPartial<I extends Exact<DeepPartial<QueryPositionResponse>, I>>(object: I): QueryPositionResponse {
+    const message = createBaseQueryPositionResponse();
     message.position = (object.position !== undefined && object.position !== null)
       ? Position.fromPartial(object.position)
       : undefined;
@@ -297,11 +425,115 @@ export const QueryTraderPositionResponse = {
   },
 };
 
+function createBaseQueryFundingRatesRequest(): QueryFundingRatesRequest {
+  return { pair: "" };
+}
+
+export const QueryFundingRatesRequest = {
+  encode(message: QueryFundingRatesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pair !== "") {
+      writer.uint32(10).string(message.pair);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFundingRatesRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFundingRatesRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pair = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryFundingRatesRequest {
+    return { pair: isSet(object.pair) ? String(object.pair) : "" };
+  },
+
+  toJSON(message: QueryFundingRatesRequest): unknown {
+    const obj: any = {};
+    message.pair !== undefined && (obj.pair = message.pair);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundingRatesRequest>, I>>(object: I): QueryFundingRatesRequest {
+    const message = createBaseQueryFundingRatesRequest();
+    message.pair = object.pair ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryFundingRatesResponse(): QueryFundingRatesResponse {
+  return { cumulativeFundingRates: [] };
+}
+
+export const QueryFundingRatesResponse = {
+  encode(message: QueryFundingRatesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.cumulativeFundingRates) {
+      writer.uint32(10).string(v!);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFundingRatesResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFundingRatesResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.cumulativeFundingRates.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryFundingRatesResponse {
+    return {
+      cumulativeFundingRates: Array.isArray(object?.cumulativeFundingRates)
+        ? object.cumulativeFundingRates.map((e: any) => String(e))
+        : [],
+    };
+  },
+
+  toJSON(message: QueryFundingRatesResponse): unknown {
+    const obj: any = {};
+    if (message.cumulativeFundingRates) {
+      obj.cumulativeFundingRates = message.cumulativeFundingRates.map((e) => e);
+    } else {
+      obj.cumulativeFundingRates = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundingRatesResponse>, I>>(object: I): QueryFundingRatesResponse {
+    const message = createBaseQueryFundingRatesResponse();
+    message.cumulativeFundingRates = object.cumulativeFundingRates?.map((e) => e) || [];
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the x/perp module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  QueryTraderPosition(request: QueryTraderPositionRequest): Promise<QueryTraderPositionResponse>;
+  QueryPosition(request: QueryPositionRequest): Promise<QueryPositionResponse>;
+  QueryPositions(request: QueryPositionsRequest): Promise<QueryPositionsResponse>;
+  FundingRates(request: QueryFundingRatesRequest): Promise<QueryFundingRatesResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -309,7 +541,9 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
-    this.QueryTraderPosition = this.QueryTraderPosition.bind(this);
+    this.QueryPosition = this.QueryPosition.bind(this);
+    this.QueryPositions = this.QueryPositions.bind(this);
+    this.FundingRates = this.FundingRates.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -317,10 +551,22 @@ export class QueryClientImpl implements Query {
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryTraderPosition(request: QueryTraderPositionRequest): Promise<QueryTraderPositionResponse> {
-    const data = QueryTraderPositionRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Query", "QueryTraderPosition", data);
-    return promise.then((data) => QueryTraderPositionResponse.decode(new _m0.Reader(data)));
+  QueryPosition(request: QueryPositionRequest): Promise<QueryPositionResponse> {
+    const data = QueryPositionRequest.encode(request).finish();
+    const promise = this.rpc.request("nibiru.perp.v1.Query", "QueryPosition", data);
+    return promise.then((data) => QueryPositionResponse.decode(new _m0.Reader(data)));
+  }
+
+  QueryPositions(request: QueryPositionsRequest): Promise<QueryPositionsResponse> {
+    const data = QueryPositionsRequest.encode(request).finish();
+    const promise = this.rpc.request("nibiru.perp.v1.Query", "QueryPositions", data);
+    return promise.then((data) => QueryPositionsResponse.decode(new _m0.Reader(data)));
+  }
+
+  FundingRates(request: QueryFundingRatesRequest): Promise<QueryFundingRatesResponse> {
+    const data = QueryFundingRatesRequest.encode(request).finish();
+    const promise = this.rpc.request("nibiru.perp.v1.Query", "FundingRates", data);
+    return promise.then((data) => QueryFundingRatesResponse.decode(new _m0.Reader(data)));
   }
 }
 

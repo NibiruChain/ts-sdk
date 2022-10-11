@@ -23,7 +23,7 @@ export interface SwapBaseForQuoteEvent {
   baseAmount: string;
 }
 
-export interface MarkPriceChanged {
+export interface MarkPriceChangedEvent {
   pair: string;
   price: string;
   timestamp?: Date;
@@ -230,12 +230,12 @@ export const SwapBaseForQuoteEvent = {
   },
 };
 
-function createBaseMarkPriceChanged(): MarkPriceChanged {
+function createBaseMarkPriceChangedEvent(): MarkPriceChangedEvent {
   return { pair: "", price: "", timestamp: undefined };
 }
 
-export const MarkPriceChanged = {
-  encode(message: MarkPriceChanged, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MarkPriceChangedEvent = {
+  encode(message: MarkPriceChangedEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pair !== "") {
       writer.uint32(10).string(message.pair);
     }
@@ -248,10 +248,10 @@ export const MarkPriceChanged = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MarkPriceChanged {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MarkPriceChangedEvent {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMarkPriceChanged();
+    const message = createBaseMarkPriceChangedEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -272,7 +272,7 @@ export const MarkPriceChanged = {
     return message;
   },
 
-  fromJSON(object: any): MarkPriceChanged {
+  fromJSON(object: any): MarkPriceChangedEvent {
     return {
       pair: isSet(object.pair) ? String(object.pair) : "",
       price: isSet(object.price) ? String(object.price) : "",
@@ -280,7 +280,7 @@ export const MarkPriceChanged = {
     };
   },
 
-  toJSON(message: MarkPriceChanged): unknown {
+  toJSON(message: MarkPriceChangedEvent): unknown {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair);
     message.price !== undefined && (obj.price = message.price);
@@ -288,8 +288,8 @@ export const MarkPriceChanged = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MarkPriceChanged>, I>>(object: I): MarkPriceChanged {
-    const message = createBaseMarkPriceChanged();
+  fromPartial<I extends Exact<DeepPartial<MarkPriceChangedEvent>, I>>(object: I): MarkPriceChangedEvent {
+    const message = createBaseMarkPriceChangedEvent();
     message.pair = object.pair ?? "";
     message.price = object.price ?? "";
     message.timestamp = object.timestamp ?? undefined;

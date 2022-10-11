@@ -93,21 +93,11 @@ export function twapCalcOptionToJSON(object: TwapCalcOption): string {
   }
 }
 
-/** a snapshot of the vpool's reserves at a given point in time */
-export interface ReserveSnapshot {
-  baseAssetReserve: string;
-  /** quote asset is usually the margin asset, e.g. NUSD */
-  quoteAssetReserve: string;
-  /** milliseconds since unix epoch */
-  timestampMs: Long;
-  blockNumber: Long;
-}
-
 /**
  * A virtual pool used only for price discovery of perpetual futures contracts.
  * No real liquidity exists in this pool.
  */
-export interface Pool {
+export interface VPool {
   /** always BASE:QUOTE, e.g. BTC:NUSD or ETH:NUSD */
   pair?: AssetPair;
   /** base asset is the crypto asset, e.g. BTC or ETH */
@@ -124,6 +114,24 @@ export interface Pool {
   maintenanceMarginRatio: string;
   /** max_leverage */
   maxLeverage: string;
+}
+
+/** CurrentTWAP states defines the numerator and denominator for the TWAP calculation */
+export interface CurrentTWAP {
+  pairId: string;
+  numerator: string;
+  denominator: string;
+  price: string;
+}
+
+/** a snapshot of the vpool's reserves at a given point in time */
+export interface ReserveSnapshot {
+  pair?: AssetPair;
+  baseAssetReserve: string;
+  /** quote asset is usually the margin asset, e.g. NUSD */
+  quoteAssetReserve: string;
+  /** milliseconds since unix epoch */
+  timestampMs: Long;
 }
 
 /**
@@ -149,87 +157,7 @@ export interface PoolPrices {
   blockNumber: Long;
 }
 
-function createBaseReserveSnapshot(): ReserveSnapshot {
-  return { baseAssetReserve: "", quoteAssetReserve: "", timestampMs: Long.ZERO, blockNumber: Long.ZERO };
-}
-
-export const ReserveSnapshot = {
-  encode(message: ReserveSnapshot, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.baseAssetReserve !== "") {
-      writer.uint32(10).string(message.baseAssetReserve);
-    }
-    if (message.quoteAssetReserve !== "") {
-      writer.uint32(18).string(message.quoteAssetReserve);
-    }
-    if (!message.timestampMs.isZero()) {
-      writer.uint32(24).int64(message.timestampMs);
-    }
-    if (!message.blockNumber.isZero()) {
-      writer.uint32(32).int64(message.blockNumber);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): ReserveSnapshot {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseReserveSnapshot();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.baseAssetReserve = reader.string();
-          break;
-        case 2:
-          message.quoteAssetReserve = reader.string();
-          break;
-        case 3:
-          message.timestampMs = reader.int64() as Long;
-          break;
-        case 4:
-          message.blockNumber = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): ReserveSnapshot {
-    return {
-      baseAssetReserve: isSet(object.baseAssetReserve) ? String(object.baseAssetReserve) : "",
-      quoteAssetReserve: isSet(object.quoteAssetReserve) ? String(object.quoteAssetReserve) : "",
-      timestampMs: isSet(object.timestampMs) ? Long.fromValue(object.timestampMs) : Long.ZERO,
-      blockNumber: isSet(object.blockNumber) ? Long.fromValue(object.blockNumber) : Long.ZERO,
-    };
-  },
-
-  toJSON(message: ReserveSnapshot): unknown {
-    const obj: any = {};
-    message.baseAssetReserve !== undefined && (obj.baseAssetReserve = message.baseAssetReserve);
-    message.quoteAssetReserve !== undefined && (obj.quoteAssetReserve = message.quoteAssetReserve);
-    message.timestampMs !== undefined && (obj.timestampMs = (message.timestampMs || Long.ZERO).toString());
-    message.blockNumber !== undefined && (obj.blockNumber = (message.blockNumber || Long.ZERO).toString());
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<ReserveSnapshot>, I>>(object: I): ReserveSnapshot {
-    const message = createBaseReserveSnapshot();
-    message.baseAssetReserve = object.baseAssetReserve ?? "";
-    message.quoteAssetReserve = object.quoteAssetReserve ?? "";
-    message.timestampMs = (object.timestampMs !== undefined && object.timestampMs !== null)
-      ? Long.fromValue(object.timestampMs)
-      : Long.ZERO;
-    message.blockNumber = (object.blockNumber !== undefined && object.blockNumber !== null)
-      ? Long.fromValue(object.blockNumber)
-      : Long.ZERO;
-    return message;
-  },
-};
-
-function createBasePool(): Pool {
+function createBaseVPool(): VPool {
   return {
     pair: undefined,
     baseAssetReserve: "",
@@ -242,8 +170,8 @@ function createBasePool(): Pool {
   };
 }
 
-export const Pool = {
-  encode(message: Pool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const VPool = {
+  encode(message: VPool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pair !== undefined) {
       AssetPair.encode(message.pair, writer.uint32(10).fork()).ldelim();
     }
@@ -271,10 +199,10 @@ export const Pool = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): Pool {
+  decode(input: _m0.Reader | Uint8Array, length?: number): VPool {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePool();
+    const message = createBaseVPool();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -310,7 +238,7 @@ export const Pool = {
     return message;
   },
 
-  fromJSON(object: any): Pool {
+  fromJSON(object: any): VPool {
     return {
       pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
       baseAssetReserve: isSet(object.baseAssetReserve) ? String(object.baseAssetReserve) : "",
@@ -323,7 +251,7 @@ export const Pool = {
     };
   },
 
-  toJSON(message: Pool): unknown {
+  toJSON(message: VPool): unknown {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
     message.baseAssetReserve !== undefined && (obj.baseAssetReserve = message.baseAssetReserve);
@@ -336,8 +264,8 @@ export const Pool = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Pool>, I>>(object: I): Pool {
-    const message = createBasePool();
+  fromPartial<I extends Exact<DeepPartial<VPool>, I>>(object: I): VPool {
+    const message = createBaseVPool();
     message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
     message.baseAssetReserve = object.baseAssetReserve ?? "";
     message.quoteAssetReserve = object.quoteAssetReserve ?? "";
@@ -346,6 +274,160 @@ export const Pool = {
     message.maxOracleSpreadRatio = object.maxOracleSpreadRatio ?? "";
     message.maintenanceMarginRatio = object.maintenanceMarginRatio ?? "";
     message.maxLeverage = object.maxLeverage ?? "";
+    return message;
+  },
+};
+
+function createBaseCurrentTWAP(): CurrentTWAP {
+  return { pairId: "", numerator: "", denominator: "", price: "" };
+}
+
+export const CurrentTWAP = {
+  encode(message: CurrentTWAP, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pairId !== "") {
+      writer.uint32(10).string(message.pairId);
+    }
+    if (message.numerator !== "") {
+      writer.uint32(18).string(message.numerator);
+    }
+    if (message.denominator !== "") {
+      writer.uint32(26).string(message.denominator);
+    }
+    if (message.price !== "") {
+      writer.uint32(34).string(message.price);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CurrentTWAP {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCurrentTWAP();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pairId = reader.string();
+          break;
+        case 2:
+          message.numerator = reader.string();
+          break;
+        case 3:
+          message.denominator = reader.string();
+          break;
+        case 4:
+          message.price = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CurrentTWAP {
+    return {
+      pairId: isSet(object.pairId) ? String(object.pairId) : "",
+      numerator: isSet(object.numerator) ? String(object.numerator) : "",
+      denominator: isSet(object.denominator) ? String(object.denominator) : "",
+      price: isSet(object.price) ? String(object.price) : "",
+    };
+  },
+
+  toJSON(message: CurrentTWAP): unknown {
+    const obj: any = {};
+    message.pairId !== undefined && (obj.pairId = message.pairId);
+    message.numerator !== undefined && (obj.numerator = message.numerator);
+    message.denominator !== undefined && (obj.denominator = message.denominator);
+    message.price !== undefined && (obj.price = message.price);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<CurrentTWAP>, I>>(object: I): CurrentTWAP {
+    const message = createBaseCurrentTWAP();
+    message.pairId = object.pairId ?? "";
+    message.numerator = object.numerator ?? "";
+    message.denominator = object.denominator ?? "";
+    message.price = object.price ?? "";
+    return message;
+  },
+};
+
+function createBaseReserveSnapshot(): ReserveSnapshot {
+  return { pair: undefined, baseAssetReserve: "", quoteAssetReserve: "", timestampMs: Long.ZERO };
+}
+
+export const ReserveSnapshot = {
+  encode(message: ReserveSnapshot, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pair !== undefined) {
+      AssetPair.encode(message.pair, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.baseAssetReserve !== "") {
+      writer.uint32(10).string(message.baseAssetReserve);
+    }
+    if (message.quoteAssetReserve !== "") {
+      writer.uint32(18).string(message.quoteAssetReserve);
+    }
+    if (!message.timestampMs.isZero()) {
+      writer.uint32(24).int64(message.timestampMs);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ReserveSnapshot {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseReserveSnapshot();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 5:
+          message.pair = AssetPair.decode(reader, reader.uint32());
+          break;
+        case 1:
+          message.baseAssetReserve = reader.string();
+          break;
+        case 2:
+          message.quoteAssetReserve = reader.string();
+          break;
+        case 3:
+          message.timestampMs = reader.int64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ReserveSnapshot {
+    return {
+      pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
+      baseAssetReserve: isSet(object.baseAssetReserve) ? String(object.baseAssetReserve) : "",
+      quoteAssetReserve: isSet(object.quoteAssetReserve) ? String(object.quoteAssetReserve) : "",
+      timestampMs: isSet(object.timestampMs) ? Long.fromValue(object.timestampMs) : Long.ZERO,
+    };
+  },
+
+  toJSON(message: ReserveSnapshot): unknown {
+    const obj: any = {};
+    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
+    message.baseAssetReserve !== undefined && (obj.baseAssetReserve = message.baseAssetReserve);
+    message.quoteAssetReserve !== undefined && (obj.quoteAssetReserve = message.quoteAssetReserve);
+    message.timestampMs !== undefined && (obj.timestampMs = (message.timestampMs || Long.ZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ReserveSnapshot>, I>>(object: I): ReserveSnapshot {
+    const message = createBaseReserveSnapshot();
+    message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
+    message.baseAssetReserve = object.baseAssetReserve ?? "";
+    message.quoteAssetReserve = object.quoteAssetReserve ?? "";
+    message.timestampMs = (object.timestampMs !== undefined && object.timestampMs !== null)
+      ? Long.fromValue(object.timestampMs)
+      : Long.ZERO;
     return message;
   },
 };

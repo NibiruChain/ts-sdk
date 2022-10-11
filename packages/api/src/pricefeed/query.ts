@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Timestamp } from "../google/protobuf/timestamp";
-import { Params } from "./params";
+import { Params } from "./state";
 
 export const protobufPackage = "nibiru.pricefeed.v1";
 
