@@ -1,7 +1,14 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { AggregateExchangeRatePrevote, AggregateExchangeRateVote, ExchangeRateTuple, Pair, Params } from "./oracle";
+import {
+  AggregateExchangeRatePrevote,
+  AggregateExchangeRateVote,
+  ExchangeRateTuple,
+  Pair,
+  PairReward,
+  Params,
+} from "./oracle";
 
 export const protobufPackage = "nibiru.oracle.v1beta1";
 
@@ -14,6 +21,7 @@ export interface GenesisState {
   aggregateExchangeRatePrevotes: AggregateExchangeRatePrevote[];
   aggregateExchangeRateVotes: AggregateExchangeRateVote[];
   pairs: Pair[];
+  pairRewards: PairReward[];
 }
 
 /**
@@ -44,6 +52,7 @@ function createBaseGenesisState(): GenesisState {
     aggregateExchangeRatePrevotes: [],
     aggregateExchangeRateVotes: [],
     pairs: [],
+    pairRewards: [],
   };
 }
 
@@ -69,6 +78,9 @@ export const GenesisState = {
     }
     for (const v of message.pairs) {
       Pair.encode(v!, writer.uint32(58).fork()).ldelim();
+    }
+    for (const v of message.pairRewards) {
+      PairReward.encode(v!, writer.uint32(66).fork()).ldelim();
     }
     return writer;
   },
@@ -101,6 +113,9 @@ export const GenesisState = {
         case 7:
           message.pairs.push(Pair.decode(reader, reader.uint32()));
           break;
+        case 8:
+          message.pairRewards.push(PairReward.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -130,6 +145,7 @@ export const GenesisState = {
       pairs: Array.isArray(object?.pairs)
         ? object.pairs.map((e: any) => Pair.fromJSON(e))
         : [],
+      pairRewards: Array.isArray(object?.pairRewards) ? object.pairRewards.map((e: any) => PairReward.fromJSON(e)) : [],
     };
   },
 
@@ -170,6 +186,11 @@ export const GenesisState = {
     } else {
       obj.pairs = [];
     }
+    if (message.pairRewards) {
+      obj.pairRewards = message.pairRewards.map((e) => e ? PairReward.toJSON(e) : undefined);
+    } else {
+      obj.pairRewards = [];
+    }
     return obj;
   },
 
@@ -186,6 +207,7 @@ export const GenesisState = {
     message.aggregateExchangeRateVotes =
       object.aggregateExchangeRateVotes?.map((e) => AggregateExchangeRateVote.fromPartial(e)) || [];
     message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
+    message.pairRewards = object.pairRewards?.map((e) => PairReward.fromPartial(e)) || [];
     return message;
   },
 };

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Coin } from "../../cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "nibiru.oracle.v1beta1";
 
@@ -9,7 +10,6 @@ export interface Params {
   votePeriod: Long;
   voteThreshold: string;
   rewardBand: string;
-  rewardDistributionWindow: Long;
   whitelist: Pair[];
   slashFraction: string;
   slashWindow: Long;
@@ -47,12 +47,26 @@ export interface ExchangeRateTuple {
   exchangeRate: string;
 }
 
+/**
+ * PairReward defines a credit object towards validators
+ * which provide prices faithfully for different pairs.
+ */
+export interface PairReward {
+  /** pair defines the pair for which we incentivize validator to provide prices for. */
+  pair: string;
+  /** id uniquely identifies the rewards instance of the pair */
+  id: Long;
+  /** vote_periods defines the vote periods left in which rewards will be distributed. */
+  votePeriods: Long;
+  /** coins defines the amount of coins to distribute in a single vote period. */
+  coins: Coin[];
+}
+
 function createBaseParams(): Params {
   return {
     votePeriod: Long.UZERO,
     voteThreshold: "",
     rewardBand: "",
-    rewardDistributionWindow: Long.UZERO,
     whitelist: [],
     slashFraction: "",
     slashWindow: Long.UZERO,
@@ -71,20 +85,17 @@ export const Params = {
     if (message.rewardBand !== "") {
       writer.uint32(26).string(message.rewardBand);
     }
-    if (!message.rewardDistributionWindow.isZero()) {
-      writer.uint32(32).uint64(message.rewardDistributionWindow);
-    }
     for (const v of message.whitelist) {
-      Pair.encode(v!, writer.uint32(42).fork()).ldelim();
+      Pair.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     if (message.slashFraction !== "") {
-      writer.uint32(50).string(message.slashFraction);
+      writer.uint32(42).string(message.slashFraction);
     }
     if (!message.slashWindow.isZero()) {
-      writer.uint32(56).uint64(message.slashWindow);
+      writer.uint32(48).uint64(message.slashWindow);
     }
     if (message.minValidPerWindow !== "") {
-      writer.uint32(66).string(message.minValidPerWindow);
+      writer.uint32(58).string(message.minValidPerWindow);
     }
     return writer;
   },
@@ -106,18 +117,15 @@ export const Params = {
           message.rewardBand = reader.string();
           break;
         case 4:
-          message.rewardDistributionWindow = reader.uint64() as Long;
-          break;
-        case 5:
           message.whitelist.push(Pair.decode(reader, reader.uint32()));
           break;
-        case 6:
+        case 5:
           message.slashFraction = reader.string();
           break;
-        case 7:
+        case 6:
           message.slashWindow = reader.uint64() as Long;
           break;
-        case 8:
+        case 7:
           message.minValidPerWindow = reader.string();
           break;
         default:
@@ -133,9 +141,6 @@ export const Params = {
       votePeriod: isSet(object.votePeriod) ? Long.fromValue(object.votePeriod) : Long.UZERO,
       voteThreshold: isSet(object.voteThreshold) ? String(object.voteThreshold) : "",
       rewardBand: isSet(object.rewardBand) ? String(object.rewardBand) : "",
-      rewardDistributionWindow: isSet(object.rewardDistributionWindow)
-        ? Long.fromValue(object.rewardDistributionWindow)
-        : Long.UZERO,
       whitelist: Array.isArray(object?.whitelist) ? object.whitelist.map((e: any) => Pair.fromJSON(e)) : [],
       slashFraction: isSet(object.slashFraction) ? String(object.slashFraction) : "",
       slashWindow: isSet(object.slashWindow) ? Long.fromValue(object.slashWindow) : Long.UZERO,
@@ -148,8 +153,6 @@ export const Params = {
     message.votePeriod !== undefined && (obj.votePeriod = (message.votePeriod || Long.UZERO).toString());
     message.voteThreshold !== undefined && (obj.voteThreshold = message.voteThreshold);
     message.rewardBand !== undefined && (obj.rewardBand = message.rewardBand);
-    message.rewardDistributionWindow !== undefined &&
-      (obj.rewardDistributionWindow = (message.rewardDistributionWindow || Long.UZERO).toString());
     if (message.whitelist) {
       obj.whitelist = message.whitelist.map((e) => e ? Pair.toJSON(e) : undefined);
     } else {
@@ -168,10 +171,6 @@ export const Params = {
       : Long.UZERO;
     message.voteThreshold = object.voteThreshold ?? "";
     message.rewardBand = object.rewardBand ?? "";
-    message.rewardDistributionWindow =
-      (object.rewardDistributionWindow !== undefined && object.rewardDistributionWindow !== null)
-        ? Long.fromValue(object.rewardDistributionWindow)
-        : Long.UZERO;
     message.whitelist = object.whitelist?.map((e) => Pair.fromPartial(e)) || [];
     message.slashFraction = object.slashFraction ?? "";
     message.slashWindow = (object.slashWindow !== undefined && object.slashWindow !== null)
@@ -416,6 +415,88 @@ export const ExchangeRateTuple = {
     const message = createBaseExchangeRateTuple();
     message.pair = object.pair ?? "";
     message.exchangeRate = object.exchangeRate ?? "";
+    return message;
+  },
+};
+
+function createBasePairReward(): PairReward {
+  return { pair: "", id: Long.UZERO, votePeriods: Long.UZERO, coins: [] };
+}
+
+export const PairReward = {
+  encode(message: PairReward, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pair !== "") {
+      writer.uint32(10).string(message.pair);
+    }
+    if (!message.id.isZero()) {
+      writer.uint32(16).uint64(message.id);
+    }
+    if (!message.votePeriods.isZero()) {
+      writer.uint32(24).uint64(message.votePeriods);
+    }
+    for (const v of message.coins) {
+      Coin.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): PairReward {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePairReward();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pair = reader.string();
+          break;
+        case 2:
+          message.id = reader.uint64() as Long;
+          break;
+        case 3:
+          message.votePeriods = reader.uint64() as Long;
+          break;
+        case 4:
+          message.coins.push(Coin.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): PairReward {
+    return {
+      pair: isSet(object.pair) ? String(object.pair) : "",
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      votePeriods: isSet(object.votePeriods) ? Long.fromValue(object.votePeriods) : Long.UZERO,
+      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: PairReward): unknown {
+    const obj: any = {};
+    message.pair !== undefined && (obj.pair = message.pair);
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.votePeriods !== undefined && (obj.votePeriods = (message.votePeriods || Long.UZERO).toString());
+    if (message.coins) {
+      obj.coins = message.coins.map((e) => e ? Coin.toJSON(e) : undefined);
+    } else {
+      obj.coins = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<PairReward>, I>>(object: I): PairReward {
+    const message = createBasePairReward();
+    message.pair = object.pair ?? "";
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
+    message.votePeriods = (object.votePeriods !== undefined && object.votePeriods !== null)
+      ? Long.fromValue(object.votePeriods)
+      : Long.UZERO;
+    message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };

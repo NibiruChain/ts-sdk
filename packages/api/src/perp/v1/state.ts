@@ -2,7 +2,6 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { AssetPair } from "../../common/common";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../google/protobuf/duration";
 
 export const protobufPackage = "nibiru.perp.v1";
@@ -183,29 +182,25 @@ export interface Params {
   /** EcosystemFundFeeRatio is the ratio transferred to the PerpEF. */
   ecosystemFundFeeRatio: string;
   /**
-   * LiquidationFeeRatio is the percentage of liquidated position that will be given
-   * to out as a reward. Half of the liquidation fee is given to the liquidator,
-   * and the other half is given to the ecosystem fund.
+   * LiquidationFeeRatio is the percentage of liquidated position that will be
+   * given to out as a reward. Half of the liquidation fee is given to the
+   * liquidator, and the other half is given to the ecosystem fund.
    */
   liquidationFeeRatio: string;
-  /** PartialLiquidationRatio is the share we try to liquidate if the margin is higher than liquidation fee */
+  /**
+   * PartialLiquidationRatio is the share we try to liquidate if the margin is
+   * higher than liquidation fee
+   */
   partialLiquidationRatio: string;
   /** specifies the interval on which the funding rate is updated */
   fundingRateInterval: string;
   /** amount of time to look back for TWAP calculations */
   twapLookbackWindow?: Duration;
-}
-
-/** GenesisState defines the perp module's genesis state. */
-export interface GenesisState {
-  params?: Params;
-  vaultBalance: Coin[];
-  perpEfBalance: Coin[];
-  feePoolBalance: Coin[];
-  pairMetadata: PairMetadata[];
-  positions: Position[];
-  prepaidBadDebts: PrepaidBadDebt[];
-  whitelistedAddresses: string[];
+  /**
+   * whitelisted_liquidators defines the list of addresses
+   * which are allowed to liquidate a position.
+   */
+  whitelistedLiquidators: string[];
 }
 
 /**
@@ -227,12 +222,28 @@ export interface Position {
    */
   openNotional: string;
   /**
-   * The last cumulative funding payment this position has applied.
+   * The most recent cumulative premium fraction this position has.
    * Used to calculate the next funding payment.
    */
-  lastUpdateCumulativePremiumFraction: string;
-  /** BlockNumber is the last block number when this position changed. */
+  latestCumulativePremiumFraction: string;
+  /** BlockNumber is the last block number when this position was updated. */
   blockNumber: Long;
+}
+
+export interface PairMetadata {
+  pair?: AssetPair;
+  /**
+   * The historical list of cumulative premium fractions for a given pair.
+   * Calculated once per epoch.
+   * A premium fraction is the difference between mark and index, divided by the number of payments per day.
+   * (mark - index) / # payments in a day
+   */
+  cumulativePremiumFractions: string[];
+}
+
+export interface PrepaidBadDebt {
+  denom: string;
+  amount: string;
 }
 
 export interface PositionResp {
@@ -249,7 +260,10 @@ export interface PositionResp {
   badDebt: string;
   /** The funding payment applied on this position change. */
   fundingPayment: string;
-  /** The amount of PnL realized on this position changed, measured in quote units. */
+  /**
+   * The amount of PnL realized on this position changed, measured in quote
+   * units.
+   */
   realizedPnl: string;
   /** The unrealized PnL in the position after the position change. */
   unrealizedPnlAfter: string;
@@ -258,7 +272,10 @@ export interface PositionResp {
    * A negative value means the vault pays the trader.
    */
   marginToVault: string;
-  /** The position's notional value after the position change, measured in quote units. */
+  /**
+   * The position's notional value after the position change, measured in quote
+   * units.
+   */
   positionNotional: string;
 }
 
@@ -275,16 +292,6 @@ export interface LiquidateResp {
   positionResp?: PositionResp;
 }
 
-export interface PairMetadata {
-  pair?: AssetPair;
-  cumulativePremiumFractions: string[];
-}
-
-export interface PrepaidBadDebt {
-  denom: string;
-  amount: string;
-}
-
 function createBaseParams(): Params {
   return {
     stopped: false,
@@ -294,6 +301,7 @@ function createBaseParams(): Params {
     partialLiquidationRatio: "",
     fundingRateInterval: "",
     twapLookbackWindow: undefined,
+    whitelistedLiquidators: [],
   };
 }
 
@@ -319,6 +327,9 @@ export const Params = {
     }
     if (message.twapLookbackWindow !== undefined) {
       Duration.encode(message.twapLookbackWindow, writer.uint32(66).fork()).ldelim();
+    }
+    for (const v of message.whitelistedLiquidators) {
+      writer.uint32(74).string(v!);
     }
     return writer;
   },
@@ -351,6 +362,9 @@ export const Params = {
         case 8:
           message.twapLookbackWindow = Duration.decode(reader, reader.uint32());
           break;
+        case 9:
+          message.whitelistedLiquidators.push(reader.string());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -368,6 +382,9 @@ export const Params = {
       partialLiquidationRatio: isSet(object.partialLiquidationRatio) ? String(object.partialLiquidationRatio) : "",
       fundingRateInterval: isSet(object.fundingRateInterval) ? String(object.fundingRateInterval) : "",
       twapLookbackWindow: isSet(object.twapLookbackWindow) ? Duration.fromJSON(object.twapLookbackWindow) : undefined,
+      whitelistedLiquidators: Array.isArray(object?.whitelistedLiquidators)
+        ? object.whitelistedLiquidators.map((e: any) => String(e))
+        : [],
     };
   },
 
@@ -381,6 +398,11 @@ export const Params = {
     message.fundingRateInterval !== undefined && (obj.fundingRateInterval = message.fundingRateInterval);
     message.twapLookbackWindow !== undefined &&
       (obj.twapLookbackWindow = message.twapLookbackWindow ? Duration.toJSON(message.twapLookbackWindow) : undefined);
+    if (message.whitelistedLiquidators) {
+      obj.whitelistedLiquidators = message.whitelistedLiquidators.map((e) => e);
+    } else {
+      obj.whitelistedLiquidators = [];
+    }
     return obj;
   },
 
@@ -395,165 +417,7 @@ export const Params = {
     message.twapLookbackWindow = (object.twapLookbackWindow !== undefined && object.twapLookbackWindow !== null)
       ? Duration.fromPartial(object.twapLookbackWindow)
       : undefined;
-    return message;
-  },
-};
-
-function createBaseGenesisState(): GenesisState {
-  return {
-    params: undefined,
-    vaultBalance: [],
-    perpEfBalance: [],
-    feePoolBalance: [],
-    pairMetadata: [],
-    positions: [],
-    prepaidBadDebts: [],
-    whitelistedAddresses: [],
-  };
-}
-
-export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.params !== undefined) {
-      Params.encode(message.params, writer.uint32(10).fork()).ldelim();
-    }
-    for (const v of message.vaultBalance) {
-      Coin.encode(v!, writer.uint32(18).fork()).ldelim();
-    }
-    for (const v of message.perpEfBalance) {
-      Coin.encode(v!, writer.uint32(26).fork()).ldelim();
-    }
-    for (const v of message.feePoolBalance) {
-      Coin.encode(v!, writer.uint32(34).fork()).ldelim();
-    }
-    for (const v of message.pairMetadata) {
-      PairMetadata.encode(v!, writer.uint32(42).fork()).ldelim();
-    }
-    for (const v of message.positions) {
-      Position.encode(v!, writer.uint32(50).fork()).ldelim();
-    }
-    for (const v of message.prepaidBadDebts) {
-      PrepaidBadDebt.encode(v!, writer.uint32(58).fork()).ldelim();
-    }
-    for (const v of message.whitelistedAddresses) {
-      writer.uint32(66).string(v!);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGenesisState();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.params = Params.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.vaultBalance.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.perpEfBalance.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.feePoolBalance.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.pairMetadata.push(PairMetadata.decode(reader, reader.uint32()));
-          break;
-        case 6:
-          message.positions.push(Position.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.prepaidBadDebts.push(PrepaidBadDebt.decode(reader, reader.uint32()));
-          break;
-        case 8:
-          message.whitelistedAddresses.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): GenesisState {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      vaultBalance: Array.isArray(object?.vaultBalance) ? object.vaultBalance.map((e: any) => Coin.fromJSON(e)) : [],
-      perpEfBalance: Array.isArray(object?.perpEfBalance) ? object.perpEfBalance.map((e: any) => Coin.fromJSON(e)) : [],
-      feePoolBalance: Array.isArray(object?.feePoolBalance)
-        ? object.feePoolBalance.map((e: any) => Coin.fromJSON(e))
-        : [],
-      pairMetadata: Array.isArray(object?.pairMetadata)
-        ? object.pairMetadata.map((e: any) => PairMetadata.fromJSON(e))
-        : [],
-      positions: Array.isArray(object?.positions) ? object.positions.map((e: any) => Position.fromJSON(e)) : [],
-      prepaidBadDebts: Array.isArray(object?.prepaidBadDebts)
-        ? object.prepaidBadDebts.map((e: any) => PrepaidBadDebt.fromJSON(e))
-        : [],
-      whitelistedAddresses: Array.isArray(object?.whitelistedAddresses)
-        ? object.whitelistedAddresses.map((e: any) => String(e))
-        : [],
-    };
-  },
-
-  toJSON(message: GenesisState): unknown {
-    const obj: any = {};
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    if (message.vaultBalance) {
-      obj.vaultBalance = message.vaultBalance.map((e) => e ? Coin.toJSON(e) : undefined);
-    } else {
-      obj.vaultBalance = [];
-    }
-    if (message.perpEfBalance) {
-      obj.perpEfBalance = message.perpEfBalance.map((e) => e ? Coin.toJSON(e) : undefined);
-    } else {
-      obj.perpEfBalance = [];
-    }
-    if (message.feePoolBalance) {
-      obj.feePoolBalance = message.feePoolBalance.map((e) => e ? Coin.toJSON(e) : undefined);
-    } else {
-      obj.feePoolBalance = [];
-    }
-    if (message.pairMetadata) {
-      obj.pairMetadata = message.pairMetadata.map((e) => e ? PairMetadata.toJSON(e) : undefined);
-    } else {
-      obj.pairMetadata = [];
-    }
-    if (message.positions) {
-      obj.positions = message.positions.map((e) => e ? Position.toJSON(e) : undefined);
-    } else {
-      obj.positions = [];
-    }
-    if (message.prepaidBadDebts) {
-      obj.prepaidBadDebts = message.prepaidBadDebts.map((e) => e ? PrepaidBadDebt.toJSON(e) : undefined);
-    } else {
-      obj.prepaidBadDebts = [];
-    }
-    if (message.whitelistedAddresses) {
-      obj.whitelistedAddresses = message.whitelistedAddresses.map((e) => e);
-    } else {
-      obj.whitelistedAddresses = [];
-    }
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
-    const message = createBaseGenesisState();
-    message.params = (object.params !== undefined && object.params !== null)
-      ? Params.fromPartial(object.params)
-      : undefined;
-    message.vaultBalance = object.vaultBalance?.map((e) => Coin.fromPartial(e)) || [];
-    message.perpEfBalance = object.perpEfBalance?.map((e) => Coin.fromPartial(e)) || [];
-    message.feePoolBalance = object.feePoolBalance?.map((e) => Coin.fromPartial(e)) || [];
-    message.pairMetadata = object.pairMetadata?.map((e) => PairMetadata.fromPartial(e)) || [];
-    message.positions = object.positions?.map((e) => Position.fromPartial(e)) || [];
-    message.prepaidBadDebts = object.prepaidBadDebts?.map((e) => PrepaidBadDebt.fromPartial(e)) || [];
-    message.whitelistedAddresses = object.whitelistedAddresses?.map((e) => e) || [];
+    message.whitelistedLiquidators = object.whitelistedLiquidators?.map((e) => e) || [];
     return message;
   },
 };
@@ -565,7 +429,7 @@ function createBasePosition(): Position {
     size: "",
     margin: "",
     openNotional: "",
-    lastUpdateCumulativePremiumFraction: "",
+    latestCumulativePremiumFraction: "",
     blockNumber: Long.ZERO,
   };
 }
@@ -587,8 +451,8 @@ export const Position = {
     if (message.openNotional !== "") {
       writer.uint32(42).string(message.openNotional);
     }
-    if (message.lastUpdateCumulativePremiumFraction !== "") {
-      writer.uint32(50).string(message.lastUpdateCumulativePremiumFraction);
+    if (message.latestCumulativePremiumFraction !== "") {
+      writer.uint32(50).string(message.latestCumulativePremiumFraction);
     }
     if (!message.blockNumber.isZero()) {
       writer.uint32(56).int64(message.blockNumber);
@@ -619,7 +483,7 @@ export const Position = {
           message.openNotional = reader.string();
           break;
         case 6:
-          message.lastUpdateCumulativePremiumFraction = reader.string();
+          message.latestCumulativePremiumFraction = reader.string();
           break;
         case 7:
           message.blockNumber = reader.int64() as Long;
@@ -639,8 +503,8 @@ export const Position = {
       size: isSet(object.size) ? String(object.size) : "",
       margin: isSet(object.margin) ? String(object.margin) : "",
       openNotional: isSet(object.openNotional) ? String(object.openNotional) : "",
-      lastUpdateCumulativePremiumFraction: isSet(object.lastUpdateCumulativePremiumFraction)
-        ? String(object.lastUpdateCumulativePremiumFraction)
+      latestCumulativePremiumFraction: isSet(object.latestCumulativePremiumFraction)
+        ? String(object.latestCumulativePremiumFraction)
         : "",
       blockNumber: isSet(object.blockNumber) ? Long.fromValue(object.blockNumber) : Long.ZERO,
     };
@@ -653,8 +517,8 @@ export const Position = {
     message.size !== undefined && (obj.size = message.size);
     message.margin !== undefined && (obj.margin = message.margin);
     message.openNotional !== undefined && (obj.openNotional = message.openNotional);
-    message.lastUpdateCumulativePremiumFraction !== undefined &&
-      (obj.lastUpdateCumulativePremiumFraction = message.lastUpdateCumulativePremiumFraction);
+    message.latestCumulativePremiumFraction !== undefined &&
+      (obj.latestCumulativePremiumFraction = message.latestCumulativePremiumFraction);
     message.blockNumber !== undefined && (obj.blockNumber = (message.blockNumber || Long.ZERO).toString());
     return obj;
   },
@@ -666,10 +530,132 @@ export const Position = {
     message.size = object.size ?? "";
     message.margin = object.margin ?? "";
     message.openNotional = object.openNotional ?? "";
-    message.lastUpdateCumulativePremiumFraction = object.lastUpdateCumulativePremiumFraction ?? "";
+    message.latestCumulativePremiumFraction = object.latestCumulativePremiumFraction ?? "";
     message.blockNumber = (object.blockNumber !== undefined && object.blockNumber !== null)
       ? Long.fromValue(object.blockNumber)
       : Long.ZERO;
+    return message;
+  },
+};
+
+function createBasePairMetadata(): PairMetadata {
+  return { pair: undefined, cumulativePremiumFractions: [] };
+}
+
+export const PairMetadata = {
+  encode(message: PairMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pair !== undefined) {
+      AssetPair.encode(message.pair, writer.uint32(10).fork()).ldelim();
+    }
+    for (const v of message.cumulativePremiumFractions) {
+      writer.uint32(18).string(v!);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): PairMetadata {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePairMetadata();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pair = AssetPair.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.cumulativePremiumFractions.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): PairMetadata {
+    return {
+      pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
+      cumulativePremiumFractions: Array.isArray(object?.cumulativePremiumFractions)
+        ? object.cumulativePremiumFractions.map((e: any) => String(e))
+        : [],
+    };
+  },
+
+  toJSON(message: PairMetadata): unknown {
+    const obj: any = {};
+    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
+    if (message.cumulativePremiumFractions) {
+      obj.cumulativePremiumFractions = message.cumulativePremiumFractions.map((e) => e);
+    } else {
+      obj.cumulativePremiumFractions = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<PairMetadata>, I>>(object: I): PairMetadata {
+    const message = createBasePairMetadata();
+    message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
+    message.cumulativePremiumFractions = object.cumulativePremiumFractions?.map((e) => e) || [];
+    return message;
+  },
+};
+
+function createBasePrepaidBadDebt(): PrepaidBadDebt {
+  return { denom: "", amount: "" };
+}
+
+export const PrepaidBadDebt = {
+  encode(message: PrepaidBadDebt, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.denom !== "") {
+      writer.uint32(10).string(message.denom);
+    }
+    if (message.amount !== "") {
+      writer.uint32(18).string(message.amount);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): PrepaidBadDebt {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePrepaidBadDebt();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.denom = reader.string();
+          break;
+        case 2:
+          message.amount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): PrepaidBadDebt {
+    return {
+      denom: isSet(object.denom) ? String(object.denom) : "",
+      amount: isSet(object.amount) ? String(object.amount) : "",
+    };
+  },
+
+  toJSON(message: PrepaidBadDebt): unknown {
+    const obj: any = {};
+    message.denom !== undefined && (obj.denom = message.denom);
+    message.amount !== undefined && (obj.amount = message.amount);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<PrepaidBadDebt>, I>>(object: I): PrepaidBadDebt {
+    const message = createBasePrepaidBadDebt();
+    message.denom = object.denom ?? "";
+    message.amount = object.amount ?? "";
     return message;
   },
 };
@@ -891,128 +877,6 @@ export const LiquidateResp = {
     message.positionResp = (object.positionResp !== undefined && object.positionResp !== null)
       ? PositionResp.fromPartial(object.positionResp)
       : undefined;
-    return message;
-  },
-};
-
-function createBasePairMetadata(): PairMetadata {
-  return { pair: undefined, cumulativePremiumFractions: [] };
-}
-
-export const PairMetadata = {
-  encode(message: PairMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== undefined) {
-      AssetPair.encode(message.pair, writer.uint32(10).fork()).ldelim();
-    }
-    for (const v of message.cumulativePremiumFractions) {
-      writer.uint32(18).string(v!);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): PairMetadata {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePairMetadata();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.pair = AssetPair.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.cumulativePremiumFractions.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): PairMetadata {
-    return {
-      pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
-      cumulativePremiumFractions: Array.isArray(object?.cumulativePremiumFractions)
-        ? object.cumulativePremiumFractions.map((e: any) => String(e))
-        : [],
-    };
-  },
-
-  toJSON(message: PairMetadata): unknown {
-    const obj: any = {};
-    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
-    if (message.cumulativePremiumFractions) {
-      obj.cumulativePremiumFractions = message.cumulativePremiumFractions.map((e) => e);
-    } else {
-      obj.cumulativePremiumFractions = [];
-    }
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<PairMetadata>, I>>(object: I): PairMetadata {
-    const message = createBasePairMetadata();
-    message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
-    message.cumulativePremiumFractions = object.cumulativePremiumFractions?.map((e) => e) || [];
-    return message;
-  },
-};
-
-function createBasePrepaidBadDebt(): PrepaidBadDebt {
-  return { denom: "", amount: "" };
-}
-
-export const PrepaidBadDebt = {
-  encode(message: PrepaidBadDebt, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.denom !== "") {
-      writer.uint32(10).string(message.denom);
-    }
-    if (message.amount !== "") {
-      writer.uint32(18).string(message.amount);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): PrepaidBadDebt {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePrepaidBadDebt();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.denom = reader.string();
-          break;
-        case 2:
-          message.amount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): PrepaidBadDebt {
-    return {
-      denom: isSet(object.denom) ? String(object.denom) : "",
-      amount: isSet(object.amount) ? String(object.amount) : "",
-    };
-  },
-
-  toJSON(message: PrepaidBadDebt): unknown {
-    const obj: any = {};
-    message.denom !== undefined && (obj.denom = message.denom);
-    message.amount !== undefined && (obj.amount = message.amount);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<PrepaidBadDebt>, I>>(object: I): PrepaidBadDebt {
-    const message = createBasePrepaidBadDebt();
-    message.denom = object.denom ?? "";
-    message.amount = object.amount ?? "";
     return message;
   },
 };

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { EpochInfo } from "./genesis";
+import { EpochInfo } from "./state";
 
 export const protobufPackage = "nibiru.epochs.v1beta1";
 
@@ -158,13 +158,13 @@ export const QueryCurrentEpochRequest = {
 };
 
 function createBaseQueryCurrentEpochResponse(): QueryCurrentEpochResponse {
-  return { currentEpoch: Long.ZERO };
+  return { currentEpoch: Long.UZERO };
 }
 
 export const QueryCurrentEpochResponse = {
   encode(message: QueryCurrentEpochResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.currentEpoch.isZero()) {
-      writer.uint32(8).int64(message.currentEpoch);
+      writer.uint32(8).uint64(message.currentEpoch);
     }
     return writer;
   },
@@ -177,7 +177,7 @@ export const QueryCurrentEpochResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.currentEpoch = reader.int64() as Long;
+          message.currentEpoch = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -188,12 +188,12 @@ export const QueryCurrentEpochResponse = {
   },
 
   fromJSON(object: any): QueryCurrentEpochResponse {
-    return { currentEpoch: isSet(object.currentEpoch) ? Long.fromValue(object.currentEpoch) : Long.ZERO };
+    return { currentEpoch: isSet(object.currentEpoch) ? Long.fromValue(object.currentEpoch) : Long.UZERO };
   },
 
   toJSON(message: QueryCurrentEpochResponse): unknown {
     const obj: any = {};
-    message.currentEpoch !== undefined && (obj.currentEpoch = (message.currentEpoch || Long.ZERO).toString());
+    message.currentEpoch !== undefined && (obj.currentEpoch = (message.currentEpoch || Long.UZERO).toString());
     return obj;
   },
 
@@ -201,7 +201,7 @@ export const QueryCurrentEpochResponse = {
     const message = createBaseQueryCurrentEpochResponse();
     message.currentEpoch = (object.currentEpoch !== undefined && object.currentEpoch !== null)
       ? Long.fromValue(object.currentEpoch)
-      : Long.ZERO;
+      : Long.UZERO;
     return message;
   },
 };

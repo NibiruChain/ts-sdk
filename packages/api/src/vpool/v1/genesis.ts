@@ -1,28 +1,27 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Params } from "./params";
-import { Pool } from "./vpool";
+import { ReserveSnapshot, VPool } from "./state";
 
 export const protobufPackage = "nibiru.vpool.v1";
 
 /** GenesisState defines the vpool module's genesis state. */
 export interface GenesisState {
-  vpools: Pool[];
-  params?: Params;
+  vpools: VPool[];
+  snapshots: ReserveSnapshot[];
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { vpools: [], params: undefined };
+  return { vpools: [], snapshots: [] };
 }
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.vpools) {
-      Pool.encode(v!, writer.uint32(10).fork()).ldelim();
+      VPool.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.params !== undefined) {
-      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+    for (const v of message.snapshots) {
+      ReserveSnapshot.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -35,10 +34,10 @@ export const GenesisState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.vpools.push(Pool.decode(reader, reader.uint32()));
+          message.vpools.push(VPool.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.params = Params.decode(reader, reader.uint32());
+          message.snapshots.push(ReserveSnapshot.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -50,28 +49,30 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      vpools: Array.isArray(object?.vpools) ? object.vpools.map((e: any) => Pool.fromJSON(e)) : [],
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+      vpools: Array.isArray(object?.vpools) ? object.vpools.map((e: any) => VPool.fromJSON(e)) : [],
+      snapshots: Array.isArray(object?.snapshots) ? object.snapshots.map((e: any) => ReserveSnapshot.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     if (message.vpools) {
-      obj.vpools = message.vpools.map((e) => e ? Pool.toJSON(e) : undefined);
+      obj.vpools = message.vpools.map((e) => e ? VPool.toJSON(e) : undefined);
     } else {
       obj.vpools = [];
     }
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    if (message.snapshots) {
+      obj.snapshots = message.snapshots.map((e) => e ? ReserveSnapshot.toJSON(e) : undefined);
+    } else {
+      obj.snapshots = [];
+    }
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.vpools = object.vpools?.map((e) => Pool.fromPartial(e)) || [];
-    message.params = (object.params !== undefined && object.params !== null)
-      ? Params.fromPartial(object.params)
-      : undefined;
+    message.vpools = object.vpools?.map((e) => VPool.fromPartial(e)) || [];
+    message.snapshots = object.snapshots?.map((e) => ReserveSnapshot.fromPartial(e)) || [];
     return message;
   },
 };
@@ -91,8 +92,4 @@ export type Exact<P, I extends P> = P extends Builtin ? P
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
 }

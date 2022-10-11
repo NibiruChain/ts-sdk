@@ -1,11 +1,11 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
-import * as qpb from "@nibiruchain/api/dist/perp/v1/query"
-import * as pbs from "@nibiruchain/api/dist/perp/v1/state"
+import * as perpquery from "@nibiruchain/api/dist/perp/v1/query"
+import * as perpstate from "@nibiruchain/api/dist/perp/v1/state"
 import { fromSdkDec } from "../chain"
 
-function transformTraderPosition(
-  resp: qpb.QueryTraderPositionResponse,
-): qpb.QueryTraderPositionResponse {
+function transformPosition(
+  resp: perpquery.QueryPositionResponse,
+): perpquery.QueryPositionResponse {
   const {
     positionNotional: pn,
     unrealizedPnl: upnl,
@@ -19,7 +19,7 @@ function transformTraderPosition(
   return resp
 }
 
-function transformParams(pbParams?: pbs.Params): pbs.Params | undefined {
+function transformParams(pbParams?: perpstate.Params): perpstate.Params | undefined {
   if (!pbParams) {
     return pbParams
   }
@@ -34,30 +34,30 @@ function transformParams(pbParams?: pbs.Params): pbs.Params | undefined {
 
 export interface PerpExtension {
   readonly perp: {
-    readonly params: () => Promise<qpb.QueryParamsResponse>
-    readonly traderPosition: (args: {
+    readonly params: () => Promise<perpquery.QueryParamsResponse>
+    readonly position: (args: {
       tokenPair: string
       trader: string
-    }) => Promise<qpb.QueryTraderPositionResponse>
+    }) => Promise<perpquery.QueryPositionResponse>
   }
 }
 
 export function setupPerpExtension(base: QueryClient): PerpExtension {
   const rpcClient = createProtobufRpcClient(base)
-  const queryService = new qpb.QueryClientImpl(rpcClient)
+  const queryService = new perpquery.QueryClientImpl(rpcClient)
 
   return {
     perp: {
       params: async () => {
-        const req = qpb.QueryParamsRequest.fromPartial({})
+        const req = perpquery.QueryParamsRequest.fromPartial({})
         const resp = await queryService.Params(req)
         resp.params = transformParams(resp.params)
         return resp
       },
-      traderPosition: async (args: { tokenPair: string; trader: string }) => {
-        const req = qpb.QueryTraderPositionRequest.fromPartial(args)
-        const resp = await queryService.QueryTraderPosition(req)
-        return transformTraderPosition(resp)
+      position: async (args: { tokenPair: string; trader: string }) => {
+        const req = perpquery.QueryPositionRequest.fromPartial(args)
+        const resp = await queryService.QueryPosition(req)
+        return transformPosition(resp)
       },
     },
   }

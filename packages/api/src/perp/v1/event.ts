@@ -36,10 +36,10 @@ export interface PositionChangedEvent {
   /** amt of margin (y) lost due to liquidation */
   liquidationPenalty: string;
   /**
-   * Spot price, synonymous with mark price in this context, is the quotient of
+   * Mark price, synonymous with mark price in this context, is the quotient of
    * the quote reserves and base reserves
    */
-  spotPrice: string;
+  markPrice: string;
   /**
    * A funding payment made or received by the trader on the current position.
    * 'fundingPayment' is positive if 'owner' is the sender and negative if 'owner'
@@ -108,12 +108,14 @@ export interface FundingRateChangedEvent {
   indexPrice: string;
   /** The latest funding rate. */
   latestFundingRate: string;
+  /** The latest premium fraction just calculated. */
+  latestPremiumFraction: string;
   /**
-   * The latest cumulative funding rate.
-   * The funding rate a position will pay is the difference between this value
-   * and the latest cumulative funding rate on the position.
+   * The latest cumulative premium fraction.
+   * The funding payment a position will pay is the difference between this value
+   * and the latest cumulative premium fraction on the position, multiplied by the position size.
    */
-  cumulativeFundingRate: string;
+  cumulativePremiumFraction: string;
   /** The block number at which the funding rate was calculated. */
   blockHeight: Long;
   /** The block time in unix milliseconds at which the funding rate was calculated. */
@@ -133,7 +135,7 @@ function createBasePositionChangedEvent(): PositionChangedEvent {
     unrealizedPnlAfter: "",
     badDebt: undefined,
     liquidationPenalty: "",
-    spotPrice: "",
+    markPrice: "",
     fundingPayment: "",
     blockHeight: Long.ZERO,
     blockTimeMs: Long.ZERO,
@@ -175,8 +177,8 @@ export const PositionChangedEvent = {
     if (message.liquidationPenalty !== "") {
       writer.uint32(90).string(message.liquidationPenalty);
     }
-    if (message.spotPrice !== "") {
-      writer.uint32(98).string(message.spotPrice);
+    if (message.markPrice !== "") {
+      writer.uint32(98).string(message.markPrice);
     }
     if (message.fundingPayment !== "") {
       writer.uint32(106).string(message.fundingPayment);
@@ -231,7 +233,7 @@ export const PositionChangedEvent = {
           message.liquidationPenalty = reader.string();
           break;
         case 12:
-          message.spotPrice = reader.string();
+          message.markPrice = reader.string();
           break;
         case 13:
           message.fundingPayment = reader.string();
@@ -263,7 +265,7 @@ export const PositionChangedEvent = {
       unrealizedPnlAfter: isSet(object.unrealizedPnlAfter) ? String(object.unrealizedPnlAfter) : "",
       badDebt: isSet(object.badDebt) ? Coin.fromJSON(object.badDebt) : undefined,
       liquidationPenalty: isSet(object.liquidationPenalty) ? String(object.liquidationPenalty) : "",
-      spotPrice: isSet(object.spotPrice) ? String(object.spotPrice) : "",
+      markPrice: isSet(object.markPrice) ? String(object.markPrice) : "",
       fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
       blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
       blockTimeMs: isSet(object.blockTimeMs) ? Long.fromValue(object.blockTimeMs) : Long.ZERO,
@@ -284,7 +286,7 @@ export const PositionChangedEvent = {
     message.unrealizedPnlAfter !== undefined && (obj.unrealizedPnlAfter = message.unrealizedPnlAfter);
     message.badDebt !== undefined && (obj.badDebt = message.badDebt ? Coin.toJSON(message.badDebt) : undefined);
     message.liquidationPenalty !== undefined && (obj.liquidationPenalty = message.liquidationPenalty);
-    message.spotPrice !== undefined && (obj.spotPrice = message.spotPrice);
+    message.markPrice !== undefined && (obj.markPrice = message.markPrice);
     message.fundingPayment !== undefined && (obj.fundingPayment = message.fundingPayment);
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
     message.blockTimeMs !== undefined && (obj.blockTimeMs = (message.blockTimeMs || Long.ZERO).toString());
@@ -310,7 +312,7 @@ export const PositionChangedEvent = {
       ? Coin.fromPartial(object.badDebt)
       : undefined;
     message.liquidationPenalty = object.liquidationPenalty ?? "";
-    message.spotPrice = object.spotPrice ?? "";
+    message.markPrice = object.markPrice ?? "";
     message.fundingPayment = object.fundingPayment ?? "";
     message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
       ? Long.fromValue(object.blockHeight)
@@ -604,7 +606,8 @@ function createBaseFundingRateChangedEvent(): FundingRateChangedEvent {
     markPrice: "",
     indexPrice: "",
     latestFundingRate: "",
-    cumulativeFundingRate: "",
+    latestPremiumFraction: "",
+    cumulativePremiumFraction: "",
     blockHeight: Long.ZERO,
     blockTimeMs: Long.ZERO,
   };
@@ -624,14 +627,17 @@ export const FundingRateChangedEvent = {
     if (message.latestFundingRate !== "") {
       writer.uint32(34).string(message.latestFundingRate);
     }
-    if (message.cumulativeFundingRate !== "") {
-      writer.uint32(42).string(message.cumulativeFundingRate);
+    if (message.latestPremiumFraction !== "") {
+      writer.uint32(42).string(message.latestPremiumFraction);
+    }
+    if (message.cumulativePremiumFraction !== "") {
+      writer.uint32(50).string(message.cumulativePremiumFraction);
     }
     if (!message.blockHeight.isZero()) {
-      writer.uint32(48).int64(message.blockHeight);
+      writer.uint32(56).int64(message.blockHeight);
     }
     if (!message.blockTimeMs.isZero()) {
-      writer.uint32(56).int64(message.blockTimeMs);
+      writer.uint32(64).int64(message.blockTimeMs);
     }
     return writer;
   },
@@ -656,12 +662,15 @@ export const FundingRateChangedEvent = {
           message.latestFundingRate = reader.string();
           break;
         case 5:
-          message.cumulativeFundingRate = reader.string();
+          message.latestPremiumFraction = reader.string();
           break;
         case 6:
-          message.blockHeight = reader.int64() as Long;
+          message.cumulativePremiumFraction = reader.string();
           break;
         case 7:
+          message.blockHeight = reader.int64() as Long;
+          break;
+        case 8:
           message.blockTimeMs = reader.int64() as Long;
           break;
         default:
@@ -678,7 +687,10 @@ export const FundingRateChangedEvent = {
       markPrice: isSet(object.markPrice) ? String(object.markPrice) : "",
       indexPrice: isSet(object.indexPrice) ? String(object.indexPrice) : "",
       latestFundingRate: isSet(object.latestFundingRate) ? String(object.latestFundingRate) : "",
-      cumulativeFundingRate: isSet(object.cumulativeFundingRate) ? String(object.cumulativeFundingRate) : "",
+      latestPremiumFraction: isSet(object.latestPremiumFraction) ? String(object.latestPremiumFraction) : "",
+      cumulativePremiumFraction: isSet(object.cumulativePremiumFraction)
+        ? String(object.cumulativePremiumFraction)
+        : "",
       blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
       blockTimeMs: isSet(object.blockTimeMs) ? Long.fromValue(object.blockTimeMs) : Long.ZERO,
     };
@@ -690,7 +702,9 @@ export const FundingRateChangedEvent = {
     message.markPrice !== undefined && (obj.markPrice = message.markPrice);
     message.indexPrice !== undefined && (obj.indexPrice = message.indexPrice);
     message.latestFundingRate !== undefined && (obj.latestFundingRate = message.latestFundingRate);
-    message.cumulativeFundingRate !== undefined && (obj.cumulativeFundingRate = message.cumulativeFundingRate);
+    message.latestPremiumFraction !== undefined && (obj.latestPremiumFraction = message.latestPremiumFraction);
+    message.cumulativePremiumFraction !== undefined &&
+      (obj.cumulativePremiumFraction = message.cumulativePremiumFraction);
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
     message.blockTimeMs !== undefined && (obj.blockTimeMs = (message.blockTimeMs || Long.ZERO).toString());
     return obj;
@@ -702,7 +716,8 @@ export const FundingRateChangedEvent = {
     message.markPrice = object.markPrice ?? "";
     message.indexPrice = object.indexPrice ?? "";
     message.latestFundingRate = object.latestFundingRate ?? "";
-    message.cumulativeFundingRate = object.cumulativeFundingRate ?? "";
+    message.latestPremiumFraction = object.latestPremiumFraction ?? "";
+    message.cumulativePremiumFraction = object.cumulativePremiumFraction ?? "";
     message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
       ? Long.fromValue(object.blockHeight)
       : Long.ZERO;
