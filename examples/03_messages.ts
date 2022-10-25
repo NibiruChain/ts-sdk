@@ -2,7 +2,7 @@ import { newCoin, newSdk, Testnet } from "@nibiruchain/nibijs" // nibijs v0.6.1
 import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
 import { newSignerFromMnemonic } from "@nibiruchain/nibijs/dist/tx"
 import { DeliverTxResponse } from "@cosmjs/stargate"
-import { Side } from "@nibiruchain/api/dist/perp/v1/state"
+import { Side } from "@nibiruchain/protojs/dist/perp/v1/state"
 
 async function runExample() {
   const mnemonic = "..." // fill in the blank

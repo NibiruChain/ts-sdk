@@ -260,9 +260,9 @@
     long "^4.0.0"
     secretjs "^0.17.0"
 
-"@nibiruchain/api@^0.2.0":
+"@nibiruchain/protojs@^0.2.0":
   version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@nibiruchain/api/-/api-0.2.0.tgz#1749fac4271c02636c809cee9e08542b16be935a"
+  resolved "https://registry.yarnpkg.com/@nibiruchain/protojs/-/api-0.2.0.tgz#1749fac4271c02636c809cee9e08542b16be935a"
   integrity sha512-Cr7uQnBlVSlD6Ci+gJFsldzcICJwChxtqGkf8qBnkdhMS5+H6AziWQwNVxvqAmNjGpJ/ugUWG3NSr3OV1Fe0VA==
 
 "@nibiruchain/nibijs@^0.6.1":
@@ -275,7 +275,7 @@
     "@cosmjs/stargate" "^0.28.11"
     "@cosmjs/tendermint-rpc" "^0.28.11"
     "@keplr-wallet/types" "^0.10.13"
-    "@nibiruchain/api" "^0.2.0"
+    "@nibiruchain/protojs" "^0.2.0"
     cross-fetch "^3.1.5"
 
 "@noble/hashes@^1", "@noble/hashes@^1.0.0":
