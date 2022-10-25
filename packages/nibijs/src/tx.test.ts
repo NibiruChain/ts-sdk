@@ -5,10 +5,10 @@
  * - perp module
  * - bank module | TODO MultiSend
  */
-import { Side } from "@nibiruchain/api/dist/perp/v1/state"
+import { Side } from "@nibiruchain/protojs/dist/perp/v1/state"
 import * as dotenv from "dotenv"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
-import { QueryPositionResponse } from "@nibiruchain/api/dist/perp/v1/query"
+import { QueryPositionResponse } from "@nibiruchain/protojs/dist/perp/v1/query"
 import { Chaosnet } from "./chain"
 import { AccountData, newCoin, newCoins, WalletHD } from "./chain/types"
 import { Msg, TxMessage } from "./msg"

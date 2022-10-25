@@ -1,5 +1,5 @@
 import { Registry } from "@cosmjs/proto-signing"
-import * as pb from "@nibiruchain/api/dist/dex/v1/tx"
+import * as pb from "@nibiruchain/protojs/dist/dex/v1/tx"
 import { toSdkDec } from "../chain"
 import { TxMessage } from "./types"
 

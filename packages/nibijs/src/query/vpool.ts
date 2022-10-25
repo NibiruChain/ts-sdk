@@ -1,6 +1,6 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
-import * as vpoolquery from "@nibiruchain/api/dist/vpool/v1/query"
-import * as vpoolstate from "@nibiruchain/api/dist/vpool/v1/state"
+import * as vpoolquery from "@nibiruchain/protojs/dist/vpool/v1/query"
+import * as vpoolstate from "@nibiruchain/protojs/dist/vpool/v1/state"
 import { fromSdkDec } from "../chain"
 
 export interface VpoolExtension {

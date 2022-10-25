@@ -2,7 +2,7 @@
  * @fileoverview query extension for the "pricefeed" module
  */
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
-import * as pricefeedquery from "@nibiruchain/api/dist/pricefeed/query"
+import * as pricefeedquery from "@nibiruchain/protojs/dist/pricefeed/query"
 import { fromSdkDec } from "../chain"
 
 export interface PricefeedExtension {

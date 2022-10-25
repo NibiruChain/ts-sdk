@@ -19,7 +19,7 @@ The official TypeScript SDK for the Nibiru blockchain
 
 The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions. 
 
-The `nibijs` source code can be found in the ["packages" directory](./packages).  The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/api`. 
+The `nibijs` source code can be found in the ["packages" directory](./packages).  The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`. 
 
 #### Table of Contents
 - [Installation](#installation)
@@ -100,7 +100,7 @@ let txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(...msgs)
 | `tx`     | For signing and to submitting transactions given a set of `Msg` objects.
 | `wallet` | A simple wrapper around the Keplr wallet. This module will grow as support is added for other wallets (like MetaMask). |
 
-`@nibiruchain/api` provides types generated from the protocol buffers of the Cosmos-SDK, Tendermint Core, and Nibiru Chain. For most use cases, it won't be necessary to interact with this layer.
+`@nibiruchain/protojs` provides types generated from the protocol buffers of the Cosmos-SDK, Tendermint Core, and Nibiru Chain. For most use cases, it won't be necessary to interact with this layer.
 
 ---
 

@@ -5,7 +5,6 @@ import {
   AggregateExchangeRatePrevote,
   AggregateExchangeRateVote,
   ExchangeRateTuple,
-  Pair,
   PairReward,
   Params,
 } from "./oracle";
@@ -20,7 +19,7 @@ export interface GenesisState {
   missCounters: MissCounter[];
   aggregateExchangeRatePrevotes: AggregateExchangeRatePrevote[];
   aggregateExchangeRateVotes: AggregateExchangeRateVote[];
-  pairs: Pair[];
+  pairs: string[];
   pairRewards: PairReward[];
 }
 
@@ -77,7 +76,7 @@ export const GenesisState = {
       AggregateExchangeRateVote.encode(v!, writer.uint32(50).fork()).ldelim();
     }
     for (const v of message.pairs) {
-      Pair.encode(v!, writer.uint32(58).fork()).ldelim();
+      writer.uint32(58).string(v!);
     }
     for (const v of message.pairRewards) {
       PairReward.encode(v!, writer.uint32(66).fork()).ldelim();
@@ -111,7 +110,7 @@ export const GenesisState = {
           message.aggregateExchangeRateVotes.push(AggregateExchangeRateVote.decode(reader, reader.uint32()));
           break;
         case 7:
-          message.pairs.push(Pair.decode(reader, reader.uint32()));
+          message.pairs.push(reader.string());
           break;
         case 8:
           message.pairRewards.push(PairReward.decode(reader, reader.uint32()));
@@ -143,7 +142,7 @@ export const GenesisState = {
         ? object.aggregateExchangeRateVotes.map((e: any) => AggregateExchangeRateVote.fromJSON(e))
         : [],
       pairs: Array.isArray(object?.pairs)
-        ? object.pairs.map((e: any) => Pair.fromJSON(e))
+        ? object.pairs.map((e: any) => String(e))
         : [],
       pairRewards: Array.isArray(object?.pairRewards) ? object.pairRewards.map((e: any) => PairReward.fromJSON(e)) : [],
     };
@@ -182,7 +181,7 @@ export const GenesisState = {
       obj.aggregateExchangeRateVotes = [];
     }
     if (message.pairs) {
-      obj.pairs = message.pairs.map((e) => e ? Pair.toJSON(e) : undefined);
+      obj.pairs = message.pairs.map((e) => e);
     } else {
       obj.pairs = [];
     }
@@ -206,7 +205,7 @@ export const GenesisState = {
       object.aggregateExchangeRatePrevotes?.map((e) => AggregateExchangeRatePrevote.fromPartial(e)) || [];
     message.aggregateExchangeRateVotes =
       object.aggregateExchangeRateVotes?.map((e) => AggregateExchangeRateVote.fromPartial(e)) || [];
-    message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
+    message.pairs = object.pairs?.map((e) => e) || [];
     message.pairRewards = object.pairRewards?.map((e) => PairReward.fromPartial(e)) || [];
     return message;
   },
