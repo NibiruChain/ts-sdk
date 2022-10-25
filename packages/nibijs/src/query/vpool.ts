@@ -1,7 +1,7 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
 import * as vpoolquery from "@nibiruchain/protojs/dist/vpool/v1/query"
 import * as vpoolstate from "@nibiruchain/protojs/dist/vpool/v1/state"
-import { fromSdkDec } from "../chain"
+import { fromSdkDec, fromSdkDecSafe } from "../chain"
 
 export interface VpoolExtension {
   readonly vpool: {
@@ -50,8 +50,9 @@ type TransformFn<T> = (resp: T) => T
 const transformAllPoolsResponse: TransformFn<vpoolquery.QueryAllPoolsResponse> = (
   resp: vpoolquery.QueryAllPoolsResponse,
 ) => {
+  console.log("DEBUG pre allPools resp:", resp)
   const pools = resp.pools.map((vpool: vpoolstate.VPool) => ({
-    ...vpool,
+    // ...vpool,
     pair: vpool.pair,
     baseAssetReserve: fromSdkDec(vpool.baseAssetReserve).toString(),
     quoteAssetReserve: fromSdkDec(vpool.quoteAssetReserve).toString(),
@@ -63,11 +64,10 @@ const transformAllPoolsResponse: TransformFn<vpoolquery.QueryAllPoolsResponse> =
   }))
   const prices = resp.prices.map((pp: vpoolstate.PoolPrices) => ({
     ...pp,
-    indexPrice: !(parseFloat(pp.indexPrice) == 0)
-      ? fromSdkDec(pp.indexPrice).toString()
-      : "",
-    twapMark: fromSdkDec(pp.twapMark).toString(),
+    indexPrice: fromSdkDecSafe(pp.indexPrice).toString(),
+    twapMark: fromSdkDecSafe(pp.twapMark).toString(),
     markPrice: fromSdkDec(pp.markPrice).toString(),
   }))
+  console.log("DEBUG post allPools resp:", { pools, prices })
   return { pools, prices }
 }

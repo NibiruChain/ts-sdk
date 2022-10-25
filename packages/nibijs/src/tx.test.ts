@@ -9,7 +9,7 @@ import { Side } from "@nibiruchain/protojs/dist/perp/v1/state"
 import * as dotenv from "dotenv"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
 import { QueryPositionResponse } from "@nibiruchain/protojs/dist/perp/v1/query"
-import { Chaosnet } from "./chain"
+import { Testnet } from "./chain"
 import { AccountData, newCoin, newCoins, WalletHD } from "./chain/types"
 import { Msg, TxMessage } from "./msg"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
@@ -18,6 +18,7 @@ import { PerpMsgTypeUrls } from "./msg/perp"
 
 dotenv.config() // yarn add -D dotenv
 
+const CHAIN = Testnet
 const VAL_MNEMONIC = process.env.VALIDATOR_MNEMONIC
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
 
@@ -56,7 +57,7 @@ describe("test tx module", () => {
     expect(VAL_MNEMONIC).toBeDefined()
 
     const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
-    const sdk = await newSdk(Chaosnet, signer)
+    const sdk = await newSdk(CHAIN, signer)
     const [{ address: fromAddr }]: readonly AccountData[] = await sdk.tx.getAccounts()
     expect(fromAddr).toBeDefined()
 
@@ -90,7 +91,7 @@ describe("test tx module", () => {
 describe("perp module transactions", () => {
   test("open-position, add-margin, remove-margin, close-position", async () => {
     const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
-    const sdk = await newSdk(Chaosnet, signer)
+    const sdk = await newSdk(CHAIN, signer)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const pair = "ubtc:unusd"
     let msgs: TxMessage[] = [
@@ -170,7 +171,7 @@ describe("perp module transactions", () => {
 /* 
   // NOTE commented out dex commands until public testnet
   test("dex create pool", async () => {
-    const client = await newTxCmd(Chaosnet, VAL_MNEMONIC)
+    const client = await newTxCmd(CHAIN, VAL_MNEMONIC)
     const [{ address: fromAddr }] = await client.getAccounts()
     const txResp = await client.signAndBroadcast(
       DexMsgs.createPool({

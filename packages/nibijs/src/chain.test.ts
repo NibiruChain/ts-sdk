@@ -95,16 +95,16 @@ test("faucet utility works", async () => {
   const balancesStart = newCoinMapFromCoins(
     await queryCmd.client.bank.allBalances(address),
   )
+  await useFaucet(address)
+
+  const balances = newCoinMapFromCoins(await queryCmd.client.bank.allBalances(address))
+  // Expect to receive 10 NIBI and 100_000 NUSD
   if (balancesStart.unusd === undefined) {
     balancesStart.unusd = 0
   }
   if (balancesStart.unibi === undefined) {
     balancesStart.unibi = 0
   }
-  await useFaucet(address)
-
-  const balances = newCoinMapFromCoins(await queryCmd.client.bank.allBalances(address))
-  // Expect to receive 10 NIBI and 100_000 NUSD
   expect(balances.unusd - balancesStart.unusd).toEqual(100_000 * 1_000_000)
   expect(balances.unibi - balancesStart.unibi).toEqual(10 * 1_000_000)
 }, 50_000) // 50 seconds

@@ -1,10 +1,11 @@
-import fetch from "node-fetch"
+import fetch from "cross-fetch"
 import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"
 import { Chain, Chaosnet, Testnet, CHAOSNET_CONFIG } from "../chain"
 import { initQueryCmd } from "./query"
 
 require("dotenv").config() // yarn add -D dotenv
 
+const chain = Testnet
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS
 
 function validateBlockFromJsonRpc(blockJson: any) {
@@ -48,16 +49,16 @@ describe("chain connections", () => {
     testChainConnection(Testnet)
   })
   test("chaosnet", async () => {
-    testChainConnection(Chaosnet)
+    // testChainConnection(Chaosnet) // chaosnet is not activate right now.
   })
 })
 
 describe("test node connection", () => {
-  const port = CHAOSNET_CONFIG.tmPort
   const { host } = CHAOSNET_CONFIG
-  test("has environment variables configured", () => {
+  test("chaosnet has environment variables configured", () => {
     expect(VAL_ADDRESS).toBeDefined()
     expect(host).toBeDefined()
+    expect(CHAOSNET_CONFIG.tmPort).toBeDefined()
   })
 
   interface BlockResp {
@@ -65,7 +66,7 @@ describe("test node connection", () => {
   }
 
   test("query block with get", async () => {
-    const resp = await fetch(`http://${host}:${port}/block?height=5`)
+    const resp = await fetch(`${chain.endptTm}/block?height=5`)
     const respJson = (await resp.json()) as BlockResp
     const blockJson = respJson.result.block
     validateBlockFromJsonRpc(blockJson)
@@ -73,7 +74,7 @@ describe("test node connection", () => {
 
   test("query block with post", async () => {
     const body = { method: "block", params: ["5"], id: 1 }
-    const resp = await fetch(`http://${host}:${port}`, {
+    const resp = await fetch(chain.endptTm, {
       method: "POST",
       body: JSON.stringify(body),
       headers: { "Content-Type": "application/json" },
@@ -88,8 +89,6 @@ describe("test query module", () => {
   test("has environment variables configured", () => {
     expect(VAL_ADDRESS).toBeDefined()
   })
-
-  const chain = Chaosnet
 
   test("query bank balances - client.bank.allBalances", async () => {
     const { client: query, disconnect } = await initQueryCmd(chain)
@@ -148,8 +147,6 @@ describe("test query module", () => {
 })
 
 describe("vpool module queries", () => {
-  const chain = Testnet
-
   const timeoutMs = 8_000
   test(
     "nibid query vpool all-pools",
