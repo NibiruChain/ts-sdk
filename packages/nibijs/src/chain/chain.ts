@@ -35,11 +35,11 @@ export const Localnet: Chain = {
 }
 
 export const Testnet: Chain = {
-  endptTm: "https://rpc.testnet-3.nibiru.fi",
-  endptRest: "https://lcd.testnet-3.nibiru.fi",
+  endptTm: "https://rpc.devnet-1.nibiru.fi",
+  endptRest: "https://lcd.devnet-1.nibiru.fi",
   endptGrpc: "",
-  chainId: "nibiru-testnet-3",
-  chainName: "nibiru-testnet-3",
+  chainId: "nibiru-devnet-1",
+  chainName: "nibiru-devnet-1",
   feeDenom: "unibi",
 }
 
@@ -67,15 +67,22 @@ export const Chaosnet: Chain = {
 /**
  * Sends 10 NIBI and 100_000 NUSD to the given address from the testnet faucet.
  */
-export async function useFaucet(address: string): Promise<void> {
+export async function useFaucet(address: string, faucetUrl?: string): Promise<void> {
   const amtNibi = 10
   const amtNusd = 100_000
   const coins: string[] = [
     `${(amtNibi * 1_000_000).toString()}unibi`,
     `${(amtNusd * 1_000_000).toString()}unusd`,
   ]
+  faucetUrl = faucetUrl ?? "https://faucet.devnet-1.nibiru.fi/"
+  console.info(
+    `Requesting funds from faucet @ ${faucetUrl}: 
+    Coins: ${coins}
+    Address: ${address}
+    `,
+  )
 
-  await fetch("https://faucet.testnet-3.nibiru.fi/", {
+  await fetch(faucetUrl, {
     method: "POST",
     headers: {
       Accept: "application/json",

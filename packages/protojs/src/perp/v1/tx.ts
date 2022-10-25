@@ -118,6 +118,15 @@ export interface MsgClosePositionResponse {
   marginToTrader: string;
 }
 
+export interface MsgDonateToEcosystemFund {
+  sender: string;
+  /** donation to the EF */
+  donation?: Coin;
+}
+
+export interface MsgDonateToEcosystemFundResponse {
+}
+
 function createBaseMsgRemoveMargin(): MsgRemoveMargin {
   return { sender: "", tokenPair: "", margin: undefined };
 }
@@ -1138,6 +1147,107 @@ export const MsgClosePositionResponse = {
   },
 };
 
+function createBaseMsgDonateToEcosystemFund(): MsgDonateToEcosystemFund {
+  return { sender: "", donation: undefined };
+}
+
+export const MsgDonateToEcosystemFund = {
+  encode(message: MsgDonateToEcosystemFund, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.donation !== undefined) {
+      Coin.encode(message.donation, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDonateToEcosystemFund {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgDonateToEcosystemFund();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sender = reader.string();
+          break;
+        case 2:
+          message.donation = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDonateToEcosystemFund {
+    return {
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      donation: isSet(object.donation) ? Coin.fromJSON(object.donation) : undefined,
+    };
+  },
+
+  toJSON(message: MsgDonateToEcosystemFund): unknown {
+    const obj: any = {};
+    message.sender !== undefined && (obj.sender = message.sender);
+    message.donation !== undefined && (obj.donation = message.donation ? Coin.toJSON(message.donation) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDonateToEcosystemFund>, I>>(object: I): MsgDonateToEcosystemFund {
+    const message = createBaseMsgDonateToEcosystemFund();
+    message.sender = object.sender ?? "";
+    message.donation = (object.donation !== undefined && object.donation !== null)
+      ? Coin.fromPartial(object.donation)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseMsgDonateToEcosystemFundResponse(): MsgDonateToEcosystemFundResponse {
+  return {};
+}
+
+export const MsgDonateToEcosystemFundResponse = {
+  encode(_: MsgDonateToEcosystemFundResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDonateToEcosystemFundResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgDonateToEcosystemFundResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDonateToEcosystemFundResponse {
+    return {};
+  },
+
+  toJSON(_: MsgDonateToEcosystemFundResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDonateToEcosystemFundResponse>, I>>(
+    _: I,
+  ): MsgDonateToEcosystemFundResponse {
+    const message = createBaseMsgDonateToEcosystemFundResponse();
+    return message;
+  },
+};
+
 /** Msg defines the x/perp Msg service. */
 export interface Msg {
   RemoveMargin(request: MsgRemoveMargin): Promise<MsgRemoveMarginResponse>;
@@ -1150,6 +1260,7 @@ export interface Msg {
   MultiLiquidate(request: MsgMultiLiquidate): Promise<MsgMultiLiquidateResponse>;
   OpenPosition(request: MsgOpenPosition): Promise<MsgOpenPositionResponse>;
   ClosePosition(request: MsgClosePosition): Promise<MsgClosePositionResponse>;
+  DonateToEcosystemFund(request: MsgDonateToEcosystemFund): Promise<MsgDonateToEcosystemFundResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1162,6 +1273,7 @@ export class MsgClientImpl implements Msg {
     this.MultiLiquidate = this.MultiLiquidate.bind(this);
     this.OpenPosition = this.OpenPosition.bind(this);
     this.ClosePosition = this.ClosePosition.bind(this);
+    this.DonateToEcosystemFund = this.DonateToEcosystemFund.bind(this);
   }
   RemoveMargin(request: MsgRemoveMargin): Promise<MsgRemoveMarginResponse> {
     const data = MsgRemoveMargin.encode(request).finish();
@@ -1197,6 +1309,12 @@ export class MsgClientImpl implements Msg {
     const data = MsgClosePosition.encode(request).finish();
     const promise = this.rpc.request("nibiru.perp.v1.Msg", "ClosePosition", data);
     return promise.then((data) => MsgClosePositionResponse.decode(new _m0.Reader(data)));
+  }
+
+  DonateToEcosystemFund(request: MsgDonateToEcosystemFund): Promise<MsgDonateToEcosystemFundResponse> {
+    const data = MsgDonateToEcosystemFund.encode(request).finish();
+    const promise = this.rpc.request("nibiru.perp.v1.Msg", "DonateToEcosystemFund", data);
+    return promise.then((data) => MsgDonateToEcosystemFundResponse.decode(new _m0.Reader(data)));
   }
 }
 

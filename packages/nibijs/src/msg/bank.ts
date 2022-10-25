@@ -1,4 +1,4 @@
-import * as pb from "@nibiruchain/api/dist/cosmos/bank/v1beta1/tx"
+import * as pb from "@nibiruchain/protojs/dist/cosmos/bank/v1beta1/tx"
 import { Coin } from "@cosmjs/proto-signing"
 import { TxMessage } from "./types"
 

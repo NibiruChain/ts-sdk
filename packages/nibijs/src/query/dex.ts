@@ -1,6 +1,6 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
-import * as pb from "@nibiruchain/api/dist/dex/v1/pool"
-import * as qpb from "@nibiruchain/api/dist/dex/v1/query"
+import * as pb from "@nibiruchain/protojs/dist/dex/v1/pool"
+import * as qpb from "@nibiruchain/protojs/dist/dex/v1/query"
 import { Coin, fromSdkDec } from "../chain"
 
 function transformPoolParams(pp?: pb.PoolParams): pb.PoolParams | undefined {

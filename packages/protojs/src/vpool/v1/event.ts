@@ -9,6 +9,13 @@ export interface ReserveSnapshotSavedEvent {
   pair: string;
   quoteReserve: string;
   baseReserve: string;
+  /**
+   * MarkPrice at the end of the block.
+   * (instantaneous) markPrice := quoteReserve / baseReserve
+   */
+  markPrice: string;
+  blockHeight: Long;
+  blockTimestamp?: Date;
 }
 
 export interface SwapQuoteForBaseEvent {
@@ -26,11 +33,18 @@ export interface SwapBaseForQuoteEvent {
 export interface MarkPriceChangedEvent {
   pair: string;
   price: string;
-  timestamp?: Date;
+  blockTimestamp?: Date;
 }
 
 function createBaseReserveSnapshotSavedEvent(): ReserveSnapshotSavedEvent {
-  return { pair: "", quoteReserve: "", baseReserve: "" };
+  return {
+    pair: "",
+    quoteReserve: "",
+    baseReserve: "",
+    markPrice: "",
+    blockHeight: Long.ZERO,
+    blockTimestamp: undefined,
+  };
 }
 
 export const ReserveSnapshotSavedEvent = {
@@ -43,6 +57,15 @@ export const ReserveSnapshotSavedEvent = {
     }
     if (message.baseReserve !== "") {
       writer.uint32(26).string(message.baseReserve);
+    }
+    if (message.markPrice !== "") {
+      writer.uint32(34).string(message.markPrice);
+    }
+    if (!message.blockHeight.isZero()) {
+      writer.uint32(40).int64(message.blockHeight);
+    }
+    if (message.blockTimestamp !== undefined) {
+      Timestamp.encode(toTimestamp(message.blockTimestamp), writer.uint32(50).fork()).ldelim();
     }
     return writer;
   },
@@ -63,6 +86,15 @@ export const ReserveSnapshotSavedEvent = {
         case 3:
           message.baseReserve = reader.string();
           break;
+        case 4:
+          message.markPrice = reader.string();
+          break;
+        case 5:
+          message.blockHeight = reader.int64() as Long;
+          break;
+        case 6:
+          message.blockTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -76,6 +108,9 @@ export const ReserveSnapshotSavedEvent = {
       pair: isSet(object.pair) ? String(object.pair) : "",
       quoteReserve: isSet(object.quoteReserve) ? String(object.quoteReserve) : "",
       baseReserve: isSet(object.baseReserve) ? String(object.baseReserve) : "",
+      markPrice: isSet(object.markPrice) ? String(object.markPrice) : "",
+      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
+      blockTimestamp: isSet(object.blockTimestamp) ? fromJsonTimestamp(object.blockTimestamp) : undefined,
     };
   },
 
@@ -84,6 +119,9 @@ export const ReserveSnapshotSavedEvent = {
     message.pair !== undefined && (obj.pair = message.pair);
     message.quoteReserve !== undefined && (obj.quoteReserve = message.quoteReserve);
     message.baseReserve !== undefined && (obj.baseReserve = message.baseReserve);
+    message.markPrice !== undefined && (obj.markPrice = message.markPrice);
+    message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
+    message.blockTimestamp !== undefined && (obj.blockTimestamp = message.blockTimestamp.toISOString());
     return obj;
   },
 
@@ -92,6 +130,11 @@ export const ReserveSnapshotSavedEvent = {
     message.pair = object.pair ?? "";
     message.quoteReserve = object.quoteReserve ?? "";
     message.baseReserve = object.baseReserve ?? "";
+    message.markPrice = object.markPrice ?? "";
+    message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
+      ? Long.fromValue(object.blockHeight)
+      : Long.ZERO;
+    message.blockTimestamp = object.blockTimestamp ?? undefined;
     return message;
   },
 };
@@ -231,7 +274,7 @@ export const SwapBaseForQuoteEvent = {
 };
 
 function createBaseMarkPriceChangedEvent(): MarkPriceChangedEvent {
-  return { pair: "", price: "", timestamp: undefined };
+  return { pair: "", price: "", blockTimestamp: undefined };
 }
 
 export const MarkPriceChangedEvent = {
@@ -242,8 +285,8 @@ export const MarkPriceChangedEvent = {
     if (message.price !== "") {
       writer.uint32(18).string(message.price);
     }
-    if (message.timestamp !== undefined) {
-      Timestamp.encode(toTimestamp(message.timestamp), writer.uint32(26).fork()).ldelim();
+    if (message.blockTimestamp !== undefined) {
+      Timestamp.encode(toTimestamp(message.blockTimestamp), writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -262,7 +305,7 @@ export const MarkPriceChangedEvent = {
           message.price = reader.string();
           break;
         case 3:
-          message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.blockTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -276,7 +319,7 @@ export const MarkPriceChangedEvent = {
     return {
       pair: isSet(object.pair) ? String(object.pair) : "",
       price: isSet(object.price) ? String(object.price) : "",
-      timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
+      blockTimestamp: isSet(object.blockTimestamp) ? fromJsonTimestamp(object.blockTimestamp) : undefined,
     };
   },
 
@@ -284,7 +327,7 @@ export const MarkPriceChangedEvent = {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair);
     message.price !== undefined && (obj.price = message.price);
-    message.timestamp !== undefined && (obj.timestamp = message.timestamp.toISOString());
+    message.blockTimestamp !== undefined && (obj.blockTimestamp = message.blockTimestamp.toISOString());
     return obj;
   },
 
@@ -292,7 +335,7 @@ export const MarkPriceChangedEvent = {
     const message = createBaseMarkPriceChangedEvent();
     message.pair = object.pair ?? "";
     message.price = object.price ?? "";
-    message.timestamp = object.timestamp ?? undefined;
+    message.blockTimestamp = object.blockTimestamp ?? undefined;
     return message;
   },
 };

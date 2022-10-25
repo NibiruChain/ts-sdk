@@ -1,5 +1,5 @@
 {
-  "name": "@nibiruchain/sdk-ts",
+  "name": "@nibiruchain/ts-sdk",
   "version": "0.2.0",
   "main": "index.js",
   "license": "MIT",
@@ -15,12 +15,13 @@
   },
   "scripts": {
     "build": "lerna run --parallel build",
+    "clean": "lerna run --parallel clean && shx rm -rf .build-cache *.log coverage junit.xml",
+    "publish-all": "sh publish.sh",
     "lerna:publish": "lerna publish",
     "build:watch": "lerna run --parallel build:watch",
     "build:fresh": "yarn clean && yarn build",
     "build:publish": "yarn build:fresh && yarn lerna:publish",
     "build:patch:publish": "yarn build:fresh && yarn patch && yarn lerna:publish",
-    "clean": "lerna run --parallel clean && shx rm -rf .build-cache *.log coverage junit.xml",
     "test": "jest",
     "test:ci": "jest --coverage --ci --reporters='jest-junit'",
     "test:unit": "jest packages/*/test/unit",

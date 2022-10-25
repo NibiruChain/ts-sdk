@@ -10,15 +10,10 @@ export interface Params {
   votePeriod: Long;
   voteThreshold: string;
   rewardBand: string;
-  whitelist: Pair[];
+  whitelist: string[];
   slashFraction: string;
   slashWindow: Long;
   minValidPerWindow: string;
-}
-
-/** Pair is the object that holds configuration of each pair. */
-export interface Pair {
-  name: string;
 }
 
 /**
@@ -86,7 +81,7 @@ export const Params = {
       writer.uint32(26).string(message.rewardBand);
     }
     for (const v of message.whitelist) {
-      Pair.encode(v!, writer.uint32(34).fork()).ldelim();
+      writer.uint32(34).string(v!);
     }
     if (message.slashFraction !== "") {
       writer.uint32(42).string(message.slashFraction);
@@ -117,7 +112,7 @@ export const Params = {
           message.rewardBand = reader.string();
           break;
         case 4:
-          message.whitelist.push(Pair.decode(reader, reader.uint32()));
+          message.whitelist.push(reader.string());
           break;
         case 5:
           message.slashFraction = reader.string();
@@ -141,7 +136,7 @@ export const Params = {
       votePeriod: isSet(object.votePeriod) ? Long.fromValue(object.votePeriod) : Long.UZERO,
       voteThreshold: isSet(object.voteThreshold) ? String(object.voteThreshold) : "",
       rewardBand: isSet(object.rewardBand) ? String(object.rewardBand) : "",
-      whitelist: Array.isArray(object?.whitelist) ? object.whitelist.map((e: any) => Pair.fromJSON(e)) : [],
+      whitelist: Array.isArray(object?.whitelist) ? object.whitelist.map((e: any) => String(e)) : [],
       slashFraction: isSet(object.slashFraction) ? String(object.slashFraction) : "",
       slashWindow: isSet(object.slashWindow) ? Long.fromValue(object.slashWindow) : Long.UZERO,
       minValidPerWindow: isSet(object.minValidPerWindow) ? String(object.minValidPerWindow) : "",
@@ -154,7 +149,7 @@ export const Params = {
     message.voteThreshold !== undefined && (obj.voteThreshold = message.voteThreshold);
     message.rewardBand !== undefined && (obj.rewardBand = message.rewardBand);
     if (message.whitelist) {
-      obj.whitelist = message.whitelist.map((e) => e ? Pair.toJSON(e) : undefined);
+      obj.whitelist = message.whitelist.map((e) => e);
     } else {
       obj.whitelist = [];
     }
@@ -171,59 +166,12 @@ export const Params = {
       : Long.UZERO;
     message.voteThreshold = object.voteThreshold ?? "";
     message.rewardBand = object.rewardBand ?? "";
-    message.whitelist = object.whitelist?.map((e) => Pair.fromPartial(e)) || [];
+    message.whitelist = object.whitelist?.map((e) => e) || [];
     message.slashFraction = object.slashFraction ?? "";
     message.slashWindow = (object.slashWindow !== undefined && object.slashWindow !== null)
       ? Long.fromValue(object.slashWindow)
       : Long.UZERO;
     message.minValidPerWindow = object.minValidPerWindow ?? "";
-    return message;
-  },
-};
-
-function createBasePair(): Pair {
-  return { name: "" };
-}
-
-export const Pair = {
-  encode(message: Pair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.name !== "") {
-      writer.uint32(10).string(message.name);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): Pair {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePair();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): Pair {
-    return { name: isSet(object.name) ? String(object.name) : "" };
-  },
-
-  toJSON(message: Pair): unknown {
-    const obj: any = {};
-    message.name !== undefined && (obj.name = message.name);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<Pair>, I>>(object: I): Pair {
-    const message = createBasePair();
-    message.name = object.name ?? "";
     return message;
   },
 };

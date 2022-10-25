@@ -4,12 +4,23 @@ set -eo pipefail
 
 # NIBIRU_REPO: local directory for the NibiruChain/nibiru repo
 NIBIRU_REPO="../nibiru"    
-# OUT_DIR:     
-OUT_DIR="./packages/api/src"
+PKG_OUT_DIR="./packages/protojs/src" 
+  # TODO create $PKG_OUT_DIR if it doesn't exist
+  # mkdir -p ./packages/api/src/${dir}; \
+SDK_VERSION="v0.45.9"
 
 check_for_nibiru_repo() {
   if [ ! -d $NIBIRU_REPO/proto ]; then 
     echo "Missing Nibiru protos expected in the $NIBIRU_REPO/proto directory"
+    echo "current dir: $(pwd)"
+    return 1
+  fi
+}
+
+create_pkg_out_dir() {
+  if [ ! -d $PKG_OUT_DIR ]; then 
+    echo "Creating PKG_OUT_DIR: $PKG_OUT_DIR"
+    mkdir -p $PKG_OUT_DIR
     echo "current dir: $(pwd)"
     return 1
   fi
@@ -32,7 +43,7 @@ protoc_gen_gocosmos() {
   go get github.com/regen-network/cosmos-proto/protoc-gen-gocosmos@latest 2>/dev/null
   # go get github.com/gogo/protobuf/proto 2>/dev/null
   # get cosmos sdk from github
-  go get github.com/cosmos/cosmos-sdk@v0.45.6 2>/dev/null
+  go get github.com/cosmos/cosmos-sdk@$SDK_VERSION 2>/dev/null
 }
 
 skip_line() {
@@ -64,8 +75,9 @@ for dir in $proto_dirs; do \
 done;
 
 skip_line
-echo "Clearing $OUT_DIR"
-rm -rf $OUT_DIR/*
+create_pkg_out_dir
+echo "Clearing PKG_OUT_DIR: $PKG_OUT_DIR"
+rm -rf $PKG_OUT_DIR/*
 
 skip_line
 for dir in $proto_dirs; do \
@@ -73,14 +85,13 @@ for dir in $proto_dirs; do \
   prefix=$HOME/go/pkg/mod/github.com
   prefix_removed_string=${string/#$prefix}
   echo "generating $prefix_removed_string ----------------------------------------" 
-  # mkdir -p ./packages/api/src/${dir}; \
   protoc \
     --plugin=./node_modules/.bin/protoc-gen-ts_proto \
     -I "$cosmos_sdk_dir/third_party/proto" \
     -I "$cosmos_sdk_dir/proto" \
     -I proto/proto \
     --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
-    --ts_proto_out=$OUT_DIR \
+    --ts_proto_out=$PKG_OUT_DIR \
     $(find "${dir}" -type f -name '*.proto')
 done; \
 rm -rf proto
