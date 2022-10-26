@@ -1,6 +1,7 @@
 import { BankMsgs } from "./bank"
 import { DexMsgs } from "./dex"
 import { PerpMsgs } from "./perp"
+import { StakingMsgs } from "./staking"
 
 class MsgFactory {
   bank = BankMsgs
@@ -8,6 +9,8 @@ class MsgFactory {
   dex = DexMsgs
 
   perp = PerpMsgs
+
+  staking = StakingMsgs
 }
 
 export const Msg = new MsgFactory()
