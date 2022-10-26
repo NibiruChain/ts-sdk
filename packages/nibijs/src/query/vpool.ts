@@ -50,7 +50,6 @@ type TransformFn<T> = (resp: T) => T
 const transformAllPoolsResponse: TransformFn<vpoolquery.QueryAllPoolsResponse> = (
   resp: vpoolquery.QueryAllPoolsResponse,
 ) => {
-  console.log("DEBUG pre allPools resp:", resp)
   const pools = resp.pools.map((vpool: vpoolstate.VPool) => ({
     // ...vpool,
     pair: vpool.pair,
@@ -68,6 +67,5 @@ const transformAllPoolsResponse: TransformFn<vpoolquery.QueryAllPoolsResponse> =
     twapMark: fromSdkDecSafe(pp.twapMark).toString(),
     markPrice: fromSdkDec(pp.markPrice).toString(),
   }))
-  console.log("DEBUG post allPools resp:", { pools, prices })
   return { pools, prices }
 }

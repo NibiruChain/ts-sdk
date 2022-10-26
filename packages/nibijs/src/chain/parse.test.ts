@@ -1,14 +1,15 @@
-import { toSdkDec, fromSdkDec } from "./parse"
-
-interface TestCases {
-  name: string
-  in: string
-  expected: string
-  shouldFail?: boolean
-}
+import { toSdkDec, fromSdkDec, toSdkInt, event2KeyValue } from "./parse"
+import { IEventLog } from "./types"
 
 describe("toSdkDec - float to sdk.Dec conversion", () => {
-  const tests: TestCases[] = [
+  interface TestCase {
+    name: string
+    in: string
+    expected: string
+    shouldFail?: boolean
+  }
+
+  const tests: TestCase[] = [
     { name: "empty string", in: "", expected: "", shouldFail: true },
     // valid numbers
     { name: "number 0", in: "0", expected: `0${"0".repeat(18)}` },
@@ -105,5 +106,91 @@ describe("fromSdkDec - sdk.Dec to float conversion", () => {
       failed = true
     }
     expect(failed).toEqual(!!tt.shouldFail)
+  })
+})
+
+describe("toSdkInt - int to sdk.Dec conversion", () => {
+  interface TestCase {
+    name: string
+    in: number
+    expected: string
+    shouldFail?: boolean
+  }
+
+  const tests: TestCase[] = [
+    { name: "zero", in: 0, expected: "0" },
+    { name: "negative int", in: -42, expected: "-42" },
+    { name: "positive int", in: 10, expected: "10" },
+    { name: "positive dec, round down", in: 1.2345612345612345, expected: "1" },
+    { name: "positive dec, round up", in: 1.6543216543216543, expected: "2" },
+    { name: "failing case", in: Number.NaN, expected: "NaN" },
+  ]
+
+  test.each(tests)("%o", (tt) => {
+    let failed: boolean = false
+    try {
+      const res = toSdkInt(tt.in)
+      expect(res).toBe(tt.expected)
+    } catch (e) {
+      if (!tt.shouldFail) {
+        console.error(`Test ${tt.name} failed with error: ${e}`)
+      }
+      failed = true
+    }
+    expect(failed).toBe(!!tt.shouldFail)
+  })
+})
+
+test("event2KeyValue - event parsing", () => {
+  const testCases: {
+    eventLog: IEventLog
+    out: { [key: string]: string }
+  }[] = [
+    {
+      eventLog: {
+        type: "nibiru.perp.v1.PositionChangedEvent",
+        attributes: [
+          { key: "bad_debt", value: "{denom:unusd,amount:0}" },
+          { key: "block_height", value: "47774" },
+          { key: "block_time_ms", value: "1666761164478" },
+          { key: "exchanged_position_size", value: "0.000499999999999995" },
+          { key: "funding_payment", value: "0.000000000000000000" },
+          { key: "liquidation_penalty", value: "0.000000000000000000" },
+          { key: "margin", value: "{denom:unusd,amount:10}" },
+          { key: "mark_price", value: "20000.000000000400000000" },
+          { key: "pair", value: "ubtc:unusd" },
+          { key: "position_notional", value: "10.000000000000000000" },
+          { key: "position_size", value: "0.000499999999999995" },
+          { key: "realized_pnl", value: "0.000000000000000000" },
+          {
+            key: "trader_address",
+            value: "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl",
+          },
+          { key: "transaction_fee", value: "{denom:unusd,amount:0}" },
+          { key: "unrealized_pnl_after", value: "0.000000000000000000" },
+        ],
+      },
+      out: {
+        bad_debt: "{denom:unusd,amount:0}",
+        block_height: "47774",
+        block_time_ms: "1666761164478",
+        exchanged_position_size: "0.000499999999999995",
+        funding_payment: "0.000000000000000000",
+        liquidation_penalty: "0.000000000000000000",
+        margin: "{denom:unusd,amount:10}",
+        mark_price: "20000.000000000400000000",
+        pair: "ubtc:unusd",
+        position_notional: "10.000000000000000000",
+        position_size: "0.000499999999999995",
+        realized_pnl: "0.000000000000000000",
+        trader_address: "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl",
+        transaction_fee: "{denom:unusd,amount:0}",
+        unrealized_pnl_after: "0.000000000000000000",
+      },
+    },
+  ]
+
+  testCases.forEach((tc) => {
+    expect(event2KeyValue(tc.eventLog)).toEqual(tc.out)
   })
 })

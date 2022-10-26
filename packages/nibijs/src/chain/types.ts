@@ -36,3 +36,8 @@ export function newCoinMapFromCoins(coins: Coin[]): CoinMap {
   }
   return coinMap
 }
+
+export interface IEventLog {
+  type: string
+  attributes: { key: string; value: string }[]
+}

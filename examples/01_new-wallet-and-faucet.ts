@@ -1,4 +1,4 @@
-import { useFaucet } from "@nibiruchain/nibijs" // v0.6.1
+import { useFaucet } from "@nibiruchain/nibijs" // v0.7.1
 import { newRandomWallet, WalletHD } from "@nibiruchain/nibijs/dist/tx"
 
 async function runExample() {

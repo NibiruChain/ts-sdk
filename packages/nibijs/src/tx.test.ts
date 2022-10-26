@@ -5,11 +5,10 @@
  * - perp module
  * - bank module | TODO MultiSend
  */
-import { Side } from "@nibiruchain/protojs/dist/perp/v1/state"
 import * as dotenv from "dotenv"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
 import { QueryPositionResponse } from "@nibiruchain/protojs/dist/perp/v1/query"
-import { Testnet } from "./chain"
+import { event2KeyValue, Testnet } from "./chain"
 import { AccountData, newCoin, newCoins, WalletHD } from "./chain/types"
 import { Msg, TxMessage } from "./msg"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
@@ -97,16 +96,16 @@ describe("perp module transactions", () => {
     let msgs: TxMessage[] = [
       Msg.perp.openPosition({
         tokenPair: pair,
-        baseAssetAmountLimit: "0",
-        leverage: "1",
-        quoteAssetAmount: "10",
+        baseAssetAmountLimit: 0,
+        leverage: 1,
+        quoteAssetAmount: 10,
         sender: fromAddr,
-        side: Side.BUY,
+        goLong: true,
       }),
       Msg.perp.addMargin({
         sender: fromAddr,
         tokenPair: pair,
-        margin: newCoin("20", "unusd"),
+        margin: newCoin(20, "unusd"),
       }),
       Msg.perp.removeMargin({
         tokenPair: pair,
@@ -119,7 +118,6 @@ describe("perp module transactions", () => {
     expectTxToSucceed(txResp)
 
     const txLogs: TxLog[] = JSON.parse(prettyTmLogs(txResp.rawLog!))
-    console.debug(JSON.stringify(txLogs))
 
     // perp tx open-position events
     let eventTypes: string[] = eventTypesForPerpMsg("MsgOpenPosition", txLogs[0].events)
@@ -127,6 +125,13 @@ describe("perp module transactions", () => {
     expect(eventTypes).toContain("nibiru.vpool.v1.MarkPriceChangedEvent")
     expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
     expect(eventTypes).toContain("transfer")
+    const eventPositionChangedIdx = eventTypes.findIndex(
+      (el) => el === "nibiru.perp.v1.PositionChangedEvent",
+    )
+    const eventPositionChanged = event2KeyValue(
+      txLogs[0].events[eventPositionChangedIdx],
+    )
+    expect(eventPositionChanged.bad_debt).toContain("amount:0")
 
     // perp tx add-margin events
     eventTypes = eventTypesForPerpMsg("MsgAddMargin", txLogs[1].events)
@@ -193,7 +198,7 @@ describe("perp module transactions", () => {
         },
       }),
     )
-    console.log("%o", txResp)
+    console.info("%o", txResp)
     expect(txResp).not.toBeNull()
     expect(txResp.code).toBe(0)
   })

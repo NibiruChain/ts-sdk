@@ -1,4 +1,4 @@
-import { Testnet } from "@nibiruchain/nibijs" // nibijs v0.6.1
+import { Testnet } from "@nibiruchain/nibijs" // nibijs v0.7.1
 import { initQueryCmd } from "@nibiruchain/nibijs/dist/query"
 
 async function runExample() {

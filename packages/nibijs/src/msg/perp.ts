@@ -1,5 +1,6 @@
 import { Registry } from "@cosmjs/proto-signing"
 import * as pb from "@nibiruchain/protojs/dist/perp/v1/tx"
+import { Side } from "@nibiruchain/protojs/dist/perp/v1/state"
 import { TxMessage, MsgTypeUrls } from "./types"
 import { toSdkDec, toSdkInt } from "../chain"
 
@@ -49,14 +50,26 @@ export class PerpMsgs {
     }
   }
 
-  static openPosition(msg: pb.MsgOpenPosition): TxMessage {
+  static openPosition(msg: {
+    sender: string
+    tokenPair: string
+    goLong: boolean
+    quoteAssetAmount: number
+    baseAssetAmountLimit?: number
+    leverage: number
+  }): TxMessage {
     const { quoteAssetAmount, baseAssetAmountLimit, leverage } = msg
-    msg.quoteAssetAmount = toSdkInt(quoteAssetAmount)
-    msg.baseAssetAmountLimit = toSdkInt(baseAssetAmountLimit)
-    msg.leverage = toSdkDec(leverage)
+    const pbMsg: pb.MsgOpenPosition = {
+      sender: msg.sender,
+      tokenPair: msg.tokenPair,
+      quoteAssetAmount: toSdkInt(quoteAssetAmount),
+      baseAssetAmountLimit: toSdkInt(baseAssetAmountLimit ?? 0),
+      leverage: toSdkDec(leverage.toString()),
+      side: msg.goLong ? Side.BUY : Side.SELL,
+    }
     return {
       typeUrl: PerpMsgTypeUrls.MsgOpenPosition,
-      value: pb.MsgOpenPosition.fromPartial(msg),
+      value: pb.MsgOpenPosition.fromPartial(pbMsg),
     }
   }
 
