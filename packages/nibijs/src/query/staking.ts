@@ -1,21 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import {
-    QueryClientImpl,
-    QueryDelegationResponse,
-    QueryDelegatorDelegationsResponse,
-    QueryDelegatorUnbondingDelegationsResponse,
-    QueryDelegatorValidatorResponse,
-    QueryDelegatorValidatorsResponse,
-    QueryHistoricalInfoResponse,
-    QueryParamsResponse,
-    QueryPoolResponse,
-    QueryRedelegationsResponse,
-    QueryUnbondingDelegationResponse,
-    QueryValidatorDelegationsResponse,
-    QueryValidatorResponse,
-    QueryValidatorsResponse,
-    QueryValidatorUnbondingDelegationsResponse,
-  } from "@nibiruchain/protojs/dist/staking/v1/query"
+  import * as pb from "@nibiruchain/protojs/dist/cosmos/staking/v1beta1/query";
   import { BondStatus } from "cosmjs-types/cosmos/staking/v1beta1/staking";
   import Long from "long";
   
@@ -32,46 +16,46 @@ import {
   
   export interface StakingExtension {
     readonly staking: {
-      delegation: (delegatorAddress: string, validatorAddress: string) => Promise<QueryDelegationResponse>;
+      delegation: (delegatorAddress: string, validatorAddress: string) => Promise<pb.QueryDelegationResponse>;
       delegatorDelegations: (
         delegatorAddress: string,
         paginationKey?: Uint8Array,
-      ) => Promise<QueryDelegatorDelegationsResponse>;
+      ) => Promise<pb.QueryDelegatorDelegationsResponse>;
       delegatorUnbondingDelegations: (
         delegatorAddress: string,
         paginationKey?: Uint8Array,
-      ) => Promise<QueryDelegatorUnbondingDelegationsResponse>;
+      ) => Promise<pb.QueryDelegatorUnbondingDelegationsResponse>;
       delegatorValidator: (
         delegatorAddress: string,
         validatorAddress: string,
-      ) => Promise<QueryDelegatorValidatorResponse>;
+      ) => Promise<pb.QueryDelegatorValidatorResponse>;
       delegatorValidators: (
         delegatorAddress: string,
         paginationKey?: Uint8Array,
-      ) => Promise<QueryDelegatorValidatorsResponse>;
-      historicalInfo: (height: number) => Promise<QueryHistoricalInfoResponse>;
-      params: () => Promise<QueryParamsResponse>;
-      pool: () => Promise<QueryPoolResponse>;
+      ) => Promise<pb.QueryDelegatorValidatorsResponse>;
+      historicalInfo: (height: number) => Promise<pb.QueryHistoricalInfoResponse>;
+      params: () => Promise<pb.QueryParamsResponse>;
+      pool: () => Promise<pb.QueryPoolResponse>;
       redelegations: (
         delegatorAddress: string,
         sourceValidatorAddress: string,
         destinationValidatorAddress: string,
         paginationKey?: Uint8Array,
-      ) => Promise<QueryRedelegationsResponse>;
+      ) => Promise<pb.QueryRedelegationsResponse>;
       unbondingDelegation: (
         delegatorAddress: string,
         validatorAddress: string,
-      ) => Promise<QueryUnbondingDelegationResponse>;
-      validator: (validatorAddress: string) => Promise<QueryValidatorResponse>;
+      ) => Promise<pb.QueryUnbondingDelegationResponse>;
+      validator: (validatorAddress: string) => Promise<pb.QueryValidatorResponse>;
       validatorDelegations: (
         validatorAddress: string,
         paginationKey?: Uint8Array,
-      ) => Promise<QueryValidatorDelegationsResponse>;
-      validators: (status: BondStatusString, paginationKey?: Uint8Array) => Promise<QueryValidatorsResponse>;
+      ) => Promise<pb.QueryValidatorDelegationsResponse>;
+      validators: (status: BondStatusString, paginationKey?: Uint8Array) => Promise<pb.QueryValidatorsResponse>;
       validatorUnbondingDelegations: (
         validatorAddress: string,
         paginationKey?: Uint8Array,
-      ) => Promise<QueryValidatorUnbondingDelegationsResponse>;
+      ) => Promise<pb.QueryValidatorUnbondingDelegationsResponse>;
     };
   }
   
@@ -79,7 +63,7 @@ import {
     // Use this service to get easy typed access to query methods
     // This cannot be used for proof verification
     const rpc = createProtobufRpcClient(base);
-    const queryService = new QueryClientImpl(rpc);
+    const queryService = new pb.QueryClientImpl(rpc);
   
     return {
       staking: {
