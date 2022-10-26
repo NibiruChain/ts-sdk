@@ -114,12 +114,10 @@ describe("perp module transactions", () => {
       }),
       // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
     ]
-    console.log("DEBUG msgs: %o", msgs)
     let txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(...msgs)
     expectTxToSucceed(txResp)
 
     const txLogs: TxLog[] = JSON.parse(prettyTmLogs(txResp.rawLog!))
-    console.debug(JSON.stringify(txLogs))
 
     // perp tx open-position events
     let eventTypes: string[] = eventTypesForPerpMsg("MsgOpenPosition", txLogs[0].events)
@@ -200,7 +198,7 @@ describe("perp module transactions", () => {
         },
       }),
     )
-    console.log("%o", txResp)
+    console.info("%o", txResp)
     expect(txResp).not.toBeNull()
     expect(txResp.code).toBe(0)
   })

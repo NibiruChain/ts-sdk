@@ -96,7 +96,7 @@ describe("test query module", () => {
       throw Error("VAL_ADDRESS is not set in the .env")
     }
     const balances = await query.bank.allBalances(VAL_ADDRESS ?? "")
-    console.log("balances: %o", balances)
+    console.info("balances: %o", balances)
     expect(balances.length).toBeGreaterThan(0)
     const amount: number = +balances[0].amount
     expect(amount).toBeGreaterThan(0)
@@ -111,7 +111,7 @@ describe("test query module", () => {
   test("query dex params - client.dex.params", async () => {
     const { client, disconnect } = await initQueryCmd(chain)
     const { params } = await client.dex.params()
-    console.log("dex.params: %o", params)
+    console.info("dex.params: %o", params)
     const fields: string[] = [
       "poolCreationFee",
       "startingPoolNumber",
@@ -129,7 +129,7 @@ describe("test query module", () => {
   test("query perp params - client.perp.params", async () => {
     const { client, disconnect } = await initQueryCmd(chain)
     const { params } = await client.perp.params()
-    console.log("perp.params: %o", JSON.stringify(params))
+    console.info("perp.params: %o", JSON.stringify(params))
     expect(params).not.toBeNull()
     const fields: string[] = [
       "stopped",
