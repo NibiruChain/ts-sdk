@@ -260,23 +260,23 @@
     long "^4.0.0"
     secretjs "^0.17.0"
 
-"@nibiruchain/protojs@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@nibiruchain/protojs/-/api-0.2.0.tgz#1749fac4271c02636c809cee9e08542b16be935a"
-  integrity sha512-Cr7uQnBlVSlD6Ci+gJFsldzcICJwChxtqGkf8qBnkdhMS5+H6AziWQwNVxvqAmNjGpJ/ugUWG3NSr3OV1Fe0VA==
-
-"@nibiruchain/nibijs@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@nibiruchain/nibijs/-/nibijs-0.6.1.tgz#8a564831f3464c2d44992055132dd5551ec4642a"
-  integrity sha512-iDYqGFEeT+El5ax3JtkgDlp0dLIKhJDq/3Y+O7+ZRzddzVMr4rbGOJ12vZdPyMexMzCjFeNZK8F585/iGdSI4A==
+"@nibiruchain/nibijs@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@nibiruchain/nibijs/-/nibijs-0.7.0.tgz#f39d9c1f04d94d37106ec403329b21173e17e072"
+  integrity sha512-WuotzTtnjWGIUgZpXJX+B8inl9boAzcXOrRDSFEprMaW/pk8S+uumKTtQ2C4IM1tY0n7AByUFGpT8FjA1AvVcw==
   dependencies:
     "@cosmjs/encoding" "^0.28.11"
     "@cosmjs/proto-signing" "^0.28.11"
     "@cosmjs/stargate" "^0.28.11"
     "@cosmjs/tendermint-rpc" "^0.28.11"
     "@keplr-wallet/types" "^0.10.13"
-    "@nibiruchain/protojs" "^0.2.0"
+    "@nibiruchain/protojs" "^0.15.0"
     cross-fetch "^3.1.5"
+
+"@nibiruchain/protojs@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@nibiruchain/protojs/-/protojs-0.15.0.tgz#65e0019a81cd58cf716a69556be198d8e3e0bb97"
+  integrity sha512-Hy1T/frq7BJmqDpiwjdK8hT3iA2+TR/6aQYEsFVkSAyOsTgsx5fuTMnLIJqW5M2WAb5NPpbOCNRG+qcKPqlgGQ==
 
 "@noble/hashes@^1", "@noble/hashes@^1.0.0":
   version "1.1.2"

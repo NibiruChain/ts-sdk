@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@nibiruchain/nibijs": "^0.7.0"
+    "@nibiruchain/nibijs": "^0.7.1"
   }
 }
