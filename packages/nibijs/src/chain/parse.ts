@@ -1,5 +1,7 @@
+import { IEventLog } from "./types"
+
 const PRECISION = 18 // number of decimal places
-const INT_MULT = 1_000_000
+export const INT_MULT = 1_000_000
 
 export class ErrorParseNumber extends Error {
   constructor(message: string) {
@@ -143,12 +145,12 @@ export function fromSdkDec(sdkDec: string): number {
   return parseFloat(bzStr)
 }
 
-export function toSdkInt(i: string): string {
-  return (+i * INT_MULT).toString()
+export function toSdkInt(i: number): string {
+  return Math.round(i).toString()
 }
 
-export function fromSdkInt(intStr: string): string {
-  return (parseFloat(intStr) / INT_MULT).toString()
+export function fromSdkInt(intStr: string): number {
+  return parseInt(intStr)
 }
 
 // TODO docs
@@ -169,4 +171,18 @@ export function fromSdkDecSafe(inStr: string): number {
   }
   sdkDec = parseFloat(inStr)
   return sdkDec
+}
+
+export function event2KeyValue(event: IEventLog): { [key: string]: string } {
+  const obj: { [key: string]: string } = {}
+  event.attributes.forEach((attr) => {
+    obj[attr.key] = attr.value
+  })
+  return obj
+}
+
+// TODO test
+// Useful for https://github.com/NibiruChain/ts-sdk/issues/41
+function camelToSnakeCase(str: string): string {
+  return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`)
 }

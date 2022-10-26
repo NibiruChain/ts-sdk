@@ -19,7 +19,7 @@ import {
   assert,
 } from "./chain"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
-import { newSdk } from "./sdk"
+import { ISdk, newSdk } from "./sdk"
 import { initQueryCmd, waitForBlockHeight, waitForNextBlock } from "./query/query"
 import { Msg } from "./msg"
 
@@ -62,9 +62,11 @@ test("faucet utility works", async () => {
   const setupFaucetTest = async (): Promise<{
     toAddr: string
     blockHeight: number
+    walletSdk: ISdk
   }> => {
     const wallet: WalletHD = await newRandomWallet()
     const [{ address: toAddr }] = await wallet.getAccounts()
+    const walletSdk = await newSdk(Testnet, wallet)
     const valMnemonic = process.env.VALIDATOR_MNEMONIC
     expect(valMnemonic).toBeDefined()
     const signer = await newSignerFromMnemonic(valMnemonic!)
@@ -83,10 +85,14 @@ test("faucet utility works", async () => {
       .sendTokens(toAddr, tokens)
     expect(txResp).not.toBeNull()
     assertIsDeliverTxSuccess(txResp)
-    return { toAddr, blockHeight: txResp.height }
+    return { toAddr, blockHeight: txResp.height, walletSdk }
   }
 
-  const { toAddr: address, blockHeight: setupBlockHeight } = await setupFaucetTest()
+  const {
+    toAddr: address,
+    blockHeight: setupBlockHeight,
+    walletSdk,
+  } = await setupFaucetTest()
 
   const chain = Testnet
   await waitForBlockHeight({ chain, height: setupBlockHeight + 1 })
@@ -107,6 +113,23 @@ test("faucet utility works", async () => {
   }
   expect(balances.unusd - balancesStart.unusd).toEqual(100_000 * 1_000_000)
   expect(balances.unibi - balancesStart.unibi).toEqual(10 * 1_000_000)
+
+  // cleanup
+  const cleanupResp: DeliverTxResponse = await walletSdk.tx.signAndBroadcast(
+    Msg.bank.Send(
+      address,
+      "nibi10gm4kys9yyrlqpvj05vqvjwvje87gln8nsm8wa",
+      newCoins(100_000 * 1_000_000, "unusd"),
+    ),
+    Msg.bank.Send(
+      address,
+      "nibi10gm4kys9yyrlqpvj05vqvjwvje87gln8nsm8wa",
+      newCoins(9.9 * 1_000_000, "unibi"),
+    ),
+  )
+  expect(cleanupResp).not.toBeNull()
+  console.info("cleanupResp (txHash): %s", cleanupResp.rawLog)
+  assertIsDeliverTxSuccess(cleanupResp)
 }, 50_000) // 50 seconds
 
 describe("chain/types", () => {
