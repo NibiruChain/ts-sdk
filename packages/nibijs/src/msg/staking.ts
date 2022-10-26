@@ -3,11 +3,11 @@ import * as pb from "@nibiruchain/protojs/dist/staking/v1/tx"
 import { MsgTypeUrls, TxMessage } from "./types";
 
 export const stakingMsgTypeUrls: MsgTypeUrls = {
-  MsgAddMargin: `/${pb.protobufPackage}.MsgBeginRedelegate`,
-  MsgRemoveMargin: `/${pb.protobufPackage}.MsgCreateValidator`,
-  MsgLiquidate: `/${pb.protobufPackage}.MsgDelegate`,
-  MsgOpenPosition: `/${pb.protobufPackage}.MsgEditValidator`,
-  MsgClosePosition: `/${pb.protobufPackage}.MsgUndelegate`,
+  MsgBeginRedelegate: `/${pb.protobufPackage}.MsgBeginRedelegate`,
+  MsgCreateValidator: `/${pb.protobufPackage}.MsgCreateValidator`,
+  MsgDelegate: `/${pb.protobufPackage}.MsgDelegate`,
+  MsgEditValidator: `/${pb.protobufPackage}.MsgEditValidator`,
+  MsgUndelegate: `/${pb.protobufPackage}.MsgUndelegate`,
 }
 
 export function registerTypes(registry: Registry) {
