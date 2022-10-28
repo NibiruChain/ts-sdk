@@ -93,6 +93,22 @@ describe("perp module transactions", () => {
     const sdk = await newSdk(CHAIN, signer)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const pair = "ubtc:unusd"
+    // Query and validate the trader's position
+    const queryEmptyPositions = await sdk.query.perp.positions({
+      trader: fromAddr,
+    })
+    console.log(queryEmptyPositions)
+    queryEmptyPositions.positions.forEach((position) => {
+      const fields = [
+        position.blockNumber,
+        position.position,
+        position.marginRatioMark,
+        position.marginRatioIndex,
+        position.unrealizedPnl,
+        position.positionNotional,
+      ]
+      fields.forEach((val) => expect(val).toBeDefined())
+    })
     let msgs: TxMessage[] = [
       Msg.perp.openPosition({
         tokenPair: pair,
