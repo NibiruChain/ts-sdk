@@ -97,7 +97,7 @@ describe("perp module transactions", () => {
     const queryEmptyPositions = await sdk.query.perp.positions({
       trader: fromAddr,
     })
-    console.log(queryEmptyPositions)
+    expect(queryEmptyPositions.positions).toHaveLength(0)
     queryEmptyPositions.positions.forEach((position) => {
       const fields = [
         position.blockNumber,
@@ -164,7 +164,7 @@ describe("perp module transactions", () => {
     const queryPositions = await sdk.query.perp.positions({
       trader: fromAddr,
     })
-    console.log(queryPositions)
+    expect(queryPositions.positions).toHaveLength(1)
     queryPositions.positions.forEach((position) => {
       const fields = [
         position.blockNumber,
