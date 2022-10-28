@@ -20,7 +20,7 @@ import {
 } from "./chain"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
 import { ISdk, newSdk } from "./sdk"
-import { initQueryCmd, waitForBlockHeight, waitForNextBlock } from "./query/query"
+import { initQueryCmd, waitForBlockHeight, waitForNextBlock } from "./query"
 import { Msg } from "./msg"
 
 describe("chain connections", () => {
@@ -66,25 +66,20 @@ test("faucet utility works", async () => {
   }> => {
     const wallet: WalletHD = await newRandomWallet()
     const [{ address: toAddr }] = await wallet.getAccounts()
-    const walletSdk = await newSdk(Testnet, wallet)
     const valMnemonic = process.env.VALIDATOR_MNEMONIC
     expect(valMnemonic).toBeDefined()
+
     const signer = await newSignerFromMnemonic(valMnemonic!)
     const sdk = await newSdk(Testnet, signer)
     const [{ address: fromAddr }] = await signer.getAccounts()
     const tokens = newCoins(5, "unibi")
-    const gasUsed = await sdk.tx.client.simulate(
-      /* signerAddress */ fromAddr,
-      /* messages */ [Msg.bank.Send(fromAddr, toAddr, tokens)],
-      /* memo */ "example memo", // undefined,
+    const txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(
+      Msg.bank.Send(fromAddr, toAddr, tokens),
     )
-    expect(gasUsed).toBeGreaterThan(0)
-    const gasLimit = gasUsed * 1.25
-    const txResp: DeliverTxResponse = await sdk.tx
-      .withFee(gasLimit)
-      .sendTokens(toAddr, tokens)
     expect(txResp).not.toBeNull()
     assertIsDeliverTxSuccess(txResp)
+
+    const walletSdk = await newSdk(Testnet, wallet)
     return { toAddr, blockHeight: txResp.height, walletSdk }
   }
 
@@ -101,7 +96,11 @@ test("faucet utility works", async () => {
   const balancesStart = newCoinMapFromCoins(
     await queryCmd.client.bank.allBalances(address),
   )
-  await useFaucet(address)
+  const faucetResp = await useFaucet(address)
+  if (!faucetResp.ok) {
+    console.debug(`useFaucet failed with response ${await faucetResp.text()}`)
+  }
+  expect(faucetResp.ok).toBeTruthy()
 
   const balances = newCoinMapFromCoins(await queryCmd.client.bank.allBalances(address))
   // Expect to receive 10 NIBI and 100_000 NUSD

@@ -27,7 +27,7 @@ const common = {
     "jest/prefer-expect-assertions": "off",
     "jest/prefer-to-have-length": "warn",
     "jest/require-hook": "off",
-    "jest/valid-expect": "error",
+    "jest/valid-expect": ["error", { maxArgs: 1 }],
     "guard-for-in": "off",
     "no-await-in-loop": "off",
     "no-console": "off",

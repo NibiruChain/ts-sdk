@@ -13,6 +13,7 @@ dotenv.config() // yarn add -D dotenv
  * @interface Chain
  * @typedef {Chain}
  */
+
 export interface Chain {
   /** endptTm: endpoint for the Tendermint RPC server. Usually on port 26657. */
   endptTm: string
@@ -35,11 +36,20 @@ export const Localnet: Chain = {
 }
 
 export const Testnet: Chain = {
-  endptTm: "https://rpc.devnet-1.nibiru.fi",
-  endptRest: "https://lcd.devnet-1.nibiru.fi",
+  endptTm: "https://rpc.testnet-1.nibiru.fi",
+  endptRest: "https://lcd.testnet-1.nibiru.fi",
   endptGrpc: "",
-  chainId: "nibiru-devnet-1",
-  chainName: "nibiru-devnet-1",
+  chainId: "nibiru-testnet-1",
+  chainName: "nibiru-testnet-1",
+  feeDenom: "unibi",
+}
+
+export const Devnet: Chain = {
+  endptTm: "https://rpc.devnet-2.nibiru.fi",
+  endptRest: "https://lcd.devnet-2.nibiru.fi",
+  endptGrpc: "",
+  chainId: "nibiru-devnet-2",
+  chainName: "nibiru-devnet-2",
   feeDenom: "unibi",
 }
 
@@ -67,14 +77,17 @@ export const Chaosnet: Chain = {
 /**
  * Sends 10 NIBI and 100_000 NUSD to the given address from the testnet faucet.
  */
-export async function useFaucet(address: string, faucetUrl?: string): Promise<void> {
+export async function useFaucet(
+  address: string,
+  faucetUrl?: string,
+): Promise<Response> {
   const amtNibi = 10
   const amtNusd = 100_000
   const coins: string[] = [
     `${(amtNibi * 1_000_000).toString()}unibi`,
     `${(amtNusd * 1_000_000).toString()}unusd`,
   ]
-  faucetUrl = faucetUrl ?? "https://faucet.devnet-1.nibiru.fi/"
+  faucetUrl = faucetUrl ?? "https://faucet.testnet-1.nibiru.fi/"
   console.info(
     `Requesting funds from faucet @ ${faucetUrl}: 
     Coins: ${coins}
@@ -82,16 +95,18 @@ export async function useFaucet(address: string, faucetUrl?: string): Promise<vo
     `,
   )
 
-  await fetch(faucetUrl, {
+  const resp = await fetch(faucetUrl, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ address, coins }),
-  }).catch((err: Error) => {
-    console.error(err.message)
+  }).catch((err) => {
+    console.error(err)
+    throw err
   })
+  return resp
 }
 
 export async function queryChainIdWithRest(
