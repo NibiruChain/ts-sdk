@@ -1,4 +1,10 @@
-import { SigningStargateClient, calculateFee, GasPrice, StdFee } from "@cosmjs/stargate"
+import {
+  SigningStargateClient,
+  calculateFee,
+  GasPrice,
+  StdFee,
+  DeliverTxResponse,
+} from "@cosmjs/stargate"
 import {
   AccountData,
   Coin,
@@ -12,6 +18,7 @@ import { registerTypes as registerDex } from "../msg/dex"
 import { registerTypes as registerPerp } from "../msg/perp"
 import { getRegistry } from "./signer"
 import { TxMessage } from "../msg/types"
+import { waitForNextBlock } from "../query"
 
 export type Address = string
 export type CosmosSigner =
@@ -28,12 +35,19 @@ export type CosmosSigner =
 export class TxCmd {
   client: SigningStargateClient
 
+  chain: Chain
+
   private fee?: StdFee
 
   private directSigner: OfflineDirectSigner
 
-  constructor(client: SigningStargateClient, directSigner: OfflineDirectSigner) {
+  constructor(
+    client: SigningStargateClient,
+    directSigner: OfflineDirectSigner,
+    chain: Chain,
+  ) {
     this.client = client
+    this.chain = chain
     this.directSigner = directSigner
     this.fee = undefined
   }
@@ -56,16 +70,26 @@ export class TxCmd {
     return this.client.simulate(addr[0].address, msgs, undefined)
   }
 
-  async signAndBroadcast(...msgs: TxMessage[]) {
+  async signAndBroadcast(...msgs: TxMessage[]): Promise<DeliverTxResponse> {
     const accounts = await this.directSigner.getAccounts()
     await this.ensureFee(...msgs)
-    return this.client.signAndBroadcast(accounts[0].address, msgs, this.fee!)
+    return this.client.signAndBroadcast(accounts[0].address, msgs, this.fee ?? "auto")
   }
 
   async ensureFee(...msgs: TxMessage[]) {
-    if (!this.fee) {
+    const addSimulatedFeeToCmd = async () => {
       const gasUsed = await this.simulate(...msgs)
       this.withFee(gasUsed * 1.25)
+    }
+
+    if (!this.fee) {
+      try {
+        await addSimulatedFeeToCmd()
+      } catch (err: any) {
+        await waitForNextBlock(this.chain)
+        await addSimulatedFeeToCmd()
+        console.debug("DEBUG ensureFee error: %o", err)
+      }
     }
   }
 
@@ -96,5 +120,5 @@ export async function newTxCmd(
     signer,
     { registry },
   )
-  return new TxCmd(client, signer)
+  return new TxCmd(client, signer, chain)
 }
