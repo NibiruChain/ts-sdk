@@ -164,6 +164,7 @@ describe("perp module transactions", () => {
     const queryPositions = await sdk.query.perp.positions({
       trader: fromAddr,
     })
+    console.log(queryPositions)
     queryPositions.positions.forEach((position) => {
       const fields = [
         position.blockNumber,
