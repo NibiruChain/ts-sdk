@@ -145,6 +145,20 @@ describe("perp module transactions", () => {
     expect(eventTypes).toContain("transfer")
 
     // Query and validate the trader's position
+    const queryPositions = await sdk.query.perp.positions({
+      trader: fromAddr,
+    })
+    queryPositions.positions.forEach((position) => {
+      const fields = [
+        position.blockNumber,
+        position.position,
+        position.marginRatioMark,
+        position.marginRatioIndex,
+        position.unrealizedPnl,
+        position.positionNotional,
+      ]
+      fields.forEach((val) => expect(val).toBeDefined())
+    })
     const queryResp: QueryPositionResponse = await sdk.query.perp.position({
       tokenPair: pair,
       trader: fromAddr,
@@ -173,7 +187,7 @@ describe("perp module transactions", () => {
 // - TODO test LPing into a pool, which is called JoinPool
 // - TODO test swapping on an existing pool
 
-/* 
+/*
   // NOTE commented out dex commands until public testnet
   test("dex create pool", async () => {
     const client = await newTxCmd(CHAIN, VAL_MNEMONIC)

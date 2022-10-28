@@ -20,6 +20,16 @@ function transformPosition(
   return resp
 }
 
+function transformPositions(
+  resp: perpquery.QueryPositionsResponse,
+): perpquery.QueryPositionsResponse {
+  const { positions } = resp
+  resp.positions = positions.map((position: perpquery.QueryPositionResponse) =>
+    transformPosition(position),
+  )
+  return resp
+}
+
 function transformParams(pbParams?: perpstate.Params): perpstate.Params | undefined {
   if (!pbParams) {
     return pbParams
@@ -40,6 +50,9 @@ export interface PerpExtension {
       tokenPair: string
       trader: string
     }) => Promise<perpquery.QueryPositionResponse>
+    readonly positions: (args: {
+      trader: string
+    }) => Promise<perpquery.QueryPositionsResponse>
   }
 }
 
@@ -59,6 +72,11 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
         const req = perpquery.QueryPositionRequest.fromPartial(args)
         const resp = await queryService.QueryPosition(req)
         return transformPosition(resp)
+      },
+      positions: async (args: { trader: string }) => {
+        const req = perpquery.QueryPositionsRequest.fromPartial(args)
+        const resp = await queryService.QueryPositions(req)
+        return transformPositions(resp)
       },
     },
   }
