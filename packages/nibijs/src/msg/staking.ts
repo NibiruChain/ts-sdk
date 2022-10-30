@@ -1,6 +1,6 @@
-import { EncodeObject, GeneratedType, Registry } from "@cosmjs/proto-signing";
-import * as pb from "@nibiruchain/protojs/dist/cosmos/staking/v1beta1/tx";
-import { MsgTypeUrls, TxMessage } from "./types";
+import { EncodeObject, GeneratedType, Registry } from "@cosmjs/proto-signing"
+import * as pb from "@nibiruchain/protojs/dist/cosmos/staking/v1beta1/tx"
+import { MsgTypeUrls, TxMessage } from "./types"
 
 export const stakingMsgTypeUrls: MsgTypeUrls = {
   MsgBeginRedelegate: `/${pb.protobufPackage}.MsgBeginRedelegate`,

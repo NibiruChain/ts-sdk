@@ -1,7 +1,6 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
 import * as perpquery from "@nibiruchain/protojs/dist/perp/v1/query"
 import * as perpstate from "@nibiruchain/protojs/dist/perp/v1/state"
-import * as perpevent from "@nibiruchain/protojs/dist/perp/v1/event"
 import { fromSdkDec } from "../chain"
 
 function transformPosition(

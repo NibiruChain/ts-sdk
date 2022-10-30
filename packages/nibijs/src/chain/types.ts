@@ -9,11 +9,13 @@ import {
 
 export { AccountData, newCoin, newCoins, Coin, parseCoins, WalletHD }
 
-export async function go<T>(promise: Promise<T>): Promise<[T | undefined, any]> {
+export async function go<T>(
+  promise: Promise<T>,
+): Promise<{ res: T | undefined; err: any }> {
   try {
-    return [await promise, undefined]
+    return { res: await promise, err: undefined }
   } catch (err) {
-    return [undefined, err]
+    return { res: undefined, err }
   }
 }
 

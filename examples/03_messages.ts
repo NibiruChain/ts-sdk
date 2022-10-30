@@ -1,4 +1,4 @@
-import { newCoin, newSdk, Testnet } from "@nibiruchain/nibijs" // nibijs v0.7.1
+import { newCoin, newSdk, Testnet } from "@nibiruchain/nibijs" // nibijs v0.7.3
 import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
 import { newSignerFromMnemonic } from "@nibiruchain/nibijs/dist/tx"
 

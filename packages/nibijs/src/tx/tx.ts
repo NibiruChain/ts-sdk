@@ -1,4 +1,10 @@
-import { SigningStargateClient, calculateFee, GasPrice, StdFee } from "@cosmjs/stargate"
+import {
+  SigningStargateClient,
+  calculateFee,
+  GasPrice,
+  StdFee,
+  DeliverTxResponse,
+} from "@cosmjs/stargate"
 import {
   AccountData,
   Coin,
@@ -7,11 +13,13 @@ import {
   OfflineSigner,
   Registry,
 } from "@cosmjs/proto-signing"
-import { GAS_PRICE, Chain } from "../chain"
+import { GAS_PRICE, Chain, go } from "../chain"
 import { registerTypes as registerDex } from "../msg/dex"
 import { registerTypes as registerPerp } from "../msg/perp"
 import { getRegistry } from "./signer"
 import { TxMessage } from "../msg/types"
+import { waitForNextBlock } from "../query"
+import { BankMsgs } from "../msg/bank"
 
 export type Address = string
 export type CosmosSigner =
@@ -28,12 +36,19 @@ export type CosmosSigner =
 export class TxCmd {
   client: SigningStargateClient
 
+  chain: Chain
+
   private fee?: StdFee
 
   private directSigner: OfflineDirectSigner
 
-  constructor(client: SigningStargateClient, directSigner: OfflineDirectSigner) {
+  constructor(
+    client: SigningStargateClient,
+    directSigner: OfflineDirectSigner,
+    chain: Chain,
+  ) {
     this.client = client
+    this.chain = chain
     this.directSigner = directSigner
     this.fee = undefined
   }
@@ -49,29 +64,39 @@ export class TxCmd {
    *
    * @async
    * @param {...TxMessage[]} msgs
-   * @returns {Promise<number>} - expected gas ost
+   * @returns {Promise<number>} - expected gas cost (units of unibi)
    */
   async simulate(...msgs: TxMessage[]): Promise<number> {
     const addr = await this.directSigner.getAccounts()
     return this.client.simulate(addr[0].address, msgs, undefined)
   }
 
-  async signAndBroadcast(...msgs: TxMessage[]) {
+  async signAndBroadcast(...msgs: TxMessage[]): Promise<DeliverTxResponse> {
     const accounts = await this.directSigner.getAccounts()
     await this.ensureFee(...msgs)
-    return this.client.signAndBroadcast(accounts[0].address, msgs, this.fee!)
+    return this.client.signAndBroadcast(accounts[0].address, msgs, this.fee ?? "auto")
   }
 
   async ensureFee(...msgs: TxMessage[]) {
-    if (!this.fee) {
+    const addSimulatedFeeToCmd = async () => {
       const gasUsed = await this.simulate(...msgs)
       this.withFee(gasUsed * 1.25)
+    }
+
+    if (!this.fee) {
+      let { err } = await go(addSimulatedFeeToCmd())
+      if (err) {
+        await waitForNextBlock(this.chain)
+        ;({ err } = await go(addSimulatedFeeToCmd()))
+        if (err) throw err
+      }
     }
   }
 
   async sendTokens(to: string, coins: Coin[]) {
-    const addr = await this.directSigner.getAccounts()
-    return this.client.sendTokens(addr[0].address, to, coins, this.fee!)
+    const [{ address: from }] = await this.directSigner.getAccounts()
+    const msgSend = BankMsgs.Send(from, to, coins)
+    return this.signAndBroadcast(msgSend)
   }
 
   getAccounts(): Promise<readonly AccountData[]> {
@@ -96,5 +121,5 @@ export async function newTxCmd(
     signer,
     { registry },
   )
-  return new TxCmd(client, signer)
+  return new TxCmd(client, signer, chain)
 }
