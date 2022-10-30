@@ -59,6 +59,8 @@ describe("chain connections", () => {
 })
 
 test("faucet utility works", async () => {
+  const chain: Chain = Testnet
+
   const setupFaucetTest = async (): Promise<{
     toAddr: string
     blockHeight: number
@@ -72,9 +74,9 @@ test("faucet utility works", async () => {
     const signer = await newSignerFromMnemonic(valMnemonic!)
     const sdk = await newSdk(Testnet, signer)
     const [{ address: fromAddr }] = await signer.getAccounts()
-    const tokens = newCoins(5, "unibi")
+    await waitForNextBlock(chain)
     const txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(
-      Msg.bank.Send(fromAddr, toAddr, tokens),
+      Msg.bank.Send(fromAddr, toAddr, newCoins(5, "unibi")),
     )
     expect(txResp).not.toBeNull()
     assertIsDeliverTxSuccess(txResp)
@@ -89,29 +91,35 @@ test("faucet utility works", async () => {
     walletSdk,
   } = await setupFaucetTest()
 
-  const chain = Testnet
-  await waitForBlockHeight({ chain, height: setupBlockHeight + 1 })
   const queryCmd = await initQueryCmd(chain)
-  await waitForNextBlock(chain)
-  const balancesStart = newCoinMapFromCoins(
-    await queryCmd.client.bank.allBalances(address),
-  )
-  const faucetResp = await useFaucet(address)
-  if (!faucetResp.ok) {
-    console.debug(`useFaucet failed with response ${await faucetResp.text()}`)
-  }
-  expect(faucetResp.ok).toBeTruthy()
 
-  const balances = newCoinMapFromCoins(await queryCmd.client.bank.allBalances(address))
-  // Expect to receive 10 NIBI and 100_000 NUSD
-  if (balancesStart.unusd === undefined) {
-    balancesStart.unusd = 0
+  const expectFaucetRequestSucceeds = async (): Promise<CoinMap> => {
+    await waitForBlockHeight({ chain, height: setupBlockHeight + 1 })
+    const balancesStart = newCoinMapFromCoins(
+      await queryCmd.client.bank.allBalances(address),
+    )
+    const faucetResp = await useFaucet(address)
+    if (!faucetResp.ok) {
+      console.debug(`useFaucet failed with response ${await faucetResp.text()}`)
+    }
+    expect(faucetResp.ok).toBeTruthy()
+    return balancesStart
   }
-  if (balancesStart.unibi === undefined) {
-    balancesStart.unibi = 0
+
+  const expectBalancesToIncreaseByFaucetAmt = async (balancesStart: CoinMap) => {
+    await waitForNextBlock(chain)
+    const balances = newCoinMapFromCoins(
+      await queryCmd.client.bank.allBalances(address),
+    )
+    // Expect to receive 10 NIBI and 100_000 NUSD
+    if (balances.unusd === undefined) balances.unusd = 0
+    if (balances.unibi === undefined) balances.unibi = 0
+    expect(balances.unusd - (balancesStart.unusd ?? 0)).toEqual(100_000 * 1_000_000)
+    expect(balances.unibi - (balancesStart.unibi ?? 0)).toEqual(10 * 1_000_000)
   }
-  expect(balances.unusd - balancesStart.unusd).toEqual(100_000 * 1_000_000)
-  expect(balances.unibi - balancesStart.unibi).toEqual(10 * 1_000_000)
+
+  const balancesStart = await expectFaucetRequestSucceeds()
+  await expectBalancesToIncreaseByFaucetAmt(balancesStart)
 
   // cleanup
   const cleanupResp: DeliverTxResponse = await walletSdk.tx.signAndBroadcast(

@@ -13,12 +13,13 @@ import {
   OfflineSigner,
   Registry,
 } from "@cosmjs/proto-signing"
-import { GAS_PRICE, Chain } from "../chain"
+import { GAS_PRICE, Chain, go } from "../chain"
 import { registerTypes as registerDex } from "../msg/dex"
 import { registerTypes as registerPerp } from "../msg/perp"
 import { getRegistry } from "./signer"
 import { TxMessage } from "../msg/types"
 import { waitForNextBlock } from "../query"
+import { BankMsgs } from "../msg/bank"
 
 export type Address = string
 export type CosmosSigner =
@@ -63,7 +64,7 @@ export class TxCmd {
    *
    * @async
    * @param {...TxMessage[]} msgs
-   * @returns {Promise<number>} - expected gas ost
+   * @returns {Promise<number>} - expected gas cost (units of unibi)
    */
   async simulate(...msgs: TxMessage[]): Promise<number> {
     const addr = await this.directSigner.getAccounts()
@@ -83,19 +84,19 @@ export class TxCmd {
     }
 
     if (!this.fee) {
-      try {
-        await addSimulatedFeeToCmd()
-      } catch (err: any) {
+      let { err } = await go(addSimulatedFeeToCmd())
+      if (err) {
         await waitForNextBlock(this.chain)
-        await addSimulatedFeeToCmd()
-        console.debug("DEBUG ensureFee error: %o", err)
+        ;({ err } = await go(addSimulatedFeeToCmd()))
+        if (err) throw err
       }
     }
   }
 
   async sendTokens(to: string, coins: Coin[]) {
-    const addr = await this.directSigner.getAccounts()
-    return this.client.sendTokens(addr[0].address, to, coins, this.fee!)
+    const [{ address: from }] = await this.directSigner.getAccounts()
+    const msgSend = BankMsgs.Send(from, to, coins)
+    return this.signAndBroadcast(msgSend)
   }
 
   getAccounts(): Promise<readonly AccountData[]> {

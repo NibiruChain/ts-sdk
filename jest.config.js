@@ -4,7 +4,7 @@ const { compilerOptions } = require('./tsconfig')
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
-module.exports = function(root = __dirname) {
+module.exports = function (root = __dirname) {
   return {
     // All imported modules in your tests should be mocked automatically
     // automock: false,
@@ -32,7 +32,7 @@ module.exports = function(root = __dirname) {
 
     // An array of regexp pattern strings used to skip coverage collection
     coveragePathIgnorePatterns: [
-    	"/node_modules/",
+      "/node_modules/",
       "api/*",
       "<rootDir>/dist/"
     ],
@@ -186,5 +186,6 @@ module.exports = function(root = __dirname) {
 
     // Whether to use watchman for file crawling
     // watchman: true,
+    testTimeout: 120000
   };
 }

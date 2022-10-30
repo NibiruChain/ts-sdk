@@ -63,28 +63,17 @@ describe("test tx module", () => {
     const toWallet: WalletHD = await newRandomWallet()
     const [{ address: toAddr }] = await toWallet.getAccounts()
     const tokens = newCoins(5, "unibi")
-    const gasUsed = await sdk.tx.client.simulate(
-      /* signerAddress */ fromAddr,
-      /* messages */ [Msg.bank.Send(fromAddr, toAddr, tokens)],
-      /* memo */ "example memo", // undefined,
-    )
-    expect(gasUsed).toBeGreaterThan(0)
-
     console.info(
       `Sending tokens...
-      tokens: %O
-      from: %s
-      to: %s`,
-      tokens,
-      fromAddr,
-      toAddr,
+      tokens: ${tokens}
+      from: ${fromAddr}
+      to: ${toAddr}`,
     )
-    const gasLimit = gasUsed * 1.25
-
-    const txResp = await sdk.tx.withFee(gasLimit).sendTokens(toAddr, tokens)
+    await sdk.tx.ensureFee(Msg.bank.Send(fromAddr, toAddr, tokens))
+    const txResp = await sdk.tx.sendTokens(toAddr, tokens)
     expectTxToSucceed(txResp)
     console.info("txResp: %o", txResp)
-  }, 10_000 /* This test takes roughly 5.3 seconds. The default timeout is not sufficient. */)
+  }, 12_000 /* The default timeout (5_000 ms) is not sufficient. */)
 })
 
 describe("perp module transactions", () => {
@@ -93,6 +82,22 @@ describe("perp module transactions", () => {
     const sdk = await newSdk(CHAIN, signer)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const pair = "ubtc:unusd"
+    // Query and validate the trader's position
+    const queryEmptyPositions = await sdk.query.perp.positions({
+      trader: fromAddr,
+    })
+    expect(queryEmptyPositions.positions).toHaveLength(0)
+    queryEmptyPositions.positions.forEach((position) => {
+      const fields = [
+        position.blockNumber,
+        position.position,
+        position.marginRatioMark,
+        position.marginRatioIndex,
+        position.unrealizedPnl,
+        position.positionNotional,
+      ]
+      fields.forEach((val) => expect(val).toBeDefined())
+    })
     let msgs: TxMessage[] = [
       Msg.perp.openPosition({
         tokenPair: pair,
@@ -145,6 +150,21 @@ describe("perp module transactions", () => {
     expect(eventTypes).toContain("transfer")
 
     // Query and validate the trader's position
+    const queryPositions = await sdk.query.perp.positions({
+      trader: fromAddr,
+    })
+    expect(queryPositions.positions).toHaveLength(1)
+    queryPositions.positions.forEach((position) => {
+      const fields = [
+        position.blockNumber,
+        position.position,
+        position.marginRatioMark,
+        position.marginRatioIndex,
+        position.unrealizedPnl,
+        position.positionNotional,
+      ]
+      fields.forEach((val) => expect(val).toBeDefined())
+    })
     const queryResp: QueryPositionResponse = await sdk.query.perp.position({
       tokenPair: pair,
       trader: fromAddr,
@@ -173,7 +193,7 @@ describe("perp module transactions", () => {
 // - TODO test LPing into a pool, which is called JoinPool
 // - TODO test swapping on an existing pool
 
-/* 
+/*
   // NOTE commented out dex commands until public testnet
   test("dex create pool", async () => {
     const client = await newTxCmd(CHAIN, VAL_MNEMONIC)

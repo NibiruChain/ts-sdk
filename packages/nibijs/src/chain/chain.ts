@@ -118,7 +118,7 @@ export async function queryChainIdWithRest(
     return nodeInfo.node_info.network
   }
 
-  const [chainId, err] = await go(queryChainId(chain))
+  const { res: chainId, err } = await go(queryChainId(chain))
   return [chainId, err]
 }
 
