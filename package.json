@@ -17,6 +17,7 @@
     "build": "lerna run --parallel build",
     "clean": "lerna run --parallel clean && shx rm -rf .build-cache *.log coverage junit.xml",
     "publish-all": "sh publish.sh",
+    "install:fresh": "shx rm -rf packages/**/node_modules && yarn",
     "lerna:publish": "lerna publish",
     "build:watch": "lerna run --parallel build:watch",
     "build:fresh": "yarn clean && yarn build",
