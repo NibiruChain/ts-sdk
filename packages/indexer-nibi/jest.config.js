@@ -1,5 +1,1 @@
-const baseConfig = require('../../jest.config.js')
-
-module.exports = {
-  ...baseConfig,
-}
+module.exports = require('../../jest.config.js')(__dirname + '/../..')

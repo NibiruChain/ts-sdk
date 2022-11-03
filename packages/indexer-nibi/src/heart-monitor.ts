@@ -9,7 +9,6 @@ import {
 async function doGqlQuery(gqlQuery: string): Promise<any> {
   const encodedGqlQuery = encodeURI(gqlQuery)
   const fetchString = `http://35.221.52.89:5555/graphql?query=${encodedGqlQuery}`
-  console.log("DEBUG fetchString:", fetchString)
   const rawResp = await fetch(fetchString)
   return cleanResponse(rawResp)
 }
@@ -93,32 +92,3 @@ export async function useQueryPosChange(args: {
 }): Promise<IGqlPosChange> {
   return doGqlQuery(queryPosChange(args))
 }
-
-;(async () => {
-  console.log(
-    "DEBUG useQueryMarkPrices: %o",
-    await useQueryMarkPrices({
-      pair: "ubtc:unusd",
-      fromBlock: 10000,
-      toBlock: 10009,
-    }),
-  )
-
-  console.log(
-    "DEBUG useQueryBlockMarkPrices: %o",
-    await useQueryBlockMarkPrices({
-      pair: "ubtc:unusd",
-      fromBlock: 10000,
-      toBlock: 10009,
-    }),
-  )
-
-  console.log(
-    "DEBUG useQueryPosChange: %o",
-    await useQueryPosChange({
-      pair: "ubtc:unusd",
-      fromBlock: 10000,
-      toBlock: 10009,
-    }),
-  )
-})()
