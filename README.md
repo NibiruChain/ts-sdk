@@ -19,7 +19,7 @@ The official TypeScript SDK for the Nibiru blockchain
 
 The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions. 
 
-The `nibijs` source code can be found in the ["packages" directory](./packages).  The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`. 
+The `nibijs` source code can be found in the ["packages" directory](https://github.com/NibiruChain/ts-sdk/tree/main/packages).  The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`. 
 
 #### Table of Contents
 - [Installation](#installation)
@@ -46,18 +46,37 @@ npm install @nibiruchain/nibijs # or yarn add
 
 The entrypoint for `nibijs` is the `Sdk` object, which is meant to mimic the root of a command line interface. It can be used for both queries and transactions.
 
-#### Example: Querying a block 
+#### Example: Creating a wallet
 
-```ts
+```js
+import { newRandomWallet, WalletHD } from "@nibiruchain/nibijs/dist/tx"
+const wallet: WalletHD = await newRandomWallet()
+const [{ address }] = await wallet.getAccounts()
+
+// Save the mnemonic somewhere to re-use the account
+console.log("mnemonic: ", wallet.mnemonic)
+console.log("address: ", address)
+```
+
+#### Example: Querying
+
+```js
 import { Testnet, newSdk } from "@nibiruchain/nibijs"
 const sdk = newSdk(Testnet, myMnemonic)
+
+const balances = await sdk.query.bank.allBalances(address)
+console.log("balances: %o", balances)
+
+const allPools = await sdk.query.vpool.allPools()
+console.log("allPools: %o", allPools)
+
 const blockHeight = 1
 const block = sdk.tmClient.block(blockHeight)
 ```
 
 #### Example: Sending funds
 
-```ts
+```js
 import { Testnet, newSdk, newCoins, Coin } from "@nibiruchain/nibijs"
 const sdk = newSdk(Testnet, myMnemonic)
 const tokens: Coin[] = newCoins(5, "unibi")
@@ -67,7 +86,7 @@ let txResp = sdk.tx.sendTokens(toAddr, tokens)
 
 #### Example: Transaction with arbitrary messages
 
-```ts
+```js
 import { Testnet, newSdk, newCoins, Coin, DeliverTxResponse } from "@nibiruchain/nibijs"
 import { Msg } from "@nibiruchain/nibijs/msg"
 
@@ -75,11 +94,11 @@ const sdk = newSdk(Testnet, myMnemonic)
 let msgs: TxMessage[] = [
   Msg.perp.openPosition({
     tokenPair: pair,
-    baseAssetAmountLimit: "0",
-    leverage: "1",
-    quoteAssetAmount: "10",
+    baseAssetAmountLimit: 0,
+    leverage: 1,
+    quoteAssetAmount: 10,
     sender: fromAddr,
-    side: Side.BUY,
+    goLong: true,
   }),
   Msg.perp.addMargin({
     sender: fromAddr,
@@ -126,7 +145,7 @@ TODO
     yarn build
     ```
 
-See [HACKING.md](./HACKING.md) for the full development guide. 
+See [HACKING.md](https://github.com/NibiruChain/ts-sdk/blob/main/HACKING.md) for the full development guide. 
 
 ---
 

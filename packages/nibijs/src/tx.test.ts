@@ -65,11 +65,10 @@ describe("test tx module", () => {
     const tokens = newCoins(5, "unibi")
     console.info(
       `Sending tokens...
-      tokens: ${tokens}
+      tokens: ${tokens.toString()}
       from: ${fromAddr}
       to: ${toAddr}`,
     )
-    await sdk.tx.ensureFee(Msg.bank.Send(fromAddr, toAddr, tokens))
     const txResp = await sdk.tx.sendTokens(toAddr, tokens)
     expectTxToSucceed(txResp)
     console.info("txResp: %o", txResp)
@@ -82,22 +81,8 @@ describe("perp module transactions", () => {
     const sdk = await newSdk(CHAIN, signer)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const pair = "ubtc:unusd"
+
     // Query and validate the trader's position
-    const queryEmptyPositions = await sdk.query.perp.positions({
-      trader: fromAddr,
-    })
-    expect(queryEmptyPositions.positions).toHaveLength(0)
-    queryEmptyPositions.positions.forEach((position) => {
-      const fields = [
-        position.blockNumber,
-        position.position,
-        position.marginRatioMark,
-        position.marginRatioIndex,
-        position.unrealizedPnl,
-        position.positionNotional,
-      ]
-      fields.forEach((val) => expect(val).toBeDefined())
-    })
     let msgs: TxMessage[] = [
       Msg.perp.openPosition({
         tokenPair: pair,
@@ -153,7 +138,6 @@ describe("perp module transactions", () => {
     const queryPositions = await sdk.query.perp.positions({
       trader: fromAddr,
     })
-    expect(queryPositions.positions).toHaveLength(1)
     queryPositions.positions.forEach((position) => {
       const fields = [
         position.blockNumber,
