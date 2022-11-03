@@ -72,7 +72,7 @@ describe("test tx module", () => {
     const txResp = await sdk.tx.sendTokens(toAddr, tokens)
     expectTxToSucceed(txResp)
     console.info("txResp: %o", txResp)
-  }, 12_000 /* The default timeout (5_000 ms) is not sufficient. */)
+  }, 15_000 /* The default timeout (5_000 ms) is not sufficient. */)
 })
 
 describe("perp module transactions", () => {
@@ -167,7 +167,7 @@ describe("perp module transactions", () => {
     msgs = [Msg.perp.closePosition({ sender: fromAddr, tokenPair: pair })]
     txResp = await sdk.tx.signAndBroadcast(...msgs)
     expectTxToSucceed(txResp)
-  }, 20_000 /* This test takes roughly 12 seconds, so the default timeout is not sufficient. */)
+  }, 40_000 /* default timeout is not sufficient. */)
 })
 
 // ------------------------------------------------------------------------
