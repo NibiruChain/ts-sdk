@@ -32,6 +32,7 @@ const common = {
     "no-await-in-loop": "off",
     "no-console": "off",
     "no-iterator": "off",
+    "no-else-return": "off",
     "no-param-reassign": "off",
     "no-redeclare": "off",
     "no-restricted-syntax": "off",

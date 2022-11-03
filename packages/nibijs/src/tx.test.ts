@@ -8,7 +8,7 @@
 import * as dotenv from "dotenv"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
 import { QueryPositionResponse } from "@nibiruchain/protojs/dist/perp/v1/query"
-import { event2KeyValue, Testnet } from "./chain"
+import { Devnet, event2KeyValue, Testnet } from "./chain"
 import { AccountData, newCoin, newCoins, WalletHD } from "./chain/types"
 import { Msg, TxMessage } from "./msg"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
@@ -17,7 +17,6 @@ import { PerpMsgTypeUrls } from "./msg/perp"
 
 dotenv.config() // yarn add -D dotenv
 
-const CHAIN = Testnet
 const VAL_MNEMONIC = process.env.VALIDATOR_MNEMONIC
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
 
@@ -51,12 +50,13 @@ interface TxLog {
 }
 
 describe("test tx module", () => {
+  const chain = Testnet
   test("send tokens from the devnet genesis validator to a random account", async () => {
     expect(VAL_ADDRESS).toBeDefined()
     expect(VAL_MNEMONIC).toBeDefined()
 
     const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
-    const sdk = await newSdk(CHAIN, signer)
+    const sdk = await newSdk(chain, signer)
     const [{ address: fromAddr }]: readonly AccountData[] = await sdk.tx.getAccounts()
     expect(fromAddr).toBeDefined()
 
@@ -72,13 +72,14 @@ describe("test tx module", () => {
     const txResp = await sdk.tx.sendTokens(toAddr, tokens)
     expectTxToSucceed(txResp)
     console.info("txResp: %o", txResp)
-  }, 12_000 /* The default timeout (5_000 ms) is not sufficient. */)
+  }, 15_000 /* The default timeout (5_000 ms) is not sufficient. */)
 })
 
 describe("perp module transactions", () => {
+  const chain = Testnet
   test("open-position, add-margin, remove-margin, close-position", async () => {
     const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
-    const sdk = await newSdk(CHAIN, signer)
+    const sdk = await newSdk(chain, signer)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const pair = "ubtc:unusd"
 
@@ -167,7 +168,7 @@ describe("perp module transactions", () => {
     msgs = [Msg.perp.closePosition({ sender: fromAddr, tokenPair: pair })]
     txResp = await sdk.tx.signAndBroadcast(...msgs)
     expectTxToSucceed(txResp)
-  }, 20_000 /* This test takes roughly 12 seconds, so the default timeout is not sufficient. */)
+  }, 40_000 /* default timeout is not sufficient. */)
 })
 
 // ------------------------------------------------------------------------
@@ -180,7 +181,7 @@ describe("perp module transactions", () => {
 /*
   // NOTE commented out dex commands until public testnet
   test("dex create pool", async () => {
-    const client = await newTxCmd(CHAIN, VAL_MNEMONIC)
+    const client = await newTxCmd(chain, VAL_MNEMONIC)
     const [{ address: fromAddr }] = await client.getAccounts()
     const txResp = await client.signAndBroadcast(
       DexMsgs.createPool({
