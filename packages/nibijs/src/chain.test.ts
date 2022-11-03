@@ -60,7 +60,7 @@ describe("chain connections", () => {
 })
 
 test("faucet utility works", async () => {
-  const chain: Chain = Devnet
+  const chain: Chain = Testnet
 
   const setupFaucetTest = async (): Promise<{
     toAddr: string
@@ -99,7 +99,7 @@ test("faucet utility works", async () => {
     const balancesStart = newCoinMapFromCoins(
       await queryCmd.client.bank.allBalances(address),
     )
-    const faucetResp = await useFaucet(address, "https://faucet.devnet-2.nibiru.fi/")
+    const faucetResp = await useFaucet(address) // "https://faucet.testnet-1.nibiru.fi/"
     if (!faucetResp.ok) {
       console.debug(`useFaucet failed with response ${await faucetResp.text()}`)
     }
@@ -138,7 +138,7 @@ test("faucet utility works", async () => {
   expect(cleanupResp).not.toBeNull()
   console.info("cleanupResp (txHash): %s", cleanupResp.rawLog)
   assertIsDeliverTxSuccess(cleanupResp)
-}, 55_000) // 50 seconds
+}, 60_000) // 60 seconds
 
 describe("chain/types", () => {
   const coinsIn: Coin[] = [
