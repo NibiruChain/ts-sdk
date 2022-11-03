@@ -37,7 +37,7 @@ jobs:
       - name: Build the application
         run: yarn build
       - name: Run all tests
-        run: yarn test --verbose --coverage
+        run: yarn test --verbose --coverage --testPathIgnorePatterns faucet.test.ts
 
       # ---- Individual test flows: In the future, we can separate the 
       # ---- e2e tests from the unit tests. Testing on a live chain poses challenges.
