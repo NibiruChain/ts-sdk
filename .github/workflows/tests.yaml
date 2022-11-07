@@ -33,7 +33,7 @@ jobs:
           node-version: "18"
           cache: "yarn"
       - name: Install dependencies
-        run: yarn
+        run: yarn --prefer-offline
       - name: Build the application
         run: yarn build
       - name: Run all tests

@@ -4,8 +4,8 @@ import {
   useQueryPosChange,
 } from "./heart-monitor"
 
-const fromBlock = 10_000
-const toBlock = 10_009
+const fromBlock = 10
+const toBlock = 15
 const pair = "ubtc:unusd"
 
 test("useQueryMarkPrices", async () => {
