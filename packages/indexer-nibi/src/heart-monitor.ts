@@ -1,9 +1,9 @@
 import fetch from "cross-fetch"
 import {
   GqlMarkPricesInputs,
-  IGqlPosChange,
   TypeBlockMarkPrice,
   TypeMarkPrice,
+  TypePosChange,
 } from "./types"
 
 /**
@@ -40,7 +40,7 @@ export async function useQueryMarkPrices(args: {
   fromBlock: number
   toBlock: number
 }): Promise<{ markPrices: TypeMarkPrice[] }> {
-  const queryMarkPrices = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
+  const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
     `{
     markPrices(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
       pair
@@ -52,7 +52,7 @@ export async function useQueryMarkPrices(args: {
       timestamp
     }
   }`
-  return doGqlQuery(queryMarkPrices(args))
+  return doGqlQuery(gqlQuery(args))
 }
 
 export async function useQueryBlockMarkPrices(args: {
@@ -60,11 +60,7 @@ export async function useQueryBlockMarkPrices(args: {
   fromBlock: number
   toBlock: number
 }): Promise<{ blockMarkPrices: TypeBlockMarkPrice[] }> {
-  const queryBlockMarkPrices = ({
-    pair,
-    fromBlock,
-    toBlock,
-  }: GqlMarkPricesInputs): string =>
+  const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
     `{
     blockMarkPrices(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
       pair
@@ -73,15 +69,15 @@ export async function useQueryBlockMarkPrices(args: {
       blockTimestamp
     }
   }`
-  return doGqlQuery(queryBlockMarkPrices(args))
+  return doGqlQuery(gqlQuery(args))
 }
 
 export async function useQueryPosChange(args: {
   pair: string
   fromBlock: number
   toBlock: number
-}): Promise<IGqlPosChange> {
-  const queryPosChange = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
+}): Promise<{ positions: TypePosChange[] }> {
+  const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
     `{
     positions(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
       block
@@ -97,5 +93,5 @@ export async function useQueryPosChange(args: {
       transactionFee
     }
   }`
-  return doGqlQuery(queryPosChange(args))
+  return doGqlQuery(gqlQuery(args))
 }
