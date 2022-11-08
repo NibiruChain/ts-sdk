@@ -1,9 +1,9 @@
 import fetch from "cross-fetch"
 import {
   GqlMarkPricesInputs,
-  IGqlBlockMarkPrices,
-  IGqlMarkPrices,
   IGqlPosChange,
+  TypeBlockMarkPrice,
+  TypeMarkPrice,
 } from "./types"
 
 async function doGqlQuery(gqlQuery: string): Promise<any> {
@@ -73,7 +73,7 @@ export async function useQueryMarkPrices(args: {
   pair: string
   fromBlock: number
   toBlock: number
-}): Promise<IGqlMarkPrices> {
+}): Promise<{ markPrices: TypeMarkPrice[] }> {
   return doGqlQuery(queryMarkPrices(args))
 }
 
@@ -81,7 +81,7 @@ export async function useQueryBlockMarkPrices(args: {
   pair: string
   fromBlock: number
   toBlock: number
-}): Promise<IGqlBlockMarkPrices> {
+}): Promise<{ blockMarkPrices: TypeBlockMarkPrice[] }> {
   return doGqlQuery(queryBlockMarkPrices(args))
 }
 

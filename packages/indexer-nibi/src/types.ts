@@ -5,9 +5,13 @@ export interface TypeMarkPrice {
   txHash: string
 }
 
+export interface TypeBlockTimestamp {
+  height: string
+  timestamp: string
+}
 export interface IGqlMarkPrices {
   markPrices: TypeMarkPrice[]
-  blockTimestamps: { height: string; timestamp: string }[]
+  blockTimestamps: TypeBlockTimestamp[]
 }
 
 export interface GqlMarkPricesInputs {
@@ -22,11 +26,6 @@ export interface TypeBlockMarkPrice {
   block: string
   blockTimestamp: string
 }
-
-export interface IGqlBlockMarkPrices {
-  markPrices: TypeBlockMarkPrice[]
-}
-
 export interface IGqlPosChange {
   positions: {
     block: string
