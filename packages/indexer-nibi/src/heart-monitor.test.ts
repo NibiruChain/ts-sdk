@@ -9,34 +9,49 @@ const toBlock = 15
 const pair = "ubtc:unusd"
 
 test("useQueryMarkPrices", async () => {
-  console.log(
-    "DEBUG useQueryMarkPrices: %o",
-    await useQueryMarkPrices({
-      pair,
-      fromBlock,
-      toBlock,
-    }),
-  )
+  const resp = await useQueryMarkPrices({
+    pair,
+    fromBlock,
+    toBlock,
+  })
+  expect(resp).toHaveProperty("markPrices")
+  const [markPrice] = resp.markPrices
+
+  const props = ["pair", "price", "block"]
+  props.forEach((prop: string) => {
+    expect(markPrice).toHaveProperty(prop)
+  })
+  console.info("useQueryMarkPrices: %o", resp)
 })
 
 test("useQueryBlockMarkPrices", async () => {
-  console.log(
-    "DEBUG useQueryBlockMarkPrices: %o",
-    await useQueryBlockMarkPrices({
-      pair,
-      fromBlock,
-      toBlock,
-    }),
-  )
+  const resp = await useQueryBlockMarkPrices({
+    pair,
+    fromBlock,
+    toBlock,
+  })
+  expect(resp).toHaveProperty("blockMarkPrices")
+  const [blockMarkPrice] = resp.blockMarkPrices
+
+  const props = ["pair", "price", "block", "blockTimestamp"]
+  props.forEach((prop: string) => {
+    expect(blockMarkPrice).toHaveProperty(prop)
+  })
+  console.info("useQueryBlockMarkPrices: %o", resp)
 })
 
 test("useQueryPosChange", async () => {
-  console.log(
-    "DEBUG useQueryPosChange: %o",
-    await useQueryPosChange({
-      pair,
-      fromBlock,
-      toBlock,
-    }),
-  )
+  const resp = await useQueryPosChange({
+    pair,
+    fromBlock,
+    toBlock,
+  })
+  expect(resp).toHaveProperty("positions")
+  const [posChange] = resp.positions
+
+  const props = ["block", "blockTimestamp", "fundingPayment", "margin", "pair", "size"]
+  props.forEach((prop: string) => {
+    expect(posChange).toHaveProperty(prop)
+  })
+  console.info("useQueryPosChange: %o", resp)
 })
