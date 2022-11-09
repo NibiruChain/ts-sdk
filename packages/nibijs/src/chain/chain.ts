@@ -35,23 +35,31 @@ export const Localnet: Chain = {
   feeDenom: "unibi",
 }
 
-export const Testnet: Chain = {
-  endptTm: "https://rpc.testnet-1.nibiru.fi",
-  endptRest: "https://lcd.testnet-1.nibiru.fi",
-  endptGrpc: "",
-  chainId: "nibiru-testnet-1",
-  chainName: "nibiru-testnet-1",
-  feeDenom: "unibi",
+export function newTestnet(chainNumber: number): Chain {
+  return {
+    endptTm: `https://rpc.testnet-${chainNumber}.nibiru.fi`,
+    endptRest: `https://lcd.testnet-${chainNumber}.nibiru.fi`,
+    endptGrpc: "",
+    chainId: `nibiru-testnet-${chainNumber}`,
+    chainName: `nibiru-testnet-${chainNumber}`,
+    feeDenom: "unibi",
+  }
 }
 
-export const Devnet: Chain = {
-  endptTm: "https://rpc.devnet-2.nibiru.fi",
-  endptRest: "https://lcd.devnet-2.nibiru.fi",
-  endptGrpc: "",
-  chainId: "nibiru-devnet-2",
-  chainName: "nibiru-devnet-2",
-  feeDenom: "unibi",
+export function newDevnet(chainNumber: number): Chain {
+  return {
+    endptTm: `https://rpc.devnet-${chainNumber}.nibiru.fi`,
+    endptRest: `https://lcd.devnet-${chainNumber}.nibiru.fi`,
+    endptGrpc: "",
+    chainId: `nibiru-devnet-${chainNumber}`,
+    chainName: `nibiru-devnet-${chainNumber}`,
+    feeDenom: "unibi",
+  }
 }
+
+export const Testnet: Chain = newTestnet(1)
+
+export const Devnet: Chain = newDevnet(1)
 
 export const CHAOSNET_CONFIG = {
   host: process.env.CHAIN_HOST,
