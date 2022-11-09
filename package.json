@@ -24,6 +24,7 @@
     "build:publish": "yarn build:fresh && yarn lerna:publish",
     "build:patch:publish": "yarn build:fresh && yarn patch && yarn lerna:publish",
     "test": "jest",
+    "test:short": "yarn test --testPathIgnorePatterns faucet.test.ts",
     "test:ci": "jest --coverage --ci --reporters='jest-junit'",
     "test:unit": "jest packages/*/test/unit",
     "test:integration": "jest packages/*/test/integration",

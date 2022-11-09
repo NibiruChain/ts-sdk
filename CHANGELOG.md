@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## Unreleased
+
+* [[#xx]](https://github.com/NibiruChain/ts-sdk/pull/xx) feat: Add convenience functions for switching between testnet and devnet versions 
+
 ## [v0.7.0](https://github.com/NibiruChain/ts-sdk/compare/v0.7.0-alpha.2...HEAD)
 
 * [[#28]](https://github.com/NibiruChain/ts-sdk/pull/28) test: wait for block fns and test improvements for consistency between runs
