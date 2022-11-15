@@ -1,57 +1,69 @@
-import {
-  useQueryBlockMarkPrices,
-  useQueryMarkPrices,
-  useQueryPosChange,
-} from "./heart-monitor"
+/* eslint-disable jest/no-conditional-expect */
+import { HeartMonitor } from "./heart-monitor"
 
-const fromBlock = 10
-const toBlock = 15
+const fromBlock = 1
+const toBlock = 10
 const pair = "ubtc:unusd"
 
+const heartMonitor = new HeartMonitor()
+
 test("useQueryMarkPrices", async () => {
-  const resp = await useQueryMarkPrices({
+  const resp = await heartMonitor.useQueryMarkPrices({
     pair,
     fromBlock,
     toBlock,
   })
-  expect(resp).toHaveProperty("markPrices")
-  const [markPrice] = resp.markPrices
-
-  const props = ["pair", "price", "block"]
-  props.forEach((prop: string) => {
-    expect(markPrice).toHaveProperty(prop)
-  })
   console.info("useQueryMarkPrices: %o", resp)
+  expect(resp).toHaveProperty("markPrices")
+
+  if (resp.markPrices.length > 0) {
+    const [markPrice] = resp.markPrices
+    const props = ["pair", "price", "block"]
+    props.forEach((prop: string) => {
+      expect(markPrice).toHaveProperty(prop)
+    })
+  }
 })
 
 test("useQueryBlockMarkPrices", async () => {
-  const resp = await useQueryBlockMarkPrices({
+  const resp = await heartMonitor.useQueryBlockMarkPrices({
     pair,
     fromBlock,
     toBlock,
   })
-  expect(resp).toHaveProperty("blockMarkPrices")
-  const [blockMarkPrice] = resp.blockMarkPrices
-
-  const props = ["pair", "price", "block", "blockTimestamp"]
-  props.forEach((prop: string) => {
-    expect(blockMarkPrice).toHaveProperty(prop)
-  })
   console.info("useQueryBlockMarkPrices: %o", resp)
+  expect(resp).toHaveProperty("blockMarkPrices")
+
+  if (resp.blockMarkPrices.length > 0) {
+    const [blockMarkPrice] = resp.blockMarkPrices
+    const props = ["pair", "price", "block", "blockTimestamp"]
+    props.forEach((prop: string) => {
+      expect(blockMarkPrice).toHaveProperty(prop)
+    })
+  }
 })
 
 test("useQueryPosChange", async () => {
-  const resp = await useQueryPosChange({
+  const resp = await heartMonitor.useQueryPosChange({
     pair,
     fromBlock,
     toBlock,
   })
-  expect(resp).toHaveProperty("positions")
-  const [posChange] = resp.positions
-
-  const props = ["block", "blockTimestamp", "fundingPayment", "margin", "pair", "size"]
-  props.forEach((prop: string) => {
-    expect(posChange).toHaveProperty(prop)
-  })
   console.info("useQueryPosChange: %o", resp)
+  expect(resp).toHaveProperty("positions")
+
+  if (resp.positions.length > 0) {
+    const [posChange] = resp.positions
+    const props = [
+      "block",
+      "blockTimestamp",
+      "fundingPayment",
+      "margin",
+      "pair",
+      "size",
+    ]
+    props.forEach((prop: string) => {
+      expect(posChange).toHaveProperty(prop)
+    })
+  }
 })

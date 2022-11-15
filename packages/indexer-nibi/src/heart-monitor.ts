@@ -12,56 +12,102 @@ import {
  * @param {string} gqlQuery
  * @returns {Promise<any>}
  */
-async function doGqlQuery(gqlQuery: string): Promise<any> {
+async function doGqlQuery(gqlQuery: string, gqlEndpt?: string): Promise<any> {
   const encodedGqlQuery = encodeURI(gqlQuery)
-  const fetchString = `http://35.221.52.89:5555/graphql?query=${encodedGqlQuery}`
+  const fetchString = `${
+    gqlEndpt ?? "https://hm-graphql.testnet-1.nibiru.fi/graphql"
+  }?query=${encodedGqlQuery}`
   const rawResp = await fetch(fetchString)
   return cleanResponse(rawResp)
 }
 
 async function cleanResponse(rawResp: Response): Promise<any> {
-  const respJson: { data?: any } = await rawResp.json()
+  const respJson: any = await rawResp.json()
 
-  if (respJson.data !== undefined) {
+  if (!rawResp.ok || respJson === undefined) {
+    throw new Error(`${respJson}`)
+  } else if (respJson.data !== undefined) {
     return respJson.data
-  } else if (!rawResp.ok) {
-    throw new Error(await rawResp.text())
+  } else if (respJson !== undefined) {
+    return respJson
   } else {
     return respJson
   }
 }
 
-// ------------------------------------------------------------
-// hooks
-// ------------------------------------------------------------
+export interface IHeartMonitor {
+  doGqlQuery: (gqlQuery: string) => Promise<any>
 
-export async function useQueryMarkPrices(args: {
-  pair: string
-  fromBlock: number
-  toBlock: number
-}): Promise<{ markPrices: TypeMarkPrice[] }> {
-  const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
-    `{
-    markPrices(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
-      pair
-      price
-      block
-    }, 
-    blockTimestamps(fromBlock:${fromBlock}, toBlock:${toBlock}) {
-      height
-      timestamp
-    }
-  }`
-  return doGqlQuery(gqlQuery(args))
+  readonly useQueryBlockMarkPrices: (args: {
+    pair: string
+    fromBlock: number
+    toBlock: number
+  }) => Promise<{ blockMarkPrices: TypeBlockMarkPrice[] }>
+
+  readonly useQueryPosChange: (args: {
+    pair: string
+    fromBlock: number
+    toBlock: number
+  }) => Promise<{ positions: TypePosChange[] }>
+
+  readonly useQueryMarkPrices: (args: {
+    pair: string
+    fromBlock: number
+    toBlock: number
+  }) => Promise<{ markPrices: TypeMarkPrice[] }>
 }
 
-export async function useQueryBlockMarkPrices(args: {
-  pair: string
-  fromBlock: number
-  toBlock: number
-}): Promise<{ blockMarkPrices: TypeBlockMarkPrice[] }> {
-  const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
-    `{
+export class HeartMonitor implements IHeartMonitor {
+  gqlEndpt: string
+
+  constructor(gqlEndpt?: string) {
+    this.gqlEndpt = gqlEndpt ?? "https://hm-graphql.testnet-1.nibiru.fi/graphql"
+  }
+
+  /**
+   * The workhorse function that fetches data from the GraphQL endpoint.
+   *
+   * @param {string} gqlQuery
+   * @returns {Promise<any>}
+   */
+  doGqlQuery = async (gqlQuery: string): Promise<any> => {
+    const encodedGqlQuery = encodeURI(gqlQuery)
+    const fetchString = `${this.gqlEndpt}?query=${encodedGqlQuery}`
+    const rawResp = await fetch(fetchString)
+    return cleanResponse(rawResp)
+  }
+
+  // ------------------------------------------------------------
+  // hooks
+  // ------------------------------------------------------------
+
+  useQueryMarkPrices = async (args: {
+    pair: string
+    fromBlock: number
+    toBlock: number
+  }): Promise<{ markPrices: TypeMarkPrice[] }> => {
+    const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
+      `{
+      markPrices(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
+        pair
+        price
+        block
+      }, 
+      blockTimestamps(fromBlock:${fromBlock}, toBlock:${toBlock}) {
+        height
+        timestamp
+      }
+    }`
+    return this.doGqlQuery(gqlQuery(args))
+  }
+
+  useQueryBlockMarkPrices = async (args: {
+    pair: string
+    fromBlock: number
+    toBlock: number
+  }): Promise<{ blockMarkPrices: TypeBlockMarkPrice[] }> => {
+    const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
+      `{
     blockMarkPrices(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
       pair
       price
@@ -69,16 +115,16 @@ export async function useQueryBlockMarkPrices(args: {
       blockTimestamp
     }
   }`
-  return doGqlQuery(gqlQuery(args))
-}
+    return this.doGqlQuery(gqlQuery(args))
+  }
 
-export async function useQueryPosChange(args: {
-  pair: string
-  fromBlock: number
-  toBlock: number
-}): Promise<{ positions: TypePosChange[] }> {
-  const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
-    `{
+  useQueryPosChange = async (args: {
+    pair: string
+    fromBlock: number
+    toBlock: number
+  }): Promise<{ positions: TypePosChange[] }> => {
+    const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
+      `{
     positions(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
       block
       blockTimestamp
@@ -93,5 +139,6 @@ export async function useQueryPosChange(args: {
       transactionFee
     }
   }`
-  return doGqlQuery(gqlQuery(args))
+    return this.doGqlQuery(gqlQuery(args))
+  }
 }
