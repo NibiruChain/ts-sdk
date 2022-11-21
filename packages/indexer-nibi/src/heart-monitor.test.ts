@@ -3,6 +3,7 @@ import { HeartMonitor } from "./heart-monitor"
 
 const fromBlock = 1
 const toBlock = 10
+const lastN = 20
 const pair = "ubtc:unusd"
 
 const heartMonitor = new HeartMonitor()
@@ -50,6 +51,30 @@ test("useQueryPosChange", async () => {
     toBlock,
   })
   console.info("useQueryPosChange: %o", resp)
+  expect(resp).toHaveProperty("positions")
+
+  if (resp.positions.length > 0) {
+    const [posChange] = resp.positions
+    const props = [
+      "block",
+      "blockTimestamp",
+      "fundingPayment",
+      "margin",
+      "pair",
+      "size",
+    ]
+    props.forEach((prop: string) => {
+      expect(posChange).toHaveProperty(prop)
+    })
+  }
+})
+
+test("useQueryRecentTrades", async () => {
+  const resp = await heartMonitor.useQueryRecentTrades({
+    pair,
+    lastN,
+  })
+  console.info("useQueryRecentTrades: %o", resp)
   expect(resp).toHaveProperty("positions")
 
   if (resp.positions.length > 0) {

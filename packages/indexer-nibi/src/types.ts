@@ -41,3 +41,8 @@ export interface GqlMarkPricesInputs {
   fromBlock: number
   toBlock: number
 }
+
+export interface GqlRecentTradesInputs {
+  pair: string
+  lastN: number
+}

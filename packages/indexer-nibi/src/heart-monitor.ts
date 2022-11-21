@@ -1,25 +1,11 @@
 import fetch from "cross-fetch"
 import {
   GqlMarkPricesInputs,
+  GqlRecentTradesInputs,
   TypeBlockMarkPrice,
   TypeMarkPrice,
   TypePosChange,
 } from "./types"
-
-/**
- * The workhorse function that fetches data from the GraphQL endpoint.
- *
- * @param {string} gqlQuery
- * @returns {Promise<any>}
- */
-async function doGqlQuery(gqlQuery: string, gqlEndpt?: string): Promise<any> {
-  const encodedGqlQuery = encodeURI(gqlQuery)
-  const fetchString = `${
-    gqlEndpt ?? "https://hm-graphql.testnet-1.nibiru.fi/graphql"
-  }?query=${encodedGqlQuery}`
-  const rawResp = await fetch(fetchString)
-  return cleanResponse(rawResp)
-}
 
 async function cleanResponse(rawResp: Response): Promise<any> {
   const respJson: any = await rawResp.json()
@@ -92,7 +78,7 @@ export class HeartMonitor implements IHeartMonitor {
         pair
         price
         block
-      }, 
+      },
       blockTimestamps(fromBlock:${fromBlock}, toBlock:${toBlock}) {
         height
         timestamp
@@ -126,6 +112,29 @@ export class HeartMonitor implements IHeartMonitor {
     const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
       `{
     positions(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
+      block
+      blockTimestamp
+      fundingPayment
+      margin
+      pair
+      positionNotional
+      positionNotionalChange
+      size
+      sizeChange
+      trader
+      transactionFee
+    }
+  }`
+    return this.doGqlQuery(gqlQuery(args))
+  }
+
+  useQueryRecentTrades = async (args: {
+    pair: string
+    lastN: number
+  }): Promise<{ positions: TypePosChange[] }> => {
+    const gqlQuery = ({ pair, lastN }: GqlRecentTradesInputs): string =>
+      `{
+    recent_trades(pair:"${pair}", lastN:${lastN}) {
       block
       blockTimestamp
       fundingPayment
