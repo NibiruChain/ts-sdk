@@ -131,20 +131,20 @@ export class HeartMonitor implements IHeartMonitor {
   useQueryRecentTrades = async (args: {
     pair: string
     lastN: number
-  }): Promise<{ positions: TypePosChange[] }> => {
+  }): Promise<{ recentTrades: TypePosChange[] }> => {
     const gqlQuery = ({ pair, lastN }: GqlRecentTradesInputs): string =>
       `{
-    recent_trades(pair:"${pair}", lastN:${lastN}) {
+    recentTrades(pair:"${pair}", lastN:${lastN}) {
+      pair
+      trader
       block
       blockTimestamp
       fundingPayment
       margin
-      pair
       positionNotional
       positionNotionalChange
       size
       sizeChange
-      trader
       transactionFee
     }
   }`

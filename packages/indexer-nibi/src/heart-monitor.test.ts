@@ -74,11 +74,10 @@ test("useQueryRecentTrades", async () => {
     pair,
     lastN,
   })
-  console.info("useQueryRecentTrades: %o", resp)
-  expect(resp).toHaveProperty("positions")
+  expect(resp).toHaveProperty("recentTrades")
 
-  if (resp.positions.length > 0) {
-    const [posChange] = resp.positions
+  if (resp.recentTrades.length > 0) {
+    const [posChange] = resp.recentTrades
     const props = [
       "block",
       "blockTimestamp",
