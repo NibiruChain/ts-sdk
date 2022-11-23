@@ -7,10 +7,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.3.2
+- [[#55]](https://github.com/NibiruChain/ts-sdk/pull/54) fix: Add `useQueryRecentTrades` definition in `IHeartMonitor`
+
 ## v0.3.1
 
 - [[#54]](https://github.com/NibiruChain/ts-sdk/pull/54) feat: Add `recentTrades` GraphQL query from a heart monitor
-   - test: Unit test added for `useQueryRecentTrades` query hook.
+- test: Unit test added for `useQueryRecentTrades` query hook.
 
 ## v0.2.0
 

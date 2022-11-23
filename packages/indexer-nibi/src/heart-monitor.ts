@@ -41,6 +41,11 @@ export interface IHeartMonitor {
     fromBlock: number
     toBlock: number
   }) => Promise<{ markPrices: TypeMarkPrice[] }>
+
+  readonly useQueryRecentTrades: (args: {
+    pair: string
+    lastN: number
+  }) => Promise<{ recentTrades: TypePosChange[] }>
 }
 
 export class HeartMonitor implements IHeartMonitor {
