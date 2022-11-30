@@ -10,7 +10,7 @@ import {
 } from "./chain"
 import { newRandomWallet, newSignerFromMnemonic } from "./tx"
 import { ISdk, newSdk } from "./sdk"
-import { initQueryCmd, waitForBlockHeight, waitForNextBlock } from "./query"
+import { newQueryCmd, waitForBlockHeight, waitForNextBlock } from "./query"
 import { Msg } from "./msg"
 
 test("faucet utility works", async () => {
@@ -46,7 +46,7 @@ test("faucet utility works", async () => {
     walletSdk,
   } = await setupFaucetTest()
 
-  const queryCmd = await initQueryCmd(chain)
+  const queryCmd = await newQueryCmd(chain)
 
   const expectFaucetRequestSucceeds = async (): Promise<CoinMap> => {
     await waitForBlockHeight({ chain, height: setupBlockHeight + 1 })

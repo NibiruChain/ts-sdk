@@ -5,7 +5,7 @@
  */
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 import { Chain } from "./chain"
-import { ExtendedQueryClient, initQueryCmd, QueryCmd } from "./query"
+import { ExtendedQueryClient, newQueryCmd, QueryCmd } from "./query"
 import { CosmosSigner, newTxCmd, TxCmd } from "./tx"
 
 /**
@@ -20,7 +20,7 @@ import { CosmosSigner, newTxCmd, TxCmd } from "./tx"
  */
 export async function newSdk(chain: Chain, signer: CosmosSigner): Promise<Sdk> {
   const txCmd = await newTxCmd(chain, signer)
-  const queryCmd = await initQueryCmd(chain)
+  const queryCmd = await newQueryCmd(chain)
   return new Sdk({ chain, txCmd, queryCmd })
 }
 

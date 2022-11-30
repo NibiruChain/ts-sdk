@@ -7,6 +7,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [v0.7.6](https://github.com/NibiruChain/ts-sdk/releases/tag/v0.7.6)
 * [[#57]](https://github.com/NibiruChain/ts-sdk/pull/57) feat: add fundingRate and epoch queries
+* [[#57]](https://github.com/NibiruChain/ts-sdk/pull/57) feat: add a field for the 'Chain' to the 'QueryCmd'
+
 
 ## [v0.7.5](https://github.com/NibiruChain/ts-sdk/compare/v0.7.0-alpha.2...HEAD)
 
