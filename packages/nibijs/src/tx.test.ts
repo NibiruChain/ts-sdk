@@ -83,6 +83,10 @@ describe("perp module transactions", () => {
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const pair = "ubtc:unusd"
 
+    // Query and validate fundingRate of given pair
+    const currentEpoch = await sdk.query.epoch.epochsInfo({})
+    console.log("here", currentEpoch)
+
     // Query and validate the trader's position
     let msgs: TxMessage[] = [
       Msg.perp.openPosition({

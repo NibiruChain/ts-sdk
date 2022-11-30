@@ -52,6 +52,9 @@ export interface PerpExtension {
     readonly positions: (args: {
       trader: string
     }) => Promise<perpquery.QueryPositionsResponse>
+    readonly fundingRate: (args: {
+      pair: string
+    }) => Promise<perpquery.QueryFundingRatesResponse>
   }
 }
 
@@ -76,6 +79,11 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
         const req = perpquery.QueryPositionsRequest.fromPartial(args)
         const resp = await queryService.QueryPositions(req)
         return transformPositions(resp)
+      },
+      fundingRate: async (args: { pair: string }) => {
+        const req = perpquery.QueryFundingRatesRequest.fromPartial(args)
+        const resp = await queryService.FundingRates(req)
+        return resp
       },
     },
   }
