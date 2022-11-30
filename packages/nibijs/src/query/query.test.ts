@@ -2,6 +2,7 @@ import fetch from "cross-fetch"
 import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"
 import { Chain, Chaosnet, Testnet, CHAOSNET_CONFIG } from "../chain"
 import { initQueryCmd } from "./query"
+import Long from "long"
 
 require("dotenv").config() // yarn add -D dotenv
 
@@ -222,4 +223,24 @@ describe("'pricefeed' module queries", () => {
     expect(rawPrices).toBeDefined()
     console.info("nibid query pricefeed raw-prices: %o", rawPrices)
   })
+})
+
+describe("epochs module queries", () => {
+  const timeoutMs = 8_000
+
+  test(
+    "nibid query epochs epochs-info && nibid query epochs current-epoch",
+    async () => {
+      const { client: query } = await initQueryCmd(chain)
+      const infoResp = await query.epochs.epochsInfo()
+      expect(infoResp).toHaveProperty("epochs")
+      expect(infoResp.epochs.length).toBeGreaterThan(0)
+      console.info("query epochs epochs-info: %o", infoResp)
+
+      const epochId = infoResp.epochs[0].identifier
+      const currentEpochResp = await query.epochs.currentEpoch({ identifier: epochId })
+      expect(Long.isLong(currentEpochResp.currentEpoch)).toBeTruthy()
+    },
+    timeoutMs,
+  )
 })

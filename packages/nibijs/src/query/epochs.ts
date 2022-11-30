@@ -1,30 +1,30 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
-import * as epochquery from "@nibiruchain/protojs/dist/epochs/query"
-import * as epochstate from "@nibiruchain/protojs/dist/epochs/state"
+import * as epochsquery from "@nibiruchain/protojs/dist/epochs/query"
+import * as epochsstate from "@nibiruchain/protojs/dist/epochs/state"
 import { fromSdkDec } from "../chain"
 
-export interface EpochExtension {
-  readonly epoch: {
+export interface EpochsExtension {
+  readonly epochs: {
     readonly currentEpoch: (args: {
       identifier: string
-    }) => Promise<epochquery.QueryCurrentEpochResponse>
-    readonly epochsInfo: (args: {}) => Promise<epochquery.QueryEpochsInfoResponse>
+    }) => Promise<epochsquery.QueryCurrentEpochResponse>
+    readonly epochsInfo: () => Promise<epochsquery.QueryEpochsInfoResponse>
   }
 }
 
-export function setupEpochExtension(base: QueryClient): EpochExtension {
+export function setupEpochsExtension(base: QueryClient): EpochsExtension {
   const rpcClient = createProtobufRpcClient(base)
-  const queryService = new epochquery.QueryClientImpl(rpcClient)
+  const queryService = new epochsquery.QueryClientImpl(rpcClient)
 
   return {
-    epoch: {
+    epochs: {
       currentEpoch: async (args: { identifier: string }) => {
-        const req = epochquery.QueryCurrentEpochRequest.fromPartial(args)
+        const req = epochsquery.QueryCurrentEpochRequest.fromPartial(args)
         const resp = await queryService.CurrentEpoch(req)
         return resp
       },
-      epochsInfo: async (args: {}) => {
-        const req = epochquery.QueryEpochsInfoRequest.fromPartial(args)
+      epochsInfo: async () => {
+        const req = epochsquery.QueryEpochsInfoRequest.fromPartial({})
         const resp = await queryService.EpochInfos(req)
         return resp
       },
