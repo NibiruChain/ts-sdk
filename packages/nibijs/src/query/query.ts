@@ -8,6 +8,7 @@ import {
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 import { Chain } from "../chain"
 import { setupDexExtension, DexExtension } from "./dex"
+import { EpochsExtension, setupEpochsExtension } from "./epochs"
 import { setupPerpExtension, PerpExtension } from "./perp"
 import { PricefeedExtension, setupPricefeedExtension } from "./pricefeed"
 import { setupVpoolExtension, VpoolExtension } from "./vpool"
@@ -18,16 +19,18 @@ export type ExtendedQueryClient = BankExtension &
   DexExtension &
   PerpExtension &
   VpoolExtension &
-  PricefeedExtension
+  PricefeedExtension &
+  EpochsExtension
 
 export interface IQueryCmd {
   client: ExtendedQueryClient
   tmClient: Tendermint34Client
+  chain: Chain
   disconnect: () => void
 }
 
 export async function waitForNextBlock(chain: Chain): Promise<void> {
-  const queryCmd = await initQueryCmd(chain)
+  const queryCmd = await newQueryCmd(chain)
   const getLatestBlockHeight = async () =>
     (await queryCmd.tmClient.abciInfo()).lastBlockHeight
   const startBlock = await getLatestBlockHeight()
@@ -43,7 +46,7 @@ export async function waitForBlockHeight(args: {
   height: number
 }): Promise<void> {
   const { chain, height } = args
-  const queryCmd = await initQueryCmd(chain)
+  const queryCmd = await newQueryCmd(chain)
   const getLatestBlockHeight = async () =>
     (await queryCmd.tmClient.abciInfo()).lastBlockHeight
 
@@ -61,8 +64,11 @@ export class QueryCmd implements IQueryCmd {
 
   tmClient: Tendermint34Client
 
-  constructor(tmClient: Tendermint34Client) {
+  chain: Chain
+
+  constructor(tmClient: Tendermint34Client, chain: Chain) {
     this.tmClient = tmClient
+    this.chain = chain
     this.client = QueryClient.withExtensions(
       tmClient,
       setupBankExtension,
@@ -71,6 +77,7 @@ export class QueryCmd implements IQueryCmd {
       setupPerpExtension,
       setupVpoolExtension,
       setupPricefeedExtension,
+      setupEpochsExtension,
     )
   }
 
@@ -79,7 +86,7 @@ export class QueryCmd implements IQueryCmd {
   }
 }
 
-export async function initQueryCmd(chain: Chain): Promise<QueryCmd> {
+export async function newQueryCmd(chain: Chain): Promise<QueryCmd> {
   const tmClient = await Tendermint34Client.connect(chain.endptTm)
-  return new QueryCmd(tmClient)
+  return new QueryCmd(tmClient, chain)
 }

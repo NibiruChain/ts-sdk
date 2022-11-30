@@ -1,7 +1,8 @@
 import fetch from "cross-fetch"
 import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"
-import { Chain, Chaosnet, Testnet, CHAOSNET_CONFIG } from "../chain"
-import { initQueryCmd } from "./query"
+import Long from "long"
+import { Chain, Testnet, CHAOSNET_CONFIG } from "../chain"
+import { newQueryCmd } from "./query"
 
 require("dotenv").config() // yarn add -D dotenv
 
@@ -40,7 +41,7 @@ function validateBlock(block: Block, chain: Chain) {
 
 describe("chain connections", () => {
   const testChainConnection = async (chain: Chain) => {
-    const queryCmd = await initQueryCmd(chain)
+    const queryCmd = await newQueryCmd(chain)
     const blockHeight = 5
     const blockResp: BlockResponse = await queryCmd.tmClient.block(blockHeight)
     validateBlock(blockResp.block, chain)
@@ -91,7 +92,7 @@ describe("test query module", () => {
   })
 
   test("query bank balances - client.bank.allBalances", async () => {
-    const { client: query, disconnect } = await initQueryCmd(chain)
+    const { client: query, disconnect } = await newQueryCmd(chain)
     if (!VAL_ADDRESS) {
       throw Error("VAL_ADDRESS is not set in the .env")
     }
@@ -109,7 +110,7 @@ describe("test query module", () => {
 
   /*  // NOTE The dex module is on hold for public testnet
   test("query dex params - client.dex.params", async () => {
-    const { client, disconnect } = await initQueryCmd(chain)
+    const { client, disconnect } = await newQueryCmd(chain)
     const { params } = await client.dex.params()
     console.info("dex.params: %o", params)
     const fields: string[] = [
@@ -127,7 +128,7 @@ describe("test query module", () => {
   */
 
   test("query perp params - client.perp.params", async () => {
-    const { client, disconnect } = await initQueryCmd(chain)
+    const { client, disconnect } = await newQueryCmd(chain)
     const { params } = await client.perp.params()
     console.info("perp.params: %o", JSON.stringify(params))
     expect(params).not.toBeNull()
@@ -151,7 +152,7 @@ describe("vpool module queries", () => {
   test(
     "nibid query vpool all-pools",
     async () => {
-      const { client: query } = await initQueryCmd(chain)
+      const { client: query } = await newQueryCmd(chain)
       const queryResp = await query.vpool.allPools()
       expect(queryResp.pools.length).toBeGreaterThan(0)
       expect(queryResp.prices).toHaveLength(queryResp.pools.length)
@@ -163,7 +164,7 @@ describe("vpool module queries", () => {
   test(
     "nibid query vpool prices",
     async () => {
-      const { client: query } = await initQueryCmd(chain)
+      const { client: query } = await newQueryCmd(chain)
       const { priceInQuoteDenom: basePrice } = await query.vpool.basePrice({
         pair: "ubtc:unusd",
         goLong: true,
@@ -181,7 +182,7 @@ describe("'pricefeed' module queries", () => {
   const pairId = "ubtc:unusd"
 
   test("nibid query pricefeed markets", async () => {
-    const { client: query } = await initQueryCmd(chain)
+    const { client: query } = await newQueryCmd(chain)
     const { markets } = await query.pricefeed.markets()
     expect(markets.length).toBeGreaterThan(0)
     expect(markets[0].oracles.length).toBeGreaterThan(0)
@@ -190,7 +191,7 @@ describe("'pricefeed' module queries", () => {
   })
 
   test("nibid query pricefeed params", async () => {
-    const { client: query } = await initQueryCmd(chain)
+    const { client: query } = await newQueryCmd(chain)
     const { params: moduleParams } = await query.pricefeed.params()
     expect(moduleParams).toBeDefined()
     expect(moduleParams!.pairs.length).toBeGreaterThan(0)
@@ -198,7 +199,7 @@ describe("'pricefeed' module queries", () => {
   })
 
   test("nibid query pricefeed price", async () => {
-    const { client: query } = await initQueryCmd(chain)
+    const { client: query } = await newQueryCmd(chain)
     const { price } = await query.pricefeed.price({ pairId })
     expect(price).toBeDefined()
     for (const field of ["pairId", "price", "twap"]) {
@@ -208,7 +209,7 @@ describe("'pricefeed' module queries", () => {
   })
 
   test("nibid query pricefeed prices", async () => {
-    const { client: query } = await initQueryCmd(chain)
+    const { client: query } = await newQueryCmd(chain)
     const { prices } = await query.pricefeed.prices()
     expect(prices).toBeDefined()
     expect(prices.length).toBeGreaterThan(0)
@@ -216,10 +217,30 @@ describe("'pricefeed' module queries", () => {
   })
 
   test("nibid query pricefeed raw-prices", async () => {
-    const { client: query } = await initQueryCmd(chain)
+    const { client: query } = await newQueryCmd(chain)
     const resp = await query.pricefeed.pricesRaw({ pairId })
     const { rawPrices } = resp
     expect(rawPrices).toBeDefined()
     console.info("nibid query pricefeed raw-prices: %o", rawPrices)
   })
+})
+
+describe("epochs module queries", () => {
+  const timeoutMs = 8_000
+
+  test(
+    "nibid query epochs epochs-info && nibid query epochs current-epoch",
+    async () => {
+      const { client: query } = await newQueryCmd(chain)
+      const infoResp = await query.epochs.epochsInfo()
+      expect(infoResp).toHaveProperty("epochs")
+      expect(infoResp.epochs.length).toBeGreaterThan(0)
+      console.info("query epochs epochs-info: %o", infoResp)
+
+      const epochId = infoResp.epochs[0].identifier
+      const currentEpochResp = await query.epochs.currentEpoch({ identifier: epochId })
+      expect(Long.isLong(currentEpochResp.currentEpoch)).toBeTruthy()
+    },
+    timeoutMs,
+  )
 })
