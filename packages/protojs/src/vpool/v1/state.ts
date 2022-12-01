@@ -97,13 +97,17 @@ export function twapCalcOptionToJSON(object: TwapCalcOption): string {
  * A virtual pool used only for price discovery of perpetual futures contracts.
  * No real liquidity exists in this pool.
  */
-export interface VPool {
+export interface Vpool {
   /** always BASE:QUOTE, e.g. BTC:NUSD or ETH:NUSD */
   pair?: AssetPair;
   /** base asset is the crypto asset, e.g. BTC or ETH */
   baseAssetReserve: string;
   /** quote asset is usually stablecoin, in our case NUSD */
   quoteAssetReserve: string;
+  config?: VpoolConfig;
+}
+
+export interface VpoolConfig {
   /** ratio applied to reserves in order not to over trade */
   tradeLimitRatio: string;
   /** percentage that a single open or close position can alter the reserve amounts */
@@ -157,21 +161,12 @@ export interface PoolPrices {
   blockNumber: Long;
 }
 
-function createBaseVPool(): VPool {
-  return {
-    pair: undefined,
-    baseAssetReserve: "",
-    quoteAssetReserve: "",
-    tradeLimitRatio: "",
-    fluctuationLimitRatio: "",
-    maxOracleSpreadRatio: "",
-    maintenanceMarginRatio: "",
-    maxLeverage: "",
-  };
+function createBaseVpool(): Vpool {
+  return { pair: undefined, baseAssetReserve: "", quoteAssetReserve: "", config: undefined };
 }
 
-export const VPool = {
-  encode(message: VPool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const Vpool = {
+  encode(message: Vpool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pair !== undefined) {
       AssetPair.encode(message.pair, writer.uint32(10).fork()).ldelim();
     }
@@ -181,28 +176,16 @@ export const VPool = {
     if (message.quoteAssetReserve !== "") {
       writer.uint32(26).string(message.quoteAssetReserve);
     }
-    if (message.tradeLimitRatio !== "") {
-      writer.uint32(34).string(message.tradeLimitRatio);
-    }
-    if (message.fluctuationLimitRatio !== "") {
-      writer.uint32(42).string(message.fluctuationLimitRatio);
-    }
-    if (message.maxOracleSpreadRatio !== "") {
-      writer.uint32(50).string(message.maxOracleSpreadRatio);
-    }
-    if (message.maintenanceMarginRatio !== "") {
-      writer.uint32(58).string(message.maintenanceMarginRatio);
-    }
-    if (message.maxLeverage !== "") {
-      writer.uint32(66).string(message.maxLeverage);
+    if (message.config !== undefined) {
+      VpoolConfig.encode(message.config, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): VPool {
+  decode(input: _m0.Reader | Uint8Array, length?: number): Vpool {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseVPool();
+    const message = createBaseVpool();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -216,18 +199,96 @@ export const VPool = {
           message.quoteAssetReserve = reader.string();
           break;
         case 4:
+          message.config = VpoolConfig.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Vpool {
+    return {
+      pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
+      baseAssetReserve: isSet(object.baseAssetReserve) ? String(object.baseAssetReserve) : "",
+      quoteAssetReserve: isSet(object.quoteAssetReserve) ? String(object.quoteAssetReserve) : "",
+      config: isSet(object.config) ? VpoolConfig.fromJSON(object.config) : undefined,
+    };
+  },
+
+  toJSON(message: Vpool): unknown {
+    const obj: any = {};
+    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
+    message.baseAssetReserve !== undefined && (obj.baseAssetReserve = message.baseAssetReserve);
+    message.quoteAssetReserve !== undefined && (obj.quoteAssetReserve = message.quoteAssetReserve);
+    message.config !== undefined && (obj.config = message.config ? VpoolConfig.toJSON(message.config) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<Vpool>, I>>(object: I): Vpool {
+    const message = createBaseVpool();
+    message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
+    message.baseAssetReserve = object.baseAssetReserve ?? "";
+    message.quoteAssetReserve = object.quoteAssetReserve ?? "";
+    message.config = (object.config !== undefined && object.config !== null)
+      ? VpoolConfig.fromPartial(object.config)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseVpoolConfig(): VpoolConfig {
+  return {
+    tradeLimitRatio: "",
+    fluctuationLimitRatio: "",
+    maxOracleSpreadRatio: "",
+    maintenanceMarginRatio: "",
+    maxLeverage: "",
+  };
+}
+
+export const VpoolConfig = {
+  encode(message: VpoolConfig, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.tradeLimitRatio !== "") {
+      writer.uint32(10).string(message.tradeLimitRatio);
+    }
+    if (message.fluctuationLimitRatio !== "") {
+      writer.uint32(18).string(message.fluctuationLimitRatio);
+    }
+    if (message.maxOracleSpreadRatio !== "") {
+      writer.uint32(26).string(message.maxOracleSpreadRatio);
+    }
+    if (message.maintenanceMarginRatio !== "") {
+      writer.uint32(34).string(message.maintenanceMarginRatio);
+    }
+    if (message.maxLeverage !== "") {
+      writer.uint32(42).string(message.maxLeverage);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): VpoolConfig {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseVpoolConfig();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
           message.tradeLimitRatio = reader.string();
           break;
-        case 5:
+        case 2:
           message.fluctuationLimitRatio = reader.string();
           break;
-        case 6:
+        case 3:
           message.maxOracleSpreadRatio = reader.string();
           break;
-        case 7:
+        case 4:
           message.maintenanceMarginRatio = reader.string();
           break;
-        case 8:
+        case 5:
           message.maxLeverage = reader.string();
           break;
         default:
@@ -238,11 +299,8 @@ export const VPool = {
     return message;
   },
 
-  fromJSON(object: any): VPool {
+  fromJSON(object: any): VpoolConfig {
     return {
-      pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
-      baseAssetReserve: isSet(object.baseAssetReserve) ? String(object.baseAssetReserve) : "",
-      quoteAssetReserve: isSet(object.quoteAssetReserve) ? String(object.quoteAssetReserve) : "",
       tradeLimitRatio: isSet(object.tradeLimitRatio) ? String(object.tradeLimitRatio) : "",
       fluctuationLimitRatio: isSet(object.fluctuationLimitRatio) ? String(object.fluctuationLimitRatio) : "",
       maxOracleSpreadRatio: isSet(object.maxOracleSpreadRatio) ? String(object.maxOracleSpreadRatio) : "",
@@ -251,11 +309,8 @@ export const VPool = {
     };
   },
 
-  toJSON(message: VPool): unknown {
+  toJSON(message: VpoolConfig): unknown {
     const obj: any = {};
-    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
-    message.baseAssetReserve !== undefined && (obj.baseAssetReserve = message.baseAssetReserve);
-    message.quoteAssetReserve !== undefined && (obj.quoteAssetReserve = message.quoteAssetReserve);
     message.tradeLimitRatio !== undefined && (obj.tradeLimitRatio = message.tradeLimitRatio);
     message.fluctuationLimitRatio !== undefined && (obj.fluctuationLimitRatio = message.fluctuationLimitRatio);
     message.maxOracleSpreadRatio !== undefined && (obj.maxOracleSpreadRatio = message.maxOracleSpreadRatio);
@@ -264,11 +319,8 @@ export const VPool = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<VPool>, I>>(object: I): VPool {
-    const message = createBaseVPool();
-    message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
-    message.baseAssetReserve = object.baseAssetReserve ?? "";
-    message.quoteAssetReserve = object.quoteAssetReserve ?? "";
+  fromPartial<I extends Exact<DeepPartial<VpoolConfig>, I>>(object: I): VpoolConfig {
+    const message = createBaseVpoolConfig();
     message.tradeLimitRatio = object.tradeLimitRatio ?? "";
     message.fluctuationLimitRatio = object.fluctuationLimitRatio ?? "";
     message.maxOracleSpreadRatio = object.maxOracleSpreadRatio ?? "";

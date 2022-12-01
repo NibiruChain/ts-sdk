@@ -14,15 +14,29 @@ export interface PositionChangedEvent {
   pair: string;
   /** owner of the position. */
   traderAddress: string;
-  /** amount of margin backing the position. */
+  /** Amount of collateral (quote units) backing the position after the change. */
   margin?: Coin;
-  /** margin * leverage * vPrice. 'notional' is the virtual size times the virtual price on 'vpool'. */
+  /**
+   * Position notional (quote units) after the change. In general,
+   * 'notional = baseAmount * priceQuotePerBase', where size is the baseAmount.
+   */
   positionNotional: string;
-  /** magnitude of the change to vsize. The vsize is the amount of base assets for the position, margin * leverage * priceBasePerQuote. */
-  exchangedPositionSize: string;
-  /** transaction fee paid */
+  /**
+   * Exchanged size is the magnitude of the change to position size (base units).
+   * The size is a signed quantity expressing how much exposure a position has in
+   * base units of the pair.
+   */
+  exchangedSize: string;
+  /**
+   * Exchanged notional is the value of the exchanged size in quote units.
+   * exchangedNotional = posBefore.OpenNotional + (direction * realizedPnl),
+   * where 'posBefore' is the position before the change, and
+   * direction is 1 if posBefore.Size > 0 or -1 if posBefore.Size < 0,
+   */
+  exchangedNotional: string;
+  /** Transaction fee paid. A "taker" fee. */
   transactionFee?: Coin;
-  /** position virtual size after the change */
+  /** Position size after the change. */
   positionSize: string;
   /** realize profits and losses after the change */
   realizedPnl: string;
@@ -33,8 +47,6 @@ export interface PositionChangedEvent {
    * Bad debt is negative net margin past the liquidation point of a position.
    */
   badDebt?: Coin;
-  /** amt of margin (y) lost due to liquidation */
-  liquidationPenalty: string;
   /**
    * Mark price, synonymous with mark price in this context, is the quotient of
    * the quote reserves and base reserves
@@ -122,19 +134,29 @@ export interface FundingRateChangedEvent {
   blockTimeMs: Long;
 }
 
+export interface MetricsEvent {
+  pair: string;
+  /** Sum of all active position sizes for the pair. */
+  netSize: string;
+  /** The block number at which metrics were generated. */
+  blockHeight: Long;
+  /** The block time in unix milliseconds at which metrics were generated. */
+  blockTimeMs: Long;
+}
+
 function createBasePositionChangedEvent(): PositionChangedEvent {
   return {
     pair: "",
     traderAddress: "",
     margin: undefined,
     positionNotional: "",
-    exchangedPositionSize: "",
+    exchangedSize: "",
+    exchangedNotional: "",
     transactionFee: undefined,
     positionSize: "",
     realizedPnl: "",
     unrealizedPnlAfter: "",
     badDebt: undefined,
-    liquidationPenalty: "",
     markPrice: "",
     fundingPayment: "",
     blockHeight: Long.ZERO,
@@ -156,26 +178,26 @@ export const PositionChangedEvent = {
     if (message.positionNotional !== "") {
       writer.uint32(34).string(message.positionNotional);
     }
-    if (message.exchangedPositionSize !== "") {
-      writer.uint32(42).string(message.exchangedPositionSize);
+    if (message.exchangedSize !== "") {
+      writer.uint32(42).string(message.exchangedSize);
+    }
+    if (message.exchangedNotional !== "") {
+      writer.uint32(50).string(message.exchangedNotional);
     }
     if (message.transactionFee !== undefined) {
-      Coin.encode(message.transactionFee, writer.uint32(50).fork()).ldelim();
+      Coin.encode(message.transactionFee, writer.uint32(58).fork()).ldelim();
     }
     if (message.positionSize !== "") {
-      writer.uint32(58).string(message.positionSize);
+      writer.uint32(66).string(message.positionSize);
     }
     if (message.realizedPnl !== "") {
-      writer.uint32(66).string(message.realizedPnl);
+      writer.uint32(74).string(message.realizedPnl);
     }
     if (message.unrealizedPnlAfter !== "") {
-      writer.uint32(74).string(message.unrealizedPnlAfter);
+      writer.uint32(82).string(message.unrealizedPnlAfter);
     }
     if (message.badDebt !== undefined) {
-      Coin.encode(message.badDebt, writer.uint32(82).fork()).ldelim();
-    }
-    if (message.liquidationPenalty !== "") {
-      writer.uint32(90).string(message.liquidationPenalty);
+      Coin.encode(message.badDebt, writer.uint32(90).fork()).ldelim();
     }
     if (message.markPrice !== "") {
       writer.uint32(98).string(message.markPrice);
@@ -212,25 +234,25 @@ export const PositionChangedEvent = {
           message.positionNotional = reader.string();
           break;
         case 5:
-          message.exchangedPositionSize = reader.string();
+          message.exchangedSize = reader.string();
           break;
         case 6:
-          message.transactionFee = Coin.decode(reader, reader.uint32());
+          message.exchangedNotional = reader.string();
           break;
         case 7:
-          message.positionSize = reader.string();
+          message.transactionFee = Coin.decode(reader, reader.uint32());
           break;
         case 8:
-          message.realizedPnl = reader.string();
+          message.positionSize = reader.string();
           break;
         case 9:
-          message.unrealizedPnlAfter = reader.string();
+          message.realizedPnl = reader.string();
           break;
         case 10:
-          message.badDebt = Coin.decode(reader, reader.uint32());
+          message.unrealizedPnlAfter = reader.string();
           break;
         case 11:
-          message.liquidationPenalty = reader.string();
+          message.badDebt = Coin.decode(reader, reader.uint32());
           break;
         case 12:
           message.markPrice = reader.string();
@@ -258,13 +280,13 @@ export const PositionChangedEvent = {
       traderAddress: isSet(object.traderAddress) ? String(object.traderAddress) : "",
       margin: isSet(object.margin) ? Coin.fromJSON(object.margin) : undefined,
       positionNotional: isSet(object.positionNotional) ? String(object.positionNotional) : "",
-      exchangedPositionSize: isSet(object.exchangedPositionSize) ? String(object.exchangedPositionSize) : "",
+      exchangedSize: isSet(object.exchangedSize) ? String(object.exchangedSize) : "",
+      exchangedNotional: isSet(object.exchangedNotional) ? String(object.exchangedNotional) : "",
       transactionFee: isSet(object.transactionFee) ? Coin.fromJSON(object.transactionFee) : undefined,
       positionSize: isSet(object.positionSize) ? String(object.positionSize) : "",
       realizedPnl: isSet(object.realizedPnl) ? String(object.realizedPnl) : "",
       unrealizedPnlAfter: isSet(object.unrealizedPnlAfter) ? String(object.unrealizedPnlAfter) : "",
       badDebt: isSet(object.badDebt) ? Coin.fromJSON(object.badDebt) : undefined,
-      liquidationPenalty: isSet(object.liquidationPenalty) ? String(object.liquidationPenalty) : "",
       markPrice: isSet(object.markPrice) ? String(object.markPrice) : "",
       fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
       blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
@@ -278,14 +300,14 @@ export const PositionChangedEvent = {
     message.traderAddress !== undefined && (obj.traderAddress = message.traderAddress);
     message.margin !== undefined && (obj.margin = message.margin ? Coin.toJSON(message.margin) : undefined);
     message.positionNotional !== undefined && (obj.positionNotional = message.positionNotional);
-    message.exchangedPositionSize !== undefined && (obj.exchangedPositionSize = message.exchangedPositionSize);
+    message.exchangedSize !== undefined && (obj.exchangedSize = message.exchangedSize);
+    message.exchangedNotional !== undefined && (obj.exchangedNotional = message.exchangedNotional);
     message.transactionFee !== undefined &&
       (obj.transactionFee = message.transactionFee ? Coin.toJSON(message.transactionFee) : undefined);
     message.positionSize !== undefined && (obj.positionSize = message.positionSize);
     message.realizedPnl !== undefined && (obj.realizedPnl = message.realizedPnl);
     message.unrealizedPnlAfter !== undefined && (obj.unrealizedPnlAfter = message.unrealizedPnlAfter);
     message.badDebt !== undefined && (obj.badDebt = message.badDebt ? Coin.toJSON(message.badDebt) : undefined);
-    message.liquidationPenalty !== undefined && (obj.liquidationPenalty = message.liquidationPenalty);
     message.markPrice !== undefined && (obj.markPrice = message.markPrice);
     message.fundingPayment !== undefined && (obj.fundingPayment = message.fundingPayment);
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
@@ -301,7 +323,8 @@ export const PositionChangedEvent = {
       ? Coin.fromPartial(object.margin)
       : undefined;
     message.positionNotional = object.positionNotional ?? "";
-    message.exchangedPositionSize = object.exchangedPositionSize ?? "";
+    message.exchangedSize = object.exchangedSize ?? "";
+    message.exchangedNotional = object.exchangedNotional ?? "";
     message.transactionFee = (object.transactionFee !== undefined && object.transactionFee !== null)
       ? Coin.fromPartial(object.transactionFee)
       : undefined;
@@ -311,7 +334,6 @@ export const PositionChangedEvent = {
     message.badDebt = (object.badDebt !== undefined && object.badDebt !== null)
       ? Coin.fromPartial(object.badDebt)
       : undefined;
-    message.liquidationPenalty = object.liquidationPenalty ?? "";
     message.markPrice = object.markPrice ?? "";
     message.fundingPayment = object.fundingPayment ?? "";
     message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
@@ -718,6 +740,86 @@ export const FundingRateChangedEvent = {
     message.latestFundingRate = object.latestFundingRate ?? "";
     message.latestPremiumFraction = object.latestPremiumFraction ?? "";
     message.cumulativePremiumFraction = object.cumulativePremiumFraction ?? "";
+    message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
+      ? Long.fromValue(object.blockHeight)
+      : Long.ZERO;
+    message.blockTimeMs = (object.blockTimeMs !== undefined && object.blockTimeMs !== null)
+      ? Long.fromValue(object.blockTimeMs)
+      : Long.ZERO;
+    return message;
+  },
+};
+
+function createBaseMetricsEvent(): MetricsEvent {
+  return { pair: "", netSize: "", blockHeight: Long.ZERO, blockTimeMs: Long.ZERO };
+}
+
+export const MetricsEvent = {
+  encode(message: MetricsEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pair !== "") {
+      writer.uint32(10).string(message.pair);
+    }
+    if (message.netSize !== "") {
+      writer.uint32(18).string(message.netSize);
+    }
+    if (!message.blockHeight.isZero()) {
+      writer.uint32(24).int64(message.blockHeight);
+    }
+    if (!message.blockTimeMs.isZero()) {
+      writer.uint32(32).int64(message.blockTimeMs);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MetricsEvent {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMetricsEvent();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pair = reader.string();
+          break;
+        case 2:
+          message.netSize = reader.string();
+          break;
+        case 3:
+          message.blockHeight = reader.int64() as Long;
+          break;
+        case 4:
+          message.blockTimeMs = reader.int64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MetricsEvent {
+    return {
+      pair: isSet(object.pair) ? String(object.pair) : "",
+      netSize: isSet(object.netSize) ? String(object.netSize) : "",
+      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
+      blockTimeMs: isSet(object.blockTimeMs) ? Long.fromValue(object.blockTimeMs) : Long.ZERO,
+    };
+  },
+
+  toJSON(message: MetricsEvent): unknown {
+    const obj: any = {};
+    message.pair !== undefined && (obj.pair = message.pair);
+    message.netSize !== undefined && (obj.netSize = message.netSize);
+    message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
+    message.blockTimeMs !== undefined && (obj.blockTimeMs = (message.blockTimeMs || Long.ZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MetricsEvent>, I>>(object: I): MetricsEvent {
+    const message = createBaseMetricsEvent();
+    message.pair = object.pair ?? "";
+    message.netSize = object.netSize ?? "";
     message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
       ? Long.fromValue(object.blockHeight)
       : Long.ZERO;

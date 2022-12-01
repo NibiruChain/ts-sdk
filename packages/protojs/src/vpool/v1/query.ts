@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Direction, directionFromJSON, directionToJSON, PoolPrices, VPool } from "./state";
+import { Direction, directionFromJSON, directionToJSON, PoolPrices, Vpool } from "./state";
 
 export const protobufPackage = "nibiru.vpool.v1";
 
@@ -21,7 +21,7 @@ export interface QueryAllPoolsRequest {
 }
 
 export interface QueryAllPoolsResponse {
-  pools: VPool[];
+  pools: Vpool[];
   prices: PoolPrices[];
 }
 
@@ -187,7 +187,7 @@ function createBaseQueryAllPoolsResponse(): QueryAllPoolsResponse {
 export const QueryAllPoolsResponse = {
   encode(message: QueryAllPoolsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.pools) {
-      VPool.encode(v!, writer.uint32(10).fork()).ldelim();
+      Vpool.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     for (const v of message.prices) {
       PoolPrices.encode(v!, writer.uint32(18).fork()).ldelim();
@@ -203,7 +203,7 @@ export const QueryAllPoolsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.pools.push(VPool.decode(reader, reader.uint32()));
+          message.pools.push(Vpool.decode(reader, reader.uint32()));
           break;
         case 2:
           message.prices.push(PoolPrices.decode(reader, reader.uint32()));
@@ -218,7 +218,7 @@ export const QueryAllPoolsResponse = {
 
   fromJSON(object: any): QueryAllPoolsResponse {
     return {
-      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => VPool.fromJSON(e)) : [],
+      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => Vpool.fromJSON(e)) : [],
       prices: Array.isArray(object?.prices) ? object.prices.map((e: any) => PoolPrices.fromJSON(e)) : [],
     };
   },
@@ -226,7 +226,7 @@ export const QueryAllPoolsResponse = {
   toJSON(message: QueryAllPoolsResponse): unknown {
     const obj: any = {};
     if (message.pools) {
-      obj.pools = message.pools.map((e) => e ? VPool.toJSON(e) : undefined);
+      obj.pools = message.pools.map((e) => e ? Vpool.toJSON(e) : undefined);
     } else {
       obj.pools = [];
     }
@@ -240,7 +240,7 @@ export const QueryAllPoolsResponse = {
 
   fromPartial<I extends Exact<DeepPartial<QueryAllPoolsResponse>, I>>(object: I): QueryAllPoolsResponse {
     const message = createBaseQueryAllPoolsResponse();
-    message.pools = object.pools?.map((e) => VPool.fromPartial(e)) || [];
+    message.pools = object.pools?.map((e) => Vpool.fromPartial(e)) || [];
     message.prices = object.prices?.map((e) => PoolPrices.fromPartial(e)) || [];
     return message;
   },
