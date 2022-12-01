@@ -19,43 +19,18 @@ function transformPosition(
   return resp
 }
 
-function transformPositions(
-  resp: perpquery.QueryPositionsResponse,
-): perpquery.QueryPositionsResponse {
-  const { positions } = resp
-  resp.positions = positions.map((position: perpquery.QueryPositionResponse) =>
-    transformPosition(position),
-  )
-  return resp
-}
-
-function transformParams(pbParams?: perpstate.Params): perpstate.Params | undefined {
-  if (!pbParams) {
-    return pbParams
-  }
-  return {
-    ...pbParams,
-    feePoolFeeRatio: fromSdkDec(pbParams.feePoolFeeRatio).toString(),
-    ecosystemFundFeeRatio: fromSdkDec(pbParams.ecosystemFundFeeRatio).toString(),
-    liquidationFeeRatio: fromSdkDec(pbParams.liquidationFeeRatio).toString(),
-    partialLiquidationRatio: fromSdkDec(pbParams.partialLiquidationRatio).toString(),
-  }
-}
-
 export interface PerpExtension {
-  readonly perp: {
-    readonly params: () => Promise<perpquery.QueryParamsResponse>
-    readonly position: (args: {
+  perp: Readonly<{
+    params: () => Promise<perpquery.QueryParamsResponse>
+    position: (args: {
       tokenPair: string
       trader: string
     }) => Promise<perpquery.QueryPositionResponse>
-    readonly positions: (args: {
-      trader: string
-    }) => Promise<perpquery.QueryPositionsResponse>
-    readonly fundingRate: (args: {
+    positions: (args: { trader: string }) => Promise<perpquery.QueryPositionsResponse>
+    premiumFractions: (args: {
       pair: string
-    }) => Promise<perpquery.QueryFundingRatesResponse>
-  }
+    }) => Promise<perpquery.QueryCumulativePremiumFractionResponse>
+  }>
 }
 
 export function setupPerpExtension(base: QueryClient): PerpExtension {
@@ -67,6 +42,26 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
       params: async () => {
         const req = perpquery.QueryParamsRequest.fromPartial({})
         const resp = await queryService.Params(req)
+
+        function transformParams(
+          pbParams?: perpstate.Params,
+        ): perpstate.Params | undefined {
+          if (!pbParams) {
+            return pbParams
+          }
+          return {
+            ...pbParams,
+            feePoolFeeRatio: fromSdkDec(pbParams.feePoolFeeRatio).toString(),
+            ecosystemFundFeeRatio: fromSdkDec(
+              pbParams.ecosystemFundFeeRatio,
+            ).toString(),
+            liquidationFeeRatio: fromSdkDec(pbParams.liquidationFeeRatio).toString(),
+            partialLiquidationRatio: fromSdkDec(
+              pbParams.partialLiquidationRatio,
+            ).toString(),
+          }
+        }
+
         resp.params = transformParams(resp.params)
         return resp
       },
@@ -78,12 +73,30 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
       positions: async (args: { trader: string }) => {
         const req = perpquery.QueryPositionsRequest.fromPartial(args)
         const resp = await queryService.QueryPositions(req)
+
+        function transformPositions(
+          resp: perpquery.QueryPositionsResponse,
+        ): perpquery.QueryPositionsResponse {
+          const { positions } = resp
+          resp.positions = positions.map((position: perpquery.QueryPositionResponse) =>
+            transformPosition(position),
+          )
+          return resp
+        }
+
         return transformPositions(resp)
       },
-      fundingRate: async (args: { pair: string }) => {
-        const req = perpquery.QueryFundingRatesRequest.fromPartial(args)
-        const resp = await queryService.FundingRates(req)
-        return resp
+      premiumFractions: async (args: { pair: string }) => {
+        const req = perpquery.QueryCumulativePremiumFractionRequest.fromPartial(args)
+        const resp = await queryService.CumulativePremiumFraction(req)
+        const transformPremiumFractions = (
+          resp: perpquery.QueryCumulativePremiumFractionResponse,
+        ): perpquery.QueryCumulativePremiumFractionResponse => ({
+          cumulativePremiumFraction: resp.cumulativePremiumFraction,
+          estimatedNextCumulativePremiumFraction:
+            resp.estimatedNextCumulativePremiumFraction,
+        })
+        return transformPremiumFractions(resp)
       },
     },
   }

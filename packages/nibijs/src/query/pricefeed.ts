@@ -6,7 +6,7 @@ import * as pricefeedquery from "@nibiruchain/protojs/dist/pricefeed/query"
 import { fromSdkDec } from "../chain"
 
 export interface PricefeedExtension {
-  pricefeed: {
+  pricefeed: Readonly<{
     /** markets - Return the pair identifier, oracle set, and active status for
      * each trading pair. */
     markets: () => Promise<pricefeedquery.QueryMarketsResponse>
@@ -30,7 +30,7 @@ export interface PricefeedExtension {
       pairId: string
     }) => Promise<pricefeedquery.QueryRawPricesResponse>
     // TODO docs: update the description on the binary
-  }
+  }>
 }
 
 export function setupPricefeedExtension(base: QueryClient): PricefeedExtension {

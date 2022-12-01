@@ -2,12 +2,16 @@
 
 set -eo pipefail
 
+# ---------------------------------------------------------------- 
+# CONFIG
+#
 # NIBIRU_REPO: local directory for the NibiruChain/nibiru repo
 NIBIRU_REPO="../nibiru"    
 PKG_OUT_DIR="./packages/protojs/src" 
   # TODO create $PKG_OUT_DIR if it doesn't exist
-  # mkdir -p ./packages/api/src/${dir}; \
-SDK_VERSION="v0.45.9"
+  # mkdir -p ./packages/protojs/src/${dir}; \
+SDK_VERSION="v0.45.10"
+# ---------------------------------------------------------------- 
 
 check_for_nibiru_repo() {
   if [ ! -d $NIBIRU_REPO/proto ]; then 

@@ -22,7 +22,7 @@ export type BondStatusString =
   | ""
 
 export interface StakingExtension {
-  readonly staking: {
+  readonly staking: Readonly<{
     delegation: (
       delegatorAddress: string,
       validatorAddress: string,
@@ -69,7 +69,7 @@ export interface StakingExtension {
       validatorAddress: string,
       paginationKey?: Uint8Array,
     ) => Promise<pb.QueryValidatorUnbondingDelegationsResponse>
-  }
+  }>
 }
 
 export function setupStakingExtension(base: QueryClient): StakingExtension {

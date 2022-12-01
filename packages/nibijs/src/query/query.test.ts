@@ -1,12 +1,12 @@
 import fetch from "cross-fetch"
 import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"
 import Long from "long"
-import { Chain, Testnet, CHAOSNET_CONFIG } from "../chain"
+import { Chain, Testnet, CHAOSNET_CONFIG, newDevnet } from "../chain"
 import { newQueryCmd } from "./query"
 
 require("dotenv").config() // yarn add -D dotenv
 
-const chain = Testnet
+const chain = newDevnet(2)
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS
 
 function validateBlockFromJsonRpc(blockJson: any) {
@@ -107,8 +107,9 @@ describe("test query module", () => {
     expect(balanceDenoms).toContain("unibi")
     disconnect()
   })
+})
 
-  /*  // NOTE The dex module is on hold for public testnet
+describe("nibid query dex", () => {
   test("query dex params - client.dex.params", async () => {
     const { client, disconnect } = await newQueryCmd(chain)
     const { params } = await client.dex.params()
@@ -125,9 +126,10 @@ describe("test query module", () => {
     expect(params?.whitelistedAsset[0]).not.toBe("")
     disconnect()
   })
-  */
+})
 
-  test("query perp params - client.perp.params", async () => {
+describe("nibid query perp", () => {
+  test("perp params - client.perp.params", async () => {
     const { client, disconnect } = await newQueryCmd(chain)
     const { params } = await client.perp.params()
     console.info("perp.params: %o", JSON.stringify(params))
@@ -145,9 +147,17 @@ describe("test query module", () => {
     }
     disconnect()
   })
+
+  test("nibid query perp funding-rates", async () => {
+    const { client, disconnect } = await newQueryCmd(chain)
+    const premiumFractions = await client.perp.premiumFractions({ pair: "ubtc:unusd" })
+    console.info("perp premiumFractions: %o", JSON.stringify(premiumFractions))
+    expect(premiumFractions).not.toBeNull()
+    disconnect()
+  })
 })
 
-describe("vpool module queries", () => {
+describe("nibid query vpool", () => {
   const timeoutMs = 8_000
   test(
     "nibid query vpool all-pools",
@@ -177,7 +187,7 @@ describe("vpool module queries", () => {
   )
 })
 
-describe("'pricefeed' module queries", () => {
+describe("nibid query pricefeed", () => {
   const chain = Testnet
   const pairId = "ubtc:unusd"
 
