@@ -1,4 +1,4 @@
-import { newRandomWallet, newSignerFromMnemonic, WalletHD } from "./signer"
+import { newRandomWallet, newSignerFromMnemonic, WalletHD } from "../tx/signer"
 
 test("newRandomWallet", async () => {
   const wallet: WalletHD = await newRandomWallet(24)

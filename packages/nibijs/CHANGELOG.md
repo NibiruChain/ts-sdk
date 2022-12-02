@@ -3,7 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## Unreleased
+## v0.8.0 (Unreleased)
+
+* sync: Update to nibiru v0.16.0-beta.1.
+* refactor!: add optional amount arguments to the 'useFaucet' function
+* test: Localize test helpers to test/helpers.ts
+* feat: Add 'vpool.query.reserves' to the VpoolExtension
 
 ## [v0.7.6](https://github.com/NibiruChain/ts-sdk/releases/tag/v0.7.6)
 * [[#57]](https://github.com/NibiruChain/ts-sdk/pull/57) feat: add fundingRate and epoch queries

@@ -1,5 +1,5 @@
-import { toSdkDec, fromSdkDec, toSdkInt, event2KeyValue } from "./parse"
-import { IEventLog } from "./types"
+import { toSdkDec, fromSdkDec, toSdkInt, event2KeyValue } from "../chain/parse"
+import { IEventLog } from "../chain/types"
 
 describe("toSdkDec - float to sdk.Dec conversion", () => {
   interface TestCase {

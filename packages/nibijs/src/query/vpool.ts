@@ -11,6 +11,7 @@ export interface VpoolExtension {
       goLong: boolean
       baseAssetAmount: number
     }) => Promise<vpoolquery.QueryBaseAssetPriceResponse>
+    reserves: (args: { pair: string }) => Promise<vpoolquery.QueryReserveAssetsResponse>
   }>
 }
 
@@ -40,6 +41,17 @@ export function setupVpoolExtension(base: QueryClient): VpoolExtension {
         })
         const resp = await queryService.BaseAssetPrice(req)
         return resp
+      },
+      reserves: async (args: { pair: string }) => {
+        const req = vpoolquery.QueryReserveAssetsRequest.fromPartial({
+          pair: args.pair,
+        })
+        const resp: vpoolquery.QueryReserveAssetsResponse =
+          await queryService.ReserveAssets(req)
+        return {
+          baseAssetReserve: fromSdkDec(resp.baseAssetReserve).toString(),
+          quoteAssetReserve: fromSdkDec(resp.quoteAssetReserve).toString(),
+        }
       },
     },
   }

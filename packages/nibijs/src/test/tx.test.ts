@@ -8,17 +8,20 @@
 import * as dotenv from "dotenv"
 import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
 import { QueryPositionResponse } from "@nibiruchain/protojs/dist/perp/v1/query"
-import { Devnet, event2KeyValue, Testnet } from "./chain"
-import { AccountData, newCoin, newCoins, WalletHD } from "./chain/types"
-import { Msg, TxMessage } from "./msg"
-import { newRandomWallet, newSignerFromMnemonic } from "./tx"
-import { newSdk } from "./sdk"
-import { PerpMsgTypeUrls } from "./msg/perp"
+import { PoolType } from "@nibiruchain/protojs/dist/dex/v1/pool"
+import { event2KeyValue } from "../chain"
+import { AccountData, newCoin, newCoins, WalletHD } from "../chain/types"
+import { Msg, TxMessage } from "../msg"
+import { newRandomWallet, newSignerFromMnemonic } from "../tx"
+import { newSdk } from "../sdk"
+import { PerpMsgTypeUrls } from "../msg/perp"
+import { TEST_CHAIN } from "./helpers"
 
 dotenv.config() // yarn add -D dotenv
 
 const VAL_MNEMONIC = process.env.VALIDATOR_MNEMONIC
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS as string
+const chain = TEST_CHAIN
 
 function prettyTmLogs(tmLogs: string): string {
   return tmLogs.split('\\"').join("")
@@ -50,7 +53,6 @@ interface TxLog {
 }
 
 describe("test tx module", () => {
-  const chain = Testnet
   test("send tokens from the devnet genesis validator to a random account", async () => {
     expect(VAL_ADDRESS).toBeDefined()
     expect(VAL_MNEMONIC).toBeDefined()
@@ -76,7 +78,6 @@ describe("test tx module", () => {
 })
 
 describe("perp module transactions", () => {
-  const chain = Testnet
   test("open-position, add-margin, remove-margin, close-position", async () => {
     const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
     const sdk = await newSdk(chain, signer)
@@ -178,33 +179,36 @@ describe("perp module transactions", () => {
 // - TODO test LPing into a pool, which is called JoinPool
 // - TODO test swapping on an existing pool
 
-/*
-  // NOTE commented out dex commands until public testnet
-  test("dex create pool", async () => {
-    const client = await newTxCmd(chain, VAL_MNEMONIC)
-    const [{ address: fromAddr }] = await client.getAccounts()
-    const txResp = await client.signAndBroadcast(
-      DexMsgs.createPool({
-        creator: fromAddr,
-        poolAssets: [
-          {
-            token: { amount: "5", denom: "unibi" },
-            weight: "1",
-          },
-          {
-            token: { amount: "50", denom: "unusd" },
-            weight: "1",
-          },
-        ],
-        // Backend bug, throws nilpointer exception if omitted
-        poolParams: {
-          swapFee: "0",
-          exitFee: "0",
+// NOTE commented out dex commands until public testnet
+test("nibid tx dex create-pool", async () => {
+  expect(VAL_ADDRESS).toBeDefined()
+  expect(VAL_MNEMONIC).toBeDefined()
+  const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
+  const sdk = await newSdk(chain, signer)
+  const [{ address: fromAddr }] = await sdk.tx.getAccounts()
+  const msgs = [
+    Msg.dex.createPool({
+      creator: fromAddr,
+      poolAssets: [
+        {
+          token: newCoin(5, "unibi"),
+          weight: "1",
         },
-      }),
-    )
-    console.info("%o", txResp)
-    expect(txResp).not.toBeNull()
-    expect(txResp.code).toBe(0)
-  })
- */
+        {
+          token: newCoin(50, "unusd"),
+          weight: "1",
+        },
+      ],
+      // Backend bug, throws nilpointer exception if omitted
+      poolParams: {
+        swapFee: "0",
+        exitFee: "0",
+        poolType: PoolType.BALANCER,
+        A: "10",
+      },
+    }),
+  ]
+  await sdk.tx.ensureFee(...msgs)
+  const gasUnitsReq = await sdk.tx.simulate(...msgs)
+  expect(gasUnitsReq).toBeGreaterThan(0)
+})

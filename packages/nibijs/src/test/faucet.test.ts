@@ -7,11 +7,11 @@ import {
   Testnet,
   useFaucet,
   WalletHD,
-} from "./chain"
-import { newRandomWallet, newSignerFromMnemonic } from "./tx"
-import { ISdk, newSdk } from "./sdk"
-import { newQueryCmd, waitForBlockHeight, waitForNextBlock } from "./query"
-import { Msg } from "./msg"
+} from "../chain"
+import { newQueryCmd, waitForBlockHeight, waitForNextBlock } from "../query"
+import { newRandomWallet, newSignerFromMnemonic } from "../tx"
+import { ISdk, newSdk } from "../sdk"
+import { Msg } from "../msg"
 
 test("faucet utility works", async () => {
   const chain: Chain = Testnet
@@ -53,7 +53,10 @@ test("faucet utility works", async () => {
     const balancesStart = newCoinMapFromCoins(
       await queryCmd.client.bank.allBalances(address),
     )
-    const faucetResp = await useFaucet(address) // "https://faucet.testnet-1.nibiru.fi/"
+    const faucetResp = await useFaucet({
+      address,
+      faucetUrl: "https://faucet.devnet-2.nibiru.fi/", // default "https://faucet.testnet-1.nibiru.fi/"
+    })
     if (!faucetResp.ok) {
       console.debug(`useFaucet failed with response ${await faucetResp.text()}`)
     }
@@ -66,10 +69,10 @@ test("faucet utility works", async () => {
     const balances = newCoinMapFromCoins(
       await queryCmd.client.bank.allBalances(address),
     )
-    // Expect to receive 10 NIBI and 100_000 NUSD
+    // Expect to receive 10 NIBI and 100 NUSD
     if (balances.unusd === undefined) balances.unusd = 0
     if (balances.unibi === undefined) balances.unibi = 0
-    expect(balances.unusd - (balancesStart.unusd ?? 0)).toEqual(100_000 * 1_000_000)
+    expect(balances.unusd - (balancesStart.unusd ?? 0)).toEqual(100 * 1_000_000)
     expect(balances.unibi - (balancesStart.unibi ?? 0)).toEqual(10 * 1_000_000)
   }
 

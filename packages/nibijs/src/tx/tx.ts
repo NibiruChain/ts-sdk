@@ -77,7 +77,7 @@ export class TxCmd {
     return this.client.signAndBroadcast(accounts[0].address, msgs, this.fee ?? "auto")
   }
 
-  async ensureFee(...msgs: TxMessage[]) {
+  async ensureFee(...msgs: TxMessage[]): Promise<void> {
     const addSimulatedFeeToCmd = async () => {
       const gasUsed = await this.simulate(...msgs)
       this.withFee(gasUsed * 1.25)

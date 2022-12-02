@@ -1,43 +1,14 @@
 import fetch from "cross-fetch"
-import { Block, BlockResponse } from "@cosmjs/tendermint-rpc"
+import { BlockResponse } from "@cosmjs/tendermint-rpc"
 import Long from "long"
 import { Chain, Testnet, CHAOSNET_CONFIG, newDevnet } from "../chain"
-import { newQueryCmd } from "./query"
+import { newQueryCmd } from "../query"
+import { validateBlock, validateBlockFromJsonRpc } from "./helpers"
 
 require("dotenv").config() // yarn add -D dotenv
 
 const chain = newDevnet(2)
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS
-
-function validateBlockFromJsonRpc(blockJson: any) {
-  const blockSchema = {
-    header: ["version", "chain_id", "height", "last_block_id"].concat(
-      ["last_commit_hash", "data_hash", "validators_hash", "next_validators_hash"],
-      ["consensus_hash", "app_hash", "last_results_hash", "evidence_hash"],
-      ["proposer_address"],
-    ),
-    data: ["txs"],
-    evidence: ["evidence"],
-    last_commit: ["height", "round", "block_id", "signatures"],
-  }
-  type BlockSchemaKey = keyof typeof blockSchema
-
-  for (const attr in blockSchema) {
-    expect(blockJson).toHaveProperty(attr)
-    const blockSchemaAtAttr: string[] = blockSchema[attr as BlockSchemaKey]
-    for (const subAttr of blockSchemaAtAttr) {
-      expect(blockJson[attr]).toHaveProperty(subAttr)
-    }
-  }
-}
-
-function validateBlock(block: Block, chain: Chain) {
-  expect(block.header.chainId).toEqual(chain.chainId)
-  expect(block.header.time).toBeDefined()
-  expect(block.header.height).toBeGreaterThanOrEqual(1)
-  expect(block).toHaveProperty("txs")
-  expect(block).toHaveProperty("lastCommit")
-}
 
 describe("chain connections", () => {
   const testChainConnection = async (chain: Chain) => {
