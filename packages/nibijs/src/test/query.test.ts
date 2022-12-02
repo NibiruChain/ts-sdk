@@ -1,13 +1,13 @@
 import fetch from "cross-fetch"
 import { BlockResponse } from "@cosmjs/tendermint-rpc"
 import Long from "long"
-import { Chain, Testnet, CHAOSNET_CONFIG, newDevnet } from "../chain"
+import { Chain, Testnet, CHAOSNET_CONFIG } from "../chain"
 import { newQueryCmd } from "../query"
-import { validateBlock, validateBlockFromJsonRpc } from "./helpers"
+import { TEST_CHAIN, validateBlock, validateBlockFromJsonRpc } from "./helpers"
 
 require("dotenv").config() // yarn add -D dotenv
 
-const chain = newDevnet(2)
+const chain = TEST_CHAIN
 const VAL_ADDRESS = process.env.VALIDATOR_ADDRESS
 
 describe("chain connections", () => {
@@ -159,7 +159,6 @@ describe("nibid query vpool", () => {
 })
 
 describe("nibid query pricefeed", () => {
-  const chain = Testnet
   const pairId = "ubtc:unusd"
 
   test("nibid query pricefeed markets", async () => {

@@ -8,7 +8,6 @@ import {
   newCoin,
   newCoinMapFromCoins,
   queryChainIdWithRest,
-  Testnet,
   assert,
 } from "../chain"
 import { TEST_CHAIN } from "./helpers"

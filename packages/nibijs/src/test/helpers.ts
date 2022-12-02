@@ -1,3 +1,4 @@
+import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import { Block } from "@cosmjs/tendermint-rpc"
 import { Chain, newDevnet } from "../chain"
 
@@ -31,4 +32,16 @@ export function validateBlock(block: Block, chain: Chain) {
   expect(block.header.height).toBeGreaterThanOrEqual(1)
   expect(block).toHaveProperty("txs")
   expect(block).toHaveProperty("lastCommit")
+}
+
+export function prettyTmLogs(tmLogs: string): string {
+  return tmLogs.split('\\"').join("")
+}
+
+export function expectTxToSucceed(txResp: DeliverTxResponse) {
+  expect(txResp).not.toBeNull()
+  assertIsDeliverTxSuccess(txResp)
+}
+export interface TxLog {
+  events: { type: string; attributes: any[] }[]
 }
