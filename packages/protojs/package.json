@@ -29,5 +29,6 @@
   "devDependencies": {
     "link-module-alias": "^1.2.0",
     "shx": "^0.3.2"
-  }
+  },
+  "gitHead": "4da45aaaf65a44e6b4edc0b5d11ea1083229f977"
 }
