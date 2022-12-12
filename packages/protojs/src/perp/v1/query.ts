@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Params, Position } from "./state";
+import { Metrics, Params, Position } from "./state";
 
 export const protobufPackage = "nibiru.perp.v1";
 
@@ -59,17 +59,25 @@ export interface QueryPositionResponse {
   blockNumber: Long;
 }
 
-export interface QueryFundingRatesRequest {
+export interface QueryCumulativePremiumFractionRequest {
   /** the pair to query for */
   pair: string;
 }
 
-export interface QueryFundingRatesResponse {
-  /**
-   * a historical list of cumulative funding rates, with the most recent one
-   * last
-   */
-  cumulativeFundingRates: string[];
+export interface QueryCumulativePremiumFractionResponse {
+  /** The latest cumulative premium fraction. */
+  cumulativePremiumFraction: string;
+  estimatedNextCumulativePremiumFraction: string;
+}
+
+export interface QueryMetricsRequest {
+  /** the pair to query for */
+  pair: string;
+}
+
+export interface QueryMetricsResponse {
+  /** list of perp metrics */
+  metrics?: Metrics;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -425,22 +433,22 @@ export const QueryPositionResponse = {
   },
 };
 
-function createBaseQueryFundingRatesRequest(): QueryFundingRatesRequest {
+function createBaseQueryCumulativePremiumFractionRequest(): QueryCumulativePremiumFractionRequest {
   return { pair: "" };
 }
 
-export const QueryFundingRatesRequest = {
-  encode(message: QueryFundingRatesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const QueryCumulativePremiumFractionRequest = {
+  encode(message: QueryCumulativePremiumFractionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pair !== "") {
       writer.uint32(10).string(message.pair);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFundingRatesRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryCumulativePremiumFractionRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryFundingRatesRequest();
+    const message = createBaseQueryCumulativePremiumFractionRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -455,44 +463,52 @@ export const QueryFundingRatesRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryFundingRatesRequest {
+  fromJSON(object: any): QueryCumulativePremiumFractionRequest {
     return { pair: isSet(object.pair) ? String(object.pair) : "" };
   },
 
-  toJSON(message: QueryFundingRatesRequest): unknown {
+  toJSON(message: QueryCumulativePremiumFractionRequest): unknown {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryFundingRatesRequest>, I>>(object: I): QueryFundingRatesRequest {
-    const message = createBaseQueryFundingRatesRequest();
+  fromPartial<I extends Exact<DeepPartial<QueryCumulativePremiumFractionRequest>, I>>(
+    object: I,
+  ): QueryCumulativePremiumFractionRequest {
+    const message = createBaseQueryCumulativePremiumFractionRequest();
     message.pair = object.pair ?? "";
     return message;
   },
 };
 
-function createBaseQueryFundingRatesResponse(): QueryFundingRatesResponse {
-  return { cumulativeFundingRates: [] };
+function createBaseQueryCumulativePremiumFractionResponse(): QueryCumulativePremiumFractionResponse {
+  return { cumulativePremiumFraction: "", estimatedNextCumulativePremiumFraction: "" };
 }
 
-export const QueryFundingRatesResponse = {
-  encode(message: QueryFundingRatesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.cumulativeFundingRates) {
-      writer.uint32(10).string(v!);
+export const QueryCumulativePremiumFractionResponse = {
+  encode(message: QueryCumulativePremiumFractionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.cumulativePremiumFraction !== "") {
+      writer.uint32(10).string(message.cumulativePremiumFraction);
+    }
+    if (message.estimatedNextCumulativePremiumFraction !== "") {
+      writer.uint32(18).string(message.estimatedNextCumulativePremiumFraction);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFundingRatesResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryCumulativePremiumFractionResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryFundingRatesResponse();
+    const message = createBaseQueryCumulativePremiumFractionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.cumulativeFundingRates.push(reader.string());
+          message.cumulativePremiumFraction = reader.string();
+          break;
+        case 2:
+          message.estimatedNextCumulativePremiumFraction = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -502,27 +518,128 @@ export const QueryFundingRatesResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryFundingRatesResponse {
+  fromJSON(object: any): QueryCumulativePremiumFractionResponse {
     return {
-      cumulativeFundingRates: Array.isArray(object?.cumulativeFundingRates)
-        ? object.cumulativeFundingRates.map((e: any) => String(e))
-        : [],
+      cumulativePremiumFraction: isSet(object.cumulativePremiumFraction)
+        ? String(object.cumulativePremiumFraction)
+        : "",
+      estimatedNextCumulativePremiumFraction: isSet(object.estimatedNextCumulativePremiumFraction)
+        ? String(object.estimatedNextCumulativePremiumFraction)
+        : "",
     };
   },
 
-  toJSON(message: QueryFundingRatesResponse): unknown {
+  toJSON(message: QueryCumulativePremiumFractionResponse): unknown {
     const obj: any = {};
-    if (message.cumulativeFundingRates) {
-      obj.cumulativeFundingRates = message.cumulativeFundingRates.map((e) => e);
-    } else {
-      obj.cumulativeFundingRates = [];
-    }
+    message.cumulativePremiumFraction !== undefined &&
+      (obj.cumulativePremiumFraction = message.cumulativePremiumFraction);
+    message.estimatedNextCumulativePremiumFraction !== undefined &&
+      (obj.estimatedNextCumulativePremiumFraction = message.estimatedNextCumulativePremiumFraction);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryFundingRatesResponse>, I>>(object: I): QueryFundingRatesResponse {
-    const message = createBaseQueryFundingRatesResponse();
-    message.cumulativeFundingRates = object.cumulativeFundingRates?.map((e) => e) || [];
+  fromPartial<I extends Exact<DeepPartial<QueryCumulativePremiumFractionResponse>, I>>(
+    object: I,
+  ): QueryCumulativePremiumFractionResponse {
+    const message = createBaseQueryCumulativePremiumFractionResponse();
+    message.cumulativePremiumFraction = object.cumulativePremiumFraction ?? "";
+    message.estimatedNextCumulativePremiumFraction = object.estimatedNextCumulativePremiumFraction ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryMetricsRequest(): QueryMetricsRequest {
+  return { pair: "" };
+}
+
+export const QueryMetricsRequest = {
+  encode(message: QueryMetricsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pair !== "") {
+      writer.uint32(10).string(message.pair);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryMetricsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryMetricsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pair = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryMetricsRequest {
+    return { pair: isSet(object.pair) ? String(object.pair) : "" };
+  },
+
+  toJSON(message: QueryMetricsRequest): unknown {
+    const obj: any = {};
+    message.pair !== undefined && (obj.pair = message.pair);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryMetricsRequest>, I>>(object: I): QueryMetricsRequest {
+    const message = createBaseQueryMetricsRequest();
+    message.pair = object.pair ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryMetricsResponse(): QueryMetricsResponse {
+  return { metrics: undefined };
+}
+
+export const QueryMetricsResponse = {
+  encode(message: QueryMetricsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.metrics !== undefined) {
+      Metrics.encode(message.metrics, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryMetricsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryMetricsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.metrics = Metrics.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryMetricsResponse {
+    return { metrics: isSet(object.metrics) ? Metrics.fromJSON(object.metrics) : undefined };
+  },
+
+  toJSON(message: QueryMetricsResponse): unknown {
+    const obj: any = {};
+    message.metrics !== undefined && (obj.metrics = message.metrics ? Metrics.toJSON(message.metrics) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryMetricsResponse>, I>>(object: I): QueryMetricsResponse {
+    const message = createBaseQueryMetricsResponse();
+    message.metrics = (object.metrics !== undefined && object.metrics !== null)
+      ? Metrics.fromPartial(object.metrics)
+      : undefined;
     return message;
   },
 };
@@ -533,7 +650,11 @@ export interface Query {
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   QueryPosition(request: QueryPositionRequest): Promise<QueryPositionResponse>;
   QueryPositions(request: QueryPositionsRequest): Promise<QueryPositionsResponse>;
-  FundingRates(request: QueryFundingRatesRequest): Promise<QueryFundingRatesResponse>;
+  /** Queries the latest cumulative premium fraction and the estimated next cumulative premium fraction. */
+  CumulativePremiumFraction(
+    request: QueryCumulativePremiumFractionRequest,
+  ): Promise<QueryCumulativePremiumFractionResponse>;
+  Metrics(request: QueryMetricsRequest): Promise<QueryMetricsResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -543,7 +664,8 @@ export class QueryClientImpl implements Query {
     this.Params = this.Params.bind(this);
     this.QueryPosition = this.QueryPosition.bind(this);
     this.QueryPositions = this.QueryPositions.bind(this);
-    this.FundingRates = this.FundingRates.bind(this);
+    this.CumulativePremiumFraction = this.CumulativePremiumFraction.bind(this);
+    this.Metrics = this.Metrics.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -563,10 +685,18 @@ export class QueryClientImpl implements Query {
     return promise.then((data) => QueryPositionsResponse.decode(new _m0.Reader(data)));
   }
 
-  FundingRates(request: QueryFundingRatesRequest): Promise<QueryFundingRatesResponse> {
-    const data = QueryFundingRatesRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Query", "FundingRates", data);
-    return promise.then((data) => QueryFundingRatesResponse.decode(new _m0.Reader(data)));
+  CumulativePremiumFraction(
+    request: QueryCumulativePremiumFractionRequest,
+  ): Promise<QueryCumulativePremiumFractionResponse> {
+    const data = QueryCumulativePremiumFractionRequest.encode(request).finish();
+    const promise = this.rpc.request("nibiru.perp.v1.Query", "CumulativePremiumFraction", data);
+    return promise.then((data) => QueryCumulativePremiumFractionResponse.decode(new _m0.Reader(data)));
+  }
+
+  Metrics(request: QueryMetricsRequest): Promise<QueryMetricsResponse> {
+    const data = QueryMetricsRequest.encode(request).finish();
+    const promise = this.rpc.request("nibiru.perp.v1.Query", "Metrics", data);
+    return promise.then((data) => QueryMetricsResponse.decode(new _m0.Reader(data)));
   }
 }
 

@@ -1,15 +1,14 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
 import * as epochsquery from "@nibiruchain/protojs/dist/epochs/query"
 import * as epochsstate from "@nibiruchain/protojs/dist/epochs/state"
-import { fromSdkDec } from "../chain"
 
 export interface EpochsExtension {
-  readonly epochs: {
-    readonly currentEpoch: (args: {
+  readonly epochs: Readonly<{
+    currentEpoch: (args: {
       identifier: string
     }) => Promise<epochsquery.QueryCurrentEpochResponse>
-    readonly epochsInfo: () => Promise<epochsquery.QueryEpochsInfoResponse>
-  }
+    epochsInfo: () => Promise<epochsquery.QueryEpochsInfoResponse>
+  }>
 }
 
 export function setupEpochsExtension(base: QueryClient): EpochsExtension {

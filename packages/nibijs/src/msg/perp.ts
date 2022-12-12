@@ -10,6 +10,7 @@ export const PerpMsgTypeUrls: MsgTypeUrls = {
   MsgLiquidate: `/${pb.protobufPackage}.MsgLiquidate`,
   MsgOpenPosition: `/${pb.protobufPackage}.MsgOpenPosition`,
   MsgClosePosition: `/${pb.protobufPackage}.MsgClosePosition`,
+  MsgDonateToEcosystemFund: `/${pb.protobufPackage}.MsgDonateToEcosystemFund`,
 }
 
 export function registerTypes(registry: Registry) {
@@ -18,6 +19,10 @@ export function registerTypes(registry: Registry) {
   registry.register(PerpMsgTypeUrls.MsgLiquidate, pb.MsgLiquidate)
   registry.register(PerpMsgTypeUrls.MsgOpenPosition, pb.MsgOpenPosition)
   registry.register(PerpMsgTypeUrls.MsgClosePosition, pb.MsgClosePosition)
+  registry.register(
+    PerpMsgTypeUrls.MsgDonateToEcosystemFund,
+    pb.MsgDonateToEcosystemFund,
+  )
   return registry
 }
 
@@ -77,6 +82,13 @@ export class PerpMsgs {
     return {
       typeUrl: PerpMsgTypeUrls.MsgClosePosition,
       value: pb.MsgClosePosition.fromPartial(msg),
+    }
+  }
+
+  static donateToPerpEF(msg: pb.MsgDonateToEcosystemFund): TxMessage {
+    return {
+      typeUrl: PerpMsgTypeUrls.MsgDonateToEcosystemFund,
+      value: pb.MsgDonateToEcosystemFund.fromPartial(msg),
     }
   }
 }

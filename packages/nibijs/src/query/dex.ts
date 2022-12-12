@@ -20,48 +20,46 @@ function transformPool(p?: pb.Pool): pb.Pool | undefined {
 }
 
 export interface DexExtension {
-  readonly dex: {
-    readonly params: () => Promise<qpb.QueryParamsResponse>
-    readonly poolNumber: () => Promise<qpb.QueryPoolNumberResponse>
-    readonly pool: (poolId: number) => Promise<qpb.QueryPoolResponse>
-    readonly pools: (pagination?: PageRequest) => Promise<qpb.QueryPoolsResponse>
-    readonly poolParams: (poolId: number) => Promise<qpb.QueryPoolParamsResponse>
-    readonly numPools: () => Promise<qpb.QueryNumPoolsResponse>
-    readonly totalLiquidity: () => Promise<qpb.QueryTotalLiquidityResponse>
-    readonly totalPoolLiquidity: (
-      poolId: number,
-    ) => Promise<qpb.QueryTotalPoolLiquidityResponse>
-    readonly totalShares: (poolId: number) => Promise<qpb.QueryTotalSharesResponse>
-    readonly spotPrice: (
+  dex: Readonly<{
+    params: () => Promise<qpb.QueryParamsResponse>
+    poolNumber: () => Promise<qpb.QueryPoolNumberResponse>
+    pool: (poolId: number) => Promise<qpb.QueryPoolResponse>
+    pools: (pagination?: PageRequest) => Promise<qpb.QueryPoolsResponse>
+    poolParams: (poolId: number) => Promise<qpb.QueryPoolParamsResponse>
+    numPools: () => Promise<qpb.QueryNumPoolsResponse>
+    totalLiquidity: () => Promise<qpb.QueryTotalLiquidityResponse>
+    totalPoolLiquidity: (poolId: number) => Promise<qpb.QueryTotalPoolLiquidityResponse>
+    totalShares: (poolId: number) => Promise<qpb.QueryTotalSharesResponse>
+    spotPrice: (
       poolId: number,
       tokenInDenom: string,
       tokenOutDenom: string,
     ) => Promise<qpb.QuerySpotPriceResponse>
-    readonly estimateSwapExactAmountIn: (
+    estimateSwapExactAmountIn: (
       poolId: number,
       tokeOutDenom: string,
       tokenIn?: Coin,
     ) => Promise<qpb.QuerySwapExactAmountInResponse>
-    readonly estimateSwapExactAmountOut: (
+    estimateSwapExactAmountOut: (
       poolId: number,
       tokenInDenom: string,
       tokenOut?: Coin,
     ) => Promise<qpb.QuerySwapExactAmountOutResponse>
-    readonly estimateJoinExactAmountIn: (
+    estimateJoinExactAmountIn: (
       poolId: number,
       tokensIn: Coin[],
     ) => Promise<qpb.QueryJoinExactAmountInResponse>
-    readonly estimateJoinExactAmountOut: (
+    estimateJoinExactAmountOut: (
       poolId: number,
     ) => Promise<qpb.QueryJoinExactAmountOutResponse>
-    readonly estimateExitExactAmountIn: (
+    estimateExitExactAmountIn: (
       poolId: number,
       poolSharesIn: number,
     ) => Promise<qpb.QueryExitExactAmountInResponse>
-    readonly estimateExitExactAmountOut: (
+    estimateExitExactAmountOut: (
       poolId: number,
     ) => Promise<qpb.QueryExitExactAmountOutResponse>
-  }
+  }>
 }
 
 export function setupDexExtension(base: QueryClient): DexExtension {

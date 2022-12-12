@@ -4,14 +4,15 @@ import * as vpoolstate from "@nibiruchain/protojs/dist/vpool/v1/state"
 import { fromSdkDec, fromSdkDecSafe } from "../chain"
 
 export interface VpoolExtension {
-  readonly vpool: {
-    readonly allPools: () => Promise<vpoolquery.QueryAllPoolsResponse>
-    readonly basePrice: (args: {
+  vpool: Readonly<{
+    allPools: () => Promise<vpoolquery.QueryAllPoolsResponse>
+    basePrice: (args: {
       pair: string
       goLong: boolean
       baseAssetAmount: number
     }) => Promise<vpoolquery.QueryBaseAssetPriceResponse>
-  }
+    reserves: (args: { pair: string }) => Promise<vpoolquery.QueryReserveAssetsResponse>
+  }>
 }
 
 export function setupVpoolExtension(base: QueryClient): VpoolExtension {
@@ -41,6 +42,17 @@ export function setupVpoolExtension(base: QueryClient): VpoolExtension {
         const resp = await queryService.BaseAssetPrice(req)
         return resp
       },
+      reserves: async (args: { pair: string }) => {
+        const req = vpoolquery.QueryReserveAssetsRequest.fromPartial({
+          pair: args.pair,
+        })
+        const resp: vpoolquery.QueryReserveAssetsResponse =
+          await queryService.ReserveAssets(req)
+        return {
+          baseAssetReserve: fromSdkDec(resp.baseAssetReserve).toString(),
+          quoteAssetReserve: fromSdkDec(resp.quoteAssetReserve).toString(),
+        }
+      },
     },
   }
 }
@@ -50,17 +62,27 @@ type TransformFn<T> = (resp: T) => T
 const transformAllPoolsResponse: TransformFn<vpoolquery.QueryAllPoolsResponse> = (
   resp: vpoolquery.QueryAllPoolsResponse,
 ) => {
-  const pools = resp.pools.map((vpool: vpoolstate.VPool) => ({
-    // ...vpool,
-    pair: vpool.pair,
-    baseAssetReserve: fromSdkDec(vpool.baseAssetReserve).toString(),
-    quoteAssetReserve: fromSdkDec(vpool.quoteAssetReserve).toString(),
-    tradeLimitRatio: fromSdkDec(vpool.tradeLimitRatio).toString(),
-    fluctuationLimitRatio: fromSdkDec(vpool.fluctuationLimitRatio).toString(),
-    maxOracleSpreadRatio: fromSdkDec(vpool.maxOracleSpreadRatio).toString(),
-    maintenanceMarginRatio: fromSdkDec(vpool.maintenanceMarginRatio).toString(),
-    maxLeverage: fromSdkDec(vpool.maxLeverage).toString(),
-  }))
+  const pools = resp.pools.map((vpool: vpoolstate.Vpool): vpoolstate.Vpool => {
+    const { config } = vpool
+    return {
+      // ...vpool,
+      pair: vpool.pair,
+      baseAssetReserve: fromSdkDec(vpool.baseAssetReserve).toString(),
+      quoteAssetReserve: fromSdkDec(vpool.quoteAssetReserve).toString(),
+      config: config
+        ? {
+            tradeLimitRatio: fromSdkDec(config.tradeLimitRatio).toString(),
+            fluctuationLimitRatio: fromSdkDec(config.fluctuationLimitRatio).toString(),
+            maxOracleSpreadRatio: fromSdkDec(config.maxOracleSpreadRatio).toString(),
+            maintenanceMarginRatio: fromSdkDec(
+              config.maintenanceMarginRatio,
+            ).toString(),
+            maxLeverage: fromSdkDec(config.maxLeverage).toString(),
+          }
+        : undefined,
+    }
+  })
+
   const prices = resp.prices.map((pp: vpoolstate.PoolPrices) => ({
     ...pp,
     indexPrice: fromSdkDecSafe(pp.indexPrice).toString(),

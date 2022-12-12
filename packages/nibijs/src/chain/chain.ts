@@ -83,14 +83,21 @@ export const Chaosnet: Chain = {
 }
 
 /**
- * Sends 10 NIBI and 100_000 NUSD to the given address from the testnet faucet.
+ * Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
  */
-export async function useFaucet(
-  address: string,
-  faucetUrl?: string,
-): Promise<Response> {
-  const amtNibi = 10
-  const amtNusd = 100_000
+export async function useFaucet({
+  address,
+  faucetUrl,
+  amtNibi,
+  amtNusd,
+}: {
+  address: string
+  faucetUrl?: string
+  amtNibi?: number
+  amtNusd?: number
+}): Promise<Response> {
+  amtNibi = amtNibi ?? 10
+  amtNusd = amtNusd ?? 100
   const coins: string[] = [
     `${(amtNibi * 1_000_000).toString()}unibi`,
     `${(amtNusd * 1_000_000).toString()}unusd`,
@@ -130,21 +137,21 @@ export async function queryChainIdWithRest(
   return [chainId, err]
 }
 
-export async function isRestEndptLive(network: Chain): Promise<boolean> {
+export async function isRestEndptLive(chain: Chain): Promise<boolean> {
   let isLive: boolean = false
-  const [chainId, err] = await queryChainIdWithRest(network)
+  const [chainId, err] = await queryChainIdWithRest(chain)
   if (chainId) {
     isLive = true
   }
   return isLive
 }
 
-export async function isRestEndptValid(network: Chain): Promise<boolean> {
+export async function isRestEndptValid(chain: Chain): Promise<boolean> {
   let isLive: boolean = true
-  const [chainId, err] = await queryChainIdWithRest(network)
+  const [chainId, err] = await queryChainIdWithRest(chain)
   if (!chainId) {
     isLive = false
-  } else if (chainId !== network.chainId) {
+  } else if (chainId !== chain.chainId) {
     isLive = false
   }
   return isLive

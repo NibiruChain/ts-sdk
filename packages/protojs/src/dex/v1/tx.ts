@@ -21,6 +21,7 @@ export interface MsgJoinPool {
   sender: string;
   poolId: Long;
   tokensIn: Coin[];
+  useAllCoins: boolean;
 }
 
 /** Response when a user joins a pool. */
@@ -178,7 +179,7 @@ export const MsgCreatePoolResponse = {
 };
 
 function createBaseMsgJoinPool(): MsgJoinPool {
-  return { sender: "", poolId: Long.UZERO, tokensIn: [] };
+  return { sender: "", poolId: Long.UZERO, tokensIn: [], useAllCoins: false };
 }
 
 export const MsgJoinPool = {
@@ -191,6 +192,9 @@ export const MsgJoinPool = {
     }
     for (const v of message.tokensIn) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.useAllCoins === true) {
+      writer.uint32(32).bool(message.useAllCoins);
     }
     return writer;
   },
@@ -211,6 +215,9 @@ export const MsgJoinPool = {
         case 3:
           message.tokensIn.push(Coin.decode(reader, reader.uint32()));
           break;
+        case 4:
+          message.useAllCoins = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -224,6 +231,7 @@ export const MsgJoinPool = {
       sender: isSet(object.sender) ? String(object.sender) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       tokensIn: Array.isArray(object?.tokensIn) ? object.tokensIn.map((e: any) => Coin.fromJSON(e)) : [],
+      useAllCoins: isSet(object.useAllCoins) ? Boolean(object.useAllCoins) : false,
     };
   },
 
@@ -236,6 +244,7 @@ export const MsgJoinPool = {
     } else {
       obj.tokensIn = [];
     }
+    message.useAllCoins !== undefined && (obj.useAllCoins = message.useAllCoins);
     return obj;
   },
 
@@ -246,6 +255,7 @@ export const MsgJoinPool = {
       ? Long.fromValue(object.poolId)
       : Long.UZERO;
     message.tokensIn = object.tokensIn?.map((e) => Coin.fromPartial(e)) || [];
+    message.useAllCoins = object.useAllCoins ?? false;
     return message;
   },
 };

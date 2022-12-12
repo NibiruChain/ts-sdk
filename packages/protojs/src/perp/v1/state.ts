@@ -233,12 +233,12 @@ export interface Position {
 export interface PairMetadata {
   pair?: AssetPair;
   /**
-   * The historical list of cumulative premium fractions for a given pair.
-   * Calculated once per epoch.
+   * Latest cumulative premium fraction for a given pair.
+   * Calculated once per funding rate interval.
    * A premium fraction is the difference between mark and index, divided by the number of payments per day.
    * (mark - index) / # payments in a day
    */
-  cumulativePremiumFractions: string[];
+  latestCumulativePremiumFraction: string;
 }
 
 export interface PrepaidBadDebt {
@@ -290,6 +290,14 @@ export interface LiquidateResp {
   liquidator: string;
   /** Position response from the close or open reverse position */
   positionResp?: PositionResp;
+}
+
+/** PoolMetrics is a structure that displays a snapshot of perp metrics for each pair. */
+export interface Metrics {
+  /** Pair identifier for the two assets. Always in format 'base:quote' */
+  pair: string;
+  /** Sum of all active position sizes for the pair. */
+  netSize: string;
 }
 
 function createBaseParams(): Params {
@@ -539,7 +547,7 @@ export const Position = {
 };
 
 function createBasePairMetadata(): PairMetadata {
-  return { pair: undefined, cumulativePremiumFractions: [] };
+  return { pair: undefined, latestCumulativePremiumFraction: "" };
 }
 
 export const PairMetadata = {
@@ -547,8 +555,8 @@ export const PairMetadata = {
     if (message.pair !== undefined) {
       AssetPair.encode(message.pair, writer.uint32(10).fork()).ldelim();
     }
-    for (const v of message.cumulativePremiumFractions) {
-      writer.uint32(18).string(v!);
+    if (message.latestCumulativePremiumFraction !== "") {
+      writer.uint32(18).string(message.latestCumulativePremiumFraction);
     }
     return writer;
   },
@@ -564,7 +572,7 @@ export const PairMetadata = {
           message.pair = AssetPair.decode(reader, reader.uint32());
           break;
         case 2:
-          message.cumulativePremiumFractions.push(reader.string());
+          message.latestCumulativePremiumFraction = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -577,27 +585,24 @@ export const PairMetadata = {
   fromJSON(object: any): PairMetadata {
     return {
       pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
-      cumulativePremiumFractions: Array.isArray(object?.cumulativePremiumFractions)
-        ? object.cumulativePremiumFractions.map((e: any) => String(e))
-        : [],
+      latestCumulativePremiumFraction: isSet(object.latestCumulativePremiumFraction)
+        ? String(object.latestCumulativePremiumFraction)
+        : "",
     };
   },
 
   toJSON(message: PairMetadata): unknown {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
-    if (message.cumulativePremiumFractions) {
-      obj.cumulativePremiumFractions = message.cumulativePremiumFractions.map((e) => e);
-    } else {
-      obj.cumulativePremiumFractions = [];
-    }
+    message.latestCumulativePremiumFraction !== undefined &&
+      (obj.latestCumulativePremiumFraction = message.latestCumulativePremiumFraction);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<PairMetadata>, I>>(object: I): PairMetadata {
     const message = createBasePairMetadata();
     message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
-    message.cumulativePremiumFractions = object.cumulativePremiumFractions?.map((e) => e) || [];
+    message.latestCumulativePremiumFraction = object.latestCumulativePremiumFraction ?? "";
     return message;
   },
 };
@@ -877,6 +882,64 @@ export const LiquidateResp = {
     message.positionResp = (object.positionResp !== undefined && object.positionResp !== null)
       ? PositionResp.fromPartial(object.positionResp)
       : undefined;
+    return message;
+  },
+};
+
+function createBaseMetrics(): Metrics {
+  return { pair: "", netSize: "" };
+}
+
+export const Metrics = {
+  encode(message: Metrics, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pair !== "") {
+      writer.uint32(10).string(message.pair);
+    }
+    if (message.netSize !== "") {
+      writer.uint32(18).string(message.netSize);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): Metrics {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMetrics();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pair = reader.string();
+          break;
+        case 2:
+          message.netSize = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Metrics {
+    return {
+      pair: isSet(object.pair) ? String(object.pair) : "",
+      netSize: isSet(object.netSize) ? String(object.netSize) : "",
+    };
+  },
+
+  toJSON(message: Metrics): unknown {
+    const obj: any = {};
+    message.pair !== undefined && (obj.pair = message.pair);
+    message.netSize !== undefined && (obj.netSize = message.netSize);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<Metrics>, I>>(object: I): Metrics {
+    const message = createBaseMetrics();
+    message.pair = object.pair ?? "";
+    message.netSize = object.netSize ?? "";
     return message;
   },
 };

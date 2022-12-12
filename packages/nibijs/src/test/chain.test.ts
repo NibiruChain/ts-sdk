@@ -8,12 +8,12 @@ import {
   newCoin,
   newCoinMapFromCoins,
   queryChainIdWithRest,
-  Testnet,
   assert,
-} from "./chain"
+} from "../chain"
+import { TEST_CHAIN } from "./helpers"
 
 describe("chain connections", () => {
-  const chain: Chain = Testnet
+  const chain: Chain = TEST_CHAIN
 
   test("testnet rpc", async () => {
     const sgClient = await SigningStargateClient.connect(chain.endptTm)

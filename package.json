@@ -14,13 +14,14 @@
     ]
   },
   "scripts": {
-    "build": "lerna run --parallel build",
+    "build": "lerna run build",
     "clean": "lerna run --parallel clean && shx rm -rf .build-cache *.log coverage junit.xml",
     "publish-all": "sh publish.sh",
     "install:fresh": "shx rm -rf packages/**/node_modules && yarn",
     "lerna:publish": "lerna publish",
     "build:watch": "lerna run --parallel build:watch",
     "build:fresh": "yarn clean && yarn build",
+    "build:parallel": "lerna run --parallel build",
     "build:publish": "yarn build:fresh && yarn lerna:publish",
     "build:patch:publish": "yarn build:fresh && yarn patch && yarn lerna:publish",
     "test": "jest",

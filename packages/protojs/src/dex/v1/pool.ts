@@ -5,10 +5,55 @@ import { Coin } from "../../cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "nibiru.dex.v1";
 
+/**
+ * - `balancer`: Balancer are pools defined by the equation xy=k, extended by the weighs introduced by Balancer.
+ * - `stableswap`: Stableswap pools are defined by a combination of constant-product and constant-sum pool
+ */
+export enum PoolType {
+  BALANCER = 0,
+  STABLESWAP = 1,
+  UNRECOGNIZED = -1,
+}
+
+export function poolTypeFromJSON(object: any): PoolType {
+  switch (object) {
+    case 0:
+    case "BALANCER":
+      return PoolType.BALANCER;
+    case 1:
+    case "STABLESWAP":
+      return PoolType.STABLESWAP;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return PoolType.UNRECOGNIZED;
+  }
+}
+
+export function poolTypeToJSON(object: PoolType): string {
+  switch (object) {
+    case PoolType.BALANCER:
+      return "BALANCER";
+    case PoolType.STABLESWAP:
+      return "STABLESWAP";
+    case PoolType.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
 /** Configuration parameters for the pool. */
 export interface PoolParams {
   swapFee: string;
   exitFee: string;
+  /**
+   * Amplification Parameter (A): Larger value of A make the curve better resemble a straight
+   * line in the center (when pool is near balance).  Highly volatile assets should use a lower value, while assets that
+   * are closer together may be best with a higher value.
+   * This is only used if the pool_type is set to 1 (stableswap)
+   */
+  A: string;
+  poolType: PoolType;
 }
 
 /** Which assets the pool contains. */
@@ -41,7 +86,7 @@ export interface Pool {
 }
 
 function createBasePoolParams(): PoolParams {
-  return { swapFee: "", exitFee: "" };
+  return { swapFee: "", exitFee: "", A: "", poolType: 0 };
 }
 
 export const PoolParams = {
@@ -51,6 +96,12 @@ export const PoolParams = {
     }
     if (message.exitFee !== "") {
       writer.uint32(18).string(message.exitFee);
+    }
+    if (message.A !== "") {
+      writer.uint32(26).string(message.A);
+    }
+    if (message.poolType !== 0) {
+      writer.uint32(32).int32(message.poolType);
     }
     return writer;
   },
@@ -68,6 +119,12 @@ export const PoolParams = {
         case 2:
           message.exitFee = reader.string();
           break;
+        case 3:
+          message.A = reader.string();
+          break;
+        case 4:
+          message.poolType = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -80,6 +137,8 @@ export const PoolParams = {
     return {
       swapFee: isSet(object.swapFee) ? String(object.swapFee) : "",
       exitFee: isSet(object.exitFee) ? String(object.exitFee) : "",
+      A: isSet(object.A) ? String(object.A) : "",
+      poolType: isSet(object.poolType) ? poolTypeFromJSON(object.poolType) : 0,
     };
   },
 
@@ -87,6 +146,8 @@ export const PoolParams = {
     const obj: any = {};
     message.swapFee !== undefined && (obj.swapFee = message.swapFee);
     message.exitFee !== undefined && (obj.exitFee = message.exitFee);
+    message.A !== undefined && (obj.A = message.A);
+    message.poolType !== undefined && (obj.poolType = poolTypeToJSON(message.poolType));
     return obj;
   },
 
@@ -94,6 +155,8 @@ export const PoolParams = {
     const message = createBasePoolParams();
     message.swapFee = object.swapFee ?? "";
     message.exitFee = object.exitFee ?? "";
+    message.A = object.A ?? "";
+    message.poolType = object.poolType ?? 0;
     return message;
   },
 };
