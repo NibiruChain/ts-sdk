@@ -3,19 +3,24 @@
  *
  * Modules and Methods tested:
  * - perp module
+ *   - Msg.perp.openPosition
+ *   - Msg.perp.addMargin
+ *   - Msg.perp.removeMargin
  * - bank module | TODO MultiSend
+ *   - Msg.bank.Send
  */
 import * as dotenv from "dotenv"
 import { DeliverTxResponse } from "@cosmjs/stargate"
 import { QueryPositionResponse } from "@nibiruchain/protojs/dist/perp/v1/query"
 import { PoolType } from "@nibiruchain/protojs/dist/dex/v1/pool"
 import { event2KeyValue } from "../chain"
-import { AccountData, newCoin, newCoins, WalletHD } from "../chain/types"
+import { AccountData, go, newCoin, newCoins, WalletHD } from "../chain/types"
 import { Msg, TxMessage } from "../msg"
 import { newRandomWallet, newSignerFromMnemonic } from "../tx"
 import { newSdk } from "../sdk"
 import { PerpMsgTypeUrls } from "../msg/perp"
 import { expectTxToSucceed, prettyTmLogs, TEST_CHAIN, TxLog } from "./helpers"
+import { instanceOfError, PerpErrors, raises } from "../chain/error"
 
 dotenv.config() // yarn add -D dotenv
 
@@ -39,7 +44,7 @@ function eventTypesForPerpMsg(
   return eventTypes
 }
 
-describe("test tx module", () => {
+describe("nibid tx bank send", () => {
   test("send tokens from the devnet genesis validator to a random account", async () => {
     expect(VAL_ADDRESS).toBeDefined()
     expect(VAL_MNEMONIC).toBeDefined()
@@ -59,20 +64,20 @@ describe("test tx module", () => {
       to: ${toAddr}`,
     )
     const txResp = await sdk.tx.sendTokens(toAddr, tokens)
-    expectTxToSucceed(txResp)
+    expectTxToSucceed(txResp as DeliverTxResponse)
     console.info("txResp: %o", txResp)
   }, 15_000 /* The default timeout (5_000 ms) is not sufficient. */)
 })
 
-describe("perp module transactions", () => {
+describe("nibid tx perp", () => {
+  const pair = "ubtc:unusd"
   test("open-position, add-margin, remove-margin, close-position", async () => {
     const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
     const sdk = await newSdk(chain, signer)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
-    const pair = "ubtc:unusd"
 
     // Query and validate the trader's position
-    let msgs: TxMessage[] = [
+    const msgs: TxMessage[] = [
       Msg.perp.openPosition({
         tokenPair: pair,
         baseAssetAmountLimit: 0,
@@ -93,36 +98,54 @@ describe("perp module transactions", () => {
       }),
       // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
     ]
-    let txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(...msgs)
-    expectTxToSucceed(txResp)
+    let txResp: DeliverTxResponse | Error = await sdk.tx.signAndBroadcast(...msgs)
+    if (instanceOfError(txResp)) {
+      const err = txResp
+      expect(
+        raises([PerpErrors.badDebt, PerpErrors.underwaterPosition], err),
+        `${err}`,
+        // err.message,
+      ).toBeTruthy()
+    } else {
+      txResp = txResp as DeliverTxResponse
+      expectTxToSucceed(txResp)
 
-    const txLogs: TxLog[] = JSON.parse(prettyTmLogs(txResp.rawLog!))
+      const txLogs: TxLog[] = JSON.parse(prettyTmLogs(txResp.rawLog!))
 
-    // perp tx open-position events
-    let eventTypes: string[] = eventTypesForPerpMsg("MsgOpenPosition", txLogs[0].events)
-    expect(eventTypes).toContain("nibiru.vpool.v1.SwapQuoteForBaseEvent")
-    expect(eventTypes).toContain("nibiru.vpool.v1.MarkPriceChangedEvent")
-    expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
-    expect(eventTypes).toContain("transfer")
-    const eventPositionChangedIdx = eventTypes.findIndex(
-      (el) => el === "nibiru.perp.v1.PositionChangedEvent",
-    )
-    const eventPositionChanged = event2KeyValue(
-      txLogs[0].events[eventPositionChangedIdx],
-    )
-    expect(eventPositionChanged.bad_debt).toContain("amount:0")
+      // perp tx open-position events
+      let eventTypes: string[] = eventTypesForPerpMsg(
+        "MsgOpenPosition",
+        txLogs[0].events,
+      )
+      expect(eventTypes).toContain("nibiru.vpool.v1.SwapQuoteForBaseEvent")
+      expect(eventTypes).toContain("nibiru.vpool.v1.MarkPriceChangedEvent")
+      expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
+      expect(eventTypes).toContain("transfer")
+      const eventPositionChangedIdx = eventTypes.findIndex(
+        (el) => el === "nibiru.perp.v1.PositionChangedEvent",
+      )
+      const eventPositionChanged = event2KeyValue(
+        txLogs[0].events[eventPositionChangedIdx],
+      )
+      expect(eventPositionChanged.bad_debt).toContain("amount:0")
 
-    // perp tx add-margin events
-    eventTypes = eventTypesForPerpMsg("MsgAddMargin", txLogs[1].events)
-    expect(eventTypes).not.toContain("nibiru.vpool.v1.MarkPriceChanged")
-    expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
-    expect(eventTypes).toContain("transfer")
+      // perp tx add-margin events
+      eventTypes = eventTypesForPerpMsg("MsgAddMargin", txLogs[1].events)
+      expect(eventTypes).not.toContain("nibiru.vpool.v1.MarkPriceChanged")
+      expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
+      expect(eventTypes).toContain("transfer")
 
-    // perp tx remove-margin events
-    eventTypes = eventTypesForPerpMsg("MsgRemoveMargin", txLogs[2].events)
-    expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
-    expect(eventTypes).toContain("transfer")
+      // perp tx remove-margin events
+      eventTypes = eventTypesForPerpMsg("MsgRemoveMargin", txLogs[2].events)
+      expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
+      expect(eventTypes).toContain("transfer")
+    }
+  }, 40_000 /* default timeout is not sufficient. */)
 
+  test("nibid query perp positions", async () => {
+    const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
+    const sdk = await newSdk(chain, signer)
+    const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     // Query and validate the trader's position
     const queryPositions = await sdk.query.perp.positions({
       trader: fromAddr,
@@ -138,25 +161,54 @@ describe("perp module transactions", () => {
       ]
       fields.forEach((val) => expect(val).toBeDefined())
     })
-    const queryResp: QueryPositionResponse = await sdk.query.perp.position({
-      tokenPair: pair,
-      trader: fromAddr,
-    })
-    const fields = [
-      queryResp.blockNumber,
-      queryResp.position,
-      queryResp.marginRatioMark,
-      queryResp.marginRatioIndex,
-      queryResp.unrealizedPnl,
-      queryResp.positionNotional,
-    ]
-    fields.forEach((val) => expect(val).toBeDefined())
+  })
 
+  test("nibid query perp position", async () => {
+    const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
+    const sdk = await newSdk(chain, signer)
+    const [{ address: fromAddr }] = await sdk.tx.getAccounts()
+    const { res: resp, err } = await go(
+      sdk.query.perp.position({
+        tokenPair: pair,
+        trader: fromAddr,
+      }),
+    )
+    if (err) {
+      expect(raises([PerpErrors.positionNotFound], err), err.message).toBeTruthy()
+    } else {
+      expect(resp).toBeDefined()
+      const queryResp: QueryPositionResponse = resp!
+      const fields = [
+        queryResp.blockNumber,
+        queryResp.position,
+        queryResp.marginRatioMark,
+        queryResp.marginRatioIndex,
+        queryResp.unrealizedPnl,
+        queryResp.positionNotional,
+      ]
+      fields.forEach((val) => expect(val).toBeDefined())
+    }
+  })
+
+  test("nibid tx perp close-position", async () => {
+    const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
+    const sdk = await newSdk(chain, signer)
+    const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     // close the position
-    msgs = [Msg.perp.closePosition({ sender: fromAddr, tokenPair: pair })]
-    txResp = await sdk.tx.signAndBroadcast(...msgs)
-    expectTxToSucceed(txResp)
-  }, 40_000 /* default timeout is not sufficient. */)
+    const msgs = [Msg.perp.closePosition({ sender: fromAddr, tokenPair: pair })]
+    let txResp = await sdk.tx.signAndBroadcast(...msgs)
+
+    if (instanceOfError(txResp)) {
+      const err = txResp
+      expect(
+        raises([PerpErrors.positionNotFound, PerpErrors.underwaterPosition], err),
+        err.message,
+      ).toBeTruthy()
+    } else {
+      txResp = txResp as DeliverTxResponse
+      expectTxToSucceed(txResp)
+    }
+  })
 })
 
 // ------------------------------------------------------------------------

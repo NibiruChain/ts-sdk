@@ -4,6 +4,7 @@ import {
   GasPrice,
   StdFee,
   DeliverTxResponse,
+  SigningStargateClientOptions,
 } from "@cosmjs/stargate"
 import {
   AccountData,
@@ -20,6 +21,7 @@ import { getRegistry } from "./signer"
 import { TxMessage } from "../msg/types"
 import { waitForNextBlock } from "../query"
 import { BankMsgs } from "../msg/bank"
+import { ErrorTxBroadcast, ErrorTxSimulation } from "../chain/error"
 
 export type Address = string
 export type CosmosSigner =
@@ -42,15 +44,19 @@ export class TxCmd {
 
   private directSigner: OfflineDirectSigner
 
+  gasPrice: string
+
   constructor(
     client: SigningStargateClient,
     directSigner: OfflineDirectSigner,
     chain: Chain,
+    gasPrice?: Coin,
   ) {
     this.client = client
     this.chain = chain
     this.directSigner = directSigner
     this.fee = undefined
+    this.gasPrice = gasPrice ? `${gasPrice.amount}${gasPrice.denom}` : "0.25unibi"
   }
 
   withFee(gasLimit: number, gasPrice: string | GasPrice = GAS_PRICE) {
@@ -71,26 +77,44 @@ export class TxCmd {
     return this.client.simulate(addr[0].address, msgs, undefined)
   }
 
-  async signAndBroadcast(...msgs: TxMessage[]): Promise<DeliverTxResponse> {
+  async signAndBroadcast(...msgs: TxMessage[]): Promise<DeliverTxResponse | Error> {
     const accounts = await this.directSigner.getAccounts()
-    await this.ensureFee(...msgs)
-    return this.client.signAndBroadcast(accounts[0].address, msgs, this.fee ?? "auto")
+    let err = await this.ensureFee(...msgs)
+    if (err) {
+      return err
+    }
+
+    const broadcastResp = await go(
+      this.client.signAndBroadcast(accounts[0].address, msgs, this.fee ?? "auto"),
+    )
+    const txResp = broadcastResp.res
+    err = broadcastResp.err
+    if (err) {
+      return new ErrorTxBroadcast(err.message)
+    } else {
+      return txResp as DeliverTxResponse
+    }
   }
 
-  async ensureFee(...msgs: TxMessage[]): Promise<void> {
+  async ensureFee(...msgs: TxMessage[]): Promise<Error | undefined> {
     const addSimulatedFeeToCmd = async () => {
       const gasUsed = await this.simulate(...msgs)
       this.withFee(gasUsed * 1.25)
     }
 
+    let err: Error | undefined
     if (!this.fee) {
       let { err } = await go(addSimulatedFeeToCmd())
+      // If an error occurs, try waiting another block for account sequence problems
       if (err) {
         await waitForNextBlock(this.chain)
         ;({ err } = await go(addSimulatedFeeToCmd()))
-        if (err) throw err
       }
     }
+    if (err) {
+      err = new ErrorTxSimulation(err.message, err.stack)
+    }
+    return err
   }
 
   async sendTokens(to: string, coins: Coin[]) {
@@ -114,12 +138,31 @@ function registerModules(): Registry {
 export async function newTxCmd(
   chain: Chain,
   signer: (OfflineSigner & OfflineDirectSigner) | DirectSecp256k1HdWallet,
+  gasPriceCoin?: Coin,
 ): Promise<TxCmd> {
   const registry = registerModules()
+
+  const gasPrice: GasPrice = gasPriceCoin
+    ? coinToGasPrice(gasPriceCoin)
+    : coinToGasPrice({ amount: "0.25", denom: chain.feeDenom })
+
+  const sgOptions: SigningStargateClientOptions = {
+    registry,
+    gasPrice,
+  }
   const client = await SigningStargateClient.connectWithSigner(
     chain.endptTm, // may need endptGrpc
     signer,
-    { registry },
+    sgOptions,
   )
-  return new TxCmd(client, signer, chain)
+  return new TxCmd(client, signer, chain, gasPriceCoin)
+}
+
+function coinToGasPrice(coin: Coin): GasPrice {
+  const { amount, denom } = coin
+  return GasPrice.fromString(amount + denom)
+}
+
+function coinToString(coin: Coin): string {
+  return coin.amount + coin.denom
 }

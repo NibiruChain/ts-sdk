@@ -6,16 +6,21 @@ import {
   Coin,
   DirectSecp256k1HdWallet as WalletHD,
 } from "@cosmjs/proto-signing"
+import { instanceOfError } from "./error"
 
 export { AccountData, newCoin, newCoins, Coin, parseCoins, WalletHD }
 
 export async function go<T>(
   promise: Promise<T>,
-): Promise<{ res: T | undefined; err: any }> {
+): Promise<{ res: T | undefined; err: undefined | Error }> {
   try {
     return { res: await promise, err: undefined }
   } catch (err) {
-    return { res: undefined, err }
+    if (instanceOfError(err)) {
+      return { res: undefined, err }
+    } else {
+      return { res: undefined, err: new Error(`${err}`) }
+    }
   }
 }
 

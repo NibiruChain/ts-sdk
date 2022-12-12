@@ -3,17 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## v0.8.0 (Unreleased)
+## Unreleased
+
+* .
+
+## v0.8.0 
 
 * sync: Update to nibiru v0.16.0-beta.1.
 * refactor!: add optional amount arguments to the 'useFaucet' function
-* test: Localize test helpers to test/helpers.ts
 * feat: Add 'vpool.query.reserves' to the VpoolExtension
+* feat: Add gasPrice to the SigningStargateClient during the initialization of `TxCmd`.
+* feat: Return a strongly typed Error from the "go" function
+* test: Localize test helpers to test/helpers.ts
+* test: Handle perp test cases where the position state is unknown prior to the test.
 
 ## [v0.7.6](https://github.com/NibiruChain/ts-sdk/releases/tag/v0.7.6)
+
 * [[#57]](https://github.com/NibiruChain/ts-sdk/pull/57) feat: add fundingRate and epoch queries
 * [[#57]](https://github.com/NibiruChain/ts-sdk/pull/57) feat: add a field for the 'Chain' to the 'QueryCmd'
-
 
 ## [v0.7.5](https://github.com/NibiruChain/ts-sdk/compare/v0.7.0-alpha.2...HEAD)
 

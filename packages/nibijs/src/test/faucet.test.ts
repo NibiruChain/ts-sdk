@@ -14,6 +14,7 @@ import { newRandomWallet, newSignerFromMnemonic } from "../tx"
 import { ISdk, newSdk } from "../sdk"
 import { Msg } from "../msg"
 import { expectTxToSucceed, prettyTmLogs, TEST_CHAIN, TxLog } from "./helpers"
+import { instanceOfError } from "../chain/error"
 
 const chain: Chain = TEST_CHAIN
 
@@ -32,10 +33,11 @@ test("faucet utility works", async () => {
     const sdk = await newSdk(chain, signer)
     const [{ address: fromAddr }] = await signer.getAccounts()
     await waitForNextBlock(chain)
-    const txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(
+    let txResp: DeliverTxResponse | Error = await sdk.tx.signAndBroadcast(
       Msg.bank.Send(fromAddr, toAddr, newCoins(5, "unibi")),
     )
-    expect(txResp).not.toBeNull()
+    expect(instanceOfError(txResp)).not.toBeTruthy()
+    txResp = txResp as DeliverTxResponse
     assertIsDeliverTxSuccess(txResp)
 
     const walletSdk = await newSdk(chain, wallet)
@@ -84,7 +86,7 @@ test("faucet utility works", async () => {
   await expectBalancesToIncreaseByFaucetAmt(balancesStart)
 
   // cleanup
-  const cleanupResp: DeliverTxResponse = await walletSdk.tx.signAndBroadcast(
+  let cleanupResp: DeliverTxResponse | Error = await walletSdk.tx.signAndBroadcast(
     Msg.bank.Send(
       address,
       "nibi10gm4kys9yyrlqpvj05vqvjwvje87gln8nsm8wa",
@@ -96,6 +98,8 @@ test("faucet utility works", async () => {
       newCoins(expectedBalances.unibi * 0.95, "unibi"),
     ),
   )
+  expect(instanceOfError(cleanupResp)).not.toBeTruthy()
+  cleanupResp = cleanupResp as DeliverTxResponse
   expect(cleanupResp).not.toBeNull()
   if (cleanupResp.rawLog) {
     const txLogs: TxLog[] = JSON.parse(prettyTmLogs(cleanupResp.rawLog))
