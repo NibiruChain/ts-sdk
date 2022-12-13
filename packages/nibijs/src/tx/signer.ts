@@ -7,6 +7,8 @@ import {
 import { defaultRegistryTypes as defaultStargateTypes } from "@cosmjs/stargate"
 import { Keplr } from "../wallet"
 
+export { WalletHD } from "../chain/types"
+
 export enum BECH32_PREFIX {
   /** ADDR defines the Bech32 prefix of an account address */
   ADDR = "nibi",
