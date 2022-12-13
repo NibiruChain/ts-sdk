@@ -30,6 +30,7 @@ export interface PerpExtension {
     premiumFractions: (args: {
       pair: string
     }) => Promise<perpquery.QueryCumulativePremiumFractionResponse>
+    metrics: (args: { pair: string }) => Promise<perpquery.QueryMetricsResponse>
   }>
 }
 
@@ -97,6 +98,16 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
             resp.estimatedNextCumulativePremiumFraction,
         })
         return transformPremiumFractions(resp)
+      },
+      metrics: async (args: { pair: string }) => {
+        const req = perpquery.QueryMetricsRequest.fromPartial(args)
+        const resp = await queryService.Metrics(req)
+        const transformMetrics = (
+          resp: perpquery.QueryMetricsResponse,
+        ): perpquery.QueryMetricsResponse => ({
+          metrics: resp.metrics,
+        })
+        return transformMetrics(resp)
       },
     },
   }
