@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[tx/signer.ts:71](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/tx/signer.ts#L71)
+[tx/signer.ts:73](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L73)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[tx/signer.ts:70](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/tx/signer.ts#L70)
+[tx/signer.ts:72](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L72)

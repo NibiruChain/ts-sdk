@@ -23,7 +23,7 @@ ADDR defines the Bech32 prefix of an account address
 
 #### Defined in
 
-[tx/signer.ts:12](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/tx/signer.ts#L12)
+[tx/signer.ts:14](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L14)
 
 ___
 
@@ -35,7 +35,7 @@ ADDR_VAL defines the Bech32 prefix of an validator's operator address
 
 #### Defined in
 
-[tx/signer.ts:14](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/tx/signer.ts#L14)
+[tx/signer.ts:16](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L16)
 
 ___
 
@@ -47,7 +47,7 @@ ADDR_VALCONS defines the Bech32 prefix of a consensus node address
 
 #### Defined in
 
-[tx/signer.ts:16](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/tx/signer.ts#L16)
+[tx/signer.ts:18](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L18)
 
 ___
 
@@ -59,7 +59,7 @@ PUB defines the Bech32 prefix of an account's public key
 
 #### Defined in
 
-[tx/signer.ts:18](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/tx/signer.ts#L18)
+[tx/signer.ts:20](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L20)
 
 ___
 
@@ -71,7 +71,7 @@ PUB_VAL defines the Bech32 prefix of an validator's operator public key
 
 #### Defined in
 
-[tx/signer.ts:20](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/tx/signer.ts#L20)
+[tx/signer.ts:22](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L22)
 
 ___
 
@@ -83,4 +83,4 @@ PUB_VALCONS defines the Bech32 prefix of a consensus node public key
 
 #### Defined in
 
-[tx/signer.ts:22](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/tx/signer.ts#L22)
+[tx/signer.ts:24](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L24)

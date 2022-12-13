@@ -12,8 +12,8 @@
 
 ### perp
 
-• **perp**: `Readonly`<{ `params`: () => `Promise`<`QueryParamsResponse`\> ; `position`: (`args`: { `tokenPair`: `string` ; `trader`: `string`  }) => `Promise`<`QueryPositionResponse`\> ; `positions`: (`args`: { `trader`: `string`  }) => `Promise`<`QueryPositionsResponse`\> ; `premiumFractions`: (`args`: { `pair`: `string`  }) => `Promise`<`QueryCumulativePremiumFractionResponse`\>  }\>
+• **perp**: `Readonly`<{ `metrics`: (`args`: { `pair`: `string`  }) => `Promise`<`QueryMetricsResponse`\> ; `params`: () => `Promise`<`QueryParamsResponse`\> ; `position`: (`args`: { `tokenPair`: `string` ; `trader`: `string`  }) => `Promise`<`QueryPositionResponse`\> ; `positions`: (`args`: { `trader`: `string`  }) => `Promise`<`QueryPositionsResponse`\> ; `premiumFractions`: (`args`: { `pair`: `string`  }) => `Promise`<`QueryCumulativePremiumFractionResponse`\>  }\>
 
 #### Defined in
 
-[query/perp.ts:23](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/query/perp.ts#L23)
+[query/perp.ts:23](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L23)
