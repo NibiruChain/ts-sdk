@@ -29,7 +29,7 @@ export type CosmosSigner =
   | DirectSecp256k1HdWallet
 
 /**
- * TODO docs
+ * TxCmd is analagous to the 'nibid tx' command of the nibid CLI.
  *
  * @export
  * @class TxCmd
@@ -40,9 +40,9 @@ export class TxCmd {
 
   chain: Chain
 
-  private fee?: StdFee
+  fee?: StdFee
 
-  private directSigner: OfflineDirectSigner
+  directSigner: OfflineDirectSigner
 
   gasPrice: string
 

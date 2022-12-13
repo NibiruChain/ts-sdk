@@ -3,7 +3,7 @@ import { DexMsgs } from "./dex"
 import { PerpMsgs } from "./perp"
 import { StakingMsgs } from "./staking"
 
-class MsgFactory {
+export class MsgFactory {
   bank = BankMsgs
 
   dex = DexMsgs

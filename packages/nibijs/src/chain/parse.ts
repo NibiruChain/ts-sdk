@@ -3,7 +3,7 @@ import { IEventLog } from "./types"
 const PRECISION = 18 // number of decimal places
 export const INT_MULT = 1_000_000
 
-export class ErrorParseNumber extends Error {
+class ErrorParseNumber extends Error {
   constructor(message: string) {
     super(message)
     this.name = "ErrorParseNumber"

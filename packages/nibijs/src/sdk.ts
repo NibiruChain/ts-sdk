@@ -5,7 +5,7 @@
  */
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 import { Chain } from "./chain"
-import { ExtendedQueryClient, newQueryCmd, QueryCmd } from "./query"
+import { ExtendedQueryClient, IQueryCmd, newQueryCmd } from "./query"
 import { CosmosSigner, newTxCmd, TxCmd } from "./tx"
 
 /**
@@ -53,7 +53,7 @@ export interface ISdk {
  * let txResp = sdk.tx.sendTokens(toAddr, tokens)
  * ```
  */
-class Sdk implements ISdk {
+export class Sdk implements ISdk {
   chain: Chain
 
   tx: TxCmd
@@ -66,9 +66,9 @@ class Sdk implements ISdk {
    * Creates an instance of Sdk.
    *
    * @constructor
-   * @param {{ chain: Chain; txCmd: TxCmd; query: QueryCmd }} args
+   * @param {{ chain: Chain; txCmd: TxCmd; query: IQueryCmd }} args
    */
-  constructor(args: { chain: Chain; txCmd: TxCmd; queryCmd: QueryCmd }) {
+  constructor(args: { chain: Chain; txCmd: TxCmd; queryCmd: IQueryCmd }) {
     const { chain, txCmd, queryCmd } = args
     this.chain = chain
     this.tx = txCmd
