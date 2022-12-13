@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/dex.ts:23](https://github.com/NibiruChain/ts-sdk/blob/93fe1b9/packages/nibijs/src/query/dex.ts#L23)
+[query/dex.ts:23](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/query/dex.ts#L23)
