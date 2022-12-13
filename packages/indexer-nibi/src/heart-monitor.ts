@@ -1,9 +1,11 @@
 import fetch from "cross-fetch"
 import {
+  GqlMarkPriceCandleSticksInputs,
   GqlMarkPricesInputs,
   GqlRecentTradesInputs,
   TypeBlockMarkPrice,
   TypeMarkPrice,
+  TypeMarkPriceCandleStick,
   TypePosChange,
 } from "./types"
 
@@ -46,6 +48,13 @@ export interface IHeartMonitor {
     pair: string
     lastN: number
   }) => Promise<{ recentTrades: TypePosChange[] }>
+
+  readonly useMarkPriceCandleSticks: (args: {
+    pair: string
+    period: number
+    startDate: string
+    endDate: string
+  }) => Promise<{ markPriceCandlesticks: TypeMarkPriceCandleStick[] }>
 }
 
 export class HeartMonitor implements IHeartMonitor {
@@ -153,6 +162,32 @@ export class HeartMonitor implements IHeartMonitor {
       transactionFee
     }
   }`
+    return this.doGqlQuery(gqlQuery(args))
+  }
+
+  useMarkPriceCandleSticks = async (args: {
+    pair: string
+    period: number
+    startDate: string
+    endDate: string
+  }): Promise<{ markPriceCandlesticks: TypeMarkPriceCandleStick[] }> => {
+    const gqlQuery = ({
+      pair,
+      period,
+      startDate,
+      endDate,
+    }: GqlMarkPriceCandleSticksInputs): string =>
+      `{
+          markPriceCandlesticks(pair:"${pair}", period:${period}, startDate: "${startDate}", endDate: "${endDate}") {
+            pair
+            open
+            close
+            high
+            low
+            period
+            periodStart
+          }
+        }`
     return this.doGqlQuery(gqlQuery(args))
   }
 }
