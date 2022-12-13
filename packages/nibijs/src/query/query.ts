@@ -22,6 +22,17 @@ export type ExtendedQueryClient = BankExtension &
   PricefeedExtension &
   EpochsExtension
 
+export {
+  BankExtension,
+  QueryClient,
+  AuthExtension,
+  DexExtension,
+  PerpExtension,
+  VpoolExtension,
+  PricefeedExtension,
+  EpochsExtension,
+}
+
 export interface IQueryCmd {
   client: ExtendedQueryClient
   tmClient: Tendermint34Client
