@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[query/query.ts:80](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/query/query.ts#L80)
+[query/query.ts:80](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L80)
 
 ## Properties
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[query/query.ts:78](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/query/query.ts#L78)
+[query/query.ts:78](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L78)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:74](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/query/query.ts#L74)
+[query/query.ts:74](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L74)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:76](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/query/query.ts#L76)
+[query/query.ts:76](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L76)
 
 ## Methods
 
@@ -97,4 +97,4 @@ IQueryCmd.disconnect
 
 #### Defined in
 
-[query/query.ts:95](https://github.com/NibiruChain/ts-sdk/blob/e7479e8/packages/nibijs/src/query/query.ts#L95)
+[query/query.ts:95](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L95)

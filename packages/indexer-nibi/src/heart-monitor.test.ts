@@ -91,3 +91,21 @@ test("useQueryRecentTrades", async () => {
     })
   }
 })
+
+test("useMarkPriceCandleSticks", async () => {
+  const resp = await heartMonitor.useMarkPriceCandleSticks({
+    pair,
+    period: 300,
+    startDate: "2022-11-30T00:00:00.000",
+    endDate: "2022-12-12T00:00:00.000",
+  })
+  expect(resp).toHaveProperty("markPriceCandlesticks")
+
+  if (resp.markPriceCandlesticks.length > 0) {
+    const [posChange] = resp.markPriceCandlesticks
+    const props = ["pair", "open", "close", "high", "low", "period", "periodStart"]
+    props.forEach((prop: string) => {
+      expect(posChange).toHaveProperty(prop)
+    })
+  }
+})
