@@ -21,4 +21,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - feat: GraphQL queries from a heart monitor DB with dummy data
 - docs: function-level documentation and usage examples
 - test: Unit tests added for all useQuery hooks
-
+* [[#51]](https://github.com/NibiruChain/ts-sdk/pull/51) fix: type hints for indexer-nibi
+* [[#49]](https://github.com/NibiruChain/ts-sdk/pull/49) feat: GraphQL client for heart monitor DB
+* [[#50]](https://github.com/NibiruChain/ts-sdk/pull/50) refactor!(indexer-nibi): GraphQL API improvemenets

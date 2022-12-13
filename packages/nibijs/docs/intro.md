@@ -1,3 +1,5 @@
+NibiJS Documentation - v0.8.0 / [Exports](modules.md)
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibijs.png" width="100%">
 </p>
