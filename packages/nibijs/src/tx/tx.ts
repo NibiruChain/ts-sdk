@@ -14,7 +14,7 @@ import {
   OfflineSigner,
   Registry,
 } from "@cosmjs/proto-signing"
-import { GAS_PRICE, Chain, go } from "../chain"
+import { Chain, go } from "../chain"
 import { registerTypes as registerDex } from "../msg/dex"
 import { registerTypes as registerPerp } from "../msg/perp"
 import { getRegistry } from "./signer"
@@ -59,7 +59,7 @@ export class TxCmd {
     this.gasPrice = gasPrice ? `${gasPrice.amount}${gasPrice.denom}` : "0.25unibi"
   }
 
-  withFee(gasLimit: number, gasPrice: string | GasPrice = GAS_PRICE) {
+  withFee(gasLimit: number, gasPrice: string | GasPrice = "1unibi") {
     this.fee = calculateFee(Math.round(gasLimit), gasPrice)
     return this
   }

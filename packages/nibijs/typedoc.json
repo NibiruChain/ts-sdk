@@ -1,0 +1,9 @@
+{
+  "out": "docs",
+  "json": "docs.json",
+  "name": "NibiJS Documentation",
+  "excludeExternals": true,
+  "includeVersion": true,
+  "entryPointStrategy": "expand", // "resolve", "expand", or "packages"
+  "entryPoints": ["src/index.ts"]
+}
