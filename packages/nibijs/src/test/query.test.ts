@@ -126,6 +126,14 @@ describe("nibid query perp", () => {
     expect(premiumFractions).not.toBeNull()
     disconnect()
   })
+
+  test("nibid query perp metrics", async () => {
+    const { client, disconnect } = await newQueryCmd(chain)
+    const metrics = await client.perp.metrics({ pair: "ubtc:unusd" })
+    console.info("perp metrics: %o", JSON.stringify(metrics))
+    expect(metrics).not.toBeNull()
+    disconnect()
+  })
 })
 
 describe("nibid query vpool", () => {
