@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.0](../intro.md) / [Exports](../modules.md) / ISdk
+[NibiJS Documentation - v0.8.1](../intro.md) / [Exports](../modules.md) / ISdk
 
 # Interface: ISdk
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[sdk.ts:28](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L28)
+[sdk.ts:28](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L28)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 #### Defined in
 
-[sdk.ts:30](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L30)
+[sdk.ts:30](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L30)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[sdk.ts:31](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L31)
+[sdk.ts:31](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L31)
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 #### Defined in
 
-[sdk.ts:29](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L29)
+[sdk.ts:29](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L29)

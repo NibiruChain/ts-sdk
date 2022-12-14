@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.0](../intro.md) / [Exports](../modules.md) / DexExtension
+[NibiJS Documentation - v0.8.1](../intro.md) / [Exports](../modules.md) / DexExtension
 
 # Interface: DexExtension
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/dex.ts:23](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L23)
+[query/dex.ts:23](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L23)

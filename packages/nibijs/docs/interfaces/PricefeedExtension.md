@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.0](../intro.md) / [Exports](../modules.md) / PricefeedExtension
+[NibiJS Documentation - v0.8.1](../intro.md) / [Exports](../modules.md) / PricefeedExtension
 
 # Interface: PricefeedExtension
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/pricefeed.ts:9](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L9)
+[query/pricefeed.ts:9](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L9)

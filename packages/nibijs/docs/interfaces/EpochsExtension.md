@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.0](../intro.md) / [Exports](../modules.md) / EpochsExtension
+[NibiJS Documentation - v0.8.1](../intro.md) / [Exports](../modules.md) / EpochsExtension
 
 # Interface: EpochsExtension
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/epochs.ts:6](https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/epochs.ts#L6)
+[query/epochs.ts:6](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/epochs.ts#L6)
