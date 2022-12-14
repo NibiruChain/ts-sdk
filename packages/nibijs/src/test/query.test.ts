@@ -129,9 +129,13 @@ describe("nibid query perp", () => {
 
   test("nibid query perp metrics", async () => {
     const { client, disconnect } = await newQueryCmd(chain)
-    const metrics = await client.perp.metrics({ pair: "ubtc:unusd" })
+    const { metrics } = await client.perp.metrics({ pair: "ubtc:unusd" })
     console.info("perp metrics: %o", JSON.stringify(metrics))
     expect(metrics).not.toBeNull()
+    const metricsAttrs = ["volumeQuote", "volumeBase", "netSize", "pair"]
+    metricsAttrs.forEach((attr) => {
+      expect(metrics).toHaveProperty(attr)
+    })
     disconnect()
   })
 })

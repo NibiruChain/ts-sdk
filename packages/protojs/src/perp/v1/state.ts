@@ -298,6 +298,10 @@ export interface Metrics {
   pair: string;
   /** Sum of all active position sizes for the pair. */
   netSize: string;
+  /** Total notional volume for the pair. */
+  volumeQuote: string;
+  /** Total size volume for the pair. */
+  volumeBase: string;
 }
 
 function createBaseParams(): Params {
@@ -887,7 +891,7 @@ export const LiquidateResp = {
 };
 
 function createBaseMetrics(): Metrics {
-  return { pair: "", netSize: "" };
+  return { pair: "", netSize: "", volumeQuote: "", volumeBase: "" };
 }
 
 export const Metrics = {
@@ -897,6 +901,12 @@ export const Metrics = {
     }
     if (message.netSize !== "") {
       writer.uint32(18).string(message.netSize);
+    }
+    if (message.volumeQuote !== "") {
+      writer.uint32(26).string(message.volumeQuote);
+    }
+    if (message.volumeBase !== "") {
+      writer.uint32(34).string(message.volumeBase);
     }
     return writer;
   },
@@ -914,6 +924,12 @@ export const Metrics = {
         case 2:
           message.netSize = reader.string();
           break;
+        case 3:
+          message.volumeQuote = reader.string();
+          break;
+        case 4:
+          message.volumeBase = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -926,6 +942,8 @@ export const Metrics = {
     return {
       pair: isSet(object.pair) ? String(object.pair) : "",
       netSize: isSet(object.netSize) ? String(object.netSize) : "",
+      volumeQuote: isSet(object.volumeQuote) ? String(object.volumeQuote) : "",
+      volumeBase: isSet(object.volumeBase) ? String(object.volumeBase) : "",
     };
   },
 
@@ -933,6 +951,8 @@ export const Metrics = {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair);
     message.netSize !== undefined && (obj.netSize = message.netSize);
+    message.volumeQuote !== undefined && (obj.volumeQuote = message.volumeQuote);
+    message.volumeBase !== undefined && (obj.volumeBase = message.volumeBase);
     return obj;
   },
 
@@ -940,6 +960,8 @@ export const Metrics = {
     const message = createBaseMetrics();
     message.pair = object.pair ?? "";
     message.netSize = object.netSize ?? "";
+    message.volumeQuote = object.volumeQuote ?? "";
+    message.volumeBase = object.volumeBase ?? "";
     return message;
   },
 };
