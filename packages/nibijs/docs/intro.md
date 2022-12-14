@@ -1,4 +1,4 @@
-NibiJS Documentation - v0.8.2 / [Exports](modules.md)
+NibiJS Documentation - v0.8.3 / [Exports](modules.md)
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibijs.png" width="100%">

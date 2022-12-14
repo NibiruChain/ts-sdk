@@ -18,15 +18,16 @@ export interface ReserveSnapshotSavedEvent {
   blockTimestamp?: Date;
 }
 
-export interface SwapQuoteForBaseEvent {
+/**
+ * A swap on the vpool represented by 'pair'.
+ * Amounts are negative or positive base on the perspective of the pool, i.e.
+ * a negative quote means the trader has gained quote and the vpool lost quote.
+ */
+export interface SwapOnVpoolEvent {
   pair: string;
+  /** delta in the quote reserves of the vpool */
   quoteAmount: string;
-  baseAmount: string;
-}
-
-export interface SwapBaseForQuoteEvent {
-  pair: string;
-  quoteAmount: string;
+  /** delta in the base reserves of the vpool */
   baseAmount: string;
 }
 
@@ -139,12 +140,12 @@ export const ReserveSnapshotSavedEvent = {
   },
 };
 
-function createBaseSwapQuoteForBaseEvent(): SwapQuoteForBaseEvent {
+function createBaseSwapOnVpoolEvent(): SwapOnVpoolEvent {
   return { pair: "", quoteAmount: "", baseAmount: "" };
 }
 
-export const SwapQuoteForBaseEvent = {
-  encode(message: SwapQuoteForBaseEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const SwapOnVpoolEvent = {
+  encode(message: SwapOnVpoolEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pair !== "") {
       writer.uint32(10).string(message.pair);
     }
@@ -157,10 +158,10 @@ export const SwapQuoteForBaseEvent = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): SwapQuoteForBaseEvent {
+  decode(input: _m0.Reader | Uint8Array, length?: number): SwapOnVpoolEvent {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseSwapQuoteForBaseEvent();
+    const message = createBaseSwapOnVpoolEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -181,7 +182,7 @@ export const SwapQuoteForBaseEvent = {
     return message;
   },
 
-  fromJSON(object: any): SwapQuoteForBaseEvent {
+  fromJSON(object: any): SwapOnVpoolEvent {
     return {
       pair: isSet(object.pair) ? String(object.pair) : "",
       quoteAmount: isSet(object.quoteAmount) ? String(object.quoteAmount) : "",
@@ -189,7 +190,7 @@ export const SwapQuoteForBaseEvent = {
     };
   },
 
-  toJSON(message: SwapQuoteForBaseEvent): unknown {
+  toJSON(message: SwapOnVpoolEvent): unknown {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair);
     message.quoteAmount !== undefined && (obj.quoteAmount = message.quoteAmount);
@@ -197,75 +198,8 @@ export const SwapQuoteForBaseEvent = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SwapQuoteForBaseEvent>, I>>(object: I): SwapQuoteForBaseEvent {
-    const message = createBaseSwapQuoteForBaseEvent();
-    message.pair = object.pair ?? "";
-    message.quoteAmount = object.quoteAmount ?? "";
-    message.baseAmount = object.baseAmount ?? "";
-    return message;
-  },
-};
-
-function createBaseSwapBaseForQuoteEvent(): SwapBaseForQuoteEvent {
-  return { pair: "", quoteAmount: "", baseAmount: "" };
-}
-
-export const SwapBaseForQuoteEvent = {
-  encode(message: SwapBaseForQuoteEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== "") {
-      writer.uint32(10).string(message.pair);
-    }
-    if (message.quoteAmount !== "") {
-      writer.uint32(18).string(message.quoteAmount);
-    }
-    if (message.baseAmount !== "") {
-      writer.uint32(26).string(message.baseAmount);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): SwapBaseForQuoteEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseSwapBaseForQuoteEvent();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.pair = reader.string();
-          break;
-        case 2:
-          message.quoteAmount = reader.string();
-          break;
-        case 3:
-          message.baseAmount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): SwapBaseForQuoteEvent {
-    return {
-      pair: isSet(object.pair) ? String(object.pair) : "",
-      quoteAmount: isSet(object.quoteAmount) ? String(object.quoteAmount) : "",
-      baseAmount: isSet(object.baseAmount) ? String(object.baseAmount) : "",
-    };
-  },
-
-  toJSON(message: SwapBaseForQuoteEvent): unknown {
-    const obj: any = {};
-    message.pair !== undefined && (obj.pair = message.pair);
-    message.quoteAmount !== undefined && (obj.quoteAmount = message.quoteAmount);
-    message.baseAmount !== undefined && (obj.baseAmount = message.baseAmount);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<SwapBaseForQuoteEvent>, I>>(object: I): SwapBaseForQuoteEvent {
-    const message = createBaseSwapBaseForQuoteEvent();
+  fromPartial<I extends Exact<DeepPartial<SwapOnVpoolEvent>, I>>(object: I): SwapOnVpoolEvent {
+    const message = createBaseSwapOnVpoolEvent();
     message.pair = object.pair ?? "";
     message.quoteAmount = object.quoteAmount ?? "";
     message.baseAmount = object.baseAmount ?? "";

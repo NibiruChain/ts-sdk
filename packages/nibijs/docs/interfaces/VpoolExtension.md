@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.2](../intro.md) / [Exports](../modules.md) / VpoolExtension
+[NibiJS Documentation - v0.8.3](../intro.md) / [Exports](../modules.md) / VpoolExtension
 
 # Interface: VpoolExtension
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/vpool.ts:7](https://github.com/NibiruChain/ts-sdk/blob/338fbe5/packages/nibijs/src/query/vpool.ts#L7)
+[query/vpool.ts:7](https://github.com/NibiruChain/ts-sdk/blob/fb8286f/packages/nibijs/src/query/vpool.ts#L7)

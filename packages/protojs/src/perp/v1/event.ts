@@ -138,6 +138,10 @@ export interface MetricsEvent {
   pair: string;
   /** Sum of all active position sizes for the pair. */
   netSize: string;
+  /** Total notional volume for the pair. */
+  volumeQuote: string;
+  /** Total size volume for the pair. */
+  volumeBase: string;
   /** The block number at which metrics were generated. */
   blockHeight: Long;
   /** The block time in unix milliseconds at which metrics were generated. */
@@ -751,7 +755,7 @@ export const FundingRateChangedEvent = {
 };
 
 function createBaseMetricsEvent(): MetricsEvent {
-  return { pair: "", netSize: "", blockHeight: Long.ZERO, blockTimeMs: Long.ZERO };
+  return { pair: "", netSize: "", volumeQuote: "", volumeBase: "", blockHeight: Long.ZERO, blockTimeMs: Long.ZERO };
 }
 
 export const MetricsEvent = {
@@ -762,11 +766,17 @@ export const MetricsEvent = {
     if (message.netSize !== "") {
       writer.uint32(18).string(message.netSize);
     }
+    if (message.volumeQuote !== "") {
+      writer.uint32(26).string(message.volumeQuote);
+    }
+    if (message.volumeBase !== "") {
+      writer.uint32(34).string(message.volumeBase);
+    }
     if (!message.blockHeight.isZero()) {
-      writer.uint32(24).int64(message.blockHeight);
+      writer.uint32(40).int64(message.blockHeight);
     }
     if (!message.blockTimeMs.isZero()) {
-      writer.uint32(32).int64(message.blockTimeMs);
+      writer.uint32(48).int64(message.blockTimeMs);
     }
     return writer;
   },
@@ -785,9 +795,15 @@ export const MetricsEvent = {
           message.netSize = reader.string();
           break;
         case 3:
-          message.blockHeight = reader.int64() as Long;
+          message.volumeQuote = reader.string();
           break;
         case 4:
+          message.volumeBase = reader.string();
+          break;
+        case 5:
+          message.blockHeight = reader.int64() as Long;
+          break;
+        case 6:
           message.blockTimeMs = reader.int64() as Long;
           break;
         default:
@@ -802,6 +818,8 @@ export const MetricsEvent = {
     return {
       pair: isSet(object.pair) ? String(object.pair) : "",
       netSize: isSet(object.netSize) ? String(object.netSize) : "",
+      volumeQuote: isSet(object.volumeQuote) ? String(object.volumeQuote) : "",
+      volumeBase: isSet(object.volumeBase) ? String(object.volumeBase) : "",
       blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
       blockTimeMs: isSet(object.blockTimeMs) ? Long.fromValue(object.blockTimeMs) : Long.ZERO,
     };
@@ -811,6 +829,8 @@ export const MetricsEvent = {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair);
     message.netSize !== undefined && (obj.netSize = message.netSize);
+    message.volumeQuote !== undefined && (obj.volumeQuote = message.volumeQuote);
+    message.volumeBase !== undefined && (obj.volumeBase = message.volumeBase);
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
     message.blockTimeMs !== undefined && (obj.blockTimeMs = (message.blockTimeMs || Long.ZERO).toString());
     return obj;
@@ -820,6 +840,8 @@ export const MetricsEvent = {
     const message = createBaseMetricsEvent();
     message.pair = object.pair ?? "";
     message.netSize = object.netSize ?? "";
+    message.volumeQuote = object.volumeQuote ?? "";
+    message.volumeBase = object.volumeBase ?? "";
     message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
       ? Long.fromValue(object.blockHeight)
       : Long.ZERO;
