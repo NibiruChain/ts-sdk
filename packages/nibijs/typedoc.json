@@ -1,6 +1,5 @@
 {
   "out": "docs",
-  "json": "docs.json",
   "name": "NibiJS Documentation",
   "excludeExternals": true,
   "includeVersion": true,

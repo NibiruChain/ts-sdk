@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.1](../intro.md) / [Exports](../modules.md) / QueryCmd
+[NibiJS Documentation - v0.8.2](../intro.md) / [Exports](../modules.md) / QueryCmd
 
 # Class: QueryCmd
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[query/query.ts:80](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L80)
+[query/query.ts:80](https://github.com/NibiruChain/ts-sdk/blob/338fbe5/packages/nibijs/src/query/query.ts#L80)
 
 ## Properties
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[query/query.ts:78](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L78)
+[query/query.ts:78](https://github.com/NibiruChain/ts-sdk/blob/338fbe5/packages/nibijs/src/query/query.ts#L78)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:74](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L74)
+[query/query.ts:74](https://github.com/NibiruChain/ts-sdk/blob/338fbe5/packages/nibijs/src/query/query.ts#L74)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:76](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L76)
+[query/query.ts:76](https://github.com/NibiruChain/ts-sdk/blob/338fbe5/packages/nibijs/src/query/query.ts#L76)
 
 ## Methods
 
@@ -97,4 +97,4 @@ IQueryCmd.disconnect
 
 #### Defined in
 
-[query/query.ts:95](https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L95)
+[query/query.ts:95](https://github.com/NibiruChain/ts-sdk/blob/338fbe5/packages/nibijs/src/query/query.ts#L95)
