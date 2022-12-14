@@ -21,7 +21,7 @@ import { getRegistry } from "./signer"
 import { TxMessage } from "../msg/types"
 import { waitForNextBlock } from "../query"
 import { BankMsgs } from "../msg/bank"
-import { ErrorTxBroadcast, ErrorTxSimulation } from "../chain/error"
+import { ErrorTxBroadcast, ErrorTxSimulation, instanceOfError } from "../chain/error"
 
 export type Address = string
 export type CosmosSigner =
@@ -93,6 +93,15 @@ export class TxCmd {
       return new ErrorTxBroadcast(err.message)
     } else {
       return txResp as DeliverTxResponse
+    }
+  }
+
+  async mustSignAndBroadcast(...msgs: TxMessage[]): Promise<DeliverTxResponse> {
+    const txResp = await this.signAndBroadcast(...msgs)
+    if (!instanceOfError(txResp)) {
+      return txResp
+    } else {
+      throw txResp
     }
   }
 
