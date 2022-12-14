@@ -1,6 +1,6 @@
 {
 	"id": 0,
-	"name": "NibiJS Documentation - v0.8.0",
+	"name": "NibiJS Documentation - v0.8.1",
 	"kind": 1,
 	"kindString": "Project",
 	"flags": {},
@@ -32,7 +32,7 @@
 							"fileName": "tx/signer.ts",
 							"line": 14,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L14"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L14"
 						}
 					],
 					"type": {
@@ -59,7 +59,7 @@
 							"fileName": "tx/signer.ts",
 							"line": 16,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L16"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L16"
 						}
 					],
 					"type": {
@@ -86,7 +86,7 @@
 							"fileName": "tx/signer.ts",
 							"line": 18,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L18"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L18"
 						}
 					],
 					"type": {
@@ -113,7 +113,7 @@
 							"fileName": "tx/signer.ts",
 							"line": 20,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L20"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L20"
 						}
 					],
 					"type": {
@@ -140,7 +140,7 @@
 							"fileName": "tx/signer.ts",
 							"line": 22,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L22"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L22"
 						}
 					],
 					"type": {
@@ -167,7 +167,7 @@
 							"fileName": "tx/signer.ts",
 							"line": 24,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L24"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L24"
 						}
 					],
 					"type": {
@@ -194,7 +194,7 @@
 					"fileName": "tx/signer.ts",
 					"line": 12,
 					"character": 12,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L12"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L12"
 				}
 			]
 		},
@@ -216,7 +216,7 @@
 							"fileName": "tx/signer.ts",
 							"line": 73,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L73"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L73"
 						}
 					],
 					"type": {
@@ -235,7 +235,7 @@
 							"fileName": "tx/signer.ts",
 							"line": 72,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L72"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L72"
 						}
 					],
 					"type": {
@@ -258,7 +258,7 @@
 					"fileName": "tx/signer.ts",
 					"line": 71,
 					"character": 12,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L71"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L71"
 				}
 			]
 		},
@@ -301,7 +301,7 @@
 							"fileName": "msg/index.ts",
 							"line": 7,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/msg/index.ts#L7"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/msg/index.ts#L7"
 						}
 					],
 					"type": {
@@ -324,7 +324,7 @@
 							"fileName": "msg/index.ts",
 							"line": 9,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/msg/index.ts#L9"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/msg/index.ts#L9"
 						}
 					],
 					"type": {
@@ -347,7 +347,7 @@
 							"fileName": "msg/index.ts",
 							"line": 11,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/msg/index.ts#L11"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/msg/index.ts#L11"
 						}
 					],
 					"type": {
@@ -370,7 +370,7 @@
 							"fileName": "msg/index.ts",
 							"line": 13,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/msg/index.ts#L13"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/msg/index.ts#L13"
 						}
 					],
 					"type": {
@@ -405,7 +405,7 @@
 					"fileName": "msg/index.ts",
 					"line": 6,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/msg/index.ts#L6"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/msg/index.ts#L6"
 				}
 			]
 		},
@@ -427,7 +427,7 @@
 							"fileName": "query/query.ts",
 							"line": 80,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L80"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L80"
 						}
 					],
 					"signatures": [
@@ -483,7 +483,7 @@
 							"fileName": "query/query.ts",
 							"line": 78,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L78"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L78"
 						}
 					],
 					"type": {
@@ -508,7 +508,7 @@
 							"fileName": "query/query.ts",
 							"line": 74,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L74"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L74"
 						}
 					],
 					"type": {
@@ -533,7 +533,7 @@
 							"fileName": "query/query.ts",
 							"line": 76,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L76"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L76"
 						}
 					],
 					"type": {
@@ -559,7 +559,7 @@
 							"fileName": "query/query.ts",
 							"line": 95,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L95"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L95"
 						}
 					],
 					"signatures": [
@@ -613,7 +613,7 @@
 					"fileName": "query/query.ts",
 					"line": 73,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L73"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L73"
 				}
 			],
 			"implementedTypes": [
@@ -678,7 +678,7 @@
 							"fileName": "sdk.ts",
 							"line": 71,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L71"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L71"
 						}
 					],
 					"signatures": [
@@ -723,7 +723,7 @@
 															"fileName": "sdk.ts",
 															"line": 71,
 															"character": 22,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L71"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L71"
 														}
 													],
 													"type": {
@@ -743,7 +743,7 @@
 															"fileName": "sdk.ts",
 															"line": 71,
 															"character": 50,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L71"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L71"
 														}
 													],
 													"type": {
@@ -763,7 +763,7 @@
 															"fileName": "sdk.ts",
 															"line": 71,
 															"character": 36,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L71"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L71"
 														}
 													],
 													"type": {
@@ -788,7 +788,7 @@
 													"fileName": "sdk.ts",
 													"line": 71,
 													"character": 20,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L71"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L71"
 												}
 											]
 										}
@@ -814,7 +814,7 @@
 							"fileName": "sdk.ts",
 							"line": 57,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L57"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L57"
 						}
 					],
 					"type": {
@@ -839,7 +839,7 @@
 							"fileName": "sdk.ts",
 							"line": 61,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L61"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L61"
 						}
 					],
 					"type": {
@@ -864,7 +864,7 @@
 							"fileName": "sdk.ts",
 							"line": 63,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L63"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L63"
 						}
 					],
 					"type": {
@@ -890,7 +890,7 @@
 							"fileName": "sdk.ts",
 							"line": 59,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L59"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L59"
 						}
 					],
 					"type": {
@@ -927,7 +927,7 @@
 					"fileName": "sdk.ts",
 					"line": 56,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L56"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L56"
 				}
 			],
 			"implementedTypes": [
@@ -970,7 +970,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 49,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L49"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L49"
 						}
 					],
 					"signatures": [
@@ -1054,7 +1054,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 41,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L41"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L41"
 						}
 					],
 					"type": {
@@ -1074,7 +1074,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 39,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L39"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L39"
 						}
 					],
 					"type": {
@@ -1095,7 +1095,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 45,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L45"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L45"
 						}
 					],
 					"type": {
@@ -1118,7 +1118,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 43,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L43"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L43"
 						}
 					],
 					"type": {
@@ -1139,7 +1139,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 47,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L47"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L47"
 						}
 					],
 					"type": {
@@ -1158,7 +1158,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 99,
 							"character": 8,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L99"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L99"
 						}
 					],
 					"signatures": [
@@ -1224,7 +1224,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 126,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L126"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L126"
 						}
 					],
 					"signatures": [
@@ -1269,7 +1269,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 120,
 							"character": 8,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L120"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L120"
 						}
 					],
 					"signatures": [
@@ -1347,7 +1347,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 80,
 							"character": 8,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L80"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L80"
 						}
 					],
 					"signatures": [
@@ -1415,7 +1415,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 75,
 							"character": 8,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L75"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L75"
 						}
 					],
 					"signatures": [
@@ -1493,7 +1493,7 @@
 							"fileName": "tx/tx.ts",
 							"line": 62,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L62"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L62"
 						}
 					],
 					"signatures": [
@@ -1582,7 +1582,7 @@
 					"fileName": "tx/tx.ts",
 					"line": 38,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L38"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L38"
 				}
 			]
 		},
@@ -1644,7 +1644,7 @@
 							"fileName": "chain/chain.ts",
 							"line": 25,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L25"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L25"
 						}
 					],
 					"type": {
@@ -1663,7 +1663,7 @@
 							"fileName": "chain/chain.ts",
 							"line": 26,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L26"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L26"
 						}
 					],
 					"type": {
@@ -1692,7 +1692,7 @@
 							"fileName": "chain/chain.ts",
 							"line": 23,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L23"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L23"
 						}
 					],
 					"type": {
@@ -1719,7 +1719,7 @@
 							"fileName": "chain/chain.ts",
 							"line": 21,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L21"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L21"
 						}
 					],
 					"type": {
@@ -1746,7 +1746,7 @@
 							"fileName": "chain/chain.ts",
 							"line": 19,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L19"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L19"
 						}
 					],
 					"type": {
@@ -1765,7 +1765,7 @@
 							"fileName": "chain/chain.ts",
 							"line": 27,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L27"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L27"
 						}
 					],
 					"type": {
@@ -1792,7 +1792,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 17,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L17"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L17"
 				}
 			]
 		},
@@ -1807,7 +1807,7 @@
 					"fileName": "chain/types.ts",
 					"line": 34,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L34"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L34"
 				}
 			],
 			"indexSignature": {
@@ -1852,7 +1852,7 @@
 							"fileName": "query/dex.ts",
 							"line": 23,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L23"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L23"
 						}
 					],
 					"type": {
@@ -1878,7 +1878,7 @@
 													"fileName": "query/dex.ts",
 													"line": 55,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L55"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L55"
 												}
 											],
 											"type": {
@@ -1894,7 +1894,7 @@
 															"fileName": "query/dex.ts",
 															"line": 55,
 															"character": 31,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L55"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L55"
 														}
 													],
 													"signatures": [
@@ -1956,7 +1956,7 @@
 													"fileName": "query/dex.ts",
 													"line": 59,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L59"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L59"
 												}
 											],
 											"type": {
@@ -1972,7 +1972,7 @@
 															"fileName": "query/dex.ts",
 															"line": 59,
 															"character": 32,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L59"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L59"
 														}
 													],
 													"signatures": [
@@ -2023,7 +2023,7 @@
 													"fileName": "query/dex.ts",
 													"line": 48,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L48"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L48"
 												}
 											],
 											"type": {
@@ -2039,7 +2039,7 @@
 															"fileName": "query/dex.ts",
 															"line": 48,
 															"character": 31,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L48"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L48"
 														}
 													],
 													"signatures": [
@@ -2106,7 +2106,7 @@
 													"fileName": "query/dex.ts",
 													"line": 52,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L52"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L52"
 												}
 											],
 											"type": {
@@ -2122,7 +2122,7 @@
 															"fileName": "query/dex.ts",
 															"line": 52,
 															"character": 32,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L52"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L52"
 														}
 													],
 													"signatures": [
@@ -2173,7 +2173,7 @@
 													"fileName": "query/dex.ts",
 													"line": 38,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L38"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L38"
 												}
 											],
 											"type": {
@@ -2189,7 +2189,7 @@
 															"fileName": "query/dex.ts",
 															"line": 38,
 															"character": 31,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L38"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L38"
 														}
 													],
 													"signatures": [
@@ -2266,7 +2266,7 @@
 													"fileName": "query/dex.ts",
 													"line": 43,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L43"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L43"
 												}
 											],
 											"type": {
@@ -2282,7 +2282,7 @@
 															"fileName": "query/dex.ts",
 															"line": 43,
 															"character": 32,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L43"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L43"
 														}
 													],
 													"signatures": [
@@ -2359,7 +2359,7 @@
 													"fileName": "query/dex.ts",
 													"line": 29,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L29"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L29"
 												}
 											],
 											"type": {
@@ -2375,7 +2375,7 @@
 															"fileName": "query/dex.ts",
 															"line": 29,
 															"character": 14,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L29"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L29"
 														}
 													],
 													"signatures": [
@@ -2413,7 +2413,7 @@
 													"fileName": "query/dex.ts",
 													"line": 24,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L24"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L24"
 												}
 											],
 											"type": {
@@ -2429,7 +2429,7 @@
 															"fileName": "query/dex.ts",
 															"line": 24,
 															"character": 12,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L24"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L24"
 														}
 													],
 													"signatures": [
@@ -2467,7 +2467,7 @@
 													"fileName": "query/dex.ts",
 													"line": 26,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L26"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L26"
 												}
 											],
 											"type": {
@@ -2483,7 +2483,7 @@
 															"fileName": "query/dex.ts",
 															"line": 26,
 															"character": 10,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L26"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L26"
 														}
 													],
 													"signatures": [
@@ -2534,7 +2534,7 @@
 													"fileName": "query/dex.ts",
 													"line": 25,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L25"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L25"
 												}
 											],
 											"type": {
@@ -2550,7 +2550,7 @@
 															"fileName": "query/dex.ts",
 															"line": 25,
 															"character": 16,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L25"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L25"
 														}
 													],
 													"signatures": [
@@ -2588,7 +2588,7 @@
 													"fileName": "query/dex.ts",
 													"line": 28,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L28"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L28"
 												}
 											],
 											"type": {
@@ -2604,7 +2604,7 @@
 															"fileName": "query/dex.ts",
 															"line": 28,
 															"character": 16,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L28"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L28"
 														}
 													],
 													"signatures": [
@@ -2655,7 +2655,7 @@
 													"fileName": "query/dex.ts",
 													"line": 27,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L27"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L27"
 												}
 											],
 											"type": {
@@ -2671,7 +2671,7 @@
 															"fileName": "query/dex.ts",
 															"line": 27,
 															"character": 11,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L27"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L27"
 														}
 													],
 													"signatures": [
@@ -2724,7 +2724,7 @@
 													"fileName": "query/dex.ts",
 													"line": 33,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L33"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L33"
 												}
 											],
 											"type": {
@@ -2740,7 +2740,7 @@
 															"fileName": "query/dex.ts",
 															"line": 33,
 															"character": 15,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L33"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L33"
 														}
 													],
 													"signatures": [
@@ -2813,7 +2813,7 @@
 													"fileName": "query/dex.ts",
 													"line": 30,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L30"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L30"
 												}
 											],
 											"type": {
@@ -2829,7 +2829,7 @@
 															"fileName": "query/dex.ts",
 															"line": 30,
 															"character": 20,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L30"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L30"
 														}
 													],
 													"signatures": [
@@ -2867,7 +2867,7 @@
 													"fileName": "query/dex.ts",
 													"line": 31,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L31"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L31"
 												}
 											],
 											"type": {
@@ -2883,7 +2883,7 @@
 															"fileName": "query/dex.ts",
 															"line": 31,
 															"character": 24,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L31"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L31"
 														}
 													],
 													"signatures": [
@@ -2934,7 +2934,7 @@
 													"fileName": "query/dex.ts",
 													"line": 32,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L32"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L32"
 												}
 											],
 											"type": {
@@ -2950,7 +2950,7 @@
 															"fileName": "query/dex.ts",
 															"line": 32,
 															"character": 17,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L32"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L32"
 														}
 													],
 													"signatures": [
@@ -3019,7 +3019,7 @@
 											"fileName": "query/dex.ts",
 											"line": 23,
 											"character": 16,
-											"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L23"
+											"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L23"
 										}
 									]
 								}
@@ -3044,7 +3044,7 @@
 					"fileName": "query/dex.ts",
 					"line": 22,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/dex.ts#L22"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/dex.ts#L22"
 				}
 			]
 		},
@@ -3068,7 +3068,7 @@
 							"fileName": "query/epochs.ts",
 							"line": 6,
 							"character": 11,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/epochs.ts#L6"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/epochs.ts#L6"
 						}
 					],
 					"type": {
@@ -3094,7 +3094,7 @@
 													"fileName": "query/epochs.ts",
 													"line": 7,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/epochs.ts#L7"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/epochs.ts#L7"
 												}
 											],
 											"type": {
@@ -3110,7 +3110,7 @@
 															"fileName": "query/epochs.ts",
 															"line": 7,
 															"character": 18,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/epochs.ts#L7"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/epochs.ts#L7"
 														}
 													],
 													"signatures": [
@@ -3147,7 +3147,7 @@
 																							"fileName": "query/epochs.ts",
 																							"line": 8,
 																							"character": 6,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/epochs.ts#L8"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/epochs.ts#L8"
 																						}
 																					],
 																					"type": {
@@ -3169,7 +3169,7 @@
 																					"fileName": "query/epochs.ts",
 																					"line": 7,
 																					"character": 25,
-																					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/epochs.ts#L7"
+																					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/epochs.ts#L7"
 																				}
 																			]
 																		}
@@ -3204,7 +3204,7 @@
 													"fileName": "query/epochs.ts",
 													"line": 10,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/epochs.ts#L10"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/epochs.ts#L10"
 												}
 											],
 											"type": {
@@ -3220,7 +3220,7 @@
 															"fileName": "query/epochs.ts",
 															"line": 10,
 															"character": 16,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/epochs.ts#L10"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/epochs.ts#L10"
 														}
 													],
 													"signatures": [
@@ -3262,7 +3262,7 @@
 											"fileName": "query/epochs.ts",
 											"line": 6,
 											"character": 28,
-											"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/epochs.ts#L6"
+											"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/epochs.ts#L6"
 										}
 									]
 								}
@@ -3287,7 +3287,7 @@
 					"fileName": "query/epochs.ts",
 					"line": 5,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/epochs.ts#L5"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/epochs.ts#L5"
 				}
 			]
 		},
@@ -3309,7 +3309,7 @@
 							"fileName": "chain/types.ts",
 							"line": 49,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L49"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L49"
 						}
 					],
 					"type": {
@@ -3334,7 +3334,7 @@
 												"fileName": "chain/types.ts",
 												"line": 49,
 												"character": 16,
-												"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L49"
+												"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L49"
 											}
 										],
 										"type": {
@@ -3353,7 +3353,7 @@
 												"fileName": "chain/types.ts",
 												"line": 49,
 												"character": 29,
-												"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L49"
+												"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L49"
 											}
 										],
 										"type": {
@@ -3376,7 +3376,7 @@
 										"fileName": "chain/types.ts",
 										"line": 49,
 										"character": 14,
-										"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L49"
+										"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L49"
 									}
 								]
 							}
@@ -3394,7 +3394,7 @@
 							"fileName": "chain/types.ts",
 							"line": 48,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L48"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L48"
 						}
 					],
 					"type": {
@@ -3417,7 +3417,7 @@
 					"fileName": "chain/types.ts",
 					"line": 47,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L47"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L47"
 				}
 			]
 		},
@@ -3439,7 +3439,7 @@
 							"fileName": "query/query.ts",
 							"line": 39,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L39"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L39"
 						}
 					],
 					"type": {
@@ -3459,7 +3459,7 @@
 							"fileName": "query/query.ts",
 							"line": 37,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L37"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L37"
 						}
 					],
 					"type": {
@@ -3479,7 +3479,7 @@
 							"fileName": "query/query.ts",
 							"line": 40,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L40"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L40"
 						}
 					],
 					"type": {
@@ -3495,7 +3495,7 @@
 									"fileName": "query/query.ts",
 									"line": 40,
 									"character": 14,
-									"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L40"
+									"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L40"
 								}
 							],
 							"signatures": [
@@ -3525,7 +3525,7 @@
 							"fileName": "query/query.ts",
 							"line": 38,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L38"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L38"
 						}
 					],
 					"type": {
@@ -3552,7 +3552,7 @@
 					"fileName": "query/query.ts",
 					"line": 36,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L36"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L36"
 				}
 			],
 			"implementedBy": [
@@ -3581,7 +3581,7 @@
 							"fileName": "sdk.ts",
 							"line": 28,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L28"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L28"
 						}
 					],
 					"type": {
@@ -3601,7 +3601,7 @@
 							"fileName": "sdk.ts",
 							"line": 30,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L30"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L30"
 						}
 					],
 					"type": {
@@ -3621,7 +3621,7 @@
 							"fileName": "sdk.ts",
 							"line": 31,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L31"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L31"
 						}
 					],
 					"type": {
@@ -3642,7 +3642,7 @@
 							"fileName": "sdk.ts",
 							"line": 29,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L29"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L29"
 						}
 					],
 					"type": {
@@ -3668,7 +3668,7 @@
 					"fileName": "sdk.ts",
 					"line": 27,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L27"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L27"
 				}
 			],
 			"implementedBy": [
@@ -3690,7 +3690,7 @@
 					"fileName": "msg/types.ts",
 					"line": 3,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/msg/types.ts#L3"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/msg/types.ts#L3"
 				}
 			],
 			"indexSignature": {
@@ -3735,7 +3735,7 @@
 							"fileName": "query/perp.ts",
 							"line": 23,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L23"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L23"
 						}
 					],
 					"type": {
@@ -3761,7 +3761,7 @@
 													"fileName": "query/perp.ts",
 													"line": 33,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L33"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L33"
 												}
 											],
 											"type": {
@@ -3777,7 +3777,7 @@
 															"fileName": "query/perp.ts",
 															"line": 33,
 															"character": 13,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L33"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L33"
 														}
 													],
 													"signatures": [
@@ -3814,7 +3814,7 @@
 																							"fileName": "query/perp.ts",
 																							"line": 33,
 																							"character": 22,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L33"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L33"
 																						}
 																					],
 																					"type": {
@@ -3836,7 +3836,7 @@
 																					"fileName": "query/perp.ts",
 																					"line": 33,
 																					"character": 20,
-																					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L33"
+																					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L33"
 																				}
 																			]
 																		}
@@ -3871,7 +3871,7 @@
 													"fileName": "query/perp.ts",
 													"line": 24,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L24"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L24"
 												}
 											],
 											"type": {
@@ -3887,7 +3887,7 @@
 															"fileName": "query/perp.ts",
 															"line": 24,
 															"character": 12,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L24"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L24"
 														}
 													],
 													"signatures": [
@@ -3925,7 +3925,7 @@
 													"fileName": "query/perp.ts",
 													"line": 25,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L25"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L25"
 												}
 											],
 											"type": {
@@ -3941,7 +3941,7 @@
 															"fileName": "query/perp.ts",
 															"line": 25,
 															"character": 14,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L25"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L25"
 														}
 													],
 													"signatures": [
@@ -3978,7 +3978,7 @@
 																							"fileName": "query/perp.ts",
 																							"line": 26,
 																							"character": 6,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L26"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L26"
 																						}
 																					],
 																					"type": {
@@ -3997,7 +3997,7 @@
 																							"fileName": "query/perp.ts",
 																							"line": 27,
 																							"character": 6,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L27"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L27"
 																						}
 																					],
 																					"type": {
@@ -4020,7 +4020,7 @@
 																					"fileName": "query/perp.ts",
 																					"line": 25,
 																					"character": 21,
-																					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L25"
+																					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L25"
 																				}
 																			]
 																		}
@@ -4055,7 +4055,7 @@
 													"fileName": "query/perp.ts",
 													"line": 29,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L29"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L29"
 												}
 											],
 											"type": {
@@ -4071,7 +4071,7 @@
 															"fileName": "query/perp.ts",
 															"line": 29,
 															"character": 15,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L29"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L29"
 														}
 													],
 													"signatures": [
@@ -4108,7 +4108,7 @@
 																							"fileName": "query/perp.ts",
 																							"line": 29,
 																							"character": 24,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L29"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L29"
 																						}
 																					],
 																					"type": {
@@ -4130,7 +4130,7 @@
 																					"fileName": "query/perp.ts",
 																					"line": 29,
 																					"character": 22,
-																					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L29"
+																					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L29"
 																				}
 																			]
 																		}
@@ -4165,7 +4165,7 @@
 													"fileName": "query/perp.ts",
 													"line": 30,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L30"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L30"
 												}
 											],
 											"type": {
@@ -4181,7 +4181,7 @@
 															"fileName": "query/perp.ts",
 															"line": 30,
 															"character": 22,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L30"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L30"
 														}
 													],
 													"signatures": [
@@ -4218,7 +4218,7 @@
 																							"fileName": "query/perp.ts",
 																							"line": 31,
 																							"character": 6,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L31"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L31"
 																						}
 																					],
 																					"type": {
@@ -4240,7 +4240,7 @@
 																					"fileName": "query/perp.ts",
 																					"line": 30,
 																					"character": 29,
-																					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L30"
+																					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L30"
 																				}
 																			]
 																		}
@@ -4282,7 +4282,7 @@
 											"fileName": "query/perp.ts",
 											"line": 23,
 											"character": 17,
-											"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L23"
+											"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L23"
 										}
 									]
 								}
@@ -4307,7 +4307,7 @@
 					"fileName": "query/perp.ts",
 					"line": 22,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/perp.ts#L22"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/perp.ts#L22"
 				}
 			]
 		},
@@ -4329,7 +4329,7 @@
 							"fileName": "query/pricefeed.ts",
 							"line": 9,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L9"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L9"
 						}
 					],
 					"type": {
@@ -4355,7 +4355,7 @@
 													"fileName": "query/pricefeed.ts",
 													"line": 12,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L12"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L12"
 												}
 											],
 											"type": {
@@ -4371,7 +4371,7 @@
 															"fileName": "query/pricefeed.ts",
 															"line": 12,
 															"character": 13,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L12"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L12"
 														}
 													],
 													"signatures": [
@@ -4417,7 +4417,7 @@
 													"fileName": "query/pricefeed.ts",
 													"line": 15,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L15"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L15"
 												}
 											],
 											"type": {
@@ -4433,7 +4433,7 @@
 															"fileName": "query/pricefeed.ts",
 															"line": 15,
 															"character": 13,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L15"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L15"
 														}
 													],
 													"signatures": [
@@ -4478,7 +4478,7 @@
 																							"fileName": "query/pricefeed.ts",
 																							"line": 15,
 																							"character": 22,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L15"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L15"
 																						}
 																					],
 																					"type": {
@@ -4500,7 +4500,7 @@
 																					"fileName": "query/pricefeed.ts",
 																					"line": 15,
 																					"character": 20,
-																					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L15"
+																					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L15"
 																				}
 																			]
 																		}
@@ -4535,7 +4535,7 @@
 													"fileName": "query/pricefeed.ts",
 													"line": 18,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L18"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L18"
 												}
 											],
 											"type": {
@@ -4551,7 +4551,7 @@
 															"fileName": "query/pricefeed.ts",
 															"line": 18,
 															"character": 12,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L18"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L18"
 														}
 													],
 													"signatures": [
@@ -4597,7 +4597,7 @@
 													"fileName": "query/pricefeed.ts",
 													"line": 21,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L21"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L21"
 												}
 											],
 											"type": {
@@ -4613,7 +4613,7 @@
 															"fileName": "query/pricefeed.ts",
 															"line": 21,
 															"character": 11,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L21"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L21"
 														}
 													],
 													"signatures": [
@@ -4658,7 +4658,7 @@
 																							"fileName": "query/pricefeed.ts",
 																							"line": 21,
 																							"character": 20,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L21"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L21"
 																						}
 																					],
 																					"type": {
@@ -4680,7 +4680,7 @@
 																					"fileName": "query/pricefeed.ts",
 																					"line": 21,
 																					"character": 18,
-																					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L21"
+																					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L21"
 																				}
 																			]
 																		}
@@ -4715,7 +4715,7 @@
 													"fileName": "query/pricefeed.ts",
 													"line": 24,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L24"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L24"
 												}
 											],
 											"type": {
@@ -4731,7 +4731,7 @@
 															"fileName": "query/pricefeed.ts",
 															"line": 24,
 															"character": 12,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L24"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L24"
 														}
 													],
 													"signatures": [
@@ -4777,7 +4777,7 @@
 													"fileName": "query/pricefeed.ts",
 													"line": 29,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L29"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L29"
 												}
 											],
 											"type": {
@@ -4793,7 +4793,7 @@
 															"fileName": "query/pricefeed.ts",
 															"line": 29,
 															"character": 15,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L29"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L29"
 														}
 													],
 													"signatures": [
@@ -4838,7 +4838,7 @@
 																							"fileName": "query/pricefeed.ts",
 																							"line": 30,
 																							"character": 6,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L30"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L30"
 																						}
 																					],
 																					"type": {
@@ -4860,7 +4860,7 @@
 																					"fileName": "query/pricefeed.ts",
 																					"line": 29,
 																					"character": 22,
-																					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L29"
+																					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L29"
 																				}
 																			]
 																		}
@@ -4903,7 +4903,7 @@
 											"fileName": "query/pricefeed.ts",
 											"line": 9,
 											"character": 22,
-											"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L9"
+											"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L9"
 										}
 									]
 								}
@@ -4928,7 +4928,7 @@
 					"fileName": "query/pricefeed.ts",
 					"line": 8,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/pricefeed.ts#L8"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/pricefeed.ts#L8"
 				}
 			]
 		},
@@ -4943,7 +4943,7 @@
 					"fileName": "msg/types.ts",
 					"line": 7,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/msg/types.ts#L7"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/msg/types.ts#L7"
 				}
 			],
 			"extendedTypes": [
@@ -4973,7 +4973,7 @@
 							"fileName": "query/vpool.ts",
 							"line": 7,
 							"character": 2,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L7"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L7"
 						}
 					],
 					"type": {
@@ -4999,7 +4999,7 @@
 													"fileName": "query/vpool.ts",
 													"line": 8,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L8"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L8"
 												}
 											],
 											"type": {
@@ -5015,7 +5015,7 @@
 															"fileName": "query/vpool.ts",
 															"line": 8,
 															"character": 14,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L8"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L8"
 														}
 													],
 													"signatures": [
@@ -5053,7 +5053,7 @@
 													"fileName": "query/vpool.ts",
 													"line": 9,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L9"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L9"
 												}
 											],
 											"type": {
@@ -5069,7 +5069,7 @@
 															"fileName": "query/vpool.ts",
 															"line": 9,
 															"character": 15,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L9"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L9"
 														}
 													],
 													"signatures": [
@@ -5106,7 +5106,7 @@
 																							"fileName": "query/vpool.ts",
 																							"line": 12,
 																							"character": 6,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L12"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L12"
 																						}
 																					],
 																					"type": {
@@ -5125,7 +5125,7 @@
 																							"fileName": "query/vpool.ts",
 																							"line": 11,
 																							"character": 6,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L11"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L11"
 																						}
 																					],
 																					"type": {
@@ -5144,7 +5144,7 @@
 																							"fileName": "query/vpool.ts",
 																							"line": 10,
 																							"character": 6,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L10"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L10"
 																						}
 																					],
 																					"type": {
@@ -5168,7 +5168,7 @@
 																					"fileName": "query/vpool.ts",
 																					"line": 9,
 																					"character": 22,
-																					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L9"
+																					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L9"
 																				}
 																			]
 																		}
@@ -5203,7 +5203,7 @@
 													"fileName": "query/vpool.ts",
 													"line": 14,
 													"character": 4,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L14"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L14"
 												}
 											],
 											"type": {
@@ -5219,7 +5219,7 @@
 															"fileName": "query/vpool.ts",
 															"line": 14,
 															"character": 14,
-															"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L14"
+															"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L14"
 														}
 													],
 													"signatures": [
@@ -5256,7 +5256,7 @@
 																							"fileName": "query/vpool.ts",
 																							"line": 14,
 																							"character": 23,
-																							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L14"
+																							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L14"
 																						}
 																					],
 																					"type": {
@@ -5278,7 +5278,7 @@
 																					"fileName": "query/vpool.ts",
 																					"line": 14,
 																					"character": 21,
-																					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L14"
+																					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L14"
 																				}
 																			]
 																		}
@@ -5318,7 +5318,7 @@
 											"fileName": "query/vpool.ts",
 											"line": 7,
 											"character": 18,
-											"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L7"
+											"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L7"
 										}
 									]
 								}
@@ -5343,7 +5343,7 @@
 					"fileName": "query/vpool.ts",
 					"line": 6,
 					"character": 17,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/vpool.ts#L6"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/vpool.ts#L6"
 				}
 			]
 		},
@@ -5358,7 +5358,7 @@
 					"fileName": "tx/tx.ts",
 					"line": 26,
 					"character": 12,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L26"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L26"
 				}
 			],
 			"type": {
@@ -5377,7 +5377,7 @@
 					"fileName": "tx/tx.ts",
 					"line": 27,
 					"character": 12,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L27"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L27"
 				}
 			],
 			"type": {
@@ -5420,7 +5420,7 @@
 					"fileName": "query/query.ts",
 					"line": 16,
 					"character": 12,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L16"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L16"
 				}
 			],
 			"type": {
@@ -5485,7 +5485,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 64,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L64"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L64"
 				}
 			],
 			"type": {
@@ -5508,7 +5508,7 @@
 									"fileName": "chain/chain.ts",
 									"line": 67,
 									"character": 2,
-									"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L67"
+									"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L67"
 								}
 							],
 							"type": {
@@ -5528,7 +5528,7 @@
 									"fileName": "chain/chain.ts",
 									"line": 65,
 									"character": 2,
-									"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L65"
+									"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L65"
 								}
 							],
 							"type": {
@@ -5557,7 +5557,7 @@
 									"fileName": "chain/chain.ts",
 									"line": 66,
 									"character": 2,
-									"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L66"
+									"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L66"
 								}
 							],
 							"type": {
@@ -5577,7 +5577,7 @@
 									"fileName": "chain/chain.ts",
 									"line": 68,
 									"character": 2,
-									"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L68"
+									"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L68"
 								}
 							],
 							"type": {
@@ -5603,7 +5603,7 @@
 							"fileName": "chain/chain.ts",
 							"line": 64,
 							"character": 31,
-							"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L64"
+							"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L64"
 						}
 					]
 				}
@@ -5631,7 +5631,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 76,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L76"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L76"
 				}
 			],
 			"type": {
@@ -5654,7 +5654,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 62,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L62"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L62"
 				}
 			],
 			"type": {
@@ -5677,7 +5677,7 @@
 					"fileName": "chain/parse.ts",
 					"line": 4,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/parse.ts#L4"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/parse.ts#L4"
 				}
 			],
 			"type": {
@@ -5699,7 +5699,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 30,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L30"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L30"
 				}
 			],
 			"type": {
@@ -5722,7 +5722,7 @@
 					"fileName": "msg/index.ts",
 					"line": 16,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/msg/index.ts#L16"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/msg/index.ts#L16"
 				}
 			],
 			"type": {
@@ -5745,7 +5745,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 60,
 					"character": 13,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L60"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L60"
 				}
 			],
 			"type": {
@@ -5766,7 +5766,7 @@
 					"fileName": "chain/types.ts",
 					"line": 27,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L27"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L27"
 				}
 			],
 			"signatures": [
@@ -5820,7 +5820,7 @@
 					"fileName": "chain/parse.ts",
 					"line": 176,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/parse.ts#L176"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/parse.ts#L176"
 				}
 			],
 			"signatures": [
@@ -5857,7 +5857,7 @@
 									"fileName": "chain/parse.ts",
 									"line": 176,
 									"character": 50,
-									"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/parse.ts#L176"
+									"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/parse.ts#L176"
 								}
 							],
 							"indexSignature": {
@@ -5899,7 +5899,7 @@
 					"fileName": "chain/parse.ts",
 					"line": 99,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/parse.ts#L99"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/parse.ts#L99"
 				}
 			],
 			"signatures": [
@@ -5940,7 +5940,7 @@
 					"fileName": "chain/parse.ts",
 					"line": 158,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/parse.ts#L158"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/parse.ts#L158"
 				}
 			],
 			"signatures": [
@@ -5981,7 +5981,7 @@
 					"fileName": "chain/parse.ts",
 					"line": 152,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/parse.ts#L152"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/parse.ts#L152"
 				}
 			],
 			"signatures": [
@@ -6022,7 +6022,7 @@
 					"fileName": "wallet/keplr.ts",
 					"line": 9,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/wallet/keplr.ts#L9"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/wallet/keplr.ts#L9"
 				}
 			],
 			"signatures": [
@@ -6074,7 +6074,7 @@
 					"fileName": "tx/signer.ts",
 					"line": 30,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L30"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L30"
 				}
 			],
 			"signatures": [
@@ -6104,7 +6104,7 @@
 					"fileName": "chain/types.ts",
 					"line": 13,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L13"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L13"
 				}
 			],
 			"signatures": [
@@ -6168,7 +6168,7 @@
 													"fileName": "chain/types.ts",
 													"line": 15,
 													"character": 33,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L15"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L15"
 												}
 											],
 											"type": {
@@ -6198,7 +6198,7 @@
 													"fileName": "chain/types.ts",
 													"line": 15,
 													"character": 13,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L15"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L15"
 												}
 											],
 											"type": {
@@ -6231,7 +6231,7 @@
 											"fileName": "chain/types.ts",
 											"line": 15,
 											"character": 11,
-											"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L15"
+											"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L15"
 										}
 									]
 								}
@@ -6255,7 +6255,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 140,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L140"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L140"
 				}
 			],
 			"signatures": [
@@ -6305,7 +6305,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 149,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L149"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L149"
 				}
 			],
 			"signatures": [
@@ -6355,7 +6355,7 @@
 					"fileName": "chain/types.ts",
 					"line": 39,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/types.ts#L39"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/types.ts#L39"
 				}
 			],
 			"signatures": [
@@ -6402,7 +6402,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 49,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L49"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L49"
 				}
 			],
 			"signatures": [
@@ -6444,7 +6444,7 @@
 					"fileName": "query/query.ts",
 					"line": 100,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L100"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L100"
 				}
 			],
 			"signatures": [
@@ -6495,7 +6495,7 @@
 					"fileName": "tx/signer.ts",
 					"line": 64,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L64"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L64"
 				}
 			],
 			"signatures": [
@@ -6621,7 +6621,7 @@
 					"fileName": "sdk.ts",
 					"line": 21,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/sdk.ts#L21"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/sdk.ts#L21"
 				}
 			],
 			"signatures": [
@@ -6698,7 +6698,7 @@
 					"fileName": "tx/signer.ts",
 					"line": 49,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L49"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L49"
 				}
 			],
 			"signatures": [
@@ -6765,7 +6765,7 @@
 					"fileName": "tx/signer.ts",
 					"line": 42,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/signer.ts#L42"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/signer.ts#L42"
 				}
 			],
 			"signatures": [
@@ -6860,7 +6860,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 38,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L38"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L38"
 				}
 			],
 			"signatures": [
@@ -6902,7 +6902,7 @@
 					"fileName": "tx/tx.ts",
 					"line": 138,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/tx/tx.ts#L138"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/tx/tx.ts#L138"
 				}
 			],
 			"signatures": [
@@ -6990,7 +6990,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 127,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L127"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L127"
 				}
 			],
 			"signatures": [
@@ -7069,7 +7069,7 @@
 					"fileName": "chain/parse.ts",
 					"line": 25,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/parse.ts#L25"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/parse.ts#L25"
 				}
 			],
 			"signatures": [
@@ -7128,7 +7128,7 @@
 					"fileName": "chain/parse.ts",
 					"line": 148,
 					"character": 16,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/parse.ts#L148"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/parse.ts#L148"
 				}
 			],
 			"signatures": [
@@ -7169,7 +7169,7 @@
 					"fileName": "chain/chain.ts",
 					"line": 88,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L88"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L88"
 				}
 			],
 			"signatures": [
@@ -7214,7 +7214,7 @@
 													"fileName": "chain/chain.ts",
 													"line": 94,
 													"character": 2,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L94"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L94"
 												}
 											],
 											"type": {
@@ -7235,7 +7235,7 @@
 													"fileName": "chain/chain.ts",
 													"line": 96,
 													"character": 2,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L96"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L96"
 												}
 											],
 											"type": {
@@ -7256,7 +7256,7 @@
 													"fileName": "chain/chain.ts",
 													"line": 97,
 													"character": 2,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L97"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L97"
 												}
 											],
 											"type": {
@@ -7277,7 +7277,7 @@
 													"fileName": "chain/chain.ts",
 													"line": 95,
 													"character": 2,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L95"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L95"
 												}
 											],
 											"type": {
@@ -7302,7 +7302,7 @@
 											"fileName": "chain/chain.ts",
 											"line": 93,
 											"character": 3,
-											"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/chain/chain.ts#L93"
+											"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/chain/chain.ts#L93"
 										}
 									]
 								}
@@ -7337,7 +7337,7 @@
 					"fileName": "query/query.ts",
 					"line": 55,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L55"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L55"
 				}
 			],
 			"signatures": [
@@ -7374,7 +7374,7 @@
 													"fileName": "query/query.ts",
 													"line": 56,
 													"character": 2,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L56"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L56"
 												}
 											],
 											"type": {
@@ -7394,7 +7394,7 @@
 													"fileName": "query/query.ts",
 													"line": 57,
 													"character": 2,
-													"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L57"
+													"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L57"
 												}
 											],
 											"type": {
@@ -7417,7 +7417,7 @@
 											"fileName": "query/query.ts",
 											"line": 55,
 											"character": 47,
-											"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L55"
+											"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L55"
 										}
 									]
 								}
@@ -7450,7 +7450,7 @@
 					"fileName": "query/query.ts",
 					"line": 43,
 					"character": 22,
-					"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/query/query.ts#L43"
+					"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/query/query.ts#L43"
 				}
 			],
 			"signatures": [
@@ -7580,7 +7580,7 @@
 			"fileName": "index.ts",
 			"line": 11,
 			"character": 0,
-			"url": "https://github.com/NibiruChain/ts-sdk/blob/6e399c2/packages/nibijs/src/index.ts#L11"
+			"url": "https://github.com/NibiruChain/ts-sdk/blob/d8a9441/packages/nibijs/src/index.ts#L11"
 		}
 	]
 }
