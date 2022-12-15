@@ -145,7 +145,10 @@ TODO
     yarn build
     ```
 
-See [HACKING.md](https://github.com/NibiruChain/ts-sdk/blob/main/HACKING.md) for the full development guide. 
+See [HACKING.md](https://github.com/NibiruChain/ts-sdk/blob/main/HACKING.md) for the full development guide. It includes instructions on:
+1. Running tests
+2. Generating code for the @nibiruchain/protojs package
+3. Generating documentation in HTML or Markdown from the comments of @nibiruchain/nibijs
 
 ---
 
