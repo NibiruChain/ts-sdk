@@ -168,5 +168,5 @@ This software is licensed under the MIT license. See [LICENSE](https://github.co
 © 2022 Nibi, Inc.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibi-logo-onwhite.png" width="200px">
+<img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibi-logo-onwhite.png" style="width:200px">
 </p>
