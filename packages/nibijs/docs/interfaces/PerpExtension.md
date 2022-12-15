@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/perp.ts:23](https://github.com/NibiruChain/ts-sdk/blob/fb8286f/packages/nibijs/src/query/perp.ts#L23)
+[query/perp.ts:23](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/perp.ts#L23)

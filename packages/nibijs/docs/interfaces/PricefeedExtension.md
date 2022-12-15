@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/pricefeed.ts:9](https://github.com/NibiruChain/ts-sdk/blob/fb8286f/packages/nibijs/src/query/pricefeed.ts#L9)
+[query/pricefeed.ts:9](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/pricefeed.ts#L9)

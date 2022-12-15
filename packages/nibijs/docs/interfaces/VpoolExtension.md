@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/vpool.ts:7](https://github.com/NibiruChain/ts-sdk/blob/fb8286f/packages/nibijs/src/query/vpool.ts#L7)
+[query/vpool.ts:7](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/vpool.ts#L7)

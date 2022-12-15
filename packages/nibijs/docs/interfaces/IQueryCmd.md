@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[query/query.ts:39](https://github.com/NibiruChain/ts-sdk/blob/fb8286f/packages/nibijs/src/query/query.ts#L39)
+[query/query.ts:39](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/query.ts#L39)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:37](https://github.com/NibiruChain/ts-sdk/blob/fb8286f/packages/nibijs/src/query/query.ts#L37)
+[query/query.ts:37](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/query.ts#L37)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:40](https://github.com/NibiruChain/ts-sdk/blob/fb8286f/packages/nibijs/src/query/query.ts#L40)
+[query/query.ts:40](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/query.ts#L40)
 
 ___
 
@@ -61,4 +61,4 @@ ___
 
 #### Defined in
 
-[query/query.ts:38](https://github.com/NibiruChain/ts-sdk/blob/fb8286f/packages/nibijs/src/query/query.ts#L38)
+[query/query.ts:38](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/query.ts#L38)
