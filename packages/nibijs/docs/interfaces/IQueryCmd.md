@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.3](../intro.md) / [Exports](../modules.md) / IQueryCmd
+[NibiJS Documentation - v0.8.4](../intro.md) / [Exports](../modules.md) / IQueryCmd
 
 # Interface: IQueryCmd
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[query/query.ts:39](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/query.ts#L39)
+[query/query.ts:28](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/query/query.ts#L28)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:37](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/query.ts#L37)
+[query/query.ts:26](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/query/query.ts#L26)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:40](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/query.ts#L40)
+[query/query.ts:29](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/query/query.ts#L29)
 
 ___
 
@@ -61,4 +61,4 @@ ___
 
 #### Defined in
 
-[query/query.ts:38](https://github.com/NibiruChain/ts-sdk/blob/5bcbdf3/packages/nibijs/src/query/query.ts#L38)
+[query/query.ts:27](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/query/query.ts#L27)

@@ -22,20 +22,15 @@ export type ExtendedQueryClient = BankExtension &
   PricefeedExtension &
   EpochsExtension
 
-export {
-  BankExtension,
-  QueryClient,
-  AuthExtension,
-  DexExtension,
-  PerpExtension,
-  VpoolExtension,
-  PricefeedExtension,
-  EpochsExtension,
-}
-
 export interface IQueryCmd {
+  /**
+   * An ExtendedQueryClient is the closest analogy to the query command of nibid CLI.
+   * It contains queries for all of the active modules of Nibiru Chain.
+   */
   client: ExtendedQueryClient
   tmClient: Tendermint34Client
+  /** The chain to which this query client corresponds.
+   * E.g. nibiru-testnet-1, nibiru-localnet-42 */
   chain: Chain
   disconnect: () => void
 }
