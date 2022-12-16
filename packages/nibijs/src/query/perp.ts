@@ -92,11 +92,16 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
         const resp = await queryService.CumulativePremiumFraction(req)
         const transformPremiumFractions = (
           resp: perpquery.QueryCumulativePremiumFractionResponse,
-        ): perpquery.QueryCumulativePremiumFractionResponse => ({
-          cumulativePremiumFraction: resp.cumulativePremiumFraction,
-          estimatedNextCumulativePremiumFraction:
-            resp.estimatedNextCumulativePremiumFraction,
-        })
+        ): perpquery.QueryCumulativePremiumFractionResponse => {
+          const {
+            cumulativePremiumFraction: cpf,
+            estimatedNextCumulativePremiumFraction: nextCpf,
+          } = resp
+          return {
+            cumulativePremiumFraction: fromSdkDec(cpf).toString(),
+            estimatedNextCumulativePremiumFraction: fromSdkDec(nextCpf).toString(),
+          }
+        }
         return transformPremiumFractions(resp)
       },
       metrics: async (args: { pair: string }) => {
@@ -104,9 +109,18 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
         const resp = await queryService.Metrics(req)
         const transformMetrics = (
           resp: perpquery.QueryMetricsResponse,
-        ): perpquery.QueryMetricsResponse => ({
-          metrics: resp.metrics,
-        })
+        ): perpquery.QueryMetricsResponse => {
+          if (!resp.metrics) return resp
+          const { volumeBase, volumeQuote, netSize } = resp.metrics
+          return {
+            metrics: {
+              ...resp.metrics,
+              netSize: fromSdkDec(netSize).toString(),
+              volumeBase: fromSdkDec(volumeBase).toString(),
+              volumeQuote: fromSdkDec(volumeQuote).toString(),
+            },
+          }
+        }
         return transformMetrics(resp)
       },
     },
