@@ -94,11 +94,14 @@ test("useQueryRecentTrades", async () => {
 })
 
 test("useMarkPriceCandleSticks", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.useMarkPriceCandleSticks({
     pair,
     period: CandleStickPeriod.MIN_5,
-    startDate: "2022-11-30T00:00:00.000",
-    endDate: "2022-12-12T00:00:00.000",
+    startDate: startDate.toISOString(),
+    endDate: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("markPriceCandlesticks")
 
