@@ -21,9 +21,12 @@
 
 • **chain**: [`Chain`](Chain.md)
 
+The chain to which this query client corresponds.
+E.g. nibiru-testnet-1, nibiru-localnet-42
+
 #### Defined in
 
-[query/query.ts:28](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/query/query.ts#L28)
+[query/query.ts:34](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/query/query.ts#L34)
 
 ___
 
@@ -31,9 +34,12 @@ ___
 
 • **client**: [`ExtendedQueryClient`](../modules.md#extendedqueryclient)
 
+An ExtendedQueryClient is the closest analogy to the query command of nibid CLI.
+It contains queries for all of the active modules of Nibiru Chain.
+
 #### Defined in
 
-[query/query.ts:26](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/query/query.ts#L26)
+[query/query.ts:30](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/query/query.ts#L30)
 
 ___
 
@@ -51,7 +57,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:29](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/query/query.ts#L29)
+[query/query.ts:35](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/query/query.ts#L35)
 
 ___
 
@@ -61,4 +67,4 @@ ___
 
 #### Defined in
 
-[query/query.ts:27](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/query/query.ts#L27)
+[query/query.ts:31](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/query/query.ts#L31)

@@ -29,7 +29,7 @@
 
 #### Defined in
 
-[msg/index.ts:7](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/msg/index.ts#L7)
+[msg/index.ts:7](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/msg/index.ts#L7)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[msg/index.ts:9](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/msg/index.ts#L9)
+[msg/index.ts:9](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/msg/index.ts#L9)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[msg/index.ts:11](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/msg/index.ts#L11)
+[msg/index.ts:11](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/msg/index.ts#L11)
 
 ___
 
@@ -59,4 +59,4 @@ ___
 
 #### Defined in
 
-[msg/index.ts:13](https://github.com/NibiruChain/ts-sdk/blob/fd87694/packages/nibijs/src/msg/index.ts#L13)
+[msg/index.ts:13](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/msg/index.ts#L13)
