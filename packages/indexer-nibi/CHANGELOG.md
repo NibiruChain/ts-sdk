@@ -7,6 +7,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.3.4
+- [[#79]](https://github.com/NibiruChain/ts-sdk/pull/79) feat: add `CandleStickPeriod` enums
+
 ## v0.3.2
 - [[#55]](https://github.com/NibiruChain/ts-sdk/pull/54) fix: Add `useQueryRecentTrades` definition in `IHeartMonitor`
 
