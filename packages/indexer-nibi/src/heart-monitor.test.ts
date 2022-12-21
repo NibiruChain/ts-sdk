@@ -1,4 +1,5 @@
 /* eslint-disable jest/no-conditional-expect */
+import { CandleStickPeriod } from "./constant"
 import { HeartMonitor } from "./heart-monitor"
 
 const fromBlock = 1
@@ -93,11 +94,14 @@ test("useQueryRecentTrades", async () => {
 })
 
 test("useMarkPriceCandleSticks", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.useMarkPriceCandleSticks({
     pair,
-    period: 300,
-    startDate: "2022-11-30T00:00:00.000",
-    endDate: "2022-12-12T00:00:00.000",
+    period: CandleStickPeriod.MIN_5,
+    startDate: startDate.toISOString(),
+    endDate: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("markPriceCandlesticks")
 
