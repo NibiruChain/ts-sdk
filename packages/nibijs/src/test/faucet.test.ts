@@ -59,7 +59,7 @@ test("faucet utility works", async () => {
     )
     const faucetResp = await useFaucet({
       address,
-      faucetUrl: "https://faucet.devnet-2.nibiru.fi/", // default "https://faucet.testnet-1.nibiru.fi/"
+      chain,
     })
     if (!faucetResp.ok) {
       console.debug(`useFaucet failed with response ${await faucetResp.text()}`)
@@ -68,7 +68,10 @@ test("faucet utility works", async () => {
     return balancesStart
   }
 
-  const expectedBalances = { unusd: 100 * 1_000_000, unibi: 10 * 1_000_000 }
+  const expectedBalances = {
+    unusd: 100 * 1_000_000,
+    unibi: 11 * 1_000_000,
+  }
 
   const expectBalancesToIncreaseByFaucetAmt = async (balancesStart: CoinMap) => {
     await waitForNextBlock(chain)

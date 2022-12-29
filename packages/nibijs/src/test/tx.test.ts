@@ -117,7 +117,7 @@ describe("nibid tx perp", () => {
         "MsgOpenPosition",
         txLogs[0].events,
       )
-      expect(eventTypes).toContain("nibiru.vpool.v1.SwapQuoteForBaseEvent")
+      expect(eventTypes).toContain("nibiru.vpool.v1.SwapOnVpoolEvent")
       expect(eventTypes).toContain("nibiru.vpool.v1.MarkPriceChangedEvent")
       expect(eventTypes).toContain("nibiru.perp.v1.PositionChangedEvent")
       expect(eventTypes).toContain("transfer")

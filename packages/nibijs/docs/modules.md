@@ -1,6 +1,6 @@
-[NibiJS Documentation - v0.8.4](intro.md) / Exports
+[NibiJS Documentation - v0.8.5](intro.md) / Exports
 
-# NibiJS Documentation - v0.8.4
+# NibiJS Documentation - v0.8.5
 
 ## Table of contents
 
@@ -52,6 +52,7 @@
 - [getKeplr](modules.md#getkeplr)
 - [getRegistry](modules.md#getregistry)
 - [go](modules.md#go)
+- [instanceOfChain](modules.md#instanceofchain)
 - [isRestEndptLive](modules.md#isrestendptlive)
 - [isRestEndptValid](modules.md#isrestendptvalid)
 - [newCoinMapFromCoins](modules.md#newcoinmapfromcoins)
@@ -78,7 +79,7 @@
 
 #### Defined in
 
-[tx/tx.ts:26](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/tx/tx.ts#L26)
+[tx/tx.ts:26](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/tx/tx.ts#L26)
 
 ___
 
@@ -88,7 +89,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:27](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/tx/tx.ts#L27)
+[tx/tx.ts:27](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/tx/tx.ts#L27)
 
 ___
 
@@ -98,7 +99,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:16](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/query/query.ts#L16)
+[query/query.ts:16](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/query/query.ts#L16)
 
 ## Variables
 
@@ -117,7 +118,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:64](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L64)
+[chain/chain.ts:74](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L74)
 
 ___
 
@@ -131,7 +132,7 @@ testing.
 
 #### Defined in
 
-[chain/chain.ts:76](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L76)
+[chain/chain.ts:86](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L86)
 
 ___
 
@@ -141,7 +142,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:62](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L62)
+[chain/chain.ts:72](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L72)
 
 ___
 
@@ -151,7 +152,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:4](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/parse.ts#L4)
+[chain/parse.ts:4](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/parse.ts#L4)
 
 ___
 
@@ -161,7 +162,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:30](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L30)
+[chain/chain.ts:40](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L40)
 
 ___
 
@@ -171,7 +172,7 @@ ___
 
 #### Defined in
 
-[msg/index.ts:16](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/msg/index.ts#L16)
+[msg/index.ts:16](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/msg/index.ts#L16)
 
 ___
 
@@ -181,7 +182,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:60](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L60)
+[chain/chain.ts:70](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L70)
 
 ## Functions
 
@@ -202,7 +203,7 @@ ___
 
 #### Defined in
 
-[chain/types.ts:27](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/types.ts#L27)
+[chain/types.ts:27](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/types.ts#L27)
 
 ___
 
@@ -222,7 +223,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:176](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/parse.ts#L176)
+[chain/parse.ts:176](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/parse.ts#L176)
 
 ___
 
@@ -242,7 +243,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:99](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/parse.ts#L99)
+[chain/parse.ts:99](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/parse.ts#L99)
 
 ___
 
@@ -262,7 +263,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:158](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/parse.ts#L158)
+[chain/parse.ts:158](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/parse.ts#L158)
 
 ___
 
@@ -282,7 +283,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:152](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/parse.ts#L152)
+[chain/parse.ts:152](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/parse.ts#L152)
 
 ___
 
@@ -302,7 +303,7 @@ ___
 
 #### Defined in
 
-[wallet/keplr.ts:9](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/wallet/keplr.ts#L9)
+[wallet/keplr.ts:9](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/wallet/keplr.ts#L9)
 
 ___
 
@@ -316,7 +317,7 @@ ___
 
 #### Defined in
 
-[tx/signer.ts:28](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/tx/signer.ts#L28)
+[tx/signer.ts:28](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/tx/signer.ts#L28)
 
 ___
 
@@ -342,7 +343,30 @@ ___
 
 #### Defined in
 
-[chain/types.ts:13](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/types.ts#L13)
+[chain/types.ts:13](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/types.ts#L13)
+
+___
+
+### instanceOfChain
+
+▸ **instanceOfChain**(`obj`): obj is Chain
+
+A function for strongly typing. Returns true if the input object satisfies
+the Chain interface.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `obj` | `any` |
+
+#### Returns
+
+obj is Chain
+
+#### Defined in
+
+[chain/chain.ts:34](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L34)
 
 ___
 
@@ -362,7 +386,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:140](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L140)
+[chain/chain.ts:106](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L106)
 
 ___
 
@@ -382,7 +406,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:149](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L149)
+[chain/chain.ts:115](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L115)
 
 ___
 
@@ -402,7 +426,7 @@ ___
 
 #### Defined in
 
-[chain/types.ts:39](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/types.ts#L39)
+[chain/types.ts:39](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/types.ts#L39)
 
 ___
 
@@ -422,7 +446,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:49](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L49)
+[chain/chain.ts:59](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L59)
 
 ___
 
@@ -442,7 +466,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:95](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/query/query.ts#L95)
+[query/query.ts:95](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/query/query.ts#L95)
 
 ___
 
@@ -469,7 +493,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT.
 
 #### Defined in
 
-[tx/signer.ts:62](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/tx/signer.ts#L62)
+[tx/signer.ts:62](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/tx/signer.ts#L62)
 
 ___
 
@@ -495,7 +519,7 @@ mnemonic. The querier and Tendermint client will still function normally.
 
 #### Defined in
 
-[sdk.ts:21](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/sdk.ts#L21)
+[sdk.ts:21](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/sdk.ts#L21)
 
 ___
 
@@ -516,7 +540,7 @@ ___
 
 #### Defined in
 
-[tx/signer.ts:47](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/tx/signer.ts#L47)
+[tx/signer.ts:47](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/tx/signer.ts#L47)
 
 ___
 
@@ -543,7 +567,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT
 
 #### Defined in
 
-[tx/signer.ts:40](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/tx/signer.ts#L40)
+[tx/signer.ts:40](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/tx/signer.ts#L40)
 
 ___
 
@@ -563,7 +587,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:38](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L38)
+[chain/chain.ts:48](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L48)
 
 ___
 
@@ -585,13 +609,13 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:147](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/tx/tx.ts#L147)
+[tx/tx.ts:147](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/tx/tx.ts#L147)
 
 ___
 
 ### queryChainIdWithRest
 
-▸ **queryChainIdWithRest**(`chain`): `Promise`<[`string` \| `undefined`, `Error` \| `undefined`]\>
+▸ **queryChainIdWithRest**(`chain`): `Promise`<[`string`, Error?]\>
 
 #### Parameters
 
@@ -601,11 +625,11 @@ ___
 
 #### Returns
 
-`Promise`<[`string` \| `undefined`, `Error` \| `undefined`]\>
+`Promise`<[`string`, Error?]\>
 
 #### Defined in
 
-[chain/chain.ts:127](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L127)
+[chain/chain.ts:95](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/chain.ts#L95)
 
 ___
 
@@ -634,7 +658,7 @@ ref: Reimplementation of cosmos-sdk/types/decimal.go
 
 #### Defined in
 
-[chain/parse.ts:25](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/parse.ts#L25)
+[chain/parse.ts:25](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/parse.ts#L25)
 
 ___
 
@@ -654,7 +678,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:148](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/parse.ts#L148)
+[chain/parse.ts:148](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/parse.ts#L148)
 
 ___
 
@@ -670,8 +694,11 @@ Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
 | :------ | :------ |
 | `«destructured»` | `Object` |
 | › `address` | `string` |
-| › `amtNibi?` | `number` |
-| › `amtNusd?` | `number` |
+| › `amts?` | `Object` |
+| › `amts.nibi` | `number` |
+| › `amts.nusd` | `number` |
+| › `amts.usdt` | `number` |
+| › `chain?` | `string` \| [`Chain`](interfaces/Chain.md) |
 | › `faucetUrl?` | `string` |
 
 #### Returns
@@ -680,7 +707,7 @@ Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
 
 #### Defined in
 
-[chain/chain.ts:88](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/chain/chain.ts#L88)
+[chain/useFaucet.ts:7](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/chain/useFaucet.ts#L7)
 
 ___
 
@@ -702,7 +729,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:50](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/query/query.ts#L50)
+[query/query.ts:50](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/query/query.ts#L50)
 
 ___
 
@@ -722,4 +749,4 @@ ___
 
 #### Defined in
 
-[query/query.ts:38](https://github.com/NibiruChain/ts-sdk/blob/26f9809/packages/nibijs/src/query/query.ts#L38)
+[query/query.ts:38](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/query/query.ts#L38)

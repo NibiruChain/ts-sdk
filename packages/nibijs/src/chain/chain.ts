@@ -27,6 +27,16 @@ export interface Chain {
   feeDenom: string
 }
 
+/**
+ * A function for strongly typing. Returns true if the input object satisfies
+ * the Chain interface.
+ */
+export function instanceOfChain(obj: any): obj is Chain {
+  return ["endptTm", "endptRest", "chainId", "chainName", "feeDenom"].every(
+    (attr) => attr in obj,
+  )
+}
+
 export const Localnet: Chain = {
   endptTm: "127.0.0.1:26657",
   endptRest: "127.0.0.1:1317",
@@ -82,51 +92,7 @@ export const Chaosnet: Chain = {
   feeDenom: "unibi",
 }
 
-/**
- * Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
- */
-export async function useFaucet({
-  address,
-  faucetUrl,
-  amtNibi,
-  amtNusd,
-}: {
-  address: string
-  faucetUrl?: string
-  amtNibi?: number
-  amtNusd?: number
-}): Promise<Response> {
-  amtNibi = amtNibi ?? 10
-  amtNusd = amtNusd ?? 100
-  const coins: string[] = [
-    `${(amtNibi * 1_000_000).toString()}unibi`,
-    `${(amtNusd * 1_000_000).toString()}unusd`,
-  ]
-  faucetUrl = faucetUrl ?? "https://faucet.testnet-1.nibiru.fi/"
-  console.info(
-    `Requesting funds from faucet @ ${faucetUrl}: 
-    Coins: ${coins}
-    Address: ${address}
-    `,
-  )
-
-  const resp = await fetch(faucetUrl, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ address, coins }),
-  }).catch((err) => {
-    console.error(err)
-    throw err
-  })
-  return resp
-}
-
-export async function queryChainIdWithRest(
-  chain: Chain,
-): Promise<[string | undefined, Error | undefined]> {
+export async function queryChainIdWithRest(chain: Chain): Promise<[string, Error?]> {
   const queryChainId = async (chain: Chain): Promise<string> => {
     const response = await fetch(`${chain.endptRest}/node_info`)
     const nodeInfo: { node_info: { network: string } } = await response.json()
@@ -134,13 +100,13 @@ export async function queryChainIdWithRest(
   }
 
   const { res: chainId, err } = await go(queryChainId(chain))
-  return [chainId, err]
+  return [chainId ?? "", err]
 }
 
 export async function isRestEndptLive(chain: Chain): Promise<boolean> {
   let isLive: boolean = false
-  const [chainId, err] = await queryChainIdWithRest(chain)
-  if (chainId) {
+  const [_chainId, err] = await queryChainIdWithRest(chain)
+  if (err === undefined) {
     isLive = true
   }
   return isLive
@@ -149,7 +115,7 @@ export async function isRestEndptLive(chain: Chain): Promise<boolean> {
 export async function isRestEndptValid(chain: Chain): Promise<boolean> {
   let isLive: boolean = true
   const [chainId, err] = await queryChainIdWithRest(chain)
-  if (!chainId) {
+  if (err !== undefined) {
     isLive = false
   } else if (chainId !== chain.chainId) {
     isLive = false

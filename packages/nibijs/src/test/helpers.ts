@@ -2,7 +2,7 @@ import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import { Block } from "@cosmjs/tendermint-rpc"
 import { Chain, newDevnet } from "../chain"
 
-export const TEST_CHAIN = newDevnet(2)
+export const TEST_CHAIN = newDevnet(1)
 
 export function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
