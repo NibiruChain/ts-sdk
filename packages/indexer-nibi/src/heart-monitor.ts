@@ -10,7 +10,9 @@ import {
 } from "./types"
 
 async function cleanResponse(rawResp: Response): Promise<any> {
-  const respJson: any = await rawResp.json()
+  const respJson: any = await rawResp.json().catch((err) => {
+    console.error(err)
+  })
 
   if (!rawResp.ok || respJson === undefined) {
     throw new Error(`${respJson}`)
@@ -61,7 +63,7 @@ export class HeartMonitor implements IHeartMonitor {
   gqlEndpt: string
 
   constructor(gqlEndpt?: string) {
-    this.gqlEndpt = gqlEndpt ?? "https://hm-graphql.testnet-1.nibiru.fi/graphql"
+    this.gqlEndpt = gqlEndpt ?? "https://hm-graphql.testnet-2.nibiru.fi/graphql"
   }
 
   /**
