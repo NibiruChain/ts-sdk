@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.5](../intro.md) / [Exports](../modules.md) / Sdk
+[NibiJS Documentation - v0.8.6](../intro.md) / [Exports](../modules.md) / Sdk
 
 # Class: Sdk
 
@@ -63,7 +63,7 @@ Creates an instance of Sdk.
 
 #### Defined in
 
-[sdk.ts:71](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/sdk.ts#L71)
+[sdk.ts:71](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/sdk.ts#L71)
 
 ## Properties
 
@@ -77,7 +77,7 @@ Creates an instance of Sdk.
 
 #### Defined in
 
-[sdk.ts:57](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/sdk.ts#L57)
+[sdk.ts:57](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/sdk.ts#L57)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[sdk.ts:61](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/sdk.ts#L61)
+[sdk.ts:61](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/sdk.ts#L61)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[sdk.ts:63](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/sdk.ts#L63)
+[sdk.ts:63](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/sdk.ts#L63)
 
 ___
 
@@ -119,4 +119,4 @@ ___
 
 #### Defined in
 
-[sdk.ts:59](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/sdk.ts#L59)
+[sdk.ts:59](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/sdk.ts#L59)
