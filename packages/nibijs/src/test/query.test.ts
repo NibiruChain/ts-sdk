@@ -236,3 +236,12 @@ describe("epochs module queries", () => {
     timeoutMs,
   )
 })
+
+describe("staking module queries", () => {
+  test("nibid query staking validators", async () => {
+    const { client: query } = await newQueryCmd(chain)
+    const infoResp = await query.staking.validators("BOND_STATUS_BONDED")
+    expect(infoResp).toHaveProperty("validators")
+    expect(infoResp.validators.length).toBeGreaterThan(0)
+  })
+})

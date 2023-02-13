@@ -7,6 +7,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * .
 
+## v0.8.6
+* feat: Add staking query extension
+
 ## v0.8.0 
 
 * sync: Update to nibiru v0.16.0-beta.1.

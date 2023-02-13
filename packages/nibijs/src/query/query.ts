@@ -11,6 +11,7 @@ import { setupDexExtension, DexExtension } from "./dex"
 import { EpochsExtension, setupEpochsExtension } from "./epochs"
 import { setupPerpExtension, PerpExtension } from "./perp"
 import { PricefeedExtension, setupPricefeedExtension } from "./pricefeed"
+import { setupStakingExtension, StakingExtension } from "./staking"
 import { setupVpoolExtension, VpoolExtension } from "./vpool"
 
 export type ExtendedQueryClient = BankExtension &
@@ -20,7 +21,8 @@ export type ExtendedQueryClient = BankExtension &
   PerpExtension &
   VpoolExtension &
   PricefeedExtension &
-  EpochsExtension
+  EpochsExtension &
+  StakingExtension
 
 export interface IQueryCmd {
   /**
@@ -84,6 +86,7 @@ export class QueryCmd implements IQueryCmd {
       setupVpoolExtension,
       setupPricefeedExtension,
       setupEpochsExtension,
+      setupStakingExtension,
     )
   }
 
