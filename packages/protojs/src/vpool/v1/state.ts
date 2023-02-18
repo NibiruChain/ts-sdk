@@ -1,7 +1,6 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { AssetPair } from "../../common/common";
 
 export const protobufPackage = "nibiru.vpool.v1";
 
@@ -99,7 +98,7 @@ export function twapCalcOptionToJSON(object: TwapCalcOption): string {
  */
 export interface Vpool {
   /** always BASE:QUOTE, e.g. BTC:NUSD or ETH:NUSD */
-  pair?: AssetPair;
+  pair: string;
   /** base asset is the crypto asset, e.g. BTC or ETH */
   baseAssetReserve: string;
   /** quote asset is usually stablecoin, in our case NUSD */
@@ -130,7 +129,7 @@ export interface CurrentTWAP {
 
 /** a snapshot of the vpool's reserves at a given point in time */
 export interface ReserveSnapshot {
-  pair?: AssetPair;
+  pair: string;
   baseAssetReserve: string;
   /** quote asset is usually the margin asset, e.g. NUSD */
   quoteAssetReserve: string;
@@ -162,13 +161,13 @@ export interface PoolPrices {
 }
 
 function createBaseVpool(): Vpool {
-  return { pair: undefined, baseAssetReserve: "", quoteAssetReserve: "", config: undefined };
+  return { pair: "", baseAssetReserve: "", quoteAssetReserve: "", config: undefined };
 }
 
 export const Vpool = {
   encode(message: Vpool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== undefined) {
-      AssetPair.encode(message.pair, writer.uint32(10).fork()).ldelim();
+    if (message.pair !== "") {
+      writer.uint32(10).string(message.pair);
     }
     if (message.baseAssetReserve !== "") {
       writer.uint32(18).string(message.baseAssetReserve);
@@ -190,7 +189,7 @@ export const Vpool = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.pair = AssetPair.decode(reader, reader.uint32());
+          message.pair = reader.string();
           break;
         case 2:
           message.baseAssetReserve = reader.string();
@@ -211,7 +210,7 @@ export const Vpool = {
 
   fromJSON(object: any): Vpool {
     return {
-      pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
+      pair: isSet(object.pair) ? String(object.pair) : "",
       baseAssetReserve: isSet(object.baseAssetReserve) ? String(object.baseAssetReserve) : "",
       quoteAssetReserve: isSet(object.quoteAssetReserve) ? String(object.quoteAssetReserve) : "",
       config: isSet(object.config) ? VpoolConfig.fromJSON(object.config) : undefined,
@@ -220,7 +219,7 @@ export const Vpool = {
 
   toJSON(message: Vpool): unknown {
     const obj: any = {};
-    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
+    message.pair !== undefined && (obj.pair = message.pair);
     message.baseAssetReserve !== undefined && (obj.baseAssetReserve = message.baseAssetReserve);
     message.quoteAssetReserve !== undefined && (obj.quoteAssetReserve = message.quoteAssetReserve);
     message.config !== undefined && (obj.config = message.config ? VpoolConfig.toJSON(message.config) : undefined);
@@ -229,7 +228,7 @@ export const Vpool = {
 
   fromPartial<I extends Exact<DeepPartial<Vpool>, I>>(object: I): Vpool {
     const message = createBaseVpool();
-    message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
+    message.pair = object.pair ?? "";
     message.baseAssetReserve = object.baseAssetReserve ?? "";
     message.quoteAssetReserve = object.quoteAssetReserve ?? "";
     message.config = (object.config !== undefined && object.config !== null)
@@ -407,13 +406,13 @@ export const CurrentTWAP = {
 };
 
 function createBaseReserveSnapshot(): ReserveSnapshot {
-  return { pair: undefined, baseAssetReserve: "", quoteAssetReserve: "", timestampMs: Long.ZERO };
+  return { pair: "", baseAssetReserve: "", quoteAssetReserve: "", timestampMs: Long.ZERO };
 }
 
 export const ReserveSnapshot = {
   encode(message: ReserveSnapshot, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== undefined) {
-      AssetPair.encode(message.pair, writer.uint32(42).fork()).ldelim();
+    if (message.pair !== "") {
+      writer.uint32(42).string(message.pair);
     }
     if (message.baseAssetReserve !== "") {
       writer.uint32(10).string(message.baseAssetReserve);
@@ -435,7 +434,7 @@ export const ReserveSnapshot = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 5:
-          message.pair = AssetPair.decode(reader, reader.uint32());
+          message.pair = reader.string();
           break;
         case 1:
           message.baseAssetReserve = reader.string();
@@ -456,7 +455,7 @@ export const ReserveSnapshot = {
 
   fromJSON(object: any): ReserveSnapshot {
     return {
-      pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
+      pair: isSet(object.pair) ? String(object.pair) : "",
       baseAssetReserve: isSet(object.baseAssetReserve) ? String(object.baseAssetReserve) : "",
       quoteAssetReserve: isSet(object.quoteAssetReserve) ? String(object.quoteAssetReserve) : "",
       timestampMs: isSet(object.timestampMs) ? Long.fromValue(object.timestampMs) : Long.ZERO,
@@ -465,7 +464,7 @@ export const ReserveSnapshot = {
 
   toJSON(message: ReserveSnapshot): unknown {
     const obj: any = {};
-    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
+    message.pair !== undefined && (obj.pair = message.pair);
     message.baseAssetReserve !== undefined && (obj.baseAssetReserve = message.baseAssetReserve);
     message.quoteAssetReserve !== undefined && (obj.quoteAssetReserve = message.quoteAssetReserve);
     message.timestampMs !== undefined && (obj.timestampMs = (message.timestampMs || Long.ZERO).toString());
@@ -474,7 +473,7 @@ export const ReserveSnapshot = {
 
   fromPartial<I extends Exact<DeepPartial<ReserveSnapshot>, I>>(object: I): ReserveSnapshot {
     const message = createBaseReserveSnapshot();
-    message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
+    message.pair = object.pair ?? "";
     message.baseAssetReserve = object.baseAssetReserve ?? "";
     message.quoteAssetReserve = object.quoteAssetReserve ?? "";
     message.timestampMs = (object.timestampMs !== undefined && object.timestampMs !== null)

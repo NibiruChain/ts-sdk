@@ -1,7 +1,6 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { AssetPair } from "../../common/common";
 import { Duration } from "../../google/protobuf/duration";
 
 export const protobufPackage = "nibiru.perp.v1";
@@ -211,7 +210,7 @@ export interface Position {
   /** address identifies the address owner of this position */
   traderAddress: string;
   /** pair identifies the pair associated with this position */
-  pair?: AssetPair;
+  pair: string;
   /** Position size. */
   size: string;
   /** Amount of margin remaining in the position. */
@@ -231,7 +230,7 @@ export interface Position {
 }
 
 export interface PairMetadata {
-  pair?: AssetPair;
+  pair: string;
   /**
    * Latest cumulative premium fraction for a given pair.
    * Calculated once per funding rate interval.
@@ -437,7 +436,7 @@ export const Params = {
 function createBasePosition(): Position {
   return {
     traderAddress: "",
-    pair: undefined,
+    pair: "",
     size: "",
     margin: "",
     openNotional: "",
@@ -451,8 +450,8 @@ export const Position = {
     if (message.traderAddress !== "") {
       writer.uint32(10).string(message.traderAddress);
     }
-    if (message.pair !== undefined) {
-      AssetPair.encode(message.pair, writer.uint32(18).fork()).ldelim();
+    if (message.pair !== "") {
+      writer.uint32(18).string(message.pair);
     }
     if (message.size !== "") {
       writer.uint32(26).string(message.size);
@@ -483,7 +482,7 @@ export const Position = {
           message.traderAddress = reader.string();
           break;
         case 2:
-          message.pair = AssetPair.decode(reader, reader.uint32());
+          message.pair = reader.string();
           break;
         case 3:
           message.size = reader.string();
@@ -511,7 +510,7 @@ export const Position = {
   fromJSON(object: any): Position {
     return {
       traderAddress: isSet(object.traderAddress) ? String(object.traderAddress) : "",
-      pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
+      pair: isSet(object.pair) ? String(object.pair) : "",
       size: isSet(object.size) ? String(object.size) : "",
       margin: isSet(object.margin) ? String(object.margin) : "",
       openNotional: isSet(object.openNotional) ? String(object.openNotional) : "",
@@ -525,7 +524,7 @@ export const Position = {
   toJSON(message: Position): unknown {
     const obj: any = {};
     message.traderAddress !== undefined && (obj.traderAddress = message.traderAddress);
-    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
+    message.pair !== undefined && (obj.pair = message.pair);
     message.size !== undefined && (obj.size = message.size);
     message.margin !== undefined && (obj.margin = message.margin);
     message.openNotional !== undefined && (obj.openNotional = message.openNotional);
@@ -538,7 +537,7 @@ export const Position = {
   fromPartial<I extends Exact<DeepPartial<Position>, I>>(object: I): Position {
     const message = createBasePosition();
     message.traderAddress = object.traderAddress ?? "";
-    message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
+    message.pair = object.pair ?? "";
     message.size = object.size ?? "";
     message.margin = object.margin ?? "";
     message.openNotional = object.openNotional ?? "";
@@ -551,13 +550,13 @@ export const Position = {
 };
 
 function createBasePairMetadata(): PairMetadata {
-  return { pair: undefined, latestCumulativePremiumFraction: "" };
+  return { pair: "", latestCumulativePremiumFraction: "" };
 }
 
 export const PairMetadata = {
   encode(message: PairMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pair !== undefined) {
-      AssetPair.encode(message.pair, writer.uint32(10).fork()).ldelim();
+    if (message.pair !== "") {
+      writer.uint32(10).string(message.pair);
     }
     if (message.latestCumulativePremiumFraction !== "") {
       writer.uint32(18).string(message.latestCumulativePremiumFraction);
@@ -573,7 +572,7 @@ export const PairMetadata = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.pair = AssetPair.decode(reader, reader.uint32());
+          message.pair = reader.string();
           break;
         case 2:
           message.latestCumulativePremiumFraction = reader.string();
@@ -588,7 +587,7 @@ export const PairMetadata = {
 
   fromJSON(object: any): PairMetadata {
     return {
-      pair: isSet(object.pair) ? AssetPair.fromJSON(object.pair) : undefined,
+      pair: isSet(object.pair) ? String(object.pair) : "",
       latestCumulativePremiumFraction: isSet(object.latestCumulativePremiumFraction)
         ? String(object.latestCumulativePremiumFraction)
         : "",
@@ -597,7 +596,7 @@ export const PairMetadata = {
 
   toJSON(message: PairMetadata): unknown {
     const obj: any = {};
-    message.pair !== undefined && (obj.pair = message.pair ? AssetPair.toJSON(message.pair) : undefined);
+    message.pair !== undefined && (obj.pair = message.pair);
     message.latestCumulativePremiumFraction !== undefined &&
       (obj.latestCumulativePremiumFraction = message.latestCumulativePremiumFraction);
     return obj;
@@ -605,7 +604,7 @@ export const PairMetadata = {
 
   fromPartial<I extends Exact<DeepPartial<PairMetadata>, I>>(object: I): PairMetadata {
     const message = createBasePairMetadata();
-    message.pair = (object.pair !== undefined && object.pair !== null) ? AssetPair.fromPartial(object.pair) : undefined;
+    message.pair = object.pair ?? "";
     message.latestCumulativePremiumFraction = object.latestCumulativePremiumFraction ?? "";
     return message;
   },

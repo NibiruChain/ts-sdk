@@ -4,7 +4,7 @@ import _m0 from "protobufjs/minimal";
 import { Coin } from "../../cosmos/base/v1beta1/coin";
 import { Pool, PoolAsset, PoolParams } from "./pool";
 
-export const protobufPackage = "nibiru.dex.v1";
+export const protobufPackage = "nibiru.spot.v1";
 
 export interface MsgCreatePool {
   creator: string;
@@ -611,25 +611,25 @@ export class MsgClientImpl implements Msg {
   }
   CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse> {
     const data = MsgCreatePool.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Msg", "CreatePool", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Msg", "CreatePool", data);
     return promise.then((data) => MsgCreatePoolResponse.decode(new _m0.Reader(data)));
   }
 
   JoinPool(request: MsgJoinPool): Promise<MsgJoinPoolResponse> {
     const data = MsgJoinPool.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Msg", "JoinPool", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Msg", "JoinPool", data);
     return promise.then((data) => MsgJoinPoolResponse.decode(new _m0.Reader(data)));
   }
 
   ExitPool(request: MsgExitPool): Promise<MsgExitPoolResponse> {
     const data = MsgExitPool.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Msg", "ExitPool", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Msg", "ExitPool", data);
     return promise.then((data) => MsgExitPoolResponse.decode(new _m0.Reader(data)));
   }
 
   SwapAssets(request: MsgSwapAssets): Promise<MsgSwapAssetsResponse> {
     const data = MsgSwapAssets.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Msg", "SwapAssets", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Msg", "SwapAssets", data);
     return promise.then((data) => MsgSwapAssetsResponse.decode(new _m0.Reader(data)));
   }
 }

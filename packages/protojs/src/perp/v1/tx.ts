@@ -9,7 +9,7 @@ export const protobufPackage = "nibiru.perp.v1";
 /** MsgRemoveMargin: Msg to remove margin. */
 export interface MsgRemoveMargin {
   sender: string;
-  tokenPair: string;
+  pair: string;
   margin?: Coin;
 }
 
@@ -25,7 +25,7 @@ export interface MsgRemoveMarginResponse {
 /** MsgAddMargin: Msg to remove margin. */
 export interface MsgAddMargin {
   sender: string;
-  tokenPair: string;
+  pair: string;
   margin?: Coin;
 }
 
@@ -34,42 +34,31 @@ export interface MsgAddMarginResponse {
   position?: Position;
 }
 
-export interface MsgLiquidate {
-  /** Sender is the liquidator address */
-  sender: string;
-  /** TokenPair is the identifier for the position's virtual pool */
-  tokenPair: string;
-  /** Trader is the address of the owner of the position */
-  trader: string;
-}
-
-export interface MsgLiquidateResponse {
-  feeToLiquidator?: Coin;
-  feeToPerpEcosystemFund?: Coin;
-}
-
 export interface MsgMultiLiquidate {
   sender: string;
-  liquidations: MsgMultiLiquidate_MultiLiquidation[];
+  liquidations: MsgMultiLiquidate_Liquidation[];
 }
 
-export interface MsgMultiLiquidate_MultiLiquidation {
-  tokenPair: string;
+export interface MsgMultiLiquidate_Liquidation {
+  pair: string;
   trader: string;
 }
 
 export interface MsgMultiLiquidateResponse {
-  liquidationResponses: MsgMultiLiquidateResponse_MultiLiquidateResponse[];
+  liquidations: MsgMultiLiquidateResponse_LiquidationResponse[];
 }
 
-export interface MsgMultiLiquidateResponse_MultiLiquidateResponse {
-  error: string | undefined;
-  liquidation?: MsgLiquidateResponse | undefined;
+export interface MsgMultiLiquidateResponse_LiquidationResponse {
+  success: boolean;
+  error: string;
+  liquidatorFee?: Coin;
+  /** perp ecosystem fund */
+  perpEfFee?: Coin;
 }
 
 export interface MsgOpenPosition {
   sender: string;
-  tokenPair: string;
+  pair: string;
   side: Side;
   quoteAssetAmount: string;
   leverage: string;
@@ -99,7 +88,7 @@ export interface MsgOpenPositionResponse {
 
 export interface MsgClosePosition {
   sender: string;
-  tokenPair: string;
+  pair: string;
 }
 
 export interface MsgClosePositionResponse {
@@ -128,7 +117,7 @@ export interface MsgDonateToEcosystemFundResponse {
 }
 
 function createBaseMsgRemoveMargin(): MsgRemoveMargin {
-  return { sender: "", tokenPair: "", margin: undefined };
+  return { sender: "", pair: "", margin: undefined };
 }
 
 export const MsgRemoveMargin = {
@@ -136,8 +125,8 @@ export const MsgRemoveMargin = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
-    if (message.tokenPair !== "") {
-      writer.uint32(18).string(message.tokenPair);
+    if (message.pair !== "") {
+      writer.uint32(18).string(message.pair);
     }
     if (message.margin !== undefined) {
       Coin.encode(message.margin, writer.uint32(26).fork()).ldelim();
@@ -156,7 +145,7 @@ export const MsgRemoveMargin = {
           message.sender = reader.string();
           break;
         case 2:
-          message.tokenPair = reader.string();
+          message.pair = reader.string();
           break;
         case 3:
           message.margin = Coin.decode(reader, reader.uint32());
@@ -172,7 +161,7 @@ export const MsgRemoveMargin = {
   fromJSON(object: any): MsgRemoveMargin {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
+      pair: isSet(object.pair) ? String(object.pair) : "",
       margin: isSet(object.margin) ? Coin.fromJSON(object.margin) : undefined,
     };
   },
@@ -180,7 +169,7 @@ export const MsgRemoveMargin = {
   toJSON(message: MsgRemoveMargin): unknown {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
-    message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair);
+    message.pair !== undefined && (obj.pair = message.pair);
     message.margin !== undefined && (obj.margin = message.margin ? Coin.toJSON(message.margin) : undefined);
     return obj;
   },
@@ -188,7 +177,7 @@ export const MsgRemoveMargin = {
   fromPartial<I extends Exact<DeepPartial<MsgRemoveMargin>, I>>(object: I): MsgRemoveMargin {
     const message = createBaseMsgRemoveMargin();
     message.sender = object.sender ?? "";
-    message.tokenPair = object.tokenPair ?? "";
+    message.pair = object.pair ?? "";
     message.margin = (object.margin !== undefined && object.margin !== null)
       ? Coin.fromPartial(object.margin)
       : undefined;
@@ -268,7 +257,7 @@ export const MsgRemoveMarginResponse = {
 };
 
 function createBaseMsgAddMargin(): MsgAddMargin {
-  return { sender: "", tokenPair: "", margin: undefined };
+  return { sender: "", pair: "", margin: undefined };
 }
 
 export const MsgAddMargin = {
@@ -276,8 +265,8 @@ export const MsgAddMargin = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
-    if (message.tokenPair !== "") {
-      writer.uint32(18).string(message.tokenPair);
+    if (message.pair !== "") {
+      writer.uint32(18).string(message.pair);
     }
     if (message.margin !== undefined) {
       Coin.encode(message.margin, writer.uint32(26).fork()).ldelim();
@@ -296,7 +285,7 @@ export const MsgAddMargin = {
           message.sender = reader.string();
           break;
         case 2:
-          message.tokenPair = reader.string();
+          message.pair = reader.string();
           break;
         case 3:
           message.margin = Coin.decode(reader, reader.uint32());
@@ -312,7 +301,7 @@ export const MsgAddMargin = {
   fromJSON(object: any): MsgAddMargin {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
+      pair: isSet(object.pair) ? String(object.pair) : "",
       margin: isSet(object.margin) ? Coin.fromJSON(object.margin) : undefined,
     };
   },
@@ -320,7 +309,7 @@ export const MsgAddMargin = {
   toJSON(message: MsgAddMargin): unknown {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
-    message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair);
+    message.pair !== undefined && (obj.pair = message.pair);
     message.margin !== undefined && (obj.margin = message.margin ? Coin.toJSON(message.margin) : undefined);
     return obj;
   },
@@ -328,7 +317,7 @@ export const MsgAddMargin = {
   fromPartial<I extends Exact<DeepPartial<MsgAddMargin>, I>>(object: I): MsgAddMargin {
     const message = createBaseMsgAddMargin();
     message.sender = object.sender ?? "";
-    message.tokenPair = object.tokenPair ?? "";
+    message.pair = object.pair ?? "";
     message.margin = (object.margin !== undefined && object.margin !== null)
       ? Coin.fromPartial(object.margin)
       : undefined;
@@ -396,141 +385,6 @@ export const MsgAddMarginResponse = {
   },
 };
 
-function createBaseMsgLiquidate(): MsgLiquidate {
-  return { sender: "", tokenPair: "", trader: "" };
-}
-
-export const MsgLiquidate = {
-  encode(message: MsgLiquidate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== "") {
-      writer.uint32(10).string(message.sender);
-    }
-    if (message.tokenPair !== "") {
-      writer.uint32(18).string(message.tokenPair);
-    }
-    if (message.trader !== "") {
-      writer.uint32(26).string(message.trader);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgLiquidate {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgLiquidate();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.tokenPair = reader.string();
-          break;
-        case 3:
-          message.trader = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgLiquidate {
-    return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
-      trader: isSet(object.trader) ? String(object.trader) : "",
-    };
-  },
-
-  toJSON(message: MsgLiquidate): unknown {
-    const obj: any = {};
-    message.sender !== undefined && (obj.sender = message.sender);
-    message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair);
-    message.trader !== undefined && (obj.trader = message.trader);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<MsgLiquidate>, I>>(object: I): MsgLiquidate {
-    const message = createBaseMsgLiquidate();
-    message.sender = object.sender ?? "";
-    message.tokenPair = object.tokenPair ?? "";
-    message.trader = object.trader ?? "";
-    return message;
-  },
-};
-
-function createBaseMsgLiquidateResponse(): MsgLiquidateResponse {
-  return { feeToLiquidator: undefined, feeToPerpEcosystemFund: undefined };
-}
-
-export const MsgLiquidateResponse = {
-  encode(message: MsgLiquidateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.feeToLiquidator !== undefined) {
-      Coin.encode(message.feeToLiquidator, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.feeToPerpEcosystemFund !== undefined) {
-      Coin.encode(message.feeToPerpEcosystemFund, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgLiquidateResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgLiquidateResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.feeToLiquidator = Coin.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.feeToPerpEcosystemFund = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgLiquidateResponse {
-    return {
-      feeToLiquidator: isSet(object.feeToLiquidator) ? Coin.fromJSON(object.feeToLiquidator) : undefined,
-      feeToPerpEcosystemFund: isSet(object.feeToPerpEcosystemFund)
-        ? Coin.fromJSON(object.feeToPerpEcosystemFund)
-        : undefined,
-    };
-  },
-
-  toJSON(message: MsgLiquidateResponse): unknown {
-    const obj: any = {};
-    message.feeToLiquidator !== undefined &&
-      (obj.feeToLiquidator = message.feeToLiquidator ? Coin.toJSON(message.feeToLiquidator) : undefined);
-    message.feeToPerpEcosystemFund !== undefined && (obj.feeToPerpEcosystemFund = message.feeToPerpEcosystemFund
-      ? Coin.toJSON(message.feeToPerpEcosystemFund)
-      : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<MsgLiquidateResponse>, I>>(object: I): MsgLiquidateResponse {
-    const message = createBaseMsgLiquidateResponse();
-    message.feeToLiquidator = (object.feeToLiquidator !== undefined && object.feeToLiquidator !== null)
-      ? Coin.fromPartial(object.feeToLiquidator)
-      : undefined;
-    message.feeToPerpEcosystemFund =
-      (object.feeToPerpEcosystemFund !== undefined && object.feeToPerpEcosystemFund !== null)
-        ? Coin.fromPartial(object.feeToPerpEcosystemFund)
-        : undefined;
-    return message;
-  },
-};
-
 function createBaseMsgMultiLiquidate(): MsgMultiLiquidate {
   return { sender: "", liquidations: [] };
 }
@@ -541,7 +395,7 @@ export const MsgMultiLiquidate = {
       writer.uint32(10).string(message.sender);
     }
     for (const v of message.liquidations) {
-      MsgMultiLiquidate_MultiLiquidation.encode(v!, writer.uint32(18).fork()).ldelim();
+      MsgMultiLiquidate_Liquidation.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -557,7 +411,7 @@ export const MsgMultiLiquidate = {
           message.sender = reader.string();
           break;
         case 2:
-          message.liquidations.push(MsgMultiLiquidate_MultiLiquidation.decode(reader, reader.uint32()));
+          message.liquidations.push(MsgMultiLiquidate_Liquidation.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -571,7 +425,7 @@ export const MsgMultiLiquidate = {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
       liquidations: Array.isArray(object?.liquidations)
-        ? object.liquidations.map((e: any) => MsgMultiLiquidate_MultiLiquidation.fromJSON(e))
+        ? object.liquidations.map((e: any) => MsgMultiLiquidate_Liquidation.fromJSON(e))
         : [],
     };
   },
@@ -580,7 +434,7 @@ export const MsgMultiLiquidate = {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
     if (message.liquidations) {
-      obj.liquidations = message.liquidations.map((e) => e ? MsgMultiLiquidate_MultiLiquidation.toJSON(e) : undefined);
+      obj.liquidations = message.liquidations.map((e) => e ? MsgMultiLiquidate_Liquidation.toJSON(e) : undefined);
     } else {
       obj.liquidations = [];
     }
@@ -590,37 +444,37 @@ export const MsgMultiLiquidate = {
   fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidate>, I>>(object: I): MsgMultiLiquidate {
     const message = createBaseMsgMultiLiquidate();
     message.sender = object.sender ?? "";
-    message.liquidations = object.liquidations?.map((e) => MsgMultiLiquidate_MultiLiquidation.fromPartial(e)) || [];
+    message.liquidations = object.liquidations?.map((e) => MsgMultiLiquidate_Liquidation.fromPartial(e)) || [];
     return message;
   },
 };
 
-function createBaseMsgMultiLiquidate_MultiLiquidation(): MsgMultiLiquidate_MultiLiquidation {
-  return { tokenPair: "", trader: "" };
+function createBaseMsgMultiLiquidate_Liquidation(): MsgMultiLiquidate_Liquidation {
+  return { pair: "", trader: "" };
 }
 
-export const MsgMultiLiquidate_MultiLiquidation = {
-  encode(message: MsgMultiLiquidate_MultiLiquidation, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.tokenPair !== "") {
-      writer.uint32(18).string(message.tokenPair);
+export const MsgMultiLiquidate_Liquidation = {
+  encode(message: MsgMultiLiquidate_Liquidation, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pair !== "") {
+      writer.uint32(10).string(message.pair);
     }
     if (message.trader !== "") {
-      writer.uint32(26).string(message.trader);
+      writer.uint32(18).string(message.trader);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidate_MultiLiquidation {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidate_Liquidation {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgMultiLiquidate_MultiLiquidation();
+    const message = createBaseMsgMultiLiquidate_Liquidation();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 2:
-          message.tokenPair = reader.string();
+        case 1:
+          message.pair = reader.string();
           break;
-        case 3:
+        case 2:
           message.trader = reader.string();
           break;
         default:
@@ -631,38 +485,38 @@ export const MsgMultiLiquidate_MultiLiquidation = {
     return message;
   },
 
-  fromJSON(object: any): MsgMultiLiquidate_MultiLiquidation {
+  fromJSON(object: any): MsgMultiLiquidate_Liquidation {
     return {
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
+      pair: isSet(object.pair) ? String(object.pair) : "",
       trader: isSet(object.trader) ? String(object.trader) : "",
     };
   },
 
-  toJSON(message: MsgMultiLiquidate_MultiLiquidation): unknown {
+  toJSON(message: MsgMultiLiquidate_Liquidation): unknown {
     const obj: any = {};
-    message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair);
+    message.pair !== undefined && (obj.pair = message.pair);
     message.trader !== undefined && (obj.trader = message.trader);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidate_MultiLiquidation>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidate_Liquidation>, I>>(
     object: I,
-  ): MsgMultiLiquidate_MultiLiquidation {
-    const message = createBaseMsgMultiLiquidate_MultiLiquidation();
-    message.tokenPair = object.tokenPair ?? "";
+  ): MsgMultiLiquidate_Liquidation {
+    const message = createBaseMsgMultiLiquidate_Liquidation();
+    message.pair = object.pair ?? "";
     message.trader = object.trader ?? "";
     return message;
   },
 };
 
 function createBaseMsgMultiLiquidateResponse(): MsgMultiLiquidateResponse {
-  return { liquidationResponses: [] };
+  return { liquidations: [] };
 }
 
 export const MsgMultiLiquidateResponse = {
   encode(message: MsgMultiLiquidateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.liquidationResponses) {
-      MsgMultiLiquidateResponse_MultiLiquidateResponse.encode(v!, writer.uint32(10).fork()).ldelim();
+    for (const v of message.liquidations) {
+      MsgMultiLiquidateResponse_LiquidationResponse.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -675,9 +529,7 @@ export const MsgMultiLiquidateResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.liquidationResponses.push(
-            MsgMultiLiquidateResponse_MultiLiquidateResponse.decode(reader, reader.uint32()),
-          );
+          message.liquidations.push(MsgMultiLiquidateResponse_LiquidationResponse.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -689,62 +541,71 @@ export const MsgMultiLiquidateResponse = {
 
   fromJSON(object: any): MsgMultiLiquidateResponse {
     return {
-      liquidationResponses: Array.isArray(object?.liquidationResponses)
-        ? object.liquidationResponses.map((e: any) => MsgMultiLiquidateResponse_MultiLiquidateResponse.fromJSON(e))
+      liquidations: Array.isArray(object?.liquidations)
+        ? object.liquidations.map((e: any) => MsgMultiLiquidateResponse_LiquidationResponse.fromJSON(e))
         : [],
     };
   },
 
   toJSON(message: MsgMultiLiquidateResponse): unknown {
     const obj: any = {};
-    if (message.liquidationResponses) {
-      obj.liquidationResponses = message.liquidationResponses.map((e) =>
-        e ? MsgMultiLiquidateResponse_MultiLiquidateResponse.toJSON(e) : undefined
+    if (message.liquidations) {
+      obj.liquidations = message.liquidations.map((e) =>
+        e ? MsgMultiLiquidateResponse_LiquidationResponse.toJSON(e) : undefined
       );
     } else {
-      obj.liquidationResponses = [];
+      obj.liquidations = [];
     }
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidateResponse>, I>>(object: I): MsgMultiLiquidateResponse {
     const message = createBaseMsgMultiLiquidateResponse();
-    message.liquidationResponses =
-      object.liquidationResponses?.map((e) => MsgMultiLiquidateResponse_MultiLiquidateResponse.fromPartial(e)) || [];
+    message.liquidations =
+      object.liquidations?.map((e) => MsgMultiLiquidateResponse_LiquidationResponse.fromPartial(e)) || [];
     return message;
   },
 };
 
-function createBaseMsgMultiLiquidateResponse_MultiLiquidateResponse(): MsgMultiLiquidateResponse_MultiLiquidateResponse {
-  return { error: undefined, liquidation: undefined };
+function createBaseMsgMultiLiquidateResponse_LiquidationResponse(): MsgMultiLiquidateResponse_LiquidationResponse {
+  return { success: false, error: "", liquidatorFee: undefined, perpEfFee: undefined };
 }
 
-export const MsgMultiLiquidateResponse_MultiLiquidateResponse = {
-  encode(
-    message: MsgMultiLiquidateResponse_MultiLiquidateResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.error !== undefined) {
-      writer.uint32(10).string(message.error);
+export const MsgMultiLiquidateResponse_LiquidationResponse = {
+  encode(message: MsgMultiLiquidateResponse_LiquidationResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.success === true) {
+      writer.uint32(8).bool(message.success);
     }
-    if (message.liquidation !== undefined) {
-      MsgLiquidateResponse.encode(message.liquidation, writer.uint32(18).fork()).ldelim();
+    if (message.error !== "") {
+      writer.uint32(18).string(message.error);
+    }
+    if (message.liquidatorFee !== undefined) {
+      Coin.encode(message.liquidatorFee, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.perpEfFee !== undefined) {
+      Coin.encode(message.perpEfFee, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidateResponse_MultiLiquidateResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidateResponse_LiquidationResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgMultiLiquidateResponse_MultiLiquidateResponse();
+    const message = createBaseMsgMultiLiquidateResponse_LiquidationResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.error = reader.string();
+          message.success = reader.bool();
           break;
         case 2:
-          message.liquidation = MsgLiquidateResponse.decode(reader, reader.uint32());
+          message.error = reader.string();
+          break;
+        case 3:
+          message.liquidatorFee = Coin.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.perpEfFee = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -754,35 +615,43 @@ export const MsgMultiLiquidateResponse_MultiLiquidateResponse = {
     return message;
   },
 
-  fromJSON(object: any): MsgMultiLiquidateResponse_MultiLiquidateResponse {
+  fromJSON(object: any): MsgMultiLiquidateResponse_LiquidationResponse {
     return {
-      error: isSet(object.error) ? String(object.error) : undefined,
-      liquidation: isSet(object.liquidation) ? MsgLiquidateResponse.fromJSON(object.liquidation) : undefined,
+      success: isSet(object.success) ? Boolean(object.success) : false,
+      error: isSet(object.error) ? String(object.error) : "",
+      liquidatorFee: isSet(object.liquidatorFee) ? Coin.fromJSON(object.liquidatorFee) : undefined,
+      perpEfFee: isSet(object.perpEfFee) ? Coin.fromJSON(object.perpEfFee) : undefined,
     };
   },
 
-  toJSON(message: MsgMultiLiquidateResponse_MultiLiquidateResponse): unknown {
+  toJSON(message: MsgMultiLiquidateResponse_LiquidationResponse): unknown {
     const obj: any = {};
+    message.success !== undefined && (obj.success = message.success);
     message.error !== undefined && (obj.error = message.error);
-    message.liquidation !== undefined &&
-      (obj.liquidation = message.liquidation ? MsgLiquidateResponse.toJSON(message.liquidation) : undefined);
+    message.liquidatorFee !== undefined &&
+      (obj.liquidatorFee = message.liquidatorFee ? Coin.toJSON(message.liquidatorFee) : undefined);
+    message.perpEfFee !== undefined && (obj.perpEfFee = message.perpEfFee ? Coin.toJSON(message.perpEfFee) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidateResponse_MultiLiquidateResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidateResponse_LiquidationResponse>, I>>(
     object: I,
-  ): MsgMultiLiquidateResponse_MultiLiquidateResponse {
-    const message = createBaseMsgMultiLiquidateResponse_MultiLiquidateResponse();
-    message.error = object.error ?? undefined;
-    message.liquidation = (object.liquidation !== undefined && object.liquidation !== null)
-      ? MsgLiquidateResponse.fromPartial(object.liquidation)
+  ): MsgMultiLiquidateResponse_LiquidationResponse {
+    const message = createBaseMsgMultiLiquidateResponse_LiquidationResponse();
+    message.success = object.success ?? false;
+    message.error = object.error ?? "";
+    message.liquidatorFee = (object.liquidatorFee !== undefined && object.liquidatorFee !== null)
+      ? Coin.fromPartial(object.liquidatorFee)
+      : undefined;
+    message.perpEfFee = (object.perpEfFee !== undefined && object.perpEfFee !== null)
+      ? Coin.fromPartial(object.perpEfFee)
       : undefined;
     return message;
   },
 };
 
 function createBaseMsgOpenPosition(): MsgOpenPosition {
-  return { sender: "", tokenPair: "", side: 0, quoteAssetAmount: "", leverage: "", baseAssetAmountLimit: "" };
+  return { sender: "", pair: "", side: 0, quoteAssetAmount: "", leverage: "", baseAssetAmountLimit: "" };
 }
 
 export const MsgOpenPosition = {
@@ -790,8 +659,8 @@ export const MsgOpenPosition = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
-    if (message.tokenPair !== "") {
-      writer.uint32(18).string(message.tokenPair);
+    if (message.pair !== "") {
+      writer.uint32(18).string(message.pair);
     }
     if (message.side !== 0) {
       writer.uint32(24).int32(message.side);
@@ -819,7 +688,7 @@ export const MsgOpenPosition = {
           message.sender = reader.string();
           break;
         case 2:
-          message.tokenPair = reader.string();
+          message.pair = reader.string();
           break;
         case 3:
           message.side = reader.int32() as any;
@@ -844,7 +713,7 @@ export const MsgOpenPosition = {
   fromJSON(object: any): MsgOpenPosition {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
+      pair: isSet(object.pair) ? String(object.pair) : "",
       side: isSet(object.side) ? sideFromJSON(object.side) : 0,
       quoteAssetAmount: isSet(object.quoteAssetAmount) ? String(object.quoteAssetAmount) : "",
       leverage: isSet(object.leverage) ? String(object.leverage) : "",
@@ -855,7 +724,7 @@ export const MsgOpenPosition = {
   toJSON(message: MsgOpenPosition): unknown {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
-    message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair);
+    message.pair !== undefined && (obj.pair = message.pair);
     message.side !== undefined && (obj.side = sideToJSON(message.side));
     message.quoteAssetAmount !== undefined && (obj.quoteAssetAmount = message.quoteAssetAmount);
     message.leverage !== undefined && (obj.leverage = message.leverage);
@@ -866,7 +735,7 @@ export const MsgOpenPosition = {
   fromPartial<I extends Exact<DeepPartial<MsgOpenPosition>, I>>(object: I): MsgOpenPosition {
     const message = createBaseMsgOpenPosition();
     message.sender = object.sender ?? "";
-    message.tokenPair = object.tokenPair ?? "";
+    message.pair = object.pair ?? "";
     message.side = object.side ?? 0;
     message.quoteAssetAmount = object.quoteAssetAmount ?? "";
     message.leverage = object.leverage ?? "";
@@ -999,7 +868,7 @@ export const MsgOpenPositionResponse = {
 };
 
 function createBaseMsgClosePosition(): MsgClosePosition {
-  return { sender: "", tokenPair: "" };
+  return { sender: "", pair: "" };
 }
 
 export const MsgClosePosition = {
@@ -1007,8 +876,8 @@ export const MsgClosePosition = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
-    if (message.tokenPair !== "") {
-      writer.uint32(18).string(message.tokenPair);
+    if (message.pair !== "") {
+      writer.uint32(18).string(message.pair);
     }
     return writer;
   },
@@ -1024,7 +893,7 @@ export const MsgClosePosition = {
           message.sender = reader.string();
           break;
         case 2:
-          message.tokenPair = reader.string();
+          message.pair = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1037,21 +906,21 @@ export const MsgClosePosition = {
   fromJSON(object: any): MsgClosePosition {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
+      pair: isSet(object.pair) ? String(object.pair) : "",
     };
   },
 
   toJSON(message: MsgClosePosition): unknown {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
-    message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair);
+    message.pair !== undefined && (obj.pair = message.pair);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgClosePosition>, I>>(object: I): MsgClosePosition {
     const message = createBaseMsgClosePosition();
     message.sender = object.sender ?? "";
-    message.tokenPair = object.tokenPair ?? "";
+    message.pair = object.pair ?? "";
     return message;
   },
 };
@@ -1252,11 +1121,6 @@ export const MsgDonateToEcosystemFundResponse = {
 export interface Msg {
   RemoveMargin(request: MsgRemoveMargin): Promise<MsgRemoveMarginResponse>;
   AddMargin(request: MsgAddMargin): Promise<MsgAddMarginResponse>;
-  /**
-   * Liquidate is a transaction that allows the caller to fully or partially
-   * liquidate an existing position.
-   */
-  Liquidate(request: MsgLiquidate): Promise<MsgLiquidateResponse>;
   MultiLiquidate(request: MsgMultiLiquidate): Promise<MsgMultiLiquidateResponse>;
   OpenPosition(request: MsgOpenPosition): Promise<MsgOpenPositionResponse>;
   ClosePosition(request: MsgClosePosition): Promise<MsgClosePositionResponse>;
@@ -1269,7 +1133,6 @@ export class MsgClientImpl implements Msg {
     this.rpc = rpc;
     this.RemoveMargin = this.RemoveMargin.bind(this);
     this.AddMargin = this.AddMargin.bind(this);
-    this.Liquidate = this.Liquidate.bind(this);
     this.MultiLiquidate = this.MultiLiquidate.bind(this);
     this.OpenPosition = this.OpenPosition.bind(this);
     this.ClosePosition = this.ClosePosition.bind(this);
@@ -1285,12 +1148,6 @@ export class MsgClientImpl implements Msg {
     const data = MsgAddMargin.encode(request).finish();
     const promise = this.rpc.request("nibiru.perp.v1.Msg", "AddMargin", data);
     return promise.then((data) => MsgAddMarginResponse.decode(new _m0.Reader(data)));
-  }
-
-  Liquidate(request: MsgLiquidate): Promise<MsgLiquidateResponse> {
-    const data = MsgLiquidate.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Msg", "Liquidate", data);
-    return promise.then((data) => MsgLiquidateResponse.decode(new _m0.Reader(data)));
   }
 
   MultiLiquidate(request: MsgMultiLiquidate): Promise<MsgMultiLiquidateResponse> {

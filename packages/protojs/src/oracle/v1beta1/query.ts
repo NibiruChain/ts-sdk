@@ -1205,6 +1205,8 @@ export const QueryParamsResponse = {
 export interface Query {
   /** ExchangeRate returns exchange rate of a pair */
   ExchangeRate(request: QueryExchangeRateRequest): Promise<QueryExchangeRateResponse>;
+  /** ExchangeRateTwap returns twap exchange rate of a pair */
+  ExchangeRateTwap(request: QueryExchangeRateRequest): Promise<QueryExchangeRateResponse>;
   /** ExchangeRates returns exchange rates of all pairs */
   ExchangeRates(request: QueryExchangeRatesRequest): Promise<QueryExchangeRatesResponse>;
   /** Actives returns all active pairs */
@@ -1232,6 +1234,7 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.ExchangeRate = this.ExchangeRate.bind(this);
+    this.ExchangeRateTwap = this.ExchangeRateTwap.bind(this);
     this.ExchangeRates = this.ExchangeRates.bind(this);
     this.Actives = this.Actives.bind(this);
     this.VoteTargets = this.VoteTargets.bind(this);
@@ -1246,6 +1249,12 @@ export class QueryClientImpl implements Query {
   ExchangeRate(request: QueryExchangeRateRequest): Promise<QueryExchangeRateResponse> {
     const data = QueryExchangeRateRequest.encode(request).finish();
     const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "ExchangeRate", data);
+    return promise.then((data) => QueryExchangeRateResponse.decode(new _m0.Reader(data)));
+  }
+
+  ExchangeRateTwap(request: QueryExchangeRateRequest): Promise<QueryExchangeRateResponse> {
+    const data = QueryExchangeRateRequest.encode(request).finish();
+    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "ExchangeRateTwap", data);
     return promise.then((data) => QueryExchangeRateResponse.decode(new _m0.Reader(data)));
   }
 

@@ -2,22 +2,60 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../cosmos/base/v1beta1/coin";
+import { Duration } from "../../google/protobuf/duration";
 
 export const protobufPackage = "nibiru.oracle.v1beta1";
 
-/** Params defines the parameters for the oracle module. */
+/** Params defines the module parameters for the x/oracle module. */
 export interface Params {
+  /** VotePeriod defines the number of blocks during which voting takes place. */
   votePeriod: Long;
+  /**
+   * VoteThreshold specifies the minimum proportion of votes that must be
+   * received for a ballot to pass.
+   */
   voteThreshold: string;
+  /**
+   * RewardBand defines a maxium divergence that a price vote can have from the
+   * weighted median in the ballot. If a vote lies within the valid range
+   * defined by:
+   * 	μ := weightedMedian,
+   * 	validRange := μ ± (μ * rewardBand / 2),
+   * then rewards are added to the validator performance.
+   * Note that if the reward band is smaller than 1 standard
+   * deviation, the band is taken to be 1 standard deviation.a price
+   */
   rewardBand: string;
+  /**
+   * The set of whitelisted markets, or asset pairs, for the module.
+   * Ex. '["unibi:uusd","ubtc:uusd"]'
+   */
   whitelist: string[];
+  /**
+   * SlashFraction returns the proportion of an oracle's stake that gets
+   * slashed in the event of slashing. `SlashFraction` specifies the exact
+   * penalty for failing a voting period.
+   */
   slashFraction: string;
+  /**
+   * SlashWindow returns the number of voting periods that specify a
+   * "slash window". After each slash window, all oracles that have missed more
+   * than the penalty threshold are slashed. Missing the penalty threshold is
+   * synonymous with submitting fewer valid votes than `MinValidPerWindow`.
+   */
   slashWindow: Long;
   minValidPerWindow: string;
+  /** Amount of time to look back for TWAP calculations */
+  twapLookbackWindow?: Duration;
+  /**
+   * The minimum number of voters (i.e. oracle validators) per pair for it to be considered a passing ballot.
+   * Recommended at least 4.
+   */
+  minVoters: Long;
 }
 
 /**
- * struct for aggregate prevoting on the ExchangeRateVote.
+ * Struct for aggregate prevoting on the ExchangeRateVote.
  * The purpose of aggregate prevote is to hide vote exchange rates with hash
  * which is formatted as hex string in SHA256("{salt}:({pair},{exchange_rate})|...|({pair},{exchange_rate}):{voter}")
  */
@@ -53,7 +91,7 @@ export interface PairReward {
   id: Long;
   /** vote_periods defines the vote periods left in which rewards will be distributed. */
   votePeriods: Long;
-  /** coins defines the amount of coins to distribute in a single vote period. */
+  /** Coins defines the amount of coins to distribute in a single vote period. */
   coins: Coin[];
 }
 
@@ -66,6 +104,8 @@ function createBaseParams(): Params {
     slashFraction: "",
     slashWindow: Long.UZERO,
     minValidPerWindow: "",
+    twapLookbackWindow: undefined,
+    minVoters: Long.UZERO,
   };
 }
 
@@ -91,6 +131,12 @@ export const Params = {
     }
     if (message.minValidPerWindow !== "") {
       writer.uint32(58).string(message.minValidPerWindow);
+    }
+    if (message.twapLookbackWindow !== undefined) {
+      Duration.encode(message.twapLookbackWindow, writer.uint32(66).fork()).ldelim();
+    }
+    if (!message.minVoters.isZero()) {
+      writer.uint32(72).uint64(message.minVoters);
     }
     return writer;
   },
@@ -123,6 +169,12 @@ export const Params = {
         case 7:
           message.minValidPerWindow = reader.string();
           break;
+        case 8:
+          message.twapLookbackWindow = Duration.decode(reader, reader.uint32());
+          break;
+        case 9:
+          message.minVoters = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -140,6 +192,8 @@ export const Params = {
       slashFraction: isSet(object.slashFraction) ? String(object.slashFraction) : "",
       slashWindow: isSet(object.slashWindow) ? Long.fromValue(object.slashWindow) : Long.UZERO,
       minValidPerWindow: isSet(object.minValidPerWindow) ? String(object.minValidPerWindow) : "",
+      twapLookbackWindow: isSet(object.twapLookbackWindow) ? Duration.fromJSON(object.twapLookbackWindow) : undefined,
+      minVoters: isSet(object.minVoters) ? Long.fromValue(object.minVoters) : Long.UZERO,
     };
   },
 
@@ -156,6 +210,9 @@ export const Params = {
     message.slashFraction !== undefined && (obj.slashFraction = message.slashFraction);
     message.slashWindow !== undefined && (obj.slashWindow = (message.slashWindow || Long.UZERO).toString());
     message.minValidPerWindow !== undefined && (obj.minValidPerWindow = message.minValidPerWindow);
+    message.twapLookbackWindow !== undefined &&
+      (obj.twapLookbackWindow = message.twapLookbackWindow ? Duration.toJSON(message.twapLookbackWindow) : undefined);
+    message.minVoters !== undefined && (obj.minVoters = (message.minVoters || Long.UZERO).toString());
     return obj;
   },
 
@@ -172,6 +229,12 @@ export const Params = {
       ? Long.fromValue(object.slashWindow)
       : Long.UZERO;
     message.minValidPerWindow = object.minValidPerWindow ?? "";
+    message.twapLookbackWindow = (object.twapLookbackWindow !== undefined && object.twapLookbackWindow !== null)
+      ? Duration.fromPartial(object.twapLookbackWindow)
+      : undefined;
+    message.minVoters = (object.minVoters !== undefined && object.minVoters !== null)
+      ? Long.fromValue(object.minVoters)
+      : Long.UZERO;
     return message;
   },
 };
