@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: yarn --prefer-offline --check-files
       - name: Build the application
-        run: yarn build || yarn build --parallel
+        run: yarn build --include-dependencies || yarn build --parallel --include-dependencies
       - name: Run all tests
         run: yarn test --verbose --coverage --testPathIgnorePatterns faucet.test.ts
 
