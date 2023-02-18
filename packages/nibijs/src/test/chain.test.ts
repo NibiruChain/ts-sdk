@@ -40,8 +40,8 @@ describe("chain connections", () => {
       feeDenom: "unibi",
     }
     const [chainId, err] = await queryChainIdWithRest(inactiveChain)
-    expect(chainId).toBeUndefined()
     expect(err).toBeDefined()
+    expect(chainId).toEqual("")
     await expect(isRestEndptLive(inactiveChain)).resolves.toBeFalsy()
     await expect(isRestEndptValid(inactiveChain)).resolves.toBeFalsy()
   })

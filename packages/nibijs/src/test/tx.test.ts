@@ -79,7 +79,7 @@ describe("nibid tx perp", () => {
     // Query and validate the trader's position
     const msgs: TxMessage[] = [
       Msg.perp.openPosition({
-        pair: pair,
+        pair,
         baseAssetAmountLimit: 0,
         leverage: 1,
         quoteAssetAmount: 10,
@@ -169,7 +169,7 @@ describe("nibid tx perp", () => {
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const { res: resp, err } = await go(
       sdk.query.perp.position({
-        tokenPair: pair,
+        pair,
         trader: fromAddr,
       }),
     )
