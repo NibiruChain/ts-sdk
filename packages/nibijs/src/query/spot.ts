@@ -1,6 +1,6 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
-import * as pb from "@nibiruchain/protojs/dist/dex/v1/pool"
-import * as qpb from "@nibiruchain/protojs/dist/dex/v1/query"
+import * as pb from "@nibiruchain/protojs/dist/spot/v1/pool"
+import * as qpb from "@nibiruchain/protojs/dist/spot/v1/query"
 import { Coin, fromSdkDec } from "../chain"
 
 function transformPoolParams(pp?: pb.PoolParams): pb.PoolParams | undefined {
@@ -19,8 +19,8 @@ function transformPool(p?: pb.Pool): pb.Pool | undefined {
   return p
 }
 
-export interface DexExtension {
-  dex: Readonly<{
+export interface SpotExtension {
+  spot: Readonly<{
     params: () => Promise<qpb.QueryParamsResponse>
     poolNumber: () => Promise<qpb.QueryPoolNumberResponse>
     pool: (poolId: number) => Promise<qpb.QueryPoolResponse>
@@ -62,12 +62,12 @@ export interface DexExtension {
   }>
 }
 
-export function setupDexExtension(base: QueryClient): DexExtension {
+export function setupSpotExtension(base: QueryClient): SpotExtension {
   const rpcClient = createProtobufRpcClient(base)
   const queryService = new qpb.QueryClientImpl(rpcClient)
 
   return {
-    dex: {
+    spot: {
       params: () => {
         const req = qpb.QueryParamsRequest.fromPartial({})
         return queryService.Params(req)

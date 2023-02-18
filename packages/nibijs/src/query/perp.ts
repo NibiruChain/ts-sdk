@@ -23,7 +23,7 @@ export interface PerpExtension {
   perp: Readonly<{
     params: () => Promise<perpquery.QueryParamsResponse>
     position: (args: {
-      tokenPair: string
+      pair: string
       trader: string
     }) => Promise<perpquery.QueryPositionResponse>
     positions: (args: { trader: string }) => Promise<perpquery.QueryPositionsResponse>
@@ -66,7 +66,7 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
         resp.params = transformParams(resp.params)
         return resp
       },
-      position: async (args: { tokenPair: string; trader: string }) => {
+      position: async (args: { pair: string; trader: string }) => {
         const req = perpquery.QueryPositionRequest.fromPartial(args)
         const resp = await queryService.QueryPosition(req)
         return transformPosition(resp)

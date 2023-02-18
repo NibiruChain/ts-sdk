@@ -80,11 +80,11 @@ describe("test query module", () => {
   })
 })
 
-describe("nibid query dex", () => {
-  test("query dex params - client.dex.params", async () => {
+describe("nibid query spot", () => {
+  test("query spot params - client.spot.params", async () => {
     const { client, disconnect } = await newQueryCmd(chain)
-    const { params } = await client.dex.params()
-    console.info("dex.params: %o", params)
+    const { params } = await client.spot.params()
+    console.info("spot.params: %o", params)
     const fields: string[] = [
       "poolCreationFee",
       "startingPoolNumber",
