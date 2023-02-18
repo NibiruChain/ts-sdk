@@ -7,7 +7,7 @@ import { toSdkDec, toSdkInt } from "../chain"
 export const PerpMsgTypeUrls: MsgTypeUrls = {
   MsgAddMargin: `/${pb.protobufPackage}.MsgAddMargin`,
   MsgRemoveMargin: `/${pb.protobufPackage}.MsgRemoveMargin`,
-  MsgLiquidate: `/${pb.protobufPackage}.MsgLiquidate`,
+  MsgMultiLiquidate: `/${pb.protobufPackage}.MsgMultiLiquidate`,
   MsgOpenPosition: `/${pb.protobufPackage}.MsgOpenPosition`,
   MsgClosePosition: `/${pb.protobufPackage}.MsgClosePosition`,
   MsgDonateToEcosystemFund: `/${pb.protobufPackage}.MsgDonateToEcosystemFund`,
@@ -16,7 +16,7 @@ export const PerpMsgTypeUrls: MsgTypeUrls = {
 export function registerTypes(registry: Registry) {
   registry.register(PerpMsgTypeUrls.MsgRemoveMargin, pb.MsgRemoveMargin)
   registry.register(PerpMsgTypeUrls.MsgAddMargin, pb.MsgAddMargin)
-  registry.register(PerpMsgTypeUrls.MsgLiquidate, pb.MsgLiquidate)
+  registry.register(PerpMsgTypeUrls.MsgMultiLiquidate, pb.MsgMultiLiquidate)
   registry.register(PerpMsgTypeUrls.MsgOpenPosition, pb.MsgOpenPosition)
   registry.register(PerpMsgTypeUrls.MsgClosePosition, pb.MsgClosePosition)
   registry.register(
@@ -48,16 +48,16 @@ export class PerpMsgs {
     }
   }
 
-  static liquidate(msg: pb.MsgLiquidate): TxMessage {
+  static liquidate(msg: pb.MsgMultiLiquidate): TxMessage {
     return {
       typeUrl: PerpMsgTypeUrls.MsgLiquidate,
-      value: pb.MsgLiquidate.fromPartial(msg),
+      value: pb.MsgMultiLiquidate.fromPartial(msg),
     }
   }
 
   static openPosition(msg: {
     sender: string
-    tokenPair: string
+    pair: string
     goLong: boolean
     quoteAssetAmount: number
     baseAssetAmountLimit?: number
@@ -66,7 +66,7 @@ export class PerpMsgs {
     const { quoteAssetAmount, baseAssetAmountLimit, leverage } = msg
     const pbMsg: pb.MsgOpenPosition = {
       sender: msg.sender,
-      tokenPair: msg.tokenPair,
+      pair: msg.pair,
       quoteAssetAmount: toSdkInt(quoteAssetAmount),
       baseAssetAmountLimit: toSdkInt(baseAssetAmountLimit ?? 0),
       leverage: toSdkDec(leverage.toString()),

@@ -80,11 +80,11 @@ describe("test query module", () => {
   })
 })
 
-describe("nibid query dex", () => {
-  test("query dex params - client.dex.params", async () => {
+describe("nibid query spot", () => {
+  test("query spot params - client.spot.params", async () => {
     const { client, disconnect } = await newQueryCmd(chain)
-    const { params } = await client.dex.params()
-    console.info("dex.params: %o", params)
+    const { params } = await client.spot.params()
+    console.info("spot.params: %o", params)
     const fields: string[] = [
       "poolCreationFee",
       "startingPoolNumber",
@@ -170,50 +170,38 @@ describe("nibid query vpool", () => {
   )
 })
 
-describe("nibid query pricefeed", () => {
+describe("nibid query oracle", () => {
   const pairId = "ubtc:unusd"
 
-  test("nibid query pricefeed markets", async () => {
+  test("nibid query oracle actives", async () => {
     const { client: query } = await newQueryCmd(chain)
-    const { markets } = await query.pricefeed.markets()
-    expect(markets.length).toBeGreaterThan(0)
-    expect(markets[0].oracles.length).toBeGreaterThan(0)
-    expect(markets[0].active).toBeTruthy()
-    console.info("query pricefeed markets: %o", markets.slice(0, 2))
+    const { actives } = await query.oracle.actives()
+    expect(actives.length).toBeGreaterThan(0)
+    expect(actives.length).toBeGreaterThan(0)
+    const pair = actives[0]
+    expect(pair).toContain(":")
+    console.info("query oracle actives: ", actives)
   })
 
-  test("nibid query pricefeed params", async () => {
+  test("nibid query oracle params", async () => {
     const { client: query } = await newQueryCmd(chain)
-    const { params: moduleParams } = await query.pricefeed.params()
+    const { params: moduleParams } = await query.oracle.params()
     expect(moduleParams).toBeDefined()
-    expect(moduleParams!.pairs.length).toBeGreaterThan(0)
-    console.info("nibid query pricefeed params: %o", moduleParams)
+    expect(moduleParams!.whitelist.length).toBeGreaterThan(0)
+    console.info("nibid query oracle params: %o", moduleParams)
   })
 
-  test("nibid query pricefeed price", async () => {
+  test("nibid query exchange rates", async () => {
     const { client: query } = await newQueryCmd(chain)
-    const { price } = await query.pricefeed.price({ pairId })
-    expect(price).toBeDefined()
-    for (const field of ["pairId", "price", "twap"]) {
-      expect(price).toHaveProperty(field)
+    const exhangeRateMap = await query.oracle.exchangeRates()
+    expect(Object.keys(exhangeRateMap).length).toBeGreaterThan(0)
+    for (const pair in exhangeRateMap) {
+      const exchangeRate = exhangeRateMap[pair]
+      expect(exchangeRate).toBeDefined()
+      expect(exchangeRate).toBeGreaterThan(0)
+      break
     }
-    console.info("nibid query pricefeed price: %o", price)
-  })
-
-  test("nibid query pricefeed prices", async () => {
-    const { client: query } = await newQueryCmd(chain)
-    const { prices } = await query.pricefeed.prices()
-    expect(prices).toBeDefined()
-    expect(prices.length).toBeGreaterThan(0)
-    console.info("nibid query pricefeed prices: %o", prices)
-  })
-
-  test("nibid query pricefeed raw-prices", async () => {
-    const { client: query } = await newQueryCmd(chain)
-    const resp = await query.pricefeed.pricesRaw({ pairId })
-    const { rawPrices } = resp
-    expect(rawPrices).toBeDefined()
-    console.info("nibid query pricefeed raw-prices: %o", rawPrices)
+    console.info("nibid query oracle exchange rates: %o", exhangeRateMap)
   })
 })
 

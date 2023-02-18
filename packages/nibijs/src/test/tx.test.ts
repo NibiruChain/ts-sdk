@@ -12,7 +12,7 @@
 import * as dotenv from "dotenv"
 import { DeliverTxResponse } from "@cosmjs/stargate"
 import { QueryPositionResponse } from "@nibiruchain/protojs/dist/perp/v1/query"
-import { PoolType } from "@nibiruchain/protojs/dist/dex/v1/pool"
+import { PoolType } from "@nibiruchain/protojs/dist/spot/v1/pool"
 import { event2KeyValue } from "../chain"
 import { AccountData, go, newCoin, newCoins, WalletHD } from "../chain/types"
 import { Msg, TxMessage } from "../msg"
@@ -79,7 +79,7 @@ describe("nibid tx perp", () => {
     // Query and validate the trader's position
     const msgs: TxMessage[] = [
       Msg.perp.openPosition({
-        tokenPair: pair,
+        pair,
         baseAssetAmountLimit: 0,
         leverage: 1,
         quoteAssetAmount: 10,
@@ -88,11 +88,11 @@ describe("nibid tx perp", () => {
       }),
       Msg.perp.addMargin({
         sender: fromAddr,
-        tokenPair: pair,
+        pair,
         margin: newCoin(20, "unusd"),
       }),
       Msg.perp.removeMargin({
-        tokenPair: pair,
+        pair,
         sender: fromAddr,
         margin: newCoin("5", "unusd"),
       }),
@@ -169,7 +169,7 @@ describe("nibid tx perp", () => {
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const { res: resp, err } = await go(
       sdk.query.perp.position({
-        tokenPair: pair,
+        pair,
         trader: fromAddr,
       }),
     )
@@ -195,7 +195,7 @@ describe("nibid tx perp", () => {
     const sdk = await newSdk(chain, signer)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     // close the position
-    const msgs = [Msg.perp.closePosition({ sender: fromAddr, tokenPair: pair })]
+    const msgs = [Msg.perp.closePosition({ sender: fromAddr, pair })]
     let txResp = await sdk.tx.signAndBroadcast(...msgs)
 
     if (instanceOfError(txResp)) {
@@ -212,21 +212,21 @@ describe("nibid tx perp", () => {
 })
 
 // ------------------------------------------------------------------------
-// Commenting out tests for the dex module because it was temporarily removed.
+// Commenting out tests for the spot module because it was temporarily removed.
 // ------------------------------------------------------------------------
 
 // - TODO test LPing into a pool, which is called JoinPool
 // - TODO test swapping on an existing pool
 
-// NOTE commented out dex commands until public testnet
-test("nibid tx dex create-pool", async () => {
+// NOTE commented out spot commands until public testnet
+test("nibid tx spot create-pool", async () => {
   expect(VAL_ADDRESS).toBeDefined()
   expect(VAL_MNEMONIC).toBeDefined()
   const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
   const sdk = await newSdk(chain, signer)
   const [{ address: fromAddr }] = await sdk.tx.getAccounts()
   const msgs = [
-    Msg.dex.createPool({
+    Msg.spot.createPool({
       creator: fromAddr,
       poolAssets: [
         {

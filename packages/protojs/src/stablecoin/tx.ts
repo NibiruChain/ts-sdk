@@ -8,7 +8,7 @@ export const protobufPackage = "nibiru.stablecoin.v1";
 /**
  * MsgMintStable: Msg to mint NUSD. A user deposits NIBI and collateral and gets
  * NUSD in return. The amount of NUSD received depends on the current price set
- * by the pricefeed library and the current collateral ratio for the protocol.
+ * by the oracle library and the current collateral ratio for the protocol.
  */
 export interface MsgMintStable {
   creator: string;
@@ -28,7 +28,7 @@ export interface MsgMintStableResponse {
 /**
  * MsgBurnStable allows users to burn NUSD in exchange for NIBI and collateral.
  * The amount of NIBI and Collateral received depends on the current price set by
- * the x/pricefeed library and the current collateral ratio.
+ * the x/oracle library and the current collateral ratio.
  */
 export interface MsgBurnStable {
   creator: string;

@@ -15,7 +15,7 @@ import {
   Registry,
 } from "@cosmjs/proto-signing"
 import { Chain, go } from "../chain"
-import { registerTypes as registerDex } from "../msg/dex"
+import { registerTypes as registerSpot } from "../msg/spot"
 import { registerTypes as registerPerp } from "../msg/perp"
 import { getRegistry } from "./signer"
 import { TxMessage } from "../msg/types"
@@ -139,7 +139,7 @@ export class TxCmd {
 
 function registerModules(): Registry {
   const registry = getRegistry()
-  registerDex(registry)
+  registerSpot(registry)
   registerPerp(registry)
   return registry
 }

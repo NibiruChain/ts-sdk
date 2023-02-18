@@ -6,7 +6,7 @@ import { Coin } from "../../cosmos/base/v1beta1/coin";
 import { Params } from "./params";
 import { Pool, PoolParams } from "./pool";
 
-export const protobufPackage = "nibiru.dex.v1";
+export const protobufPackage = "nibiru.spot.v1";
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -1831,7 +1831,7 @@ export const QueryExitExactAmountOutResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
-  /** Parameters of the dex module. */
+  /** Parameters of the spot module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   /** Next available pool id number. */
   PoolNumber(request: QueryPoolNumberRequest): Promise<QueryPoolNumberResponse>;
@@ -1906,97 +1906,97 @@ export class QueryClientImpl implements Query {
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "Params", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "Params", data);
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
   }
 
   PoolNumber(request: QueryPoolNumberRequest): Promise<QueryPoolNumberResponse> {
     const data = QueryPoolNumberRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "PoolNumber", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "PoolNumber", data);
     return promise.then((data) => QueryPoolNumberResponse.decode(new _m0.Reader(data)));
   }
 
   Pool(request: QueryPoolRequest): Promise<QueryPoolResponse> {
     const data = QueryPoolRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "Pool", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "Pool", data);
     return promise.then((data) => QueryPoolResponse.decode(new _m0.Reader(data)));
   }
 
   Pools(request: QueryPoolsRequest): Promise<QueryPoolsResponse> {
     const data = QueryPoolsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "Pools", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "Pools", data);
     return promise.then((data) => QueryPoolsResponse.decode(new _m0.Reader(data)));
   }
 
   PoolParams(request: QueryPoolParamsRequest): Promise<QueryPoolParamsResponse> {
     const data = QueryPoolParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "PoolParams", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "PoolParams", data);
     return promise.then((data) => QueryPoolParamsResponse.decode(new _m0.Reader(data)));
   }
 
   NumPools(request: QueryNumPoolsRequest): Promise<QueryNumPoolsResponse> {
     const data = QueryNumPoolsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "NumPools", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "NumPools", data);
     return promise.then((data) => QueryNumPoolsResponse.decode(new _m0.Reader(data)));
   }
 
   TotalLiquidity(request: QueryTotalLiquidityRequest): Promise<QueryTotalLiquidityResponse> {
     const data = QueryTotalLiquidityRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "TotalLiquidity", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "TotalLiquidity", data);
     return promise.then((data) => QueryTotalLiquidityResponse.decode(new _m0.Reader(data)));
   }
 
   TotalPoolLiquidity(request: QueryTotalPoolLiquidityRequest): Promise<QueryTotalPoolLiquidityResponse> {
     const data = QueryTotalPoolLiquidityRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "TotalPoolLiquidity", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "TotalPoolLiquidity", data);
     return promise.then((data) => QueryTotalPoolLiquidityResponse.decode(new _m0.Reader(data)));
   }
 
   TotalShares(request: QueryTotalSharesRequest): Promise<QueryTotalSharesResponse> {
     const data = QueryTotalSharesRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "TotalShares", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "TotalShares", data);
     return promise.then((data) => QueryTotalSharesResponse.decode(new _m0.Reader(data)));
   }
 
   SpotPrice(request: QuerySpotPriceRequest): Promise<QuerySpotPriceResponse> {
     const data = QuerySpotPriceRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "SpotPrice", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "SpotPrice", data);
     return promise.then((data) => QuerySpotPriceResponse.decode(new _m0.Reader(data)));
   }
 
   EstimateSwapExactAmountIn(request: QuerySwapExactAmountInRequest): Promise<QuerySwapExactAmountInResponse> {
     const data = QuerySwapExactAmountInRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "EstimateSwapExactAmountIn", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "EstimateSwapExactAmountIn", data);
     return promise.then((data) => QuerySwapExactAmountInResponse.decode(new _m0.Reader(data)));
   }
 
   EstimateSwapExactAmountOut(request: QuerySwapExactAmountOutRequest): Promise<QuerySwapExactAmountOutResponse> {
     const data = QuerySwapExactAmountOutRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "EstimateSwapExactAmountOut", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "EstimateSwapExactAmountOut", data);
     return promise.then((data) => QuerySwapExactAmountOutResponse.decode(new _m0.Reader(data)));
   }
 
   EstimateJoinExactAmountIn(request: QueryJoinExactAmountInRequest): Promise<QueryJoinExactAmountInResponse> {
     const data = QueryJoinExactAmountInRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "EstimateJoinExactAmountIn", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "EstimateJoinExactAmountIn", data);
     return promise.then((data) => QueryJoinExactAmountInResponse.decode(new _m0.Reader(data)));
   }
 
   EstimateJoinExactAmountOut(request: QueryJoinExactAmountOutRequest): Promise<QueryJoinExactAmountOutResponse> {
     const data = QueryJoinExactAmountOutRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "EstimateJoinExactAmountOut", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "EstimateJoinExactAmountOut", data);
     return promise.then((data) => QueryJoinExactAmountOutResponse.decode(new _m0.Reader(data)));
   }
 
   EstimateExitExactAmountIn(request: QueryExitExactAmountInRequest): Promise<QueryExitExactAmountInResponse> {
     const data = QueryExitExactAmountInRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "EstimateExitExactAmountIn", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "EstimateExitExactAmountIn", data);
     return promise.then((data) => QueryExitExactAmountInResponse.decode(new _m0.Reader(data)));
   }
 
   EstimateExitExactAmountOut(request: QueryExitExactAmountOutRequest): Promise<QueryExitExactAmountOutResponse> {
     const data = QueryExitExactAmountOutRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.dex.v1.Query", "EstimateExitExactAmountOut", data);
+    const promise = this.rpc.request("nibiru.spot.v1.Query", "EstimateExitExactAmountOut", data);
     return promise.then((data) => QueryExitExactAmountOutResponse.decode(new _m0.Reader(data)));
   }
 }

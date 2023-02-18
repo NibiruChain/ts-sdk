@@ -13,6 +13,7 @@ const common = {
     "camelcase": "off",
     "consistent-return": "off",
     "eqeqeq": "off",
+    "no-unreachable-loop": ["off"],
     "import/extensions": "off",
     "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
     "import/no-named-as-default": "off",

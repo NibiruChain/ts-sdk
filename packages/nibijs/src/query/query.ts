@@ -7,20 +7,20 @@ import {
 } from "@cosmjs/stargate"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 import { Chain } from "../chain"
-import { setupDexExtension, DexExtension } from "./dex"
+import { setupSpotExtension, SpotExtension } from "./spot"
 import { EpochsExtension, setupEpochsExtension } from "./epochs"
 import { setupPerpExtension, PerpExtension } from "./perp"
-import { PricefeedExtension, setupPricefeedExtension } from "./pricefeed"
+import { OracleExtension, setupOracleExtension } from "./oracle"
 import { setupStakingExtension, StakingExtension } from "./staking"
 import { setupVpoolExtension, VpoolExtension } from "./vpool"
 
 export type ExtendedQueryClient = BankExtension &
   QueryClient &
   AuthExtension &
-  DexExtension &
+  SpotExtension &
   PerpExtension &
   VpoolExtension &
-  PricefeedExtension &
+  OracleExtension &
   EpochsExtension &
   StakingExtension
 
@@ -81,10 +81,10 @@ export class QueryCmd implements IQueryCmd {
       tmClient,
       setupBankExtension,
       setupAuthExtension,
-      setupDexExtension,
+      setupSpotExtension,
       setupPerpExtension,
       setupVpoolExtension,
-      setupPricefeedExtension,
+      setupOracleExtension,
       setupEpochsExtension,
       setupStakingExtension,
     )

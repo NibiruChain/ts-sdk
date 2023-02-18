@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.6](../intro.md) / [Exports](../modules.md) / MsgFactory
+[NibiJS Documentation - v0.19.0](../intro.md) / [Exports](../modules.md) / MsgFactory
 
 # Class: MsgFactory
 
@@ -11,8 +11,8 @@
 ### Properties
 
 - [bank](MsgFactory.md#bank)
-- [dex](MsgFactory.md#dex)
 - [perp](MsgFactory.md#perp)
+- [spot](MsgFactory.md#spot)
 - [staking](MsgFactory.md#staking)
 
 ## Constructors
@@ -29,17 +29,7 @@
 
 #### Defined in
 
-[msg/index.ts:7](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/msg/index.ts#L7)
-
-___
-
-### dex
-
-• **dex**: typeof `DexMsgs` = `DexMsgs`
-
-#### Defined in
-
-[msg/index.ts:9](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/msg/index.ts#L9)
+[msg/index.ts:7](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/msg/index.ts#L7)
 
 ___
 
@@ -49,7 +39,17 @@ ___
 
 #### Defined in
 
-[msg/index.ts:11](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/msg/index.ts#L11)
+[msg/index.ts:11](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/msg/index.ts#L11)
+
+___
+
+### spot
+
+• **spot**: typeof `SpotMsgs` = `SpotMsgs`
+
+#### Defined in
+
+[msg/index.ts:9](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/msg/index.ts#L9)
 
 ___
 
@@ -59,4 +59,4 @@ ___
 
 #### Defined in
 
-[msg/index.ts:13](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/msg/index.ts#L13)
+[msg/index.ts:13](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/msg/index.ts#L13)

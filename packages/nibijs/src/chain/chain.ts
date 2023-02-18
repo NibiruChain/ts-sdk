@@ -67,9 +67,9 @@ export function newDevnet(chainNumber: number): Chain {
   }
 }
 
-export const Testnet: Chain = newTestnet(1)
+export const Testnet: Chain = newTestnet(2)
 
-export const Devnet: Chain = newDevnet(1)
+export const Devnet: Chain = newDevnet(2)
 
 export const CHAOSNET_CONFIG = {
   host: process.env.CHAIN_HOST,

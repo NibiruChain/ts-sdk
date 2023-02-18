@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.6](../intro.md) / [Exports](../modules.md) / IQueryCmd
+[NibiJS Documentation - v0.19.0](../intro.md) / [Exports](../modules.md) / IQueryCmd
 
 # Interface: IQueryCmd
 
@@ -26,7 +26,7 @@ E.g. nibiru-testnet-1, nibiru-localnet-42
 
 #### Defined in
 
-[query/query.ts:36](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/query/query.ts#L36)
+[query/query.ts:36](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/query/query.ts#L36)
 
 ___
 
@@ -39,7 +39,7 @@ It contains queries for all of the active modules of Nibiru Chain.
 
 #### Defined in
 
-[query/query.ts:32](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/query/query.ts#L32)
+[query/query.ts:32](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/query/query.ts#L32)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:37](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/query/query.ts#L37)
+[query/query.ts:37](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/query/query.ts#L37)
 
 ___
 
@@ -67,4 +67,4 @@ ___
 
 #### Defined in
 
-[query/query.ts:33](https://github.com/NibiruChain/ts-sdk/blob/c16f844/packages/nibijs/src/query/query.ts#L33)
+[query/query.ts:33](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/query/query.ts#L33)

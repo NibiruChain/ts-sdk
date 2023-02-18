@@ -1,12 +1,12 @@
 import { BankMsgs } from "./bank"
-import { DexMsgs } from "./dex"
+import { SpotMsgs } from "./spot"
 import { PerpMsgs } from "./perp"
 import { StakingMsgs } from "./staking"
 
 export class MsgFactory {
   bank = BankMsgs
 
-  dex = DexMsgs
+  spot = SpotMsgs
 
   perp = PerpMsgs
 
