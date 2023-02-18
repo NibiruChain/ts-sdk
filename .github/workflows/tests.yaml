@@ -24,16 +24,16 @@ jobs:
       - name: Setup NodeJS and npm
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: "16"
       - name: Install yarn using npm
         run: npm install -g yarn
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: "16"
           cache: "yarn"
       - name: Install dependencies
-        run: yarn --prefer-offline
+        run: yarn --prefer-offline --check-files
       - name: Build the application
         run: yarn build || yarn build --parallel
       - name: Run all tests
