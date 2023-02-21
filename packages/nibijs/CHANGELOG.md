@@ -7,7 +7,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * .
 
+## v0.19.1 
+
+* feat: Transactions for the distribution module 
+* feat: Queries for the distribution module 
+* sync: Update to protojs v0.19.0
+
 ## v0.8.6
+
 * feat: Add staking query extension
 
 ## v0.8.0 
