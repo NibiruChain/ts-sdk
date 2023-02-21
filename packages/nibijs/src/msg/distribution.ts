@@ -9,13 +9,6 @@ export const distributionMsgTypeUrls: MsgTypeUrls = {
   MsgWithdrawValidatorCommission: `/${pb.protobufPackage}.MsgWithdrawValidatorCommission`,
 }
 
-const MsgTypes: { [key: string]: string } = {
-  MsgFundCommunityPool: "MsgFundCommunityPool",
-  MsgSetWithdrawAddress: "MsgSetWithdrawAddress",
-  MsgWithdrawDelegatorReward: "MsgWithdrawDelegatorReward",
-  MsgWithdrawValidatorCommission: "MsgWithdrawValidatorCommission",
-}
-
 export function registerTypes(registry: Registry) {
   registry.register(
     distributionMsgTypeUrls.MsgFundCommunityPool,
@@ -36,33 +29,31 @@ export function registerTypes(registry: Registry) {
   return registry
 }
 
-function txMsgFromMsgName(args: { msgName: string; msg: any }): TxMessage {
-  const { msgName, msg } = args
-  return {
-    typeUrl: distributionMsgTypeUrls[msgName],
-    value: pb[msgName].fromPartial(msg),
-  }
-}
-
 export class DistributionMsgs {
   /** MsgFundCommunityPool allows an account to directly fund the community pool. */
   static fundCommunityPool(msg: pb.MsgFundCommunityPool): TxMessage {
-    const msgName = MsgTypes.MsgFundCommunityPool
-    return txMsgFromMsgName({ msgName, msg })
+    return {
+      typeUrl: distributionMsgTypeUrls.MsgFundCommunityPool,
+      value: pb.MsgFundCommunityPool.fromPartial(msg),
+    }
   }
 
   /** MsgSetWithdrawAddress sets the withdraw address for a delegator (or
    * validator self-delegation). */
   static setWithdrawAddress(msg: pb.MsgSetWithdrawAddress): TxMessage {
-    const msgName = MsgTypes.MsgSetWithdrawAddress
-    return txMsgFromMsgName({ msgName, msg })
+    return {
+      typeUrl: distributionMsgTypeUrls.MsgSetWithdrawAddress,
+      value: pb.MsgSetWithdrawAddress.fromPartial(msg),
+    }
   }
 
   /** MsgWithdrawDelegatorReward represents delegation withdrawal to a delegator
    * from a single validator */
   static withdrawDelegatorReward(msg: pb.MsgWithdrawDelegatorReward): TxMessage {
-    const msgName = MsgTypes.MsgWithdrawDelegatorReward
-    return txMsgFromMsgName({ msgName, msg })
+    return {
+      typeUrl: distributionMsgTypeUrls.MsgWithdrawDelegatorReward,
+      value: pb.MsgWithdrawDelegatorReward.fromPartial(msg),
+    }
   }
 
   /** MsgWithdrawValidatorCommission withdraws the full commission to the
@@ -70,7 +61,9 @@ export class DistributionMsgs {
   static withdrawValidatorCommission(
     msg: pb.MsgWithdrawValidatorCommission,
   ): TxMessage {
-    const msgName = MsgTypes.MsgWithdrawValidatorCommission
-    return txMsgFromMsgName({ msgName, msg })
+    return {
+      typeUrl: distributionMsgTypeUrls.MsgWithdrawValidatorCommission,
+      value: pb.MsgWithdrawValidatorCommission.fromPartial(msg),
+    }
   }
 }
