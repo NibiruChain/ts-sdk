@@ -233,3 +233,21 @@ describe("staking module queries", () => {
     expect(infoResp.validators.length).toBeGreaterThan(0)
   })
 })
+
+describe("distribution module queries", () => {
+  test("distribution params", async () => {
+    const { client: query } = await newQueryCmd(chain)
+    const resp = await query.distribution.params()
+    const { params } = resp
+    expect(params).toBeDefined()
+    const properties: string[] = [
+      "communityTax",
+      "baseProposerReward",
+      "bonusProposerReward",
+      "withdrawAddrEnabled",
+    ]
+    properties.forEach((prop) => {
+      expect(params).toHaveProperty(prop)
+    })
+  })
+})
