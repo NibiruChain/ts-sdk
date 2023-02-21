@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.0](../intro.md) / [Exports](../modules.md) / IEventLog
+[NibiJS Documentation - v0.19.1](../intro.md) / [Exports](../modules.md) / IEventLog
 
 # Interface: IEventLog
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[chain/types.ts:49](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/chain/types.ts#L49)
+[chain/types.ts:49](https://github.com/NibiruChain/ts-sdk/blob/7fb601c/packages/nibijs/src/chain/types.ts#L49)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[chain/types.ts:48](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/chain/types.ts#L48)
+[chain/types.ts:48](https://github.com/NibiruChain/ts-sdk/blob/7fb601c/packages/nibijs/src/chain/types.ts#L48)

@@ -211,10 +211,6 @@ describe("nibid tx perp", () => {
   })
 })
 
-// ------------------------------------------------------------------------
-// Commenting out tests for the spot module because it was temporarily removed.
-// ------------------------------------------------------------------------
-
 // - TODO test LPing into a pool, which is called JoinPool
 // - TODO test swapping on an existing pool
 
@@ -251,4 +247,65 @@ test("nibid tx spot create-pool", async () => {
   // await sdk.tx.ensureFee(...msgs)
   // const gasUnitsReq = await sdk.tx.simulate(...msgs)
   // expect(gasUnitsReq).toBeGreaterThan(0)
+})
+
+describe("nibid tx distribution", () => {
+  test("fundCommunityPool", async () => {
+    const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
+    const sdk = await newSdk(chain, signer)
+    const [{ address: fromAddr }] = await sdk.tx.getAccounts()
+    const msgs = [
+      Msg.distribution.fundCommunityPool({
+        depositor: fromAddr,
+        amount: [newCoin(5, "unibi")],
+      }),
+    ]
+    // TODO test with local network
+    // sdk.tx.signAndBroadcast(...msgs)
+  })
+
+  test("setWithdrawAddress", async () => {
+    const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
+    const sdk = await newSdk(chain, signer)
+    const [{ address: fromAddr }] = await sdk.tx.getAccounts()
+    const msgs = [
+      Msg.distribution.setWithdrawAddress({
+        delegatorAddress: fromAddr,
+        withdrawAddress: fromAddr,
+      }),
+    ]
+    // TODO test with local network
+    // sdk.tx.signAndBroadcast(...msgs)
+  })
+
+  test("withdrawDelegatorReward", async () => {
+    const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
+    const sdk = await newSdk(chain, signer)
+    const [{ address: fromAddr }] = await sdk.tx.getAccounts()
+
+    // TODO Make sure there is a delegator account delegating to a validator
+    const msgs = [
+      Msg.distribution.withdrawDelegatorReward({
+        delegatorAddress: fromAddr, // TODO need delegator
+        validatorAddress: fromAddr, // TODO need validator
+      }),
+    ]
+    // TODO test with local network
+    // sdk.tx.signAndBroadcast(...msgs)
+  })
+
+  test("withdrawValidatorCommission", async () => {
+    const signer = await newSignerFromMnemonic(VAL_MNEMONIC!)
+    const sdk = await newSdk(chain, signer)
+    const [{ address: fromAddr }] = await sdk.tx.getAccounts()
+    // TODO make sure the address is a validator
+    const validatorAddress = fromAddr
+    const msgs = [
+      Msg.distribution.withdrawValidatorCommission({
+        validatorAddress,
+      }),
+    ]
+    // TODO test with local network
+    // sdk.tx.signAndBroadcast(...msgs)
+  })
 })

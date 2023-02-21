@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.0](../intro.md) / [Exports](../modules.md) / MsgFactory
+[NibiJS Documentation - v0.19.1](../intro.md) / [Exports](../modules.md) / MsgFactory
 
 # Class: MsgFactory
 
@@ -11,6 +11,7 @@
 ### Properties
 
 - [bank](MsgFactory.md#bank)
+- [distribution](MsgFactory.md#distribution)
 - [perp](MsgFactory.md#perp)
 - [spot](MsgFactory.md#spot)
 - [staking](MsgFactory.md#staking)
@@ -29,7 +30,17 @@
 
 #### Defined in
 
-[msg/index.ts:7](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/msg/index.ts#L7)
+[msg/index.ts:8](https://github.com/NibiruChain/ts-sdk/blob/7fb601c/packages/nibijs/src/msg/index.ts#L8)
+
+___
+
+### distribution
+
+• **distribution**: typeof `DistributionMsgs` = `DistributionMsgs`
+
+#### Defined in
+
+[msg/index.ts:16](https://github.com/NibiruChain/ts-sdk/blob/7fb601c/packages/nibijs/src/msg/index.ts#L16)
 
 ___
 
@@ -39,7 +50,7 @@ ___
 
 #### Defined in
 
-[msg/index.ts:11](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/msg/index.ts#L11)
+[msg/index.ts:12](https://github.com/NibiruChain/ts-sdk/blob/7fb601c/packages/nibijs/src/msg/index.ts#L12)
 
 ___
 
@@ -49,7 +60,7 @@ ___
 
 #### Defined in
 
-[msg/index.ts:9](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/msg/index.ts#L9)
+[msg/index.ts:10](https://github.com/NibiruChain/ts-sdk/blob/7fb601c/packages/nibijs/src/msg/index.ts#L10)
 
 ___
 
@@ -59,4 +70,4 @@ ___
 
 #### Defined in
 
-[msg/index.ts:13](https://github.com/NibiruChain/ts-sdk/blob/462c731/packages/nibijs/src/msg/index.ts#L13)
+[msg/index.ts:14](https://github.com/NibiruChain/ts-sdk/blob/7fb601c/packages/nibijs/src/msg/index.ts#L14)
