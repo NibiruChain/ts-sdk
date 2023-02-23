@@ -31,15 +31,9 @@ export interface TypePosChange {
   transactionFee: string
 }
 
-export interface TypeMarkPriceCandleStick {
-  pair: string
-  open: number
-  close: number
-  high: number
-  low: number
-  period: number
-  periodStart: string
-}
+// ------------------------------------------------
+// MarkPrice
+// ------------------------------------------------
 
 export interface IGqlMarkPrices {
   markPrices: TypeMarkPrice[]
@@ -51,19 +45,7 @@ export interface GqlMarkPricesInputs {
   fromBlock: number
   toBlock: number
 }
-
 export interface GqlRecentTradesInputs {
   pair: string
   lastN: number
-}
-
-export interface IGqlMarkPriceCandleSticks {
-  markPriceCandlesticks: TypeMarkPriceCandleStick[]
-}
-
-export interface GqlMarkPriceCandleSticksInputs {
-  pair: string
-  period: number
-  startDate: string
-  endDate: string
 }
