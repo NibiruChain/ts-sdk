@@ -1,3 +1,5 @@
+import { CandlePeriod } from "./constant"
+
 export interface TypeMarkPrice {
   pair: string
   price: string
@@ -31,15 +33,58 @@ export interface TypePosChange {
   transactionFee: string
 }
 
-export interface TypeMarkPriceCandleStick {
+// ------------------------------------------------
+// MarkPriceCandle
+// ------------------------------------------------
+
+/**
+ * MarkPriceCandle: A single candlestick aggregation of mark price data.
+ * - pair: identifier for a market pair, e.g. "ueth:unusd".
+ * - open: Price at the beginning of the period
+ * - close: Price at the end of the period
+ * - high: Highest price in the period
+ * - low: Lowest price in the period
+ * - period:
+ */
+export interface MarkPriceCandle {
   pair: string
   open: number
   close: number
   high: number
   low: number
   period: number
-  periodStart: string
+  periodStartTs: string
 }
+
+/** GqlOutMarkPriceCandle: Output response for the MarkPriceCandle query  */
+export interface GqlOutMarkPriceCandle {
+  markPriceCandles: MarkPriceCandle[]
+}
+
+/** GqlInMarkPriceCandle: Input arguments for the MarkPriceCandle query  */
+export interface GqlInMarkPriceCandle {
+  pair: string
+  period: CandlePeriod
+  limit: number
+  startTs?: string
+  endTs?: string
+  orderBy?: MarkPriceCandleOrderBy | string
+  orderDescending?: boolean // defaults to true
+}
+
+export enum MarkPriceCandleOrderBy {
+  pair = "pair",
+  open = "open",
+  close = "close",
+  low = "low",
+  high = "high",
+  period = "period",
+  period_start_ts = "period_start_ts",
+}
+
+// ------------------------------------------------
+// MarkPrice
+// ------------------------------------------------
 
 export interface IGqlMarkPrices {
   markPrices: TypeMarkPrice[]
@@ -51,19 +96,7 @@ export interface GqlMarkPricesInputs {
   fromBlock: number
   toBlock: number
 }
-
 export interface GqlRecentTradesInputs {
   pair: string
   lastN: number
-}
-
-export interface IGqlMarkPriceCandleSticks {
-  markPriceCandlesticks: TypeMarkPriceCandleStick[]
-}
-
-export interface GqlMarkPriceCandleSticksInputs {
-  pair: string
-  period: number
-  startDate: string
-  endDate: string
 }

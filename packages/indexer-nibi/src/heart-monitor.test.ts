@@ -1,5 +1,5 @@
 /* eslint-disable jest/no-conditional-expect */
-import { CandleStickPeriod } from "./constant"
+import { CandlePeriod } from "./constant"
 import { HeartMonitor } from "./heart-monitor"
 
 const fromBlock = 1
@@ -93,23 +93,24 @@ test("useQueryRecentTrades", async () => {
   }
 })
 
-test("useMarkPriceCandleSticks", async () => {
+test("useQueryMarkPriceCandles", async () => {
   const nowTimestamp = Date.now()
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
-  const resp = await heartMonitor.useMarkPriceCandleSticks({
+  const resp = await heartMonitor.useQueryMarkPriceCandles({
     pair,
-    period: CandleStickPeriod.MIN_5,
-    startDate: startDate.toISOString(),
-    endDate: endDate.toISOString(),
+    period: CandlePeriod.MIN_5,
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
   })
-  expect(resp).toHaveProperty("markPriceCandlesticks")
+  expect(resp).toHaveProperty("markPriceCandles")
 
-  if (resp.markPriceCandlesticks.length > 0) {
-    const [posChange] = resp.markPriceCandlesticks
-    const props = ["pair", "open", "close", "high", "low", "period", "periodStart"]
-    props.forEach((prop: string) => {
-      expect(posChange).toHaveProperty(prop)
+  if (resp.markPriceCandles.length > 0) {
+    const [candle] = resp.markPriceCandles
+    const fields = ["pair", "open", "close", "high", "low", "period", "periodStartTs"]
+    fields.forEach((field: string) => {
+      expect(candle).toHaveProperty(field)
     })
   }
 })

@@ -1,4 +1,7 @@
-export enum CandleStickPeriod {
+/** CandlePeriod: Each value in the `enum` describes a time window in units of
+ * seconds. A value of 3600 corresponds to a candle that occurs over one hour.
+ */
+export enum CandlePeriod {
   MIN_1 = 60,
   MIN_5 = 300,
   MIN_15 = 900,

@@ -1,11 +1,12 @@
 import fetch from "cross-fetch"
 import {
-  GqlMarkPriceCandleSticksInputs,
+  GqlInMarkPriceCandle,
   GqlMarkPricesInputs,
+  GqlOutMarkPriceCandle,
   GqlRecentTradesInputs,
+  MarkPriceCandleOrderBy,
   TypeBlockMarkPrice,
   TypeMarkPrice,
-  TypeMarkPriceCandleStick,
   TypePosChange,
 } from "./types"
 
@@ -13,6 +14,7 @@ async function cleanResponse(rawResp: Response): Promise<any> {
   const respJson: any = await rawResp.json().catch((err) => {
     console.error(err)
   })
+  console.debug("DEBUG respJson: %o", respJson)
 
   if (!rawResp.ok || respJson === undefined) {
     throw new Error(`${respJson}`)
@@ -51,19 +53,19 @@ export interface IHeartMonitor {
     lastN: number
   }) => Promise<{ recentTrades: TypePosChange[] }>
 
-  readonly useMarkPriceCandleSticks: (args: {
-    pair: string
-    period: number
-    startDate: string
-    endDate: string
-  }) => Promise<{ markPriceCandlesticks: TypeMarkPriceCandleStick[] }>
+  readonly useQueryMarkPriceCandles: (
+    args: GqlInMarkPriceCandle,
+  ) => Promise<GqlOutMarkPriceCandle>
 }
+
+const arg = (name: string, value: any): string => `${name}: ${value}`
 
 export class HeartMonitor implements IHeartMonitor {
   gqlEndpt: string
 
   constructor(gqlEndpt?: string) {
-    this.gqlEndpt = gqlEndpt ?? "https://hm-graphql.testnet-2.nibiru.fi/graphql"
+    this.gqlEndpt = gqlEndpt ?? "https://hm-graphql.devnet-2.nibiru.fi/graphql"
+    // this.gqlEndpt = gqlEndpt ?? "https://hm-graphql.testnet-2.nibiru.fi/graphql"
   }
 
   /**
@@ -167,29 +169,51 @@ export class HeartMonitor implements IHeartMonitor {
     return this.doGqlQuery(gqlQuery(args))
   }
 
-  useMarkPriceCandleSticks = async (args: {
-    pair: string
-    period: number
-    startDate: string
-    endDate: string
-  }): Promise<{ markPriceCandlesticks: TypeMarkPriceCandleStick[] }> => {
+  useQueryMarkPriceCandles = async (
+    args: GqlInMarkPriceCandle,
+  ): Promise<GqlOutMarkPriceCandle> => {
+    if (args.orderDescending === undefined) args.orderDescending = true
+    if (args.orderBy === undefined)
+      args.orderBy = MarkPriceCandleOrderBy.period_start_ts
+
     const gqlQuery = ({
       pair,
       period,
-      startDate,
-      endDate,
-    }: GqlMarkPriceCandleSticksInputs): string =>
-      `{
-          markPriceCandlesticks(pair:"${pair}", period:${period}, startDate: "${startDate}", endDate: "${endDate}") {
-            pair
-            open
-            close
-            high
-            low
-            period
-            periodStart
-          }
-        }`
+      startTs,
+      endTs,
+      limit,
+      orderBy,
+      orderDescending,
+    }: GqlInMarkPriceCandle): string => {
+      const argWhere = (): string => {
+        const whereConditions: string[] = []
+        whereConditions.push(`pairEq: "${pair}"`)
+        whereConditions.push(`periodEq: ${period}`)
+        if (startTs) whereConditions.push(`periodStartTsGte: "${startTs}"`)
+        if (endTs) whereConditions.push(`periodStartTsLt: "${endTs}"`)
+        const argWhereBody: string = whereConditions.join(", ")
+        return `where: { ${argWhereBody} }`
+      }
+
+      const queryArgList: string[] = [
+        argWhere(),
+        arg("limit", limit),
+        arg("order", orderBy),
+        arg("orderDesc", orderDescending),
+      ]
+      const queryArgs: string = queryArgList.join(", ")
+      return `{
+        markPriceCandles(${queryArgs}) {
+          pair
+          open
+          close
+          low
+          high
+          period
+          periodStartTs
+        }
+      }`
+    }
     return this.doGqlQuery(gqlQuery(args))
   }
 }
