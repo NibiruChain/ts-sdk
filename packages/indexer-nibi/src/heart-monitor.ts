@@ -1,20 +1,13 @@
-import { doGqlQuery } from "./gql"
+import { gqlEndptFromTmRpc } from "./gql"
 import {
   GqlInMarkPriceCandle,
   GqlOutMarkPriceCandle,
   markPriceCandles,
-} from "./markPriceCandles"
-import {
-  GqlMarkPricesInputs,
-  GqlRecentTradesInputs,
-  TypeBlockMarkPrice,
-  TypeMarkPrice,
-  TypePosChange,
-} from "./types"
+} from "./query/markPriceCandles"
 
+/** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
+ * Each of its methods corresponds to a query function. */
 export interface IHeartMonitor {
-  doGqlQuery: (gqlQuery: string) => Promise<any>
-
   readonly markPriceCandles: (
     args: GqlInMarkPriceCandle,
   ) => Promise<GqlOutMarkPriceCandle>
@@ -45,32 +38,9 @@ export interface IHeartMonitor {
   */
 }
 
-const createGqlEndpt = (chainNickname: string): string =>
-  `https://hm-graphql.${chainNickname}.nibiru.fi/graphql`
-
-export function gqlEndptFromTmRpc(endptTm: string): string | null {
-  const endptTmParts: string[] = endptTm.split(".")
-  //  rpcIdx: the index of the substring that includes rpc
-  let rpcIdx: number = -1
-  endptTmParts.forEach((part, idx) => {
-    if (part.includes("rpc")) {
-      rpcIdx = idx
-    }
-  })
-
-  // nicknameIdx: the index of the substring that includes the chain nickname
-  const nicknameIdx = rpcIdx + 1
-  const invalidRpcIdx: boolean = rpcIdx === -1
-  const invalidNicknameIdx: boolean = nicknameIdx === endptTmParts.length
-  if (invalidRpcIdx || invalidNicknameIdx) {
-    return null
-  }
-
-  const chainNickname = endptTmParts[nicknameIdx]
-  const gqlEndpt = createGqlEndpt(chainNickname)
-  return gqlEndpt
-}
-
+/** HeartMonitor is an API for "Heart Monitor" that indexes the Nibiru blockchain
+ * and stores the data in strucutred tables. Each of the `HeartMonitor`'s methods
+ * corresponds to a query function. */
 export class HeartMonitor implements IHeartMonitor {
   gqlEndpt: string
 
@@ -89,14 +59,6 @@ export class HeartMonitor implements IHeartMonitor {
       this.gqlEndpt = this.defaultGqlEndpt
     }
   }
-
-  /**
-   * The workhorse function that fetches data from the GraphQL endpoint.
-   * @param {string} gqlQuery
-   * @returns {Promise<any>}
-   */
-  doGqlQuery = async (gqlQuery: string): Promise<any> =>
-    doGqlQuery(gqlQuery, this.gqlEndpt)
 
   // ------------------------------------------------------------
   // hooks

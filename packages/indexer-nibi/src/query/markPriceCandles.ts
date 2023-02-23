@@ -1,5 +1,5 @@
-import { CandlePeriod } from "./enum"
-import { doGqlQuery, arg } from "./gql"
+import { CandlePeriod } from "../enum"
+import { doGqlQuery, arg } from "../gql"
 
 // ------------------------------------------------
 // MarkPriceCandle

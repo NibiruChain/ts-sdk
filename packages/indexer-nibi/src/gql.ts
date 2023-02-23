@@ -32,4 +32,45 @@ export async function cleanResponse(rawResp: Response): Promise<any> {
   }
 }
 
+/**
+ * arg: Returns the string format for an "argument" in a GraphQL query.
+ *
+ * @param {string} name - name of the argument
+ * @param {*} value - value of the argument
+ * @returns {string}
+ */
 export const arg = (name: string, value: any): string => `${name}: ${value}`
+
+/** createGqlEndpt: Returns the URL of a heart monitor endpoint based on the
+ * standard 'chainNickname' included as part of the Tendermint RPC endpoint and
+ * LCD/Rest endpoint.
+ *
+ * Example: The chain ID "nibiru-testnet-2" has the chain nickname, "testnet",
+ *   and chain number, "2". The combination of the nickname and number is what
+ *   we'd use as prefix in the hm-graphql URL.
+ */
+const createGqlEndpt = (chain: string): string =>
+  `https://hm-graphql.${chain}.nibiru.fi/graphql`
+
+export function gqlEndptFromTmRpc(endptTm: string): string | null {
+  const endptTmParts: string[] = endptTm.split(".")
+  //  rpcIdx: the index of the substring that includes rpc
+  let rpcIdx: number = -1
+  endptTmParts.forEach((part, idx) => {
+    if (part.includes("rpc")) {
+      rpcIdx = idx
+    }
+  })
+
+  // nicknameIdx: the index of the substring that includes the chain nickname
+  const nicknameIdx = rpcIdx + 1
+  const invalidRpcIdx: boolean = rpcIdx === -1
+  const invalidNicknameIdx: boolean = nicknameIdx === endptTmParts.length
+  if (invalidRpcIdx || invalidNicknameIdx) {
+    return null
+  }
+
+  const chainNickname = endptTmParts[nicknameIdx]
+  const gqlEndpt = createGqlEndpt(chainNickname)
+  return gqlEndpt
+}

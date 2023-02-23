@@ -1,6 +1,7 @@
 /* eslint-disable jest/no-conditional-expect */
+import { HeartMonitor } from "./heart-monitor"
 import { CandlePeriod } from "./enum"
-import { gqlEndptFromTmRpc, HeartMonitor } from "./heart-monitor"
+import { gqlEndptFromTmRpc } from "./gql"
 
 const fromBlock = 1
 const toBlock = 10

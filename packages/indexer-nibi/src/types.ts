@@ -1,5 +1,3 @@
-import { CandlePeriod } from "./constant"
-
 export interface TypeMarkPrice {
   pair: string
   price: string
