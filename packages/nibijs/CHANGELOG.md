@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * .
 
+## v0.19.2
+
+* chore: Raise minimum gas limit for transactions with low values for the simulated "gas used".
+
 ## v0.19.1 
 
 * feat: Transactions for the distribution module 

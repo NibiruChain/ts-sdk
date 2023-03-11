@@ -37,6 +37,52 @@ export function instanceOfChain(obj: any): obj is Chain {
   )
 }
 
+export interface ChainIdParts {
+  nickname: string
+  number: number
+  prefix?: string
+}
+
+export class CustomChain implements Chain {
+  chainId: string
+  chainIdParts: ChainIdParts
+  endptTm: string
+  endptRest: string
+  endptGrpc: string = ""
+  feeDenom: string = "unibi"
+  chainName: string
+
+  constructor(args: ChainIdParts) {
+    this.chainIdParts = this.initChainIdParts(args)
+    this.chainId = this.initChainId()
+    this.endptTm = this._endptTm()
+    this.endptRest = this._endptRest()
+    this.chainName = this.chainId
+  }
+
+  initChainIdParts = (parts: ChainIdParts): ChainIdParts => {
+    let { prefix } = parts
+    const { nickname, number } = parts
+    if (prefix === undefined) prefix = "nibiru"
+    return { prefix, nickname, number }
+  }
+
+  initChainId = (): string => {
+    const { prefix, nickname, number } = this.chainIdParts
+    return [prefix, nickname, number].join("-")
+  }
+
+  _endptTm = (): string => {
+    const { nickname, number: chainNumber } = this.chainIdParts
+    return `https://rpc.${nickname}-${chainNumber}.nibiru.fi`
+  }
+
+  _endptRest = (): string => {
+    const { nickname, number: chainNumber } = this.chainIdParts
+    return `https://lcd.${nickname}-${chainNumber}.nibiru.fi`
+  }
+}
+
 export const Localnet: Chain = {
   endptTm: "127.0.0.1:26657",
   endptRest: "127.0.0.1:1317",
@@ -46,30 +92,12 @@ export const Localnet: Chain = {
 }
 
 export function newTestnet(chainNumber: number): Chain {
-  return {
-    endptTm: `https://rpc.testnet-${chainNumber}.nibiru.fi`,
-    endptRest: `https://lcd.testnet-${chainNumber}.nibiru.fi`,
-    endptGrpc: "",
-    chainId: `nibiru-testnet-${chainNumber}`,
-    chainName: `nibiru-testnet-${chainNumber}`,
-    feeDenom: "unibi",
-  }
+  return new CustomChain({ nickname: "itn", number: chainNumber })
 }
 
 export function newDevnet(chainNumber: number): Chain {
-  return {
-    endptTm: `https://rpc.devnet-${chainNumber}.nibiru.fi`,
-    endptRest: `https://lcd.devnet-${chainNumber}.nibiru.fi`,
-    endptGrpc: "",
-    chainId: `nibiru-devnet-${chainNumber}`,
-    chainName: `nibiru-devnet-${chainNumber}`,
-    feeDenom: "unibi",
-  }
+  return new CustomChain({ nickname: "devnet", number: chainNumber })
 }
-
-export const Testnet: Chain = newTestnet(2)
-
-export const Devnet: Chain = newDevnet(2)
 
 export const CHAOSNET_CONFIG = {
   host: process.env.CHAIN_HOST,
