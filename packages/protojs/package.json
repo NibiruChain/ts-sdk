@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc --build",
     "build:watch": "tsc --build --watch",
-    "clean": "tsc --build --clean"
+    "clean": "tsc --clean"
   },
   "gitHead": "4da45aaaf65a44e6b4edc0b5d11ea1083229f977"
 }

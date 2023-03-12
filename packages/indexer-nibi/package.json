@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc --build",
     "build:watch": "tsc --build --watch",
-    "clean": "tsc --build --clean",
+    "clean": "tsc --clean",
     "test": "jest",
     "test:watch": "jest --watch",
     "coverage": "jest --coverage"

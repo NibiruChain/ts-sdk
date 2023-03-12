@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc --build && yarn docgen",
     "build:watch": "tsc --build --watch",
-    "clean": "tsc --build --clean",
+    "clean": "tsc --clean",
     "docgen": "yarn run typedoc --tsconfig tsconfig.json --plugin typedoc-plugin-markdown",
     "test": "jest",
     "test:watch": "jest --watch",
