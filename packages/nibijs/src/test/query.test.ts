@@ -1,7 +1,7 @@
 import fetch from "cross-fetch"
 import { BlockResponse } from "@cosmjs/tendermint-rpc"
 import Long from "long"
-import { Chain, Testnet, CHAOSNET_CONFIG } from "../chain"
+import { Chain, CHAOSNET_CONFIG } from "../chain"
 import { newQueryCmd } from "../query"
 import { TEST_CHAIN, validateBlock, validateBlockFromJsonRpc } from "./helpers"
 
@@ -18,7 +18,7 @@ describe("chain connections", () => {
     validateBlock(blockResp.block, chain)
   }
   test("testnet", async () => {
-    testChainConnection(Testnet)
+    testChainConnection(chain)
   })
   test("chaosnet", async () => {
     // testChainConnection(Chaosnet) // chaosnet is not activate right now.
@@ -171,8 +171,6 @@ describe("nibid query vpool", () => {
 })
 
 describe("nibid query oracle", () => {
-  const pairId = "ubtc:unusd"
-
   test("nibid query oracle actives", async () => {
     const { client: query } = await newQueryCmd(chain)
     const { actives } = await query.oracle.actives()
