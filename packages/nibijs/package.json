@@ -1,33 +1,21 @@
 {
   "name": "@nibiruchain/nibijs",
   "description": "The TypeScript SDK for the Nibiru blockchain.",
-  "version": "0.8.5",
+  "version": "0.19.2",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "_moduleAliases": {
-    "~nibijs": "dist"
-  },
   "scripts": {
-    "postinstall": "npx shx mkdir -p dist && npx link-module-alias",
-    "build": "yarn tsc-build && link-module-alias && yarn docgen:md",
-    "build:watch": "yarn tsc-build -w && link-module-alias",
-    "clean": "yarn tsc-build --clean && npx shx rm -rf coverage *.log junit.xml dist && jest --clearCache",
-    "docgen": "yarn run typedoc --tsconfig tsconfig.build.json",
-    "docgen:md": "yarn docgen --plugin typedoc-plugin-markdown",
-    "tsc-build": "tsc --build tsconfig.build.json",
+    "build": "tsc --build && yarn docgen",
+    "build:watch": "tsc --build --watch",
+    "clean": "tsc --clean",
+    "docgen": "yarn run typedoc --tsconfig tsconfig.json --plugin typedoc-plugin-markdown",
     "test": "jest",
-    "test:unit": "jest test/unit",
-    "test:integration": "jest test/unit",
     "test:watch": "jest --watch",
-    "test:ci": "jest --coverage --ci --reporters='jest-junit'",
-    "coverage": "jest --coverage",
-    "coverage:show": "live-server coverage",
-    "dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
-    "start": "node dist/index.js"
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "@cosmjs/encoding": "^0.28.11",
@@ -35,7 +23,7 @@
     "@cosmjs/stargate": "^0.28.11",
     "@cosmjs/tendermint-rpc": "^0.28.11",
     "@keplr-wallet/types": "^0.10.13",
-    "@nibiruchain/protojs": "^0.16.2",
+    "@nibiruchain/protojs": "^0.19.0",
     "cross-fetch": "^3.1.5",
     "long": "^5.2.0"
   },
@@ -48,8 +36,6 @@
     "dotenv": "^16.0.2",
     "jest": "^28.1.3",
     "jest-expect-message": "^1.1.3",
-    "link-module-alias": "^1.2.0",
-    "shx": "^0.3.2",
     "ts-jest": "^28.0.0-next.3",
     "typedoc": "^0.23.22",
     "typedoc-plugin-markdown": "^3.14.0"

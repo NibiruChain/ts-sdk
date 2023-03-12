@@ -134,6 +134,70 @@ export interface FundingRateChangedEvent {
   blockTimeMs: Long;
 }
 
+/** Emitted when liquidation fails. */
+export interface LiquidationFailedEvent {
+  /** The pair for which we are trying to liquidate. */
+  pair: string;
+  /** owner of the position. */
+  trader: string;
+  /** Address of the account that executed the tx. */
+  liquidator: string;
+  /** Reason for the liquidation failure. */
+  reason: LiquidationFailedEvent_LiquidationFailedReason;
+}
+
+export enum LiquidationFailedEvent_LiquidationFailedReason {
+  UNSPECIFIED = 0,
+  /** POSITION_HEALTHY - the position is healthy and does not need to be liquidated. */
+  POSITION_HEALTHY = 1,
+  /** NONEXISTENT_PAIR - the pair does not exist. */
+  NONEXISTENT_PAIR = 2,
+  /** NONEXISTENT_POSITION - the position does not exist. */
+  NONEXISTENT_POSITION = 3,
+  UNRECOGNIZED = -1,
+}
+
+export function liquidationFailedEvent_LiquidationFailedReasonFromJSON(
+  object: any,
+): LiquidationFailedEvent_LiquidationFailedReason {
+  switch (object) {
+    case 0:
+    case "UNSPECIFIED":
+      return LiquidationFailedEvent_LiquidationFailedReason.UNSPECIFIED;
+    case 1:
+    case "POSITION_HEALTHY":
+      return LiquidationFailedEvent_LiquidationFailedReason.POSITION_HEALTHY;
+    case 2:
+    case "NONEXISTENT_PAIR":
+      return LiquidationFailedEvent_LiquidationFailedReason.NONEXISTENT_PAIR;
+    case 3:
+    case "NONEXISTENT_POSITION":
+      return LiquidationFailedEvent_LiquidationFailedReason.NONEXISTENT_POSITION;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return LiquidationFailedEvent_LiquidationFailedReason.UNRECOGNIZED;
+  }
+}
+
+export function liquidationFailedEvent_LiquidationFailedReasonToJSON(
+  object: LiquidationFailedEvent_LiquidationFailedReason,
+): string {
+  switch (object) {
+    case LiquidationFailedEvent_LiquidationFailedReason.UNSPECIFIED:
+      return "UNSPECIFIED";
+    case LiquidationFailedEvent_LiquidationFailedReason.POSITION_HEALTHY:
+      return "POSITION_HEALTHY";
+    case LiquidationFailedEvent_LiquidationFailedReason.NONEXISTENT_PAIR:
+      return "NONEXISTENT_PAIR";
+    case LiquidationFailedEvent_LiquidationFailedReason.NONEXISTENT_POSITION:
+      return "NONEXISTENT_POSITION";
+    case LiquidationFailedEvent_LiquidationFailedReason.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
 export interface MetricsEvent {
   pair: string;
   /** Sum of all active position sizes for the pair. */
@@ -750,6 +814,82 @@ export const FundingRateChangedEvent = {
     message.blockTimeMs = (object.blockTimeMs !== undefined && object.blockTimeMs !== null)
       ? Long.fromValue(object.blockTimeMs)
       : Long.ZERO;
+    return message;
+  },
+};
+
+function createBaseLiquidationFailedEvent(): LiquidationFailedEvent {
+  return { pair: "", trader: "", liquidator: "", reason: 0 };
+}
+
+export const LiquidationFailedEvent = {
+  encode(message: LiquidationFailedEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pair !== "") {
+      writer.uint32(10).string(message.pair);
+    }
+    if (message.trader !== "") {
+      writer.uint32(18).string(message.trader);
+    }
+    if (message.liquidator !== "") {
+      writer.uint32(26).string(message.liquidator);
+    }
+    if (message.reason !== 0) {
+      writer.uint32(32).int32(message.reason);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): LiquidationFailedEvent {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLiquidationFailedEvent();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pair = reader.string();
+          break;
+        case 2:
+          message.trader = reader.string();
+          break;
+        case 3:
+          message.liquidator = reader.string();
+          break;
+        case 4:
+          message.reason = reader.int32() as any;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LiquidationFailedEvent {
+    return {
+      pair: isSet(object.pair) ? String(object.pair) : "",
+      trader: isSet(object.trader) ? String(object.trader) : "",
+      liquidator: isSet(object.liquidator) ? String(object.liquidator) : "",
+      reason: isSet(object.reason) ? liquidationFailedEvent_LiquidationFailedReasonFromJSON(object.reason) : 0,
+    };
+  },
+
+  toJSON(message: LiquidationFailedEvent): unknown {
+    const obj: any = {};
+    message.pair !== undefined && (obj.pair = message.pair);
+    message.trader !== undefined && (obj.trader = message.trader);
+    message.liquidator !== undefined && (obj.liquidator = message.liquidator);
+    message.reason !== undefined && (obj.reason = liquidationFailedEvent_LiquidationFailedReasonToJSON(message.reason));
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LiquidationFailedEvent>, I>>(object: I): LiquidationFailedEvent {
+    const message = createBaseLiquidationFailedEvent();
+    message.pair = object.pair ?? "";
+    message.trader = object.trader ?? "";
+    message.liquidator = object.liquidator ?? "";
+    message.reason = object.reason ?? 0;
     return message;
   },
 };

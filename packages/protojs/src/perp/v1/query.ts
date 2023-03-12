@@ -29,7 +29,7 @@ export interface QueryPositionsResponse {
  * module account.
  */
 export interface QueryPositionRequest {
-  tokenPair: string;
+  pair: string;
   trader: string;
 }
 
@@ -271,13 +271,13 @@ export const QueryPositionsResponse = {
 };
 
 function createBaseQueryPositionRequest(): QueryPositionRequest {
-  return { tokenPair: "", trader: "" };
+  return { pair: "", trader: "" };
 }
 
 export const QueryPositionRequest = {
   encode(message: QueryPositionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.tokenPair !== "") {
-      writer.uint32(10).string(message.tokenPair);
+    if (message.pair !== "") {
+      writer.uint32(10).string(message.pair);
     }
     if (message.trader !== "") {
       writer.uint32(18).string(message.trader);
@@ -293,7 +293,7 @@ export const QueryPositionRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.tokenPair = reader.string();
+          message.pair = reader.string();
           break;
         case 2:
           message.trader = reader.string();
@@ -308,21 +308,21 @@ export const QueryPositionRequest = {
 
   fromJSON(object: any): QueryPositionRequest {
     return {
-      tokenPair: isSet(object.tokenPair) ? String(object.tokenPair) : "",
+      pair: isSet(object.pair) ? String(object.pair) : "",
       trader: isSet(object.trader) ? String(object.trader) : "",
     };
   },
 
   toJSON(message: QueryPositionRequest): unknown {
     const obj: any = {};
-    message.tokenPair !== undefined && (obj.tokenPair = message.tokenPair);
+    message.pair !== undefined && (obj.pair = message.pair);
     message.trader !== undefined && (obj.trader = message.trader);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPositionRequest>, I>>(object: I): QueryPositionRequest {
     const message = createBaseQueryPositionRequest();
-    message.tokenPair = object.tokenPair ?? "";
+    message.pair = object.pair ?? "";
     message.trader = object.trader ?? "";
     return message;
   },

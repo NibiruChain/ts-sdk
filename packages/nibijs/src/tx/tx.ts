@@ -15,7 +15,7 @@ import {
   Registry,
 } from "@cosmjs/proto-signing"
 import { Chain, go } from "../chain"
-import { registerTypes as registerDex } from "../msg/dex"
+import { registerTypes as registerSpot } from "../msg/spot"
 import { registerTypes as registerPerp } from "../msg/perp"
 import { getRegistry } from "./signer"
 import { TxMessage } from "../msg/types"
@@ -107,8 +107,10 @@ export class TxCmd {
 
   async ensureFee(...msgs: TxMessage[]): Promise<Error | undefined> {
     const addSimulatedFeeToCmd = async () => {
-      const gasUsed = await this.simulate(...msgs)
-      this.withFee(gasUsed * 1.25)
+      const gasUsedInSim = await this.simulate(...msgs)
+      let gasLimit: number = gasUsedInSim * 1.25
+      if (gasLimit < 420_000) gasLimit = 420_000
+      this.withFee(gasLimit)
     }
 
     let err: Error | undefined
@@ -139,7 +141,7 @@ export class TxCmd {
 
 function registerModules(): Registry {
   const registry = getRegistry()
-  registerDex(registry)
+  registerSpot(registry)
   registerPerp(registry)
   return registry
 }

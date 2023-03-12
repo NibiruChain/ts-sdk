@@ -10,7 +10,13 @@ export const protobufPackage = "nibiru.oracle.v1beta1";
  */
 export interface MsgAggregateExchangeRatePrevote {
   hash: string;
+  /**
+   * Feeder is the Bech32 address of the price feeder. A validator may
+   * specify multiple price feeders by delegating them consent. The validator
+   * address is also a valid feeder by default.
+   */
   feeder: string;
+  /** Validator is the Bech32 address to which the prevote will be credited. */
   validator: string;
 }
 
@@ -25,7 +31,13 @@ export interface MsgAggregateExchangeRatePrevoteResponse {
 export interface MsgAggregateExchangeRateVote {
   salt: string;
   exchangeRates: string;
+  /**
+   * Feeder is the Bech32 address of the price feeder. A validator may
+   * specify multiple price feeders by delegating them consent. The validator
+   * address is also a valid feeder by default.
+   */
   feeder: string;
+  /** Validator is the Bech32 address to which the vote will be credited. */
   validator: string;
 }
 
@@ -34,8 +46,8 @@ export interface MsgAggregateExchangeRateVoteResponse {
 }
 
 /**
- * MsgDelegateFeedConsent represents a message to
- * delegate oracle voting rights to another address.
+ * MsgDelegateFeedConsent represents a message to delegate oracle voting rights
+ * to another address.
  */
 export interface MsgDelegateFeedConsent {
   operator: string;
@@ -384,7 +396,11 @@ export interface Msg {
    * aggregate exchange rate vote
    */
   AggregateExchangeRateVote(request: MsgAggregateExchangeRateVote): Promise<MsgAggregateExchangeRateVoteResponse>;
-  /** DelegateFeedConsent defines a method for setting the feeder delegation */
+  /**
+   * DelegateFeedConsent defines a method for delegating oracle voting rights
+   * to another address known as a price feeder.
+   * See https://github.com/NibiruChain/pricefeeder.
+   */
   DelegateFeedConsent(request: MsgDelegateFeedConsent): Promise<MsgDelegateFeedConsentResponse>;
 }
 

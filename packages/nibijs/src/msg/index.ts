@@ -1,16 +1,19 @@
 import { BankMsgs } from "./bank"
-import { DexMsgs } from "./dex"
+import { SpotMsgs } from "./spot"
 import { PerpMsgs } from "./perp"
 import { StakingMsgs } from "./staking"
+import { DistributionMsgs } from "./distribution"
 
 export class MsgFactory {
   bank = BankMsgs
 
-  dex = DexMsgs
+  spot = SpotMsgs
 
   perp = PerpMsgs
 
   staking = StakingMsgs
+
+  distribution = DistributionMsgs
 }
 
 export const Msg = new MsgFactory()

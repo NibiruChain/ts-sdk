@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.4.0
+
+- [[#99]](https://github.com/NibiruChain/ts-sdk/pull/99) feat: add `markPriceCandles` query
+
 ## v0.3.4
 - [[#79]](https://github.com/NibiruChain/ts-sdk/pull/79) feat: add `CandleStickPeriod` enums
 

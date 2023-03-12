@@ -1,33 +1,18 @@
-import fetch from "cross-fetch"
+import { gqlEndptFromTmRpc } from "./gql"
 import {
-  GqlMarkPriceCandleSticksInputs,
-  GqlMarkPricesInputs,
-  GqlRecentTradesInputs,
-  TypeBlockMarkPrice,
-  TypeMarkPrice,
-  TypeMarkPriceCandleStick,
-  TypePosChange,
-} from "./types"
+  GqlInMarkPriceCandle,
+  GqlOutMarkPriceCandle,
+  markPriceCandles,
+} from "./query/markPriceCandles"
 
-async function cleanResponse(rawResp: Response): Promise<any> {
-  const respJson: any = await rawResp.json().catch((err) => {
-    console.error(err)
-  })
-
-  if (!rawResp.ok || respJson === undefined) {
-    throw new Error(`${respJson}`)
-  } else if (respJson.data !== undefined) {
-    return respJson.data
-  } else if (respJson !== undefined) {
-    return respJson
-  } else {
-    return respJson
-  }
-}
-
+/** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
+ * Each of its methods corresponds to a query function. */
 export interface IHeartMonitor {
-  doGqlQuery: (gqlQuery: string) => Promise<any>
+  readonly markPriceCandles: (
+    args: GqlInMarkPriceCandle,
+  ) => Promise<GqlOutMarkPriceCandle>
 
+  /*
   readonly useQueryBlockMarkPrices: (args: {
     pair: string
     fromBlock: number
@@ -50,38 +35,42 @@ export interface IHeartMonitor {
     pair: string
     lastN: number
   }) => Promise<{ recentTrades: TypePosChange[] }>
-
-  readonly useMarkPriceCandleSticks: (args: {
-    pair: string
-    period: number
-    startDate: string
-    endDate: string
-  }) => Promise<{ markPriceCandlesticks: TypeMarkPriceCandleStick[] }>
+  */
 }
 
+/** HeartMonitor is an API for "Heart Monitor" that indexes the Nibiru blockchain
+ * and stores the data in strucutred tables. Each of the `HeartMonitor`'s methods
+ * corresponds to a query function. */
 export class HeartMonitor implements IHeartMonitor {
   gqlEndpt: string
 
-  constructor(gqlEndpt?: string) {
-    this.gqlEndpt = gqlEndpt ?? "https://hm-graphql.testnet-2.nibiru.fi/graphql"
-  }
+  defaultGqlEndpt: string = "https://hm-graphql.devnet-2.nibiru.fi/graphql"
 
-  /**
-   * The workhorse function that fetches data from the GraphQL endpoint.
-   *
-   * @param {string} gqlQuery
-   * @returns {Promise<any>}
-   */
-  doGqlQuery = async (gqlQuery: string): Promise<any> => {
-    const encodedGqlQuery = encodeURI(gqlQuery)
-    const fetchString = `${this.gqlEndpt}?query=${encodedGqlQuery}`
-    const rawResp = await fetch(fetchString)
-    return cleanResponse(rawResp)
+  constructor(gqlEndpt?: string | { endptTm: string }) {
+    const chain = gqlEndpt as { endptTm: string }
+    if (gqlEndpt === undefined) {
+      this.gqlEndpt = this.defaultGqlEndpt
+    } else if (typeof gqlEndpt === "string") {
+      this.gqlEndpt = gqlEndpt
+    } else if (chain?.endptTm !== undefined) {
+      const endptFromRpc: string | null = gqlEndptFromTmRpc(chain?.endptTm)
+      this.gqlEndpt = endptFromRpc !== null ? endptFromRpc : this.defaultGqlEndpt
+    } else {
+      this.gqlEndpt = this.defaultGqlEndpt
+    }
   }
 
   // ------------------------------------------------------------
   // hooks
   // ------------------------------------------------------------
+
+  markPriceCandles = async (
+    args: GqlInMarkPriceCandle,
+  ): Promise<GqlOutMarkPriceCandle> => markPriceCandles(args, this.gqlEndpt)
+
+  /*
+  // ------------------------------------------------------------
+  // inactive
 
   useQueryMarkPrices = async (args: {
     pair: string
@@ -166,30 +155,5 @@ export class HeartMonitor implements IHeartMonitor {
   }`
     return this.doGqlQuery(gqlQuery(args))
   }
-
-  useMarkPriceCandleSticks = async (args: {
-    pair: string
-    period: number
-    startDate: string
-    endDate: string
-  }): Promise<{ markPriceCandlesticks: TypeMarkPriceCandleStick[] }> => {
-    const gqlQuery = ({
-      pair,
-      period,
-      startDate,
-      endDate,
-    }: GqlMarkPriceCandleSticksInputs): string =>
-      `{
-          markPriceCandlesticks(pair:"${pair}", period:${period}, startDate: "${startDate}", endDate: "${endDate}") {
-            pair
-            open
-            close
-            high
-            low
-            period
-            periodStart
-          }
-        }`
-    return this.doGqlQuery(gqlQuery(args))
-  }
+  */
 }

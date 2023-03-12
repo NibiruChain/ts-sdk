@@ -1,37 +1,25 @@
 {
   "name": "@nibiruchain/indexer-nibi",
   "description": "GraphQL API client for the Nibiru Chain indexer (heart-monitor)",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "_moduleAliases": {
-    "~indexer-nibi": "dist"
-  },
   "scripts": {
-    "postinstall": "npx shx mkdir -p dist && npx link-module-alias",
-    "build:watch": "tsc --build -w tsconfig.build.json && link-module-alias",
-    "build": "tsc --build tsconfig.build.json && link-module-alias",
-    "clean": "tsc --build tsconfig.build.json --clean && shx rm -rf coverage *.log junit.xml dist && jest --clearCache",
+    "build": "tsc --build",
+    "build:watch": "tsc --build --watch",
+    "clean": "tsc --clean",
     "test": "jest",
-    "test:unit": "jest test/unit",
-    "test:integration": "jest test/unit",
     "test:watch": "jest --watch",
-    "test:ci": "jest --coverage --ci --reporters='jest-junit'",
-    "coverage": "jest --coverage",
-    "coverage:show": "live-server coverage",
-    "dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
-    "start": "node dist/index.js"
+    "coverage": "jest --coverage"
   },
   "devDependencies": {
     "@types/jest": "^29.1.2",
     "@types/node-fetch": "^2.6.2",
     "jest": "^28.1.3",
-    "link-module-alias": "^1.2.0",
-    "shx": "^0.3.2",
     "ts-jest": "^28.0.0-next.3"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
 import { Registry } from "@cosmjs/proto-signing"
-import * as pb from "@nibiruchain/protojs/dist/dex/v1/tx"
+import * as pb from "@nibiruchain/protojs/dist/spot/v1/tx"
 import { toSdkDec } from "../chain"
 import { TxMessage } from "./types"
 
@@ -11,7 +11,7 @@ export function registerTypes(registry: Registry) {
   return registry
 }
 
-export class DexMsgs {
+export class SpotMsgs {
   static createPool(msg: pb.MsgCreatePool): TxMessage {
     if (msg.poolParams) {
       const { swapFee, exitFee } = msg.poolParams!

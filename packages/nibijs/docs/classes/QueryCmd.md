@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.8.5](../intro.md) / [Exports](../modules.md) / QueryCmd
+[NibiJS Documentation - v0.19.2](../intro.md) / [Exports](../modules.md) / QueryCmd
 
 # Class: QueryCmd
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[query/query.ts:75](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/query/query.ts#L75)
+[query/query.ts:79](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/query/query.ts#L79)
 
 ## Properties
 
@@ -54,7 +54,7 @@ E.g. nibiru-testnet-1, nibiru-localnet-42
 
 #### Defined in
 
-[query/query.ts:73](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/query/query.ts#L73)
+[query/query.ts:77](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/query/query.ts#L77)
 
 ___
 
@@ -71,7 +71,7 @@ It contains queries for all of the active modules of Nibiru Chain.
 
 #### Defined in
 
-[query/query.ts:69](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/query/query.ts#L69)
+[query/query.ts:73](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/query/query.ts#L73)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:71](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/query/query.ts#L71)
+[query/query.ts:75](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/query/query.ts#L75)
 
 ## Methods
 
@@ -103,4 +103,4 @@ IQueryCmd.disconnect
 
 #### Defined in
 
-[query/query.ts:90](https://github.com/NibiruChain/ts-sdk/blob/eac3210/packages/nibijs/src/query/query.ts#L90)
+[query/query.ts:96](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/query/query.ts#L96)
