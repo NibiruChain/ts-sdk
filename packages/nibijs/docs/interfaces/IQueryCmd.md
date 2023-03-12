@@ -26,7 +26,7 @@ E.g. nibiru-testnet-1, nibiru-localnet-42
 
 #### Defined in
 
-[query/query.ts:38](https://github.com/NibiruChain/ts-sdk/blob/3beefb4/packages/nibijs/src/query/query.ts#L38)
+[query/query.ts:38](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/query/query.ts#L38)
 
 ___
 
@@ -39,7 +39,7 @@ It contains queries for all of the active modules of Nibiru Chain.
 
 #### Defined in
 
-[query/query.ts:34](https://github.com/NibiruChain/ts-sdk/blob/3beefb4/packages/nibijs/src/query/query.ts#L34)
+[query/query.ts:34](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/query/query.ts#L34)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:39](https://github.com/NibiruChain/ts-sdk/blob/3beefb4/packages/nibijs/src/query/query.ts#L39)
+[query/query.ts:39](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/query/query.ts#L39)
 
 ___
 
@@ -67,4 +67,4 @@ ___
 
 #### Defined in
 
-[query/query.ts:35](https://github.com/NibiruChain/ts-sdk/blob/3beefb4/packages/nibijs/src/query/query.ts#L35)
+[query/query.ts:35](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/query/query.ts#L35)

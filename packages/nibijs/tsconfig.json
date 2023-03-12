@@ -1,5 +1,14 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "composite": true
+  },
+  "include": [
+    "src/**/*"
+  ],
   "references": [
     {
       "path": "../protojs"

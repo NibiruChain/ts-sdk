@@ -1,15 +1,48 @@
 {
-  "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@nibiruchain/protojs": [
-        "packages/protojs"
-      ],
-      "@nibiruchain/nibijs": [
-        "packages/nibijs"
-      ]
-    }
+    "target": "ES6",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "incremental": true,
   },
-  "files": ["node_modules/jest-expect-message/types/index.d.ts"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ],
+  "paths": {
+    "@nibiruchain/protojs": [
+      "packages/protojs"
+    ],
+    "@nibiruchain/nibijs": [
+      "packages/nibijs"
+    ]
+  },
+  "references": [
+    {
+      "path": "./packages/protojs"
+    },
+    {
+      "path": "./packages/nibijs"
+    },
+    {
+      "path": "./packages/indexer-nibi"
+    },
+  ]
 }
