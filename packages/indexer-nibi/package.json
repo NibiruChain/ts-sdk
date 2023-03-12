@@ -13,9 +13,9 @@
   },
   "scripts": {
     "postinstall": "npx shx mkdir -p dist && npx link-module-alias",
-    "build:watch": "tsc --build -w tsconfig.build.json && link-module-alias",
-    "build": "tsc --build tsconfig.build.json && link-module-alias",
-    "clean": "tsc --build tsconfig.build.json --clean && shx rm -rf coverage *.log junit.xml dist && jest --clearCache",
+    "build:watch": "tsc --build -w && link-module-alias",
+    "build": "tsc --build && link-module-alias",
+    "clean": "tsc --build --clean && shx rm -rf coverage *.log junit.xml dist && jest --clearCache",
     "test": "jest",
     "test:unit": "jest test/unit",
     "test:integration": "jest test/unit",
