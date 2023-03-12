@@ -8,11 +8,7 @@
   "files": [
     "dist"
   ],
-  "_moduleAliases": {
-    "~indexer-nibi": "dist"
-  },
   "scripts": {
-    "postinstall": "npx shx mkdir -p dist && npx link-module-alias",
     "build:watch": "tsc --build -w && link-module-alias",
     "build": "tsc --build && link-module-alias",
     "clean": "tsc --build --clean && shx rm -rf coverage *.log junit.xml dist && jest --clearCache",
@@ -30,8 +26,6 @@
     "@types/jest": "^29.1.2",
     "@types/node-fetch": "^2.6.2",
     "jest": "^28.1.3",
-    "link-module-alias": "^1.2.0",
-    "shx": "^0.3.2",
     "ts-jest": "^28.0.0-next.3"
   },
   "dependencies": {
