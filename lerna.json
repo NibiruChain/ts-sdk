@@ -1,17 +1,6 @@
 {
   "npmClient": "yarn",
   "name": "nibiru-ts",
-  "packages": [
-    "packages/*"
-  ],
   "version": "independent",
-  "useWorkspaces": true,
-  "command": {
-    "version": {
-      "message": "chore(release): publish"
-    },
-    "publish": {
-      "conventionalCommits": true
-    }
-  }
+  "useWorkspaces": true
 }
