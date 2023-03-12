@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.1](../intro.md) / [Exports](../modules.md) / Chain
+[NibiJS Documentation - v0.19.2](../intro.md) / [Exports](../modules.md) / Chain
 
 # Interface: Chain
 
@@ -14,6 +14,10 @@ https://docs.cosmos.network/master/core/grpc_rest.html
 **`Interface`**
 
 Chain
+
+## Implemented by
+
+- [`CustomChain`](../classes/CustomChain.md)
 
 ## Table of contents
 
@@ -36,7 +40,7 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:25](https://github.com/NibiruChain/ts-sdk/blob/692b3bf/packages/nibijs/src/chain/chain.ts#L25)
+[chain/chain.ts:25](https://github.com/NibiruChain/ts-sdk/blob/3beefb4/packages/nibijs/src/chain/chain.ts#L25)
 
 ___
 
@@ -46,7 +50,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:26](https://github.com/NibiruChain/ts-sdk/blob/692b3bf/packages/nibijs/src/chain/chain.ts#L26)
+[chain/chain.ts:26](https://github.com/NibiruChain/ts-sdk/blob/3beefb4/packages/nibijs/src/chain/chain.ts#L26)
 
 ___
 
@@ -58,7 +62,7 @@ endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 #### Defined in
 
-[chain/chain.ts:23](https://github.com/NibiruChain/ts-sdk/blob/692b3bf/packages/nibijs/src/chain/chain.ts#L23)
+[chain/chain.ts:23](https://github.com/NibiruChain/ts-sdk/blob/3beefb4/packages/nibijs/src/chain/chain.ts#L23)
 
 ___
 
@@ -70,7 +74,7 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 #### Defined in
 
-[chain/chain.ts:21](https://github.com/NibiruChain/ts-sdk/blob/692b3bf/packages/nibijs/src/chain/chain.ts#L21)
+[chain/chain.ts:21](https://github.com/NibiruChain/ts-sdk/blob/3beefb4/packages/nibijs/src/chain/chain.ts#L21)
 
 ___
 
@@ -82,7 +86,7 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 #### Defined in
 
-[chain/chain.ts:19](https://github.com/NibiruChain/ts-sdk/blob/692b3bf/packages/nibijs/src/chain/chain.ts#L19)
+[chain/chain.ts:19](https://github.com/NibiruChain/ts-sdk/blob/3beefb4/packages/nibijs/src/chain/chain.ts#L19)
 
 ___
 
@@ -92,4 +96,4 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:27](https://github.com/NibiruChain/ts-sdk/blob/692b3bf/packages/nibijs/src/chain/chain.ts#L27)
+[chain/chain.ts:27](https://github.com/NibiruChain/ts-sdk/blob/3beefb4/packages/nibijs/src/chain/chain.ts#L27)
