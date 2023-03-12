@@ -1,54 +1,27 @@
 {
   "name": "@nibiruchain/ts-sdk",
   "version": "0.2.0",
-  "main": "index.js",
   "license": "MIT",
-  "private": "false",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
+  "private": "true",
   "workspaces": {
     "packages": [
       "packages/*"
     ]
   },
   "scripts": {
-    "build": "lerna run build",
-    "clean": "lerna run --parallel clean && shx rm -rf .build-cache *.log coverage junit.xml",
-    "publish-all": "sh publish.sh",
-    "install:fresh": "shx rm -rf packages/**/node_modules && yarn",
-    "lerna:publish": "lerna publish",
+    "build": "lerna run --parallel build",
     "build:watch": "lerna run --parallel build:watch",
-    "build:fresh": "yarn clean && yarn build",
-    "build:parallel": "lerna run --parallel build",
-    "build:publish": "yarn build:fresh && yarn lerna:publish",
-    "build:patch:publish": "yarn build:fresh && yarn patch && yarn lerna:publish",
+    "clean": "lerna run --parallel clean",
+    "publish": "lerna publish from-package",
     "test": "jest",
-    "test:short": "yarn test --testPathIgnorePatterns faucet.test.ts",
-    "test:ci": "jest --coverage --ci --reporters='jest-junit'",
-    "test:unit": "jest packages/*/test/unit",
-    "test:integration": "jest packages/*/test/integration",
+    "test:short": "jest --testPathIgnorePatterns faucet.test.ts",
     "coverage": "jest --coverage",
-    "coverage:unit": "yarn test:unit --coverage",
-    "coverage:integration": "yarn test:integration --coverage",
-    "coverage:show": "live-server coverage",
     "lint": "eslint -c './.eslintrc.js' './packages/**/*.{ts,js}'",
     "lint:ci": "yarn lint . --format junit",
     "lint:md": "markdownlint --ignore node_modules --ignore .git",
     "format": "yarn lint --fix",
     "format:md": "yarn lint:md --fix",
-    "husky-skip": "cross-env HUSKY_SKIP_HOOKS=1",
-    "commit": "git cz",
     "proto-gen": "yarn exec ./scripts/protocgen.sh"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
-    ],
-    "*.md": [
-      "yarn format:md"
-    ]
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
@@ -72,9 +45,7 @@
     "husky": "^7.0.2",
     "jest": "^27.2.0",
     "jest-junit": "^12.2.0",
-    "lerna": "^4.0.0",
-    "lint-staged": "^11.1.2",
-    "live-server": "^1.2.1",
+    "lerna": "^6.0.0",
     "markdownlint-cli": "^0.28.1",
     "prettier": "^2.4.1",
     "serve": "^12.0.1",
