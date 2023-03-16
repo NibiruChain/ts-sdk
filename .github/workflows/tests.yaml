@@ -1,12 +1,13 @@
 name: ⛓️ Tests
 
 on:
-  pull_request:
-    branches: ["main", "release/*"]
-    paths: ["**.js", "**.ts", "**.tsx", "**.json"]
+#  pull_request:
+#    branches: ["main", "release/*"]
+#    paths: ["**.js", "**.ts", "**.tsx", "**.json"]
+#  push:
+#    branches: ["main", "release/*"]
+#    paths: ["**.js", "**.ts", "**.tsx", "**.json"]
   push:
-    branches: ["main", "release/*"]
-    paths: ["**.js", "**.ts", "**.tsx", "**.json"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref }}
