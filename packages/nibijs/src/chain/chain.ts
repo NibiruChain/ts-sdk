@@ -99,27 +99,6 @@ export function newDevnet(chainNumber: number): Chain {
   return new CustomChain({ nickname: "devnet", number: chainNumber })
 }
 
-export const CHAOSNET_CONFIG = {
-  host: process.env.CHAIN_HOST,
-  lcdPort: 1317,
-  grpcPort: 9090,
-  tmPort: 26657,
-}
-
-/**
- * Chaosnet is a private chain with trading bots, an oracle, and a node
- * running an updated version of Nibiru. This environment is useful for live
- * testing.
- */
-export const Chaosnet: Chain = {
-  endptGrpc: `http://${CHAOSNET_CONFIG.host}:${CHAOSNET_CONFIG.tmPort}`,
-  endptTm: `http://${CHAOSNET_CONFIG.host}:${CHAOSNET_CONFIG.tmPort}`,
-  endptRest: `http://${CHAOSNET_CONFIG.host}:${CHAOSNET_CONFIG.lcdPort}`,
-  chainId: "nibiru-localnet-0",
-  chainName: "Nibiru Chaosnet",
-  feeDenom: "unibi",
-}
-
 export async function queryChainIdWithRest(chain: Chain): Promise<[string, Error?]> {
   const queryChainId = async (chain: Chain): Promise<string> => {
     const response = await fetch(`${chain.endptRest}/node_info`)
