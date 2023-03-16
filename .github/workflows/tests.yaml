@@ -1,13 +1,13 @@
 name: ⛓️ Tests
 
-on: 
+on:
   pull_request:
     branches: ["main", "release/*"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
   push:
     branches: ["main", "release/*"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
-  
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref }}
   cancel-in-progress: ${{ ! (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')) }}
@@ -16,10 +16,17 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     env:
-      CHAIN_HOST: ${{ secrets.CHAIN_HOST }}
+      CHAIN_HOST: "localhost"
       VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
       VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
     steps:
+      - name: Run chaosnet
+        uses: NibiruChain/localnet-action@v1.1
+        id: chaosnet
+        with:
+          services: nibiru pricefeeder
+          ghtoken: ${{ secrets.GITHUB_TOKEN }}
+          ghactor: ${{ github.actor }}
       - uses: actions/checkout@v3
       - name: Setup NodeJS and npm
         uses: actions/setup-node@v3
@@ -39,7 +46,7 @@ jobs:
       - name: Run all tests
         run: yarn test --verbose --coverage --testPathIgnorePatterns faucet.test.ts
 
-      # ---- Individual test flows: In the future, we can separate the 
+      # ---- Individual test flows: In the future, we can separate the
       # ---- e2e tests from the unit tests. Testing on a live chain poses challenges.
       # - name: test sdk.Dec conversions in the common package
       #   run: yarn test -t 'SdkDec'
