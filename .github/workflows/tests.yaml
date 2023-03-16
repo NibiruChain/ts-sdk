@@ -17,7 +17,7 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     env:
-      CHAIN_HOST: "localhost"
+      CHAIN_HOST: localhost
       VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
       VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
     steps:
