@@ -21,13 +21,6 @@ jobs:
       VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
       VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
     steps:
-      - name: Run chaosnet
-        uses: NibiruChain/localnet-action@v1.1
-        id: chaosnet
-        with:
-          services: nibiru pricefeeder
-          ghtoken: ${{ secrets.GITHUB_TOKEN }}
-          ghactor: ${{ github.actor }}
       - uses: actions/checkout@v3
       - name: Setup NodeJS and npm
         uses: actions/setup-node@v3
@@ -44,6 +37,13 @@ jobs:
         run: yarn --prefer-offline --check-files
       - name: Build the application
         run: yarn build --include-dependencies || yarn build --parallel --include-dependencies
+      - name: Run chaosnet
+        uses: NibiruChain/localnet-action@v1.1
+        id: chaosnet
+        with:
+          services: nibiru pricefeeder
+          ghtoken: ${{ secrets.GITHUB_TOKEN }}
+          ghactor: ${{ github.actor }}
       - name: Run all tests
         run: yarn test --verbose --coverage --testPathIgnorePatterns faucet.test.ts
 
