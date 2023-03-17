@@ -18,8 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CHAIN_HOST: localhost
-      VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
-      VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
+      VALIDATOR_MNEMONIC: "guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host"
+      VALIDATOR_ADDRESS: "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl"
     steps:
       - uses: actions/checkout@v3
       - name: Setup NodeJS and npm
