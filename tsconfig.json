@@ -19,6 +19,14 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "incremental": true,
+    "paths": {
+      "@nibiruchain/protojs": [
+        "./packages/protojs"
+      ],
+      "@nibiruchain/nibijs": [
+        "./packages/nibijs"
+      ]
+    }
   },
   "exclude": [
     "node_modules",
@@ -26,14 +34,6 @@
     "**/*.test.ts",
     "**/*.spec.ts"
   ],
-  "paths": {
-    "@nibiruchain/protojs": [
-      "packages/protojs"
-    ],
-    "@nibiruchain/nibijs": [
-      "packages/nibijs"
-    ]
-  },
   "references": [
     {
       "path": "./packages/protojs"
@@ -43,6 +43,6 @@
     },
     {
       "path": "./packages/indexer-nibi"
-    },
+    }
   ]
 }

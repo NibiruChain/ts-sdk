@@ -12,7 +12,7 @@
     "build": "lerna run --parallel build",
     "build:watch": "lerna run --parallel build:watch",
     "clean": "lerna run --parallel clean",
-    "publish": "lerna publish from-package",
+    "publish:all": "lerna publish from-package",
     "test": "jest",
     "test:short": "jest --testPathIgnorePatterns faucet.test.ts",
     "coverage": "jest --coverage",

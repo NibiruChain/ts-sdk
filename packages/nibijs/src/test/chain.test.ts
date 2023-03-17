@@ -13,23 +13,21 @@ import {
 import { TEST_CHAIN } from "./helpers"
 
 describe("chain connections", () => {
-  const chain: Chain = TEST_CHAIN
-
   test("testnet rpc", async () => {
-    const sgClient = await SigningStargateClient.connect(chain.endptTm)
+    const sgClient = await SigningStargateClient.connect(TEST_CHAIN.endptTm)
     const blockHeight = await sgClient.getHeight()
     expect(blockHeight).toBeDefined()
     expect(blockHeight).toBeGreaterThanOrEqual(0)
   })
   test("testnet lcd/rest", async () => {
-    const [chainId, err] = await queryChainIdWithRest(chain)
+    const [chainId, err] = await queryChainIdWithRest(TEST_CHAIN)
     expect(chainId).toBeDefined()
-    expect(chainId).toEqual(chain.chainId)
+    expect(chainId).toEqual(TEST_CHAIN.chainId)
     expect(err).toBeUndefined()
   })
   test("testnet lcd/rest endpoint validation functions", async () => {
-    await expect(isRestEndptLive(chain)).resolves.toBeTruthy()
-    await expect(isRestEndptValid(chain)).resolves.toBeTruthy()
+    await expect(isRestEndptLive(TEST_CHAIN)).resolves.toBeTruthy()
+    await expect(isRestEndptValid(TEST_CHAIN)).resolves.toBeTruthy()
   })
   test("inactive chain validation cases", async () => {
     const inactiveChain: Chain = {
