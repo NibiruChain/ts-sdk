@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.4](../intro.md) / [Exports](../modules.md) / TxCmd
+[NibiJS Documentation - v0.19.5](../intro.md) / [Exports](../modules.md) / TxCmd
 
 # Class: TxCmd
 
@@ -49,7 +49,7 @@ TxCmd is analagous to the 'nibid tx' command of the nibid CLI.
 
 #### Defined in
 
-[tx/tx.ts:46](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L46)
+[tx/tx.ts:46](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L46)
 
 ## Properties
 
@@ -59,7 +59,7 @@ TxCmd is analagous to the 'nibid tx' command of the nibid CLI.
 
 #### Defined in
 
-[tx/tx.ts:40](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L40)
+[tx/tx.ts:40](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L40)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:39](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L39)
+[tx/tx.ts:39](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L39)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:41](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L41)
+[tx/tx.ts:41](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L41)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:44](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L44)
+[tx/tx.ts:44](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L44)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:42](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L42)
+[tx/tx.ts:42](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L42)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:43](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L43)
+[tx/tx.ts:43](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L43)
 
 ## Methods
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:107](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L107)
+[tx/tx.ts:107](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L107)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:136](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L136)
+[tx/tx.ts:136](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L136)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:98](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L98)
+[tx/tx.ts:98](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L98)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:130](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L130)
+[tx/tx.ts:130](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L130)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:79](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L79)
+[tx/tx.ts:79](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L79)
 
 ___
 
@@ -231,7 +231,7 @@ returns an estimate of how many gas units are required.
 
 #### Defined in
 
-[tx/tx.ts:74](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L74)
+[tx/tx.ts:74](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L74)
 
 ___
 
@@ -252,4 +252,4 @@ ___
 
 #### Defined in
 
-[tx/tx.ts:61](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/tx/tx.ts#L61)
+[tx/tx.ts:61](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L61)
