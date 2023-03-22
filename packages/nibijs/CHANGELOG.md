@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * .
 
+## v0.19.4
+
+* feat: Add gov query extension
+
 ## v0.19.2
 
 * chore: Raise minimum gas limit for transactions with low values for the simulated "gas used".
