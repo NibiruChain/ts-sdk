@@ -213,3 +213,16 @@ describe("distribution module queries", () => {
     })
   })
 })
+
+describe("gov module queries", () => {
+  test("gov params", async () => {
+    const { client: query } = await newQueryCmd(TEST_CHAIN)
+    const resp = await query.gov.params("voting")
+    const { votingParams } = resp
+    expect(votingParams).toBeDefined()
+    const properties: string[] = ["votingPeriod"]
+    properties.forEach((prop) => {
+      expect(votingParams).toHaveProperty(prop)
+    })
+  })
+})
