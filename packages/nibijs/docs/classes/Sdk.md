@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.2](../intro.md) / [Exports](../modules.md) / Sdk
+[NibiJS Documentation - v0.19.4](../intro.md) / [Exports](../modules.md) / Sdk
 
 # Class: Sdk
 
@@ -40,8 +40,7 @@ let txResp = sdk.tx.sendTokens(toAddr, tokens)
 ### Properties
 
 - [chain](Sdk.md#chain)
-- [query](Sdk.md#query)
-- [tmClient](Sdk.md#tmclient)
+- [queryClient](Sdk.md#queryclient)
 - [tx](Sdk.md#tx)
 
 ## Constructors
@@ -58,12 +57,12 @@ Creates an instance of Sdk.
 | :------ | :------ |
 | `args` | `Object` |
 | `args.chain` | [`Chain`](../interfaces/Chain.md) |
-| `args.queryCmd` | [`IQueryCmd`](../interfaces/IQueryCmd.md) |
+| `args.queryClient` | [`NibiruQueryClient`](NibiruQueryClient.md) |
 | `args.txCmd` | [`TxCmd`](TxCmd.md) |
 
 #### Defined in
 
-[sdk.ts:71](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/sdk.ts#L71)
+[sdk.ts:67](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L67)
 
 ## Properties
 
@@ -77,35 +76,21 @@ Creates an instance of Sdk.
 
 #### Defined in
 
-[sdk.ts:57](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/sdk.ts#L57)
+[sdk.ts:55](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L55)
 
 ___
 
-### query
+### queryClient
 
-• **query**: [`ExtendedQueryClient`](../modules.md#extendedqueryclient)
-
-#### Implementation of
-
-[ISdk](../interfaces/ISdk.md).[query](../interfaces/ISdk.md#query)
-
-#### Defined in
-
-[sdk.ts:61](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/sdk.ts#L61)
-
-___
-
-### tmClient
-
-• **tmClient**: `Tendermint34Client`
+• **queryClient**: [`NibiruQueryClient`](NibiruQueryClient.md)
 
 #### Implementation of
 
-[ISdk](../interfaces/ISdk.md).[tmClient](../interfaces/ISdk.md#tmclient)
+[ISdk](../interfaces/ISdk.md).[queryClient](../interfaces/ISdk.md#queryclient)
 
 #### Defined in
 
-[sdk.ts:63](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/sdk.ts#L63)
+[sdk.ts:59](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L59)
 
 ___
 
@@ -119,4 +104,4 @@ ___
 
 #### Defined in
 
-[sdk.ts:59](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/sdk.ts#L59)
+[sdk.ts:57](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L57)

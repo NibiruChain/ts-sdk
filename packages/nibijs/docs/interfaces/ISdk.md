@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.2](../intro.md) / [Exports](../modules.md) / ISdk
+[NibiJS Documentation - v0.19.4](../intro.md) / [Exports](../modules.md) / ISdk
 
 # Interface: ISdk
 
@@ -11,8 +11,7 @@
 ### Properties
 
 - [chain](ISdk.md#chain)
-- [query](ISdk.md#query)
-- [tmClient](ISdk.md#tmclient)
+- [queryClient](ISdk.md#queryclient)
 - [tx](ISdk.md#tx)
 
 ## Properties
@@ -23,27 +22,17 @@
 
 #### Defined in
 
-[sdk.ts:28](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/sdk.ts#L28)
+[sdk.ts:27](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L27)
 
 ___
 
-### query
+### queryClient
 
-• **query**: [`ExtendedQueryClient`](../modules.md#extendedqueryclient)
-
-#### Defined in
-
-[sdk.ts:30](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/sdk.ts#L30)
-
-___
-
-### tmClient
-
-• **tmClient**: `Tendermint34Client`
+• **queryClient**: [`NibiruQueryClient`](../classes/NibiruQueryClient.md)
 
 #### Defined in
 
-[sdk.ts:31](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/sdk.ts#L31)
+[sdk.ts:29](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L29)
 
 ___
 
@@ -53,4 +42,4 @@ ___
 
 #### Defined in
 
-[sdk.ts:29](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/sdk.ts#L29)
+[sdk.ts:28](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L28)
