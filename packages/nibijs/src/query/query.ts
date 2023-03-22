@@ -62,7 +62,7 @@ export class NibiruQueryClient extends StargateClient {
 
   public async waitForNextBlock() {
     const currentHeight = await this.getHeight()
-    while (currentHeight == (await this.getHeight())) {
+    while (currentHeight >= (await this.getHeight())) {
       await new Promise((resolve) => {
         setTimeout(resolve, 300)
       })
