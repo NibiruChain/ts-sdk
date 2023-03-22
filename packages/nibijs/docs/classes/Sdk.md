@@ -62,7 +62,7 @@ Creates an instance of Sdk.
 
 #### Defined in
 
-[sdk.ts:67](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L67)
+[sdk.ts:67](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/sdk.ts#L67)
 
 ## Properties
 
@@ -76,7 +76,7 @@ Creates an instance of Sdk.
 
 #### Defined in
 
-[sdk.ts:55](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L55)
+[sdk.ts:55](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/sdk.ts#L55)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[sdk.ts:59](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L59)
+[sdk.ts:59](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/sdk.ts#L59)
 
 ___
 
@@ -104,4 +104,4 @@ ___
 
 #### Defined in
 
-[sdk.ts:57](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L57)
+[sdk.ts:57](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/sdk.ts#L57)

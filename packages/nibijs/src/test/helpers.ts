@@ -1,5 +1,4 @@
-import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
-import { Block } from "@cosmjs/tendermint-rpc"
+import { assertIsDeliverTxSuccess, Block, DeliverTxResponse } from "@cosmjs/stargate"
 import { Chain, CustomChain } from "../chain"
 
 export const TEST_CHAIN = new CustomChain({ nickname: "itn", number: 1 }) // v0.19.2

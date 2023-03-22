@@ -4,6 +4,8 @@ import {
   QueryClient,
   setupDistributionExtension,
   setupGovExtension,
+  setupStakingExtension,
+  StakingExtension,
   StargateClient,
   StargateClientOptions,
 } from "@cosmjs/stargate"
@@ -21,7 +23,8 @@ export type NibiruExtensions = QueryClient &
   OracleExtension &
   EpochsExtension &
   DistributionExtension &
-  GovExtension
+  GovExtension &
+  StakingExtension
 
 export class NibiruQueryClient extends StargateClient {
   public readonly nibiruExtensions: NibiruExtensions
@@ -45,6 +48,7 @@ export class NibiruQueryClient extends StargateClient {
       setupVpoolExtension,
       setupDistributionExtension,
       setupGovExtension,
+      setupStakingExtension,
     )
   }
 

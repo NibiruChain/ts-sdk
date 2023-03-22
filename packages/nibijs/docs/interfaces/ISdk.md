@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[sdk.ts:27](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L27)
+[sdk.ts:27](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/sdk.ts#L27)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-[sdk.ts:29](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L29)
+[sdk.ts:29](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/sdk.ts#L29)
 
 ___
 
@@ -42,4 +42,4 @@ ___
 
 #### Defined in
 
-[sdk.ts:28](https://github.com/NibiruChain/ts-sdk/blob/12058a2/packages/nibijs/src/sdk.ts#L28)
+[sdk.ts:28](https://github.com/NibiruChain/ts-sdk/blob/75f02a4/packages/nibijs/src/sdk.ts#L28)

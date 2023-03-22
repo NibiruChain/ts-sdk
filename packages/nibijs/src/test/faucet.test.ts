@@ -11,7 +11,7 @@ import {
 } from "../chain"
 import { instanceOfError } from "../chain/error"
 import { Msg } from "../msg"
-import { NibiruQueryClient, waitForBlockHeight, waitForNextBlock } from "../query"
+import { NibiruQueryClient } from "../query"
 import { ISdk, newSdk } from "../sdk"
 import { newRandomWallet, newSignerFromMnemonic } from "../tx"
 import { expectTxToSucceed, prettyTmLogs, TEST_CHAIN, TxLog } from "./helpers"
@@ -32,7 +32,7 @@ test("faucet utility works", async () => {
     const signer = await newSignerFromMnemonic(valMnemonic!)
     const sdk = await newSdk(chain, signer)
     const [{ address: fromAddr }] = await signer.getAccounts()
-    await waitForNextBlock(chain)
+    await sdk.queryClient.waitForNextBlock()
     let txResp: DeliverTxResponse | Error = await sdk.tx.signAndBroadcast(
       Msg.bank.Send(fromAddr, toAddr, newCoins(5, "unibi")),
     )
@@ -53,7 +53,7 @@ test("faucet utility works", async () => {
   const queryClient = await NibiruQueryClient.connect(chain.endptTm)
 
   const expectFaucetRequestSucceeds = async (): Promise<CoinMap> => {
-    await waitForBlockHeight({ chain, height: setupBlockHeight + 1 })
+    await walletSdk.queryClient.waitForNextBlock()
     const balancesStart = newCoinMapFromCoins(await queryClient.getAllBalances(address))
     const faucetResp = await useFaucet({
       address,
@@ -72,7 +72,7 @@ test("faucet utility works", async () => {
   }
 
   const expectBalancesToIncreaseByFaucetAmt = async (balancesStart: CoinMap) => {
-    await waitForNextBlock(chain)
+    await walletSdk.queryClient.waitForNextBlock()
     const balances = newCoinMapFromCoins(await queryClient.getAllBalances(address))
     // Expect to receive 10 NIBI and 100 NUSD
     if (balances.unusd === undefined) balances.unusd = 0
