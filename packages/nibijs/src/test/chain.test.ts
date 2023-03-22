@@ -1,5 +1,6 @@
 import { SigningStargateClient } from "@cosmjs/stargate"
 import {
+  assert,
   Chain,
   Coin,
   CoinMap,
@@ -8,7 +9,6 @@ import {
   newCoin,
   newCoinMapFromCoins,
   queryChainIdWithRest,
-  assert,
 } from "../chain"
 import { TEST_CHAIN } from "./helpers"
 

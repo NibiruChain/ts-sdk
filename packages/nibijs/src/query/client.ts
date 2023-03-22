@@ -23,15 +23,15 @@ export type NibiruExtensions = QueryClient &
   DistributionExtension &
   GovExtension
 
-export class NibiruQueryClient extends StargateClient {
+export class NibiruClient extends StargateClient {
   public readonly nibiruExtensions: NibiruExtensions
 
   public static async connect(
     endpoint: string,
     options: StargateClientOptions = {},
-  ): Promise<NibiruQueryClient> {
+  ): Promise<NibiruClient> {
     const tmClient = await Tendermint34Client.connect(endpoint)
-    return new NibiruQueryClient(tmClient, options)
+    return new NibiruClient(tmClient, options)
   }
 
   protected constructor(tmClient: Tendermint34Client, options: StargateClientOptions) {
@@ -46,22 +46,5 @@ export class NibiruQueryClient extends StargateClient {
       setupDistributionExtension,
       setupGovExtension,
     )
-  }
-
-  public async waitForHeight(height: number) {
-    while ((await this.getHeight()) < height) {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 300)
-      })
-    }
-  }
-
-  public async waitForNextBlock() {
-    const currentHeight = await this.getHeight()
-    while (currentHeight == (await this.getHeight())) {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 300)
-      })
-    }
   }
 }
