@@ -14,6 +14,7 @@ import { OracleExtension, setupOracleExtension } from "./oracle"
 import { setupStakingExtension, StakingExtension } from "./staking"
 import { setupVpoolExtension, VpoolExtension } from "./vpool"
 import { DistributionExtension, setupDistributionExtension } from "./distribution"
+import { GovExtension, setupGovExtension } from "./gov"
 
 export type ExtendedQueryClient = BankExtension &
   QueryClient &
@@ -24,7 +25,8 @@ export type ExtendedQueryClient = BankExtension &
   OracleExtension &
   EpochsExtension &
   StakingExtension &
-  DistributionExtension
+  DistributionExtension &
+  GovExtension
 
 export interface IQueryCmd {
   /**
@@ -90,6 +92,7 @@ export class QueryCmd implements IQueryCmd {
       setupEpochsExtension,
       setupStakingExtension,
       setupDistributionExtension,
+      setupGovExtension,
     )
   }
 
