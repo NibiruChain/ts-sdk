@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * .
 
+## v0.19.5
+
+* feat: Add utils query extension
+
 ## v0.19.4
 
 * feat: Add gov query extension

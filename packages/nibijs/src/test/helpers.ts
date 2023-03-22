@@ -2,7 +2,7 @@ import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import { Block } from "@cosmjs/tendermint-rpc"
 import { Chain, CustomChain } from "../chain"
 
-export const TEST_CHAIN = new CustomChain({ nickname: "itn", number: 1 }) // v0.19.2
+export const TEST_CHAIN = new CustomChain({ nickname: "archive.itn", number: 1 }) // v0.19.2
 
 export function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {

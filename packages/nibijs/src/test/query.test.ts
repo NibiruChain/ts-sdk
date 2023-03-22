@@ -226,3 +226,17 @@ describe("gov module queries", () => {
     })
   })
 })
+
+describe("utils module queries", () => {
+  test("module accounts", async () => {
+    const { client: query } = await newQueryCmd(TEST_CHAIN)
+    const resp = await query.utils.moduleAccounts()
+    const { accounts } = resp
+    expect(accounts).toBeDefined()
+    expect(accounts.length).toBeGreaterThan(0)
+    const properties: string[] = ["name", "address", "balance"]
+    properties.forEach((prop) => {
+      expect(accounts[0]).toHaveProperty(prop)
+    })
+  })
+})
