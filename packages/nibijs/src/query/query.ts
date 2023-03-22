@@ -1,23 +1,26 @@
 import {
-  QueryClient,
-  setupBankExtension,
-  setupAuthExtension,
-  BankExtension,
   AuthExtension,
+  BankExtension,
+  DistributionExtension,
+  GovExtension,
+  QueryClient,
+  setupAuthExtension,
+  setupBankExtension,
+  setupDistributionExtension,
+  setupGovExtension,
+  setupStakingExtension,
+  StakingExtension,
 } from "@cosmjs/stargate"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 import { Chain } from "../chain"
-import { setupSpotExtension, SpotExtension } from "./spot"
 import { EpochsExtension, setupEpochsExtension } from "./epochs"
-import { setupPerpExtension, PerpExtension } from "./perp"
 import { OracleExtension, setupOracleExtension } from "./oracle"
-import { setupStakingExtension, StakingExtension } from "./staking"
+import { PerpExtension, setupPerpExtension } from "./perp"
+import { setupSpotExtension, SpotExtension } from "./spot"
 import { setupVpoolExtension, VpoolExtension } from "./vpool"
-import { DistributionExtension, setupDistributionExtension } from "./distribution"
-import { GovExtension, setupGovExtension } from "./gov"
 
-export type ExtendedQueryClient = BankExtension &
-  QueryClient &
+export type ExtendedQueryClient = QueryClient &
+  BankExtension &
   AuthExtension &
   SpotExtension &
   PerpExtension &
