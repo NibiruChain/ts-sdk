@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.2](../intro.md) / [Exports](../modules.md) / MsgFactory
+[NibiJS Documentation - v0.19.5](../intro.md) / [Exports](../modules.md) / MsgFactory
 
 # Class: MsgFactory
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[msg/index.ts:8](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/msg/index.ts#L8)
+[msg/index.ts:8](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/msg/index.ts#L8)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[msg/index.ts:16](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/msg/index.ts#L16)
+[msg/index.ts:16](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/msg/index.ts#L16)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[msg/index.ts:12](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/msg/index.ts#L12)
+[msg/index.ts:12](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/msg/index.ts#L12)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[msg/index.ts:10](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/msg/index.ts#L10)
+[msg/index.ts:10](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/msg/index.ts#L10)
 
 ___
 
@@ -70,4 +70,4 @@ ___
 
 #### Defined in
 
-[msg/index.ts:14](https://github.com/NibiruChain/ts-sdk/blob/3ddfae4/packages/nibijs/src/msg/index.ts#L14)
+[msg/index.ts:14](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/msg/index.ts#L14)

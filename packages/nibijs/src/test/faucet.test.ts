@@ -1,4 +1,4 @@
-import { DeliverTxResponse, assertIsDeliverTxSuccess } from "@cosmjs/stargate"
+import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import {
   Chain,
   CoinMap,
@@ -9,12 +9,12 @@ import {
   useFaucet,
   WalletHD,
 } from "../chain"
-import { newQueryCmd, waitForBlockHeight, waitForNextBlock } from "../query"
-import { newRandomWallet, newSignerFromMnemonic } from "../tx"
-import { ISdk, newSdk } from "../sdk"
-import { Msg } from "../msg"
-import { expectTxToSucceed, prettyTmLogs, TEST_CHAIN, TxLog } from "./helpers"
 import { instanceOfError } from "../chain/error"
+import { Msg } from "../msg"
+import { NibiruQueryClient } from "../query"
+import { ISdk, newSdk } from "../sdk"
+import { newRandomWallet, newSignerFromMnemonic } from "../tx"
+import { expectTxToSucceed, prettyTmLogs, TEST_CHAIN, TxLog } from "./helpers"
 
 const chain: Chain = TEST_CHAIN
 
@@ -32,7 +32,7 @@ test("faucet utility works", async () => {
     const signer = await newSignerFromMnemonic(valMnemonic!)
     const sdk = await newSdk(chain, signer)
     const [{ address: fromAddr }] = await signer.getAccounts()
-    await waitForNextBlock(chain)
+    await sdk.queryClient.waitForNextBlock()
     let txResp: DeliverTxResponse | Error = await sdk.tx.signAndBroadcast(
       Msg.bank.Send(fromAddr, toAddr, newCoins(5, "unibi")),
     )
@@ -50,13 +50,11 @@ test("faucet utility works", async () => {
     walletSdk,
   } = await setupFaucetTest()
 
-  const queryCmd = await newQueryCmd(chain)
+  const queryClient = await NibiruQueryClient.connect(chain.endptTm)
 
   const expectFaucetRequestSucceeds = async (): Promise<CoinMap> => {
-    await waitForBlockHeight({ chain, height: setupBlockHeight + 1 })
-    const balancesStart = newCoinMapFromCoins(
-      await queryCmd.client.bank.allBalances(address),
-    )
+    await walletSdk.queryClient.waitForNextBlock()
+    const balancesStart = newCoinMapFromCoins(await queryClient.getAllBalances(address))
     const faucetResp = await useFaucet({
       address,
       chain,
@@ -74,10 +72,8 @@ test("faucet utility works", async () => {
   }
 
   const expectBalancesToIncreaseByFaucetAmt = async (balancesStart: CoinMap) => {
-    await waitForNextBlock(chain)
-    const balances = newCoinMapFromCoins(
-      await queryCmd.client.bank.allBalances(address),
-    )
+    await walletSdk.queryClient.waitForNextBlock()
+    const balances = newCoinMapFromCoins(await queryClient.getAllBalances(address))
     // Expect to receive 10 NIBI and 100 NUSD
     if (balances.unusd === undefined) balances.unusd = 0
     if (balances.unibi === undefined) balances.unibi = 0

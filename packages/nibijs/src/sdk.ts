@@ -3,9 +3,8 @@
  * Nibiru TypeScript SDK. The SDK is accessible from the 'newSdk' function.
  *
  */
-import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
 import { Chain } from "./chain"
-import { ExtendedQueryClient, IQueryCmd, newQueryCmd } from "./query"
+import { NibiruQueryClient } from "./query"
 import { CosmosSigner, newTxCmd, TxCmd } from "./tx"
 
 /**
@@ -20,15 +19,14 @@ import { CosmosSigner, newTxCmd, TxCmd } from "./tx"
  */
 export async function newSdk(chain: Chain, signer: CosmosSigner): Promise<Sdk> {
   const txCmd = await newTxCmd(chain, signer)
-  const queryCmd = await newQueryCmd(chain)
-  return new Sdk({ chain, txCmd, queryCmd })
+  const queryClient = await NibiruQueryClient.connect(chain.endptTm)
+  return new Sdk({ chain, txCmd, queryClient })
 }
 
 export interface ISdk {
   chain: Chain
   tx: TxCmd
-  query: ExtendedQueryClient
-  tmClient: Tendermint34Client
+  queryClient: NibiruQueryClient
 }
 
 /**
@@ -58,9 +56,7 @@ export class Sdk implements ISdk {
 
   tx: TxCmd
 
-  query: ExtendedQueryClient
-
-  tmClient: Tendermint34Client
+  queryClient: NibiruQueryClient
 
   /**
    * Creates an instance of Sdk.
@@ -68,11 +64,10 @@ export class Sdk implements ISdk {
    * @constructor
    * @param {{ chain: Chain; txCmd: TxCmd; query: IQueryCmd }} args
    */
-  constructor(args: { chain: Chain; txCmd: TxCmd; queryCmd: IQueryCmd }) {
-    const { chain, txCmd, queryCmd } = args
+  constructor(args: { chain: Chain; txCmd: TxCmd; queryClient: NibiruQueryClient }) {
+    const { chain, txCmd, queryClient } = args
     this.chain = chain
     this.tx = txCmd
-    this.query = queryCmd.client
-    this.tmClient = queryCmd.tmClient
+    this.queryClient = queryClient
   }
 }
