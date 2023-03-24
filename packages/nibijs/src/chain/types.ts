@@ -44,7 +44,16 @@ export function newCoinMapFromCoins(coins: readonly Coin[]): CoinMap {
   return coinMap
 }
 
-export interface IEventLog {
+export interface Event {
   type: string
-  attributes: { key: string; value: string }[]
+  attributes: Attribute[]
+}
+
+export interface Attribute {
+  key: string
+  value: string
+}
+
+export interface TxLog {
+  events: Event[]
 }

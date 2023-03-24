@@ -1,8 +1,5 @@
-import * as dotenv from "dotenv"
 import fetch from "cross-fetch"
 import { go } from "./types"
-
-dotenv.config() // yarn add -D dotenv
 
 /**
  * Specifies chain information for all endpoints a node exposes such as the
@@ -20,10 +17,12 @@ export interface Chain {
   /** endptRest: endpoint for the REST server. Also, the LCD endpoint. */
   endptRest: string
   /** endptGrpc: endpoint for the gRPC gateway. Usually on port 9090. */
-  endptGrpc?: string
+  endptGrpc: string
   /** chainId: identifier for the chain */
   chainId: string
+  /** chainName: the name of the chain to display to the user */
   chainName: string
+  /** feeDenom: the denomination of the fee to be paid for transactions. */
   feeDenom: string
 }
 
@@ -38,65 +37,75 @@ export function instanceOfChain(obj: any): obj is Chain {
 }
 
 export interface ChainIdParts {
-  nickname: string
+  prefix: string
+  shortName: string
   number: number
-  prefix?: string
 }
 
 export class CustomChain implements Chain {
-  chainId: string
-  chainIdParts: ChainIdParts
-  endptTm: string
-  endptRest: string
-  endptGrpc: string = ""
-  feeDenom: string = "unibi"
-  chainName: string
+  public readonly chainId: string
+  public readonly chainName: string
+  public readonly endptTm: string
+  public readonly endptRest: string
+  public readonly endptGrpc: string
+  public readonly feeDenom: string = "unibi"
 
-  constructor(args: ChainIdParts) {
-    this.chainIdParts = this.initChainIdParts(args)
+  private readonly chainIdParts: ChainIdParts
+
+  constructor(chainIdParts: ChainIdParts) {
+    this.chainIdParts = chainIdParts
+
     this.chainId = this.initChainId()
-    this.endptTm = this._endptTm()
-    this.endptRest = this._endptRest()
     this.chainName = this.chainId
+    this.endptTm = this.initTendermintEndpoint()
+    this.endptRest = this.initRestEndpoint()
+    this.endptGrpc = this.initGrpcEndpoint()
   }
 
-  initChainIdParts = (parts: ChainIdParts): ChainIdParts => {
-    let { prefix } = parts
-    const { nickname, number } = parts
-    if (prefix === undefined) prefix = "nibiru"
-    return { prefix, nickname, number }
+  private initChainId = (): string => {
+    const { prefix, shortName, number } = this.chainIdParts
+    return [prefix, shortName, number].join("-")
   }
 
-  initChainId = (): string => {
-    const { prefix, nickname, number } = this.chainIdParts
-    return [prefix, nickname, number].join("-")
+  public initTendermintEndpoint = (): string => {
+    const { shortName, number } = this.chainIdParts
+    return `https://rpc.${shortName}-${number}.nibiru.fi`
   }
 
-  _endptTm = (): string => {
-    const { nickname, number: chainNumber } = this.chainIdParts
-    return `https://rpc.${nickname}-${chainNumber}.nibiru.fi`
+  public initRestEndpoint = (): string => {
+    const { shortName, number } = this.chainIdParts
+    return `https://lcd.${shortName}-${number}.nibiru.fi`
   }
 
-  _endptRest = (): string => {
-    const { nickname, number: chainNumber } = this.chainIdParts
-    return `https://lcd.${nickname}-${chainNumber}.nibiru.fi`
+  public initGrpcEndpoint = (): string => {
+    const { shortName, number } = this.chainIdParts
+    return `grpc.${shortName}-${number}.nibiru.fi`
   }
 }
 
 export const Localnet: Chain = {
   endptTm: "127.0.0.1:26657",
   endptRest: "127.0.0.1:1317",
+  endptGrpc: "127.0.0.1:9090",
   chainId: "nibiru-localnet-0",
   chainName: "Nibiru Localnet",
   feeDenom: "unibi",
 }
 
-export function newTestnet(chainNumber: number): Chain {
-  return new CustomChain({ nickname: "itn", number: chainNumber })
+export function IncentivizedTestent(chainNumber: number): Chain {
+  return new CustomChain({
+    prefix: "nibiru",
+    shortName: "itn",
+    number: chainNumber,
+  })
 }
 
-export function newDevnet(chainNumber: number): Chain {
-  return new CustomChain({ nickname: "devnet", number: chainNumber })
+export function Devnet(chainNumber: number): Chain {
+  return new CustomChain({
+    prefix: "nibiru",
+    shortName: "devnet",
+    number: chainNumber,
+  })
 }
 
 export async function queryChainIdWithRest(chain: Chain): Promise<[string, Error?]> {
@@ -111,21 +120,6 @@ export async function queryChainIdWithRest(chain: Chain): Promise<[string, Error
 }
 
 export async function isRestEndptLive(chain: Chain): Promise<boolean> {
-  let isLive: boolean = false
   const [_chainId, err] = await queryChainIdWithRest(chain)
-  if (err === undefined) {
-    isLive = true
-  }
-  return isLive
-}
-
-export async function isRestEndptValid(chain: Chain): Promise<boolean> {
-  let isLive: boolean = true
-  const [chainId, err] = await queryChainIdWithRest(chain)
-  if (err !== undefined) {
-    isLive = false
-  } else if (chainId !== chain.chainId) {
-    isLive = false
-  }
-  return isLive
+  return err === undefined
 }

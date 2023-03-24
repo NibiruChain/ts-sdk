@@ -1,5 +1,3 @@
-import { IEventLog } from "./types"
-
 const PRECISION = 18 // number of decimal places
 export const INT_MULT = 1_000_000
 
@@ -171,14 +169,6 @@ export function fromSdkDecSafe(inStr: string): number {
   }
   sdkDec = parseFloat(inStr)
   return sdkDec
-}
-
-export function event2KeyValue(event: IEventLog): { [key: string]: string } {
-  const obj: { [key: string]: string } = {}
-  event.attributes.forEach((attr) => {
-    obj[attr.key] = attr.value
-  })
-  return obj
 }
 
 // TODO test
