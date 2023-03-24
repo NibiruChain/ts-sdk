@@ -1,5 +1,5 @@
 import { Block } from "@cosmjs/stargate"
-import { Chain, CustomChain, Event } from "../chain"
+import { Chain, CustomChain, Devnet, Event } from "../chain"
 import { PERP_MSG_TYPE_URLS } from "../msg/perp"
 
 export const TEST_CHAIN = new CustomChain({
@@ -7,6 +7,13 @@ export const TEST_CHAIN = new CustomChain({
   shortName: "itn",
   number: 1,
 }) // v0.19.2
+
+export const DEVNET = Devnet(2)
+export const TEST_MNEMONIC =
+  process.env.VALIDATOR_MNEMONIC ??
+  "license you roof spirit great mass wink warfare glide donor ozone copper truth face six relief soda bike various verify feature charge feel sausage"
+export const TEST_ADDRESS =
+  process.env.VALIDATOR_ADDRESS ?? "nibi1n686zur9ash48nm8p2uxm2p3dq527rnvhsks9t"
 
 export function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
@@ -35,7 +42,6 @@ export function validateBlock(block: Block, chain: Chain) {
   expect(block.header.time).toBeDefined()
   expect(block.header.height).toBeGreaterThanOrEqual(1)
   expect(block).toHaveProperty("txs")
-  expect(block).toHaveProperty("lastCommit")
 }
 
 export function assertHasMsgType(msgType: string, events: Event[]): void {

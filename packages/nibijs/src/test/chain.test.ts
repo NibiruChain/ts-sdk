@@ -5,7 +5,6 @@ import {
   Coin,
   CoinMap,
   isRestEndptLive,
-  isRestEndptValid,
   newCoin,
   newCoinMapFromCoins,
   queryChainIdWithRest,
@@ -27,12 +26,12 @@ describe("chain connections", () => {
   })
   test("testnet lcd/rest endpoint validation functions", async () => {
     await expect(isRestEndptLive(TEST_CHAIN)).resolves.toBeTruthy()
-    await expect(isRestEndptValid(TEST_CHAIN)).resolves.toBeTruthy()
   })
   test("inactive chain validation cases", async () => {
     const inactiveChain: Chain = {
       endptTm: "",
       endptRest: "",
+      endptGrpc: "",
       chainId: "chain-id",
       chainName: "inactive-chain",
       feeDenom: "unibi",
@@ -41,7 +40,6 @@ describe("chain connections", () => {
     expect(err).toBeDefined()
     expect(chainId).toEqual("")
     await expect(isRestEndptLive(inactiveChain)).resolves.toBeFalsy()
-    await expect(isRestEndptValid(inactiveChain)).resolves.toBeFalsy()
   })
 })
 

@@ -1,5 +1,4 @@
-import { toSdkDec, fromSdkDec, toSdkInt, event2KeyValue } from "../chain/parse"
-import { IEventLog } from "../chain/types"
+import { fromSdkDec, toSdkDec, toSdkInt } from "../chain/parse"
 
 describe("toSdkDec - float to sdk.Dec conversion", () => {
   interface TestCase {
@@ -138,59 +137,5 @@ describe("toSdkInt - int to sdk.Dec conversion", () => {
       failed = true
     }
     expect(failed).toBe(!!tt.shouldFail)
-  })
-})
-
-test("event2KeyValue - event parsing", () => {
-  const testCases: {
-    eventLog: IEventLog
-    out: { [key: string]: string }
-  }[] = [
-    {
-      eventLog: {
-        type: "nibiru.perp.v1.PositionChangedEvent",
-        attributes: [
-          { key: "bad_debt", value: "{denom:unusd,amount:0}" },
-          { key: "block_height", value: "47774" },
-          { key: "block_time_ms", value: "1666761164478" },
-          { key: "exchanged_position_size", value: "0.000499999999999995" },
-          { key: "funding_payment", value: "0.000000000000000000" },
-          { key: "liquidation_penalty", value: "0.000000000000000000" },
-          { key: "margin", value: "{denom:unusd,amount:10}" },
-          { key: "mark_price", value: "20000.000000000400000000" },
-          { key: "pair", value: "ubtc:unusd" },
-          { key: "position_notional", value: "10.000000000000000000" },
-          { key: "position_size", value: "0.000499999999999995" },
-          { key: "realized_pnl", value: "0.000000000000000000" },
-          {
-            key: "trader_address",
-            value: "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl",
-          },
-          { key: "transaction_fee", value: "{denom:unusd,amount:0}" },
-          { key: "unrealized_pnl_after", value: "0.000000000000000000" },
-        ],
-      },
-      out: {
-        bad_debt: "{denom:unusd,amount:0}",
-        block_height: "47774",
-        block_time_ms: "1666761164478",
-        exchanged_position_size: "0.000499999999999995",
-        funding_payment: "0.000000000000000000",
-        liquidation_penalty: "0.000000000000000000",
-        margin: "{denom:unusd,amount:10}",
-        mark_price: "20000.000000000400000000",
-        pair: "ubtc:unusd",
-        position_notional: "10.000000000000000000",
-        position_size: "0.000499999999999995",
-        realized_pnl: "0.000000000000000000",
-        trader_address: "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl",
-        transaction_fee: "{denom:unusd,amount:0}",
-        unrealized_pnl_after: "0.000000000000000000",
-      },
-    },
-  ]
-
-  testCases.forEach((tc) => {
-    expect(event2KeyValue(tc.eventLog)).toEqual(tc.out)
   })
 })

@@ -1,26 +1,30 @@
 import {
   AccountData,
+  coin,
   coins,
   DirectSecp256k1HdWallet,
   parseCoins,
 } from "@cosmjs/proto-signing"
 import { assertIsDeliverTxSuccess } from "@cosmjs/stargate"
+import {
+  MsgAddMargin,
+  MsgClosePosition,
+  MsgOpenPosition,
+  MsgRemoveMargin,
+} from "@nibiruchain/protojs/dist/perp/v1/tx"
 import { Side } from "@nibiruchain/protojs/src/perp/v1/state"
-import { MsgClosePosition, MsgOpenPosition } from "@nibiruchain/protojs/src/perp/v1/tx"
-import { Devnet } from "../chain"
 import { TxLog } from "../chain/types"
 import { PERP_MSG_TYPE_URLS } from "../msg/perp"
 import { NibiruQueryClient } from "../query/query"
-import { assertHasEventType, assertHasMsgType } from "../test/helpers"
+import {
+  assertHasEventType,
+  assertHasMsgType,
+  DEVNET,
+  TEST_ADDRESS,
+  TEST_MNEMONIC,
+} from "../test/helpers"
 import { newRandomWallet, newSignerFromMnemonic } from "./signer"
 import { NibiruSigningClient } from "./signingClient"
-
-const DEVNET = Devnet(2)
-const TEST_MNEMONIC =
-  process.env.VALIDATOR_MNEMONIC ??
-  "license you roof spirit great mass wink warfare glide donor ozone copper truth face six relief soda bike various verify feature charge feel sausage"
-const TEST_ADDRESS =
-  process.env.VALIDATOR_ADDRESS ?? "nibi1n686zur9ash48nm8p2uxm2p3dq527rnvhsks9t"
 
 describe("signingClient", () => {
   test("connects", async () => {
@@ -83,22 +87,22 @@ describe("nibid tx perp", () => {
             side: Side.BUY,
           }),
         },
-        // {
-        //   typeUrl: PERP_MSG_TYPE_URLS.MsgAddMargin,
-        //   value: MsgAddMargin.fromPartial({
-        //     margin: coin(20, "unusd"),
-        //     pair,
-        //     sender,
-        //   }),
-        // },
-        // {
-        //   typeUrl: PERP_MSG_TYPE_URLS.MsgRemoveMargin,
-        //   value: MsgRemoveMargin.fromPartial({
-        //     margin: coin(5, "unusd"),
-        //     pair,
-        //     sender,
-        //   }),
-        // },
+        {
+          typeUrl: PERP_MSG_TYPE_URLS.MsgAddMargin,
+          value: MsgAddMargin.fromPartial({
+            margin: coin(20, "unusd"),
+            pair,
+            sender,
+          }),
+        },
+        {
+          typeUrl: PERP_MSG_TYPE_URLS.MsgRemoveMargin,
+          value: MsgRemoveMargin.fromPartial({
+            margin: coin(5, "unusd"),
+            pair,
+            sender,
+          }),
+        },
       ],
       fee,
     )
