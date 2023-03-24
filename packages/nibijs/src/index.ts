@@ -9,8 +9,6 @@
  * ```
  */
 export * from "./chain"
-export * from "./sdk"
 export * from "./query"
 export * from "./tx"
-export * from "./msg"
 export * from "./wallet"
