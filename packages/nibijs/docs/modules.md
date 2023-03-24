@@ -12,37 +12,33 @@
 ### Classes
 
 - [CustomChain](classes/CustomChain.md)
-- [MsgFactory](classes/MsgFactory.md)
 - [NibiruQueryClient](classes/NibiruQueryClient.md)
-- [Sdk](classes/Sdk.md)
-- [TxCmd](classes/TxCmd.md)
+- [NibiruSigningClient](classes/NibiruSigningClient.md)
 
 ### Interfaces
 
+- [Attribute](interfaces/Attribute.md)
 - [Chain](interfaces/Chain.md)
 - [ChainIdParts](interfaces/ChainIdParts.md)
 - [CoinMap](interfaces/CoinMap.md)
-- [IEventLog](interfaces/IEventLog.md)
-- [ISdk](interfaces/ISdk.md)
-- [MsgTypeUrls](interfaces/MsgTypeUrls.md)
-- [TxMessage](interfaces/TxMessage.md)
+- [Event](interfaces/Event.md)
+- [TxLog](interfaces/TxLog.md)
 
 ### Type Aliases
 
-- [Address](modules.md#address)
-- [CosmosSigner](modules.md#cosmossigner)
 - [NibiruExtensions](modules.md#nibiruextensions)
 
 ### Variables
 
 - [INT\_MULT](modules.md#int_mult)
 - [Localnet](modules.md#localnet)
-- [Msg](modules.md#msg)
+- [nibiruRegistryTypes](modules.md#nibiruregistrytypes)
 
 ### Functions
 
+- [Devnet](modules.md#devnet)
+- [IncentivizedTestent](modules.md#incentivizedtestent)
 - [assert](modules.md#assert)
-- [event2KeyValue](modules.md#event2keyvalue)
 - [fromSdkDec](modules.md#fromsdkdec)
 - [fromSdkDecSafe](modules.md#fromsdkdecsafe)
 - [fromSdkInt](modules.md#fromsdkint)
@@ -51,15 +47,10 @@
 - [go](modules.md#go)
 - [instanceOfChain](modules.md#instanceofchain)
 - [isRestEndptLive](modules.md#isrestendptlive)
-- [isRestEndptValid](modules.md#isrestendptvalid)
 - [newCoinMapFromCoins](modules.md#newcoinmapfromcoins)
-- [newDevnet](modules.md#newdevnet)
 - [newRandomWallet](modules.md#newrandomwallet)
-- [newSdk](modules.md#newsdk)
 - [newSignerFromKeplr](modules.md#newsignerfromkeplr)
 - [newSignerFromMnemonic](modules.md#newsignerfrommnemonic)
-- [newTestnet](modules.md#newtestnet)
-- [newTxCmd](modules.md#newtxcmd)
 - [queryChainIdWithRest](modules.md#querychainidwithrest)
 - [toSdkDec](modules.md#tosdkdec)
 - [toSdkInt](modules.md#tosdkint)
@@ -67,33 +58,13 @@
 
 ## Type Aliases
 
-### Address
-
-Ƭ **Address**: `string`
-
-#### Defined in
-
-[tx/tx.ts:26](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L26)
-
-___
-
-### CosmosSigner
-
-Ƭ **CosmosSigner**: `OfflineSigner` & `OfflineDirectSigner` \| `DirectSecp256k1HdWallet`
-
-#### Defined in
-
-[tx/tx.ts:27](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L27)
-
-___
-
 ### NibiruExtensions
 
 Ƭ **NibiruExtensions**: `QueryClient` & `SpotExtension` & `PerpExtension` & `VpoolExtension` & `OracleExtension` & `EpochsExtension` & `DistributionExtension` & `GovExtension` & `StakingExtension`
 
 #### Defined in
 
-[query/query.ts:19](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/query/query.ts#L19)
+[query/query.ts:19](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/query/query.ts#L19)
 
 ## Variables
 
@@ -103,7 +74,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:4](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/parse.ts#L4)
+[chain/parse.ts:2](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/parse.ts#L2)
 
 ___
 
@@ -113,19 +84,59 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:86](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L86)
+[chain/chain.ts:86](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L86)
 
 ___
 
-### Msg
+### nibiruRegistryTypes
 
-• `Const` **Msg**: [`MsgFactory`](classes/MsgFactory.md)
+• `Const` **nibiruRegistryTypes**: `ReadonlyArray`<[`string`, `GeneratedType`]\>
 
 #### Defined in
 
-[msg/index.ts:19](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/msg/index.ts#L19)
+[tx/signingClient.ts:22](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/tx/signingClient.ts#L22)
 
 ## Functions
+
+### Devnet
+
+▸ **Devnet**(`chainNumber`): [`Chain`](interfaces/Chain.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `chainNumber` | `number` |
+
+#### Returns
+
+[`Chain`](interfaces/Chain.md)
+
+#### Defined in
+
+[chain/chain.ts:103](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L103)
+
+___
+
+### IncentivizedTestent
+
+▸ **IncentivizedTestent**(`chainNumber`): [`Chain`](interfaces/Chain.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `chainNumber` | `number` |
+
+#### Returns
+
+[`Chain`](interfaces/Chain.md)
+
+#### Defined in
+
+[chain/chain.ts:95](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L95)
+
+___
 
 ### assert
 
@@ -144,27 +155,7 @@ ___
 
 #### Defined in
 
-[chain/types.ts:27](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/types.ts#L27)
-
-___
-
-### event2KeyValue
-
-▸ **event2KeyValue**(`event`): `Object`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `event` | [`IEventLog`](interfaces/IEventLog.md) |
-
-#### Returns
-
-`Object`
-
-#### Defined in
-
-[chain/parse.ts:176](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/parse.ts#L176)
+[chain/types.ts:27](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/types.ts#L27)
 
 ___
 
@@ -184,7 +175,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:99](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/parse.ts#L99)
+[chain/parse.ts:97](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/parse.ts#L97)
 
 ___
 
@@ -204,7 +195,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:158](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/parse.ts#L158)
+[chain/parse.ts:156](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/parse.ts#L156)
 
 ___
 
@@ -224,7 +215,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:152](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/parse.ts#L152)
+[chain/parse.ts:150](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/parse.ts#L150)
 
 ___
 
@@ -244,7 +235,7 @@ ___
 
 #### Defined in
 
-[wallet/keplr.ts:9](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/wallet/keplr.ts#L9)
+[wallet/keplr.ts:9](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/wallet/keplr.ts#L9)
 
 ___
 
@@ -258,7 +249,7 @@ ___
 
 #### Defined in
 
-[tx/signer.ts:28](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/signer.ts#L28)
+[tx/signer.ts:28](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/tx/signer.ts#L28)
 
 ___
 
@@ -284,7 +275,7 @@ ___
 
 #### Defined in
 
-[chain/types.ts:13](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/types.ts#L13)
+[chain/types.ts:13](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/types.ts#L13)
 
 ___
 
@@ -307,7 +298,7 @@ obj is Chain
 
 #### Defined in
 
-[chain/chain.ts:34](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L34)
+[chain/chain.ts:33](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L33)
 
 ___
 
@@ -327,27 +318,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:113](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L113)
-
-___
-
-### isRestEndptValid
-
-▸ **isRestEndptValid**(`chain`): `Promise`<`boolean`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `chain` | [`Chain`](interfaces/Chain.md) |
-
-#### Returns
-
-`Promise`<`boolean`\>
-
-#### Defined in
-
-[chain/chain.ts:122](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L122)
+[chain/chain.ts:122](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L122)
 
 ___
 
@@ -367,27 +338,7 @@ ___
 
 #### Defined in
 
-[chain/types.ts:39](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/types.ts#L39)
-
-___
-
-### newDevnet
-
-▸ **newDevnet**(`chainNumber`): [`Chain`](interfaces/Chain.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `chainNumber` | `number` |
-
-#### Returns
-
-[`Chain`](interfaces/Chain.md)
-
-#### Defined in
-
-[chain/chain.ts:98](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L98)
+[chain/types.ts:39](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/types.ts#L39)
 
 ___
 
@@ -414,33 +365,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT.
 
 #### Defined in
 
-[tx/signer.ts:62](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/signer.ts#L62)
-
-___
-
-### newSdk
-
-▸ **newSdk**(`chain`, `signer`): `Promise`<[`Sdk`](classes/Sdk.md)\>
-
-Assembles an all-purpose SDK for interacting with the Nibiru blockchain.
-
-If transaction signing is not needed, simply pass an empty string for the
-mnemonic. The querier and Tendermint client will still function normally.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `chain` | [`Chain`](interfaces/Chain.md) |
-| `signer` | [`CosmosSigner`](modules.md#cosmossigner) |
-
-#### Returns
-
-`Promise`<[`Sdk`](classes/Sdk.md)\>
-
-#### Defined in
-
-[sdk.ts:20](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/sdk.ts#L20)
+[tx/signer.ts:62](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/tx/signer.ts#L62)
 
 ___
 
@@ -461,7 +386,7 @@ ___
 
 #### Defined in
 
-[tx/signer.ts:47](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/signer.ts#L47)
+[tx/signer.ts:47](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/tx/signer.ts#L47)
 
 ___
 
@@ -488,49 +413,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT
 
 #### Defined in
 
-[tx/signer.ts:40](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/signer.ts#L40)
-
-___
-
-### newTestnet
-
-▸ **newTestnet**(`chainNumber`): [`Chain`](interfaces/Chain.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `chainNumber` | `number` |
-
-#### Returns
-
-[`Chain`](interfaces/Chain.md)
-
-#### Defined in
-
-[chain/chain.ts:94](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L94)
-
-___
-
-### newTxCmd
-
-▸ **newTxCmd**(`chain`, `signer`, `gasPriceCoin?`): `Promise`<[`TxCmd`](classes/TxCmd.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `chain` | [`Chain`](interfaces/Chain.md) |
-| `signer` | `DirectSecp256k1HdWallet` \| `Object` |
-| `gasPriceCoin?` | `Coin` |
-
-#### Returns
-
-`Promise`<[`TxCmd`](classes/TxCmd.md)\>
-
-#### Defined in
-
-[tx/tx.ts:148](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/tx/tx.ts#L148)
+[tx/signer.ts:40](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/tx/signer.ts#L40)
 
 ___
 
@@ -550,7 +433,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:102](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L102)
+[chain/chain.ts:111](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L111)
 
 ___
 
@@ -579,7 +462,7 @@ ref: Reimplementation of cosmos-sdk/types/decimal.go
 
 #### Defined in
 
-[chain/parse.ts:25](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/parse.ts#L25)
+[chain/parse.ts:23](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/parse.ts#L23)
 
 ___
 
@@ -599,7 +482,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:148](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/parse.ts#L148)
+[chain/parse.ts:146](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/parse.ts#L146)
 
 ___
 
@@ -628,4 +511,4 @@ Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
 
 #### Defined in
 
-[chain/useFaucet.ts:7](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/useFaucet.ts#L7)
+[chain/useFaucet.ts:7](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/useFaucet.ts#L7)

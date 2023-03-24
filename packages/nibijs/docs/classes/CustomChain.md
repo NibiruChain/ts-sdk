@@ -37,32 +37,32 @@ Chain
 
 ### Methods
 
-- [\_endptRest](CustomChain.md#_endptrest)
-- [\_endptTm](CustomChain.md#_endpttm)
 - [initChainId](CustomChain.md#initchainid)
-- [initChainIdParts](CustomChain.md#initchainidparts)
+- [initGrpcEndpoint](CustomChain.md#initgrpcendpoint)
+- [initRestEndpoint](CustomChain.md#initrestendpoint)
+- [initTendermintEndpoint](CustomChain.md#inittendermintendpoint)
 
 ## Constructors
 
 ### constructor
 
-• **new CustomChain**(`args`)
+• **new CustomChain**(`chainIdParts`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `args` | [`ChainIdParts`](../interfaces/ChainIdParts.md) |
+| `chainIdParts` | [`ChainIdParts`](../interfaces/ChainIdParts.md) |
 
 #### Defined in
 
-[chain/chain.ts:55](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L55)
+[chain/chain.ts:55](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L55)
 
 ## Properties
 
 ### chainId
 
-• **chainId**: `string`
+• `Readonly` **chainId**: `string`
 
 chainId: identifier for the chain
 
@@ -72,23 +72,25 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:47](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L47)
+[chain/chain.ts:46](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L46)
 
 ___
 
 ### chainIdParts
 
-• **chainIdParts**: [`ChainIdParts`](../interfaces/ChainIdParts.md)
+• `Private` `Readonly` **chainIdParts**: [`ChainIdParts`](../interfaces/ChainIdParts.md)
 
 #### Defined in
 
-[chain/chain.ts:48](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L48)
+[chain/chain.ts:53](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L53)
 
 ___
 
 ### chainName
 
-• **chainName**: `string`
+• `Readonly` **chainName**: `string`
+
+chainName: the name of the chain to display to the user
 
 #### Implementation of
 
@@ -96,13 +98,13 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:53](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L53)
+[chain/chain.ts:47](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L47)
 
 ___
 
 ### endptGrpc
 
-• **endptGrpc**: `string` = `""`
+• `Readonly` **endptGrpc**: `string`
 
 endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
@@ -112,13 +114,13 @@ endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 #### Defined in
 
-[chain/chain.ts:51](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L51)
+[chain/chain.ts:50](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L50)
 
 ___
 
 ### endptRest
 
-• **endptRest**: `string`
+• `Readonly` **endptRest**: `string`
 
 endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
@@ -128,13 +130,13 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 #### Defined in
 
-[chain/chain.ts:50](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L50)
+[chain/chain.ts:49](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L49)
 
 ___
 
 ### endptTm
 
-• **endptTm**: `string`
+• `Readonly` **endptTm**: `string`
 
 endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
@@ -144,13 +146,15 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 #### Defined in
 
-[chain/chain.ts:49](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L49)
+[chain/chain.ts:48](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L48)
 
 ___
 
 ### feeDenom
 
-• **feeDenom**: `string` = `"unibi"`
+• `Readonly` **feeDenom**: `string` = `"unibi"`
+
+feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Implementation of
 
@@ -158,41 +162,13 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:52](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L52)
+[chain/chain.ts:51](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L51)
 
 ## Methods
 
-### \_endptRest
-
-▸ **_endptRest**(): `string`
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[chain/chain.ts:80](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L80)
-
-___
-
-### \_endptTm
-
-▸ **_endptTm**(): `string`
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-[chain/chain.ts:75](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L75)
-
-___
-
 ### initChainId
 
-▸ **initChainId**(): `string`
+▸ `Private` **initChainId**(): `string`
 
 #### Returns
 
@@ -200,24 +176,46 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:70](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L70)
+[chain/chain.ts:65](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L65)
 
 ___
 
-### initChainIdParts
+### initGrpcEndpoint
 
-▸ **initChainIdParts**(`parts`): [`ChainIdParts`](../interfaces/ChainIdParts.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `parts` | [`ChainIdParts`](../interfaces/ChainIdParts.md) |
+▸ **initGrpcEndpoint**(): `string`
 
 #### Returns
 
-[`ChainIdParts`](../interfaces/ChainIdParts.md)
+`string`
 
 #### Defined in
 
-[chain/chain.ts:63](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L63)
+[chain/chain.ts:80](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L80)
+
+___
+
+### initRestEndpoint
+
+▸ **initRestEndpoint**(): `string`
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[chain/chain.ts:75](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L75)
+
+___
+
+### initTendermintEndpoint
+
+▸ **initTendermintEndpoint**(): `string`
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[chain/chain.ts:70](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L70)

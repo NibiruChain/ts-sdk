@@ -6,21 +6,11 @@
 
 ### Properties
 
-- [nickname](ChainIdParts.md#nickname)
 - [number](ChainIdParts.md#number)
 - [prefix](ChainIdParts.md#prefix)
+- [shortName](ChainIdParts.md#shortname)
 
 ## Properties
-
-### nickname
-
-• **nickname**: `string`
-
-#### Defined in
-
-[chain/chain.ts:41](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L41)
-
-___
 
 ### number
 
@@ -28,14 +18,24 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:42](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L42)
+[chain/chain.ts:42](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L42)
 
 ___
 
 ### prefix
 
-• `Optional` **prefix**: `string`
+• **prefix**: `string`
 
 #### Defined in
 
-[chain/chain.ts:43](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L43)
+[chain/chain.ts:40](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L40)
+
+___
+
+### shortName
+
+• **shortName**: `string`
+
+#### Defined in
+
+[chain/chain.ts:41](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L41)
