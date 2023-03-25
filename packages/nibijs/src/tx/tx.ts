@@ -1,12 +1,4 @@
 import {
-  SigningStargateClient,
-  calculateFee,
-  GasPrice,
-  StdFee,
-  DeliverTxResponse,
-  SigningStargateClientOptions,
-} from "@cosmjs/stargate"
-import {
   AccountData,
   Coin,
   DirectSecp256k1HdWallet,
@@ -14,14 +6,22 @@ import {
   OfflineSigner,
   Registry,
 } from "@cosmjs/proto-signing"
+import {
+  calculateFee,
+  DeliverTxResponse,
+  GasPrice,
+  SigningStargateClient,
+  SigningStargateClientOptions,
+  StdFee,
+} from "@cosmjs/stargate"
 import { Chain, go } from "../chain"
-import { registerTypes as registerSpot } from "../msg/spot"
-import { registerTypes as registerPerp } from "../msg/perp"
-import { getRegistry } from "./signer"
-import { TxMessage } from "../msg/types"
-import { waitForNextBlock } from "../query"
-import { BankMsgs } from "../msg/bank"
 import { ErrorTxBroadcast, ErrorTxSimulation, instanceOfError } from "../chain/error"
+import { BankMsgs } from "../msg/bank"
+import { registerTypes as registerPerp } from "../msg/perp"
+import { registerTypes as registerSpot } from "../msg/spot"
+import { TxMessage } from "../msg/types"
+import { NibiruQueryClient } from "../query"
+import { getRegistry } from "./signer"
 
 export type Address = string
 export type CosmosSigner =
@@ -37,22 +37,21 @@ export type CosmosSigner =
  */
 export class TxCmd {
   client: SigningStargateClient
-
   chain: Chain
-
-  fee?: StdFee
-
   directSigner: OfflineDirectSigner
-
   gasPrice: string
+  queryClient: NibiruQueryClient
+  fee?: StdFee
 
   constructor(
     client: SigningStargateClient,
     directSigner: OfflineDirectSigner,
     chain: Chain,
+    queryClient: NibiruQueryClient,
     gasPrice?: Coin,
   ) {
     this.client = client
+    this.queryClient = queryClient
     this.chain = chain
     this.directSigner = directSigner
     this.fee = undefined
@@ -118,7 +117,7 @@ export class TxCmd {
       let { err } = await go(addSimulatedFeeToCmd())
       // If an error occurs, try waiting another block for account sequence problems
       if (err) {
-        await waitForNextBlock(this.chain)
+        await this.queryClient.waitForNextBlock()
         ;({ err } = await go(addSimulatedFeeToCmd()))
       }
     }
@@ -166,7 +165,8 @@ export async function newTxCmd(
     signer,
     sgOptions,
   )
-  return new TxCmd(client, signer, chain, gasPriceCoin)
+  const queryClient = await NibiruQueryClient.connect(chain.endptTm)
+  return new TxCmd(client, signer, chain, queryClient, gasPriceCoin)
 }
 
 function coinToGasPrice(coin: Coin): GasPrice {

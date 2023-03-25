@@ -1,7 +1,7 @@
+import { Block } from "@cosmjs/stargate"
 import fetch from "cross-fetch"
-import { BlockResponse } from "@cosmjs/tendermint-rpc"
 import Long from "long"
-import { newQueryCmd } from "../query"
+import { NibiruQueryClient } from "../query"
 import { TEST_CHAIN, validateBlock, validateBlockFromJsonRpc } from "./helpers"
 
 const TEST_ADDRESS = "nibi1khwntys59nwxl906p8rl68ky3d5tzuk7hp4syc"
@@ -12,9 +12,9 @@ interface BlockResp {
 
 describe("connections", () => {
   test("query command is able to fetch latest block", async () => {
-    const queryCmd = await newQueryCmd(TEST_CHAIN)
-    const blockResp: BlockResponse = await queryCmd.tmClient.block()
-    validateBlock(blockResp.block, TEST_CHAIN)
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const blockResp: Block = await queryClient.getBlock()
+    validateBlock(blockResp, TEST_CHAIN)
   })
 
   test("tendermint rpc url returns block with GET", async () => {
@@ -39,8 +39,8 @@ describe("connections", () => {
 
 describe("x/bank queries", () => {
   test("query bank balance", async () => {
-    const { client, disconnect } = await newQueryCmd(TEST_CHAIN)
-    const balances = await client.bank.allBalances(TEST_ADDRESS)
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const balances = await queryClient.getAllBalances(TEST_ADDRESS)
 
     expect(balances.length).toBeGreaterThan(0)
     const amount: number = +balances[0].amount
@@ -49,14 +49,13 @@ describe("x/bank queries", () => {
 
     const balanceDenoms: string[] = balances.map((coin) => coin.denom)
     expect(balanceDenoms).toContain("unibi")
-    disconnect()
   })
 })
 
 describe("x/spot queries", () => {
   test("query spot params", async () => {
-    const { client, disconnect } = await newQueryCmd(TEST_CHAIN)
-    const { params } = await client.spot.params()
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const { params } = await queryClient.nibiruExtensions.spot.params()
     const fields: string[] = [
       "poolCreationFee",
       "startingPoolNumber",
@@ -67,7 +66,6 @@ describe("x/spot queries", () => {
     }
     expect(params?.whitelistedAsset.length).toBeGreaterThan(0)
     expect(params?.whitelistedAsset[0]).not.toBe("")
-    disconnect()
   })
 })
 
@@ -76,8 +74,8 @@ describe("x/vpool queries", () => {
   test(
     "query all pools",
     async () => {
-      const { client: query } = await newQueryCmd(TEST_CHAIN)
-      const queryResp = await query.vpool.allPools()
+      const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+      const queryResp = await queryClient.nibiruExtensions.vpool.allPools()
       expect(queryResp.pools.length).toBeGreaterThan(0)
       expect(queryResp.prices).toHaveLength(queryResp.pools.length)
     },
@@ -87,12 +85,13 @@ describe("x/vpool queries", () => {
   test(
     "nibid query vpool prices",
     async () => {
-      const { client: query } = await newQueryCmd(TEST_CHAIN)
-      const { priceInQuoteDenom: basePrice } = await query.vpool.basePrice({
-        pair: "ubtc:unusd",
-        goLong: true,
-        baseAssetAmount: 1_000,
-      })
+      const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+      const { priceInQuoteDenom: basePrice } =
+        await queryClient.nibiruExtensions.vpool.basePrice({
+          pair: "ubtc:unusd",
+          goLong: true,
+          baseAssetAmount: 1_000,
+        })
       expect(basePrice.length).toBeGreaterThan(0)
       expect(parseFloat(basePrice)).toBeGreaterThan(0)
     },
@@ -102,8 +101,8 @@ describe("x/vpool queries", () => {
 
 describe("x/perp queries", () => {
   test("perp params - client.perp.params", async () => {
-    const { client, disconnect } = await newQueryCmd(TEST_CHAIN)
-    const { params } = await client.perp.params()
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const { params } = await queryClient.nibiruExtensions.perp.params()
     expect(params).not.toBeNull()
     const fields: string[] = [
       "stopped",
@@ -116,32 +115,33 @@ describe("x/perp queries", () => {
     for (const field of fields) {
       expect(params).toHaveProperty(field)
     }
-    disconnect()
   })
 
   test("nibid query perp funding-rates", async () => {
-    const { client, disconnect } = await newQueryCmd(TEST_CHAIN)
-    const premiumFractions = await client.perp.premiumFractions({ pair: "ubtc:unusd" })
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const premiumFractions = await queryClient.nibiruExtensions.perp.premiumFractions({
+      pair: "ubtc:unusd",
+    })
     expect(premiumFractions).not.toBeNull()
-    disconnect()
   })
 
   test("nibid query perp metrics", async () => {
-    const { client, disconnect } = await newQueryCmd(TEST_CHAIN)
-    const { metrics } = await client.perp.metrics({ pair: "ubtc:unusd" })
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const { metrics } = await queryClient.nibiruExtensions.perp.metrics({
+      pair: "ubtc:unusd",
+    })
     expect(metrics).not.toBeNull()
     const metricsAttrs = ["volumeQuote", "volumeBase", "netSize", "pair"]
     metricsAttrs.forEach((attr) => {
       expect(metrics).toHaveProperty(attr)
     })
-    disconnect()
   })
 })
 
 describe("x/oracle queries", () => {
   test("query active oracles", async () => {
-    const { client: query } = await newQueryCmd(TEST_CHAIN)
-    const { actives } = await query.oracle.actives()
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const { actives } = await queryClient.nibiruExtensions.oracle.actives()
     expect(actives.length).toBeGreaterThan(0)
     expect(actives.length).toBeGreaterThan(0)
     const pair = actives[0]
@@ -149,15 +149,15 @@ describe("x/oracle queries", () => {
   })
 
   test("query oracle params", async () => {
-    const { client: query } = await newQueryCmd(TEST_CHAIN)
-    const { params: moduleParams } = await query.oracle.params()
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const { params: moduleParams } = await queryClient.nibiruExtensions.oracle.params()
     expect(moduleParams).toBeDefined()
     expect(moduleParams!.whitelist.length).toBeGreaterThan(0)
   })
 
   test("query exchange rates", async () => {
-    const { client: query } = await newQueryCmd(TEST_CHAIN)
-    const exhangeRateMap = await query.oracle.exchangeRates()
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const exhangeRateMap = await queryClient.nibiruExtensions.oracle.exchangeRates()
     expect(Object.keys(exhangeRateMap).length).toBeGreaterThan(0)
     for (const pair in exhangeRateMap) {
       const exchangeRate = exhangeRateMap[pair]
@@ -174,13 +174,15 @@ describe("x/epochs queries", () => {
   test(
     "query epochs info and current epoch",
     async () => {
-      const { client: query } = await newQueryCmd(TEST_CHAIN)
-      const infoResp = await query.epochs.epochsInfo()
+      const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+      const infoResp = await queryClient.nibiruExtensions.epochs.epochsInfo()
       expect(infoResp).toHaveProperty("epochs")
       expect(infoResp.epochs.length).toBeGreaterThan(0)
 
       const epochId = infoResp.epochs[0].identifier
-      const currentEpochResp = await query.epochs.currentEpoch({ identifier: epochId })
+      const currentEpochResp = await queryClient.nibiruExtensions.epochs.currentEpoch({
+        identifier: epochId,
+      })
       expect(Long.isLong(currentEpochResp.currentEpoch)).toBeTruthy()
     },
     timeoutMs,
@@ -189,8 +191,10 @@ describe("x/epochs queries", () => {
 
 describe("x/staking module queries", () => {
   test("query bonded validators", async () => {
-    const { client: query } = await newQueryCmd(TEST_CHAIN)
-    const infoResp = await query.staking.validators("BOND_STATUS_BONDED")
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const infoResp = await queryClient.nibiruExtensions.staking.validators(
+      "BOND_STATUS_BONDED",
+    )
     expect(infoResp).toHaveProperty("validators")
     expect(infoResp.validators.length).toBeGreaterThan(0)
   })
@@ -198,8 +202,8 @@ describe("x/staking module queries", () => {
 
 describe("distribution module queries", () => {
   test("distribution params", async () => {
-    const { client: query } = await newQueryCmd(TEST_CHAIN)
-    const resp = await query.distribution.params()
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.distribution.params()
     const { params } = resp
     expect(params).toBeDefined()
     const properties: string[] = [
@@ -216,8 +220,8 @@ describe("distribution module queries", () => {
 
 describe("gov module queries", () => {
   test("gov params", async () => {
-    const { client: query } = await newQueryCmd(TEST_CHAIN)
-    const resp = await query.gov.params("voting")
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.gov.params("voting")
     const { votingParams } = resp
     expect(votingParams).toBeDefined()
     const properties: string[] = ["votingPeriod"]

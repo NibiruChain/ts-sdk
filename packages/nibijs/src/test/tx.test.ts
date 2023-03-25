@@ -9,18 +9,18 @@
  * - bank module | TODO MultiSend
  *   - Msg.bank.Send
  */
-import * as dotenv from "dotenv"
 import { DeliverTxResponse } from "@cosmjs/stargate"
 import { QueryPositionResponse } from "@nibiruchain/protojs/dist/perp/v1/query"
 import { PoolType } from "@nibiruchain/protojs/dist/spot/v1/pool"
+import * as dotenv from "dotenv"
 import { event2KeyValue } from "../chain"
+import { instanceOfError, PerpErrors, raises } from "../chain/error"
 import { AccountData, go, newCoin, newCoins, WalletHD } from "../chain/types"
 import { Msg, TxMessage } from "../msg"
-import { newRandomWallet, newSignerFromMnemonic } from "../tx"
-import { newSdk } from "../sdk"
 import { PerpMsgTypeUrls } from "../msg/perp"
+import { newSdk } from "../sdk"
+import { newRandomWallet, newSignerFromMnemonic } from "../tx"
 import { expectTxToSucceed, prettyTmLogs, TEST_CHAIN, TxLog } from "./helpers"
-import { instanceOfError, PerpErrors, raises } from "../chain/error"
 
 dotenv.config() // yarn add -D dotenv
 
@@ -147,7 +147,7 @@ describe("nibid tx perp", () => {
     const sdk = await newSdk(chain, signer)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     // Query and validate the trader's position
-    const queryPositions = await sdk.query.perp.positions({
+    const queryPositions = await sdk.queryClient.nibiruExtensions.perp.positions({
       trader: fromAddr,
     })
     queryPositions.positions.forEach((position) => {
@@ -168,7 +168,7 @@ describe("nibid tx perp", () => {
     const sdk = await newSdk(chain, signer)
     const [{ address: fromAddr }] = await sdk.tx.getAccounts()
     const { res: resp, err } = await go(
-      sdk.query.perp.position({
+      sdk.queryClient.nibiruExtensions.perp.position({
         pair,
         trader: fromAddr,
       }),

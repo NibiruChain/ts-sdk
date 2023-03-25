@@ -1,10 +1,10 @@
 import {
   AccountData,
+  Coin,
   coin as newCoin,
   coins as newCoins,
-  parseCoins,
-  Coin,
   DirectSecp256k1HdWallet as WalletHD,
+  parseCoins,
 } from "@cosmjs/proto-signing"
 import { instanceOfError } from "./error"
 
@@ -36,7 +36,7 @@ export interface CoinMap {
 }
 
 // TODO test
-export function newCoinMapFromCoins(coins: Coin[]): CoinMap {
+export function newCoinMapFromCoins(coins: readonly Coin[]): CoinMap {
   const coinMap: CoinMap = {}
   for (const coin of coins) {
     coinMap[coin.denom] = parseInt(coin.amount)

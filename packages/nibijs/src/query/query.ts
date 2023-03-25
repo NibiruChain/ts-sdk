@@ -1,110 +1,74 @@
 import {
+  DistributionExtension,
+  GovExtension,
   QueryClient,
-  setupBankExtension,
-  setupAuthExtension,
-  BankExtension,
-  AuthExtension,
+  setupDistributionExtension,
+  setupGovExtension,
+  setupStakingExtension,
+  StakingExtension,
+  StargateClient,
+  StargateClientOptions,
 } from "@cosmjs/stargate"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
-import { Chain } from "../chain"
-import { setupSpotExtension, SpotExtension } from "./spot"
 import { EpochsExtension, setupEpochsExtension } from "./epochs"
-import { setupPerpExtension, PerpExtension } from "./perp"
 import { OracleExtension, setupOracleExtension } from "./oracle"
-import { setupStakingExtension, StakingExtension } from "./staking"
-import { setupVpoolExtension, VpoolExtension } from "./vpool"
-import { DistributionExtension, setupDistributionExtension } from "./distribution"
-import { GovExtension, setupGovExtension } from "./gov"
+import { PerpExtension, setupPerpExtension } from "./perp"
+import { setupSpotExtension, SpotExtension } from "./spot"
 import { setupUtilsExtension, UtilsExtension } from "./util"
+import { setupVpoolExtension, VpoolExtension } from "./vpool"
 
-export type ExtendedQueryClient = BankExtension &
-  QueryClient &
-  AuthExtension &
+export type NibiruExtensions = QueryClient &
   SpotExtension &
   PerpExtension &
   VpoolExtension &
   OracleExtension &
   EpochsExtension &
-  StakingExtension &
   DistributionExtension &
   GovExtension &
-  UtilsExtension
+  UtilsExtension &
+  StakingExtension
 
-export interface IQueryCmd {
-  /**
-   * An ExtendedQueryClient is the closest analogy to the query command of nibid CLI.
-   * It contains queries for all of the active modules of Nibiru Chain.
-   */
-  client: ExtendedQueryClient
-  tmClient: Tendermint34Client
-  /** The chain to which this query client corresponds.
-   * E.g. nibiru-testnet-1, nibiru-localnet-42 */
-  chain: Chain
-  disconnect: () => void
-}
+export class NibiruQueryClient extends StargateClient {
+  public readonly nibiruExtensions: NibiruExtensions
 
-export async function waitForNextBlock(chain: Chain): Promise<void> {
-  const queryCmd = await newQueryCmd(chain)
-  const getLatestBlockHeight = async () =>
-    (await queryCmd.tmClient.abciInfo()).lastBlockHeight
-  const startBlock = await getLatestBlockHeight()
-  while (startBlock! >= (await getLatestBlockHeight())!) {
-    await new Promise((resolve): void => {
-      setTimeout(resolve, 300)
-    })
+  public static async connect(
+    endpoint: string,
+    options: StargateClientOptions = {},
+  ): Promise<NibiruQueryClient> {
+    const tmClient = await Tendermint34Client.connect(endpoint)
+    return new NibiruQueryClient(tmClient, options)
   }
-}
 
-export async function waitForBlockHeight(args: {
-  chain: Chain
-  height: number
-}): Promise<void> {
-  const { chain, height } = args
-  const queryCmd = await newQueryCmd(chain)
-  const getLatestBlockHeight = async () =>
-    (await queryCmd.tmClient.abciInfo()).lastBlockHeight
-
-  if (!(height < (await getLatestBlockHeight())!)) {
-    while ((await getLatestBlockHeight())! < height) {
-      await new Promise((resolve): void => {
-        setTimeout(resolve, 300)
-      })
-    }
-  }
-}
-
-export class QueryCmd implements IQueryCmd {
-  client: ExtendedQueryClient
-
-  tmClient: Tendermint34Client
-
-  chain: Chain
-
-  constructor(tmClient: Tendermint34Client, chain: Chain) {
-    this.tmClient = tmClient
-    this.chain = chain
-    this.client = QueryClient.withExtensions(
+  protected constructor(tmClient: Tendermint34Client, options: StargateClientOptions) {
+    super(tmClient, options)
+    this.nibiruExtensions = QueryClient.withExtensions(
       tmClient,
-      setupBankExtension,
-      setupAuthExtension,
-      setupSpotExtension,
-      setupPerpExtension,
-      setupVpoolExtension,
-      setupOracleExtension,
       setupEpochsExtension,
-      setupStakingExtension,
+      setupOracleExtension,
+      setupPerpExtension,
+      setupSpotExtension,
+      setupVpoolExtension,
       setupDistributionExtension,
       setupGovExtension,
+      setupStakingExtension,
       setupUtilsExtension,
     )
   }
 
-  disconnect = (): void => {
-    this.tmClient.disconnect()
+  public async waitForHeight(height: number) {
+    while ((await this.getHeight()) < height) {
+      await new Promise((resolve) => {
+        setTimeout(resolve, 300)
+      })
+    }
   }
-}
 
-export async function newQueryCmd(chain: Chain): Promise<QueryCmd> {
-  const tmClient = await Tendermint34Client.connect(chain.endptTm)
-  return new QueryCmd(tmClient, chain)
+  public async waitForNextBlock() {
+    const currentHeight = await this.getHeight()
+    while (currentHeight >= (await this.getHeight())) {
+      await new Promise((resolve) => {
+        setTimeout(resolve, 300)
+      })
+    }
+  }
 }
