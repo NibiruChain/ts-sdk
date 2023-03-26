@@ -14,6 +14,7 @@ import { EpochsExtension, setupEpochsExtension } from "./epochs"
 import { OracleExtension, setupOracleExtension } from "./oracle"
 import { PerpExtension, setupPerpExtension } from "./perp"
 import { setupSpotExtension, SpotExtension } from "./spot"
+import { setupUtilsExtension, UtilsExtension } from "./util"
 import { setupVpoolExtension, VpoolExtension } from "./vpool"
 
 export type NibiruExtensions = QueryClient &
@@ -24,6 +25,7 @@ export type NibiruExtensions = QueryClient &
   EpochsExtension &
   DistributionExtension &
   GovExtension &
+  UtilsExtension &
   StakingExtension
 
 export class NibiruQueryClient extends StargateClient {
@@ -49,6 +51,7 @@ export class NibiruQueryClient extends StargateClient {
       setupDistributionExtension,
       setupGovExtension,
       setupStakingExtension,
+      setupUtilsExtension,
     )
   }
 
