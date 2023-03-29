@@ -1,6 +1,5 @@
 import { Block } from "@cosmjs/stargate"
 import { Chain, CustomChain, Devnet, Event } from "../chain"
-import { PERP_MSG_TYPE_URLS } from "../msg/perp"
 
 export const TEST_CHAIN = new CustomChain({
   prefix: "nibiru",
@@ -49,7 +48,7 @@ export function assertHasMsgType(msgType: string, events: Event[]): void {
     if (event.type === "message") {
       expect(event.attributes).toContainEqual({
         key: "action",
-        value: PERP_MSG_TYPE_URLS[msgType],
+        value: msgType,
       })
     }
   })

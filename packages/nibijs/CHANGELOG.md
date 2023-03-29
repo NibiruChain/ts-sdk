@@ -7,9 +7,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * .
 
+## v0.19.6
+
+* fix: export msg type urls
+
 ## v0.19.5
 
 * feat: Add utils query extension
+* refactor: replace `sdk` object with `SigningClient` object
 
 ## v0.19.4
 
@@ -19,17 +24,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * chore: Raise minimum gas limit for transactions with low values for the simulated "gas used".
 
-## v0.19.1 
+## v0.19.1
 
-* feat: Transactions for the distribution module 
-* feat: Queries for the distribution module 
+* feat: Transactions for the distribution module
+* feat: Queries for the distribution module
 * sync: Update to protojs v0.19.0
 
 ## v0.8.6
 
 * feat: Add staking query extension
 
-## v0.8.0 
+## v0.8.0
 
 * sync: Update to nibiru v0.16.0-beta.1.
 * refactor!: add optional amount arguments to the 'useFaucet' function
@@ -50,7 +55,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * [[#30]](https://github.com/NibiruChain/ts-sdk/pull/30) vpool queries and runnable examples v0.6.1
 * [[#31]](https://github.com/NibiruChain/ts-sdk/pull/31) feat: 'vpool' and 'pricefeed' module extensions
 * [[#32]](https://github.com/NibiruChain/ts-sdk/pull/32) refactor: fix linter and make updates
-* [[#52]](https://github.com/NibiruChain/ts-sdk/pull/52) feat: Add convenience functions for switching between testnet and devnet versions 
+* [[#52]](https://github.com/NibiruChain/ts-sdk/pull/52) feat: Add convenience functions for switching between testnet and devnet versions
 
 ## [v0.6.0](https://github.com/NibiruChain/ts-sdk/releases/tag/v0.6.0) 2022-09-19
 
@@ -58,15 +63,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * Transactions for the `perp` module
 * Queries for the `vpool` and `perp` modules
-* [[#4]](https://github.com/NibiruChain/ts-sdk/pull/4) test,feat: perp tests and new types for nibiru v0.13. Improved protocgen.sh 
-* [[#26]](https://github.com/NibiruChain/ts-sdk/pull/26) feat: changes to newSdk and newTxCmd for #25 
-* [[#27]](https://github.com/NibiruChain/ts-sdk/pull/27) feat,test: test wallet, keys,  and faucet commands in 
+* [[#4]](https://github.com/NibiruChain/ts-sdk/pull/4) test,feat: perp tests and new types for nibiru v0.13. Improved protocgen.sh
+* [[#26]](https://github.com/NibiruChain/ts-sdk/pull/26) feat: changes to newSdk and newTxCmd for #25
+* [[#27]](https://github.com/NibiruChain/ts-sdk/pull/27) feat,test: test wallet, keys,  and faucet commands in
 * docs: Added usage examples to the README
 * docs: function-level documentation
 
 ### Testing Improvements
 
-The code related to messages, transactions, or queries with Nibi-Perps has 95%+ [test coverage](https://github.com/NibiruChain/ts-sdk/actions/runs/3085927495/jobs/4989760331). 
+The code related to messages, transactions, or queries with Nibi-Perps has 95%+ [test coverage](https://github.com/NibiruChain/ts-sdk/actions/runs/3085927495/jobs/4989760331).
 
 * [[#1]](https://github.com/NibiruChain/ts-sdk/pull/1) tests: Fix sdk.Dec math conversions in the common package
 * [[#2]](https://github.com/NibiruChain/ts-sdk/pull/2) tests: Test bank, dex, and perp queries. Add tests to CI
@@ -78,6 +83,6 @@ The code related to messages, transactions, or queries with Nibi-Perps has 95%+ 
 
 ### Fixes
 
-* [[#7]](https://github.com/NibiruChain/ts-sdk/pull/7) fix: rename HOST to CHAIN_HOST because HOST is reset by CRA 
+* [[#7]](https://github.com/NibiruChain/ts-sdk/pull/7) fix: rename HOST to CHAIN_HOST because HOST is reset by CRA
 
-**Changelog Checkpoint**: https://github.com/NibiruChain/ts-sdk/commits/v0.6.0
+**Changelog Checkpoint**: <https://github.com/NibiruChain/ts-sdk/commits/v0.6.0>

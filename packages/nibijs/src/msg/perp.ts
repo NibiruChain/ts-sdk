@@ -9,7 +9,7 @@ import {
   protobufPackage,
 } from "@nibiruchain/protojs/dist/perp/v1/tx"
 
-export const PERP_MSG_TYPE_URLS: Record<string, string> = {
+export const PERP_MSG_TYPE_URLS = {
   MsgAddMargin: `/${protobufPackage}.MsgAddMargin`,
   MsgRemoveMargin: `/${protobufPackage}.MsgRemoveMargin`,
   MsgMultiLiquidate: `/${protobufPackage}.MsgMultiLiquidate`,
