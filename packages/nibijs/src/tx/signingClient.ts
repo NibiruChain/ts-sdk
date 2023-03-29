@@ -10,7 +10,6 @@ import {
   SigningStargateClientOptions,
 } from "@cosmjs/stargate"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
-import { setupUtilsExtension } from "src/query/util"
 import { perpTypes } from "../msg/perp"
 import { spotTypes } from "../msg/spot"
 import { setupEpochsExtension } from "../query/epochs"
@@ -18,6 +17,7 @@ import { setupOracleExtension } from "../query/oracle"
 import { setupPerpExtension } from "../query/perp"
 import { NibiruExtensions } from "../query/query"
 import { setupSpotExtension } from "../query/spot"
+import { setupUtilsExtension } from "../query/util"
 import { setupVpoolExtension } from "../query/vpool"
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
