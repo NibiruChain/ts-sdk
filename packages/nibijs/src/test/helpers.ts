@@ -1,7 +1,19 @@
-import { assertIsDeliverTxSuccess, Block, DeliverTxResponse } from "@cosmjs/stargate"
-import { Chain, CustomChain } from "../chain"
+import { Block } from "@cosmjs/stargate"
+import { Chain, CustomChain, Devnet, Event } from "../chain"
+import { PERP_MSG_TYPE_URLS } from "../msg/perp"
 
-export const TEST_CHAIN = new CustomChain({ nickname: "itn", number: 1 }) // v0.19.2
+export const TEST_CHAIN = new CustomChain({
+  prefix: "nibiru",
+  shortName: "itn",
+  number: 1,
+}) // v0.19.2
+
+export const DEVNET = Devnet(2)
+export const TEST_MNEMONIC =
+  process.env.VALIDATOR_MNEMONIC ??
+  "license you roof spirit great mass wink warfare glide donor ozone copper truth face six relief soda bike various verify feature charge feel sausage"
+export const TEST_ADDRESS =
+  process.env.VALIDATOR_ADDRESS ?? "nibi1n686zur9ash48nm8p2uxm2p3dq527rnvhsks9t"
 
 export function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
@@ -30,17 +42,20 @@ export function validateBlock(block: Block, chain: Chain) {
   expect(block.header.time).toBeDefined()
   expect(block.header.height).toBeGreaterThanOrEqual(1)
   expect(block).toHaveProperty("txs")
-  expect(block).toHaveProperty("lastCommit")
 }
 
-export function prettyTmLogs(tmLogs: string): string {
-  return tmLogs.split('\\"').join("")
+export function assertHasMsgType(msgType: string, events: Event[]): void {
+  events.forEach((event) => {
+    if (event.type === "message") {
+      expect(event.attributes).toContainEqual({
+        key: "action",
+        value: PERP_MSG_TYPE_URLS[msgType],
+      })
+    }
+  })
 }
 
-export function expectTxToSucceed(txResp: DeliverTxResponse) {
-  expect(txResp).not.toBeNull()
-  assertIsDeliverTxSuccess(txResp)
-}
-export interface TxLog {
-  events: { type: string; attributes: any[] }[]
+export function assertHasEventType(eventType: string, events: Event[]): void {
+  const eventTypes = events.map((event) => event.type)
+  expect(eventTypes).toContain(eventType)
 }

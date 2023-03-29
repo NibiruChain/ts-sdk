@@ -1,8 +1,8 @@
 import {
-  Registry,
   DirectSecp256k1HdWallet,
-  OfflineSigner,
   OfflineDirectSigner,
+  OfflineSigner,
+  Registry,
 } from "@cosmjs/proto-signing"
 import { defaultRegistryTypes as defaultStargateTypes } from "@cosmjs/stargate"
 import { Keplr } from "../wallet"

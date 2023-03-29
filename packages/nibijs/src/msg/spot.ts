@@ -1,48 +1,66 @@
-import { Registry } from "@cosmjs/proto-signing"
-import * as pb from "@nibiruchain/protojs/dist/spot/v1/tx"
-import { toSdkDec } from "../chain"
-import { TxMessage } from "./types"
+import { EncodeObject, GeneratedType } from "@cosmjs/proto-signing"
+import {
+  MsgCreatePool,
+  MsgExitPool,
+  MsgJoinPool,
+  MsgSwapAssets,
+  protobufPackage,
+} from "@nibiruchain/protojs/dist/spot/v1/tx"
 
-export function registerTypes(registry: Registry) {
-  registry.register(`/${pb.protobufPackage}.MsgCreatePool`, pb.MsgCreatePool)
-  registry.register(`/${pb.protobufPackage}.MsgJoinPool`, pb.MsgJoinPool)
-  registry.register(`/${pb.protobufPackage}.MsgExitPool`, pb.MsgExitPool)
-  registry.register(`/${pb.protobufPackage}.MsgSwapAssets`, pb.MsgSwapAssets)
-  return registry
+export const SPOT_MSG_TYPE_URLS: Record<string, string> = {
+  MsgCreatePool: `/${protobufPackage}.MsgCreatePool`,
+  MsgJoinPool: `/${protobufPackage}.MsgJoinPool`,
+  MsgExitPool: `/${protobufPackage}.MsgExitPool`,
+  MsgSwapAssets: `/${protobufPackage}.MsgSwapAssets`,
 }
 
-export class SpotMsgs {
-  static createPool(msg: pb.MsgCreatePool): TxMessage {
-    if (msg.poolParams) {
-      const { swapFee, exitFee } = msg.poolParams!
-      msg.poolParams!.swapFee = toSdkDec(swapFee)
-      msg.poolParams!.exitFee = toSdkDec(exitFee)
-    }
+export const spotTypes: ReadonlyArray<[string, GeneratedType]> = [
+  [SPOT_MSG_TYPE_URLS.MsgCreatePool, MsgCreatePool],
+  [SPOT_MSG_TYPE_URLS.MsgJoinPool, MsgJoinPool],
+  [SPOT_MSG_TYPE_URLS.MsgExitPool, MsgExitPool],
+  [SPOT_MSG_TYPE_URLS.MsgSwapAssets, MsgSwapAssets],
+]
 
-    return {
-      typeUrl: `/${pb.protobufPackage}.MsgCreatePool`,
-      value: pb.MsgCreatePool.fromPartial(msg),
-    }
-  }
+export interface MsgCreatePoolEncodeObject extends EncodeObject {
+  readonly typeUrl: string
+  readonly value: Partial<MsgCreatePool>
+}
 
-  static joinPool(msg: pb.MsgJoinPool): TxMessage {
-    return {
-      typeUrl: `/${pb.protobufPackage}.MsgJoinPool`,
-      value: pb.MsgJoinPool.fromPartial(msg),
-    }
-  }
+export function isMsgCreatePoolEncodeObject(
+  encodeObject: EncodeObject,
+): encodeObject is MsgCreatePoolEncodeObject {
+  return encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgCreatePool
+}
 
-  static exitPool(msg: pb.MsgExitPool): TxMessage {
-    return {
-      typeUrl: `/${pb.protobufPackage}.MsgExitPool`,
-      value: pb.MsgExitPool.fromPartial(msg),
-    }
-  }
+export interface MsgJoinPoolEncodeObject extends EncodeObject {
+  readonly typeUrl: string
+  readonly value: Partial<MsgJoinPool>
+}
 
-  static swapAssets(msg: pb.MsgSwapAssets): TxMessage {
-    return {
-      typeUrl: `/${pb.protobufPackage}.MsgSwapAssets`,
-      value: pb.MsgSwapAssets.fromPartial(msg),
-    }
-  }
+export function isMsgJoinPoolEncodeObject(
+  encodeObject: EncodeObject,
+): encodeObject is MsgJoinPoolEncodeObject {
+  return encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgJoinPool
+}
+
+export interface MsgExitPoolEncodeObject extends EncodeObject {
+  readonly typeUrl: string
+  readonly value: Partial<MsgExitPool>
+}
+
+export function isMsgExitPoolEncodeObject(
+  encodeObject: EncodeObject,
+): encodeObject is MsgExitPoolEncodeObject {
+  return encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgExitPool
+}
+
+export interface MsgSwapAssetsEncodeObject extends EncodeObject {
+  readonly typeUrl: string
+  readonly value: Partial<MsgSwapAssets>
+}
+
+export function isMsgSwapAssetsEncodeObject(
+  encodeObject: EncodeObject,
+): encodeObject is MsgSwapAssetsEncodeObject {
+  return encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgSwapAssets
 }

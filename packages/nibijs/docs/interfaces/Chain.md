@@ -40,7 +40,7 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:25](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L25)
+[chain/chain.ts:22](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L22)
 
 ___
 
@@ -48,21 +48,23 @@ ___
 
 • **chainName**: `string`
 
+chainName: the name of the chain to display to the user
+
 #### Defined in
 
-[chain/chain.ts:26](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L26)
+[chain/chain.ts:24](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L24)
 
 ___
 
 ### endptGrpc
 
-• `Optional` **endptGrpc**: `string`
+• **endptGrpc**: `string`
 
 endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 #### Defined in
 
-[chain/chain.ts:23](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L23)
+[chain/chain.ts:20](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L20)
 
 ___
 
@@ -74,7 +76,7 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 #### Defined in
 
-[chain/chain.ts:21](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L21)
+[chain/chain.ts:18](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L18)
 
 ___
 
@@ -86,7 +88,7 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 #### Defined in
 
-[chain/chain.ts:19](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L19)
+[chain/chain.ts:16](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L16)
 
 ___
 
@@ -94,6 +96,8 @@ ___
 
 • **feeDenom**: `string`
 
+feeDenom: the denomination of the fee to be paid for transactions.
+
 #### Defined in
 
-[chain/chain.ts:27](https://github.com/NibiruChain/ts-sdk/blob/75477c4/packages/nibijs/src/chain/chain.ts#L27)
+[chain/chain.ts:26](https://github.com/NibiruChain/ts-sdk/blob/25bc58b/packages/nibijs/src/chain/chain.ts#L26)
