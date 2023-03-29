@@ -23,16 +23,17 @@ export const ConfigRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConfigRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConfigRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -44,6 +45,10 @@ export const ConfigRequest = {
   toJSON(_: ConfigRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ConfigRequest>, I>>(base?: I): ConfigRequest {
+    return ConfigRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ConfigRequest>, I>>(_: I): ConfigRequest {
@@ -65,19 +70,24 @@ export const ConfigResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConfigResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConfigResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.minimumGasPrice = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -90,6 +100,10 @@ export const ConfigResponse = {
     const obj: any = {};
     message.minimumGasPrice !== undefined && (obj.minimumGasPrice = message.minimumGasPrice);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ConfigResponse>, I>>(base?: I): ConfigResponse {
+    return ConfigResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ConfigResponse>, I>>(object: I): ConfigResponse {
@@ -107,14 +121,16 @@ export interface Service {
 
 export class ServiceClientImpl implements Service {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "cosmos.base.node.v1beta1.Service";
     this.rpc = rpc;
     this.Config = this.Config.bind(this);
   }
   Config(request: ConfigRequest): Promise<ConfigResponse> {
     const data = ConfigRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.node.v1beta1.Service", "Config", data);
-    return promise.then((data) => ConfigResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "Config", data);
+    return promise.then((data) => ConfigResponse.decode(_m0.Reader.create(data)));
   }
 }
 

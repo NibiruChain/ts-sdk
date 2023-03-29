@@ -135,25 +135,38 @@ export const MsgRemoveMargin = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveMargin {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRemoveMargin();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.sender = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.margin = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -172,6 +185,10 @@ export const MsgRemoveMargin = {
     message.pair !== undefined && (obj.pair = message.pair);
     message.margin !== undefined && (obj.margin = message.margin ? Coin.toJSON(message.margin) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgRemoveMargin>, I>>(base?: I): MsgRemoveMargin {
+    return MsgRemoveMargin.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgRemoveMargin>, I>>(object: I): MsgRemoveMargin {
@@ -204,25 +221,38 @@ export const MsgRemoveMarginResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveMarginResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRemoveMarginResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.marginOut = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.fundingPayment = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.position = Position.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -241,6 +271,10 @@ export const MsgRemoveMarginResponse = {
     message.fundingPayment !== undefined && (obj.fundingPayment = message.fundingPayment);
     message.position !== undefined && (obj.position = message.position ? Position.toJSON(message.position) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgRemoveMarginResponse>, I>>(base?: I): MsgRemoveMarginResponse {
+    return MsgRemoveMarginResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgRemoveMarginResponse>, I>>(object: I): MsgRemoveMarginResponse {
@@ -275,25 +309,38 @@ export const MsgAddMargin = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddMargin {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgAddMargin();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.sender = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.margin = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -312,6 +359,10 @@ export const MsgAddMargin = {
     message.pair !== undefined && (obj.pair = message.pair);
     message.margin !== undefined && (obj.margin = message.margin ? Coin.toJSON(message.margin) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgAddMargin>, I>>(base?: I): MsgAddMargin {
+    return MsgAddMargin.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgAddMargin>, I>>(object: I): MsgAddMargin {
@@ -341,22 +392,31 @@ export const MsgAddMarginResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddMarginResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgAddMarginResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.fundingPayment = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.position = Position.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -373,6 +433,10 @@ export const MsgAddMarginResponse = {
     message.fundingPayment !== undefined && (obj.fundingPayment = message.fundingPayment);
     message.position !== undefined && (obj.position = message.position ? Position.toJSON(message.position) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgAddMarginResponse>, I>>(base?: I): MsgAddMarginResponse {
+    return MsgAddMarginResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgAddMarginResponse>, I>>(object: I): MsgAddMarginResponse {
@@ -401,22 +465,31 @@ export const MsgMultiLiquidate = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidate {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMultiLiquidate();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.sender = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.liquidations.push(MsgMultiLiquidate_Liquidation.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -439,6 +512,10 @@ export const MsgMultiLiquidate = {
       obj.liquidations = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgMultiLiquidate>, I>>(base?: I): MsgMultiLiquidate {
+    return MsgMultiLiquidate.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidate>, I>>(object: I): MsgMultiLiquidate {
@@ -465,22 +542,31 @@ export const MsgMultiLiquidate_Liquidation = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidate_Liquidation {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMultiLiquidate_Liquidation();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.trader = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -497,6 +583,10 @@ export const MsgMultiLiquidate_Liquidation = {
     message.pair !== undefined && (obj.pair = message.pair);
     message.trader !== undefined && (obj.trader = message.trader);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgMultiLiquidate_Liquidation>, I>>(base?: I): MsgMultiLiquidate_Liquidation {
+    return MsgMultiLiquidate_Liquidation.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidate_Liquidation>, I>>(
@@ -522,19 +612,24 @@ export const MsgMultiLiquidateResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidateResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMultiLiquidateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.liquidations.push(MsgMultiLiquidateResponse_LiquidationResponse.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -557,6 +652,10 @@ export const MsgMultiLiquidateResponse = {
       obj.liquidations = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgMultiLiquidateResponse>, I>>(base?: I): MsgMultiLiquidateResponse {
+    return MsgMultiLiquidateResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidateResponse>, I>>(object: I): MsgMultiLiquidateResponse {
@@ -589,28 +688,45 @@ export const MsgMultiLiquidateResponse_LiquidationResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidateResponse_LiquidationResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMultiLiquidateResponse_LiquidationResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.success = reader.bool();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.error = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.liquidatorFee = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.perpEfFee = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -632,6 +748,12 @@ export const MsgMultiLiquidateResponse_LiquidationResponse = {
       (obj.liquidatorFee = message.liquidatorFee ? Coin.toJSON(message.liquidatorFee) : undefined);
     message.perpEfFee !== undefined && (obj.perpEfFee = message.perpEfFee ? Coin.toJSON(message.perpEfFee) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgMultiLiquidateResponse_LiquidationResponse>, I>>(
+    base?: I,
+  ): MsgMultiLiquidateResponse_LiquidationResponse {
+    return MsgMultiLiquidateResponse_LiquidationResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidateResponse_LiquidationResponse>, I>>(
@@ -678,34 +800,59 @@ export const MsgOpenPosition = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgOpenPosition {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgOpenPosition();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.sender = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.side = reader.int32() as any;
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.quoteAssetAmount = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.leverage = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.baseAssetAmountLimit = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -730,6 +877,10 @@ export const MsgOpenPosition = {
     message.leverage !== undefined && (obj.leverage = message.leverage);
     message.baseAssetAmountLimit !== undefined && (obj.baseAssetAmountLimit = message.baseAssetAmountLimit);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgOpenPosition>, I>>(base?: I): MsgOpenPosition {
+    return MsgOpenPosition.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgOpenPosition>, I>>(object: I): MsgOpenPosition {
@@ -787,40 +938,73 @@ export const MsgOpenPositionResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgOpenPositionResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgOpenPositionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.position = Position.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.exchangedNotionalValue = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.exchangedPositionSize = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.fundingPayment = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.realizedPnl = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.unrealizedPnlAfter = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.marginToVault = reader.string();
-          break;
+          continue;
         case 8:
+          if (tag != 66) {
+            break;
+          }
+
           message.positionNotional = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -849,6 +1033,10 @@ export const MsgOpenPositionResponse = {
     message.marginToVault !== undefined && (obj.marginToVault = message.marginToVault);
     message.positionNotional !== undefined && (obj.positionNotional = message.positionNotional);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgOpenPositionResponse>, I>>(base?: I): MsgOpenPositionResponse {
+    return MsgOpenPositionResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgOpenPositionResponse>, I>>(object: I): MsgOpenPositionResponse {
@@ -883,22 +1071,31 @@ export const MsgClosePosition = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgClosePosition {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgClosePosition();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.sender = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -915,6 +1112,10 @@ export const MsgClosePosition = {
     message.sender !== undefined && (obj.sender = message.sender);
     message.pair !== undefined && (obj.pair = message.pair);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgClosePosition>, I>>(base?: I): MsgClosePosition {
+    return MsgClosePosition.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgClosePosition>, I>>(object: I): MsgClosePosition {
@@ -956,31 +1157,52 @@ export const MsgClosePositionResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgClosePositionResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgClosePositionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.exchangedNotionalValue = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.exchangedPositionSize = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.fundingPayment = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.realizedPnl = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.marginToTrader = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1003,6 +1225,10 @@ export const MsgClosePositionResponse = {
     message.realizedPnl !== undefined && (obj.realizedPnl = message.realizedPnl);
     message.marginToTrader !== undefined && (obj.marginToTrader = message.marginToTrader);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgClosePositionResponse>, I>>(base?: I): MsgClosePositionResponse {
+    return MsgClosePositionResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgClosePositionResponse>, I>>(object: I): MsgClosePositionResponse {
@@ -1032,22 +1258,31 @@ export const MsgDonateToEcosystemFund = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgDonateToEcosystemFund {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDonateToEcosystemFund();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.sender = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.donation = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1064,6 +1299,10 @@ export const MsgDonateToEcosystemFund = {
     message.sender !== undefined && (obj.sender = message.sender);
     message.donation !== undefined && (obj.donation = message.donation ? Coin.toJSON(message.donation) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgDonateToEcosystemFund>, I>>(base?: I): MsgDonateToEcosystemFund {
+    return MsgDonateToEcosystemFund.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDonateToEcosystemFund>, I>>(object: I): MsgDonateToEcosystemFund {
@@ -1086,16 +1325,17 @@ export const MsgDonateToEcosystemFundResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgDonateToEcosystemFundResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDonateToEcosystemFundResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1107,6 +1347,12 @@ export const MsgDonateToEcosystemFundResponse = {
   toJSON(_: MsgDonateToEcosystemFundResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgDonateToEcosystemFundResponse>, I>>(
+    base?: I,
+  ): MsgDonateToEcosystemFundResponse {
+    return MsgDonateToEcosystemFundResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDonateToEcosystemFundResponse>, I>>(
@@ -1129,7 +1375,9 @@ export interface Msg {
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "nibiru.perp.v1.Msg";
     this.rpc = rpc;
     this.RemoveMargin = this.RemoveMargin.bind(this);
     this.AddMargin = this.AddMargin.bind(this);
@@ -1140,38 +1388,38 @@ export class MsgClientImpl implements Msg {
   }
   RemoveMargin(request: MsgRemoveMargin): Promise<MsgRemoveMarginResponse> {
     const data = MsgRemoveMargin.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Msg", "RemoveMargin", data);
-    return promise.then((data) => MsgRemoveMarginResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "RemoveMargin", data);
+    return promise.then((data) => MsgRemoveMarginResponse.decode(_m0.Reader.create(data)));
   }
 
   AddMargin(request: MsgAddMargin): Promise<MsgAddMarginResponse> {
     const data = MsgAddMargin.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Msg", "AddMargin", data);
-    return promise.then((data) => MsgAddMarginResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "AddMargin", data);
+    return promise.then((data) => MsgAddMarginResponse.decode(_m0.Reader.create(data)));
   }
 
   MultiLiquidate(request: MsgMultiLiquidate): Promise<MsgMultiLiquidateResponse> {
     const data = MsgMultiLiquidate.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Msg", "MultiLiquidate", data);
-    return promise.then((data) => MsgMultiLiquidateResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "MultiLiquidate", data);
+    return promise.then((data) => MsgMultiLiquidateResponse.decode(_m0.Reader.create(data)));
   }
 
   OpenPosition(request: MsgOpenPosition): Promise<MsgOpenPositionResponse> {
     const data = MsgOpenPosition.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Msg", "OpenPosition", data);
-    return promise.then((data) => MsgOpenPositionResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "OpenPosition", data);
+    return promise.then((data) => MsgOpenPositionResponse.decode(_m0.Reader.create(data)));
   }
 
   ClosePosition(request: MsgClosePosition): Promise<MsgClosePositionResponse> {
     const data = MsgClosePosition.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Msg", "ClosePosition", data);
-    return promise.then((data) => MsgClosePositionResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "ClosePosition", data);
+    return promise.then((data) => MsgClosePositionResponse.decode(_m0.Reader.create(data)));
   }
 
   DonateToEcosystemFund(request: MsgDonateToEcosystemFund): Promise<MsgDonateToEcosystemFundResponse> {
     const data = MsgDonateToEcosystemFund.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Msg", "DonateToEcosystemFund", data);
-    return promise.then((data) => MsgDonateToEcosystemFundResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "DonateToEcosystemFund", data);
+    return promise.then((data) => MsgDonateToEcosystemFundResponse.decode(_m0.Reader.create(data)));
   }
 }
 

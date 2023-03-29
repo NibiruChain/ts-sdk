@@ -30,16 +30,17 @@ export const QueryEpochsInfoRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryEpochsInfoRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryEpochsInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -51,6 +52,10 @@ export const QueryEpochsInfoRequest = {
   toJSON(_: QueryEpochsInfoRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryEpochsInfoRequest>, I>>(base?: I): QueryEpochsInfoRequest {
+    return QueryEpochsInfoRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryEpochsInfoRequest>, I>>(_: I): QueryEpochsInfoRequest {
@@ -72,19 +77,24 @@ export const QueryEpochsInfoResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryEpochsInfoResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryEpochsInfoResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.epochs.push(EpochInfo.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -101,6 +111,10 @@ export const QueryEpochsInfoResponse = {
       obj.epochs = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryEpochsInfoResponse>, I>>(base?: I): QueryEpochsInfoResponse {
+    return QueryEpochsInfoResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryEpochsInfoResponse>, I>>(object: I): QueryEpochsInfoResponse {
@@ -123,19 +137,24 @@ export const QueryCurrentEpochRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryCurrentEpochRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryCurrentEpochRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.identifier = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -148,6 +167,10 @@ export const QueryCurrentEpochRequest = {
     const obj: any = {};
     message.identifier !== undefined && (obj.identifier = message.identifier);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryCurrentEpochRequest>, I>>(base?: I): QueryCurrentEpochRequest {
+    return QueryCurrentEpochRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryCurrentEpochRequest>, I>>(object: I): QueryCurrentEpochRequest {
@@ -170,19 +193,24 @@ export const QueryCurrentEpochResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryCurrentEpochResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryCurrentEpochResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.currentEpoch = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -195,6 +223,10 @@ export const QueryCurrentEpochResponse = {
     const obj: any = {};
     message.currentEpoch !== undefined && (obj.currentEpoch = (message.currentEpoch || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryCurrentEpochResponse>, I>>(base?: I): QueryCurrentEpochResponse {
+    return QueryCurrentEpochResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryCurrentEpochResponse>, I>>(object: I): QueryCurrentEpochResponse {
@@ -216,21 +248,23 @@ export interface Query {
 
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "nibiru.epochs.v1beta1.Query";
     this.rpc = rpc;
     this.EpochInfos = this.EpochInfos.bind(this);
     this.CurrentEpoch = this.CurrentEpoch.bind(this);
   }
   EpochInfos(request: QueryEpochsInfoRequest): Promise<QueryEpochsInfoResponse> {
     const data = QueryEpochsInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.epochs.v1beta1.Query", "EpochInfos", data);
-    return promise.then((data) => QueryEpochsInfoResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "EpochInfos", data);
+    return promise.then((data) => QueryEpochsInfoResponse.decode(_m0.Reader.create(data)));
   }
 
   CurrentEpoch(request: QueryCurrentEpochRequest): Promise<QueryCurrentEpochResponse> {
     const data = QueryCurrentEpochRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.epochs.v1beta1.Query", "CurrentEpoch", data);
-    return promise.then((data) => QueryCurrentEpochResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "CurrentEpoch", data);
+    return promise.then((data) => QueryCurrentEpochResponse.decode(_m0.Reader.create(data)));
   }
 }
 

@@ -41,16 +41,17 @@ export const ListAllInterfacesRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListAllInterfacesRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListAllInterfacesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -62,6 +63,10 @@ export const ListAllInterfacesRequest = {
   toJSON(_: ListAllInterfacesRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListAllInterfacesRequest>, I>>(base?: I): ListAllInterfacesRequest {
+    return ListAllInterfacesRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ListAllInterfacesRequest>, I>>(_: I): ListAllInterfacesRequest {
@@ -83,19 +88,24 @@ export const ListAllInterfacesResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListAllInterfacesResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListAllInterfacesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.interfaceNames.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -114,6 +124,10 @@ export const ListAllInterfacesResponse = {
       obj.interfaceNames = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListAllInterfacesResponse>, I>>(base?: I): ListAllInterfacesResponse {
+    return ListAllInterfacesResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ListAllInterfacesResponse>, I>>(object: I): ListAllInterfacesResponse {
@@ -136,19 +150,24 @@ export const ListImplementationsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListImplementationsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListImplementationsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.interfaceName = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -161,6 +180,10 @@ export const ListImplementationsRequest = {
     const obj: any = {};
     message.interfaceName !== undefined && (obj.interfaceName = message.interfaceName);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListImplementationsRequest>, I>>(base?: I): ListImplementationsRequest {
+    return ListImplementationsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ListImplementationsRequest>, I>>(object: I): ListImplementationsRequest {
@@ -183,19 +206,24 @@ export const ListImplementationsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListImplementationsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListImplementationsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.implementationMessageNames.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -216,6 +244,10 @@ export const ListImplementationsResponse = {
       obj.implementationMessageNames = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListImplementationsResponse>, I>>(base?: I): ListImplementationsResponse {
+    return ListImplementationsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ListImplementationsResponse>, I>>(object: I): ListImplementationsResponse {
@@ -241,21 +273,23 @@ export interface ReflectionService {
 
 export class ReflectionServiceClientImpl implements ReflectionService {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "cosmos.base.reflection.v1beta1.ReflectionService";
     this.rpc = rpc;
     this.ListAllInterfaces = this.ListAllInterfaces.bind(this);
     this.ListImplementations = this.ListImplementations.bind(this);
   }
   ListAllInterfaces(request: ListAllInterfacesRequest): Promise<ListAllInterfacesResponse> {
     const data = ListAllInterfacesRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.reflection.v1beta1.ReflectionService", "ListAllInterfaces", data);
-    return promise.then((data) => ListAllInterfacesResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "ListAllInterfaces", data);
+    return promise.then((data) => ListAllInterfacesResponse.decode(_m0.Reader.create(data)));
   }
 
   ListImplementations(request: ListImplementationsRequest): Promise<ListImplementationsResponse> {
     const data = ListImplementationsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.reflection.v1beta1.ReflectionService", "ListImplementations", data);
-    return promise.then((data) => ListImplementationsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "ListImplementations", data);
+    return promise.then((data) => ListImplementationsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

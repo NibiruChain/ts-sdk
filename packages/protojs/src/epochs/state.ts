@@ -62,37 +62,66 @@ export const EpochInfo = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EpochInfo {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEpochInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.identifier = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.startTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.duration = Duration.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.currentEpoch = reader.uint64() as Long;
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.currentEpochStartTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 6:
+          if (tag != 48) {
+            break;
+          }
+
           message.epochCountingStarted = reader.bool();
-          break;
+          continue;
         case 7:
+          if (tag != 56) {
+            break;
+          }
+
           message.currentEpochStartHeight = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -125,6 +154,10 @@ export const EpochInfo = {
     message.currentEpochStartHeight !== undefined &&
       (obj.currentEpochStartHeight = (message.currentEpochStartHeight || Long.ZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EpochInfo>, I>>(base?: I): EpochInfo {
+    return EpochInfo.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EpochInfo>, I>>(object: I): EpochInfo {

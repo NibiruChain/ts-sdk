@@ -45,25 +45,38 @@ export const EventGrant = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventGrant {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventGrant();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.msgTypeUrl = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.granter = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.grantee = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -82,6 +95,10 @@ export const EventGrant = {
     message.granter !== undefined && (obj.granter = message.granter);
     message.grantee !== undefined && (obj.grantee = message.grantee);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventGrant>, I>>(base?: I): EventGrant {
+    return EventGrant.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventGrant>, I>>(object: I): EventGrant {
@@ -112,25 +129,38 @@ export const EventRevoke = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventRevoke {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventRevoke();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.msgTypeUrl = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.granter = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.grantee = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -149,6 +179,10 @@ export const EventRevoke = {
     message.granter !== undefined && (obj.granter = message.granter);
     message.grantee !== undefined && (obj.grantee = message.grantee);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventRevoke>, I>>(base?: I): EventRevoke {
+    return EventRevoke.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventRevoke>, I>>(object: I): EventRevoke {

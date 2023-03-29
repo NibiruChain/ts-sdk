@@ -33,22 +33,31 @@ export const EventEpochStart = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventEpochStart {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventEpochStart();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.epochNumber = reader.uint64() as Long;
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.epochStartTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -65,6 +74,10 @@ export const EventEpochStart = {
     message.epochNumber !== undefined && (obj.epochNumber = (message.epochNumber || Long.UZERO).toString());
     message.epochStartTime !== undefined && (obj.epochStartTime = message.epochStartTime.toISOString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventEpochStart>, I>>(base?: I): EventEpochStart {
+    return EventEpochStart.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventEpochStart>, I>>(object: I): EventEpochStart {
@@ -90,19 +103,24 @@ export const EventEpochEnd = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventEpochEnd {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventEpochEnd();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.epochNumber = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -115,6 +133,10 @@ export const EventEpochEnd = {
     const obj: any = {};
     message.epochNumber !== undefined && (obj.epochNumber = (message.epochNumber || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventEpochEnd>, I>>(base?: I): EventEpochEnd {
+    return EventEpochEnd.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventEpochEnd>, I>>(object: I): EventEpochEnd {

@@ -89,22 +89,31 @@ export const MsgMintStable = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgMintStable {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMintStable();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.creator = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.stable = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -121,6 +130,10 @@ export const MsgMintStable = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.stable !== undefined && (obj.stable = message.stable ? Coin.toJSON(message.stable) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgMintStable>, I>>(base?: I): MsgMintStable {
+    return MsgMintStable.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMintStable>, I>>(object: I): MsgMintStable {
@@ -152,25 +165,38 @@ export const MsgMintStableResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgMintStableResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMintStableResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.stable = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.usedCoins.push(Coin.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.feesPayed.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -197,6 +223,10 @@ export const MsgMintStableResponse = {
       obj.feesPayed = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgMintStableResponse>, I>>(base?: I): MsgMintStableResponse {
+    return MsgMintStableResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMintStableResponse>, I>>(object: I): MsgMintStableResponse {
@@ -226,22 +256,31 @@ export const MsgBurnStable = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgBurnStable {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgBurnStable();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.creator = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.stable = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -258,6 +297,10 @@ export const MsgBurnStable = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.stable !== undefined && (obj.stable = message.stable ? Coin.toJSON(message.stable) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgBurnStable>, I>>(base?: I): MsgBurnStable {
+    return MsgBurnStable.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgBurnStable>, I>>(object: I): MsgBurnStable {
@@ -289,25 +332,38 @@ export const MsgBurnStableResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgBurnStableResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgBurnStableResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.collateral = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.gov = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.feesPayed.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -331,6 +387,10 @@ export const MsgBurnStableResponse = {
       obj.feesPayed = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgBurnStableResponse>, I>>(base?: I): MsgBurnStableResponse {
+    return MsgBurnStableResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgBurnStableResponse>, I>>(object: I): MsgBurnStableResponse {
@@ -360,22 +420,31 @@ export const MsgRecollateralize = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgRecollateralize {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRecollateralize();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.creator = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.coll = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -392,6 +461,10 @@ export const MsgRecollateralize = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.coll !== undefined && (obj.coll = message.coll ? Coin.toJSON(message.coll) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgRecollateralize>, I>>(base?: I): MsgRecollateralize {
+    return MsgRecollateralize.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgRecollateralize>, I>>(object: I): MsgRecollateralize {
@@ -415,19 +488,24 @@ export const MsgRecollateralizeResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgRecollateralizeResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRecollateralizeResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.gov = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -440,6 +518,10 @@ export const MsgRecollateralizeResponse = {
     const obj: any = {};
     message.gov !== undefined && (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgRecollateralizeResponse>, I>>(base?: I): MsgRecollateralizeResponse {
+    return MsgRecollateralizeResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgRecollateralizeResponse>, I>>(object: I): MsgRecollateralizeResponse {
@@ -465,22 +547,31 @@ export const MsgBuyback = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgBuyback {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgBuyback();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.creator = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.gov = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -497,6 +588,10 @@ export const MsgBuyback = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.gov !== undefined && (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgBuyback>, I>>(base?: I): MsgBuyback {
+    return MsgBuyback.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgBuyback>, I>>(object: I): MsgBuyback {
@@ -520,19 +615,24 @@ export const MsgBuybackResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgBuybackResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgBuybackResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.coll = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -545,6 +645,10 @@ export const MsgBuybackResponse = {
     const obj: any = {};
     message.coll !== undefined && (obj.coll = message.coll ? Coin.toJSON(message.coll) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgBuybackResponse>, I>>(base?: I): MsgBuybackResponse {
+    return MsgBuybackResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgBuybackResponse>, I>>(object: I): MsgBuybackResponse {
@@ -583,7 +687,9 @@ export interface Msg {
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "nibiru.stablecoin.v1.Msg";
     this.rpc = rpc;
     this.MintStable = this.MintStable.bind(this);
     this.BurnStable = this.BurnStable.bind(this);
@@ -592,26 +698,26 @@ export class MsgClientImpl implements Msg {
   }
   MintStable(request: MsgMintStable): Promise<MsgMintStableResponse> {
     const data = MsgMintStable.encode(request).finish();
-    const promise = this.rpc.request("nibiru.stablecoin.v1.Msg", "MintStable", data);
-    return promise.then((data) => MsgMintStableResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "MintStable", data);
+    return promise.then((data) => MsgMintStableResponse.decode(_m0.Reader.create(data)));
   }
 
   BurnStable(request: MsgBurnStable): Promise<MsgBurnStableResponse> {
     const data = MsgBurnStable.encode(request).finish();
-    const promise = this.rpc.request("nibiru.stablecoin.v1.Msg", "BurnStable", data);
-    return promise.then((data) => MsgBurnStableResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "BurnStable", data);
+    return promise.then((data) => MsgBurnStableResponse.decode(_m0.Reader.create(data)));
   }
 
   Recollateralize(request: MsgRecollateralize): Promise<MsgRecollateralizeResponse> {
     const data = MsgRecollateralize.encode(request).finish();
-    const promise = this.rpc.request("nibiru.stablecoin.v1.Msg", "Recollateralize", data);
-    return promise.then((data) => MsgRecollateralizeResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "Recollateralize", data);
+    return promise.then((data) => MsgRecollateralizeResponse.decode(_m0.Reader.create(data)));
   }
 
   Buyback(request: MsgBuyback): Promise<MsgBuybackResponse> {
     const data = MsgBuyback.encode(request).finish();
-    const promise = this.rpc.request("nibiru.stablecoin.v1.Msg", "Buyback", data);
-    return promise.then((data) => MsgBuybackResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "Buyback", data);
+    return promise.then((data) => MsgBuybackResponse.decode(_m0.Reader.create(data)));
   }
 }
 

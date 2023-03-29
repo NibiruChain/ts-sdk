@@ -102,31 +102,52 @@ export const Plan = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Plan {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePlan();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.name = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.height = reader.int64() as Long;
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.info = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.upgradedClientState = Any.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -150,6 +171,10 @@ export const Plan = {
     message.upgradedClientState !== undefined &&
       (obj.upgradedClientState = message.upgradedClientState ? Any.toJSON(message.upgradedClientState) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Plan>, I>>(base?: I): Plan {
+    return Plan.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Plan>, I>>(object: I): Plan {
@@ -186,25 +211,38 @@ export const SoftwareUpgradeProposal = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SoftwareUpgradeProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSoftwareUpgradeProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.title = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.description = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.plan = Plan.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -223,6 +261,10 @@ export const SoftwareUpgradeProposal = {
     message.description !== undefined && (obj.description = message.description);
     message.plan !== undefined && (obj.plan = message.plan ? Plan.toJSON(message.plan) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<SoftwareUpgradeProposal>, I>>(base?: I): SoftwareUpgradeProposal {
+    return SoftwareUpgradeProposal.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<SoftwareUpgradeProposal>, I>>(object: I): SoftwareUpgradeProposal {
@@ -250,22 +292,31 @@ export const CancelSoftwareUpgradeProposal = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CancelSoftwareUpgradeProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCancelSoftwareUpgradeProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.title = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.description = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -282,6 +333,10 @@ export const CancelSoftwareUpgradeProposal = {
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined && (obj.description = message.description);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CancelSoftwareUpgradeProposal>, I>>(base?: I): CancelSoftwareUpgradeProposal {
+    return CancelSoftwareUpgradeProposal.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<CancelSoftwareUpgradeProposal>, I>>(
@@ -310,22 +365,31 @@ export const ModuleVersion = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ModuleVersion {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModuleVersion();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.name = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.version = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -342,6 +406,10 @@ export const ModuleVersion = {
     message.name !== undefined && (obj.name = message.name);
     message.version !== undefined && (obj.version = (message.version || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ModuleVersion>, I>>(base?: I): ModuleVersion {
+    return ModuleVersion.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ModuleVersion>, I>>(object: I): ModuleVersion {

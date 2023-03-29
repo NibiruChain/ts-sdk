@@ -346,40 +346,73 @@ export const Params = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.stopped = reader.bool();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.feePoolFeeRatio = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.ecosystemFundFeeRatio = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.liquidationFeeRatio = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.partialLiquidationRatio = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.fundingRateInterval = reader.string();
-          break;
+          continue;
         case 8:
+          if (tag != 66) {
+            break;
+          }
+
           message.twapLookbackWindow = Duration.decode(reader, reader.uint32());
-          break;
+          continue;
         case 9:
+          if (tag != 74) {
+            break;
+          }
+
           message.whitelistedLiquidators.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -415,6 +448,10 @@ export const Params = {
       obj.whitelistedLiquidators = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Params>, I>>(base?: I): Params {
+    return Params.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -472,37 +509,66 @@ export const Position = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Position {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePosition();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.traderAddress = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.size = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.margin = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.openNotional = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.latestCumulativePremiumFraction = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 56) {
+            break;
+          }
+
           message.blockNumber = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -532,6 +598,10 @@ export const Position = {
       (obj.latestCumulativePremiumFraction = message.latestCumulativePremiumFraction);
     message.blockNumber !== undefined && (obj.blockNumber = (message.blockNumber || Long.ZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Position>, I>>(base?: I): Position {
+    return Position.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Position>, I>>(object: I): Position {
@@ -565,22 +635,31 @@ export const PairMetadata = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PairMetadata {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePairMetadata();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.latestCumulativePremiumFraction = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -600,6 +679,10 @@ export const PairMetadata = {
     message.latestCumulativePremiumFraction !== undefined &&
       (obj.latestCumulativePremiumFraction = message.latestCumulativePremiumFraction);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PairMetadata>, I>>(base?: I): PairMetadata {
+    return PairMetadata.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PairMetadata>, I>>(object: I): PairMetadata {
@@ -626,22 +709,31 @@ export const PrepaidBadDebt = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PrepaidBadDebt {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePrepaidBadDebt();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.denom = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.amount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -658,6 +750,10 @@ export const PrepaidBadDebt = {
     message.denom !== undefined && (obj.denom = message.denom);
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PrepaidBadDebt>, I>>(base?: I): PrepaidBadDebt {
+    return PrepaidBadDebt.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PrepaidBadDebt>, I>>(object: I): PrepaidBadDebt {
@@ -715,43 +811,80 @@ export const PositionResp = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PositionResp {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePositionResp();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.position = Position.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.exchangedNotionalValue = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.exchangedPositionSize = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.badDebt = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.fundingPayment = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.realizedPnl = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.unrealizedPnlAfter = reader.string();
-          break;
+          continue;
         case 8:
+          if (tag != 66) {
+            break;
+          }
+
           message.marginToVault = reader.string();
-          break;
+          continue;
         case 9:
+          if (tag != 74) {
+            break;
+          }
+
           message.positionNotional = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -782,6 +915,10 @@ export const PositionResp = {
     message.marginToVault !== undefined && (obj.marginToVault = message.marginToVault);
     message.positionNotional !== undefined && (obj.positionNotional = message.positionNotional);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PositionResp>, I>>(base?: I): PositionResp {
+    return PositionResp.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PositionResp>, I>>(object: I): PositionResp {
@@ -826,31 +963,52 @@ export const LiquidateResp = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LiquidateResp {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLiquidateResp();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.badDebt = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.feeToLiquidator = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.feeToPerpEcosystemFund = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.liquidator = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.positionResp = PositionResp.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -874,6 +1032,10 @@ export const LiquidateResp = {
     message.positionResp !== undefined &&
       (obj.positionResp = message.positionResp ? PositionResp.toJSON(message.positionResp) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<LiquidateResp>, I>>(base?: I): LiquidateResp {
+    return LiquidateResp.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<LiquidateResp>, I>>(object: I): LiquidateResp {
@@ -911,28 +1073,45 @@ export const Metrics = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Metrics {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMetrics();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.netSize = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.volumeQuote = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.volumeBase = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -953,6 +1132,10 @@ export const Metrics = {
     message.volumeQuote !== undefined && (obj.volumeQuote = message.volumeQuote);
     message.volumeBase !== undefined && (obj.volumeBase = message.volumeBase);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Metrics>, I>>(base?: I): Metrics {
+    return Metrics.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Metrics>, I>>(object: I): Metrics {

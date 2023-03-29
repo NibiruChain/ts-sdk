@@ -258,34 +258,59 @@ export const AppDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AppDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAppDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.authn = AuthnDescriptor.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.chain = ChainDescriptor.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.codec = CodecDescriptor.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.configuration = ConfigurationDescriptor.decode(reader, reader.uint32());
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.queryServices = QueryServicesDescriptor.decode(reader, reader.uint32());
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.tx = TxDescriptor.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -312,6 +337,10 @@ export const AppDescriptor = {
       (obj.queryServices = message.queryServices ? QueryServicesDescriptor.toJSON(message.queryServices) : undefined);
     message.tx !== undefined && (obj.tx = message.tx ? TxDescriptor.toJSON(message.tx) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<AppDescriptor>, I>>(base?: I): AppDescriptor {
+    return AppDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<AppDescriptor>, I>>(object: I): AppDescriptor {
@@ -352,22 +381,31 @@ export const TxDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): TxDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTxDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.fullname = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.msgs.push(MsgDescriptor.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -388,6 +426,10 @@ export const TxDescriptor = {
       obj.msgs = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<TxDescriptor>, I>>(base?: I): TxDescriptor {
+    return TxDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<TxDescriptor>, I>>(object: I): TxDescriptor {
@@ -411,19 +453,24 @@ export const AuthnDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AuthnDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAuthnDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.signModes.push(SigningModeDescriptor.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -444,6 +491,10 @@ export const AuthnDescriptor = {
       obj.signModes = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<AuthnDescriptor>, I>>(base?: I): AuthnDescriptor {
+    return AuthnDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<AuthnDescriptor>, I>>(object: I): AuthnDescriptor {
@@ -472,25 +523,38 @@ export const SigningModeDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SigningModeDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSigningModeDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.name = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.number = reader.int32();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.authnInfoProviderMethodFullname = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -512,6 +576,10 @@ export const SigningModeDescriptor = {
     message.authnInfoProviderMethodFullname !== undefined &&
       (obj.authnInfoProviderMethodFullname = message.authnInfoProviderMethodFullname);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<SigningModeDescriptor>, I>>(base?: I): SigningModeDescriptor {
+    return SigningModeDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<SigningModeDescriptor>, I>>(object: I): SigningModeDescriptor {
@@ -536,19 +604,24 @@ export const ChainDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChainDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChainDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.id = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -561,6 +634,10 @@ export const ChainDescriptor = {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ChainDescriptor>, I>>(base?: I): ChainDescriptor {
+    return ChainDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ChainDescriptor>, I>>(object: I): ChainDescriptor {
@@ -583,19 +660,24 @@ export const CodecDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CodecDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCodecDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.interfaces.push(InterfaceDescriptor.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -616,6 +698,10 @@ export const CodecDescriptor = {
       obj.interfaces = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CodecDescriptor>, I>>(base?: I): CodecDescriptor {
+    return CodecDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<CodecDescriptor>, I>>(object: I): CodecDescriptor {
@@ -644,25 +730,38 @@ export const InterfaceDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InterfaceDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInterfaceDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.fullname = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.interfaceAcceptingMessages.push(InterfaceAcceptingMessageDescriptor.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.interfaceImplementers.push(InterfaceImplementerDescriptor.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -699,6 +798,10 @@ export const InterfaceDescriptor = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<InterfaceDescriptor>, I>>(base?: I): InterfaceDescriptor {
+    return InterfaceDescriptor.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<InterfaceDescriptor>, I>>(object: I): InterfaceDescriptor {
     const message = createBaseInterfaceDescriptor();
     message.fullname = object.fullname ?? "";
@@ -726,22 +829,31 @@ export const InterfaceImplementerDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InterfaceImplementerDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInterfaceImplementerDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.fullname = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.typeUrl = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -758,6 +870,10 @@ export const InterfaceImplementerDescriptor = {
     message.fullname !== undefined && (obj.fullname = message.fullname);
     message.typeUrl !== undefined && (obj.typeUrl = message.typeUrl);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<InterfaceImplementerDescriptor>, I>>(base?: I): InterfaceImplementerDescriptor {
+    return InterfaceImplementerDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<InterfaceImplementerDescriptor>, I>>(
@@ -786,22 +902,31 @@ export const InterfaceAcceptingMessageDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InterfaceAcceptingMessageDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInterfaceAcceptingMessageDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.fullname = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.fieldDescriptorNames.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -824,6 +949,12 @@ export const InterfaceAcceptingMessageDescriptor = {
       obj.fieldDescriptorNames = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<InterfaceAcceptingMessageDescriptor>, I>>(
+    base?: I,
+  ): InterfaceAcceptingMessageDescriptor {
+    return InterfaceAcceptingMessageDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<InterfaceAcceptingMessageDescriptor>, I>>(
@@ -849,19 +980,24 @@ export const ConfigurationDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConfigurationDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConfigurationDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.bech32AccountAddressPrefix = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -879,6 +1015,10 @@ export const ConfigurationDescriptor = {
     message.bech32AccountAddressPrefix !== undefined &&
       (obj.bech32AccountAddressPrefix = message.bech32AccountAddressPrefix);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ConfigurationDescriptor>, I>>(base?: I): ConfigurationDescriptor {
+    return ConfigurationDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ConfigurationDescriptor>, I>>(object: I): ConfigurationDescriptor {
@@ -901,19 +1041,24 @@ export const MsgDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.msgTypeUrl = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -926,6 +1071,10 @@ export const MsgDescriptor = {
     const obj: any = {};
     message.msgTypeUrl !== undefined && (obj.msgTypeUrl = message.msgTypeUrl);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgDescriptor>, I>>(base?: I): MsgDescriptor {
+    return MsgDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDescriptor>, I>>(object: I): MsgDescriptor {
@@ -945,16 +1094,17 @@ export const GetAuthnDescriptorRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetAuthnDescriptorRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetAuthnDescriptorRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -966,6 +1116,10 @@ export const GetAuthnDescriptorRequest = {
   toJSON(_: GetAuthnDescriptorRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetAuthnDescriptorRequest>, I>>(base?: I): GetAuthnDescriptorRequest {
+    return GetAuthnDescriptorRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetAuthnDescriptorRequest>, I>>(_: I): GetAuthnDescriptorRequest {
@@ -987,19 +1141,24 @@ export const GetAuthnDescriptorResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetAuthnDescriptorResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetAuthnDescriptorResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.authn = AuthnDescriptor.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1012,6 +1171,10 @@ export const GetAuthnDescriptorResponse = {
     const obj: any = {};
     message.authn !== undefined && (obj.authn = message.authn ? AuthnDescriptor.toJSON(message.authn) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetAuthnDescriptorResponse>, I>>(base?: I): GetAuthnDescriptorResponse {
+    return GetAuthnDescriptorResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetAuthnDescriptorResponse>, I>>(object: I): GetAuthnDescriptorResponse {
@@ -1033,16 +1196,17 @@ export const GetChainDescriptorRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetChainDescriptorRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetChainDescriptorRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1054,6 +1218,10 @@ export const GetChainDescriptorRequest = {
   toJSON(_: GetChainDescriptorRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetChainDescriptorRequest>, I>>(base?: I): GetChainDescriptorRequest {
+    return GetChainDescriptorRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetChainDescriptorRequest>, I>>(_: I): GetChainDescriptorRequest {
@@ -1075,19 +1243,24 @@ export const GetChainDescriptorResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetChainDescriptorResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetChainDescriptorResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.chain = ChainDescriptor.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1100,6 +1273,10 @@ export const GetChainDescriptorResponse = {
     const obj: any = {};
     message.chain !== undefined && (obj.chain = message.chain ? ChainDescriptor.toJSON(message.chain) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetChainDescriptorResponse>, I>>(base?: I): GetChainDescriptorResponse {
+    return GetChainDescriptorResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetChainDescriptorResponse>, I>>(object: I): GetChainDescriptorResponse {
@@ -1121,16 +1298,17 @@ export const GetCodecDescriptorRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetCodecDescriptorRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetCodecDescriptorRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1142,6 +1320,10 @@ export const GetCodecDescriptorRequest = {
   toJSON(_: GetCodecDescriptorRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetCodecDescriptorRequest>, I>>(base?: I): GetCodecDescriptorRequest {
+    return GetCodecDescriptorRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetCodecDescriptorRequest>, I>>(_: I): GetCodecDescriptorRequest {
@@ -1163,19 +1345,24 @@ export const GetCodecDescriptorResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetCodecDescriptorResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetCodecDescriptorResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.codec = CodecDescriptor.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1188,6 +1375,10 @@ export const GetCodecDescriptorResponse = {
     const obj: any = {};
     message.codec !== undefined && (obj.codec = message.codec ? CodecDescriptor.toJSON(message.codec) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetCodecDescriptorResponse>, I>>(base?: I): GetCodecDescriptorResponse {
+    return GetCodecDescriptorResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetCodecDescriptorResponse>, I>>(object: I): GetCodecDescriptorResponse {
@@ -1209,16 +1400,17 @@ export const GetConfigurationDescriptorRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetConfigurationDescriptorRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetConfigurationDescriptorRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1230,6 +1422,12 @@ export const GetConfigurationDescriptorRequest = {
   toJSON(_: GetConfigurationDescriptorRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetConfigurationDescriptorRequest>, I>>(
+    base?: I,
+  ): GetConfigurationDescriptorRequest {
+    return GetConfigurationDescriptorRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetConfigurationDescriptorRequest>, I>>(
@@ -1253,19 +1451,24 @@ export const GetConfigurationDescriptorResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetConfigurationDescriptorResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetConfigurationDescriptorResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.config = ConfigurationDescriptor.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1279,6 +1482,12 @@ export const GetConfigurationDescriptorResponse = {
     message.config !== undefined &&
       (obj.config = message.config ? ConfigurationDescriptor.toJSON(message.config) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetConfigurationDescriptorResponse>, I>>(
+    base?: I,
+  ): GetConfigurationDescriptorResponse {
+    return GetConfigurationDescriptorResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetConfigurationDescriptorResponse>, I>>(
@@ -1302,16 +1511,17 @@ export const GetQueryServicesDescriptorRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetQueryServicesDescriptorRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetQueryServicesDescriptorRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1323,6 +1533,12 @@ export const GetQueryServicesDescriptorRequest = {
   toJSON(_: GetQueryServicesDescriptorRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetQueryServicesDescriptorRequest>, I>>(
+    base?: I,
+  ): GetQueryServicesDescriptorRequest {
+    return GetQueryServicesDescriptorRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetQueryServicesDescriptorRequest>, I>>(
@@ -1346,19 +1562,24 @@ export const GetQueryServicesDescriptorResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetQueryServicesDescriptorResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetQueryServicesDescriptorResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.queries = QueryServicesDescriptor.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1372,6 +1593,12 @@ export const GetQueryServicesDescriptorResponse = {
     message.queries !== undefined &&
       (obj.queries = message.queries ? QueryServicesDescriptor.toJSON(message.queries) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetQueryServicesDescriptorResponse>, I>>(
+    base?: I,
+  ): GetQueryServicesDescriptorResponse {
+    return GetQueryServicesDescriptorResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetQueryServicesDescriptorResponse>, I>>(
@@ -1395,16 +1622,17 @@ export const GetTxDescriptorRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetTxDescriptorRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetTxDescriptorRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1416,6 +1644,10 @@ export const GetTxDescriptorRequest = {
   toJSON(_: GetTxDescriptorRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetTxDescriptorRequest>, I>>(base?: I): GetTxDescriptorRequest {
+    return GetTxDescriptorRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetTxDescriptorRequest>, I>>(_: I): GetTxDescriptorRequest {
@@ -1437,19 +1669,24 @@ export const GetTxDescriptorResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetTxDescriptorResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetTxDescriptorResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.tx = TxDescriptor.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1462,6 +1699,10 @@ export const GetTxDescriptorResponse = {
     const obj: any = {};
     message.tx !== undefined && (obj.tx = message.tx ? TxDescriptor.toJSON(message.tx) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetTxDescriptorResponse>, I>>(base?: I): GetTxDescriptorResponse {
+    return GetTxDescriptorResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<GetTxDescriptorResponse>, I>>(object: I): GetTxDescriptorResponse {
@@ -1484,19 +1725,24 @@ export const QueryServicesDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryServicesDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryServicesDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.queryServices.push(QueryServiceDescriptor.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1517,6 +1763,10 @@ export const QueryServicesDescriptor = {
       obj.queryServices = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryServicesDescriptor>, I>>(base?: I): QueryServicesDescriptor {
+    return QueryServicesDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryServicesDescriptor>, I>>(object: I): QueryServicesDescriptor {
@@ -1545,25 +1795,38 @@ export const QueryServiceDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryServiceDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryServiceDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.fullname = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.isModule = reader.bool();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.methods.push(QueryMethodDescriptor.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1586,6 +1849,10 @@ export const QueryServiceDescriptor = {
       obj.methods = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryServiceDescriptor>, I>>(base?: I): QueryServiceDescriptor {
+    return QueryServiceDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryServiceDescriptor>, I>>(object: I): QueryServiceDescriptor {
@@ -1613,22 +1880,31 @@ export const QueryMethodDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryMethodDescriptor {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryMethodDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.name = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.fullQueryPath = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1645,6 +1921,10 @@ export const QueryMethodDescriptor = {
     message.name !== undefined && (obj.name = message.name);
     message.fullQueryPath !== undefined && (obj.fullQueryPath = message.fullQueryPath);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryMethodDescriptor>, I>>(base?: I): QueryMethodDescriptor {
+    return QueryMethodDescriptor.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryMethodDescriptor>, I>>(object: I): QueryMethodDescriptor {
@@ -1677,7 +1957,9 @@ export interface ReflectionService {
 
 export class ReflectionServiceClientImpl implements ReflectionService {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "cosmos.base.reflection.v2alpha1.ReflectionService";
     this.rpc = rpc;
     this.GetAuthnDescriptor = this.GetAuthnDescriptor.bind(this);
     this.GetChainDescriptor = this.GetChainDescriptor.bind(this);
@@ -1688,46 +1970,38 @@ export class ReflectionServiceClientImpl implements ReflectionService {
   }
   GetAuthnDescriptor(request: GetAuthnDescriptorRequest): Promise<GetAuthnDescriptorResponse> {
     const data = GetAuthnDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.reflection.v2alpha1.ReflectionService", "GetAuthnDescriptor", data);
-    return promise.then((data) => GetAuthnDescriptorResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "GetAuthnDescriptor", data);
+    return promise.then((data) => GetAuthnDescriptorResponse.decode(_m0.Reader.create(data)));
   }
 
   GetChainDescriptor(request: GetChainDescriptorRequest): Promise<GetChainDescriptorResponse> {
     const data = GetChainDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.reflection.v2alpha1.ReflectionService", "GetChainDescriptor", data);
-    return promise.then((data) => GetChainDescriptorResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "GetChainDescriptor", data);
+    return promise.then((data) => GetChainDescriptorResponse.decode(_m0.Reader.create(data)));
   }
 
   GetCodecDescriptor(request: GetCodecDescriptorRequest): Promise<GetCodecDescriptorResponse> {
     const data = GetCodecDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.reflection.v2alpha1.ReflectionService", "GetCodecDescriptor", data);
-    return promise.then((data) => GetCodecDescriptorResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "GetCodecDescriptor", data);
+    return promise.then((data) => GetCodecDescriptorResponse.decode(_m0.Reader.create(data)));
   }
 
   GetConfigurationDescriptor(request: GetConfigurationDescriptorRequest): Promise<GetConfigurationDescriptorResponse> {
     const data = GetConfigurationDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.reflection.v2alpha1.ReflectionService",
-      "GetConfigurationDescriptor",
-      data,
-    );
-    return promise.then((data) => GetConfigurationDescriptorResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "GetConfigurationDescriptor", data);
+    return promise.then((data) => GetConfigurationDescriptorResponse.decode(_m0.Reader.create(data)));
   }
 
   GetQueryServicesDescriptor(request: GetQueryServicesDescriptorRequest): Promise<GetQueryServicesDescriptorResponse> {
     const data = GetQueryServicesDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.reflection.v2alpha1.ReflectionService",
-      "GetQueryServicesDescriptor",
-      data,
-    );
-    return promise.then((data) => GetQueryServicesDescriptorResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "GetQueryServicesDescriptor", data);
+    return promise.then((data) => GetQueryServicesDescriptorResponse.decode(_m0.Reader.create(data)));
   }
 
   GetTxDescriptor(request: GetTxDescriptorRequest): Promise<GetTxDescriptorResponse> {
     const data = GetTxDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.reflection.v2alpha1.ReflectionService", "GetTxDescriptor", data);
-    return promise.then((data) => GetTxDescriptorResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "GetTxDescriptor", data);
+    return promise.then((data) => GetTxDescriptorResponse.decode(_m0.Reader.create(data)));
   }
 }
 

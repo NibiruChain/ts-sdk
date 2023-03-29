@@ -76,43 +76,80 @@ export const Params = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.collRatio = reader.int64() as Long;
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.feeRatio = reader.int64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.efFeeRatio = reader.int64() as Long;
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.bonusRateRecoll = reader.int64() as Long;
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.distrEpochIdentifier = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 48) {
+            break;
+          }
+
           message.adjustmentStep = reader.int64() as Long;
-          break;
+          continue;
         case 7:
+          if (tag != 56) {
+            break;
+          }
+
           message.priceLowerBound = reader.int64() as Long;
-          break;
+          continue;
         case 8:
+          if (tag != 64) {
+            break;
+          }
+
           message.priceUpperBound = reader.int64() as Long;
-          break;
+          continue;
         case 9:
+          if (tag != 72) {
+            break;
+          }
+
           message.isCollateralRatioValid = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -143,6 +180,10 @@ export const Params = {
     message.priceUpperBound !== undefined && (obj.priceUpperBound = (message.priceUpperBound || Long.ZERO).toString());
     message.isCollateralRatioValid !== undefined && (obj.isCollateralRatioValid = message.isCollateralRatioValid);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Params>, I>>(base?: I): Params {
+    return Params.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {

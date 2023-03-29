@@ -73,16 +73,17 @@ export const QueryParamsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -94,6 +95,10 @@ export const QueryParamsRequest = {
   toJSON(_: QueryParamsRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(base?: I): QueryParamsRequest {
+    return QueryParamsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
@@ -115,19 +120,24 @@ export const QueryParamsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -140,6 +150,10 @@ export const QueryParamsResponse = {
     const obj: any = {};
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(base?: I): QueryParamsResponse {
+    return QueryParamsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
@@ -161,16 +175,17 @@ export const QueryModuleAccountBalances = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountBalances {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryModuleAccountBalances();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -182,6 +197,10 @@ export const QueryModuleAccountBalances = {
   toJSON(_: QueryModuleAccountBalances): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryModuleAccountBalances>, I>>(base?: I): QueryModuleAccountBalances {
+    return QueryModuleAccountBalances.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryModuleAccountBalances>, I>>(_: I): QueryModuleAccountBalances {
@@ -203,19 +222,24 @@ export const QueryModuleAccountBalancesResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountBalancesResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryModuleAccountBalancesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.moduleAccountBalances.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -238,6 +262,12 @@ export const QueryModuleAccountBalancesResponse = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryModuleAccountBalancesResponse>, I>>(
+    base?: I,
+  ): QueryModuleAccountBalancesResponse {
+    return QueryModuleAccountBalancesResponse.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryModuleAccountBalancesResponse>, I>>(
     object: I,
   ): QueryModuleAccountBalancesResponse {
@@ -257,16 +287,17 @@ export const QueryCirculatingSupplies = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryCirculatingSupplies {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryCirculatingSupplies();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -278,6 +309,10 @@ export const QueryCirculatingSupplies = {
   toJSON(_: QueryCirculatingSupplies): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryCirculatingSupplies>, I>>(base?: I): QueryCirculatingSupplies {
+    return QueryCirculatingSupplies.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryCirculatingSupplies>, I>>(_: I): QueryCirculatingSupplies {
@@ -302,22 +337,31 @@ export const QueryCirculatingSuppliesResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryCirculatingSuppliesResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryCirculatingSuppliesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.nibi = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.nusd = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -334,6 +378,12 @@ export const QueryCirculatingSuppliesResponse = {
     message.nibi !== undefined && (obj.nibi = message.nibi ? Coin.toJSON(message.nibi) : undefined);
     message.nusd !== undefined && (obj.nusd = message.nusd ? Coin.toJSON(message.nusd) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryCirculatingSuppliesResponse>, I>>(
+    base?: I,
+  ): QueryCirculatingSuppliesResponse {
+    return QueryCirculatingSuppliesResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryCirculatingSuppliesResponse>, I>>(
@@ -359,19 +409,24 @@ export const QueryGovToMintStable = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryGovToMintStable {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGovToMintStable();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.collateral = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -385,6 +440,10 @@ export const QueryGovToMintStable = {
     message.collateral !== undefined &&
       (obj.collateral = message.collateral ? Coin.toJSON(message.collateral) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryGovToMintStable>, I>>(base?: I): QueryGovToMintStable {
+    return QueryGovToMintStable.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGovToMintStable>, I>>(object: I): QueryGovToMintStable {
@@ -409,19 +468,24 @@ export const QueryGovToMintStableResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryGovToMintStableResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGovToMintStableResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.gov = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -434,6 +498,10 @@ export const QueryGovToMintStableResponse = {
     const obj: any = {};
     message.gov !== undefined && (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryGovToMintStableResponse>, I>>(base?: I): QueryGovToMintStableResponse {
+    return QueryGovToMintStableResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGovToMintStableResponse>, I>>(object: I): QueryGovToMintStableResponse {
@@ -462,25 +530,38 @@ export const LiquidityRatioInfo = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LiquidityRatioInfo {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLiquidityRatioInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.liquidityRatio = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.upperBand = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.lowerBand = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -499,6 +580,10 @@ export const LiquidityRatioInfo = {
     message.upperBand !== undefined && (obj.upperBand = message.upperBand);
     message.lowerBand !== undefined && (obj.lowerBand = message.lowerBand);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<LiquidityRatioInfo>, I>>(base?: I): LiquidityRatioInfo {
+    return LiquidityRatioInfo.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<LiquidityRatioInfo>, I>>(object: I): LiquidityRatioInfo {
@@ -520,16 +605,17 @@ export const QueryLiquidityRatioInfoRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityRatioInfoRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryLiquidityRatioInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -541,6 +627,10 @@ export const QueryLiquidityRatioInfoRequest = {
   toJSON(_: QueryLiquidityRatioInfoRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryLiquidityRatioInfoRequest>, I>>(base?: I): QueryLiquidityRatioInfoRequest {
+    return QueryLiquidityRatioInfoRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryLiquidityRatioInfoRequest>, I>>(_: I): QueryLiquidityRatioInfoRequest {
@@ -562,19 +652,24 @@ export const QueryLiquidityRatioInfoResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityRatioInfoResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryLiquidityRatioInfoResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.info = LiquidityRatioInfo.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -587,6 +682,10 @@ export const QueryLiquidityRatioInfoResponse = {
     const obj: any = {};
     message.info !== undefined && (obj.info = message.info ? LiquidityRatioInfo.toJSON(message.info) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryLiquidityRatioInfoResponse>, I>>(base?: I): QueryLiquidityRatioInfoResponse {
+    return QueryLiquidityRatioInfoResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryLiquidityRatioInfoResponse>, I>>(
@@ -612,7 +711,9 @@ export interface Query {
 
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "nibiru.stablecoin.v1.Query";
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
     this.ModuleAccountBalances = this.ModuleAccountBalances.bind(this);
@@ -621,26 +722,26 @@ export class QueryClientImpl implements Query {
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.stablecoin.v1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "Params", data);
+    return promise.then((data) => QueryParamsResponse.decode(_m0.Reader.create(data)));
   }
 
   ModuleAccountBalances(request: QueryModuleAccountBalances): Promise<QueryModuleAccountBalancesResponse> {
     const data = QueryModuleAccountBalances.encode(request).finish();
-    const promise = this.rpc.request("nibiru.stablecoin.v1.Query", "ModuleAccountBalances", data);
-    return promise.then((data) => QueryModuleAccountBalancesResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "ModuleAccountBalances", data);
+    return promise.then((data) => QueryModuleAccountBalancesResponse.decode(_m0.Reader.create(data)));
   }
 
   CirculatingSupplies(request: QueryCirculatingSupplies): Promise<QueryCirculatingSuppliesResponse> {
     const data = QueryCirculatingSupplies.encode(request).finish();
-    const promise = this.rpc.request("nibiru.stablecoin.v1.Query", "CirculatingSupplies", data);
-    return promise.then((data) => QueryCirculatingSuppliesResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "CirculatingSupplies", data);
+    return promise.then((data) => QueryCirculatingSuppliesResponse.decode(_m0.Reader.create(data)));
   }
 
   LiquidityRatioInfo(request: QueryLiquidityRatioInfoRequest): Promise<QueryLiquidityRatioInfoResponse> {
     const data = QueryLiquidityRatioInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.stablecoin.v1.Query", "LiquidityRatioInfo", data);
-    return promise.then((data) => QueryLiquidityRatioInfoResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "LiquidityRatioInfo", data);
+    return promise.then((data) => QueryLiquidityRatioInfoResponse.decode(_m0.Reader.create(data)));
   }
 }
 

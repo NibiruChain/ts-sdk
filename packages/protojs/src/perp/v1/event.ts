@@ -283,61 +283,122 @@ export const PositionChangedEvent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PositionChangedEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePositionChangedEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.traderAddress = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.margin = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.positionNotional = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.exchangedSize = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.exchangedNotional = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.transactionFee = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 8:
+          if (tag != 66) {
+            break;
+          }
+
           message.positionSize = reader.string();
-          break;
+          continue;
         case 9:
+          if (tag != 74) {
+            break;
+          }
+
           message.realizedPnl = reader.string();
-          break;
+          continue;
         case 10:
+          if (tag != 82) {
+            break;
+          }
+
           message.unrealizedPnlAfter = reader.string();
-          break;
+          continue;
         case 11:
+          if (tag != 90) {
+            break;
+          }
+
           message.badDebt = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 12:
+          if (tag != 98) {
+            break;
+          }
+
           message.markPrice = reader.string();
-          break;
+          continue;
         case 13:
+          if (tag != 106) {
+            break;
+          }
+
           message.fundingPayment = reader.string();
-          break;
+          continue;
         case 14:
+          if (tag != 112) {
+            break;
+          }
+
           message.blockHeight = reader.int64() as Long;
-          break;
+          continue;
         case 15:
+          if (tag != 120) {
+            break;
+          }
+
           message.blockTimeMs = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -381,6 +442,10 @@ export const PositionChangedEvent = {
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
     message.blockTimeMs !== undefined && (obj.blockTimeMs = (message.blockTimeMs || Long.ZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PositionChangedEvent>, I>>(base?: I): PositionChangedEvent {
+    return PositionChangedEvent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PositionChangedEvent>, I>>(object: I): PositionChangedEvent {
@@ -485,61 +550,122 @@ export const PositionLiquidatedEvent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PositionLiquidatedEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePositionLiquidatedEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.traderAddress = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.exchangedQuoteAmount = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.exchangedPositionSize = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.liquidatorAddress = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.feeToLiquidator = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.feeToEcosystemFund = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 8:
+          if (tag != 66) {
+            break;
+          }
+
           message.badDebt = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 9:
+          if (tag != 74) {
+            break;
+          }
+
           message.margin = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 10:
+          if (tag != 82) {
+            break;
+          }
+
           message.positionNotional = reader.string();
-          break;
+          continue;
         case 11:
+          if (tag != 90) {
+            break;
+          }
+
           message.positionSize = reader.string();
-          break;
+          continue;
         case 12:
+          if (tag != 98) {
+            break;
+          }
+
           message.unrealizedPnl = reader.string();
-          break;
+          continue;
         case 13:
+          if (tag != 106) {
+            break;
+          }
+
           message.markPrice = reader.string();
-          break;
+          continue;
         case 14:
+          if (tag != 112) {
+            break;
+          }
+
           message.blockHeight = reader.int64() as Long;
-          break;
+          continue;
         case 15:
+          if (tag != 120) {
+            break;
+          }
+
           message.blockTimeMs = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -584,6 +710,10 @@ export const PositionLiquidatedEvent = {
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
     message.blockTimeMs !== undefined && (obj.blockTimeMs = (message.blockTimeMs || Long.ZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PositionLiquidatedEvent>, I>>(base?: I): PositionLiquidatedEvent {
+    return PositionLiquidatedEvent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PositionLiquidatedEvent>, I>>(object: I): PositionLiquidatedEvent {
@@ -638,25 +768,38 @@ export const PositionSettledEvent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PositionSettledEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePositionSettledEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.traderAddress = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.settledCoins.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -679,6 +822,10 @@ export const PositionSettledEvent = {
       obj.settledCoins = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PositionSettledEvent>, I>>(base?: I): PositionSettledEvent {
+    return PositionSettledEvent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PositionSettledEvent>, I>>(object: I): PositionSettledEvent {
@@ -733,40 +880,73 @@ export const FundingRateChangedEvent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FundingRateChangedEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingRateChangedEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.markPrice = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.indexPrice = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.latestFundingRate = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.latestPremiumFraction = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.cumulativePremiumFraction = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 56) {
+            break;
+          }
+
           message.blockHeight = reader.int64() as Long;
-          break;
+          continue;
         case 8:
+          if (tag != 64) {
+            break;
+          }
+
           message.blockTimeMs = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -798,6 +978,10 @@ export const FundingRateChangedEvent = {
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
     message.blockTimeMs !== undefined && (obj.blockTimeMs = (message.blockTimeMs || Long.ZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<FundingRateChangedEvent>, I>>(base?: I): FundingRateChangedEvent {
+    return FundingRateChangedEvent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<FundingRateChangedEvent>, I>>(object: I): FundingRateChangedEvent {
@@ -840,28 +1024,45 @@ export const LiquidationFailedEvent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LiquidationFailedEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLiquidationFailedEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.trader = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.liquidator = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.reason = reader.int32() as any;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -882,6 +1083,10 @@ export const LiquidationFailedEvent = {
     message.liquidator !== undefined && (obj.liquidator = message.liquidator);
     message.reason !== undefined && (obj.reason = liquidationFailedEvent_LiquidationFailedReasonToJSON(message.reason));
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<LiquidationFailedEvent>, I>>(base?: I): LiquidationFailedEvent {
+    return LiquidationFailedEvent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<LiquidationFailedEvent>, I>>(object: I): LiquidationFailedEvent {
@@ -922,34 +1127,59 @@ export const MetricsEvent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MetricsEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMetricsEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.netSize = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.volumeQuote = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.volumeBase = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 40) {
+            break;
+          }
+
           message.blockHeight = reader.int64() as Long;
-          break;
+          continue;
         case 6:
+          if (tag != 48) {
+            break;
+          }
+
           message.blockTimeMs = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -974,6 +1204,10 @@ export const MetricsEvent = {
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
     message.blockTimeMs !== undefined && (obj.blockTimeMs = (message.blockTimeMs || Long.ZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MetricsEvent>, I>>(base?: I): MetricsEvent {
+    return MetricsEvent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MetricsEvent>, I>>(object: I): MetricsEvent {

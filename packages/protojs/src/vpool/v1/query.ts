@@ -49,19 +49,24 @@ export const QueryReserveAssetsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryReserveAssetsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryReserveAssetsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -74,6 +79,10 @@ export const QueryReserveAssetsRequest = {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryReserveAssetsRequest>, I>>(base?: I): QueryReserveAssetsRequest {
+    return QueryReserveAssetsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryReserveAssetsRequest>, I>>(object: I): QueryReserveAssetsRequest {
@@ -99,22 +108,31 @@ export const QueryReserveAssetsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryReserveAssetsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryReserveAssetsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.baseAssetReserve = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.quoteAssetReserve = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -131,6 +149,10 @@ export const QueryReserveAssetsResponse = {
     message.baseAssetReserve !== undefined && (obj.baseAssetReserve = message.baseAssetReserve);
     message.quoteAssetReserve !== undefined && (obj.quoteAssetReserve = message.quoteAssetReserve);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryReserveAssetsResponse>, I>>(base?: I): QueryReserveAssetsResponse {
+    return QueryReserveAssetsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryReserveAssetsResponse>, I>>(object: I): QueryReserveAssetsResponse {
@@ -151,16 +173,17 @@ export const QueryAllPoolsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllPoolsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllPoolsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -172,6 +195,10 @@ export const QueryAllPoolsRequest = {
   toJSON(_: QueryAllPoolsRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllPoolsRequest>, I>>(base?: I): QueryAllPoolsRequest {
+    return QueryAllPoolsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllPoolsRequest>, I>>(_: I): QueryAllPoolsRequest {
@@ -196,22 +223,31 @@ export const QueryAllPoolsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllPoolsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllPoolsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pools.push(Vpool.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.prices.push(PoolPrices.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -236,6 +272,10 @@ export const QueryAllPoolsResponse = {
       obj.prices = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllPoolsResponse>, I>>(base?: I): QueryAllPoolsResponse {
+    return QueryAllPoolsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllPoolsResponse>, I>>(object: I): QueryAllPoolsResponse {
@@ -265,25 +305,38 @@ export const QueryBaseAssetPriceRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryBaseAssetPriceRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryBaseAssetPriceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.direction = reader.int32() as any;
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.baseAssetAmount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -302,6 +355,10 @@ export const QueryBaseAssetPriceRequest = {
     message.direction !== undefined && (obj.direction = directionToJSON(message.direction));
     message.baseAssetAmount !== undefined && (obj.baseAssetAmount = message.baseAssetAmount);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryBaseAssetPriceRequest>, I>>(base?: I): QueryBaseAssetPriceRequest {
+    return QueryBaseAssetPriceRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryBaseAssetPriceRequest>, I>>(object: I): QueryBaseAssetPriceRequest {
@@ -326,19 +383,24 @@ export const QueryBaseAssetPriceResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryBaseAssetPriceResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryBaseAssetPriceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.priceInQuoteDenom = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -351,6 +413,10 @@ export const QueryBaseAssetPriceResponse = {
     const obj: any = {};
     message.priceInQuoteDenom !== undefined && (obj.priceInQuoteDenom = message.priceInQuoteDenom);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryBaseAssetPriceResponse>, I>>(base?: I): QueryBaseAssetPriceResponse {
+    return QueryBaseAssetPriceResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryBaseAssetPriceResponse>, I>>(object: I): QueryBaseAssetPriceResponse {
@@ -372,7 +438,9 @@ export interface Query {
 
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "nibiru.vpool.v1.Query";
     this.rpc = rpc;
     this.ReserveAssets = this.ReserveAssets.bind(this);
     this.AllPools = this.AllPools.bind(this);
@@ -380,20 +448,20 @@ export class QueryClientImpl implements Query {
   }
   ReserveAssets(request: QueryReserveAssetsRequest): Promise<QueryReserveAssetsResponse> {
     const data = QueryReserveAssetsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.vpool.v1.Query", "ReserveAssets", data);
-    return promise.then((data) => QueryReserveAssetsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "ReserveAssets", data);
+    return promise.then((data) => QueryReserveAssetsResponse.decode(_m0.Reader.create(data)));
   }
 
   AllPools(request: QueryAllPoolsRequest): Promise<QueryAllPoolsResponse> {
     const data = QueryAllPoolsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.vpool.v1.Query", "AllPools", data);
-    return promise.then((data) => QueryAllPoolsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "AllPools", data);
+    return promise.then((data) => QueryAllPoolsResponse.decode(_m0.Reader.create(data)));
   }
 
   BaseAssetPrice(request: QueryBaseAssetPriceRequest): Promise<QueryBaseAssetPriceResponse> {
     const data = QueryBaseAssetPriceRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.vpool.v1.Query", "BaseAssetPrice", data);
-    return promise.then((data) => QueryBaseAssetPriceResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "BaseAssetPrice", data);
+    return promise.then((data) => QueryBaseAssetPriceResponse.decode(_m0.Reader.create(data)));
   }
 }
 

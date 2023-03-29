@@ -142,43 +142,80 @@ export const Params = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.votePeriod = reader.uint64() as Long;
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.voteThreshold = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.rewardBand = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.whitelist.push(reader.string());
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.slashFraction = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 48) {
+            break;
+          }
+
           message.slashWindow = reader.uint64() as Long;
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.minValidPerWindow = reader.string();
-          break;
+          continue;
         case 8:
+          if (tag != 66) {
+            break;
+          }
+
           message.twapLookbackWindow = Duration.decode(reader, reader.uint32());
-          break;
+          continue;
         case 9:
+          if (tag != 72) {
+            break;
+          }
+
           message.minVoters = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -214,6 +251,10 @@ export const Params = {
       (obj.twapLookbackWindow = message.twapLookbackWindow ? Duration.toJSON(message.twapLookbackWindow) : undefined);
     message.minVoters !== undefined && (obj.minVoters = (message.minVoters || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Params>, I>>(base?: I): Params {
+    return Params.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -258,25 +299,38 @@ export const AggregateExchangeRatePrevote = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AggregateExchangeRatePrevote {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAggregateExchangeRatePrevote();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.hash = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.voter = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.submitBlock = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -295,6 +349,10 @@ export const AggregateExchangeRatePrevote = {
     message.voter !== undefined && (obj.voter = message.voter);
     message.submitBlock !== undefined && (obj.submitBlock = (message.submitBlock || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<AggregateExchangeRatePrevote>, I>>(base?: I): AggregateExchangeRatePrevote {
+    return AggregateExchangeRatePrevote.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<AggregateExchangeRatePrevote>, I>>(object: I): AggregateExchangeRatePrevote {
@@ -324,22 +382,31 @@ export const AggregateExchangeRateVote = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AggregateExchangeRateVote {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAggregateExchangeRateVote();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.exchangeRateTuples.push(ExchangeRateTuple.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.voter = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -362,6 +429,10 @@ export const AggregateExchangeRateVote = {
     }
     message.voter !== undefined && (obj.voter = message.voter);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<AggregateExchangeRateVote>, I>>(base?: I): AggregateExchangeRateVote {
+    return AggregateExchangeRateVote.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<AggregateExchangeRateVote>, I>>(object: I): AggregateExchangeRateVote {
@@ -388,22 +459,31 @@ export const ExchangeRateTuple = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ExchangeRateTuple {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExchangeRateTuple();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.exchangeRate = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -420,6 +500,10 @@ export const ExchangeRateTuple = {
     message.pair !== undefined && (obj.pair = message.pair);
     message.exchangeRate !== undefined && (obj.exchangeRate = message.exchangeRate);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ExchangeRateTuple>, I>>(base?: I): ExchangeRateTuple {
+    return ExchangeRateTuple.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ExchangeRateTuple>, I>>(object: I): ExchangeRateTuple {
@@ -452,28 +536,45 @@ export const PairReward = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PairReward {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePairReward();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.id = reader.uint64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.votePeriods = reader.uint64() as Long;
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.coins.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -498,6 +599,10 @@ export const PairReward = {
       obj.coins = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PairReward>, I>>(base?: I): PairReward {
+    return PairReward.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PairReward>, I>>(object: I): PairReward {

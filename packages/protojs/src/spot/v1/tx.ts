@@ -74,25 +74,38 @@ export const MsgCreatePool = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePool {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreatePool();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.creator = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.poolParams = PoolParams.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.poolAssets.push(PoolAsset.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -116,6 +129,10 @@ export const MsgCreatePool = {
       obj.poolAssets = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgCreatePool>, I>>(base?: I): MsgCreatePool {
+    return MsgCreatePool.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCreatePool>, I>>(object: I): MsgCreatePool {
@@ -142,19 +159,24 @@ export const MsgCreatePoolResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePoolResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreatePoolResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.poolId = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -167,6 +189,10 @@ export const MsgCreatePoolResponse = {
     const obj: any = {};
     message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgCreatePoolResponse>, I>>(base?: I): MsgCreatePoolResponse {
+    return MsgCreatePoolResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCreatePoolResponse>, I>>(object: I): MsgCreatePoolResponse {
@@ -200,28 +226,45 @@ export const MsgJoinPool = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgJoinPool {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgJoinPool();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.sender = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.poolId = reader.uint64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.tokensIn.push(Coin.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.useAllCoins = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -246,6 +289,10 @@ export const MsgJoinPool = {
     }
     message.useAllCoins !== undefined && (obj.useAllCoins = message.useAllCoins);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgJoinPool>, I>>(base?: I): MsgJoinPool {
+    return MsgJoinPool.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgJoinPool>, I>>(object: I): MsgJoinPool {
@@ -279,25 +326,38 @@ export const MsgJoinPoolResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgJoinPoolResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgJoinPoolResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pool = Pool.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.numPoolSharesOut = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.remainingCoins.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -323,6 +383,10 @@ export const MsgJoinPoolResponse = {
       obj.remainingCoins = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgJoinPoolResponse>, I>>(base?: I): MsgJoinPoolResponse {
+    return MsgJoinPoolResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgJoinPoolResponse>, I>>(object: I): MsgJoinPoolResponse {
@@ -355,25 +419,38 @@ export const MsgExitPool = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgExitPool {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgExitPool();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.sender = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.poolId = reader.uint64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.poolShares = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -393,6 +470,10 @@ export const MsgExitPool = {
     message.poolShares !== undefined &&
       (obj.poolShares = message.poolShares ? Coin.toJSON(message.poolShares) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgExitPool>, I>>(base?: I): MsgExitPool {
+    return MsgExitPool.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgExitPool>, I>>(object: I): MsgExitPool {
@@ -421,19 +502,24 @@ export const MsgExitPoolResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgExitPoolResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgExitPoolResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.tokensOut.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -450,6 +536,10 @@ export const MsgExitPoolResponse = {
       obj.tokensOut = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgExitPoolResponse>, I>>(base?: I): MsgExitPoolResponse {
+    return MsgExitPoolResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgExitPoolResponse>, I>>(object: I): MsgExitPoolResponse {
@@ -481,28 +571,45 @@ export const MsgSwapAssets = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgSwapAssets {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgSwapAssets();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.sender = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.poolId = reader.uint64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.tokenIn = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.tokenOutDenom = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -523,6 +630,10 @@ export const MsgSwapAssets = {
     message.tokenIn !== undefined && (obj.tokenIn = message.tokenIn ? Coin.toJSON(message.tokenIn) : undefined);
     message.tokenOutDenom !== undefined && (obj.tokenOutDenom = message.tokenOutDenom);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgSwapAssets>, I>>(base?: I): MsgSwapAssets {
+    return MsgSwapAssets.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSwapAssets>, I>>(object: I): MsgSwapAssets {
@@ -552,19 +663,24 @@ export const MsgSwapAssetsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgSwapAssetsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgSwapAssetsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.tokenOut = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -577,6 +693,10 @@ export const MsgSwapAssetsResponse = {
     const obj: any = {};
     message.tokenOut !== undefined && (obj.tokenOut = message.tokenOut ? Coin.toJSON(message.tokenOut) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgSwapAssetsResponse>, I>>(base?: I): MsgSwapAssetsResponse {
+    return MsgSwapAssetsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSwapAssetsResponse>, I>>(object: I): MsgSwapAssetsResponse {
@@ -602,7 +722,9 @@ export interface Msg {
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "nibiru.spot.v1.Msg";
     this.rpc = rpc;
     this.CreatePool = this.CreatePool.bind(this);
     this.JoinPool = this.JoinPool.bind(this);
@@ -611,26 +733,26 @@ export class MsgClientImpl implements Msg {
   }
   CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse> {
     const data = MsgCreatePool.encode(request).finish();
-    const promise = this.rpc.request("nibiru.spot.v1.Msg", "CreatePool", data);
-    return promise.then((data) => MsgCreatePoolResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "CreatePool", data);
+    return promise.then((data) => MsgCreatePoolResponse.decode(_m0.Reader.create(data)));
   }
 
   JoinPool(request: MsgJoinPool): Promise<MsgJoinPoolResponse> {
     const data = MsgJoinPool.encode(request).finish();
-    const promise = this.rpc.request("nibiru.spot.v1.Msg", "JoinPool", data);
-    return promise.then((data) => MsgJoinPoolResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "JoinPool", data);
+    return promise.then((data) => MsgJoinPoolResponse.decode(_m0.Reader.create(data)));
   }
 
   ExitPool(request: MsgExitPool): Promise<MsgExitPoolResponse> {
     const data = MsgExitPool.encode(request).finish();
-    const promise = this.rpc.request("nibiru.spot.v1.Msg", "ExitPool", data);
-    return promise.then((data) => MsgExitPoolResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "ExitPool", data);
+    return promise.then((data) => MsgExitPoolResponse.decode(_m0.Reader.create(data)));
   }
 
   SwapAssets(request: MsgSwapAssets): Promise<MsgSwapAssetsResponse> {
     const data = MsgSwapAssets.encode(request).finish();
-    const promise = this.rpc.request("nibiru.spot.v1.Msg", "SwapAssets", data);
-    return promise.then((data) => MsgSwapAssetsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "SwapAssets", data);
+    return promise.then((data) => MsgSwapAssetsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

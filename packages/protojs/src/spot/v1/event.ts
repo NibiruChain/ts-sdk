@@ -16,6 +16,7 @@ export interface EventPoolJoined {
 export interface EventPoolCreated {
   creator: string;
   poolId: Long;
+  fees: Coin[];
 }
 
 export interface EventPoolExited {
@@ -23,6 +24,7 @@ export interface EventPoolExited {
   poolId: Long;
   poolSharesIn?: Coin;
   tokensOut: Coin[];
+  fees: Coin[];
 }
 
 export interface EventAssetsSwapped {
@@ -30,6 +32,7 @@ export interface EventAssetsSwapped {
   poolId: Long;
   tokenIn?: Coin;
   tokenOut?: Coin;
+  fee?: Coin;
 }
 
 function createBaseEventPoolJoined(): EventPoolJoined {
@@ -57,31 +60,52 @@ export const EventPoolJoined = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventPoolJoined {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventPoolJoined();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.address = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.poolId = reader.uint64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.tokensIn.push(Coin.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.poolSharesOut = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.remCoins.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -115,6 +139,10 @@ export const EventPoolJoined = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<EventPoolJoined>, I>>(base?: I): EventPoolJoined {
+    return EventPoolJoined.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<EventPoolJoined>, I>>(object: I): EventPoolJoined {
     const message = createBaseEventPoolJoined();
     message.address = object.address ?? "";
@@ -131,7 +159,7 @@ export const EventPoolJoined = {
 };
 
 function createBaseEventPoolCreated(): EventPoolCreated {
-  return { creator: "", poolId: Long.UZERO };
+  return { creator: "", poolId: Long.UZERO, fees: [] };
 }
 
 export const EventPoolCreated = {
@@ -142,26 +170,45 @@ export const EventPoolCreated = {
     if (!message.poolId.isZero()) {
       writer.uint32(16).uint64(message.poolId);
     }
+    for (const v of message.fees) {
+      Coin.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventPoolCreated {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventPoolCreated();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.creator = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.poolId = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 3:
+          if (tag != 26) {
+            break;
+          }
+
+          message.fees.push(Coin.decode(reader, reader.uint32()));
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -170,6 +217,7 @@ export const EventPoolCreated = {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      fees: Array.isArray(object?.fees) ? object.fees.map((e: any) => Coin.fromJSON(e)) : [],
     };
   },
 
@@ -177,7 +225,16 @@ export const EventPoolCreated = {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
+    if (message.fees) {
+      obj.fees = message.fees.map((e) => e ? Coin.toJSON(e) : undefined);
+    } else {
+      obj.fees = [];
+    }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventPoolCreated>, I>>(base?: I): EventPoolCreated {
+    return EventPoolCreated.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventPoolCreated>, I>>(object: I): EventPoolCreated {
@@ -186,12 +243,13 @@ export const EventPoolCreated = {
     message.poolId = (object.poolId !== undefined && object.poolId !== null)
       ? Long.fromValue(object.poolId)
       : Long.UZERO;
+    message.fees = object.fees?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseEventPoolExited(): EventPoolExited {
-  return { address: "", poolId: Long.UZERO, poolSharesIn: undefined, tokensOut: [] };
+  return { address: "", poolId: Long.UZERO, poolSharesIn: undefined, tokensOut: [], fees: [] };
 }
 
 export const EventPoolExited = {
@@ -208,32 +266,59 @@ export const EventPoolExited = {
     for (const v of message.tokensOut) {
       Coin.encode(v!, writer.uint32(34).fork()).ldelim();
     }
+    for (const v of message.fees) {
+      Coin.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventPoolExited {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventPoolExited();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.address = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.poolId = reader.uint64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.poolSharesIn = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.tokensOut.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 5:
+          if (tag != 42) {
+            break;
+          }
+
+          message.fees.push(Coin.decode(reader, reader.uint32()));
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -244,6 +329,7 @@ export const EventPoolExited = {
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       poolSharesIn: isSet(object.poolSharesIn) ? Coin.fromJSON(object.poolSharesIn) : undefined,
       tokensOut: Array.isArray(object?.tokensOut) ? object.tokensOut.map((e: any) => Coin.fromJSON(e)) : [],
+      fees: Array.isArray(object?.fees) ? object.fees.map((e: any) => Coin.fromJSON(e)) : [],
     };
   },
 
@@ -258,7 +344,16 @@ export const EventPoolExited = {
     } else {
       obj.tokensOut = [];
     }
+    if (message.fees) {
+      obj.fees = message.fees.map((e) => e ? Coin.toJSON(e) : undefined);
+    } else {
+      obj.fees = [];
+    }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventPoolExited>, I>>(base?: I): EventPoolExited {
+    return EventPoolExited.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventPoolExited>, I>>(object: I): EventPoolExited {
@@ -271,12 +366,13 @@ export const EventPoolExited = {
       ? Coin.fromPartial(object.poolSharesIn)
       : undefined;
     message.tokensOut = object.tokensOut?.map((e) => Coin.fromPartial(e)) || [];
+    message.fees = object.fees?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseEventAssetsSwapped(): EventAssetsSwapped {
-  return { address: "", poolId: Long.UZERO, tokenIn: undefined, tokenOut: undefined };
+  return { address: "", poolId: Long.UZERO, tokenIn: undefined, tokenOut: undefined, fee: undefined };
 }
 
 export const EventAssetsSwapped = {
@@ -293,32 +389,59 @@ export const EventAssetsSwapped = {
     if (message.tokenOut !== undefined) {
       Coin.encode(message.tokenOut, writer.uint32(34).fork()).ldelim();
     }
+    if (message.fee !== undefined) {
+      Coin.encode(message.fee, writer.uint32(42).fork()).ldelim();
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventAssetsSwapped {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventAssetsSwapped();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.address = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.poolId = reader.uint64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.tokenIn = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.tokenOut = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 5:
+          if (tag != 42) {
+            break;
+          }
+
+          message.fee = Coin.decode(reader, reader.uint32());
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -329,6 +452,7 @@ export const EventAssetsSwapped = {
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       tokenIn: isSet(object.tokenIn) ? Coin.fromJSON(object.tokenIn) : undefined,
       tokenOut: isSet(object.tokenOut) ? Coin.fromJSON(object.tokenOut) : undefined,
+      fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
     };
   },
 
@@ -338,7 +462,12 @@ export const EventAssetsSwapped = {
     message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
     message.tokenIn !== undefined && (obj.tokenIn = message.tokenIn ? Coin.toJSON(message.tokenIn) : undefined);
     message.tokenOut !== undefined && (obj.tokenOut = message.tokenOut ? Coin.toJSON(message.tokenOut) : undefined);
+    message.fee !== undefined && (obj.fee = message.fee ? Coin.toJSON(message.fee) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventAssetsSwapped>, I>>(base?: I): EventAssetsSwapped {
+    return EventAssetsSwapped.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventAssetsSwapped>, I>>(object: I): EventAssetsSwapped {
@@ -353,6 +482,7 @@ export const EventAssetsSwapped = {
     message.tokenOut = (object.tokenOut !== undefined && object.tokenOut !== null)
       ? Coin.fromPartial(object.tokenOut)
       : undefined;
+    message.fee = (object.fee !== undefined && object.fee !== null) ? Coin.fromPartial(object.fee) : undefined;
     return message;
   },
 };

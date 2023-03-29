@@ -107,28 +107,45 @@ export const PoolParams = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PoolParams {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePoolParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.swapFee = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.exitFee = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.A = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.poolType = reader.int32() as any;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -149,6 +166,10 @@ export const PoolParams = {
     message.A !== undefined && (obj.A = message.A);
     message.poolType !== undefined && (obj.poolType = poolTypeToJSON(message.poolType));
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PoolParams>, I>>(base?: I): PoolParams {
+    return PoolParams.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PoolParams>, I>>(object: I): PoolParams {
@@ -177,22 +198,31 @@ export const PoolAsset = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PoolAsset {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePoolAsset();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.token = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.weight = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -209,6 +239,10 @@ export const PoolAsset = {
     message.token !== undefined && (obj.token = message.token ? Coin.toJSON(message.token) : undefined);
     message.weight !== undefined && (obj.weight = message.weight);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PoolAsset>, I>>(base?: I): PoolAsset {
+    return PoolAsset.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PoolAsset>, I>>(object: I): PoolAsset {
@@ -254,34 +288,59 @@ export const Pool = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Pool {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePool();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.id = reader.uint64() as Long;
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.address = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.poolParams = PoolParams.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.poolAssets.push(PoolAsset.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.totalWeight = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.totalShares = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -312,6 +371,10 @@ export const Pool = {
     message.totalShares !== undefined &&
       (obj.totalShares = message.totalShares ? Coin.toJSON(message.totalShares) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Pool>, I>>(base?: I): Pool {
+    return Pool.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Pool>, I>>(object: I): Pool {

@@ -80,34 +80,59 @@ export const CreatePoolProposal = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CreatePoolProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCreatePoolProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.title = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.description = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.quoteAssetReserve = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.baseAssetReserve = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.config = VpoolConfig.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -132,6 +157,10 @@ export const CreatePoolProposal = {
     message.baseAssetReserve !== undefined && (obj.baseAssetReserve = message.baseAssetReserve);
     message.config !== undefined && (obj.config = message.config ? VpoolConfig.toJSON(message.config) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreatePoolProposal>, I>>(base?: I): CreatePoolProposal {
+    return CreatePoolProposal.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<CreatePoolProposal>, I>>(object: I): CreatePoolProposal {
@@ -170,28 +199,45 @@ export const EditPoolConfigProposal = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EditPoolConfigProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEditPoolConfigProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.title = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.description = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.config = VpoolConfig.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -212,6 +258,10 @@ export const EditPoolConfigProposal = {
     message.pair !== undefined && (obj.pair = message.pair);
     message.config !== undefined && (obj.config = message.config ? VpoolConfig.toJSON(message.config) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EditPoolConfigProposal>, I>>(base?: I): EditPoolConfigProposal {
+    return EditPoolConfigProposal.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EditPoolConfigProposal>, I>>(object: I): EditPoolConfigProposal {
@@ -245,27 +295,40 @@ export const EditSwapInvariantsProposal = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EditSwapInvariantsProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEditSwapInvariantsProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.title = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.description = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.swapInvariantMaps.push(
             EditSwapInvariantsProposal_SwapInvariantMultiple.decode(reader, reader.uint32()),
           );
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -292,6 +355,10 @@ export const EditSwapInvariantsProposal = {
       obj.swapInvariantMaps = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EditSwapInvariantsProposal>, I>>(base?: I): EditSwapInvariantsProposal {
+    return EditSwapInvariantsProposal.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EditSwapInvariantsProposal>, I>>(object: I): EditSwapInvariantsProposal {
@@ -323,22 +390,31 @@ export const EditSwapInvariantsProposal_SwapInvariantMultiple = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EditSwapInvariantsProposal_SwapInvariantMultiple {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEditSwapInvariantsProposal_SwapInvariantMultiple();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.multiplier = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -355,6 +431,12 @@ export const EditSwapInvariantsProposal_SwapInvariantMultiple = {
     message.pair !== undefined && (obj.pair = message.pair);
     message.multiplier !== undefined && (obj.multiplier = message.multiplier);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EditSwapInvariantsProposal_SwapInvariantMultiple>, I>>(
+    base?: I,
+  ): EditSwapInvariantsProposal_SwapInvariantMultiple {
+    return EditSwapInvariantsProposal_SwapInvariantMultiple.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EditSwapInvariantsProposal_SwapInvariantMultiple>, I>>(

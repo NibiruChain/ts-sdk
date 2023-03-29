@@ -38,28 +38,45 @@ export const Equivocation = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Equivocation {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEquivocation();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.height = reader.int64() as Long;
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.power = reader.int64() as Long;
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.consensusAddress = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -80,6 +97,10 @@ export const Equivocation = {
     message.power !== undefined && (obj.power = (message.power || Long.ZERO).toString());
     message.consensusAddress !== undefined && (obj.consensusAddress = message.consensusAddress);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Equivocation>, I>>(base?: I): Equivocation {
+    return Equivocation.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Equivocation>, I>>(object: I): Equivocation {

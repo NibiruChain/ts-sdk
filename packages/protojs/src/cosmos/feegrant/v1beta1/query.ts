@@ -68,22 +68,31 @@ export const QueryAllowanceRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllowanceRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllowanceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.granter = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.grantee = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -100,6 +109,10 @@ export const QueryAllowanceRequest = {
     message.granter !== undefined && (obj.granter = message.granter);
     message.grantee !== undefined && (obj.grantee = message.grantee);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllowanceRequest>, I>>(base?: I): QueryAllowanceRequest {
+    return QueryAllowanceRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllowanceRequest>, I>>(object: I): QueryAllowanceRequest {
@@ -123,19 +136,24 @@ export const QueryAllowanceResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllowanceResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllowanceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.allowance = Grant.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -149,6 +167,10 @@ export const QueryAllowanceResponse = {
     message.allowance !== undefined &&
       (obj.allowance = message.allowance ? Grant.toJSON(message.allowance) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllowanceResponse>, I>>(base?: I): QueryAllowanceResponse {
+    return QueryAllowanceResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllowanceResponse>, I>>(object: I): QueryAllowanceResponse {
@@ -176,22 +198,31 @@ export const QueryAllowancesRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllowancesRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllowancesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.grantee = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pagination = PageRequest.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -209,6 +240,10 @@ export const QueryAllowancesRequest = {
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllowancesRequest>, I>>(base?: I): QueryAllowancesRequest {
+    return QueryAllowancesRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllowancesRequest>, I>>(object: I): QueryAllowancesRequest {
@@ -237,22 +272,31 @@ export const QueryAllowancesResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllowancesResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllowancesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.allowances.push(Grant.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pagination = PageResponse.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -274,6 +318,10 @@ export const QueryAllowancesResponse = {
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllowancesResponse>, I>>(base?: I): QueryAllowancesResponse {
+    return QueryAllowancesResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllowancesResponse>, I>>(object: I): QueryAllowancesResponse {
@@ -302,22 +350,31 @@ export const QueryAllowancesByGranterRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllowancesByGranterRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllowancesByGranterRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.granter = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pagination = PageRequest.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -335,6 +392,10 @@ export const QueryAllowancesByGranterRequest = {
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllowancesByGranterRequest>, I>>(base?: I): QueryAllowancesByGranterRequest {
+    return QueryAllowancesByGranterRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllowancesByGranterRequest>, I>>(
@@ -365,22 +426,31 @@ export const QueryAllowancesByGranterResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllowancesByGranterResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllowancesByGranterResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.allowances.push(Grant.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pagination = PageResponse.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -402,6 +472,12 @@ export const QueryAllowancesByGranterResponse = {
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllowancesByGranterResponse>, I>>(
+    base?: I,
+  ): QueryAllowancesByGranterResponse {
+    return QueryAllowancesByGranterResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllowancesByGranterResponse>, I>>(
@@ -431,7 +507,9 @@ export interface Query {
 
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "cosmos.feegrant.v1beta1.Query";
     this.rpc = rpc;
     this.Allowance = this.Allowance.bind(this);
     this.Allowances = this.Allowances.bind(this);
@@ -439,20 +517,20 @@ export class QueryClientImpl implements Query {
   }
   Allowance(request: QueryAllowanceRequest): Promise<QueryAllowanceResponse> {
     const data = QueryAllowanceRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.feegrant.v1beta1.Query", "Allowance", data);
-    return promise.then((data) => QueryAllowanceResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "Allowance", data);
+    return promise.then((data) => QueryAllowanceResponse.decode(_m0.Reader.create(data)));
   }
 
   Allowances(request: QueryAllowancesRequest): Promise<QueryAllowancesResponse> {
     const data = QueryAllowancesRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.feegrant.v1beta1.Query", "Allowances", data);
-    return promise.then((data) => QueryAllowancesResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "Allowances", data);
+    return promise.then((data) => QueryAllowancesResponse.decode(_m0.Reader.create(data)));
   }
 
   AllowancesByGranter(request: QueryAllowancesByGranterRequest): Promise<QueryAllowancesByGranterResponse> {
     const data = QueryAllowancesByGranterRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.feegrant.v1beta1.Query", "AllowancesByGranter", data);
-    return promise.then((data) => QueryAllowancesByGranterResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "AllowancesByGranter", data);
+    return promise.then((data) => QueryAllowancesByGranterResponse.decode(_m0.Reader.create(data)));
   }
 }
 

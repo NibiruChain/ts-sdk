@@ -34,25 +34,38 @@ export const MsgVerifyInvariant = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgVerifyInvariant {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgVerifyInvariant();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.sender = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.invariantModuleName = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.invariantRoute = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -71,6 +84,10 @@ export const MsgVerifyInvariant = {
     message.invariantModuleName !== undefined && (obj.invariantModuleName = message.invariantModuleName);
     message.invariantRoute !== undefined && (obj.invariantRoute = message.invariantRoute);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgVerifyInvariant>, I>>(base?: I): MsgVerifyInvariant {
+    return MsgVerifyInvariant.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgVerifyInvariant>, I>>(object: I): MsgVerifyInvariant {
@@ -92,16 +109,17 @@ export const MsgVerifyInvariantResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgVerifyInvariantResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgVerifyInvariantResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -113,6 +131,10 @@ export const MsgVerifyInvariantResponse = {
   toJSON(_: MsgVerifyInvariantResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgVerifyInvariantResponse>, I>>(base?: I): MsgVerifyInvariantResponse {
+    return MsgVerifyInvariantResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgVerifyInvariantResponse>, I>>(_: I): MsgVerifyInvariantResponse {
@@ -129,14 +151,16 @@ export interface Msg {
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "cosmos.crisis.v1beta1.Msg";
     this.rpc = rpc;
     this.VerifyInvariant = this.VerifyInvariant.bind(this);
   }
   VerifyInvariant(request: MsgVerifyInvariant): Promise<MsgVerifyInvariantResponse> {
     const data = MsgVerifyInvariant.encode(request).finish();
-    const promise = this.rpc.request("cosmos.crisis.v1beta1.Msg", "VerifyInvariant", data);
-    return promise.then((data) => MsgVerifyInvariantResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "VerifyInvariant", data);
+    return promise.then((data) => MsgVerifyInvariantResponse.decode(_m0.Reader.create(data)));
   }
 }
 

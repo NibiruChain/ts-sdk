@@ -28,16 +28,17 @@ export const QueryModuleAccountsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryModuleAccountsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -49,6 +50,10 @@ export const QueryModuleAccountsRequest = {
   toJSON(_: QueryModuleAccountsRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryModuleAccountsRequest>, I>>(base?: I): QueryModuleAccountsRequest {
+    return QueryModuleAccountsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryModuleAccountsRequest>, I>>(_: I): QueryModuleAccountsRequest {
@@ -70,19 +75,24 @@ export const QueryModuleAccountsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryModuleAccountsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.accounts.push(AccountWithBalance.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -101,6 +111,10 @@ export const QueryModuleAccountsResponse = {
       obj.accounts = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryModuleAccountsResponse>, I>>(base?: I): QueryModuleAccountsResponse {
+    return QueryModuleAccountsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryModuleAccountsResponse>, I>>(object: I): QueryModuleAccountsResponse {
@@ -129,25 +143,38 @@ export const AccountWithBalance = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AccountWithBalance {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAccountWithBalance();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.name = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.address = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.balance.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -172,6 +199,10 @@ export const AccountWithBalance = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<AccountWithBalance>, I>>(base?: I): AccountWithBalance {
+    return AccountWithBalance.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<AccountWithBalance>, I>>(object: I): AccountWithBalance {
     const message = createBaseAccountWithBalance();
     message.name = object.name ?? "";
@@ -189,14 +220,16 @@ export interface Query {
 
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "nibiru.util.v1.Query";
     this.rpc = rpc;
     this.ModuleAccounts = this.ModuleAccounts.bind(this);
   }
   ModuleAccounts(request: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse> {
     const data = QueryModuleAccountsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.util.v1.Query", "ModuleAccounts", data);
-    return promise.then((data) => QueryModuleAccountsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "ModuleAccounts", data);
+    return promise.then((data) => QueryModuleAccountsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

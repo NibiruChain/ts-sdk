@@ -50,22 +50,31 @@ export const Evidence = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Evidence {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEvidence();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.duplicateVoteEvidence = DuplicateVoteEvidence.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.lightClientAttackEvidence = LightClientAttackEvidence.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -91,6 +100,10 @@ export const Evidence = {
         ? LightClientAttackEvidence.toJSON(message.lightClientAttackEvidence)
         : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Evidence>, I>>(base?: I): Evidence {
+    return Evidence.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Evidence>, I>>(object: I): Evidence {
@@ -138,31 +151,52 @@ export const DuplicateVoteEvidence = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): DuplicateVoteEvidence {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDuplicateVoteEvidence();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.voteA = Vote.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.voteB = Vote.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.totalVotingPower = reader.int64() as Long;
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.validatorPower = reader.int64() as Long;
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -186,6 +220,10 @@ export const DuplicateVoteEvidence = {
     message.validatorPower !== undefined && (obj.validatorPower = (message.validatorPower || Long.ZERO).toString());
     message.timestamp !== undefined && (obj.timestamp = message.timestamp.toISOString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DuplicateVoteEvidence>, I>>(base?: I): DuplicateVoteEvidence {
+    return DuplicateVoteEvidence.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<DuplicateVoteEvidence>, I>>(object: I): DuplicateVoteEvidence {
@@ -234,31 +272,52 @@ export const LightClientAttackEvidence = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LightClientAttackEvidence {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLightClientAttackEvidence();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.conflictingBlock = LightBlock.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.commonHeight = reader.int64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.byzantineValidators.push(Validator.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.totalVotingPower = reader.int64() as Long;
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -291,6 +350,10 @@ export const LightClientAttackEvidence = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<LightClientAttackEvidence>, I>>(base?: I): LightClientAttackEvidence {
+    return LightClientAttackEvidence.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<LightClientAttackEvidence>, I>>(object: I): LightClientAttackEvidence {
     const message = createBaseLightClientAttackEvidence();
     message.conflictingBlock = (object.conflictingBlock !== undefined && object.conflictingBlock !== null)
@@ -321,19 +384,24 @@ export const EvidenceList = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EvidenceList {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEvidenceList();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.evidence.push(Evidence.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -350,6 +418,10 @@ export const EvidenceList = {
       obj.evidence = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EvidenceList>, I>>(base?: I): EvidenceList {
+    return EvidenceList.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EvidenceList>, I>>(object: I): EvidenceList {

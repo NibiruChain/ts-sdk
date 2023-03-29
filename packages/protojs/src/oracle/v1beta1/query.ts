@@ -171,19 +171,24 @@ export const QueryExchangeRateRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryExchangeRateRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryExchangeRateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -196,6 +201,10 @@ export const QueryExchangeRateRequest = {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryExchangeRateRequest>, I>>(base?: I): QueryExchangeRateRequest {
+    return QueryExchangeRateRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryExchangeRateRequest>, I>>(object: I): QueryExchangeRateRequest {
@@ -218,19 +227,24 @@ export const QueryExchangeRateResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryExchangeRateResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryExchangeRateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.exchangeRate = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -243,6 +257,10 @@ export const QueryExchangeRateResponse = {
     const obj: any = {};
     message.exchangeRate !== undefined && (obj.exchangeRate = message.exchangeRate);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryExchangeRateResponse>, I>>(base?: I): QueryExchangeRateResponse {
+    return QueryExchangeRateResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryExchangeRateResponse>, I>>(object: I): QueryExchangeRateResponse {
@@ -262,16 +280,17 @@ export const QueryExchangeRatesRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryExchangeRatesRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryExchangeRatesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -283,6 +302,10 @@ export const QueryExchangeRatesRequest = {
   toJSON(_: QueryExchangeRatesRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryExchangeRatesRequest>, I>>(base?: I): QueryExchangeRatesRequest {
+    return QueryExchangeRatesRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryExchangeRatesRequest>, I>>(_: I): QueryExchangeRatesRequest {
@@ -304,19 +327,24 @@ export const QueryExchangeRatesResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryExchangeRatesResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryExchangeRatesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.exchangeRates.push(ExchangeRateTuple.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -339,6 +367,10 @@ export const QueryExchangeRatesResponse = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryExchangeRatesResponse>, I>>(base?: I): QueryExchangeRatesResponse {
+    return QueryExchangeRatesResponse.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryExchangeRatesResponse>, I>>(object: I): QueryExchangeRatesResponse {
     const message = createBaseQueryExchangeRatesResponse();
     message.exchangeRates = object.exchangeRates?.map((e) => ExchangeRateTuple.fromPartial(e)) || [];
@@ -356,16 +388,17 @@ export const QueryActivesRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryActivesRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryActivesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -377,6 +410,10 @@ export const QueryActivesRequest = {
   toJSON(_: QueryActivesRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryActivesRequest>, I>>(base?: I): QueryActivesRequest {
+    return QueryActivesRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryActivesRequest>, I>>(_: I): QueryActivesRequest {
@@ -398,19 +435,24 @@ export const QueryActivesResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryActivesResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryActivesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.actives.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -427,6 +469,10 @@ export const QueryActivesResponse = {
       obj.actives = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryActivesResponse>, I>>(base?: I): QueryActivesResponse {
+    return QueryActivesResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryActivesResponse>, I>>(object: I): QueryActivesResponse {
@@ -446,16 +492,17 @@ export const QueryVoteTargetsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryVoteTargetsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryVoteTargetsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -467,6 +514,10 @@ export const QueryVoteTargetsRequest = {
   toJSON(_: QueryVoteTargetsRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryVoteTargetsRequest>, I>>(base?: I): QueryVoteTargetsRequest {
+    return QueryVoteTargetsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryVoteTargetsRequest>, I>>(_: I): QueryVoteTargetsRequest {
@@ -488,19 +539,24 @@ export const QueryVoteTargetsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryVoteTargetsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryVoteTargetsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.voteTargets.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -517,6 +573,10 @@ export const QueryVoteTargetsResponse = {
       obj.voteTargets = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryVoteTargetsResponse>, I>>(base?: I): QueryVoteTargetsResponse {
+    return QueryVoteTargetsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryVoteTargetsResponse>, I>>(object: I): QueryVoteTargetsResponse {
@@ -539,19 +599,24 @@ export const QueryFeederDelegationRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryFeederDelegationRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryFeederDelegationRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.validatorAddr = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -564,6 +629,10 @@ export const QueryFeederDelegationRequest = {
     const obj: any = {};
     message.validatorAddr !== undefined && (obj.validatorAddr = message.validatorAddr);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryFeederDelegationRequest>, I>>(base?: I): QueryFeederDelegationRequest {
+    return QueryFeederDelegationRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryFeederDelegationRequest>, I>>(object: I): QueryFeederDelegationRequest {
@@ -586,19 +655,24 @@ export const QueryFeederDelegationResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryFeederDelegationResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryFeederDelegationResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.feederAddr = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -611,6 +685,10 @@ export const QueryFeederDelegationResponse = {
     const obj: any = {};
     message.feederAddr !== undefined && (obj.feederAddr = message.feederAddr);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryFeederDelegationResponse>, I>>(base?: I): QueryFeederDelegationResponse {
+    return QueryFeederDelegationResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryFeederDelegationResponse>, I>>(
@@ -635,19 +713,24 @@ export const QueryMissCounterRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryMissCounterRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryMissCounterRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.validatorAddr = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -660,6 +743,10 @@ export const QueryMissCounterRequest = {
     const obj: any = {};
     message.validatorAddr !== undefined && (obj.validatorAddr = message.validatorAddr);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryMissCounterRequest>, I>>(base?: I): QueryMissCounterRequest {
+    return QueryMissCounterRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryMissCounterRequest>, I>>(object: I): QueryMissCounterRequest {
@@ -682,19 +769,24 @@ export const QueryMissCounterResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryMissCounterResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryMissCounterResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.missCounter = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -707,6 +799,10 @@ export const QueryMissCounterResponse = {
     const obj: any = {};
     message.missCounter !== undefined && (obj.missCounter = (message.missCounter || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryMissCounterResponse>, I>>(base?: I): QueryMissCounterResponse {
+    return QueryMissCounterResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryMissCounterResponse>, I>>(object: I): QueryMissCounterResponse {
@@ -731,19 +827,24 @@ export const QueryAggregatePrevoteRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAggregatePrevoteRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAggregatePrevoteRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.validatorAddr = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -756,6 +857,10 @@ export const QueryAggregatePrevoteRequest = {
     const obj: any = {};
     message.validatorAddr !== undefined && (obj.validatorAddr = message.validatorAddr);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAggregatePrevoteRequest>, I>>(base?: I): QueryAggregatePrevoteRequest {
+    return QueryAggregatePrevoteRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAggregatePrevoteRequest>, I>>(object: I): QueryAggregatePrevoteRequest {
@@ -778,19 +883,24 @@ export const QueryAggregatePrevoteResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAggregatePrevoteResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAggregatePrevoteResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.aggregatePrevote = AggregateExchangeRatePrevote.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -809,6 +919,10 @@ export const QueryAggregatePrevoteResponse = {
       ? AggregateExchangeRatePrevote.toJSON(message.aggregatePrevote)
       : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAggregatePrevoteResponse>, I>>(base?: I): QueryAggregatePrevoteResponse {
+    return QueryAggregatePrevoteResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAggregatePrevoteResponse>, I>>(
@@ -832,16 +946,17 @@ export const QueryAggregatePrevotesRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAggregatePrevotesRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAggregatePrevotesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -853,6 +968,10 @@ export const QueryAggregatePrevotesRequest = {
   toJSON(_: QueryAggregatePrevotesRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAggregatePrevotesRequest>, I>>(base?: I): QueryAggregatePrevotesRequest {
+    return QueryAggregatePrevotesRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAggregatePrevotesRequest>, I>>(_: I): QueryAggregatePrevotesRequest {
@@ -874,19 +993,24 @@ export const QueryAggregatePrevotesResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAggregatePrevotesResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAggregatePrevotesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.aggregatePrevotes.push(AggregateExchangeRatePrevote.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -911,6 +1035,10 @@ export const QueryAggregatePrevotesResponse = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryAggregatePrevotesResponse>, I>>(base?: I): QueryAggregatePrevotesResponse {
+    return QueryAggregatePrevotesResponse.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryAggregatePrevotesResponse>, I>>(
     object: I,
   ): QueryAggregatePrevotesResponse {
@@ -933,19 +1061,24 @@ export const QueryAggregateVoteRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAggregateVoteRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAggregateVoteRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.validatorAddr = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -958,6 +1091,10 @@ export const QueryAggregateVoteRequest = {
     const obj: any = {};
     message.validatorAddr !== undefined && (obj.validatorAddr = message.validatorAddr);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAggregateVoteRequest>, I>>(base?: I): QueryAggregateVoteRequest {
+    return QueryAggregateVoteRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAggregateVoteRequest>, I>>(object: I): QueryAggregateVoteRequest {
@@ -980,19 +1117,24 @@ export const QueryAggregateVoteResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAggregateVoteResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAggregateVoteResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.aggregateVote = AggregateExchangeRateVote.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1008,6 +1150,10 @@ export const QueryAggregateVoteResponse = {
     message.aggregateVote !== undefined &&
       (obj.aggregateVote = message.aggregateVote ? AggregateExchangeRateVote.toJSON(message.aggregateVote) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAggregateVoteResponse>, I>>(base?: I): QueryAggregateVoteResponse {
+    return QueryAggregateVoteResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAggregateVoteResponse>, I>>(object: I): QueryAggregateVoteResponse {
@@ -1029,16 +1175,17 @@ export const QueryAggregateVotesRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAggregateVotesRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAggregateVotesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1050,6 +1197,10 @@ export const QueryAggregateVotesRequest = {
   toJSON(_: QueryAggregateVotesRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAggregateVotesRequest>, I>>(base?: I): QueryAggregateVotesRequest {
+    return QueryAggregateVotesRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAggregateVotesRequest>, I>>(_: I): QueryAggregateVotesRequest {
@@ -1071,19 +1222,24 @@ export const QueryAggregateVotesResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAggregateVotesResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAggregateVotesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.aggregateVotes.push(AggregateExchangeRateVote.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1106,6 +1262,10 @@ export const QueryAggregateVotesResponse = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryAggregateVotesResponse>, I>>(base?: I): QueryAggregateVotesResponse {
+    return QueryAggregateVotesResponse.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryAggregateVotesResponse>, I>>(object: I): QueryAggregateVotesResponse {
     const message = createBaseQueryAggregateVotesResponse();
     message.aggregateVotes = object.aggregateVotes?.map((e) => AggregateExchangeRateVote.fromPartial(e)) || [];
@@ -1123,16 +1283,17 @@ export const QueryParamsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1144,6 +1305,10 @@ export const QueryParamsRequest = {
   toJSON(_: QueryParamsRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(base?: I): QueryParamsRequest {
+    return QueryParamsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
@@ -1165,19 +1330,24 @@ export const QueryParamsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1190,6 +1360,10 @@ export const QueryParamsResponse = {
     const obj: any = {};
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(base?: I): QueryParamsResponse {
+    return QueryParamsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
@@ -1231,7 +1405,9 @@ export interface Query {
 
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "nibiru.oracle.v1beta1.Query";
     this.rpc = rpc;
     this.ExchangeRate = this.ExchangeRate.bind(this);
     this.ExchangeRateTwap = this.ExchangeRateTwap.bind(this);
@@ -1248,74 +1424,74 @@ export class QueryClientImpl implements Query {
   }
   ExchangeRate(request: QueryExchangeRateRequest): Promise<QueryExchangeRateResponse> {
     const data = QueryExchangeRateRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "ExchangeRate", data);
-    return promise.then((data) => QueryExchangeRateResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "ExchangeRate", data);
+    return promise.then((data) => QueryExchangeRateResponse.decode(_m0.Reader.create(data)));
   }
 
   ExchangeRateTwap(request: QueryExchangeRateRequest): Promise<QueryExchangeRateResponse> {
     const data = QueryExchangeRateRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "ExchangeRateTwap", data);
-    return promise.then((data) => QueryExchangeRateResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "ExchangeRateTwap", data);
+    return promise.then((data) => QueryExchangeRateResponse.decode(_m0.Reader.create(data)));
   }
 
   ExchangeRates(request: QueryExchangeRatesRequest): Promise<QueryExchangeRatesResponse> {
     const data = QueryExchangeRatesRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "ExchangeRates", data);
-    return promise.then((data) => QueryExchangeRatesResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "ExchangeRates", data);
+    return promise.then((data) => QueryExchangeRatesResponse.decode(_m0.Reader.create(data)));
   }
 
   Actives(request: QueryActivesRequest): Promise<QueryActivesResponse> {
     const data = QueryActivesRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "Actives", data);
-    return promise.then((data) => QueryActivesResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "Actives", data);
+    return promise.then((data) => QueryActivesResponse.decode(_m0.Reader.create(data)));
   }
 
   VoteTargets(request: QueryVoteTargetsRequest): Promise<QueryVoteTargetsResponse> {
     const data = QueryVoteTargetsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "VoteTargets", data);
-    return promise.then((data) => QueryVoteTargetsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "VoteTargets", data);
+    return promise.then((data) => QueryVoteTargetsResponse.decode(_m0.Reader.create(data)));
   }
 
   FeederDelegation(request: QueryFeederDelegationRequest): Promise<QueryFeederDelegationResponse> {
     const data = QueryFeederDelegationRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "FeederDelegation", data);
-    return promise.then((data) => QueryFeederDelegationResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "FeederDelegation", data);
+    return promise.then((data) => QueryFeederDelegationResponse.decode(_m0.Reader.create(data)));
   }
 
   MissCounter(request: QueryMissCounterRequest): Promise<QueryMissCounterResponse> {
     const data = QueryMissCounterRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "MissCounter", data);
-    return promise.then((data) => QueryMissCounterResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "MissCounter", data);
+    return promise.then((data) => QueryMissCounterResponse.decode(_m0.Reader.create(data)));
   }
 
   AggregatePrevote(request: QueryAggregatePrevoteRequest): Promise<QueryAggregatePrevoteResponse> {
     const data = QueryAggregatePrevoteRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "AggregatePrevote", data);
-    return promise.then((data) => QueryAggregatePrevoteResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "AggregatePrevote", data);
+    return promise.then((data) => QueryAggregatePrevoteResponse.decode(_m0.Reader.create(data)));
   }
 
   AggregatePrevotes(request: QueryAggregatePrevotesRequest): Promise<QueryAggregatePrevotesResponse> {
     const data = QueryAggregatePrevotesRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "AggregatePrevotes", data);
-    return promise.then((data) => QueryAggregatePrevotesResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "AggregatePrevotes", data);
+    return promise.then((data) => QueryAggregatePrevotesResponse.decode(_m0.Reader.create(data)));
   }
 
   AggregateVote(request: QueryAggregateVoteRequest): Promise<QueryAggregateVoteResponse> {
     const data = QueryAggregateVoteRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "AggregateVote", data);
-    return promise.then((data) => QueryAggregateVoteResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "AggregateVote", data);
+    return promise.then((data) => QueryAggregateVoteResponse.decode(_m0.Reader.create(data)));
   }
 
   AggregateVotes(request: QueryAggregateVotesRequest): Promise<QueryAggregateVotesResponse> {
     const data = QueryAggregateVotesRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "AggregateVotes", data);
-    return promise.then((data) => QueryAggregateVotesResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "AggregateVotes", data);
+    return promise.then((data) => QueryAggregateVotesResponse.decode(_m0.Reader.create(data)));
   }
 
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "Params", data);
+    return promise.then((data) => QueryParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

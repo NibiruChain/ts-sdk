@@ -72,34 +72,59 @@ export const ReserveSnapshotSavedEvent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ReserveSnapshotSavedEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseReserveSnapshotSavedEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.quoteReserve = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.baseReserve = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.markPrice = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 40) {
+            break;
+          }
+
           message.blockHeight = reader.int64() as Long;
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.blockTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -124,6 +149,10 @@ export const ReserveSnapshotSavedEvent = {
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
     message.blockTimestamp !== undefined && (obj.blockTimestamp = message.blockTimestamp.toISOString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ReserveSnapshotSavedEvent>, I>>(base?: I): ReserveSnapshotSavedEvent {
+    return ReserveSnapshotSavedEvent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ReserveSnapshotSavedEvent>, I>>(object: I): ReserveSnapshotSavedEvent {
@@ -159,25 +188,38 @@ export const SwapOnVpoolEvent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SwapOnVpoolEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSwapOnVpoolEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.quoteAmount = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.baseAmount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -196,6 +238,10 @@ export const SwapOnVpoolEvent = {
     message.quoteAmount !== undefined && (obj.quoteAmount = message.quoteAmount);
     message.baseAmount !== undefined && (obj.baseAmount = message.baseAmount);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<SwapOnVpoolEvent>, I>>(base?: I): SwapOnVpoolEvent {
+    return SwapOnVpoolEvent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<SwapOnVpoolEvent>, I>>(object: I): SwapOnVpoolEvent {
@@ -226,25 +272,38 @@ export const MarkPriceChangedEvent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MarkPriceChangedEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMarkPriceChangedEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.price = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.blockTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -263,6 +322,10 @@ export const MarkPriceChangedEvent = {
     message.price !== undefined && (obj.price = message.price);
     message.blockTimestamp !== undefined && (obj.blockTimestamp = message.blockTimestamp.toISOString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MarkPriceChangedEvent>, I>>(base?: I): MarkPriceChangedEvent {
+    return MarkPriceChangedEvent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MarkPriceChangedEvent>, I>>(object: I): MarkPriceChangedEvent {

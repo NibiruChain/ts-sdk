@@ -60,25 +60,38 @@ export const EventTransfer = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventTransfer {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventTransfer();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.coin = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.from = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.to = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -97,6 +110,10 @@ export const EventTransfer = {
     message.from !== undefined && (obj.from = message.from);
     message.to !== undefined && (obj.to = message.to);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventTransfer>, I>>(base?: I): EventTransfer {
+    return EventTransfer.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventTransfer>, I>>(object: I): EventTransfer {
@@ -121,19 +138,24 @@ export const EventMintStable = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventMintStable {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventMintStable();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.amount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -146,6 +168,10 @@ export const EventMintStable = {
     const obj: any = {};
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventMintStable>, I>>(base?: I): EventMintStable {
+    return EventMintStable.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventMintStable>, I>>(object: I): EventMintStable {
@@ -168,19 +194,24 @@ export const EventBurnStable = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventBurnStable {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventBurnStable();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.amount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -193,6 +224,10 @@ export const EventBurnStable = {
     const obj: any = {};
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventBurnStable>, I>>(base?: I): EventBurnStable {
+    return EventBurnStable.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventBurnStable>, I>>(object: I): EventBurnStable {
@@ -215,19 +250,24 @@ export const EventMintNIBI = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventMintNIBI {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventMintNIBI();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.amount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -240,6 +280,10 @@ export const EventMintNIBI = {
     const obj: any = {};
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventMintNIBI>, I>>(base?: I): EventMintNIBI {
+    return EventMintNIBI.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventMintNIBI>, I>>(object: I): EventMintNIBI {
@@ -262,19 +306,24 @@ export const EventBurnNIBI = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventBurnNIBI {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventBurnNIBI();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.amount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -287,6 +336,10 @@ export const EventBurnNIBI = {
     const obj: any = {};
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventBurnNIBI>, I>>(base?: I): EventBurnNIBI {
+    return EventBurnNIBI.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventBurnNIBI>, I>>(object: I): EventBurnNIBI {
@@ -318,28 +371,45 @@ export const EventRecollateralize = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventRecollateralize {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventRecollateralize();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.caller = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.inCoin = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.outCoin = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.collRatio = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -360,6 +430,10 @@ export const EventRecollateralize = {
     message.outCoin !== undefined && (obj.outCoin = message.outCoin ? Coin.toJSON(message.outCoin) : undefined);
     message.collRatio !== undefined && (obj.collRatio = message.collRatio);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventRecollateralize>, I>>(base?: I): EventRecollateralize {
+    return EventRecollateralize.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventRecollateralize>, I>>(object: I): EventRecollateralize {
@@ -398,28 +472,45 @@ export const EventBuyback = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventBuyback {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventBuyback();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.caller = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.inCoin = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.outCoin = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.collRatio = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -440,6 +531,10 @@ export const EventBuyback = {
     message.outCoin !== undefined && (obj.outCoin = message.outCoin ? Coin.toJSON(message.outCoin) : undefined);
     message.collRatio !== undefined && (obj.collRatio = message.collRatio);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventBuyback>, I>>(base?: I): EventBuyback {
+    return EventBuyback.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EventBuyback>, I>>(object: I): EventBuyback {

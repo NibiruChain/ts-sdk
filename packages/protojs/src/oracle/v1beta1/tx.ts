@@ -77,25 +77,38 @@ export const MsgAggregateExchangeRatePrevote = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAggregateExchangeRatePrevote {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgAggregateExchangeRatePrevote();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.hash = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.feeder = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.validator = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -114,6 +127,10 @@ export const MsgAggregateExchangeRatePrevote = {
     message.feeder !== undefined && (obj.feeder = message.feeder);
     message.validator !== undefined && (obj.validator = message.validator);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgAggregateExchangeRatePrevote>, I>>(base?: I): MsgAggregateExchangeRatePrevote {
+    return MsgAggregateExchangeRatePrevote.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgAggregateExchangeRatePrevote>, I>>(
@@ -137,16 +154,17 @@ export const MsgAggregateExchangeRatePrevoteResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAggregateExchangeRatePrevoteResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgAggregateExchangeRatePrevoteResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -158,6 +176,12 @@ export const MsgAggregateExchangeRatePrevoteResponse = {
   toJSON(_: MsgAggregateExchangeRatePrevoteResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgAggregateExchangeRatePrevoteResponse>, I>>(
+    base?: I,
+  ): MsgAggregateExchangeRatePrevoteResponse {
+    return MsgAggregateExchangeRatePrevoteResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgAggregateExchangeRatePrevoteResponse>, I>>(
@@ -190,28 +214,45 @@ export const MsgAggregateExchangeRateVote = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAggregateExchangeRateVote {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgAggregateExchangeRateVote();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.salt = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.exchangeRates = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.feeder = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.validator = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -234,6 +275,10 @@ export const MsgAggregateExchangeRateVote = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<MsgAggregateExchangeRateVote>, I>>(base?: I): MsgAggregateExchangeRateVote {
+    return MsgAggregateExchangeRateVote.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgAggregateExchangeRateVote>, I>>(object: I): MsgAggregateExchangeRateVote {
     const message = createBaseMsgAggregateExchangeRateVote();
     message.salt = object.salt ?? "";
@@ -254,16 +299,17 @@ export const MsgAggregateExchangeRateVoteResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAggregateExchangeRateVoteResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgAggregateExchangeRateVoteResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -275,6 +321,12 @@ export const MsgAggregateExchangeRateVoteResponse = {
   toJSON(_: MsgAggregateExchangeRateVoteResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgAggregateExchangeRateVoteResponse>, I>>(
+    base?: I,
+  ): MsgAggregateExchangeRateVoteResponse {
+    return MsgAggregateExchangeRateVoteResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgAggregateExchangeRateVoteResponse>, I>>(
@@ -301,22 +353,31 @@ export const MsgDelegateFeedConsent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgDelegateFeedConsent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDelegateFeedConsent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.operator = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.delegate = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -333,6 +394,10 @@ export const MsgDelegateFeedConsent = {
     message.operator !== undefined && (obj.operator = message.operator);
     message.delegate !== undefined && (obj.delegate = message.delegate);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgDelegateFeedConsent>, I>>(base?: I): MsgDelegateFeedConsent {
+    return MsgDelegateFeedConsent.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDelegateFeedConsent>, I>>(object: I): MsgDelegateFeedConsent {
@@ -353,16 +418,17 @@ export const MsgDelegateFeedConsentResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgDelegateFeedConsentResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDelegateFeedConsentResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -374,6 +440,10 @@ export const MsgDelegateFeedConsentResponse = {
   toJSON(_: MsgDelegateFeedConsentResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgDelegateFeedConsentResponse>, I>>(base?: I): MsgDelegateFeedConsentResponse {
+    return MsgDelegateFeedConsentResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDelegateFeedConsentResponse>, I>>(_: I): MsgDelegateFeedConsentResponse {
@@ -406,7 +476,9 @@ export interface Msg {
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "nibiru.oracle.v1beta1.Msg";
     this.rpc = rpc;
     this.AggregateExchangeRatePrevote = this.AggregateExchangeRatePrevote.bind(this);
     this.AggregateExchangeRateVote = this.AggregateExchangeRateVote.bind(this);
@@ -416,20 +488,20 @@ export class MsgClientImpl implements Msg {
     request: MsgAggregateExchangeRatePrevote,
   ): Promise<MsgAggregateExchangeRatePrevoteResponse> {
     const data = MsgAggregateExchangeRatePrevote.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Msg", "AggregateExchangeRatePrevote", data);
-    return promise.then((data) => MsgAggregateExchangeRatePrevoteResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "AggregateExchangeRatePrevote", data);
+    return promise.then((data) => MsgAggregateExchangeRatePrevoteResponse.decode(_m0.Reader.create(data)));
   }
 
   AggregateExchangeRateVote(request: MsgAggregateExchangeRateVote): Promise<MsgAggregateExchangeRateVoteResponse> {
     const data = MsgAggregateExchangeRateVote.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Msg", "AggregateExchangeRateVote", data);
-    return promise.then((data) => MsgAggregateExchangeRateVoteResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "AggregateExchangeRateVote", data);
+    return promise.then((data) => MsgAggregateExchangeRateVoteResponse.decode(_m0.Reader.create(data)));
   }
 
   DelegateFeedConsent(request: MsgDelegateFeedConsent): Promise<MsgDelegateFeedConsentResponse> {
     const data = MsgDelegateFeedConsent.encode(request).finish();
-    const promise = this.rpc.request("nibiru.oracle.v1beta1.Msg", "DelegateFeedConsent", data);
-    return promise.then((data) => MsgDelegateFeedConsentResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "DelegateFeedConsent", data);
+    return promise.then((data) => MsgDelegateFeedConsentResponse.decode(_m0.Reader.create(data)));
   }
 }
 

@@ -182,28 +182,45 @@ export const Vpool = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Vpool {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVpool();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.baseAssetReserve = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.quoteAssetReserve = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.config = VpoolConfig.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -224,6 +241,10 @@ export const Vpool = {
     message.quoteAssetReserve !== undefined && (obj.quoteAssetReserve = message.quoteAssetReserve);
     message.config !== undefined && (obj.config = message.config ? VpoolConfig.toJSON(message.config) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Vpool>, I>>(base?: I): Vpool {
+    return Vpool.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Vpool>, I>>(object: I): Vpool {
@@ -269,31 +290,52 @@ export const VpoolConfig = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): VpoolConfig {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVpoolConfig();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.tradeLimitRatio = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.fluctuationLimitRatio = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.maxOracleSpreadRatio = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.maintenanceMarginRatio = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.maxLeverage = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -316,6 +358,10 @@ export const VpoolConfig = {
     message.maintenanceMarginRatio !== undefined && (obj.maintenanceMarginRatio = message.maintenanceMarginRatio);
     message.maxLeverage !== undefined && (obj.maxLeverage = message.maxLeverage);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<VpoolConfig>, I>>(base?: I): VpoolConfig {
+    return VpoolConfig.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<VpoolConfig>, I>>(object: I): VpoolConfig {
@@ -351,28 +397,45 @@ export const CurrentTWAP = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CurrentTWAP {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCurrentTWAP();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pairId = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.numerator = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.denominator = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.price = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -393,6 +456,10 @@ export const CurrentTWAP = {
     message.denominator !== undefined && (obj.denominator = message.denominator);
     message.price !== undefined && (obj.price = message.price);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CurrentTWAP>, I>>(base?: I): CurrentTWAP {
+    return CurrentTWAP.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<CurrentTWAP>, I>>(object: I): CurrentTWAP {
@@ -427,28 +494,45 @@ export const ReserveSnapshot = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ReserveSnapshot {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseReserveSnapshot();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.baseAssetReserve = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.quoteAssetReserve = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.timestampMs = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -469,6 +553,10 @@ export const ReserveSnapshot = {
     message.quoteAssetReserve !== undefined && (obj.quoteAssetReserve = message.quoteAssetReserve);
     message.timestampMs !== undefined && (obj.timestampMs = (message.timestampMs || Long.ZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ReserveSnapshot>, I>>(base?: I): ReserveSnapshot {
+    return ReserveSnapshot.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ReserveSnapshot>, I>>(object: I): ReserveSnapshot {
@@ -511,34 +599,59 @@ export const PoolPrices = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PoolPrices {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePoolPrices();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 9:
+          if (tag != 74) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 10:
+          if (tag != 82) {
+            break;
+          }
+
           message.markPrice = reader.string();
-          break;
+          continue;
         case 11:
+          if (tag != 90) {
+            break;
+          }
+
           message.indexPrice = reader.string();
-          break;
+          continue;
         case 12:
+          if (tag != 98) {
+            break;
+          }
+
           message.twapMark = reader.string();
-          break;
+          continue;
         case 13:
+          if (tag != 106) {
+            break;
+          }
+
           message.swapInvariant = reader.string();
-          break;
+          continue;
         case 14:
+          if (tag != 112) {
+            break;
+          }
+
           message.blockNumber = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -563,6 +676,10 @@ export const PoolPrices = {
     message.swapInvariant !== undefined && (obj.swapInvariant = message.swapInvariant);
     message.blockNumber !== undefined && (obj.blockNumber = (message.blockNumber || Long.ZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<PoolPrices>, I>>(base?: I): PoolPrices {
+    return PoolPrices.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<PoolPrices>, I>>(object: I): PoolPrices {

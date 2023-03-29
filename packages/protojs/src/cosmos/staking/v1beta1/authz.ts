@@ -112,28 +112,45 @@ export const StakeAuthorization = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): StakeAuthorization {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStakeAuthorization();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.maxTokens = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.allowList = StakeAuthorization_Validators.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.denyList = StakeAuthorization_Validators.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.authorizationType = reader.int32() as any;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -157,6 +174,10 @@ export const StakeAuthorization = {
     message.authorizationType !== undefined &&
       (obj.authorizationType = authorizationTypeToJSON(message.authorizationType));
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<StakeAuthorization>, I>>(base?: I): StakeAuthorization {
+    return StakeAuthorization.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<StakeAuthorization>, I>>(object: I): StakeAuthorization {
@@ -188,19 +209,24 @@ export const StakeAuthorization_Validators = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): StakeAuthorization_Validators {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStakeAuthorization_Validators();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.address.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -217,6 +243,10 @@ export const StakeAuthorization_Validators = {
       obj.address = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<StakeAuthorization_Validators>, I>>(base?: I): StakeAuthorization_Validators {
+    return StakeAuthorization_Validators.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<StakeAuthorization_Validators>, I>>(

@@ -90,16 +90,17 @@ export const QueryParamsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -111,6 +112,10 @@ export const QueryParamsRequest = {
   toJSON(_: QueryParamsRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(base?: I): QueryParamsRequest {
+    return QueryParamsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
@@ -132,19 +137,24 @@ export const QueryParamsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -157,6 +167,10 @@ export const QueryParamsResponse = {
     const obj: any = {};
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(base?: I): QueryParamsResponse {
+    return QueryParamsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
@@ -181,19 +195,24 @@ export const QueryPositionsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPositionsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.trader = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -206,6 +225,10 @@ export const QueryPositionsRequest = {
     const obj: any = {};
     message.trader !== undefined && (obj.trader = message.trader);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryPositionsRequest>, I>>(base?: I): QueryPositionsRequest {
+    return QueryPositionsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPositionsRequest>, I>>(object: I): QueryPositionsRequest {
@@ -228,19 +251,24 @@ export const QueryPositionsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPositionsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.positions.push(QueryPositionResponse.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -261,6 +289,10 @@ export const QueryPositionsResponse = {
       obj.positions = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryPositionsResponse>, I>>(base?: I): QueryPositionsResponse {
+    return QueryPositionsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPositionsResponse>, I>>(object: I): QueryPositionsResponse {
@@ -286,22 +318,31 @@ export const QueryPositionRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPositionRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.trader = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -318,6 +359,10 @@ export const QueryPositionRequest = {
     message.pair !== undefined && (obj.pair = message.pair);
     message.trader !== undefined && (obj.trader = message.trader);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryPositionRequest>, I>>(base?: I): QueryPositionRequest {
+    return QueryPositionRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPositionRequest>, I>>(object: I): QueryPositionRequest {
@@ -363,34 +408,59 @@ export const QueryPositionResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPositionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.position = Position.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.positionNotional = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.unrealizedPnl = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.marginRatioMark = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.marginRatioIndex = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 56) {
+            break;
+          }
+
           message.blockNumber = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -415,6 +485,10 @@ export const QueryPositionResponse = {
     message.marginRatioIndex !== undefined && (obj.marginRatioIndex = message.marginRatioIndex);
     message.blockNumber !== undefined && (obj.blockNumber = (message.blockNumber || Long.ZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryPositionResponse>, I>>(base?: I): QueryPositionResponse {
+    return QueryPositionResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPositionResponse>, I>>(object: I): QueryPositionResponse {
@@ -446,19 +520,24 @@ export const QueryCumulativePremiumFractionRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryCumulativePremiumFractionRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryCumulativePremiumFractionRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -471,6 +550,12 @@ export const QueryCumulativePremiumFractionRequest = {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryCumulativePremiumFractionRequest>, I>>(
+    base?: I,
+  ): QueryCumulativePremiumFractionRequest {
+    return QueryCumulativePremiumFractionRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryCumulativePremiumFractionRequest>, I>>(
@@ -498,22 +583,31 @@ export const QueryCumulativePremiumFractionResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryCumulativePremiumFractionResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryCumulativePremiumFractionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.cumulativePremiumFraction = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.estimatedNextCumulativePremiumFraction = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -536,6 +630,12 @@ export const QueryCumulativePremiumFractionResponse = {
     message.estimatedNextCumulativePremiumFraction !== undefined &&
       (obj.estimatedNextCumulativePremiumFraction = message.estimatedNextCumulativePremiumFraction);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryCumulativePremiumFractionResponse>, I>>(
+    base?: I,
+  ): QueryCumulativePremiumFractionResponse {
+    return QueryCumulativePremiumFractionResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryCumulativePremiumFractionResponse>, I>>(
@@ -561,19 +661,24 @@ export const QueryMetricsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryMetricsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryMetricsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pair = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -586,6 +691,10 @@ export const QueryMetricsRequest = {
     const obj: any = {};
     message.pair !== undefined && (obj.pair = message.pair);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryMetricsRequest>, I>>(base?: I): QueryMetricsRequest {
+    return QueryMetricsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryMetricsRequest>, I>>(object: I): QueryMetricsRequest {
@@ -608,19 +717,24 @@ export const QueryMetricsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryMetricsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryMetricsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.metrics = Metrics.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -633,6 +747,10 @@ export const QueryMetricsResponse = {
     const obj: any = {};
     message.metrics !== undefined && (obj.metrics = message.metrics ? Metrics.toJSON(message.metrics) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryMetricsResponse>, I>>(base?: I): QueryMetricsResponse {
+    return QueryMetricsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryMetricsResponse>, I>>(object: I): QueryMetricsResponse {
@@ -659,7 +777,9 @@ export interface Query {
 
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "nibiru.perp.v1.Query";
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
     this.QueryPosition = this.QueryPosition.bind(this);
@@ -669,34 +789,34 @@ export class QueryClientImpl implements Query {
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "Params", data);
+    return promise.then((data) => QueryParamsResponse.decode(_m0.Reader.create(data)));
   }
 
   QueryPosition(request: QueryPositionRequest): Promise<QueryPositionResponse> {
     const data = QueryPositionRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Query", "QueryPosition", data);
-    return promise.then((data) => QueryPositionResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "QueryPosition", data);
+    return promise.then((data) => QueryPositionResponse.decode(_m0.Reader.create(data)));
   }
 
   QueryPositions(request: QueryPositionsRequest): Promise<QueryPositionsResponse> {
     const data = QueryPositionsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Query", "QueryPositions", data);
-    return promise.then((data) => QueryPositionsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "QueryPositions", data);
+    return promise.then((data) => QueryPositionsResponse.decode(_m0.Reader.create(data)));
   }
 
   CumulativePremiumFraction(
     request: QueryCumulativePremiumFractionRequest,
   ): Promise<QueryCumulativePremiumFractionResponse> {
     const data = QueryCumulativePremiumFractionRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Query", "CumulativePremiumFraction", data);
-    return promise.then((data) => QueryCumulativePremiumFractionResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "CumulativePremiumFraction", data);
+    return promise.then((data) => QueryCumulativePremiumFractionResponse.decode(_m0.Reader.create(data)));
   }
 
   Metrics(request: QueryMetricsRequest): Promise<QueryMetricsResponse> {
     const data = QueryMetricsRequest.encode(request).finish();
-    const promise = this.rpc.request("nibiru.perp.v1.Query", "Metrics", data);
-    return promise.then((data) => QueryMetricsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(this.service, "Metrics", data);
+    return promise.then((data) => QueryMetricsResponse.decode(_m0.Reader.create(data)));
   }
 }
 
