@@ -1,259 +1,263 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
+import Long from "long"
+import { Coin } from "../../cosmos/base/v1beta1/coin"
+import * as _m0 from "protobufjs/minimal"
 
-export const protobufPackage = "nibiru.util.v1";
+export const protobufPackage = "nibiru.util.v1"
 
-export interface QueryModuleAccountsRequest {
-}
+export interface QueryModuleAccountsRequest {}
 
 export interface QueryModuleAccountsResponse {
-  accounts: AccountWithBalance[];
+  accounts: AccountWithBalance[]
 }
 
 export interface AccountWithBalance {
-  name: string;
-  address: string;
-  balance: Coin[];
+  name: string
+  address: string
+  balance: Coin[]
 }
 
 function createBaseQueryModuleAccountsRequest(): QueryModuleAccountsRequest {
-  return {};
+  return {}
 }
 
 export const QueryModuleAccountsRequest = {
-  encode(_: QueryModuleAccountsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    return writer;
+  encode(
+    _: QueryModuleAccountsRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountsRequest {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryModuleAccountsRequest();
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = createBaseQueryModuleAccountsRequest()
     while (reader.pos < end) {
-      const tag = reader.uint32();
+      const tag = reader.uint32()
       switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
       }
-      if ((tag & 7) == 4 || tag == 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
     }
-    return message;
+    return message
   },
 
   fromJSON(_: any): QueryModuleAccountsRequest {
-    return {};
+    return {}
   },
 
   toJSON(_: QueryModuleAccountsRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const obj: any = {}
+    return obj
   },
 
-  create<I extends Exact<DeepPartial<QueryModuleAccountsRequest>, I>>(base?: I): QueryModuleAccountsRequest {
-    return QueryModuleAccountsRequest.fromPartial(base ?? {});
+  fromPartial<I extends Exact<DeepPartial<QueryModuleAccountsRequest>, I>>(
+    _: I,
+  ): QueryModuleAccountsRequest {
+    const message = createBaseQueryModuleAccountsRequest()
+    return message
   },
-
-  fromPartial<I extends Exact<DeepPartial<QueryModuleAccountsRequest>, I>>(_: I): QueryModuleAccountsRequest {
-    const message = createBaseQueryModuleAccountsRequest();
-    return message;
-  },
-};
+}
 
 function createBaseQueryModuleAccountsResponse(): QueryModuleAccountsResponse {
-  return { accounts: [] };
+  return { accounts: [] }
 }
 
 export const QueryModuleAccountsResponse = {
-  encode(message: QueryModuleAccountsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryModuleAccountsResponse,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     for (const v of message.accounts) {
-      AccountWithBalance.encode(v!, writer.uint32(10).fork()).ldelim();
+      AccountWithBalance.encode(v!, writer.uint32(10).fork()).ldelim()
     }
-    return writer;
+    return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountsResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryModuleAccountsResponse();
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = createBaseQueryModuleAccountsResponse()
     while (reader.pos < end) {
-      const tag = reader.uint32();
+      const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
-            break;
-          }
-
-          message.accounts.push(AccountWithBalance.decode(reader, reader.uint32()));
-          continue;
+          message.accounts.push(AccountWithBalance.decode(reader, reader.uint32()))
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
       }
-      if ((tag & 7) == 4 || tag == 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
     }
-    return message;
+    return message
   },
 
   fromJSON(object: any): QueryModuleAccountsResponse {
     return {
-      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => AccountWithBalance.fromJSON(e)) : [],
-    };
+      accounts: Array.isArray(object?.accounts)
+        ? object.accounts.map((e: any) => AccountWithBalance.fromJSON(e))
+        : [],
+    }
   },
 
   toJSON(message: QueryModuleAccountsResponse): unknown {
-    const obj: any = {};
+    const obj: any = {}
     if (message.accounts) {
-      obj.accounts = message.accounts.map((e) => e ? AccountWithBalance.toJSON(e) : undefined);
+      obj.accounts = message.accounts.map((e) =>
+        e ? AccountWithBalance.toJSON(e) : undefined,
+      )
     } else {
-      obj.accounts = [];
+      obj.accounts = []
     }
-    return obj;
+    return obj
   },
 
-  create<I extends Exact<DeepPartial<QueryModuleAccountsResponse>, I>>(base?: I): QueryModuleAccountsResponse {
-    return QueryModuleAccountsResponse.fromPartial(base ?? {});
+  fromPartial<I extends Exact<DeepPartial<QueryModuleAccountsResponse>, I>>(
+    object: I,
+  ): QueryModuleAccountsResponse {
+    const message = createBaseQueryModuleAccountsResponse()
+    message.accounts =
+      object.accounts?.map((e) => AccountWithBalance.fromPartial(e)) || []
+    return message
   },
-
-  fromPartial<I extends Exact<DeepPartial<QueryModuleAccountsResponse>, I>>(object: I): QueryModuleAccountsResponse {
-    const message = createBaseQueryModuleAccountsResponse();
-    message.accounts = object.accounts?.map((e) => AccountWithBalance.fromPartial(e)) || [];
-    return message;
-  },
-};
+}
 
 function createBaseAccountWithBalance(): AccountWithBalance {
-  return { name: "", address: "", balance: [] };
+  return { name: "", address: "", balance: [] }
 }
 
 export const AccountWithBalance = {
-  encode(message: AccountWithBalance, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: AccountWithBalance,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.name !== "") {
-      writer.uint32(10).string(message.name);
+      writer.uint32(10).string(message.name)
     }
     if (message.address !== "") {
-      writer.uint32(18).string(message.address);
+      writer.uint32(18).string(message.address)
     }
     for (const v of message.balance) {
-      Coin.encode(v!, writer.uint32(26).fork()).ldelim();
+      Coin.encode(v!, writer.uint32(26).fork()).ldelim()
     }
-    return writer;
+    return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AccountWithBalance {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAccountWithBalance();
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input)
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = createBaseAccountWithBalance()
     while (reader.pos < end) {
-      const tag = reader.uint32();
+      const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
-            break;
-          }
-
-          message.name = reader.string();
-          continue;
+          message.name = reader.string()
+          break
         case 2:
-          if (tag != 18) {
-            break;
-          }
-
-          message.address = reader.string();
-          continue;
+          message.address = reader.string()
+          break
         case 3:
-          if (tag != 26) {
-            break;
-          }
-
-          message.balance.push(Coin.decode(reader, reader.uint32()));
-          continue;
+          message.balance.push(Coin.decode(reader, reader.uint32()))
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
       }
-      if ((tag & 7) == 4 || tag == 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
     }
-    return message;
+    return message
   },
 
   fromJSON(object: any): AccountWithBalance {
     return {
       name: isSet(object.name) ? String(object.name) : "",
       address: isSet(object.address) ? String(object.address) : "",
-      balance: Array.isArray(object?.balance) ? object.balance.map((e: any) => Coin.fromJSON(e)) : [],
-    };
+      balance: Array.isArray(object?.balance)
+        ? object.balance.map((e: any) => Coin.fromJSON(e))
+        : [],
+    }
   },
 
   toJSON(message: AccountWithBalance): unknown {
-    const obj: any = {};
-    message.name !== undefined && (obj.name = message.name);
-    message.address !== undefined && (obj.address = message.address);
+    const obj: any = {}
+    message.name !== undefined && (obj.name = message.name)
+    message.address !== undefined && (obj.address = message.address)
     if (message.balance) {
-      obj.balance = message.balance.map((e) => e ? Coin.toJSON(e) : undefined);
+      obj.balance = message.balance.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
-      obj.balance = [];
+      obj.balance = []
     }
-    return obj;
+    return obj
   },
 
-  create<I extends Exact<DeepPartial<AccountWithBalance>, I>>(base?: I): AccountWithBalance {
-    return AccountWithBalance.fromPartial(base ?? {});
+  fromPartial<I extends Exact<DeepPartial<AccountWithBalance>, I>>(
+    object: I,
+  ): AccountWithBalance {
+    const message = createBaseAccountWithBalance()
+    message.name = object.name ?? ""
+    message.address = object.address ?? ""
+    message.balance = object.balance?.map((e) => Coin.fromPartial(e)) || []
+    return message
   },
-
-  fromPartial<I extends Exact<DeepPartial<AccountWithBalance>, I>>(object: I): AccountWithBalance {
-    const message = createBaseAccountWithBalance();
-    message.name = object.name ?? "";
-    message.address = object.address ?? "";
-    message.balance = object.balance?.map((e) => Coin.fromPartial(e)) || [];
-    return message;
-  },
-};
+}
 
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Queries the reserve assets in a given pool, identified by a token pair. */
-  ModuleAccounts(request: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse>;
+  ModuleAccounts(
+    request: QueryModuleAccountsRequest,
+  ): Promise<QueryModuleAccountsResponse>
 }
 
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  private readonly service: string;
-  constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "nibiru.util.v1.Query";
-    this.rpc = rpc;
-    this.ModuleAccounts = this.ModuleAccounts.bind(this);
+  private readonly rpc: Rpc
+  constructor(rpc: Rpc) {
+    this.rpc = rpc
+    this.ModuleAccounts = this.ModuleAccounts.bind(this)
   }
-  ModuleAccounts(request: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse> {
-    const data = QueryModuleAccountsRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "ModuleAccounts", data);
-    return promise.then((data) => QueryModuleAccountsResponse.decode(_m0.Reader.create(data)));
+  ModuleAccounts(
+    request: QueryModuleAccountsRequest,
+  ): Promise<QueryModuleAccountsResponse> {
+    const data = QueryModuleAccountsRequest.encode(request).finish()
+    const promise = this.rpc.request("nibiru.util.v1.Query", "ModuleAccounts", data)
+    return promise.then((data) =>
+      QueryModuleAccountsResponse.decode(new _m0.Reader(data)),
+    )
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
 
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Long
+  ? string | number | Long
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>
 
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+type KeysOfUnion<T> = T extends T ? keyof T : never
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >
 
 if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
+  _m0.util.Long = Long as any
+  _m0.configure()
 }
 
 function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
+  return value !== null && value !== undefined
 }
