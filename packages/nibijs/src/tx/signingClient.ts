@@ -10,6 +10,7 @@ import {
   SigningStargateClientOptions,
 } from "@cosmjs/stargate"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
+import { setupUtilsExtension } from "src/query/util"
 import { perpTypes } from "../msg/perp"
 import { spotTypes } from "../msg/spot"
 import { setupEpochsExtension } from "../query/epochs"
@@ -58,6 +59,7 @@ export class NibiruSigningClient extends SigningStargateClient {
       setupDistributionExtension,
       setupGovExtension,
       setupStakingExtension,
+      setupUtilsExtension,
     )
   }
 
