@@ -72,7 +72,7 @@ echo "Grabbing all of the Cosmos-SDK and third party protos"
 echo "current dir: $(pwd)"
 cd -;
 echo "current dir: $(pwd)"
-proto_dirs=$(find $cosmos_sdk_dir/proto $cosmos_sdk_dir/third_party/proto/ ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
+proto_dirs=$(find $cosmos_sdk_dir/proto $cosmos_sdk_dir/third_party/proto proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | uniq | sort)
 echo "Proto Directories: "
 for dir in $proto_dirs; do \
   echo $dir
@@ -85,15 +85,14 @@ rm -rf $PKG_OUT_DIR/*
 
 skip_line
 for dir in $proto_dirs; do \
-  string=$dir
   prefix=$HOME/go/pkg/mod/github.com
-  prefix_removed_string=${string/#$prefix}
+  prefix_removed_string=${dir/#$prefix}
   echo "generating $prefix_removed_string ----------------------------------------" 
   protoc \
     --plugin=./node_modules/.bin/protoc-gen-ts_proto \
     -I "$cosmos_sdk_dir/third_party/proto" \
     -I "$cosmos_sdk_dir/proto" \
-    -I proto/proto \
+    -I proto \
     --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
     --ts_proto_out=$PKG_OUT_DIR \
     $(find "${dir}" -type f -name '*.proto')
