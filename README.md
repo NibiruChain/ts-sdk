@@ -20,8 +20,8 @@ The official TypeScript SDK for the Nibiru blockchain
 <a target="_blank" href="https://github.com/NibiruChain/ts-sdk/blob/main/LICENSE">
   <img src="https://img.shields.io/npm/l/express.svg?color=050505" style="height: 20px">
 </a>
-<a target="_blank" href="https://discord.gg/sgPw8ZYfpQ">
-  <img src="https://dcbadge.vercel.app/api/server/sgPw8ZYfpQ?style=flat" style="height: 20px">
+<a target="_blank" href="https://discord.gg/nibiru">
+  <img src="https://dcbadge.vercel.app/api/server/nibiru?style=flat" style="height: 20px">
 </a>
 
 </div>
