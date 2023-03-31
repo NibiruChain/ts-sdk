@@ -88,6 +88,38 @@ test("markPriceCandles", async () => {
   }
 })
 
+test("liquidations", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 30 * 24 * 60 * 60)
+  const resp = await heartMonitor.liquidations({
+    pair,
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("liquidations")
+
+  if (resp.liquidations.length > 0) {
+    const [liquidation] = resp.liquidations
+    const fields = [
+      "block",
+      "blockTs",
+      "traderAddress",
+      "pair",
+      "liquidatorAddress",
+      "exchangedQuoteAmount",
+      "exchangedPositionSize",
+      "feeToLiquidator",
+      "feeToEcosystemFund",
+      "badDebt",
+    ]
+    fields.forEach((field: string) => {
+      expect(liquidation).toHaveProperty(field)
+    })
+  }
+})
+
 /*
 
 test("useQueryMarkPrices", async () => {
