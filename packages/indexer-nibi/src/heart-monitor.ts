@@ -1,5 +1,10 @@
 import { gqlEndptFromTmRpc } from "./gql"
 import {
+  GqlInLiquidation,
+  GqlOutLiquidations,
+  liquidations,
+} from "./query/liquidations"
+import {
   GqlInMarkPriceCandle,
   GqlOutMarkPriceCandle,
   markPriceCandles,
@@ -11,6 +16,8 @@ export interface IHeartMonitor {
   readonly markPriceCandles: (
     args: GqlInMarkPriceCandle,
   ) => Promise<GqlOutMarkPriceCandle>
+
+  readonly liquidations: (args: GqlInLiquidation) => Promise<GqlOutLiquidations>
 
   /*
   readonly useQueryBlockMarkPrices: (args: {
@@ -68,6 +75,8 @@ export class HeartMonitor implements IHeartMonitor {
     args: GqlInMarkPriceCandle,
   ): Promise<GqlOutMarkPriceCandle> => markPriceCandles(args, this.gqlEndpt)
 
+  liquidations = async (args: GqlInLiquidation): Promise<GqlOutLiquidations> =>
+    liquidations(args, this.gqlEndpt)
   /*
   // ------------------------------------------------------------
   // inactive
