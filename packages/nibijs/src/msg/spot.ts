@@ -7,7 +7,7 @@ import {
   protobufPackage,
 } from "@nibiruchain/protojs/dist/spot/v1/tx"
 
-export const SPOT_MSG_TYPE_URLS: Record<string, string> = {
+export const SPOT_MSG_TYPE_URLS = {
   MsgCreatePool: `/${protobufPackage}.MsgCreatePool`,
   MsgJoinPool: `/${protobufPackage}.MsgJoinPool`,
   MsgExitPool: `/${protobufPackage}.MsgExitPool`,

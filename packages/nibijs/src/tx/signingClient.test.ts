@@ -112,19 +112,19 @@ describe("nibid tx perp", () => {
     expect(txLogs).toHaveLength(3)
 
     // perp tx open-position events
-    assertHasMsgType("MsgOpenPosition", txLogs[0].events)
+    assertHasMsgType(PERP_MSG_TYPE_URLS.MsgOpenPosition, txLogs[0].events)
     assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[0].events)
     assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[0].events)
     assertHasEventType("nibiru.vpool.v1.MarkPriceChangedEvent", txLogs[0].events)
     assertHasEventType("transfer", txLogs[0].events)
 
     // perp tx add-margin events
-    assertHasMsgType("MsgAddMargin", txLogs[1].events)
+    assertHasMsgType(PERP_MSG_TYPE_URLS.MsgAddMargin, txLogs[1].events)
     assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[1].events)
     assertHasEventType("transfer", txLogs[1].events)
 
     // perp tx remove-margin events
-    assertHasMsgType("MsgRemoveMargin", txLogs[2].events)
+    assertHasMsgType(PERP_MSG_TYPE_URLS.MsgRemoveMargin, txLogs[2].events)
     assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[2].events)
     assertHasEventType("transfer", txLogs[2].events)
   }, 40_000 /* default timeout is not sufficient. */)
