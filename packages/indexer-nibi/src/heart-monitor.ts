@@ -4,6 +4,7 @@ import {
   GqlOutMarkPriceCandle,
   markPriceCandles,
 } from "./query/markPriceCandles"
+import { GqlInMarkPrice, GqlOutMarkPrice, markPrices } from "./query/markPrices"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -11,6 +12,8 @@ export interface IHeartMonitor {
   readonly markPriceCandles: (
     args: GqlInMarkPriceCandle,
   ) => Promise<GqlOutMarkPriceCandle>
+
+  readonly markPrices: (args: GqlInMarkPrice) => Promise<GqlOutMarkPrice>
 
   /*
   readonly useQueryBlockMarkPrices: (args: {
@@ -67,6 +70,9 @@ export class HeartMonitor implements IHeartMonitor {
   markPriceCandles = async (
     args: GqlInMarkPriceCandle,
   ): Promise<GqlOutMarkPriceCandle> => markPriceCandles(args, this.gqlEndpt)
+
+  markPrices = async (args: GqlInMarkPrice): Promise<GqlOutMarkPrice> =>
+    markPrices(args, this.gqlEndpt)
 
   /*
   // ------------------------------------------------------------
