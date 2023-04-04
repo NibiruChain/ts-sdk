@@ -88,6 +88,27 @@ test("markPriceCandles", async () => {
   }
 })
 
+test("oraclePrices", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.oraclePrices({
+    pair,
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("oraclePrices")
+
+  if (resp.oraclePrices.length > 0) {
+    const [price] = resp.oraclePrices
+    const fields = ["pair", "block", "blockTs", "price"]
+    fields.forEach((field: string) => {
+      expect(price).toHaveProperty(field)
+    })
+  }
+})
+
 /*
 
 test("useQueryMarkPrices", async () => {
