@@ -88,6 +88,27 @@ test("markPriceCandles", async () => {
   }
 })
 
+test("markPrices", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.markPrices({
+    pair,
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("markPrices")
+
+  if (resp.markPrices.length > 0) {
+    const [price] = resp.markPrices
+    const fields = ["pair", "block", "blockTs", "price"]
+    fields.forEach((field: string) => {
+      expect(price).toHaveProperty(field)
+    })
+  }
+})
+
 test("liquidations", async () => {
   const nowTimestamp = Date.now()
   const endDate = new Date(nowTimestamp)
