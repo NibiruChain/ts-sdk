@@ -7,6 +7,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.5.0
+
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query transfers
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query markPrices
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query fundingRates
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query liquidations
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query oraclePrices 
+
 ## v0.4.0
 
 - [[#99]](https://github.com/NibiruChain/ts-sdk/pull/99) feat: add `markPriceCandles` query
