@@ -120,6 +120,35 @@ test("liquidations", async () => {
   }
 })
 
+test("fundingRates", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 30 * 24 * 60 * 60)
+  const resp = await heartMonitor.fundingRates({
+    pair,
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("fundingRates")
+
+  if (resp.fundingRates.length > 0) {
+    const [fundingRate] = resp.fundingRates
+    const fields = [
+      "block",
+      "blockTs",
+      "pair",
+      "markPrice",
+      "indexPrice",
+      "latestFundingRate",
+      "cumulativePremiumFraction",
+    ]
+    fields.forEach((field: string) => {
+      expect(fundingRate).toHaveProperty(field)
+    })
+  }
+})
+
 /*
 
 test("useQueryMarkPrices", async () => {
