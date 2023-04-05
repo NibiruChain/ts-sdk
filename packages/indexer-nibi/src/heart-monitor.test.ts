@@ -170,6 +170,26 @@ test("fundingRates", async () => {
   }
 })
 
+test("transfers", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.transfers({
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("transfers")
+
+  if (resp.transfers.length > 0) {
+    const [transfer] = resp.transfers
+    const fields = ["block", "blockTs", "recipient", "sender", "amount"]
+    fields.forEach((field: string) => {
+      expect(transfer).toHaveProperty(field)
+    })
+  }
+})
+
 /*
 
 test("useQueryMarkPrices", async () => {
