@@ -211,6 +211,40 @@ test("oraclePrices", async () => {
   }
 })
 
+test("positions", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.positions({
+    pair,
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("positions")
+
+  if (resp.positions.length > 0) {
+    const [position] = resp.positions
+    const fields = [
+      "pair",
+      "block",
+      "blockTs",
+      "trader",
+      "size",
+      "margin",
+      "openNotional",
+      "positionNotional",
+      "unrealizedPnl",
+      "marginRatioMark",
+      "marginRatioIndex",
+      "openBlock",
+    ]
+    fields.forEach((field: string) => {
+      expect(position).toHaveProperty(field)
+    })
+  }
+})
+
 /*
 
 test("useQueryMarkPrices", async () => {
