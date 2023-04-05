@@ -14,6 +14,7 @@ import { GqlInMarkPrice, GqlOutMarkPrice, markPrices } from "./query/markPrices"
 import { GqlInTransfer, GqlOutTransfer, transfers } from "./query/transfer"
 import { GqlInOraclePrice, GqlOutOraclePrice, oraclePrices } from "./query/oraclePrices"
 import { GqlInPosition, GqlOutPosition, positions } from "./query/positions"
+import { GqlInUnbondings, GqlOutUnbondings, unbondings } from "./query/unbondings"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -29,8 +30,12 @@ export interface IHeartMonitor {
   readonly fundingRates: (args: GqlInFundingRate) => Promise<GqlOutFundingRate>
 
   readonly transfers: (args: GqlInTransfer) => Promise<GqlOutTransfer>
+
   readonly oraclePrices: (args: GqlInOraclePrice) => Promise<GqlOutOraclePrice>
+
   readonly positions: (args: GqlInPosition) => Promise<GqlOutPosition>
+
+  readonly unbondings: (args: GqlInUnbondings) => Promise<GqlOutUnbondings>
 
   /*
   readonly useQueryBlockMarkPrices: (args: {
@@ -93,8 +98,10 @@ export class HeartMonitor implements IHeartMonitor {
 
   liquidations = async (args: GqlInLiquidation): Promise<GqlOutLiquidations> =>
     liquidations(args, this.gqlEndpt)
+
   fundingRates = async (args: GqlInFundingRate): Promise<GqlOutFundingRate> =>
     fundingRates(args, this.gqlEndpt)
+
   transfers = async (args: GqlInTransfer): Promise<GqlOutTransfer> =>
     transfers(args, this.gqlEndpt)
 
@@ -103,6 +110,9 @@ export class HeartMonitor implements IHeartMonitor {
 
   positions = async (args: GqlInPosition): Promise<GqlOutPosition> =>
     positions(args, this.gqlEndpt)
+
+  unbondings = async (args: GqlInUnbondings): Promise<GqlOutUnbondings> =>
+    unbondings(args, this.gqlEndpt)
 
   /*
   // ------------------------------------------------------------

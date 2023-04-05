@@ -8,7 +8,7 @@ const toBlock = 10
 const lastN = 20
 const pair = "ubtc:unusd"
 
-const heartMonitor = new HeartMonitor()
+const heartMonitor = new HeartMonitor({ endptTm: "https://rpc.itn-1.nibiru.fi" })
 
 describe("Heart Monitor constructor", () => {
   interface TestCase {
@@ -241,6 +241,35 @@ test("positions", async () => {
     ]
     fields.forEach((field: string) => {
       expect(position).toHaveProperty(field)
+    })
+  }
+})
+
+test("unbondings", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.unbondings({
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("unbondings")
+
+  if (resp.unbondings.length > 0) {
+    const [unbonding] = resp.unbondings
+    const fields = [
+      "block",
+      "blockTs",
+      "validatorAddress",
+      "delegatorAddress",
+      "creationHeight",
+      "completionTime",
+      "initialBalance",
+      "balance",
+    ]
+    fields.forEach((field: string) => {
+      expect(unbonding).toHaveProperty(field)
     })
   }
 })
