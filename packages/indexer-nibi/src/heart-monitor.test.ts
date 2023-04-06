@@ -274,6 +274,36 @@ test("unbondings", async () => {
   }
 })
 
+test("statsVolume", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.statsVolume({
+    limit: 3,
+    period: CandlePeriod.HOUR_1,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("statsVolume")
+
+  if (resp.statsVolume.length > 0) {
+    const [statVolume] = resp.statsVolume
+    const fields = [
+      "period",
+      "periodStartTs",
+      "volumePerp",
+      "volumeSwap",
+      "volumeTotal",
+      "volumePerpCumulative",
+      "volumeSwapCumulative",
+      "volumeTotalCumulative",
+    ]
+    fields.forEach((field: string) => {
+      expect(statVolume).toHaveProperty(field)
+    })
+  }
+})
+
 /*
 
 test("useQueryMarkPrices", async () => {
