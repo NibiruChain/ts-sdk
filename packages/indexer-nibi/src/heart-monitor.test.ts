@@ -337,6 +337,26 @@ test("validators", async () => {
   }
 })
 
+test("balances", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.balances({
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("balances")
+
+  if (resp.balances.length > 0) {
+    const [balance] = resp.balances
+    const fields = ["block", "blockTs", "moduleName", "address", "balance"]
+    fields.forEach((field: string) => {
+      expect(balance).toHaveProperty(field)
+    })
+  }
+})
+
 /*
 
 test("useQueryMarkPrices", async () => {
