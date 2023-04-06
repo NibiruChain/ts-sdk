@@ -245,6 +245,43 @@ test("positions", async () => {
   }
 })
 
+test("positionChanges", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.positionChanges({
+    pair,
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("positionChanges")
+
+  if (resp.positionChanges.length > 0) {
+    const [change] = resp.positionChanges
+    const fields = [
+      "pair",
+      "block",
+      "blockTs",
+      "traderAddress",
+      "margin",
+      "markPrice",
+      "positionSize",
+      "exchangedSize",
+      "positionNotional",
+      "exchangedNotional",
+      "fundingPayment",
+      "transactionFee",
+      "unrealizedPnlAfter",
+      "realizedPnl",
+      "badDebt",
+    ]
+    fields.forEach((field: string) => {
+      expect(change).toHaveProperty(field)
+    })
+  }
+})
+
 test("unbondings", async () => {
   const nowTimestamp = Date.now()
   const endDate = new Date(nowTimestamp)
