@@ -36,11 +36,6 @@ export interface GqlInFundingRate {
 export enum FundingRateOrderBy {
   block = "block",
   block_ts = "block_ts",
-  pair = "pair",
-  mark_price = "mark_price",
-  index_price = "index_price",
-  latest_funding_rate = "latest_funding_rate",
-  cumulative_premium_fraction = "cumulative_premium_fraction",
 }
 
 export const fundingRates = async (

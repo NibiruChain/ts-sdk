@@ -33,8 +33,6 @@ export interface GqlInOraclePrice {
 export enum OraclePriceOrderBy {
   block = "block",
   block_ts = "block_ts",
-  pair = "pair",
-  price = "price",
 }
 
 export const oraclePrices = async (

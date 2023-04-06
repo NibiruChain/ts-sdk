@@ -39,18 +39,8 @@ export interface GqlInPosition {
 }
 
 export enum PositionOrderBy {
-  pair = "pair",
   block = "block",
   block_ts = "block_ts",
-  trader = "trader",
-  size = "size",
-  margin = "margin",
-  open_notional = "open_notional",
-  position_notional = "position_notional",
-  unrealized_pnl = "unrealized_pnl",
-  margin_ratio_mark = "margin_ratio_mark",
-  margin_ratio_index = "margin_ratio_index",
-  open_block = "open_block",
 }
 
 export const positions = async (

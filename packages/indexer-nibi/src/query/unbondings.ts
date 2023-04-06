@@ -38,12 +38,6 @@ export interface GqlInUnbondings {
 export enum UnbondingsOrderBy {
   block = "block",
   block_ts = "block_ts",
-  validator_address = "validator_address",
-  delegator_address = "delegator_address",
-  creation_height = "creation_height",
-  completion_time = "completion_time",
-  initial_balance = "initial_balance",
-  balance = "balance",
 }
 
 export const unbondings = async (

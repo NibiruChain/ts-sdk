@@ -33,8 +33,6 @@ export interface GqlInMarkPrice {
 export enum MarkPriceOrderBy {
   block = "block",
   block_ts = "block_ts",
-  pair = "pair",
-  price = "price",
 }
 
 export const markPrices = async (

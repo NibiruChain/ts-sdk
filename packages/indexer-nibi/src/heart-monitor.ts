@@ -16,6 +16,7 @@ import { GqlInOraclePrice, GqlOutOraclePrice, oraclePrices } from "./query/oracl
 import { GqlInPosition, GqlOutPosition, positions } from "./query/positions"
 import { GqlInUnbondings, GqlOutUnbondings, unbondings } from "./query/unbondings"
 import { GqlInStatsVolume, GqlOutStatsVolume, statsVolume } from "./query/statsVolume"
+import { GqlInValidator, GqlOutValidator, validators } from "./query/validators"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -39,6 +40,8 @@ export interface IHeartMonitor {
   readonly unbondings: (args: GqlInUnbondings) => Promise<GqlOutUnbondings>
 
   readonly statsVolume: (args: GqlInStatsVolume) => Promise<GqlOutStatsVolume>
+
+  readonly validators: (args: GqlInValidator) => Promise<GqlOutValidator>
 
   /*
   readonly useQueryBlockMarkPrices: (args: {
@@ -119,6 +122,9 @@ export class HeartMonitor implements IHeartMonitor {
 
   statsVolume = async (args: GqlInStatsVolume): Promise<GqlOutStatsVolume> =>
     statsVolume(args, this.gqlEndpt)
+
+  validators = async (args: GqlInValidator): Promise<GqlOutValidator> =>
+    validators(args, this.gqlEndpt)
 
   /*
   // ------------------------------------------------------------

@@ -1,4 +1,4 @@
-import { CandlePeriod } from "../enum"
+import { StatsPeriod } from "../enum"
 import { doGqlQuery, arg } from "../gql"
 
 // ------------------------------------------------
@@ -26,7 +26,7 @@ export interface GqlOutStatsVolume {
 
 /** GqlInStatsVolume: Input arguments for the StatsVolume query  */
 export interface GqlInStatsVolume {
-  period: CandlePeriod
+  period: StatsPeriod
   limit: number
   startTs?: string
   endTs?: string

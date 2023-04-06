@@ -42,14 +42,6 @@ export interface GqlInLiquidation {
 export enum LiquidationsOrderBy {
   block = "block",
   block_ts = "block_ts",
-  pair = "pair",
-  liquidator = "liquidator_address",
-  trader = "trader_address",
-  exchanged_quote_amount = "exchanged_quote_amount",
-  exchanged_position_size = "exchanged_position_size",
-  fee_to_liquidator = "fee_to_liquidator",
-  fee_to_ecosystem_fund = "fee_to_ecosystem_fund",
-  bad_debt = "bad_debt",
 }
 
 export const liquidations = async (

@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-conditional-expect */
 import { HeartMonitor } from "./heart-monitor"
-import { CandlePeriod } from "./enum"
+import { CandlePeriod, StatsPeriod } from "./enum"
 import { gqlEndptFromTmRpc } from "./gql"
 
 const fromBlock = 1
@@ -280,7 +280,7 @@ test("statsVolume", async () => {
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.statsVolume({
     limit: 3,
-    period: CandlePeriod.HOUR_1,
+    period: StatsPeriod.HOUR_1,
     startTs: startDate.toISOString(),
     endTs: endDate.toISOString(),
   })
@@ -300,6 +300,39 @@ test("statsVolume", async () => {
     ]
     fields.forEach((field: string) => {
       expect(statVolume).toHaveProperty(field)
+    })
+  }
+})
+
+test("validators", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.validators({
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("validators")
+
+  if (resp.validators.length > 0) {
+    const [validator] = resp.validators
+    const fields = [
+      "block",
+      "blockTs",
+      "operatorAddress",
+      "jailed",
+      "statusBonded",
+      "tokens",
+      "delegatorShares",
+      "description",
+      "unbondingHeight",
+      "unbondingTime",
+      "commissionRates",
+      "commissionUpdateTime",
+    ]
+    fields.forEach((field: string) => {
+      expect(validator).toHaveProperty(field)
     })
   }
 })
