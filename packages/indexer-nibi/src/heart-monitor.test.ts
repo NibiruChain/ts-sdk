@@ -357,6 +357,36 @@ test("balances", async () => {
   }
 })
 
+test("vpoolConfigs", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.vpoolConfigs({
+    pair,
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("vpoolConfigs")
+
+  if (resp.vpoolConfigs.length > 0) {
+    const [config] = resp.vpoolConfigs
+    const fields = [
+      "block",
+      "blockTs",
+      "pair",
+      "tradeLimitRatio",
+      "fluctuationLimitRatio",
+      "maxOracleSpreadRatio",
+      "maintenanceMarginRatio",
+      "maxLeverage",
+    ]
+    fields.forEach((field: string) => {
+      expect(config).toHaveProperty(field)
+    })
+  }
+})
+
 /*
 
 test("useQueryMarkPrices", async () => {
