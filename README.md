@@ -20,10 +20,9 @@ The official TypeScript SDK for the Nibiru blockchain
 <a target="_blank" href="https://github.com/NibiruChain/ts-sdk/blob/main/LICENSE">
   <img src="https://img.shields.io/npm/l/express.svg?color=050505" style="height: 20px">
 </a>
-<a target="_blank" href="https://discord.gg/nibiru">
-  <img src="https://dcbadge.vercel.app/api/server/nibiru?style=flat" style="height: 20px">
+<a target="_blank" href="https://discord.gg/nibiruchain">
+  <img src="https://dcbadge.vercel.app/api/server/nibiruchain?style=flat" style="height: 20px">
 </a>
-
 </div>
 
 The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions. 
