@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-conditional-expect */
 import { HeartMonitor } from "./heart-monitor"
-import { CandlePeriod } from "./enum"
+import { CandlePeriod, StatsPeriod } from "./enum"
 import { gqlEndptFromTmRpc } from "./gql"
 
 const fromBlock = 1
@@ -245,6 +245,43 @@ test("positions", async () => {
   }
 })
 
+test("positionChanges", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.positionChanges({
+    pair,
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("positionChanges")
+
+  if (resp.positionChanges.length > 0) {
+    const [change] = resp.positionChanges
+    const fields = [
+      "pair",
+      "block",
+      "blockTs",
+      "traderAddress",
+      "margin",
+      "markPrice",
+      "positionSize",
+      "exchangedSize",
+      "positionNotional",
+      "exchangedNotional",
+      "fundingPayment",
+      "transactionFee",
+      "unrealizedPnlAfter",
+      "realizedPnl",
+      "badDebt",
+    ]
+    fields.forEach((field: string) => {
+      expect(change).toHaveProperty(field)
+    })
+  }
+})
+
 test("unbondings", async () => {
   const nowTimestamp = Date.now()
   const endDate = new Date(nowTimestamp)
@@ -270,6 +307,119 @@ test("unbondings", async () => {
     ]
     fields.forEach((field: string) => {
       expect(unbonding).toHaveProperty(field)
+    })
+  }
+})
+
+test("statsVolume", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.statsVolume({
+    limit: 3,
+    period: StatsPeriod.HOUR_1,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("statsVolume")
+
+  if (resp.statsVolume.length > 0) {
+    const [statVolume] = resp.statsVolume
+    const fields = [
+      "period",
+      "periodStartTs",
+      "volumePerp",
+      "volumeSwap",
+      "volumeTotal",
+      "volumePerpCumulative",
+      "volumeSwapCumulative",
+      "volumeTotalCumulative",
+    ]
+    fields.forEach((field: string) => {
+      expect(statVolume).toHaveProperty(field)
+    })
+  }
+})
+
+test("validators", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.validators({
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("validators")
+
+  if (resp.validators.length > 0) {
+    const [validator] = resp.validators
+    const fields = [
+      "block",
+      "blockTs",
+      "operatorAddress",
+      "jailed",
+      "statusBonded",
+      "tokens",
+      "delegatorShares",
+      "description",
+      "unbondingHeight",
+      "unbondingTime",
+      "commissionRates",
+      "commissionUpdateTime",
+    ]
+    fields.forEach((field: string) => {
+      expect(validator).toHaveProperty(field)
+    })
+  }
+})
+
+test("balances", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.balances({
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("balances")
+
+  if (resp.balances.length > 0) {
+    const [balance] = resp.balances
+    const fields = ["block", "blockTs", "moduleName", "address", "balance"]
+    fields.forEach((field: string) => {
+      expect(balance).toHaveProperty(field)
+    })
+  }
+})
+
+test("vpoolConfigs", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.vpoolConfigs({
+    pair,
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("vpoolConfigs")
+
+  if (resp.vpoolConfigs.length > 0) {
+    const [config] = resp.vpoolConfigs
+    const fields = [
+      "block",
+      "blockTs",
+      "pair",
+      "tradeLimitRatio",
+      "fluctuationLimitRatio",
+      "maxOracleSpreadRatio",
+      "maintenanceMarginRatio",
+      "maxLeverage",
+    ]
+    fields.forEach((field: string) => {
+      expect(config).toHaveProperty(field)
     })
   }
 })

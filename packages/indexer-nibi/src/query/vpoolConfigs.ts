@@ -1,73 +1,64 @@
 import { doGqlQuery, arg } from "../gql"
 
 // ------------------------------------------------
-// Liquidation
+// VPoolConfig
 // ------------------------------------------------
 
 /**
- * Liquidation: A single liquidation data.
- * - pair: identifier for a market pair, e.g. "ueth:unusd".
+ * VPoolConfig: A single vpool config data.
  */
-export interface Liquidation {
+export interface VPoolConfig {
   block: number
   blockTs: string
   pair: string
-  traderAddress: string
-  liquidatorAddress: string
-  exchangedQuoteAmount: number
-  exchangedPositionSize: number
-  feeToLiquidator: string
-  feeToEcosystemFund: string
-  badDebt: string
+  tradeLimitRatio: number
+  fluctuationLimitRatio: number
+  maxOracleSpreadRatio: number
+  maintenanceMarginRatio: number
+  maxLeverage: number
 }
 
-/** GqlOutLiquidations: Output response for the Liquidation query  */
-export interface GqlOutLiquidations {
-  liquidations: Liquidation[]
+/** GqlOutVPoolConfig: Output response for the VPoolConfig query  */
+export interface GqlOutVPoolConfig {
+  vpoolConfigs: VPoolConfig[]
 }
 
-/** GqlInLiquidation: Input arguments for the Liquidation query  */
-export interface GqlInLiquidation {
+/** GqlInVPoolConfig: Input arguments for the VPoolConfig query  */
+export interface GqlInVPoolConfig {
   pair: string
-  liquidator?: string
-  trader?: string
-  block?: string
   limit: number
+  block?: string
   startTs?: string
   endTs?: string
-  orderBy?: LiquidationsOrderBy | string
+  orderBy?: VPoolConfigOrderBy | string
   orderDescending?: boolean // defaults to true
 }
 
-export enum LiquidationsOrderBy {
+export enum VPoolConfigOrderBy {
   block = "block",
   block_ts = "block_ts",
 }
 
-export const liquidations = async (
-  args: GqlInLiquidation,
+export const vpoolConfigs = async (
+  args: GqlInVPoolConfig,
   endpt: string,
-): Promise<GqlOutLiquidations> => {
+): Promise<GqlOutVPoolConfig> => {
   if (args.orderDescending === undefined) args.orderDescending = true
-  if (args.orderBy === undefined) args.orderBy = LiquidationsOrderBy.block_ts
+  if (args.orderBy === undefined) args.orderBy = VPoolConfigOrderBy.block_ts
 
   const gqlQuery = ({
     pair,
     block,
-    liquidator,
-    trader,
     startTs,
     endTs,
     limit,
     orderBy,
     orderDescending,
-  }: GqlInLiquidation): string => {
+  }: GqlInVPoolConfig): string => {
     const argWhere = (): string => {
       const whereConditions: string[] = []
       whereConditions.push(`pairEq: "${pair}"`)
       if (block) whereConditions.push(`blockEq: "${block}"`)
-      if (liquidator) whereConditions.push(`liquidatorAddressEq: "${liquidator}"`)
-      if (trader) whereConditions.push(`traderAddressEq: "${trader}"`)
       if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
       if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
       const argWhereBody: string = whereConditions.join(", ")
@@ -82,17 +73,15 @@ export const liquidations = async (
     ]
     const queryArgs: string = queryArgList.join(", ")
     return `{
-        liquidations(${queryArgs}) {
+        vpoolConfigs(${queryArgs}) {
           block
           blockTs
-          traderAddress
           pair
-          liquidatorAddress
-          exchangedQuoteAmount
-          exchangedPositionSize
-          feeToLiquidator
-          feeToEcosystemFund
-          badDebt
+          tradeLimitRatio
+          fluctuationLimitRatio
+          maxOracleSpreadRatio
+          maintenanceMarginRatio
+          maxLeverage
         }
       }`
   }

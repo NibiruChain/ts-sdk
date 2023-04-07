@@ -35,8 +35,6 @@ export interface GqlInTransfer {
 export enum TransferOrderBy {
   block = "block",
   block_ts = "block_ts",
-  sender = "sender",
-  recipient = "recipient",
 }
 
 export const transfers = async (

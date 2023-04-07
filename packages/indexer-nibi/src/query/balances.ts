@@ -1,65 +1,66 @@
 import { doGqlQuery, arg } from "../gql"
 
 // ------------------------------------------------
-// FundingRate
+// Balance
 // ------------------------------------------------
 
 /**
- * FundingRate: A single funding rate data.
+ * Balance: A single balance data.
  */
-export interface FundingRate {
+export interface Balance {
   block: number
   blockTs: string
-  pair: string
-  markPrice: number
-  indexPrice: number
-  latestFundingRate: number
-  cumulativePremiumFraction: number
+  moduleName: string
+  address: string
+  balance: string
 }
 
-/** GqlOutFundingRate: Output response for the FundingRate query  */
-export interface GqlOutFundingRate {
-  fundingRates: FundingRate[]
+/** GqlOutBalance: Output response for the Balance query  */
+export interface GqlOutBalance {
+  balances: Balance[]
 }
 
-/** GqlInFundingRate: Input arguments for the FundingRate query  */
-export interface GqlInFundingRate {
-  pair: string
+/** GqlInBalance: Input arguments for the Balance query  */
+export interface GqlInBalance {
   limit: number
   block?: string
   startTs?: string
   endTs?: string
-  orderBy?: FundingRateOrderBy | string
+  moduleName?: string
+  address?: string
+  orderBy?: BalanceOrderBy | string
   orderDescending?: boolean // defaults to true
 }
 
-export enum FundingRateOrderBy {
+export enum BalanceOrderBy {
   block = "block",
   block_ts = "block_ts",
 }
 
-export const fundingRates = async (
-  args: GqlInFundingRate,
+export const balances = async (
+  args: GqlInBalance,
   endpt: string,
-): Promise<GqlOutFundingRate> => {
+): Promise<GqlOutBalance> => {
   if (args.orderDescending === undefined) args.orderDescending = true
-  if (args.orderBy === undefined) args.orderBy = FundingRateOrderBy.block_ts
+  if (args.orderBy === undefined) args.orderBy = BalanceOrderBy.block_ts
 
   const gqlQuery = ({
-    pair,
     block,
     startTs,
     endTs,
     limit,
+    moduleName,
+    address,
     orderBy,
     orderDescending,
-  }: GqlInFundingRate): string => {
+  }: GqlInBalance): string => {
     const argWhere = (): string => {
       const whereConditions: string[] = []
-      whereConditions.push(`pairEq: "${pair}"`)
       if (block) whereConditions.push(`blockEq: "${block}"`)
       if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
       if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
+      if (moduleName) whereConditions.push(`moduleNameEq: "${moduleName}"`)
+      if (address) whereConditions.push(`addressEq: "${address}"`)
       const argWhereBody: string = whereConditions.join(", ")
       return `where: { ${argWhereBody} }`
     }
@@ -72,14 +73,12 @@ export const fundingRates = async (
     ]
     const queryArgs: string = queryArgList.join(", ")
     return `{
-        fundingRates(${queryArgs}) {
+        balances(${queryArgs}) {
           block
           blockTs
-          pair
-          markPrice
-          indexPrice
-          latestFundingRate
-          cumulativePremiumFraction
+          moduleName
+          address
+          balance
         }
       }`
   }

@@ -41,11 +41,6 @@ export interface GqlInMarkPriceCandle {
 }
 
 export enum MarkPriceCandleOrderBy {
-  pair = "pair",
-  open = "open",
-  close = "close",
-  low = "low",
-  high = "high",
   period = "period",
   period_start_ts = "period_start_ts",
 }

@@ -15,6 +15,15 @@ import { GqlInTransfer, GqlOutTransfer, transfers } from "./query/transfer"
 import { GqlInOraclePrice, GqlOutOraclePrice, oraclePrices } from "./query/oraclePrices"
 import { GqlInPosition, GqlOutPosition, positions } from "./query/positions"
 import { GqlInUnbondings, GqlOutUnbondings, unbondings } from "./query/unbondings"
+import { GqlInStatsVolume, GqlOutStatsVolume, statsVolume } from "./query/statsVolume"
+import { GqlInValidator, GqlOutValidator, validators } from "./query/validators"
+import { balances, GqlInBalance, GqlOutBalance } from "./query/balances"
+import { GqlInVPoolConfig, GqlOutVPoolConfig, vpoolConfigs } from "./query/vpoolConfigs"
+import {
+  GqlInPositionChange,
+  GqlOutPositionChange,
+  positionChanges,
+} from "./query/positionChanges"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -35,7 +44,17 @@ export interface IHeartMonitor {
 
   readonly positions: (args: GqlInPosition) => Promise<GqlOutPosition>
 
+  readonly positionChanges: (args: GqlInPositionChange) => Promise<GqlOutPositionChange>
+
   readonly unbondings: (args: GqlInUnbondings) => Promise<GqlOutUnbondings>
+
+  readonly statsVolume: (args: GqlInStatsVolume) => Promise<GqlOutStatsVolume>
+
+  readonly validators: (args: GqlInValidator) => Promise<GqlOutValidator>
+
+  readonly balances: (args: GqlInBalance) => Promise<GqlOutBalance>
+
+  readonly vpoolConfigs: (args: GqlInVPoolConfig) => Promise<GqlOutVPoolConfig>
 
   /*
   readonly useQueryBlockMarkPrices: (args: {
@@ -111,8 +130,23 @@ export class HeartMonitor implements IHeartMonitor {
   positions = async (args: GqlInPosition): Promise<GqlOutPosition> =>
     positions(args, this.gqlEndpt)
 
+  positionChanges = (args: GqlInPositionChange): Promise<GqlOutPositionChange> =>
+    positionChanges(args, this.gqlEndpt)
+
   unbondings = async (args: GqlInUnbondings): Promise<GqlOutUnbondings> =>
     unbondings(args, this.gqlEndpt)
+
+  statsVolume = async (args: GqlInStatsVolume): Promise<GqlOutStatsVolume> =>
+    statsVolume(args, this.gqlEndpt)
+
+  validators = async (args: GqlInValidator): Promise<GqlOutValidator> =>
+    validators(args, this.gqlEndpt)
+
+  balances = async (args: GqlInBalance): Promise<GqlOutBalance> =>
+    balances(args, this.gqlEndpt)
+
+  vpoolConfigs = async (args: GqlInVPoolConfig): Promise<GqlOutVPoolConfig> =>
+    vpoolConfigs(args, this.gqlEndpt)
 
   /*
   // ------------------------------------------------------------

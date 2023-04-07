@@ -1,54 +1,57 @@
 import { doGqlQuery, arg } from "../gql"
 
 // ------------------------------------------------
-// Position
+// PositionChange
 // ------------------------------------------------
 
 /**
- * Position: A single position data.
+ * PositionChange: A single position change data.
  */
-export interface Position {
+export interface PositionChange {
   pair: string
   block: number
   blockTs: string
-  trader: string
-  size: number
-  margin: number
-  openNotional: number
+  traderAddress: string
+  margin: string
+  markPrice: number
+  positionSize: number
+  exchangedSize: number
   positionNotional: number
-  unrealizedPnl: number
-  marginRatioMark: number
-  marginRatioIndex: number
-  openBlock: number
+  exchangedNotional: number
+  fundingPayment: number
+  transactionFee: String
+  unrealizedPnlAfter: number
+  realizedPnl: number
+  badDebt: string
 }
 
-/** GqlOutPosition: Output response for the Position query  */
-export interface GqlOutPosition {
-  positions: Position[]
+/** GqlOutPositionChange: Output response for the PositionChange query  */
+export interface GqlOutPositionChange {
+  positionChanges: PositionChange[]
 }
 
-/** GqlInPosition: Input arguments for the Position query  */
-export interface GqlInPosition {
+/** GqlInPositionChange: Input arguments for the PositionChange query  */
+export interface GqlInPositionChange {
   pair: string
   limit: number
   startTs?: string
   endTs?: string
   trader?: string
-  orderBy?: PositionOrderBy | string
+  orderBy?: PositionChangeOrderBy | string
   orderDescending?: boolean // defaults to true
 }
 
-export enum PositionOrderBy {
+export enum PositionChangeOrderBy {
   block = "block",
   block_ts = "block_ts",
 }
 
-export const positions = async (
-  args: GqlInPosition,
+export const positionChanges = async (
+  args: GqlInPositionChange,
   endpt: string,
-): Promise<GqlOutPosition> => {
+): Promise<GqlOutPositionChange> => {
   if (args.orderDescending === undefined) args.orderDescending = true
-  if (args.orderBy === undefined) args.orderBy = PositionOrderBy.block
+  if (args.orderBy === undefined) args.orderBy = PositionChangeOrderBy.block
 
   const gqlQuery = ({
     pair,
@@ -58,7 +61,7 @@ export const positions = async (
     limit,
     orderBy,
     orderDescending,
-  }: GqlInPosition): string => {
+  }: GqlInPositionChange): string => {
     const argWhere = (): string => {
       const whereConditions: string[] = []
       whereConditions.push(`pairEq: "${pair}"`)
@@ -77,19 +80,22 @@ export const positions = async (
     ]
     const queryArgs: string = queryArgList.join(", ")
     return `{
-        positions(${queryArgs}) {
+        positionChanges(${queryArgs}) {
           block
           blockTs
           pair
-          trader
-          size
+          traderAddress
           margin
-          openNotional
+          markPrice
+          positionSize
+          exchangedSize
           positionNotional
-          unrealizedPnl
-          marginRatioMark
-          marginRatioIndex
-          openBlock
+          exchangedNotional
+          fundingPayment
+          transactionFee
+          unrealizedPnlAfter
+          realizedPnl
+          badDebt
         }
       }`
   }
