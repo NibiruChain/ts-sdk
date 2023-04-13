@@ -1,4 +1,4 @@
-name: ⛓️ Tests: @nibiruchain/nibijs
+name: ⛓️ Tests @nibiruchain/nibijs
 
 on:
   pull_request:
