@@ -23,11 +23,11 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
       - name: Install nibid 
-        run: curl -s https://get.nibiru.fi/! | bash
+        run: curl -s https://get.nibiru.fi/@v0.19.2! | bash
+        # Use https://get.nibiru.fi/ to get the most recent release.
       - name: Run localnet.sh in the background
         run: |
           sh scripts/localnet.sh &
-        #   sh scripts/localnet.sh > /dev/null 2>&1 &
       - name: Setup NodeJS and npm
         uses: actions/setup-node@v3
         with:
