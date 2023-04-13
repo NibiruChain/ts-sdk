@@ -1,7 +1,7 @@
 import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import { newCoinMapFromCoins, newCoins, useFaucet, WalletHD } from "../chain"
 import { newRandomWallet, newSignerFromMnemonic, NibiruSigningClient } from "../tx"
-import { DEVNET, TEST_MNEMONIC } from "./helpers"
+import { TEST_CHAIN, TEST_MNEMONIC } from "./helpers"
 
 test("faucet utility works", async () => {
   const wallet: WalletHD = await newRandomWallet()
@@ -9,7 +9,7 @@ test("faucet utility works", async () => {
 
   const validator = await newSignerFromMnemonic(TEST_MNEMONIC)
   const signingClient = await NibiruSigningClient.connectWithSigner(
-    DEVNET.endptTm,
+    TEST_CHAIN.endptTm,
     validator,
   )
   const [{ address: fromAddr }] = await validator.getAccounts()
@@ -25,7 +25,7 @@ test("faucet utility works", async () => {
   const balancesStart = newCoinMapFromCoins(await signingClient.getAllBalances(toAddr))
   const faucetResp = await useFaucet({
     address: toAddr,
-    chain: DEVNET,
+    chain: TEST_CHAIN,
   })
   expect(faucetResp.ok).toBeTruthy()
 
