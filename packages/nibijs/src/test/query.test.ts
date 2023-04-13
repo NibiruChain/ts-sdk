@@ -27,7 +27,7 @@ describe("connections", () => {
     expect(respJson.result, `respJson: ${respJson}`).toHaveProperty("block")
     const blockJson = respJson.result.block
     validateBlockFromJsonRpc(blockJson)
-  })
+})
 })
 
 describe("x/bank queries", () => {
