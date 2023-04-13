@@ -21,6 +21,7 @@
     "lint": "eslint -c './.eslintrc.js' './packages/**/*.{ts,js}'",
     "lint:ci": "yarn lint . --format junit",
     "lint:md": "markdownlint --ignore node_modules --ignore .git",
+    "localnet": "sh scripts/localnet.sh",
     "format": "yarn lint --fix",
     "format:md": "yarn lint:md --fix",
     "proto-gen": "yarn exec ./scripts/protocgen.sh"
