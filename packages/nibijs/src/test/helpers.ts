@@ -10,9 +10,9 @@ export const TEST_CHAIN = Localnet
 
 export const TEST_MNEMONIC =
   process.env.VALIDATOR_MNEMONIC ??
-  "license you roof spirit great mass wink warfare glide donor ozone copper truth face six relief soda bike various verify feature charge feel sausage"
+  "guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host"
 export const TEST_ADDRESS =
-  process.env.VALIDATOR_ADDRESS ?? "nibi1n686zur9ash48nm8p2uxm2p3dq527rnvhsks9t"
+  process.env.VALIDATOR_ADDRESS ?? "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl"
 
 export function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
