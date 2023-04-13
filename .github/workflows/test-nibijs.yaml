@@ -22,18 +22,9 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-    #   - name: Retrieve go.mod and go.sum
-    #     run: |
-    #       wget https://raw.githubusercontent.com/NibiruChain/nibiru/master/go.mod
-    #       wget https://raw.githubusercontent.com/NibiruChain/nibiru/master/go.sum
-    #   - uses: actions/setup-go@v3
-    #     with:
-    #       go-version: 1.19
-    #       cache: true
       - name: Run localnet.sh in the background
         run: |
-          wget https://raw.githubusercontent.com/NibiruChain/nibiru/master/contrib/scripts/localnet.sh
-          sh localnet.sh > /dev/null 2>&1 & 
+          sh scripts/localnet.sh > /dev/null 2>&1 &
       - name: Install nibid 
         run: curl -s https://get.nibiru.fi/! | bash
       - name: Setup NodeJS and npm
