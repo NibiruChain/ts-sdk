@@ -1,4 +1,4 @@
-name: ⛓️ Tests
+name: ⛓️ Tests @nibiruchain/indexer-nibi
 
 on: 
   pull_request:
@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: ${{ ! (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')) }}
 
 jobs:
-  tests:
+  test-indexer-nibi:
     runs-on: ubuntu-latest
     env:
       CHAIN_HOST: ${{ secrets.CHAIN_HOST }}
@@ -36,8 +36,8 @@ jobs:
         run: yarn --prefer-offline --check-files
       - name: Build the application
         run: yarn build --include-dependencies || yarn build --parallel --include-dependencies
-      - name: Run all tests
-        run: yarn test --verbose --coverage --testPathIgnorePatterns faucet.test.ts
+      - name: Run tests - indexer-nibi
+        run: yarn test:indexer-nibi
 
       # ---- Individual test flows: In the future, we can separate the 
       # ---- e2e tests from the unit tests. Testing on a live chain poses challenges.

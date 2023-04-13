@@ -1,0 +1,47 @@
+name: ⛓️ Tests @nibiruchain/nibijs
+
+on:
+  pull_request:
+    branches: ["main", "release/*"]
+    paths: ["**.js", "**.ts", "**.tsx", "**.json"]
+  push:
+    branches: ["main", "release/*"]
+    paths: ["**.js", "**.ts", "**.tsx", "**.json"]
+
+jobs:
+  test-nibijs:
+    runs-on: ubuntu-latest
+    env:
+      LCD_ENDPOINT: "http://localhost:1317"
+      GRPC_ENDPOINT: "localhost:9090"
+      TENDERMINT_RPC_ENDPOINT: "http://localhost:26657"
+      USE_LOCALNET: true
+      WEBSOCKET_ENDPOINT: "ws://localhost:26657/websocket"
+      CHAIN_ID: "nibiru-localnet-0"
+      VALIDATOR_MNEMONIC: "guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host"
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - name: Install nibid 
+        run: curl -s https://get.nibiru.fi/@v0.19.2! | bash
+        # Use https://get.nibiru.fi/ to get the most recent release.
+      - name: Run localnet.sh in the background
+        run: |
+          sh scripts/localnet.sh &
+      - name: Setup NodeJS and npm
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Install yarn using npm
+        run: npm install -g yarn
+      - name: Setup NodeJS with yarn caching
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn --prefer-offline --check-files
+      - name: Build the application
+        run: yarn build --include-dependencies || yarn build --parallel --include-dependencies
+      - name: Run tests - nibijs
+        run: yarn test:nibijs

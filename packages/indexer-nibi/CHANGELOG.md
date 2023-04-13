@@ -7,6 +7,21 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.5.0
+
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query transfers
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query markPrices
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query fundingRates
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query liquidations
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query oraclePrices 
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query positions
+- [[#124]](https://github.com/NibiruChain/ts-sdk/pull/124) feat(indexer-nibi): query positionChanges
+- [[#124]](https://github.com/NibiruChain/ts-sdk/pull/124) feat(indexer-nibi): query balances
+- [[#124]](https://github.com/NibiruChain/ts-sdk/pull/124) feat(indexer-nibi): query statsVolume
+- [[#124]](https://github.com/NibiruChain/ts-sdk/pull/124) feat(indexer-nibi): query unbondings
+- [[#124]](https://github.com/NibiruChain/ts-sdk/pull/124) feat(indexer-nibi): query validators
+- [[#124]](https://github.com/NibiruChain/ts-sdk/pull/124) feat(indexer-nibi): query vpoolConfigs
+
 ## v0.4.0
 
 - [[#99]](https://github.com/NibiruChain/ts-sdk/pull/99) feat: add `markPriceCandles` query
