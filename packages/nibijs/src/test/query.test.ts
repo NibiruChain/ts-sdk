@@ -2,9 +2,12 @@ import { Block } from "@cosmjs/stargate"
 import fetch from "cross-fetch"
 import Long from "long"
 import { NibiruQueryClient } from "../query"
-import { TEST_CHAIN, validateBlock, validateBlockFromJsonRpc } from "./helpers"
-
-const TEST_ADDRESS = "nibi1khwntys59nwxl906p8rl68ky3d5tzuk7hp4syc"
+import {
+  TEST_CHAIN,
+  TEST_ADDRESS,
+  validateBlock,
+  validateBlockFromJsonRpc,
+} from "./helpers"
 
 interface BlockResp {
   result: { block: any }
@@ -233,8 +236,8 @@ describe("gov module queries", () => {
 
 describe("utils module queries", () => {
   test("module accounts", async () => {
-    const { client: query } = await newQueryCmd(TEST_CHAIN)
-    const resp = await query.utils.moduleAccounts()
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.utils.moduleAccounts()
     const { accounts } = resp
     expect(accounts).toBeDefined()
     expect(accounts.length).toBeGreaterThan(0)

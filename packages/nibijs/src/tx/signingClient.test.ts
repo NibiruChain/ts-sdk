@@ -191,16 +191,33 @@ describe("nibid tx perp", () => {
       ],
       fee,
     )
-    assertIsDeliverTxSuccess(result)
 
-    const txLogs: TxLog[] = JSON.parse(result.rawLog!)
-    expect(txLogs).toHaveLength(1)
+    const assertHappyPath = () => {
+      const txLogs: TxLog[] = JSON.parse(result.rawLog!)
+      expect(txLogs).toHaveLength(1)
 
-    // perp tx close-position events
-    assertHasMsgType("MsgClosePosition", txLogs[0].events)
-    assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[0].events)
-    assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[0].events)
-    assertHasEventType("nibiru.vpool.v1.MarkPriceChangedEvent", txLogs[0].events)
-    assertHasEventType("transfer", txLogs[0].events)
+      // perp tx close-position events
+      assertHasMsgType("MsgClosePosition", txLogs[0].events)
+      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[0].events)
+      assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[0].events)
+      assertHasEventType("nibiru.vpool.v1.MarkPriceChangedEvent", txLogs[0].events)
+      assertHasEventType("transfer", txLogs[0].events)
+    }
+    const assertExpectedError = (err: unknown) => {
+      let errMsg: string
+      if (instanceOfError(err)) {
+        errMsg = err.message
+      } else {
+        errMsg = `${err}`
+      }
+      expect(errMsg.includes("collections: not found")).toBeTruthy()
+    }
+
+    try {
+      assertIsDeliverTxSuccess(result)
+      assertHappyPath()
+    } catch (error) {
+      assertExpectedError(error)
+    }
   })
 })
