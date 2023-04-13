@@ -1,13 +1,13 @@
 import { Block } from "@cosmjs/stargate"
-import { Chain, CustomChain, Devnet, Event } from "../chain"
+import { Chain, CustomChain, Devnet, Event, Localnet } from "../chain"
 
-export const TEST_CHAIN = new CustomChain({
-  prefix: "nibiru",
-  shortName: "itn",
-  number: 1,
-}) // v0.19.2
+export const TEST_CHAIN = Localnet
+// export const TEST_CHAIN = new CustomChain({
+//   prefix: "nibiru",
+//   shortName: "itn",
+//   number: 1,
+// }) // v0.19.2
 
-export const DEVNET = Devnet(2)
 export const TEST_MNEMONIC =
   process.env.VALIDATOR_MNEMONIC ??
   "license you roof spirit great mass wink warfare glide donor ozone copper truth face six relief soda bike various verify feature charge feel sausage"

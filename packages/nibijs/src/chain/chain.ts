@@ -42,6 +42,18 @@ export interface ChainIdParts {
   number: number
 }
 
+/** CustomChain is a convenience class for intializing the endpoints of a chain
+ * based on its chain ID.
+ *
+ * @example
+ * ```ts
+ * export const TEST_CHAIN = new CustomChain({
+ *   prefix: "nibiru",
+ *   shortName: "itn",
+ *   number: 1,
+ * }) // v0.19.2
+ * ```
+ */
 export class CustomChain implements Chain {
   public readonly chainId: string
   public readonly chainName: string
@@ -84,11 +96,11 @@ export class CustomChain implements Chain {
 }
 
 export const Localnet: Chain = {
-  endptTm: "127.0.0.1:26657",
-  endptRest: "127.0.0.1:1317",
-  endptGrpc: "127.0.0.1:9090",
+  endptTm: "http://localhost:26657",
+  endptRest: "http://localhost:1317",
+  endptGrpc: "http://localhost:9090",
   chainId: "nibiru-localnet-0",
-  chainName: "Nibiru Localnet",
+  chainName: "Nibiru Localnet (Default)",
   feeDenom: "unibi",
 }
 

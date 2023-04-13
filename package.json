@@ -15,6 +15,7 @@
     "publish:all": "lerna publish from-package",
     "test": "jest",
     "test:short": "jest --testPathIgnorePatterns faucet.test.ts",
+    "test:nibijs": "yarn test --verbose --coverage --testPathPattern=packages/nibijs --testPathIgnorePatterns faucet.test.ts",
     "coverage": "jest --coverage",
     "lint": "eslint -c './.eslintrc.js' './packages/**/*.{ts,js}'",
     "lint:ci": "yarn lint . --format junit",

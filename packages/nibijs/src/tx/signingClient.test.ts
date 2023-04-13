@@ -19,7 +19,7 @@ import { NibiruQueryClient } from "../query/query"
 import {
   assertHasEventType,
   assertHasMsgType,
-  DEVNET,
+  TEST_CHAIN,
   TEST_ADDRESS,
   TEST_MNEMONIC,
 } from "../test/helpers"
@@ -28,7 +28,7 @@ import { NibiruSigningClient } from "./signingClient"
 
 describe("signingClient", () => {
   test("connects", async () => {
-    const client = await NibiruSigningClient.connect(DEVNET.endptTm)
+    const client = await NibiruSigningClient.connect(TEST_CHAIN.endptTm)
     expect(client).toBeTruthy()
   })
 })
@@ -40,7 +40,7 @@ describe("nibid tx bank send", () => {
     expect(fromAddr).toBeDefined()
 
     const signingClient = await NibiruSigningClient.connectWithSigner(
-      DEVNET.endptTm,
+      TEST_CHAIN.endptTm,
       signer,
     )
 
@@ -63,7 +63,7 @@ describe("nibid tx perp", () => {
   test("open-position, add-margin, remove-margin", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const signingClient = await NibiruSigningClient.connectWithSigner(
-      DEVNET.endptTm,
+      TEST_CHAIN.endptTm,
       signer,
     )
     const [{ address: sender }] = await signer.getAccounts()
@@ -130,7 +130,7 @@ describe("nibid tx perp", () => {
   }, 40_000 /* default timeout is not sufficient. */)
 
   test("nibid query perp positions", async () => {
-    const queryClient = await NibiruQueryClient.connect(DEVNET.endptTm)
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
     const resp = await queryClient.nibiruExtensions.perp.positions({
       trader: TEST_ADDRESS,
     })
@@ -150,7 +150,7 @@ describe("nibid tx perp", () => {
   test("nibid tx perp close-position", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const signingClient = await NibiruSigningClient.connectWithSigner(
-      DEVNET.endptTm,
+      TEST_CHAIN.endptTm,
       signer,
     )
     const [{ address: sender }] = await signer.getAccounts()
