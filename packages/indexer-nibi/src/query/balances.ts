@@ -1,4 +1,5 @@
 import { doGqlQuery, arg } from "../gql"
+import { Coin } from "../types"
 
 // ------------------------------------------------
 // Balance
@@ -12,7 +13,7 @@ export interface Balance {
   blockTs: string
   moduleName: string
   address: string
-  balance: string
+  balance: Coin
 }
 
 /** GqlOutBalance: Output response for the Balance query  */
@@ -78,7 +79,10 @@ export const balances = async (
           blockTs
           moduleName
           address
-          balance
+          balance {
+            amount
+            denom
+          }
         }
       }`
   }

@@ -1,3 +1,4 @@
+import { Coin } from "../types"
 import { doGqlQuery, arg } from "../gql"
 
 // ------------------------------------------------
@@ -16,9 +17,9 @@ export interface Liquidation {
   liquidatorAddress: string
   exchangedQuoteAmount: number
   exchangedPositionSize: number
-  feeToLiquidator: string
-  feeToEcosystemFund: string
-  badDebt: string
+  feeToLiquidator: Coin
+  feeToEcosystemFund: Coin
+  badDebt: Coin
 }
 
 /** GqlOutLiquidations: Output response for the Liquidation query  */
@@ -90,9 +91,18 @@ export const liquidations = async (
           liquidatorAddress
           exchangedQuoteAmount
           exchangedPositionSize
-          feeToLiquidator
-          feeToEcosystemFund
-          badDebt
+          feeToLiquidator {
+            amount
+            denom
+          }
+          feeToEcosystemFund {
+            amount
+            denom
+          }
+          badDebt {
+            amount
+            denom
+          }
         }
       }`
   }

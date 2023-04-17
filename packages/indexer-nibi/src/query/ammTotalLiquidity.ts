@@ -1,67 +1,59 @@
-import { doGqlQuery, arg } from "../gql"
 import { Coin } from "../types"
+import { doGqlQuery, arg } from "../gql"
 
 // ------------------------------------------------
-// Transfer
+// AmmTotalLiquidity
 // ------------------------------------------------
 
 /**
- * Transfer: A single transfer data.
+ * AmmTotalLiquidity: A single amm pool data.
  */
-export interface Transfer {
+export interface AmmTotalLiquidity {
   block: number
   blockTs: string
-  sender: string
-  recipient: string
-  amount: Coin
+  liquidity: Coin[]
 }
 
-/** GqlOutTransfer: Output response for the Transfer query  */
-export interface GqlOutTransfer {
-  transfers: Transfer[]
+/** GqlOutAmmTotalLiquidity: Output response for the AmmTotalLiquidity query  */
+export interface GqlOutAmmTotalLiquidity {
+  ammTotalLiquidity: AmmTotalLiquidity[]
 }
 
-/** GqlInMarkPrice: Input arguments for the MarkPrice query  */
-export interface GqlInTransfer {
+/** GqlInAmmTotalLiquidity: Input arguments for the AmmTotalLiquidity query  */
+export interface GqlInAmmTotalLiquidity {
   limit: number
   block?: string
   startTs?: string
   endTs?: string
-  sender?: string
-  recipient?: string
-  orderBy?: TransferOrderBy | string
+  orderBy?: AmmTotalLiquidityOrderBy | string
   orderDescending?: boolean // defaults to true
 }
 
-export enum TransferOrderBy {
+export enum AmmTotalLiquidityOrderBy {
   block = "block",
   block_ts = "block_ts",
 }
 
-export const transfers = async (
-  args: GqlInTransfer,
+export const ammTotalLiquidity = async (
+  args: GqlInAmmTotalLiquidity,
   endpt: string,
-): Promise<GqlOutTransfer> => {
+): Promise<GqlOutAmmTotalLiquidity> => {
   if (args.orderDescending === undefined) args.orderDescending = true
-  if (args.orderBy === undefined) args.orderBy = TransferOrderBy.block_ts
+  if (args.orderBy === undefined) args.orderBy = AmmTotalLiquidityOrderBy.block
 
   const gqlQuery = ({
     block,
     startTs,
     endTs,
-    sender,
-    recipient,
     limit,
     orderBy,
     orderDescending,
-  }: GqlInTransfer): string => {
+  }: GqlInAmmTotalLiquidity): string => {
     const argWhere = (): string => {
       const whereConditions: string[] = []
       if (block) whereConditions.push(`blockEq: "${block}"`)
       if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
       if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
-      if (sender) whereConditions.push(`senderEq: "${sender}"`)
-      if (recipient) whereConditions.push(`recipientEq: "${recipient}"`)
       const argWhereBody: string = whereConditions.join(", ")
       return `where: { ${argWhereBody} }`
     }
@@ -74,12 +66,10 @@ export const transfers = async (
     ]
     const queryArgs: string = queryArgList.join(", ")
     return `{
-        transfers(${queryArgs}) {
+        ammTotalLiquidity(${queryArgs}) {
           block
           blockTs
-          recipient
-          sender
-          amount {
+          liquidity {
             amount
             denom
           }

@@ -49,3 +49,8 @@ export interface GqlRecentTradesInputs {
   pair: string
   lastN: number
 }
+
+export interface Coin {
+  amount: number
+  denom: string
+}

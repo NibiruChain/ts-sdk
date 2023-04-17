@@ -424,90 +424,54 @@ test("vpoolConfigs", async () => {
   }
 })
 
-/*
-
-test("useQueryMarkPrices", async () => {
-  const resp = await heartMonitor.useQueryMarkPrices({
-    pair,
-    fromBlock,
-    toBlock,
+test("ammPools", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.ammPools({
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
   })
-  console.info("useQueryMarkPrices: %o", resp)
-  expect(resp).toHaveProperty("markPrices")
+  expect(resp).toHaveProperty("ammPools")
 
-  if (resp.markPrices.length > 0) {
-    const [markPrice] = resp.markPrices
-    const props = ["pair", "price", "block"]
-    props.forEach((prop: string) => {
-      expect(markPrice).toHaveProperty(prop)
-    })
-  }
-})
-
-test("useQueryBlockMarkPrices", async () => {
-  const resp = await heartMonitor.useQueryBlockMarkPrices({
-    pair,
-    fromBlock,
-    toBlock,
-  })
-  console.info("useQueryBlockMarkPrices: %o", resp)
-  expect(resp).toHaveProperty("blockMarkPrices")
-
-  if (resp.blockMarkPrices.length > 0) {
-    const [blockMarkPrice] = resp.blockMarkPrices
-    const props = ["pair", "price", "block", "blockTimestamp"]
-    props.forEach((prop: string) => {
-      expect(blockMarkPrice).toHaveProperty(prop)
-    })
-  }
-})
-
-test("useQueryPosChange", async () => {
-  const resp = await heartMonitor.useQueryPosChange({
-    pair,
-    fromBlock,
-    toBlock,
-  })
-  console.info("useQueryPosChange: %o", resp)
-  expect(resp).toHaveProperty("positions")
-
-  if (resp.positions.length > 0) {
-    const [posChange] = resp.positions
-    const props = [
+  if (resp.ammPools.length > 0) {
+    const [config] = resp.ammPools
+    const fields = [
       "block",
-      "blockTimestamp",
-      "fundingPayment",
-      "margin",
-      "pair",
-      "size",
+      "blockTs",
+      "poolId",
+      "address",
+      "swapFee",
+      "exitFee",
+      "amplification",
+      "poolType",
+      "assets",
+      "totalWeight",
+      "totalShares",
     ]
-    props.forEach((prop: string) => {
-      expect(posChange).toHaveProperty(prop)
+    fields.forEach((field: string) => {
+      expect(config).toHaveProperty(field)
     })
   }
 })
 
-test("useQueryRecentTrades", async () => {
-  const resp = await heartMonitor.useQueryRecentTrades({
-    pair,
-    lastN,
+test("ammTotalLiquidity", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.ammTotalLiquidity({
+    limit: 3,
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
   })
-  expect(resp).toHaveProperty("recentTrades")
+  expect(resp).toHaveProperty("ammTotalLiquidity")
 
-  if (resp.recentTrades.length > 0) {
-    const [posChange] = resp.recentTrades
-    const props = [
-      "block",
-      "blockTimestamp",
-      "fundingPayment",
-      "margin",
-      "pair",
-      "size",
-    ]
-    props.forEach((prop: string) => {
-      expect(posChange).toHaveProperty(prop)
+  if (resp.ammTotalLiquidity.length > 0) {
+    const [config] = resp.ammTotalLiquidity
+    const fields = ["block", "blockTs", "liquidity"]
+    fields.forEach((field: string) => {
+      expect(config).toHaveProperty(field)
     })
   }
 })
-
-*/
