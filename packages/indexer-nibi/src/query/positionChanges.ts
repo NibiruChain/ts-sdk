@@ -1,4 +1,5 @@
 import { doGqlQuery, arg } from "../gql"
+import { Coin } from "../types"
 
 // ------------------------------------------------
 // PositionChange
@@ -12,14 +13,14 @@ export interface PositionChange {
   block: number
   blockTs: string
   traderAddress: string
-  margin: string
+  margin: Coin
   markPrice: number
   positionSize: number
   exchangedSize: number
   positionNotional: number
   exchangedNotional: number
   fundingPayment: number
-  transactionFee: String
+  transactionFee: Coin
   unrealizedPnlAfter: number
   realizedPnl: number
   badDebt: string
@@ -85,17 +86,26 @@ export const positionChanges = async (
           blockTs
           pair
           traderAddress
-          margin
+          margin {
+            amount
+            denom
+          }
           markPrice
           positionSize
           exchangedSize
           positionNotional
           exchangedNotional
           fundingPayment
-          transactionFee
+          transactionFee {
+            amount
+            denom
+          }
           unrealizedPnlAfter
           realizedPnl
-          badDebt
+          badDebt {
+            amount
+            denom
+          }
         }
       }`
   }

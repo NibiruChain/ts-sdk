@@ -24,6 +24,12 @@ import {
   GqlOutPositionChange,
   positionChanges,
 } from "./query/positionChanges"
+import { ammPools, GqlInAmmPool, GqlOutAmmPool } from "./query/ammPools"
+import {
+  ammTotalLiquidity,
+  GqlInAmmTotalLiquidity,
+  GqlOutAmmTotalLiquidity,
+} from "./query/ammTotalLiquidity"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -56,30 +62,11 @@ export interface IHeartMonitor {
 
   readonly vpoolConfigs: (args: GqlInVPoolConfig) => Promise<GqlOutVPoolConfig>
 
-  /*
-  readonly useQueryBlockMarkPrices: (args: {
-    pair: string
-    fromBlock: number
-    toBlock: number
-  }) => Promise<{ blockMarkPrices: TypeBlockMarkPrice[] }>
+  readonly ammPools: (args: GqlInAmmPool) => Promise<GqlOutAmmPool>
 
-  readonly useQueryPosChange: (args: {
-    pair: string
-    fromBlock: number
-    toBlock: number
-  }) => Promise<{ positions: TypePosChange[] }>
-
-  readonly useQueryMarkPrices: (args: {
-    pair: string
-    fromBlock: number
-    toBlock: number
-  }) => Promise<{ markPrices: TypeMarkPrice[] }>
-
-  readonly useQueryRecentTrades: (args: {
-    pair: string
-    lastN: number
-  }) => Promise<{ recentTrades: TypePosChange[] }>
-  */
+  readonly ammTotalLiquidity: (
+    args: GqlInAmmTotalLiquidity,
+  ) => Promise<GqlOutAmmTotalLiquidity>
 }
 
 /** HeartMonitor is an API for "Heart Monitor" that indexes the Nibiru blockchain
@@ -148,92 +135,10 @@ export class HeartMonitor implements IHeartMonitor {
   vpoolConfigs = async (args: GqlInVPoolConfig): Promise<GqlOutVPoolConfig> =>
     vpoolConfigs(args, this.gqlEndpt)
 
-  /*
-  // ------------------------------------------------------------
-  // inactive
+  ammPools = async (args: GqlInAmmPool): Promise<GqlOutAmmPool> =>
+    ammPools(args, this.gqlEndpt)
 
-  useQueryMarkPrices = async (args: {
-    pair: string
-    fromBlock: number
-    toBlock: number
-  }): Promise<{ markPrices: TypeMarkPrice[] }> => {
-    const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
-      `{
-      markPrices(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
-        pair
-        price
-        block
-      },
-      blockTimestamps(fromBlock:${fromBlock}, toBlock:${toBlock}) {
-        height
-        timestamp
-      }
-    }`
-    return this.doGqlQuery(gqlQuery(args))
-  }
-
-  useQueryBlockMarkPrices = async (args: {
-    pair: string
-    fromBlock: number
-    toBlock: number
-  }): Promise<{ blockMarkPrices: TypeBlockMarkPrice[] }> => {
-    const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
-      `{
-    blockMarkPrices(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
-      pair
-      price
-      block
-      blockTimestamp
-    }
-  }`
-    return this.doGqlQuery(gqlQuery(args))
-  }
-
-  useQueryPosChange = async (args: {
-    pair: string
-    fromBlock: number
-    toBlock: number
-  }): Promise<{ positions: TypePosChange[] }> => {
-    const gqlQuery = ({ pair, fromBlock, toBlock }: GqlMarkPricesInputs): string =>
-      `{
-    positions(pair:"${pair}", fromBlock:${fromBlock}, toBlock:${toBlock}) {
-      block
-      blockTimestamp
-      fundingPayment
-      margin
-      pair
-      positionNotional
-      positionNotionalChange
-      size
-      sizeChange
-      trader
-      transactionFee
-    }
-  }`
-    return this.doGqlQuery(gqlQuery(args))
-  }
-
-  useQueryRecentTrades = async (args: {
-    pair: string
-    lastN: number
-  }): Promise<{ recentTrades: TypePosChange[] }> => {
-    const gqlQuery = ({ pair, lastN }: GqlRecentTradesInputs): string =>
-      `{
-    recentTrades(pair:"${pair}", lastN:${lastN}) {
-      pair
-      trader
-      block
-      blockTimestamp
-      fundingPayment
-      margin
-      positionNotional
-      positionNotionalChange
-      size
-      sizeChange
-      transactionFee
-    }
-  }`
-    return this.doGqlQuery(gqlQuery(args))
-  }
-  */
+  ammTotalLiquidity = async (
+    args: GqlInAmmTotalLiquidity,
+  ): Promise<GqlOutAmmTotalLiquidity> => ammTotalLiquidity(args, this.gqlEndpt)
 }
