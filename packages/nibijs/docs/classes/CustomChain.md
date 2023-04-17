@@ -2,18 +2,18 @@
 
 # Class: CustomChain
 
-Specifies chain information for all endpoints a node exposes such as the
-gRPC server, Tendermint RPC endpoint, and REST server.
+CustomChain is a convenience class for intializing the endpoints of a chain
+based on its chain ID.
 
-**`See`**
+**`Example`**
 
-https://docs.cosmos.network/master/core/grpc_rest.html
-
-**`Export`**
-
-**`Interface`**
-
-Chain
+```ts
+export const TEST_CHAIN = new CustomChain({
+  prefix: "nibiru",
+  shortName: "itn",
+  number: 1,
+}) // v0.19.2
+```
 
 ## Implements
 
@@ -56,7 +56,7 @@ Chain
 
 #### Defined in
 
-[chain/chain.ts:55](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L55)
+[chain/chain.ts:67](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L67)
 
 ## Properties
 
@@ -72,7 +72,7 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:46](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L46)
+[chain/chain.ts:58](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L58)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:53](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L53)
+[chain/chain.ts:65](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L65)
 
 ___
 
@@ -98,7 +98,7 @@ chainName: the name of the chain to display to the user
 
 #### Defined in
 
-[chain/chain.ts:47](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L47)
+[chain/chain.ts:59](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L59)
 
 ___
 
@@ -114,7 +114,7 @@ endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 #### Defined in
 
-[chain/chain.ts:50](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L50)
+[chain/chain.ts:62](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L62)
 
 ___
 
@@ -130,7 +130,7 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 #### Defined in
 
-[chain/chain.ts:49](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L49)
+[chain/chain.ts:61](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L61)
 
 ___
 
@@ -146,7 +146,7 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 #### Defined in
 
-[chain/chain.ts:48](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L48)
+[chain/chain.ts:60](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L60)
 
 ___
 
@@ -162,7 +162,7 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:51](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L51)
+[chain/chain.ts:63](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L63)
 
 ## Methods
 
@@ -176,7 +176,7 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:65](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L65)
+[chain/chain.ts:77](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L77)
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:80](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L80)
+[chain/chain.ts:92](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L92)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:75](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L75)
+[chain/chain.ts:87](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L87)
 
 ___
 
@@ -218,4 +218,4 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:70](https://github.com/NibiruChain/ts-sdk/blob/ad3194a/packages/nibijs/src/chain/chain.ts#L70)
+[chain/chain.ts:82](https://github.com/NibiruChain/ts-sdk/blob/266621b/packages/nibijs/src/chain/chain.ts#L82)

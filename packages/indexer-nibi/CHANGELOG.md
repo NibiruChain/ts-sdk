@@ -7,6 +7,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.5.1
+- [[#128]](https://github.com/NibiruChain/ts-sdk/pull/128) feat(indexer-nibi): query ammPools, ammTotalLiquidity
+
 ## v0.5.0
 
 - [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query transfers
