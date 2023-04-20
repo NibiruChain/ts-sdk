@@ -33,10 +33,10 @@ The `nibijs` source code can be found in the ["packages" directory](https://gith
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Example: Creating a wallet](#example-creating-a-wallet)
-  - [Example: Querying](#example-querying)
-  - [Example: Sending funds](#example-sending-funds)
-  - [Example: Transaction with arbitrary messages](#example-transaction-with-arbitrary-messages)
+    - [Example: Creating a wallet](#example-creating-a-wallet)
+    - [Example: Querying](#example-querying)
+    - [Example: Sending funds](#example-sending-funds)
+    - [Example: Transaction with arbitrary messages](#example-transaction-with-arbitrary-messages)
 - [Codebase structure](#codebase-structure)
 - [Development Quick Start](#development-quick-start)
 - [🔓 License](#-license)
@@ -62,7 +62,8 @@ The entrypoint for `nibijs` is the `Sdk` object, which is meant to mimic the roo
 #### Example: Creating a wallet
 
 ```js
-import { newRandomWallet, WalletHD } from "@nibiruchain/nibijs/dist/tx"
+import { newRandomWallet, WalletHD } from "@nibiruchain/nibijs"
+
 const wallet: WalletHD = await newRandomWallet()
 const [{ address }] = await wallet.getAccounts()
 
@@ -74,37 +75,62 @@ console.log("address: ", address)
 #### Example: Querying
 
 ```js
-import { Testnet, newSdk } from "@nibiruchain/nibijs"
-const sdk = newSdk(Testnet, myMnemonic)
+import {
+  IncentivizedTestent,
+  NibiruQueryClient,
+  NibiruSigningClient,
+} from "@nibiruchain/nibijs"
 
-const balances = await sdk.query.bank.allBalances(address)
-console.log("balances: %o", balances)
+const TEST_CHAIN = IncentivizedTestent(1)
+const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
 
-const allPools = await sdk.query.vpool.allPools()
+const perpParamsResp = await queryClient.nibiruExtensions.perp.params()
+console.log("perpParams: %o", perpParamsResp)
+
+const allPools = await queryClient.nibiruExtensions.vpool.allPools()
 console.log("allPools: %o", allPools)
 
 const blockHeight = 1
-const block = sdk.tmClient.block(blockHeight)
+const block = await queryClient.getBlock(blockHeight)
 ```
 
 #### Example: Sending funds
 
 ```js
-import { Testnet, newSdk, newCoins, Coin } from "@nibiruchain/nibijs"
-const sdk = newSdk(Testnet, myMnemonic)
+import {
+  Coin,
+  NibiruSigningClient,
+  newCoins,
+  newSignerFromMnemonic,
+} from "@nibiruchain/nibijs"
+
+const signer = await newSignerFromMnemonic(mnemonic!)
+const signingClient = await NibiruSigningClient.connectWithSigner(
+  TEST_CHAIN.endptTm,
+  signer,
+)
+const [{ address: fromAddr }] = await signer.getAccounts()
+
 const tokens: Coin[] = newCoins(5, "unibi")
 const toAddr: string = "..." // bech32 address of the receiving party
-let txResp = sdk.tx.sendTokens(toAddr, tokens)
+const txResp = await signingClient.sendTokens(fromAddr, toAddr, tokens, "auto")
 ```
 
 #### Example: Transaction with arbitrary messages
 
 ```js
-import { Testnet, newSdk, newCoins, Coin, DeliverTxResponse } from "@nibiruchain/nibijs"
-import { Msg } from "@nibiruchain/nibijs/msg"
+import { IncentivizedTestent, NibiruSigningClient, newCoin } from "@nibiruchain/nibijs"
+import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
 
-const sdk = newSdk(Testnet, myMnemonic)
-let msgs: TxMessage[] = [
+const signer = await newSignerFromMnemonic(mnemonic!)
+signer.getAccounts()
+const signingClient = await NibiruSigningClient.connectWithSigner(
+  TEST_CHAIN.endptTm,
+  signer,
+)
+const [{ address: fromAddr }] = await signer.getAccounts()
+const pair = "ubtc:unusd"
+const msgs: TxMessage[] = [
   Msg.perp.openPosition({
     tokenPair: pair,
     baseAssetAmountLimit: 0,
@@ -118,19 +144,25 @@ let msgs: TxMessage[] = [
     tokenPair: pair,
     margin: newCoin("20", "unusd"),
   }),
+  Msg.perp.removeMargin({
+    tokenPair: pair,
+    sender: fromAddr,
+    margin: newCoin("5", "unusd"),
+  }),
+  // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
 ]
-let txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(...msgs)
+const txResp = await signingClient.signAndBroadcast(fromAddr, msgs, "auto")
 ```
 
 ## Codebase structure
 
-| Directories of `@nibiruchain/nibijs` | Purpose/Utility |
-| :-------- | -------- |
-| `common` | home to several commonly needed types, constants and configurations such as Network.
-| `msg`    | Implements functions for creating messages (`Msg`s). These are objects that trigger state-transitions and get wrapped into transactions.
-| `query`  | For querying state via the consensus engine of a full-node and the application blockchain interface (ABCI).
-| `tx`     | For signing and to submitting transactions given a set of `Msg` objects.
-| `wallet` | A simple wrapper around the Keplr wallet. This module will grow as support is added for other wallets (like MetaMask). |
+| Directories of `@nibiruchain/nibijs` | Purpose/Utility                                                                                                                          |
+| :----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `common`                             | home to several commonly needed types, constants and configurations such as Network.                                                     |
+| `msg`                                | Implements functions for creating messages (`Msg`s). These are objects that trigger state-transitions and get wrapped into transactions. |
+| `query`                              | For querying state via the consensus engine of a full-node and the application blockchain interface (ABCI).                              |
+| `tx`                                 | For signing and to submitting transactions given a set of `Msg` objects.                                                                 |
+| `wallet`                             | A simple wrapper around the Keplr wallet. This module will grow as support is added for other wallets (like MetaMask).                   |
 
 `@nibiruchain/protojs` provides types generated from the protocol buffers of the Cosmos-SDK, Tendermint Core, and Nibiru Chain. For most use cases, it won't be necessary to interact with this layer.
 
