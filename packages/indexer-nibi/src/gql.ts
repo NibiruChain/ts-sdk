@@ -19,7 +19,7 @@ export async function cleanResponse(rawResp: Response): Promise<any> {
   const respJson: any = await rawResp.json().catch((err) => {
     console.error(err)
   })
-  console.debug("DEBUG respJson: %o", respJson)
+  // console.debug("DEBUG respJson: %o", respJson)
 
   if (!rawResp.ok || respJson === undefined) {
     throw new Error(`${respJson}`)
