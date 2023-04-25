@@ -8,8 +8,7 @@ import {
   Localnet,
 } from "../chain"
 
-export const TEST_CHAIN = IncentivizedTestent(1)
-// export const TEST_CHAIN = Localnet
+export const TEST_CHAIN = Localnet
 // export const TEST_CHAIN = new CustomChain({
 //   prefix: "nibiru",
 //   shortName: "itn",
