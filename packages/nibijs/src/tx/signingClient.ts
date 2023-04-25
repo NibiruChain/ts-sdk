@@ -5,6 +5,7 @@ import {
   QueryClient,
   setupDistributionExtension,
   setupGovExtension,
+  setupIbcExtension,
   setupStakingExtension,
   SigningStargateClient,
   SigningStargateClientOptions,
@@ -60,6 +61,7 @@ export class NibiruSigningClient extends SigningStargateClient {
       setupGovExtension,
       setupStakingExtension,
       setupUtilsExtension,
+      setupIbcExtension,
     )
   }
 
