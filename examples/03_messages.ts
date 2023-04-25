@@ -1,12 +1,18 @@
-import { newCoin, newSdk, Testnet } from "@nibiruchain/nibijs" // nibijs v0.7.3
+import { IncentivizedTestent, NibiruSigningClient, newCoin } from "@nibiruchain/nibijs"
 import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
 import { newSignerFromMnemonic } from "@nibiruchain/nibijs/dist/tx"
+
+const TEST_CHAIN = IncentivizedTestent(1)
 
 async function runExample() {
   const mnemonic = "..." // fill in the blank
   const signer = await newSignerFromMnemonic(mnemonic!)
-  const sdk = await newSdk(Testnet, signer)
-  const [{ address: fromAddr }] = await sdk.tx.getAccounts()
+  signer.getAccounts()
+  const signingClient = await NibiruSigningClient.connectWithSigner(
+    TEST_CHAIN.endptTm,
+    signer,
+  )
+  const [{ address: fromAddr }] = await signer.getAccounts()
   const pair = "ubtc:unusd"
   const msgs: TxMessage[] = [
     Msg.perp.openPosition({
@@ -29,7 +35,7 @@ async function runExample() {
     }),
     // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
   ]
-  const txResp = await sdk.tx.signAndBroadcast(...msgs)
+  const txResp = await signingClient.signAndBroadcast(fromAddr, msgs, "auto")
   console.log("txResp: %o", txResp)
 }
 

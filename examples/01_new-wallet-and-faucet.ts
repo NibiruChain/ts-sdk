@@ -1,5 +1,11 @@
-import { useFaucet } from "@nibiruchain/nibijs" // v0.7.3
-import { newRandomWallet, WalletHD } from "@nibiruchain/nibijs/dist/tx"
+import {
+  useFaucet,
+  WalletHD,
+  newRandomWallet,
+  IncentivizedTestent,
+} from "@nibiruchain/nibijs"
+
+const TEST_CHAIN = IncentivizedTestent(1)
 
 async function runExample() {
   const wallet: WalletHD = await newRandomWallet()
@@ -9,7 +15,10 @@ async function runExample() {
   console.log("mnemonic: ", wallet.mnemonic)
   console.log("address: ", address)
 
-  await useFaucet(address)
+  await useFaucet({
+    address,
+    chain: TEST_CHAIN,
+  })
 }
 
 runExample().then(() => {
