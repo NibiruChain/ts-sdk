@@ -400,6 +400,25 @@ test("delegations", async () => {
   }
 })
 
+test("staking pool", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.stakingPool({
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("stakingPool")
+
+  if (resp.stakingPool.length > 0) {
+    const [stakingPool] = resp.stakingPool
+    const fields = ["block", "blockTs", "bondedTokens", "notBondedTokens"]
+    fields.forEach((field: string) => {
+      expect(stakingPool).toHaveProperty(field)
+    })
+  }
+})
+
 test("balances", async () => {
   const nowTimestamp = Date.now()
   const endDate = new Date(nowTimestamp)
