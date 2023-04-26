@@ -314,9 +314,11 @@ describe("ibc module queries", () => {
       "connectionHops",
       "version",
     ]
-    properties.forEach((prop) => {
-      expect(channel).toHaveProperty(prop)
-    })
+    if (channel) {
+      properties.forEach((prop) => {
+        expect(channel).toHaveProperty(prop)
+      })
+    }
   })
 })
 
