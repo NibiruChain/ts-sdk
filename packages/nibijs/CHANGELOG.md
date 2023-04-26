@@ -8,6 +8,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * .
 * ci,test: Use a `nibid` localnet in CI tests. (2) Fix all nibijs tests.
 
+
+## v0.19.7
+
+* [[#131]](https://github.com/NibiruChain/ts-sdk/pull/131) feat: add ibc queries
+
 ## v0.19.6
 
 * fix: export msg type urls

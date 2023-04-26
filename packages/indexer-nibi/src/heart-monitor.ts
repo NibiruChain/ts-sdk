@@ -30,6 +30,7 @@ import {
   GqlInAmmTotalLiquidity,
   GqlOutAmmTotalLiquidity,
 } from "./query/ammTotalLiquidity"
+import { delegations, GqlInDelegations, GqlOutDelegations } from "./query/delegations"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -57,6 +58,8 @@ export interface IHeartMonitor {
   readonly statsVolume: (args: GqlInStatsVolume) => Promise<GqlOutStatsVolume>
 
   readonly validators: (args: GqlInValidator) => Promise<GqlOutValidator>
+
+  readonly delegations: (args: GqlInDelegations) => Promise<GqlOutDelegations>
 
   readonly balances: (args: GqlInBalance) => Promise<GqlOutBalance>
 
@@ -128,6 +131,9 @@ export class HeartMonitor implements IHeartMonitor {
 
   validators = async (args: GqlInValidator): Promise<GqlOutValidator> =>
     validators(args, this.gqlEndpt)
+
+  delegations = (args: GqlInDelegations): Promise<GqlOutDelegations> =>
+    delegations(args, this.gqlEndpt)
 
   balances = async (args: GqlInBalance): Promise<GqlOutBalance> =>
     balances(args, this.gqlEndpt)

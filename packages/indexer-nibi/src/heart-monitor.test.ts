@@ -374,6 +374,32 @@ test("validators", async () => {
   }
 })
 
+test("delegations", async () => {
+  const nowTimestamp = Date.now()
+  const endDate = new Date(nowTimestamp)
+  const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
+  const resp = await heartMonitor.delegations({
+    startTs: startDate.toISOString(),
+    endTs: endDate.toISOString(),
+  })
+  expect(resp).toHaveProperty("delegations")
+
+  if (resp.delegations.length > 0) {
+    const [delegation] = resp.delegations
+    const fields = [
+      "block",
+      "blockTs",
+      "validatorAddress",
+      "delegatorAddress",
+      "shares",
+      "balance",
+    ]
+    fields.forEach((field: string) => {
+      expect(delegation).toHaveProperty(field)
+    })
+  }
+})
+
 test("balances", async () => {
   const nowTimestamp = Date.now()
   const endDate = new Date(nowTimestamp)

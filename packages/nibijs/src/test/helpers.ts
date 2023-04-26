@@ -1,5 +1,12 @@
 import { Block } from "@cosmjs/stargate"
-import { Chain, CustomChain, Devnet, Event, Localnet } from "../chain"
+import {
+  Chain,
+  CustomChain,
+  Devnet,
+  Event,
+  IncentivizedTestent,
+  Localnet,
+} from "../chain"
 
 export const TEST_CHAIN = Localnet
 // export const TEST_CHAIN = new CustomChain({
