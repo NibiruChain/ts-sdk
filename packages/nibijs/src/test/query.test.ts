@@ -27,7 +27,7 @@ describe("connections", () => {
     expect(respJson.result, `respJson: ${respJson}`).toHaveProperty("block")
     const blockJson = respJson.result.block
     validateBlockFromJsonRpc(blockJson)
-})
+  })
 })
 
 describe("x/bank queries", () => {
@@ -237,6 +237,83 @@ describe("gov module queries", () => {
     const properties: string[] = ["votingPeriod"]
     properties.forEach((prop) => {
       expect(votingParams).toHaveProperty(prop)
+    })
+  })
+})
+
+describe("ibc module queries", () => {
+  test("all channels", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.ibc.channel.allChannels()
+    const { channels } = resp
+    expect(channels).toBeDefined()
+    expect(channels.length).toBeGreaterThan(0)
+    const properties: string[] = [
+      "state",
+      "ordering",
+      "connectionHops",
+      "version",
+      "portId",
+      "channelId",
+      "counterparty",
+    ]
+    properties.forEach((prop) => {
+      expect(channels[0]).toHaveProperty(prop)
+    })
+  })
+  test("all connections", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.ibc.connection.allConnections()
+    const { connections } = resp
+    expect(connections).toBeDefined()
+    expect(connections.length).toBeGreaterThan(0)
+    const properties: string[] = [
+      "id",
+      "clientId",
+      "versions",
+      "state",
+      "delayPeriod",
+      "counterparty",
+    ]
+    properties.forEach((prop) => {
+      expect(connections[0]).toHaveProperty(prop)
+    })
+  })
+  test("clients params", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.ibc.client.params()
+    const { params } = resp
+    expect(params).toBeDefined()
+    const properties: string[] = ["allowedClients"]
+    properties.forEach((prop) => {
+      expect(params).toHaveProperty(prop)
+    })
+  })
+  test("transfer params", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.ibc.transfer.params()
+    const { params } = resp
+    expect(params).toBeDefined()
+    const properties: string[] = ["sendEnabled", "receiveEnabled"]
+    properties.forEach((prop) => {
+      expect(params).toHaveProperty(prop)
+    })
+  })
+  test("verified channel", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const channel = await queryClient.nibiruExtensions.ibc.verified.channel.channel(
+      "transfer",
+      "channel-0",
+    )
+    const properties: string[] = [
+      "state",
+      "ordering",
+      "counterparty",
+      "connectionHops",
+      "version",
+    ]
+    properties.forEach((prop) => {
+      expect(channel).toHaveProperty(prop)
     })
   })
 })
