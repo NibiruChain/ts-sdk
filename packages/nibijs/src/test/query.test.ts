@@ -335,3 +335,20 @@ describe("utils module queries", () => {
     })
   })
 })
+
+describe("wasm", () => {
+  test("getAllContractState", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.wasm.getAllContractState(
+      "nibi13j2cvytu66pxjftv5eqlylcmw0xssyzfccd6t5hrhfx04y4n40tswcmuql",
+    )
+    const { models } = resp
+    expect(models).toBeDefined()
+  })
+  test("getCode", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.wasm.getCode(2257)
+    const { data, codeInfo } = resp
+    expect(data).toBeDefined()
+  })
+})
