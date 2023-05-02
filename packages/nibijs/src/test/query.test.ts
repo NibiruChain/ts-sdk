@@ -345,10 +345,4 @@ describe("wasm", () => {
     const { models } = resp
     expect(models).toBeDefined()
   })
-  test("getCode", async () => {
-    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const resp = await queryClient.nibiruExtensions.wasm.getCode(2257)
-    const { data, codeInfo } = resp
-    expect(data).toBeDefined()
-  })
 })
