@@ -62,7 +62,7 @@ export const positions = async (
     const argWhere = (): string => {
       const whereConditions: string[] = []
       whereConditions.push(`pairEq: "${pair}"`)
-      if (trader) whereConditions.push(`traderEq: ${trader}`)
+      if (trader) whereConditions.push(`traderEq: "${trader}"`)
       if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
       if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
       const argWhereBody: string = whereConditions.join(", ")
