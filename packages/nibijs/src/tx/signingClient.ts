@@ -43,11 +43,10 @@ export class NibiruSigningClient extends SigningStargateClient {
     wasmOptions: SigningCosmWasmClientOptions = {},
   ): Promise<NibiruSigningClient> {
     const tmClient = await Tendermint34Client.connect(endpoint)
-    const wasmClient = await SigningCosmWasmClient.connectWithSigner(
-      endpoint,
-      signer,
-      wasmOptions,
-    )
+    const wasmClient = await SigningCosmWasmClient.connectWithSigner(endpoint, signer, {
+      gasPrice: GasPrice.fromString("0.025unibi"),
+      ...wasmOptions,
+    })
     return new NibiruSigningClient(
       tmClient,
       signer,

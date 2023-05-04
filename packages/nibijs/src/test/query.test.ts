@@ -1,6 +1,7 @@
-import { Block } from "@cosmjs/stargate"
+import { Block, GasPrice, coins } from "@cosmjs/stargate"
 import fetch from "cross-fetch"
 import Long from "long"
+import fs from "fs"
 import { instanceOfError } from "../chain/error"
 import { NibiruQueryClient } from "../query"
 import {
@@ -8,7 +9,10 @@ import {
   TEST_ADDRESS,
   validateBlock,
   validateBlockFromJsonRpc,
+  TEST_MNEMONIC,
 } from "./helpers"
+import { newSignerFromMnemonic } from "../tx/signer"
+import { NibiruSigningClient } from "../tx/signingClient"
 
 interface BlockResp {
   result: { block: any }
@@ -337,6 +341,27 @@ describe("utils module queries", () => {
 })
 
 describe("wasm", () => {
+  let codeId: number
+  beforeAll(async () => {
+    // Load wasm binary
+    const wasmBinary = fs.readFileSync("./packages/nibijs/wasm/cw20_base.wasm", {
+      encoding: "utf8",
+    })
+    const wasmUtf8 = new TextEncoder().encode(wasmBinary)
+    // Deploy cw20 contract
+    const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
+    const signingClient = await NibiruSigningClient.connectWithSigner(
+      TEST_CHAIN.endptTm,
+      signer,
+    )
+    const [{ address: sender }] = await signer.getAccounts()
+    const fee = {
+      amount: coins(25_000, "unibi"),
+      gas: "1000000",
+    }
+    const res = await signingClient.wasmClient.upload(sender, wasmUtf8, fee)
+    codeId = res.codeId
+  })
   test("getAllContractState", async () => {
     const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
     const resp = await queryClient.nibiruExtensions.wasm.getAllContractState(
@@ -344,5 +369,11 @@ describe("wasm", () => {
     )
     const { models } = resp
     expect(models).toBeDefined()
+  })
+  test("getCode", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.wasm.getCode(codeId)
+    const { data } = resp
+    expect(data).toBeDefined()
   })
 })
