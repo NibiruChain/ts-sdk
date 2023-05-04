@@ -341,7 +341,7 @@ describe("utils module queries", () => {
 })
 
 describe("wasm", () => {
-  let codeId: number
+  let codeId: number = 0
   beforeAll(async () => {
     // Load wasm binary
     const wasmBinary = fs.readFileSync("./packages/nibijs/wasm/cw20_base.wasm", {
@@ -356,8 +356,8 @@ describe("wasm", () => {
     )
     const [{ address: sender }] = await signer.getAccounts()
     const fee = {
-      amount: coins(25_000, "unibi"),
-      gas: "1000000",
+      amount: coins(55_000, "unibi"),
+      gas: "2200000",
     }
     const res = await signingClient.wasmClient.upload(sender, wasmUtf8, fee)
     codeId = res.codeId
