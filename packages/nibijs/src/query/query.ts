@@ -12,6 +12,11 @@ import {
   StargateClientOptions,
 } from "@cosmjs/stargate"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
+import {
+  CosmWasmClient,
+  setupWasmExtension,
+  WasmExtension,
+} from "@cosmjs/cosmwasm-stargate"
 import { EpochsExtension, setupEpochsExtension } from "./epochs"
 import { OracleExtension, setupOracleExtension } from "./oracle"
 import { PerpExtension, setupPerpExtension } from "./perp"
@@ -29,21 +34,29 @@ export type NibiruExtensions = QueryClient &
   GovExtension &
   UtilsExtension &
   StakingExtension &
-  IbcExtension
+  IbcExtension &
+  WasmExtension
 
 export class NibiruQueryClient extends StargateClient {
   public readonly nibiruExtensions: NibiruExtensions
+  public readonly wasmClient: CosmWasmClient
 
   public static async connect(
     endpoint: string,
     options: StargateClientOptions = {},
   ): Promise<NibiruQueryClient> {
     const tmClient = await Tendermint34Client.connect(endpoint)
-    return new NibiruQueryClient(tmClient, options)
+    const wasmClient = await CosmWasmClient.connect(endpoint)
+    return new NibiruQueryClient(tmClient, options, wasmClient)
   }
 
-  protected constructor(tmClient: Tendermint34Client, options: StargateClientOptions) {
+  protected constructor(
+    tmClient: Tendermint34Client,
+    options: StargateClientOptions,
+    wasmClient: CosmWasmClient,
+  ) {
     super(tmClient, options)
+    this.wasmClient = wasmClient
     this.nibiruExtensions = QueryClient.withExtensions(
       tmClient,
       setupEpochsExtension,
@@ -56,6 +69,7 @@ export class NibiruQueryClient extends StargateClient {
       setupStakingExtension,
       setupUtilsExtension,
       setupIbcExtension,
+      setupWasmExtension,
     )
   }
 

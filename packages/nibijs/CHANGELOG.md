@@ -9,6 +9,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * ci,test: Use a `nibid` localnet in CI tests. (2) Fix all nibijs tests.
 
 
+## v0.19.9
+
+* [[#137]](https://github.com/NibiruChain/ts-sdk/pull/137) feat: wasm
+
 ## v0.19.7
 
 * [[#131]](https://github.com/NibiruChain/ts-sdk/pull/131) feat: add ibc queries
