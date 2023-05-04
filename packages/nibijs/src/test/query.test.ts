@@ -342,12 +342,10 @@ describe("utils module queries", () => {
 
 describe("wasm", () => {
   let codeId: number = 0
+  let contractAddress: string = ""
   beforeAll(async () => {
     // Load wasm binary
-    const wasmBinary = fs.readFileSync("./packages/nibijs/wasm/cw20_base.wasm", {
-      encoding: "utf8",
-    })
-    const wasmUtf8 = new TextEncoder().encode(wasmBinary)
+    const wasmBinary = fs.readFileSync("./packages/nibijs/wasm/cw20_base.wasm")
     // Deploy cw20 contract
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const signingClient = await NibiruSigningClient.connectWithSigner(
@@ -359,21 +357,35 @@ describe("wasm", () => {
       amount: coins(55_000, "unibi"),
       gas: "2200000",
     }
-    const res = await signingClient.wasmClient.upload(sender, wasmUtf8, fee)
-    codeId = res.codeId
-  })
-  test("getAllContractState", async () => {
-    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const resp = await queryClient.nibiruExtensions.wasm.getAllContractState(
-      "nibi13j2cvytu66pxjftv5eqlylcmw0xssyzfccd6t5hrhfx04y4n40tswcmuql",
+    const uploadRes = await signingClient.wasmClient.upload(sender, wasmBinary, fee)
+    codeId = uploadRes.codeId
+
+    const initRes = await signingClient.wasmClient.instantiate(
+      sender,
+      codeId,
+      {
+        name: "Custom CW20 Token",
+        symbol: "CWXX",
+        decimals: 6,
+        initial_balances: [],
+      },
+      "CW20",
+      "auto",
     )
-    const { models } = resp
-    expect(models).toBeDefined()
+    contractAddress = initRes.contractAddress
   })
   test("getCode", async () => {
     const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
     const resp = await queryClient.nibiruExtensions.wasm.getCode(codeId)
     const { data } = resp
     expect(data).toBeDefined()
+  })
+  test("getAllContractState", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.wasm.getAllContractState(
+      contractAddress,
+    )
+    const { models } = resp
+    expect(models).toBeDefined()
   })
 })
