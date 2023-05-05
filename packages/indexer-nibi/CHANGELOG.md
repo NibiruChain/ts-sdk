@@ -7,6 +7,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.5.7
+- [[#139]](https://github.com/NibiruChain/ts-sdk/pull/139) feat(indexer-nibi): update pair param of positions query to non-required field
+
 ## v0.5.2
 - [[#130]](https://github.com/NibiruChain/ts-sdk/pull/130) feat(indexer-nibi): query delegations
 - [[#133]](https://github.com/NibiruChain/ts-sdk/pull/133) feat(indexer-nibi): query stakingPool
