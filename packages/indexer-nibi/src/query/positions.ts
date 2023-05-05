@@ -29,7 +29,7 @@ export interface GqlOutPosition {
 
 /** GqlInPosition: Input arguments for the Position query  */
 export interface GqlInPosition {
-  pair: string
+  pair?: string
   limit: number
   startTs?: string
   endTs?: string
@@ -61,7 +61,7 @@ export const positions = async (
   }: GqlInPosition): string => {
     const argWhere = (): string => {
       const whereConditions: string[] = []
-      whereConditions.push(`pairEq: "${pair}"`)
+      if (trader) whereConditions.push(`pairEq: "${pair}"`)
       if (trader) whereConditions.push(`traderEq: "${trader}"`)
       if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
       if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
