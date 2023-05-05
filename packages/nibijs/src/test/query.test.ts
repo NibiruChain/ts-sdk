@@ -389,3 +389,11 @@ describe("wasm", () => {
     expect(models).toBeDefined()
   })
 })
+
+describe("auth", () => {
+  test("account", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const res = await queryClient.nibiruExtensions.auth.account(TEST_ADDRESS)
+    expect(res).toBeDefined()
+  })
+})
