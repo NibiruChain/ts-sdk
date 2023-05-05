@@ -61,7 +61,7 @@ export const positions = async (
   }: GqlInPosition): string => {
     const argWhere = (): string => {
       const whereConditions: string[] = []
-      if (trader) whereConditions.push(`pairEq: "${pair}"`)
+      if (pair) whereConditions.push(`pairEq: "${pair}"`)
       if (trader) whereConditions.push(`traderEq: "${trader}"`)
       if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
       if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
