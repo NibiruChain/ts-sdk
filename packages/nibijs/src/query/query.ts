@@ -1,8 +1,10 @@
 import {
+  AuthExtension,
   DistributionExtension,
   GovExtension,
   IbcExtension,
   QueryClient,
+  setupAuthExtension,
   setupDistributionExtension,
   setupGovExtension,
   setupIbcExtension,
@@ -35,7 +37,8 @@ export type NibiruExtensions = QueryClient &
   UtilsExtension &
   StakingExtension &
   IbcExtension &
-  WasmExtension
+  WasmExtension &
+  AuthExtension
 
 export class NibiruQueryClient extends StargateClient {
   public readonly nibiruExtensions: NibiruExtensions
@@ -70,6 +73,7 @@ export class NibiruQueryClient extends StargateClient {
       setupUtilsExtension,
       setupIbcExtension,
       setupWasmExtension,
+      setupAuthExtension,
     )
   }
 
