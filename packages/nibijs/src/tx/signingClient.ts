@@ -3,6 +3,7 @@ import {
   defaultRegistryTypes,
   GasPrice,
   QueryClient,
+  setupAuthExtension,
   setupDistributionExtension,
   setupGovExtension,
   setupIbcExtension,
@@ -81,6 +82,7 @@ export class NibiruSigningClient extends SigningStargateClient {
       setupUtilsExtension,
       setupIbcExtension,
       setupWasmExtension,
+      setupAuthExtension,
     )
   }
 
