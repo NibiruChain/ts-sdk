@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.8](../intro.md) / [Exports](../modules.md) / NibiruQueryClient
+[NibiJS Documentation - v0.19.9](../intro.md) / [Exports](../modules.md) / NibiruQueryClient
 
 # Class: NibiruQueryClient
 
@@ -17,6 +17,7 @@
 ### Properties
 
 - [nibiruExtensions](NibiruQueryClient.md#nibiruextensions)
+- [wasmClient](NibiruQueryClient.md#wasmclient)
 
 ### Methods
 
@@ -28,7 +29,7 @@
 
 ### constructor
 
-• `Protected` **new NibiruQueryClient**(`tmClient`, `options`)
+• `Protected` **new NibiruQueryClient**(`tmClient`, `options`, `wasmClient`)
 
 #### Parameters
 
@@ -36,6 +37,7 @@
 | :------ | :------ |
 | `tmClient` | `Tendermint34Client` |
 | `options` | `StargateClientOptions` |
+| `wasmClient` | `CosmWasmClient` |
 
 #### Overrides
 
@@ -43,7 +45,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:45](https://github.com/NibiruChain/ts-sdk/blob/ff61471/packages/nibijs/src/query/query.ts#L45)
+[query/query.ts:56](https://github.com/NibiruChain/ts-sdk/blob/fa646db/packages/nibijs/src/query/query.ts#L56)
 
 ## Properties
 
@@ -53,7 +55,17 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:35](https://github.com/NibiruChain/ts-sdk/blob/ff61471/packages/nibijs/src/query/query.ts#L35)
+[query/query.ts:44](https://github.com/NibiruChain/ts-sdk/blob/fa646db/packages/nibijs/src/query/query.ts#L44)
+
+___
+
+### wasmClient
+
+• `Readonly` **wasmClient**: `CosmWasmClient`
+
+#### Defined in
+
+[query/query.ts:45](https://github.com/NibiruChain/ts-sdk/blob/fa646db/packages/nibijs/src/query/query.ts#L45)
 
 ## Methods
 
@@ -73,7 +85,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:62](https://github.com/NibiruChain/ts-sdk/blob/ff61471/packages/nibijs/src/query/query.ts#L62)
+[query/query.ts:80](https://github.com/NibiruChain/ts-sdk/blob/fa646db/packages/nibijs/src/query/query.ts#L80)
 
 ___
 
@@ -87,7 +99,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:70](https://github.com/NibiruChain/ts-sdk/blob/ff61471/packages/nibijs/src/query/query.ts#L70)
+[query/query.ts:88](https://github.com/NibiruChain/ts-sdk/blob/fa646db/packages/nibijs/src/query/query.ts#L88)
 
 ___
 
@@ -112,4 +124,4 @@ StargateClient.connect
 
 #### Defined in
 
-[query/query.ts:37](https://github.com/NibiruChain/ts-sdk/blob/ff61471/packages/nibijs/src/query/query.ts#L37)
+[query/query.ts:47](https://github.com/NibiruChain/ts-sdk/blob/fa646db/packages/nibijs/src/query/query.ts#L47)
