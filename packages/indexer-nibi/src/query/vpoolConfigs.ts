@@ -25,8 +25,8 @@ export interface GqlOutVPoolConfig {
 
 /** GqlInVPoolConfig: Input arguments for the VPoolConfig query  */
 export interface GqlInVPoolConfig {
-  pair: string
   limit: number
+  pair?: string
   block?: string
   startTs?: string
   endTs?: string
@@ -57,7 +57,7 @@ export const vpoolConfigs = async (
   }: GqlInVPoolConfig): string => {
     const argWhere = (): string => {
       const whereConditions: string[] = []
-      whereConditions.push(`pairEq: "${pair}"`)
+      if (pair) whereConditions.push(`pairEq: "${pair}"`)
       if (block) whereConditions.push(`blockEq: "${block}"`)
       if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
       if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
