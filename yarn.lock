@@ -512,6 +512,23 @@
     "@cosmjs/math" "0.28.13"
     "@cosmjs/utils" "0.28.13"
 
+"@cosmjs/cosmwasm-stargate@^0.28.11":
+  version "0.28.13"
+  resolved "https://registry.yarnpkg.com/@cosmjs/cosmwasm-stargate/-/cosmwasm-stargate-0.28.13.tgz#bea77bc999aaafdb677f446465f648cd000c5b4a"
+  integrity sha512-dVZNOiRd8btQreRUabncGhVXGCS2wToXqxi9l3KEHwCJQ2RWTshuqV+EZAdCaYHE5W6823s2Ol2W/ukA9AXJPw==
+  dependencies:
+    "@cosmjs/amino" "0.28.13"
+    "@cosmjs/crypto" "0.28.13"
+    "@cosmjs/encoding" "0.28.13"
+    "@cosmjs/math" "0.28.13"
+    "@cosmjs/proto-signing" "0.28.13"
+    "@cosmjs/stargate" "0.28.13"
+    "@cosmjs/tendermint-rpc" "0.28.13"
+    "@cosmjs/utils" "0.28.13"
+    cosmjs-types "^0.4.0"
+    long "^4.0.0"
+    pako "^2.0.2"
+
 "@cosmjs/crypto@0.28.13":
   version "0.28.13"
   resolved "https://registry.yarnpkg.com/@cosmjs/crypto/-/crypto-0.28.13.tgz#541b6a36f616b2da5a568ead46d4e83841ceb412"
@@ -643,7 +660,7 @@
     ws "^7"
     xstream "^11.14.0"
 
-"@cosmjs/stargate@^0.28.11":
+"@cosmjs/stargate@0.28.13", "@cosmjs/stargate@^0.28.11":
   version "0.28.13"
   resolved "https://registry.yarnpkg.com/@cosmjs/stargate/-/stargate-0.28.13.tgz#a73d837a46ee8944e6eafe162f2ff6943c14350e"
   integrity sha512-dVBMazDz8/eActHsRcZjDHHptOBMqvibj5CFgEtZBp22gP6ASzoAUXTlkSVk5FBf4sfuUHoff6st134/+PGMAg==
@@ -8302,6 +8319,11 @@ pako@1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
+
+pako@^2.0.2:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-2.1.0.tgz#266cc37f98c7d883545d11335c00fbd4062c9a86"
+  integrity sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==
 
 parent-module@^1.0.0:
   version "1.0.1"

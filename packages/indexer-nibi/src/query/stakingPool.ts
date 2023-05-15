@@ -1,63 +1,57 @@
 import { doGqlQuery, arg } from "../gql"
 
 // ------------------------------------------------
-// VPoolConfig
+// StakingPool
 // ------------------------------------------------
 
 /**
- * VPoolConfig: A single vpool config data.
+ * StakingPool: A single staking pool data.
  */
-export interface VPoolConfig {
+export interface StakingPool {
   block: number
   blockTs: string
-  pair: string
-  tradeLimitRatio: number
-  fluctuationLimitRatio: number
-  maxOracleSpreadRatio: number
-  maintenanceMarginRatio: number
-  maxLeverage: number
+  bondedTokens: number
+  notBondedTokens: number
 }
 
-/** GqlOutVPoolConfig: Output response for the VPoolConfig query  */
-export interface GqlOutVPoolConfig {
-  vpoolConfigs: VPoolConfig[]
+/** GqlOutStakingPool: Output response for the StakingPool query  */
+export interface GqlOutStakingPool {
+  stakingPool: StakingPool[]
 }
 
-/** GqlInVPoolConfig: Input arguments for the VPoolConfig query  */
-export interface GqlInVPoolConfig {
-  limit: number
-  pair?: string
+/** GqlInStakingPool: Input arguments for the StakingPool query  */
+export interface GqlInStakingPool {
+  limit?: number
   block?: string
   startTs?: string
   endTs?: string
-  orderBy?: VPoolConfigOrderBy | string
+  orderBy?: StakingPoolOrderBy | string
   orderDescending?: boolean // defaults to true
 }
 
-export enum VPoolConfigOrderBy {
+export enum StakingPoolOrderBy {
   block = "block",
   block_ts = "block_ts",
 }
 
-export const vpoolConfigs = async (
-  args: GqlInVPoolConfig,
+export const stakingPool = async (
+  args: GqlInStakingPool,
   endpt: string,
-): Promise<GqlOutVPoolConfig> => {
+): Promise<GqlOutStakingPool> => {
+  if (args.limit === undefined) args.limit = 1
   if (args.orderDescending === undefined) args.orderDescending = true
-  if (args.orderBy === undefined) args.orderBy = VPoolConfigOrderBy.block_ts
+  if (args.orderBy === undefined) args.orderBy = StakingPoolOrderBy.block_ts
 
   const gqlQuery = ({
-    pair,
     block,
     startTs,
     endTs,
     limit,
     orderBy,
     orderDescending,
-  }: GqlInVPoolConfig): string => {
+  }: GqlInStakingPool): string => {
     const argWhere = (): string => {
       const whereConditions: string[] = []
-      if (pair) whereConditions.push(`pairEq: "${pair}"`)
       if (block) whereConditions.push(`blockEq: "${block}"`)
       if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
       if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
@@ -73,15 +67,11 @@ export const vpoolConfigs = async (
     ]
     const queryArgs: string = queryArgList.join(", ")
     return `{
-        vpoolConfigs(${queryArgs}) {
+        stakingPool(${queryArgs}) {
           block
           blockTs
-          pair
-          tradeLimitRatio
-          fluctuationLimitRatio
-          maxOracleSpreadRatio
-          maintenanceMarginRatio
-          maxLeverage
+          bondedTokens
+          notBondedTokens
         }
       }`
   }

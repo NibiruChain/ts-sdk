@@ -24,7 +24,7 @@ export interface AmmPool {
   poolType: AMM_POOL_TYPE
   assets: Coin[]
   totalWeight: number
-  totalShares: Coin[]
+  totalShares: Coin
 }
 
 /** GqlOutAMMPools: Output response for the AMMPool query  */

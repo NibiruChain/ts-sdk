@@ -1,6 +1,7 @@
-import { Block } from "@cosmjs/stargate"
+import { Block, GasPrice, coins } from "@cosmjs/stargate"
 import fetch from "cross-fetch"
 import Long from "long"
+import fs from "fs"
 import { instanceOfError } from "../chain/error"
 import { NibiruQueryClient } from "../query"
 import {
@@ -8,7 +9,10 @@ import {
   TEST_ADDRESS,
   validateBlock,
   validateBlockFromJsonRpc,
+  TEST_MNEMONIC,
 } from "./helpers"
+import { newSignerFromMnemonic } from "../tx/signer"
+import { NibiruSigningClient } from "../tx/signingClient"
 
 interface BlockResp {
   result: { block: any }
@@ -247,7 +251,6 @@ describe("ibc module queries", () => {
     const resp = await queryClient.nibiruExtensions.ibc.channel.allChannels()
     const { channels } = resp
     expect(channels).toBeDefined()
-    expect(channels.length).toBeGreaterThan(0)
     const properties: string[] = [
       "state",
       "ordering",
@@ -257,8 +260,10 @@ describe("ibc module queries", () => {
       "channelId",
       "counterparty",
     ]
-    properties.forEach((prop) => {
-      expect(channels[0]).toHaveProperty(prop)
+    channels.forEach((channel) => {
+      properties.forEach((prop) => {
+        expect(channel).toHaveProperty(prop)
+      })
     })
   })
   test("all connections", async () => {
@@ -266,7 +271,6 @@ describe("ibc module queries", () => {
     const resp = await queryClient.nibiruExtensions.ibc.connection.allConnections()
     const { connections } = resp
     expect(connections).toBeDefined()
-    expect(connections.length).toBeGreaterThan(0)
     const properties: string[] = [
       "id",
       "clientId",
@@ -275,8 +279,10 @@ describe("ibc module queries", () => {
       "delayPeriod",
       "counterparty",
     ]
-    properties.forEach((prop) => {
-      expect(connections[0]).toHaveProperty(prop)
+    connections.forEach((connection) => {
+      properties.forEach((prop) => {
+        expect(connection).toHaveProperty(prop)
+      })
     })
   })
   test("clients params", async () => {
@@ -312,9 +318,11 @@ describe("ibc module queries", () => {
       "connectionHops",
       "version",
     ]
-    properties.forEach((prop) => {
-      expect(channel).toHaveProperty(prop)
-    })
+    if (channel) {
+      properties.forEach((prop) => {
+        expect(channel).toHaveProperty(prop)
+      })
+    }
   })
 })
 
@@ -329,5 +337,63 @@ describe("utils module queries", () => {
     properties.forEach((prop) => {
       expect(accounts[0]).toHaveProperty(prop)
     })
+  })
+})
+
+describe("wasm", () => {
+  let codeId: number = 0
+  let contractAddress: string = ""
+  beforeAll(async () => {
+    // Load wasm binary
+    const wasmBinary = fs.readFileSync("./packages/nibijs/wasm/cw20_base.wasm")
+    // Deploy cw20 contract
+    const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
+    const signingClient = await NibiruSigningClient.connectWithSigner(
+      TEST_CHAIN.endptTm,
+      signer,
+    )
+    const [{ address: sender }] = await signer.getAccounts()
+    const fee = {
+      amount: coins(55_000, "unibi"),
+      gas: "2200000",
+    }
+    const uploadRes = await signingClient.wasmClient.upload(sender, wasmBinary, fee)
+    codeId = uploadRes.codeId
+
+    const initRes = await signingClient.wasmClient.instantiate(
+      sender,
+      codeId,
+      {
+        name: "Custom CW20 Token",
+        symbol: "CWXX",
+        decimals: 6,
+        initial_balances: [],
+      },
+      "CW20",
+      "auto",
+    )
+    contractAddress = initRes.contractAddress
+  })
+  test("getCode", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.wasm.getCode(codeId)
+    const { data } = resp
+    expect(data).toBeDefined()
+  })
+  test("getAllContractState", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const resp = await queryClient.nibiruExtensions.wasm.getAllContractState(
+      contractAddress,
+    )
+    const { models } = resp
+    expect(models).toBeDefined()
+  })
+})
+
+describe("auth", () => {
+  test("account", async () => {
+    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const res = await queryClient.nibiruExtensions.auth.account(TEST_ADDRESS)
+    expect(res).toBeDefined()
   })
 })

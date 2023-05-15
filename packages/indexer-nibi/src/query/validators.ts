@@ -72,7 +72,7 @@ export const validators = async (
       if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
       if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
       if (jailed) whereConditions.push(`jailedEq: "${jailed}"`)
-      if (statusBonded) whereConditions.push(`statusBondedEq: "${statusBonded}"`)
+      if (statusBonded) whereConditions.push(`statusBondedEq: ${statusBonded}`)
       if (operatorAddress)
         whereConditions.push(`operatorAddressEq: "${operatorAddress}"`)
       const argWhereBody: string = whereConditions.join(", ")

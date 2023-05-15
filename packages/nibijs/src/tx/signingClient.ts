@@ -3,6 +3,7 @@ import {
   defaultRegistryTypes,
   GasPrice,
   QueryClient,
+  setupAuthExtension,
   setupDistributionExtension,
   setupGovExtension,
   setupIbcExtension,
@@ -11,6 +12,11 @@ import {
   SigningStargateClientOptions,
 } from "@cosmjs/stargate"
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
+import {
+  SigningCosmWasmClient,
+  SigningCosmWasmClientOptions,
+  setupWasmExtension,
+} from "@cosmjs/cosmwasm-stargate"
 import { perpTypes } from "../msg/perp"
 import { spotTypes } from "../msg/spot"
 import { setupEpochsExtension } from "../query/epochs"
@@ -29,27 +35,40 @@ export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
 
 export class NibiruSigningClient extends SigningStargateClient {
   public readonly nibiruExtensions: NibiruExtensions
+  public readonly wasmClient: SigningCosmWasmClient
 
   public static async connectWithSigner(
     endpoint: string,
     signer: OfflineSigner,
     options: SigningStargateClientOptions = {},
+    wasmOptions: SigningCosmWasmClientOptions = {},
   ): Promise<NibiruSigningClient> {
     const tmClient = await Tendermint34Client.connect(endpoint)
-    return new NibiruSigningClient(tmClient, signer, {
-      registry: new Registry(nibiruRegistryTypes),
+    const wasmClient = await SigningCosmWasmClient.connectWithSigner(endpoint, signer, {
       gasPrice: GasPrice.fromString("0.025unibi"),
-      broadcastPollIntervalMs: 1_000, // 1 second poll times
-      ...options,
+      ...wasmOptions,
     })
+    return new NibiruSigningClient(
+      tmClient,
+      signer,
+      {
+        registry: new Registry(nibiruRegistryTypes),
+        gasPrice: GasPrice.fromString("0.025unibi"),
+        broadcastPollIntervalMs: 1_000, // 1 second poll times
+        ...options,
+      },
+      wasmClient,
+    )
   }
 
   protected constructor(
     tmClient: Tendermint34Client,
     signer: OfflineSigner,
     options: SigningStargateClientOptions,
+    wasm: SigningCosmWasmClient,
   ) {
     super(tmClient, signer, options)
+    this.wasmClient = wasm
     this.nibiruExtensions = QueryClient.withExtensions(
       tmClient,
       setupEpochsExtension,
@@ -62,6 +81,8 @@ export class NibiruSigningClient extends SigningStargateClient {
       setupStakingExtension,
       setupUtilsExtension,
       setupIbcExtension,
+      setupWasmExtension,
+      setupAuthExtension,
     )
   }
 
