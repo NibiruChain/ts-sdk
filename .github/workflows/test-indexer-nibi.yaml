@@ -1,13 +1,13 @@
 name: ⛓️ Tests @nibiruchain/indexer-nibi
 
-on: 
+on:
   pull_request:
     branches: ["main", "release/*"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
   push:
     branches: ["main", "release/*"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
-  
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref }}
   cancel-in-progress: ${{ ! (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')) }}
@@ -24,13 +24,13 @@ jobs:
       - name: Setup NodeJS and npm
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "lts/gallium"
       - name: Install yarn using npm
         run: npm install -g yarn
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "lts/gallium"
           cache: "yarn"
       - name: Install dependencies
         run: yarn --prefer-offline --check-files
@@ -39,7 +39,7 @@ jobs:
       - name: Run tests - indexer-nibi
         run: yarn test:indexer-nibi
 
-      # ---- Individual test flows: In the future, we can separate the 
+      # ---- Individual test flows: In the future, we can separate the
       # ---- e2e tests from the unit tests. Testing on a live chain poses challenges.
       # - name: test sdk.Dec conversions in the common package
       #   run: yarn test -t 'SdkDec'

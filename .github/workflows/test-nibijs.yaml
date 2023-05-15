@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-      - name: Install nibid 
+      - name: Install nibid
         run: curl -s https://get.nibiru.fi/@v0.19.2! | bash
         # Use https://get.nibiru.fi/ to get the most recent release.
       - name: Run localnet.sh in the background
@@ -31,13 +31,13 @@ jobs:
       - name: Setup NodeJS and npm
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "lts/gallium"
       - name: Install yarn using npm
         run: npm install -g yarn
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "lts/gallium"
           cache: "yarn"
       - name: Install dependencies
         run: yarn --prefer-offline --check-files
