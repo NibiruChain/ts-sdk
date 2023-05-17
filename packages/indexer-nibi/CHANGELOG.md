@@ -6,18 +6,28 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## Unreleased
 
 - .
-- 
+-
+
+## v0.6.0
+
+- [[#143]](https://github.com/NibiruChain/ts-sdk/pull/143) refactor(dependencies): Remove unused dependencies. Add husky, commitlint, lint-staged
+- [[#142]](https://github.com/NibiruChain/ts-sdk/pull/142) refactor(dependencies): Use lts/gallium with fresh install, and upgrade cosmjs-types
+
 ## v0.5.8
+
 - [[#141]](https://github.com/NibiruChain/ts-sdk/pull/141) feat(indexer-nibi): update pair param of vpoolConfigs query to non-required field
 
 ## v0.5.7
+
 - [[#139]](https://github.com/NibiruChain/ts-sdk/pull/139) feat(indexer-nibi): update pair param of positions query to non-required field
 
 ## v0.5.2
+
 - [[#130]](https://github.com/NibiruChain/ts-sdk/pull/130) feat(indexer-nibi): query delegations
 - [[#133]](https://github.com/NibiruChain/ts-sdk/pull/133) feat(indexer-nibi): query stakingPool
 
 ## v0.5.1
+
 - [[#128]](https://github.com/NibiruChain/ts-sdk/pull/128) feat(indexer-nibi): query ammPools, ammTotalLiquidity
 
 ## v0.5.0
@@ -26,7 +36,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query markPrices
 - [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query fundingRates
 - [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query liquidations
-- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query oraclePrices 
+- [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query oraclePrices
 - [[#123]](https://github.com/NibiruChain/ts-sdk/pull/123) feat(indexer-nibi): query positions
 - [[#124]](https://github.com/NibiruChain/ts-sdk/pull/124) feat(indexer-nibi): query positionChanges
 - [[#124]](https://github.com/NibiruChain/ts-sdk/pull/124) feat(indexer-nibi): query balances
@@ -40,9 +50,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - [[#99]](https://github.com/NibiruChain/ts-sdk/pull/99) feat: add `markPriceCandles` query
 
 ## v0.3.4
+
 - [[#79]](https://github.com/NibiruChain/ts-sdk/pull/79) feat: add `CandleStickPeriod` enums
 
 ## v0.3.2
+
 - [[#55]](https://github.com/NibiruChain/ts-sdk/pull/54) fix: Add `useQueryRecentTrades` definition in `IHeartMonitor`
 
 ## v0.3.1
@@ -56,6 +68,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - feat: GraphQL queries from a heart monitor DB with dummy data
 - docs: function-level documentation and usage examples
 - test: Unit tests added for all useQuery hooks
+
 * [[#51]](https://github.com/NibiruChain/ts-sdk/pull/51) fix: type hints for indexer-nibi
 * [[#49]](https://github.com/NibiruChain/ts-sdk/pull/49) feat: GraphQL client for heart monitor DB
 * [[#50]](https://github.com/NibiruChain/ts-sdk/pull/50) refactor!(indexer-nibi): GraphQL API improvemenets
