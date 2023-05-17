@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/indexer-nibi",
   "description": "GraphQL API client for the Nibiru Chain indexer (heart-monitor)",
-  "version": "0.5.8",
+  "version": "0.6.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,14 +16,14 @@
     "test:watch": "jest --watch",
     "coverage": "jest --coverage"
   },
+  "dependencies": {
+    "cross-fetch": "^3.1.5"
+  },
   "devDependencies": {
     "@types/jest": "^29.1.2",
     "@types/node-fetch": "^2.6.2",
     "jest": "^28.1.3",
     "ts-jest": "^28.0.0-next.3"
-  },
-  "dependencies": {
-    "cross-fetch": "^3.1.5"
   },
   "gitHead": "26f98095718dadc94cc714e63d68c8a8dfa49dbe"
 }
