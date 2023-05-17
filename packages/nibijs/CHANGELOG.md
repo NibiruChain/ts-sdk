@@ -8,7 +8,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - .
 - ci,test: Use a `nibid` localnet in CI tests. (2) Fix all nibijs tests.
 
-## v0.20.0
+## v0.19.10
 
 - [[#143]](https://github.com/NibiruChain/ts-sdk/pull/143) refactor: Remove unused dependencies. Add husky, commitlint, lint-staged
 - [[#142]](https://github.com/NibiruChain/ts-sdk/pull/142) refactor: Use lts/gallium with fresh install, and upgrade cosmjs-types
