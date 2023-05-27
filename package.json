@@ -65,6 +65,7 @@
     "prettier": "^2.4.1",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.9.1",
+    "ts-proto": "1.117.0",
     "typescript": "^4.4.3"
   },
   "config": {

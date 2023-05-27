@@ -116,7 +116,6 @@ export interface QuerySwapExactAmountInRequest {
 
 export interface QuerySwapExactAmountInResponse {
   tokenOut?: Coin
-  fee?: Coin
 }
 
 /**
@@ -160,7 +159,6 @@ export interface QueryExitExactAmountInRequest {
 export interface QueryExitExactAmountInResponse {
   /** coins obtained after exiting */
   tokensOut: Coin[]
-  fees: Coin[]
 }
 
 export interface QueryExitExactAmountOutRequest {
@@ -1409,7 +1407,7 @@ export const QuerySwapExactAmountInRequest = {
 }
 
 function createBaseQuerySwapExactAmountInResponse(): QuerySwapExactAmountInResponse {
-  return { tokenOut: undefined, fee: undefined }
+  return { tokenOut: undefined }
 }
 
 export const QuerySwapExactAmountInResponse = {
@@ -1419,9 +1417,6 @@ export const QuerySwapExactAmountInResponse = {
   ): _m0.Writer {
     if (message.tokenOut !== undefined) {
       Coin.encode(message.tokenOut, writer.uint32(18).fork()).ldelim()
-    }
-    if (message.fee !== undefined) {
-      Coin.encode(message.fee, writer.uint32(26).fork()).ldelim()
     }
     return writer
   },
@@ -1439,9 +1434,6 @@ export const QuerySwapExactAmountInResponse = {
         case 2:
           message.tokenOut = Coin.decode(reader, reader.uint32())
           break
-        case 3:
-          message.fee = Coin.decode(reader, reader.uint32())
-          break
         default:
           reader.skipType(tag & 7)
           break
@@ -1453,7 +1445,6 @@ export const QuerySwapExactAmountInResponse = {
   fromJSON(object: any): QuerySwapExactAmountInResponse {
     return {
       tokenOut: isSet(object.tokenOut) ? Coin.fromJSON(object.tokenOut) : undefined,
-      fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
     }
   },
 
@@ -1461,8 +1452,6 @@ export const QuerySwapExactAmountInResponse = {
     const obj: any = {}
     message.tokenOut !== undefined &&
       (obj.tokenOut = message.tokenOut ? Coin.toJSON(message.tokenOut) : undefined)
-    message.fee !== undefined &&
-      (obj.fee = message.fee ? Coin.toJSON(message.fee) : undefined)
     return obj
   },
 
@@ -1473,10 +1462,6 @@ export const QuerySwapExactAmountInResponse = {
     message.tokenOut =
       object.tokenOut !== undefined && object.tokenOut !== null
         ? Coin.fromPartial(object.tokenOut)
-        : undefined
-    message.fee =
-      object.fee !== undefined && object.fee !== null
-        ? Coin.fromPartial(object.fee)
         : undefined
     return message
   },
@@ -1953,7 +1938,7 @@ export const QueryExitExactAmountInRequest = {
 }
 
 function createBaseQueryExitExactAmountInResponse(): QueryExitExactAmountInResponse {
-  return { tokensOut: [], fees: [] }
+  return { tokensOut: [] }
 }
 
 export const QueryExitExactAmountInResponse = {
@@ -1963,9 +1948,6 @@ export const QueryExitExactAmountInResponse = {
   ): _m0.Writer {
     for (const v of message.tokensOut) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim()
-    }
-    for (const v of message.fees) {
-      Coin.encode(v!, writer.uint32(18).fork()).ldelim()
     }
     return writer
   },
@@ -1983,9 +1965,6 @@ export const QueryExitExactAmountInResponse = {
         case 1:
           message.tokensOut.push(Coin.decode(reader, reader.uint32()))
           break
-        case 2:
-          message.fees.push(Coin.decode(reader, reader.uint32()))
-          break
         default:
           reader.skipType(tag & 7)
           break
@@ -1999,9 +1978,6 @@ export const QueryExitExactAmountInResponse = {
       tokensOut: Array.isArray(object?.tokensOut)
         ? object.tokensOut.map((e: any) => Coin.fromJSON(e))
         : [],
-      fees: Array.isArray(object?.fees)
-        ? object.fees.map((e: any) => Coin.fromJSON(e))
-        : [],
     }
   },
 
@@ -2012,11 +1988,6 @@ export const QueryExitExactAmountInResponse = {
     } else {
       obj.tokensOut = []
     }
-    if (message.fees) {
-      obj.fees = message.fees.map((e) => (e ? Coin.toJSON(e) : undefined))
-    } else {
-      obj.fees = []
-    }
     return obj
   },
 
@@ -2025,7 +1996,6 @@ export const QueryExitExactAmountInResponse = {
   ): QueryExitExactAmountInResponse {
     const message = createBaseQueryExitExactAmountInResponse()
     message.tokensOut = object.tokensOut?.map((e) => Coin.fromPartial(e)) || []
-    message.fees = object.fees?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
 }
