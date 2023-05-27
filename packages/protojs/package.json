@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/protojs",
   "description": "Protobuf-generated types for Nibiru Chain",
-  "version": "0.19.2",
+  "version": "0.19.3",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,5 +13,5 @@
     "build:watch": "tsc --build --watch",
     "clean": "tsc --clean"
   },
-  "gitHead": "4da45aaaf65a44e6b4edc0b5d11ea1083229f977"
+  "gitHead": "c3fa9bd3e03e16ca4896d32d33e343a1a0de1d7a"
 }
