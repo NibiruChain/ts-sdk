@@ -5,15 +5,16 @@ import {
   DirectSecp256k1HdWallet,
   parseCoins,
 } from "@cosmjs/proto-signing"
-import { assertIsDeliverTxSuccess } from "@cosmjs/stargate"
+import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import {
   MsgAddMargin,
   MsgClosePosition,
   MsgOpenPosition,
   MsgRemoveMargin,
 } from "@nibiruchain/protojs/dist/perp/v1/tx"
-import { Side } from "@nibiruchain/protojs/src/perp/v1/state"
+import { Side } from "@nibiruchain/protojs/dist/perp/v1/state"
 import { TxLog } from "../chain/types"
+import { Msg, TxMessage } from "../msg"
 import { PERP_MSG_TYPE_URLS } from "../msg/perp"
 import { NibiruQueryClient } from "../query/query"
 import {
@@ -23,6 +24,7 @@ import {
   TEST_CHAIN,
   TEST_ADDRESS,
   TEST_MNEMONIC,
+  ERR,
 } from "../test/helpers"
 import { newRandomWallet, newSignerFromMnemonic } from "./signer"
 import { NibiruSigningClient } from "./signingClient"
@@ -74,70 +76,82 @@ describe("nibid tx perp", () => {
       gas: "400000",
     }
 
-    const result = await signingClient.signAndBroadcast(
-      sender,
-      [
-        {
-          typeUrl: PERP_MSG_TYPE_URLS.MsgOpenPosition,
-          value: MsgOpenPosition.fromPartial({
-            pair,
-            baseAssetAmountLimit: "0",
-            leverage: "10",
-            quoteAssetAmount: "1000",
-            sender,
-            side: Side.BUY,
-          }),
-        },
-        {
-          typeUrl: PERP_MSG_TYPE_URLS.MsgAddMargin,
-          value: MsgAddMargin.fromPartial({
-            margin: coin(20, "unusd"),
-            pair,
-            sender,
-          }),
-        },
-        {
-          typeUrl: PERP_MSG_TYPE_URLS.MsgRemoveMargin,
-          value: MsgRemoveMargin.fromPartial({
-            margin: coin(5, "unusd"),
-            pair,
-            sender,
-          }),
-        },
-      ],
-      fee,
-    )
+    const msgs: TxMessage[] = [
+      {
+        typeUrl: PERP_MSG_TYPE_URLS.MsgOpenPosition,
+        value: MsgOpenPosition.fromPartial({
+          pair,
+          baseAssetAmountLimit: "0",
+          leverage: "10",
+          quoteAssetAmount: "1000",
+          sender,
+          side: Side.BUY,
+        }),
+      },
+      {
+        typeUrl: PERP_MSG_TYPE_URLS.MsgAddMargin,
+        value: MsgAddMargin.fromPartial({
+          margin: coin(20, "unusd"),
+          pair,
+          sender,
+        }),
+      },
+      {
+        typeUrl: PERP_MSG_TYPE_URLS.MsgRemoveMargin,
+        value: MsgRemoveMargin.fromPartial({
+          margin: coin(5, "unusd"),
+          pair,
+          sender,
+        }),
+      },
+      Msg.perp.openPosition({
+        sender,
+        pair,
+        goLong: false,
+        quoteAssetAmount: 200,
+        leverage: 4,
+      }),
+    ]
 
-    const assertHappyPath = () => {
+    const assertHappyPath = (result: DeliverTxResponse) => {
       const txLogs: TxLog[] = JSON.parse(result.rawLog!)
-      expect(txLogs).toHaveLength(3)
+      expect(txLogs).toHaveLength(4)
 
       // perp tx open-position events
-      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgOpenPosition, txLogs[0].events)
-      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[0].events)
-      assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[0].events)
-      assertHasEventType("nibiru.vpool.v1.MarkPriceChangedEvent", txLogs[0].events)
-      assertHasEventType("transfer", txLogs[0].events)
+      let idx = 0
+      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgOpenPosition, txLogs[idx].events)
+      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[idx].events)
+      assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[idx].events)
+      assertHasEventType("nibiru.vpool.v1.MarkPriceChangedEvent", txLogs[idx].events)
+      assertHasEventType("transfer", txLogs[idx].events)
 
       // perp tx add-margin events
-      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgAddMargin, txLogs[1].events)
-      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[1].events)
-      assertHasEventType("transfer", txLogs[1].events)
+      idx = 1
+      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgAddMargin, txLogs[idx].events)
+      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[idx].events)
+      assertHasEventType("transfer", txLogs[idx].events)
 
       // perp tx remove-margin events
-      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgRemoveMargin, txLogs[2].events)
-      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[2].events)
-      assertHasEventType("transfer", txLogs[2].events)
+      idx = 2
+      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgRemoveMargin, txLogs[idx].events)
+      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[idx].events)
+      assertHasEventType("transfer", txLogs[idx].events)
+
+      // perp tx open-position events
+      idx = 3
+      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgOpenPosition, txLogs[idx].events)
+      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[idx].events)
+      assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[idx].events)
+      assertHasEventType("nibiru.vpool.v1.MarkPriceChangedEvent", txLogs[idx].events)
+      assertHasEventType("transfer", txLogs[idx].events)
     }
 
     try {
+      const result = await signingClient.signAndBroadcast(sender, msgs, fee)
       assertIsDeliverTxSuccess(result)
-      assertHappyPath()
+      assertHappyPath(result)
     } catch (error) {
-      const okErrors: string[] = [
-        "no valid prices available",
-        "account sequence mismatch",
-      ]
+      const okErrors: string[] = [ERR.noPrices, ERR.sequence]
       assertExpectedError(error, okErrors)
     }
   }, 40_000 /* default timeout is not sufficient. */)
@@ -173,21 +187,17 @@ describe("nibid tx perp", () => {
       gas: "500000",
     }
 
-    const result = await signingClient.signAndBroadcast(
-      sender,
-      [
-        {
-          typeUrl: PERP_MSG_TYPE_URLS.MsgClosePosition,
-          value: MsgClosePosition.fromPartial({
-            pair,
-            sender,
-          }),
-        },
-      ],
-      fee,
-    )
+    const msgs: TxMessage[] = [
+      {
+        typeUrl: PERP_MSG_TYPE_URLS.MsgClosePosition,
+        value: MsgClosePosition.fromPartial({
+          pair,
+          sender,
+        }),
+      },
+    ]
 
-    const assertHappyPath = () => {
+    const assertHappyPath = (result: DeliverTxResponse) => {
       const txLogs: TxLog[] = JSON.parse(result.rawLog!)
       expect(txLogs).toHaveLength(1)
 
@@ -200,10 +210,11 @@ describe("nibid tx perp", () => {
     }
 
     try {
+      const result = await signingClient.signAndBroadcast(sender, msgs, fee)
       assertIsDeliverTxSuccess(result)
-      assertHappyPath()
+      assertHappyPath(result)
     } catch (error) {
-      const okErrors: string[] = ["collections: not found", "account sequence mismatch"]
+      const okErrors: string[] = [ERR.collections, ERR.sequence]
       assertExpectedError(error, okErrors)
     }
   })
