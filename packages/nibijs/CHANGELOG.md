@@ -11,6 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - feat(msg): implement msg factory for type parsing 
 - test: Fix all nibijs tests.
+- ci,test: Use a `nibid` localnet in CI tests. (2) Fix all nibijs tests.
 
 ## v0.19.10
 
