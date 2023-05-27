@@ -16,7 +16,6 @@ export interface EventPoolJoined {
 export interface EventPoolCreated {
   creator: string
   poolId: Long
-  fees: Coin[]
 }
 
 export interface EventPoolExited {
@@ -24,7 +23,6 @@ export interface EventPoolExited {
   poolId: Long
   poolSharesIn?: Coin
   tokensOut: Coin[]
-  fees: Coin[]
 }
 
 export interface EventAssetsSwapped {
@@ -32,7 +30,6 @@ export interface EventAssetsSwapped {
   poolId: Long
   tokenIn?: Coin
   tokenOut?: Coin
-  fee?: Coin
 }
 
 function createBaseEventPoolJoined(): EventPoolJoined {
@@ -156,7 +153,7 @@ export const EventPoolJoined = {
 }
 
 function createBaseEventPoolCreated(): EventPoolCreated {
-  return { creator: "", poolId: Long.UZERO, fees: [] }
+  return { creator: "", poolId: Long.UZERO }
 }
 
 export const EventPoolCreated = {
@@ -169,9 +166,6 @@ export const EventPoolCreated = {
     }
     if (!message.poolId.isZero()) {
       writer.uint32(16).uint64(message.poolId)
-    }
-    for (const v of message.fees) {
-      Coin.encode(v!, writer.uint32(26).fork()).ldelim()
     }
     return writer
   },
@@ -189,9 +183,6 @@ export const EventPoolCreated = {
         case 2:
           message.poolId = reader.uint64() as Long
           break
-        case 3:
-          message.fees.push(Coin.decode(reader, reader.uint32()))
-          break
         default:
           reader.skipType(tag & 7)
           break
@@ -204,9 +195,6 @@ export const EventPoolCreated = {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      fees: Array.isArray(object?.fees)
-        ? object.fees.map((e: any) => Coin.fromJSON(e))
-        : [],
     }
   },
 
@@ -215,11 +203,6 @@ export const EventPoolCreated = {
     message.creator !== undefined && (obj.creator = message.creator)
     message.poolId !== undefined &&
       (obj.poolId = (message.poolId || Long.UZERO).toString())
-    if (message.fees) {
-      obj.fees = message.fees.map((e) => (e ? Coin.toJSON(e) : undefined))
-    } else {
-      obj.fees = []
-    }
     return obj
   },
 
@@ -232,19 +215,12 @@ export const EventPoolCreated = {
       object.poolId !== undefined && object.poolId !== null
         ? Long.fromValue(object.poolId)
         : Long.UZERO
-    message.fees = object.fees?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
 }
 
 function createBaseEventPoolExited(): EventPoolExited {
-  return {
-    address: "",
-    poolId: Long.UZERO,
-    poolSharesIn: undefined,
-    tokensOut: [],
-    fees: [],
-  }
+  return { address: "", poolId: Long.UZERO, poolSharesIn: undefined, tokensOut: [] }
 }
 
 export const EventPoolExited = {
@@ -263,9 +239,6 @@ export const EventPoolExited = {
     }
     for (const v of message.tokensOut) {
       Coin.encode(v!, writer.uint32(34).fork()).ldelim()
-    }
-    for (const v of message.fees) {
-      Coin.encode(v!, writer.uint32(42).fork()).ldelim()
     }
     return writer
   },
@@ -289,9 +262,6 @@ export const EventPoolExited = {
         case 4:
           message.tokensOut.push(Coin.decode(reader, reader.uint32()))
           break
-        case 5:
-          message.fees.push(Coin.decode(reader, reader.uint32()))
-          break
         default:
           reader.skipType(tag & 7)
           break
@@ -310,9 +280,6 @@ export const EventPoolExited = {
       tokensOut: Array.isArray(object?.tokensOut)
         ? object.tokensOut.map((e: any) => Coin.fromJSON(e))
         : [],
-      fees: Array.isArray(object?.fees)
-        ? object.fees.map((e: any) => Coin.fromJSON(e))
-        : [],
     }
   },
 
@@ -329,11 +296,6 @@ export const EventPoolExited = {
       obj.tokensOut = message.tokensOut.map((e) => (e ? Coin.toJSON(e) : undefined))
     } else {
       obj.tokensOut = []
-    }
-    if (message.fees) {
-      obj.fees = message.fees.map((e) => (e ? Coin.toJSON(e) : undefined))
-    } else {
-      obj.fees = []
     }
     return obj
   },
@@ -352,19 +314,12 @@ export const EventPoolExited = {
         ? Coin.fromPartial(object.poolSharesIn)
         : undefined
     message.tokensOut = object.tokensOut?.map((e) => Coin.fromPartial(e)) || []
-    message.fees = object.fees?.map((e) => Coin.fromPartial(e)) || []
     return message
   },
 }
 
 function createBaseEventAssetsSwapped(): EventAssetsSwapped {
-  return {
-    address: "",
-    poolId: Long.UZERO,
-    tokenIn: undefined,
-    tokenOut: undefined,
-    fee: undefined,
-  }
+  return { address: "", poolId: Long.UZERO, tokenIn: undefined, tokenOut: undefined }
 }
 
 export const EventAssetsSwapped = {
@@ -383,9 +338,6 @@ export const EventAssetsSwapped = {
     }
     if (message.tokenOut !== undefined) {
       Coin.encode(message.tokenOut, writer.uint32(34).fork()).ldelim()
-    }
-    if (message.fee !== undefined) {
-      Coin.encode(message.fee, writer.uint32(42).fork()).ldelim()
     }
     return writer
   },
@@ -409,9 +361,6 @@ export const EventAssetsSwapped = {
         case 4:
           message.tokenOut = Coin.decode(reader, reader.uint32())
           break
-        case 5:
-          message.fee = Coin.decode(reader, reader.uint32())
-          break
         default:
           reader.skipType(tag & 7)
           break
@@ -426,7 +375,6 @@ export const EventAssetsSwapped = {
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       tokenIn: isSet(object.tokenIn) ? Coin.fromJSON(object.tokenIn) : undefined,
       tokenOut: isSet(object.tokenOut) ? Coin.fromJSON(object.tokenOut) : undefined,
-      fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
     }
   },
 
@@ -439,8 +387,6 @@ export const EventAssetsSwapped = {
       (obj.tokenIn = message.tokenIn ? Coin.toJSON(message.tokenIn) : undefined)
     message.tokenOut !== undefined &&
       (obj.tokenOut = message.tokenOut ? Coin.toJSON(message.tokenOut) : undefined)
-    message.fee !== undefined &&
-      (obj.fee = message.fee ? Coin.toJSON(message.fee) : undefined)
     return obj
   },
 
@@ -460,10 +406,6 @@ export const EventAssetsSwapped = {
     message.tokenOut =
       object.tokenOut !== undefined && object.tokenOut !== null
         ? Coin.fromPartial(object.tokenOut)
-        : undefined
-    message.fee =
-      object.fee !== undefined && object.fee !== null
-        ? Coin.fromPartial(object.fee)
         : undefined
     return message
   },

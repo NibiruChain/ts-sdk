@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[query/query.ts:29](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/query/query.ts#L29)
+[query/query.ts:29](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/query/query.ts#L29)
 
 ## Variables
 
@@ -74,7 +74,7 @@
 
 #### Defined in
 
-[chain/parse.ts:2](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/parse.ts#L2)
+[chain/parse.ts:2](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/parse.ts#L2)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:98](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/chain.ts#L98)
+[chain/chain.ts:98](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/chain.ts#L98)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[tx/signingClient.ts:30](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/tx/signingClient.ts#L30)
+[tx/signingClient.ts:30](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/tx/signingClient.ts#L30)
 
 ## Functions
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:115](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/chain.ts#L115)
+[chain/chain.ts:115](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/chain.ts#L115)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:107](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/chain.ts#L107)
+[chain/chain.ts:107](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/chain.ts#L107)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[chain/types.ts:27](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/types.ts#L27)
+[chain/types.ts:27](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/types.ts#L27)
 
 ___
 
@@ -175,7 +175,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:97](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/parse.ts#L97)
+[chain/parse.ts:97](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/parse.ts#L97)
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:156](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/parse.ts#L156)
+[chain/parse.ts:156](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/parse.ts#L156)
 
 ___
 
@@ -215,7 +215,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:150](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/parse.ts#L150)
+[chain/parse.ts:150](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/parse.ts#L150)
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Defined in
 
-[wallet/keplr.ts:9](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/wallet/keplr.ts#L9)
+[wallet/keplr.ts:9](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/wallet/keplr.ts#L9)
 
 ___
 
@@ -249,7 +249,7 @@ ___
 
 #### Defined in
 
-[tx/signer.ts:28](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/tx/signer.ts#L28)
+[tx/signer.ts:28](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/tx/signer.ts#L28)
 
 ___
 
@@ -275,7 +275,7 @@ ___
 
 #### Defined in
 
-[chain/types.ts:13](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/types.ts#L13)
+[chain/types.ts:13](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/types.ts#L13)
 
 ___
 
@@ -298,7 +298,7 @@ obj is Chain
 
 #### Defined in
 
-[chain/chain.ts:33](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/chain.ts#L33)
+[chain/chain.ts:33](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/chain.ts#L33)
 
 ___
 
@@ -318,7 +318,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:134](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/chain.ts#L134)
+[chain/chain.ts:134](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/chain.ts#L134)
 
 ___
 
@@ -338,7 +338,7 @@ ___
 
 #### Defined in
 
-[chain/types.ts:39](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/types.ts#L39)
+[chain/types.ts:39](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/types.ts#L39)
 
 ___
 
@@ -365,7 +365,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT.
 
 #### Defined in
 
-[tx/signer.ts:62](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/tx/signer.ts#L62)
+[tx/signer.ts:62](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/tx/signer.ts#L62)
 
 ___
 
@@ -386,7 +386,7 @@ ___
 
 #### Defined in
 
-[tx/signer.ts:47](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/tx/signer.ts#L47)
+[tx/signer.ts:47](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/tx/signer.ts#L47)
 
 ___
 
@@ -413,7 +413,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT
 
 #### Defined in
 
-[tx/signer.ts:40](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/tx/signer.ts#L40)
+[tx/signer.ts:40](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/tx/signer.ts#L40)
 
 ___
 
@@ -433,7 +433,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:123](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/chain.ts#L123)
+[chain/chain.ts:123](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/chain.ts#L123)
 
 ___
 
@@ -462,7 +462,7 @@ ref: Reimplementation of cosmos-sdk/types/decimal.go
 
 #### Defined in
 
-[chain/parse.ts:23](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/parse.ts#L23)
+[chain/parse.ts:23](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/parse.ts#L23)
 
 ___
 
@@ -482,7 +482,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:146](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/parse.ts#L146)
+[chain/parse.ts:146](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/parse.ts#L146)
 
 ___
 
@@ -511,4 +511,4 @@ Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
 
 #### Defined in
 
-[chain/useFaucet.ts:7](https://github.com/NibiruChain/ts-sdk/blob/5ff9e06/packages/nibijs/src/chain/useFaucet.ts#L7)
+[chain/useFaucet.ts:7](https://github.com/NibiruChain/ts-sdk/blob/24502db/packages/nibijs/src/chain/useFaucet.ts#L7)
