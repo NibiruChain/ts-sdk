@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: yarn --prefer-offline --check-files
       - name: Build the application
-        run: yarn build --include-dependencies || yarn build --parallel --include-dependencies
+        run: yarn build --scope @nibiruchain/indexer-nibi
       - name: Run tests - indexer-nibi
         run: yarn test:indexer-nibi
 
