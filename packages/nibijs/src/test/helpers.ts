@@ -7,6 +7,7 @@ import {
   IncentivizedTestent,
   Localnet,
 } from "../chain"
+import { instanceOfError } from "../chain/error"
 
 export const TEST_CHAIN = Localnet
 // export const TEST_CHAIN = new CustomChain({
@@ -64,4 +65,18 @@ export function assertHasMsgType(msgType: string, events: Event[]): void {
 export function assertHasEventType(eventType: string, events: Event[]): void {
   const eventTypes = events.map((event) => event.type)
   expect(eventTypes).toContain(eventType)
+}
+
+export const assertExpectedError = (err: unknown, okErrors: string[]) => {
+  let errMsg: string
+  if (instanceOfError(err)) {
+    errMsg = err.message
+  } else {
+    errMsg = `${err}`
+  }
+  let isContained: boolean = false
+  okErrors.forEach((e) => {
+    if (errMsg.includes(e)) isContained = true
+  })
+  expect(isContained).toBeTruthy()
 }
