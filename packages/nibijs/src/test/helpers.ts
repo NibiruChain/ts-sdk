@@ -22,6 +22,12 @@ export const TEST_MNEMONIC =
 export const TEST_ADDRESS =
   process.env.VALIDATOR_ADDRESS ?? "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl"
 
+export const ERR = {
+  collections: "collections: not found",
+  sequence: "account sequence mismatch",
+  noPrices: "no valid prices available",
+}
+
 export function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
     header: ["version", "chain_id", "height", "last_block_id"].concat(

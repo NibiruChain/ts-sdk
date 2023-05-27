@@ -7,9 +7,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
-## v0.19.11
+## v0.19.13
 
 - feat(msg): implement msg factory for type parsing 
+- fix: exports for nibijs/dist/msg 
+- test: Make nibijs test runs more consistent counting account sequence mismatch as a non-failure
 - test: Fix all nibijs tests.
 - ci,test: Use a `nibid` localnet in CI tests. (2) Fix all nibijs tests.
 
