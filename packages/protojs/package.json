@@ -13,5 +13,5 @@
     "build:watch": "tsc --build --watch",
     "clean": "tsc --clean"
   },
-  "gitHead": "4da45aaaf65a44e6b4edc0b5d11ea1083229f977"
+  "gitHead": "189a24da66595240102f4fddcda98a62f3f017ad"
 }

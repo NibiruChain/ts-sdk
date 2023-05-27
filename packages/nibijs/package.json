@@ -22,7 +22,7 @@
     "@cosmjs/proto-signing": "^0.28.11",
     "@cosmjs/stargate": "^0.28.11",
     "@cosmjs/tendermint-rpc": "^0.28.11",
-    "@nibiruchain/protojs": "^0.19.2",
+    "@nibiruchain/protojs": "^0.19.3",
     "cross-fetch": "^3.1.5",
     "long": "^5.2.0"
   },
@@ -39,5 +39,5 @@
     "typedoc": "^0.23.22",
     "typedoc-plugin-markdown": "^3.14.0"
   },
-  "gitHead": "4da45aaaf65a44e6b4edc0b5d11ea1083229f977"
+  "gitHead": "189a24da66595240102f4fddcda98a62f3f017ad"
 }
