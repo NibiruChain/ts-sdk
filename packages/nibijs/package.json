@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/nibijs",
   "description": "The TypeScript SDK for the Nibiru blockchain.",
-  "version": "0.19.11",
+  "version": "0.19.12",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -39,5 +39,5 @@
     "typedoc": "^0.23.22",
     "typedoc-plugin-markdown": "^3.14.0"
   },
-  "gitHead": "189a24da66595240102f4fddcda98a62f3f017ad"
+  "gitHead": "c64b2f8df67f7823b9835e2f6c89e98c33cda12e"
 }
