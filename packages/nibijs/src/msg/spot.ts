@@ -6,6 +6,8 @@ import {
   MsgSwapAssets,
   protobufPackage,
 } from "@nibiruchain/protojs/dist/spot/v1/tx"
+import { TxMessage } from "./encode-types"
+import { toSdkDec } from "../chain"
 
 export const SPOT_MSG_TYPE_URLS = {
   MsgCreatePool: `/${protobufPackage}.MsgCreatePool`,
@@ -63,4 +65,42 @@ export function isMsgSwapAssetsEncodeObject(
   encodeObject: EncodeObject,
 ): encodeObject is MsgSwapAssetsEncodeObject {
   return encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgSwapAssets
+}
+
+// ----------------------------------------------------------------------------
+
+export class SpotMsgFactory {
+  static createPool(msg: MsgCreatePool): TxMessage {
+    if (msg.poolParams) {
+      const { swapFee, exitFee } = msg.poolParams!
+      msg.poolParams!.swapFee = toSdkDec(swapFee)
+      msg.poolParams!.exitFee = toSdkDec(exitFee)
+    }
+
+    return {
+      typeUrl: `/${protobufPackage}.MsgCreatePool`,
+      value: MsgCreatePool.fromPartial(msg),
+    }
+  }
+
+  static joinPool(msg: MsgJoinPool): TxMessage {
+    return {
+      typeUrl: `/${protobufPackage}.MsgJoinPool`,
+      value: MsgJoinPool.fromPartial(msg),
+    }
+  }
+
+  static exitPool(msg: MsgExitPool): TxMessage {
+    return {
+      typeUrl: `/${protobufPackage}.MsgExitPool`,
+      value: MsgExitPool.fromPartial(msg),
+    }
+  }
+
+  static swapAssets(msg: MsgSwapAssets): TxMessage {
+    return {
+      typeUrl: `/${protobufPackage}.MsgSwapAssets`,
+      value: MsgSwapAssets.fromPartial(msg),
+    }
+  }
 }

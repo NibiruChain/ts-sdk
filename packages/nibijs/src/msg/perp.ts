@@ -8,6 +8,9 @@ import {
   MsgRemoveMargin,
   protobufPackage,
 } from "@nibiruchain/protojs/dist/perp/v1/tx"
+import { Side } from "@nibiruchain/protojs/src/perp/v1/state"
+import { toSdkDec, toSdkInt } from "../chain"
+import { TxMessage } from "./encode-types"
 
 export const PERP_MSG_TYPE_URLS = {
   MsgAddMargin: `/${protobufPackage}.MsgAddMargin`,
@@ -109,4 +112,73 @@ export function isMsgDonateToEcosystemFundEncodeObject(
     (encodeObject as MsgDonateToEcosystemFundEncodeObject).typeUrl ===
     PERP_MSG_TYPE_URLS.MsgDonateToEcosystemFund
   )
+}
+
+// ----------------------------------------------------------------------------
+
+export class PerpMsgFactory {
+  static removeMargin(msg: MsgRemoveMargin): TxMessage {
+    return {
+      typeUrl: PERP_MSG_TYPE_URLS.MsgRemoveMargin,
+      value: MsgRemoveMargin.fromPartial(msg),
+    }
+  }
+
+  /**
+   * Returns a 'TxMessage' for adding margin to a position
+   *
+   * @static
+   * @param {MsgAddMargin} msg - Message to add margin
+   * @returns {TxMessage} - formatted version of MsgAddMargin
+   */
+  static addMargin(msg: MsgAddMargin): TxMessage {
+    return {
+      typeUrl: PERP_MSG_TYPE_URLS.MsgAddMargin,
+      value: MsgAddMargin.fromPartial(msg),
+    }
+  }
+
+  static liquidate(msg: MsgMultiLiquidate): TxMessage {
+    return {
+      typeUrl: PERP_MSG_TYPE_URLS.MsgMultiLiquidate,
+      value: MsgMultiLiquidate.fromPartial(msg),
+    }
+  }
+
+  static openPosition(msg: {
+    sender: string
+    pair: string
+    goLong: boolean
+    quoteAssetAmount: number
+    baseAssetAmountLimit?: number
+    leverage: number
+  }): TxMessage {
+    const { quoteAssetAmount, baseAssetAmountLimit, leverage } = msg
+    const pbMsg: MsgOpenPosition = {
+      sender: msg.sender,
+      pair: msg.pair,
+      quoteAssetAmount: toSdkInt(quoteAssetAmount),
+      baseAssetAmountLimit: toSdkInt(baseAssetAmountLimit ?? 0),
+      leverage: toSdkDec(leverage.toString()),
+      side: msg.goLong ? Side.BUY : Side.SELL,
+    }
+    return {
+      typeUrl: PERP_MSG_TYPE_URLS.MsgOpenPosition,
+      value: MsgOpenPosition.fromPartial(pbMsg),
+    }
+  }
+
+  static closePosition(msg: MsgClosePosition): TxMessage {
+    return {
+      typeUrl: PERP_MSG_TYPE_URLS.MsgClosePosition,
+      value: MsgClosePosition.fromPartial(msg),
+    }
+  }
+
+  static donateToPerpEF(msg: MsgDonateToEcosystemFund): TxMessage {
+    return {
+      typeUrl: PERP_MSG_TYPE_URLS.MsgDonateToEcosystemFund,
+      value: MsgDonateToEcosystemFund.fromPartial(msg),
+    }
+  }
 }

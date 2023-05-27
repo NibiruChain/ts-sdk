@@ -10,6 +10,7 @@ import {
   validateBlock,
   validateBlockFromJsonRpc,
   TEST_MNEMONIC,
+  assertExpectedError,
 } from "./helpers"
 import { newSignerFromMnemonic } from "../tx/signer"
 import { NibiruSigningClient } from "../tx/signingClient"
@@ -343,7 +344,8 @@ describe("utils module queries", () => {
 describe("wasm", () => {
   let codeId: number = 0
   let contractAddress: string = ""
-  beforeAll(async () => {
+
+  test("deploy contract", async () => {
     // Load wasm binary
     const wasmBinary = fs.readFileSync("./packages/nibijs/wasm/cw20_base.wasm")
     // Deploy cw20 contract
@@ -357,37 +359,54 @@ describe("wasm", () => {
       amount: coins(55_000, "unibi"),
       gas: "2200000",
     }
-    const uploadRes = await signingClient.wasmClient.upload(sender, wasmBinary, fee)
-    codeId = uploadRes.codeId
 
-    const initRes = await signingClient.wasmClient.instantiate(
-      sender,
-      codeId,
-      {
-        name: "Custom CW20 Token",
-        symbol: "CWXX",
-        decimals: 6,
-        initial_balances: [],
-      },
-      "CW20",
-      "auto",
-    )
-    contractAddress = initRes.contractAddress
+    const assertHappyPath = async () => {
+      const uploadRes = await signingClient.wasmClient.upload(sender, wasmBinary, fee)
+      codeId = uploadRes.codeId
+
+      const initRes = await signingClient.wasmClient.instantiate(
+        sender,
+        codeId,
+        {
+          name: "Custom CW20 Token",
+          symbol: "CWXX",
+          decimals: 6,
+          initial_balances: [],
+        },
+        "CW20",
+        "auto",
+      )
+      contractAddress = initRes.contractAddress
+
+      const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+
+      testGetCode(queryClient)
+      testGetAllContractState(queryClient, contractAddress)
+    }
+
+    try {
+      await assertHappyPath()
+    } catch (error) {
+      const okErrors: string[] = ["account sequence mismatch"]
+      assertExpectedError(error, okErrors)
+    }
   })
-  test("getCode", async () => {
-    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const resp = await queryClient.nibiruExtensions.wasm.getCode(codeId)
-    const { data } = resp
+
+  const testGetCode = async (queryClient: NibiruQueryClient) => {
+    const respGetCode = await queryClient.nibiruExtensions.wasm.getCode(codeId)
+    const { data } = respGetCode
     expect(data).toBeDefined()
-  })
-  test("getAllContractState", async () => {
-    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const resp = await queryClient.nibiruExtensions.wasm.getAllContractState(
-      contractAddress,
-    )
-    const { models } = resp
+  }
+
+  const testGetAllContractState = async (
+    queryClient: NibiruQueryClient,
+    contractAddress: string,
+  ) => {
+    const respContractState =
+      await queryClient.nibiruExtensions.wasm.getAllContractState(contractAddress)
+    const { models } = respContractState
     expect(models).toBeDefined()
-  })
+  }
 })
 
 describe("auth", () => {

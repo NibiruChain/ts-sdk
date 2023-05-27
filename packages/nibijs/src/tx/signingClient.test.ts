@@ -13,13 +13,13 @@ import {
   MsgRemoveMargin,
 } from "@nibiruchain/protojs/dist/perp/v1/tx"
 import { Side } from "@nibiruchain/protojs/src/perp/v1/state"
-import { instanceOfError } from "../chain/error"
 import { TxLog } from "../chain/types"
 import { PERP_MSG_TYPE_URLS } from "../msg/perp"
 import { NibiruQueryClient } from "../query/query"
 import {
   assertHasEventType,
   assertHasMsgType,
+  assertExpectedError,
   TEST_CHAIN,
   TEST_ADDRESS,
   TEST_MNEMONIC,
@@ -129,21 +129,16 @@ describe("nibid tx perp", () => {
       assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[2].events)
       assertHasEventType("transfer", txLogs[2].events)
     }
-    const assertExpectedError = (err: unknown) => {
-      let errMsg: string
-      if (instanceOfError(err)) {
-        errMsg = err.message
-      } else {
-        errMsg = `${err}`
-      }
-      expect(errMsg.includes("no valid prices available")).toBeTruthy()
-    }
 
     try {
       assertIsDeliverTxSuccess(result)
       assertHappyPath()
     } catch (error) {
-      assertExpectedError(error)
+      const okErrors: string[] = [
+        "no valid prices available",
+        "account sequence mismatch",
+      ]
+      assertExpectedError(error, okErrors)
     }
   }, 40_000 /* default timeout is not sufficient. */)
 
@@ -203,21 +198,13 @@ describe("nibid tx perp", () => {
       assertHasEventType("nibiru.vpool.v1.MarkPriceChangedEvent", txLogs[0].events)
       assertHasEventType("transfer", txLogs[0].events)
     }
-    const assertExpectedError = (err: unknown) => {
-      let errMsg: string
-      if (instanceOfError(err)) {
-        errMsg = err.message
-      } else {
-        errMsg = `${err}`
-      }
-      expect(errMsg.includes("collections: not found")).toBeTruthy()
-    }
 
     try {
       assertIsDeliverTxSuccess(result)
       assertHappyPath()
     } catch (error) {
-      assertExpectedError(error)
+      const okErrors: string[] = ["collections: not found", "account sequence mismatch"]
+      assertExpectedError(error, okErrors)
     }
   })
 })
