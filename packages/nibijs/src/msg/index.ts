@@ -10,3 +10,5 @@ export class MsgFactory {
 export const Msg = new MsgFactory()
 
 export * from "./encode-types"
+export * from "./perp"
+export * from "./spot"
