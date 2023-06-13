@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2016",
+    "target": "ES6",
     "module": "CommonJS",
     "moduleResolution": "node",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],

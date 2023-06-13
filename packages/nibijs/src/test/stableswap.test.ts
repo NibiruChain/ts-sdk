@@ -2,7 +2,7 @@
 
 import fs from "fs"
 import path from "path"
-import { StableSwap } from "../stableswap"
+import { StableSwap, power } from "../stableswap"
 
 test("stableswap tests", () => {
   const csv = fs
@@ -26,7 +26,7 @@ test("stableswap tests", () => {
     const curveModel = new StableSwap(
       BigInt(amplification),
       balances,
-      Array(balances.length).fill(BigInt(10) ** BigInt(18)),
+      Array(balances.length).fill(power(BigInt(10), BigInt(18))),
       BigInt(0),
     )
 
