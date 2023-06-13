@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.13](../intro.md) / [Exports](../modules.md) / CustomChain
+[NibiJS Documentation - v0.19.14](../intro.md) / [Exports](../modules.md) / CustomChain
 
 # Class: CustomChain
 
@@ -50,8 +50,8 @@ export const TEST_CHAIN = new CustomChain({
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type                                            |
+| :------------- | :---------------------------------------------- |
 | `chainIdParts` | [`ChainIdParts`](../interfaces/ChainIdParts.md) |
 
 #### Defined in
@@ -74,7 +74,7 @@ chainId: identifier for the chain
 
 [chain/chain.ts:58](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L58)
 
-___
+---
 
 ### chainIdParts
 
@@ -84,7 +84,7 @@ ___
 
 [chain/chain.ts:65](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L65)
 
-___
+---
 
 ### chainName
 
@@ -100,7 +100,7 @@ chainName: the name of the chain to display to the user
 
 [chain/chain.ts:59](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L59)
 
-___
+---
 
 ### endptGrpc
 
@@ -116,7 +116,7 @@ endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 [chain/chain.ts:62](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L62)
 
-___
+---
 
 ### endptRest
 
@@ -132,7 +132,7 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 [chain/chain.ts:61](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L61)
 
-___
+---
 
 ### endptTm
 
@@ -148,7 +148,7 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 [chain/chain.ts:60](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L60)
 
-___
+---
 
 ### feeDenom
 
@@ -178,7 +178,7 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 [chain/chain.ts:77](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L77)
 
-___
+---
 
 ### initGrpcEndpoint
 
@@ -192,7 +192,7 @@ ___
 
 [chain/chain.ts:92](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L92)
 
-___
+---
 
 ### initRestEndpoint
 
@@ -206,7 +206,7 @@ ___
 
 [chain/chain.ts:87](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L87)
 
-___
+---
 
 ### initTendermintEndpoint
 

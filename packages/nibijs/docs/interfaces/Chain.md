@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.13](../intro.md) / [Exports](../modules.md) / Chain
+[NibiJS Documentation - v0.19.14](../intro.md) / [Exports](../modules.md) / Chain
 
 # Interface: Chain
 
@@ -42,7 +42,7 @@ chainId: identifier for the chain
 
 [chain/chain.ts:22](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L22)
 
-___
+---
 
 ### chainName
 
@@ -54,7 +54,7 @@ chainName: the name of the chain to display to the user
 
 [chain/chain.ts:24](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L24)
 
-___
+---
 
 ### endptGrpc
 
@@ -66,7 +66,7 @@ endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 [chain/chain.ts:20](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L20)
 
-___
+---
 
 ### endptRest
 
@@ -78,7 +78,7 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 [chain/chain.ts:18](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L18)
 
-___
+---
 
 ### endptTm
 
@@ -90,7 +90,7 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 [chain/chain.ts:16](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L16)
 
-___
+---
 
 ### feeDenom
 

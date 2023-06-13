@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.13](../intro.md) / [Exports](../modules.md) / NibiruQueryClient
+[NibiJS Documentation - v0.19.14](../intro.md) / [Exports](../modules.md) / NibiruQueryClient
 
 # Class: NibiruQueryClient
 
@@ -33,11 +33,11 @@
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `tmClient` | `Tendermint34Client` |
-| `options` | `StargateClientOptions` |
-| `wasmClient` | `CosmWasmClient` |
+| Name         | Type                    |
+| :----------- | :---------------------- |
+| `tmClient`   | `Tendermint34Client`    |
+| `options`    | `StargateClientOptions` |
+| `wasmClient` | `CosmWasmClient`        |
 
 #### Overrides
 
@@ -57,7 +57,7 @@ StargateClient.constructor
 
 [query/query.ts:44](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/query/query.ts#L44)
 
-___
+---
 
 ### wasmClient
 
@@ -75,8 +75,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type     |
+| :------- | :------- |
 | `height` | `number` |
 
 #### Returns
@@ -87,7 +87,7 @@ ___
 
 [query/query.ts:80](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/query/query.ts#L80)
 
-___
+---
 
 ### waitForNextBlock
 
@@ -101,7 +101,7 @@ ___
 
 [query/query.ts:88](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/query/query.ts#L88)
 
-___
+---
 
 ### connect
 
@@ -109,10 +109,10 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `endpoint` | `string` |
-| `options` | `StargateClientOptions` |
+| Name       | Type                    |
+| :--------- | :---------------------- |
+| `endpoint` | `string`                |
+| `options`  | `StargateClientOptions` |
 
 #### Returns
 

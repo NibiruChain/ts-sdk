@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.13](../intro.md) / [Exports](../modules.md) / NibiruSigningClient
+[NibiJS Documentation - v0.19.14](../intro.md) / [Exports](../modules.md) / NibiruSigningClient
 
 # Class: NibiruSigningClient
 
@@ -33,12 +33,12 @@
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `tmClient` | `Tendermint34Client` |
-| `signer` | `OfflineSigner` |
-| `options` | `SigningStargateClientOptions` |
-| `wasm` | `SigningCosmWasmClient` |
+| Name       | Type                           |
+| :--------- | :----------------------------- |
+| `tmClient` | `Tendermint34Client`           |
+| `signer`   | `OfflineSigner`                |
+| `options`  | `SigningStargateClientOptions` |
+| `wasm`     | `SigningCosmWasmClient`        |
 
 #### Overrides
 
@@ -58,7 +58,7 @@ SigningStargateClient.constructor
 
 [tx/signingClient.ts:37](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/tx/signingClient.ts#L37)
 
-___
+---
 
 ### wasmClient
 
@@ -76,8 +76,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type     |
+| :------- | :------- |
 | `height` | `number` |
 
 #### Returns
@@ -88,7 +88,7 @@ ___
 
 [tx/signingClient.ts:89](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/tx/signingClient.ts#L89)
 
-___
+---
 
 ### waitForNextBlock
 
@@ -102,7 +102,7 @@ ___
 
 [tx/signingClient.ts:97](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/tx/signingClient.ts#L97)
 
-___
+---
 
 ### connectWithSigner
 
@@ -110,11 +110,11 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `endpoint` | `string` |
-| `signer` | `OfflineSigner` |
-| `options` | `SigningStargateClientOptions` |
+| Name          | Type                           |
+| :------------ | :----------------------------- |
+| `endpoint`    | `string`                       |
+| `signer`      | `OfflineSigner`                |
+| `options`     | `SigningStargateClientOptions` |
 | `wasmOptions` | `SigningCosmWasmClientOptions` |
 
 #### Returns

@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.13](../intro.md) / [Exports](../modules.md) / Event
+[NibiJS Documentation - v0.19.14](../intro.md) / [Exports](../modules.md) / Event
 
 # Interface: Event
 
@@ -19,7 +19,7 @@
 
 [chain/types.ts:49](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/types.ts#L49)
 
-___
+---
 
 ### type
 
