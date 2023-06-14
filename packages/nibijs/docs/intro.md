@@ -1,4 +1,4 @@
-NibiJS Documentation - v0.19.13 / [Exports](modules.md)
+NibiJS Documentation - v0.19.14 / [Exports](modules.md)
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibijs.png" width="100%">
@@ -28,22 +28,23 @@ The official TypeScript SDK for the Nibiru blockchain
 
 </div>
 
-The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions. 
+The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions.
 
-The `nibijs` source code can be found in the ["packages" directory](https://github.com/NibiruChain/ts-sdk/tree/main/packages).  The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`. 
+The `nibijs` source code can be found in the ["packages" directory](https://github.com/NibiruChain/ts-sdk/tree/main/packages). The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`.
 
 #### Table of Contents
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Codebase structure](#codebase-structure)
 - [Development Quick Start](#development-quick-start)
 - [🔓 License](#-license)
 
-To learn more about Nibiru, see [docs.nibiru.fi](https://docs.nibiru.fi) 
+To learn more about Nibiru, see [docs.nibiru.fi](https://docs.nibiru.fi)
 
 ---
 
-## Installation 
+## Installation
 
 [@nibiruchain/nibijs][npm-nibijs] is available on the npm registry.
 
@@ -53,7 +54,7 @@ To learn more about Nibiru, see [docs.nibiru.fi](https://docs.nibiru.fi)
 npm install @nibiruchain/nibijs # or yarn add
 ```
 
-## Usage 
+## Usage
 
 The entrypoint for `nibijs` is the `Sdk` object, which is meant to mimic the root of a command line interface. It can be used for both queries and transactions.
 
@@ -122,41 +123,43 @@ let txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(...msgs)
 
 ## Codebase structure
 
-| Directories of `@nibiruchain/nibijs` | Purpose/Utility |
-| :-------- | -------- |
-| `common` | home to several commonly needed types, constants and configurations such as Network.
-| `msg`    | Implements functions for creating messages (`Msg`s). These are objects that trigger state-transitions and get wrapped into transactions. 
-| `query`  | For querying state via the consensus engine of a full-node and the application blockchain interface (ABCI).
-| `tx`     | For signing and to submitting transactions given a set of `Msg` objects.
-| `wallet` | A simple wrapper around the Keplr wallet. This module will grow as support is added for other wallets (like MetaMask). |
+| Directories of `@nibiruchain/nibijs` | Purpose/Utility                                                                                                                          |
+| :----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `common`                             | home to several commonly needed types, constants and configurations such as Network.                                                     |
+| `msg`                                | Implements functions for creating messages (`Msg`s). These are objects that trigger state-transitions and get wrapped into transactions. |
+| `query`                              | For querying state via the consensus engine of a full-node and the application blockchain interface (ABCI).                              |
+| `tx`                                 | For signing and to submitting transactions given a set of `Msg` objects.                                                                 |
+| `wallet`                             | A simple wrapper around the Keplr wallet. This module will grow as support is added for other wallets (like MetaMask).                   |
 
 `@nibiruchain/protojs` provides types generated from the protocol buffers of the Cosmos-SDK, Tendermint Core, and Nibiru Chain. For most use cases, it won't be necessary to interact with this layer.
 
 ---
 
-<!-- 
-## 📜 Contribution Guidelines  
+<!--
+## 📜 Contribution Guidelines
 
 TODO
 -->
 
-## Development Quick Start 
+## Development Quick Start
 
 1. First install yarn.
-    ```sh
-    npm install -g yarn
-    ```
 
-2. Then, install package dependencies. At the root of the repository, run 
-    ```sh
-    yarn 
-    ```
+   ```sh
+   npm install -g yarn
+   ```
+
+2. Then, install package dependencies. At the root of the repository, run
+   ```sh
+   yarn
+   ```
 3. Lastly, compile the code in each package.
-    ```sh
-    yarn build
-    ```
+   ```sh
+   yarn build
+   ```
 
 See [HACKING.md](https://github.com/NibiruChain/ts-sdk/blob/main/HACKING.md) for the full development guide. It includes instructions on:
+
 1. Running tests
 2. Generating code for the @nibiruchain/protojs package
 3. Generating documentation in HTML or Markdown from the comments of @nibiruchain/nibijs

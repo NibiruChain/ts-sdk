@@ -3,11 +3,7 @@
     "target": "ES6",
     "module": "CommonJS",
     "moduleResolution": "node",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": true,
@@ -20,20 +16,11 @@
     "esModuleInterop": true,
     "incremental": true,
     "paths": {
-      "@nibiruchain/protojs": [
-        "./packages/protojs"
-      ],
-      "@nibiruchain/nibijs": [
-        "./packages/nibijs"
-      ]
+      "@nibiruchain/protojs": ["./packages/protojs"],
+      "@nibiruchain/nibijs": ["./packages/nibijs"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts",
-    "**/*.spec.ts"
-  ],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"],
   "references": [
     {
       "path": "./packages/protojs"

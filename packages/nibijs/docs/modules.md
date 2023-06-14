@@ -1,12 +1,12 @@
-[NibiJS Documentation - v0.19.13](intro.md) / Exports
+[NibiJS Documentation - v0.19.14](intro.md) / Exports
 
-# NibiJS Documentation - v0.19.13
+# NibiJS Documentation - v0.19.14
 
 ## Table of contents
 
 ### Enumerations
 
-- [BECH32\_PREFIX](enums/BECH32_PREFIX.md)
+- [BECH32_PREFIX](enums/BECH32_PREFIX.md)
 - [Signer](enums/Signer.md)
 
 ### Classes
@@ -30,7 +30,7 @@
 
 ### Variables
 
-- [INT\_MULT](modules.md#int_mult)
+- [INT_MULT](modules.md#int_mult)
 - [Localnet](modules.md#localnet)
 - [nibiruRegistryTypes](modules.md#nibiruregistrytypes)
 
@@ -68,15 +68,15 @@
 
 ## Variables
 
-### INT\_MULT
+### INT_MULT
 
-• `Const` **INT\_MULT**: ``1000000``
+• `Const` **INT_MULT**: `1000000`
 
 #### Defined in
 
 [chain/parse.ts:2](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/parse.ts#L2)
 
-___
+---
 
 ### Localnet
 
@@ -86,7 +86,7 @@ ___
 
 [chain/chain.ts:98](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L98)
 
-___
+---
 
 ### nibiruRegistryTypes
 
@@ -104,8 +104,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type     |
+| :------------ | :------- |
 | `chainNumber` | `number` |
 
 #### Returns
@@ -116,7 +116,7 @@ ___
 
 [chain/chain.ts:115](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L115)
 
-___
+---
 
 ### IncentivizedTestent
 
@@ -124,8 +124,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type     |
+| :------------ | :------- |
 | `chainNumber` | `number` |
 
 #### Returns
@@ -136,7 +136,7 @@ ___
 
 [chain/chain.ts:107](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L107)
 
-___
+---
 
 ### assert
 
@@ -144,10 +144,10 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name        | Type      |
+| :---------- | :-------- |
 | `condition` | `boolean` |
-| `message?` | `string` |
+| `message?`  | `string`  |
 
 #### Returns
 
@@ -157,7 +157,7 @@ ___
 
 [chain/types.ts:27](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/types.ts#L27)
 
-___
+---
 
 ### fromSdkDec
 
@@ -165,8 +165,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type     |
+| :------- | :------- |
 | `sdkDec` | `string` |
 
 #### Returns
@@ -177,7 +177,7 @@ ___
 
 [chain/parse.ts:97](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/parse.ts#L97)
 
-___
+---
 
 ### fromSdkDecSafe
 
@@ -185,8 +185,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type     |
+| :------ | :------- |
 | `inStr` | `string` |
 
 #### Returns
@@ -197,7 +197,7 @@ ___
 
 [chain/parse.ts:156](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/parse.ts#L156)
 
-___
+---
 
 ### fromSdkInt
 
@@ -205,8 +205,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type     |
+| :------- | :------- |
 | `intStr` | `string` |
 
 #### Returns
@@ -217,7 +217,7 @@ ___
 
 [chain/parse.ts:150](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/parse.ts#L150)
 
-___
+---
 
 ### getKeplr
 
@@ -225,8 +225,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                           |
+| :------ | :----------------------------- |
 | `chain` | [`Chain`](interfaces/Chain.md) |
 
 #### Returns
@@ -237,7 +237,7 @@ ___
 
 [wallet/keplr.ts:9](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/wallet/keplr.ts#L9)
 
-___
+---
 
 ### getRegistry
 
@@ -251,33 +251,33 @@ ___
 
 [tx/signer.ts:28](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/tx/signer.ts#L28)
 
-___
+---
 
 ### go
 
-▸ **go**<`T`\>(`promise`): `Promise`<{ `err`: `undefined` \| `Error` ; `res`: `T` \| `undefined`  }\>
+▸ **go**<`T`\>(`promise`): `Promise`<{ `err`: `undefined` \| `Error` ; `res`: `T` \| `undefined` }\>
 
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type            |
+| :-------- | :-------------- |
 | `promise` | `Promise`<`T`\> |
 
 #### Returns
 
-`Promise`<{ `err`: `undefined` \| `Error` ; `res`: `T` \| `undefined`  }\>
+`Promise`<{ `err`: `undefined` \| `Error` ; `res`: `T` \| `undefined` }\>
 
 #### Defined in
 
 [chain/types.ts:13](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/types.ts#L13)
 
-___
+---
 
 ### instanceOfChain
 
@@ -288,8 +288,8 @@ the Chain interface.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type  |
+| :---- | :---- |
 | `obj` | `any` |
 
 #### Returns
@@ -300,7 +300,7 @@ obj is Chain
 
 [chain/chain.ts:33](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L33)
 
-___
+---
 
 ### isRestEndptLive
 
@@ -308,8 +308,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                           |
+| :------ | :----------------------------- |
 | `chain` | [`Chain`](interfaces/Chain.md) |
 
 #### Returns
@@ -320,7 +320,7 @@ ___
 
 [chain/chain.ts:134](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L134)
 
-___
+---
 
 ### newCoinMapFromCoins
 
@@ -328,8 +328,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type              |
+| :------ | :---------------- |
 | `coins` | readonly `Coin`[] |
 
 #### Returns
@@ -340,7 +340,7 @@ ___
 
 [chain/types.ts:39](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/types.ts#L39)
 
-___
+---
 
 ### newRandomWallet
 
@@ -352,10 +352,10 @@ Generates a new wallet with a BIP39 mnemonic of length 24.
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `length?` | ``12`` \| ``15`` \| ``18`` \| ``21`` \| ``24`` | `undefined` | (optional) The number of words in the mnemonic (12, 15, 18, 21 or 24). |
-| `prefix` | [`BECH32_PREFIX`](enums/BECH32_PREFIX.md) | `BECH32_PREFIX.ADDR` | (optional) Bech32 address prefix. Defaults to "nibi". |
+| Name      | Type                                      | Default value        | Description                                                            |
+| :-------- | :---------------------------------------- | :------------------- | :--------------------------------------------------------------------- |
+| `length?` | `12` \| `15` \| `18` \| `21` \| `24`      | `undefined`          | (optional) The number of words in the mnemonic (12, 15, 18, 21 or 24). |
+| `prefix`  | [`BECH32_PREFIX`](enums/BECH32_PREFIX.md) | `BECH32_PREFIX.ADDR` | (optional) Bech32 address prefix. Defaults to "nibi".                  |
 
 #### Returns
 
@@ -367,7 +367,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT.
 
 [tx/signer.ts:62](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/tx/signer.ts#L62)
 
-___
+---
 
 ### newSignerFromKeplr
 
@@ -375,9 +375,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `keplr` | `Keplr` |
+| Name      | Type     |
+| :-------- | :------- |
+| `keplr`   | `Keplr`  |
 | `chainId` | `string` |
 
 #### Returns
@@ -388,7 +388,7 @@ ___
 
 [tx/signer.ts:47](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/tx/signer.ts#L47)
 
-___
+---
 
 ### newSignerFromMnemonic
 
@@ -400,10 +400,10 @@ Creates a wallet from the given BIP39 mnemonic.
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `mnemonic` | `string` | `undefined` |  |
-| `prefix` | [`BECH32_PREFIX`](enums/BECH32_PREFIX.md) | `BECH32_PREFIX.ADDR` | (optional) Bech32 address prefix. Defaults to "nibi". |
+| Name       | Type                                      | Default value        | Description                                           |
+| :--------- | :---------------------------------------- | :------------------- | :---------------------------------------------------- |
+| `mnemonic` | `string`                                  | `undefined`          |                                                       |
+| `prefix`   | [`BECH32_PREFIX`](enums/BECH32_PREFIX.md) | `BECH32_PREFIX.ADDR` | (optional) Bech32 address prefix. Defaults to "nibi". |
 
 #### Returns
 
@@ -415,7 +415,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT
 
 [tx/signer.ts:40](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/tx/signer.ts#L40)
 
-___
+---
 
 ### queryChainIdWithRest
 
@@ -423,8 +423,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                           |
+| :------ | :----------------------------- |
 | `chain` | [`Chain`](interfaces/Chain.md) |
 
 #### Returns
@@ -435,7 +435,7 @@ ___
 
 [chain/chain.ts:123](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L123)
 
-___
+---
 
 ### toSdkDec
 
@@ -452,8 +452,8 @@ ref: Reimplementation of cosmos-sdk/types/decimal.go
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type     |
+| :---- | :------- |
 | `dec` | `string` |
 
 #### Returns
@@ -464,7 +464,7 @@ ref: Reimplementation of cosmos-sdk/types/decimal.go
 
 [chain/parse.ts:23](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/parse.ts#L23)
 
-___
+---
 
 ### toSdkInt
 
@@ -472,9 +472,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `i` | `number` |
+| Name | Type     |
+| :--- | :------- |
+| `i`  | `number` |
 
 #### Returns
 
@@ -484,7 +484,7 @@ ___
 
 [chain/parse.ts:146](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/parse.ts#L146)
 
-___
+---
 
 ### useFaucet
 
@@ -494,16 +494,16 @@ Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `«destructured»` | `Object` |
-| › `address` | `string` |
-| › `amts?` | `Object` |
-| › `amts.nibi` | `number` |
-| › `amts.nusd` | `number` |
-| › `amts.usdt` | `number` |
-| › `chain?` | `string` \| [`Chain`](interfaces/Chain.md) |
-| › `faucetUrl?` | `string` |
+| Name             | Type                                       |
+| :--------------- | :----------------------------------------- |
+| `«destructured»` | `Object`                                   |
+| › `address`      | `string`                                   |
+| › `amts?`        | `Object`                                   |
+| › `amts.nibi`    | `number`                                   |
+| › `amts.nusd`    | `number`                                   |
+| › `amts.usdt`    | `number`                                   |
+| › `chain?`       | `string` \| [`Chain`](interfaces/Chain.md) |
+| › `faucetUrl?`   | `string`                                   |
 
 #### Returns
 

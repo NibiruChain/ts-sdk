@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.13](../intro.md) / [Exports](../modules.md) / ChainIdParts
+[NibiJS Documentation - v0.19.14](../intro.md) / [Exports](../modules.md) / ChainIdParts
 
 # Interface: ChainIdParts
 
@@ -20,7 +20,7 @@
 
 [chain/chain.ts:42](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L42)
 
-___
+---
 
 ### prefix
 
@@ -30,7 +30,7 @@ ___
 
 [chain/chain.ts:40](https://github.com/NibiruChain/ts-sdk/blob/6bec800/packages/nibijs/src/chain/chain.ts#L40)
 
-___
+---
 
 ### shortName
 

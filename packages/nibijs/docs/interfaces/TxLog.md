@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.13](../intro.md) / [Exports](../modules.md) / TxLog
+[NibiJS Documentation - v0.19.14](../intro.md) / [Exports](../modules.md) / TxLog
 
 # Interface: TxLog
 
