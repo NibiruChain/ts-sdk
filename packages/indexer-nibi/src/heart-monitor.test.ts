@@ -520,3 +520,23 @@ test("ammTotalLiquidity", async () => {
     })
   }
 })
+
+test("perpLeaderboard", async () => {
+  const resp = await heartMonitor.perpLeaderboard()
+  expect(resp).toHaveProperty("perpLeaderboard")
+
+  if (resp.perpLeaderboard.length > 0) {
+    const [config] = resp.perpLeaderboard
+    const fields = [
+      "traderAddress",
+      "percentagePnl",
+      "rawPnl",
+      "inputMargin",
+      "lastUpdatedBlock",
+      "lastUpdatedBlockTs",
+    ]
+    fields.forEach((field: string) => {
+      expect(config).toHaveProperty(field)
+    })
+  }
+})
