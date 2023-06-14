@@ -1,5 +1,3 @@
-/* global BigNumber */
-
 import fs from "fs"
 import path from "path"
 import { BigNumber } from "bignumber.js"
