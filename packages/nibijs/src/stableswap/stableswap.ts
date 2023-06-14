@@ -138,7 +138,7 @@ export class StableSwap {
   }
 
   /**
-   * exchange() runs a theorhetical Curve StableSwap model to determine impact on token price/impact
+   * exchange() runs a theorhetical Curve StableSwap model to determine impact on token price
    *
    * @param {number} fromIndex
    * @param {number} toIndex
