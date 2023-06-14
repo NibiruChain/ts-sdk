@@ -1,5 +1,12 @@
 /* global BigInt */
 
+/**
+ * bigIntExponentiation() takes a base bigint and an exponent bigint and does math similiar to `**` in JS
+ * BigInt does not support `**` until ES7
+ *
+ * @param {bigint} base
+ * @param {bigint} exponent
+ */
 export const bigIntExponentiation = (base: bigint, exponent: bigint) => {
   let result = BigInt(1)
 
@@ -13,6 +20,21 @@ export const bigIntExponentiation = (base: bigint, exponent: bigint) => {
 
   return result
 }
+
+/**
+ * StableSwap contains the logic for exchanging tokens
+ *
+ * Based on: https://github.com/NibiruChain/nibiru/blob/master/contrib/scripts/testing/stableswap_model.py
+ *
+ * Constructor:
+ * @param {bigint} Amplification
+ * @param {bigint[]} totalTokenSupply
+ * @param {bigint[]} tokenPrices
+ * @param {bigint} fee
+ *
+ * @export
+ * @class StableSwap
+ */
 export class StableSwap {
   public Amplification: bigint
   public totalTokenSupply: bigint[]
@@ -33,6 +55,11 @@ export class StableSwap {
     this.fee = fee
   }
 
+  /**
+   * xp() gives an array of total token cap per token
+   *
+   * @memberof StableSwap
+   */
   xp() {
     return this.totalTokenSupply.map(
       (x, i) =>
@@ -41,6 +68,15 @@ export class StableSwap {
     )
   }
 
+  /**
+   * D()
+   *
+   * D invariant calculation in non-overflowing integer operations iteratively
+   * A * sum(x_i) * n**n + D = A * D * n**n + D**(n+1) / (n**n * prod(x_i))
+   *
+   *
+   * @memberof StableSwap
+   */
   D() {
     let Dprev = BigInt(0)
     const xp = this.xp()
@@ -62,6 +98,22 @@ export class StableSwap {
     return D
   }
 
+  /**
+   * y()
+   *
+   * Calculate x[j] if one makes x[i] = x
+   *
+   * Done by solving quadratic equation iteratively.
+   *  x_1**2 + x1 * (sum' - (A*n**n - 1) * D / (A * n**n)) = D ** (n+1)/(n ** (2 * n) * prod' * A)
+   *  x_1**2 + b*x_1 = c
+   *
+   *  x_1 = (x_1**2 + c) / (2*x_1 + b)
+   *
+   * @param {number} fromIndex
+   * @param {number} toIndex
+   * @param {bigint} x
+   * @memberof StableSwap
+   */
   y(fromIndex: number, toIndex: number, x: bigint) {
     const D = this.D()
     let xx = this.xp()
@@ -87,6 +139,14 @@ export class StableSwap {
     return yVal
   }
 
+  /**
+   * exchange() runs a theorhetical Curve StableSwap model to determine impact on token price/impact
+   *
+   * @param {number} fromIndex
+   * @param {number} toIndex
+   * @param {bigint} dx
+   * @memberof StableSwap
+   */
   exchange(fromIndex: number, toIndex: number, dx: bigint) {
     const xp = this.xp()
     const x = xp[fromIndex] + dx
