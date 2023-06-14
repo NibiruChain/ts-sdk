@@ -23,6 +23,7 @@
     "@cosmjs/stargate": "^0.28.11",
     "@cosmjs/tendermint-rpc": "^0.28.11",
     "@nibiruchain/protojs": "^0.19.0",
+    "bignumber.js": "^9.1.1",
     "cross-fetch": "^3.1.5",
     "long": "^5.2.0"
   },
