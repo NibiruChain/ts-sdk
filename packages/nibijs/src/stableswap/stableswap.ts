@@ -1,6 +1,6 @@
 /* global BigInt */
 
-export const power = (base: bigint, exponent: bigint) => {
+export const bigIntExponentiation = (base: bigint, exponent: bigint) => {
   let result = BigInt(1)
 
   while (exponent > BigInt(0)) {
@@ -35,7 +35,9 @@ export class StableSwap {
 
   xp() {
     return this.totalTokenSupply.map(
-      (x, i) => (BigInt(x) * this.tokenPrices[i]) / power(BigInt(10), BigInt(18)),
+      (x, i) =>
+        (BigInt(x) * this.tokenPrices[i]) /
+        bigIntExponentiation(BigInt(10), BigInt(18)),
     )
   }
 
@@ -45,7 +47,8 @@ export class StableSwap {
     const S = xp.reduce((a, b) => a + b, BigInt(0))
     let D = S
     const Ann =
-      this.Amplification * power(this.totalTokensInPool, this.totalTokensInPool)
+      this.Amplification *
+      bigIntExponentiation(this.totalTokensInPool, this.totalTokensInPool)
     while (Math.abs(Number((D - Dprev).toString())) > 1) {
       let D_P = D
       for (const x of xp) {
@@ -65,7 +68,8 @@ export class StableSwap {
     xx[fromIndex] = x
     xx = xx.filter((_, idx) => idx !== toIndex)
     const Ann =
-      this.Amplification * power(this.totalTokensInPool, this.totalTokensInPool)
+      this.Amplification *
+      bigIntExponentiation(this.totalTokensInPool, this.totalTokensInPool)
 
     let c = D
     for (const y of xx) {
@@ -78,7 +82,7 @@ export class StableSwap {
 
     while (Math.abs(Number(yVal - yPrev)) > 1) {
       yPrev = yVal
-      yVal = (power(yVal, BigInt(2)) + c) / (BigInt(2) * yVal + b)
+      yVal = (bigIntExponentiation(yVal, BigInt(2)) + c) / (BigInt(2) * yVal + b)
     }
     return yVal
   }
@@ -88,7 +92,7 @@ export class StableSwap {
     const x = xp[fromIndex] + dx
     const y = this.y(fromIndex, toIndex, x)
     const dy = xp[toIndex] - y
-    const fee = (dy * this.fee) / power(BigInt(10), BigInt(10))
+    const fee = (dy * this.fee) / bigIntExponentiation(BigInt(10), BigInt(10))
 
     if (dy <= 0) {
       throw new Error("Invalid exchange operation")
