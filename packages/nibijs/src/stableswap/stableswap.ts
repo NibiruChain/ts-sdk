@@ -7,7 +7,7 @@
  * @param {bigint} base
  * @param {bigint} exponent
  */
-const bigIntExponentiation = (base: bigint, exponent: bigint) => {
+export const bigIntExponentiation = (base: bigint, exponent: bigint) => {
   let result = BigInt(1)
 
   while (exponent > BigInt(0)) {
