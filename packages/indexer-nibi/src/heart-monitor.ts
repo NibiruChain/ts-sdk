@@ -32,6 +32,7 @@ import {
 } from "./query/ammTotalLiquidity"
 import { delegations, GqlInDelegations, GqlOutDelegations } from "./query/delegations"
 import { GqlInStakingPool, GqlOutStakingPool, stakingPool } from "./query/stakingPool"
+import { GqlOutPerpLeaderboard, perpLeaderboard } from "./query/perpLeaderboard"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -73,6 +74,8 @@ export interface IHeartMonitor {
   readonly ammTotalLiquidity: (
     args: GqlInAmmTotalLiquidity,
   ) => Promise<GqlOutAmmTotalLiquidity>
+
+  readonly perpLeaderboard: () => Promise<GqlOutPerpLeaderboard>
 }
 
 /** HeartMonitor is an API for "Heart Monitor" that indexes the Nibiru blockchain
@@ -153,4 +156,6 @@ export class HeartMonitor implements IHeartMonitor {
   ammTotalLiquidity = async (
     args: GqlInAmmTotalLiquidity,
   ): Promise<GqlOutAmmTotalLiquidity> => ammTotalLiquidity(args, this.gqlEndpt)
+
+  perpLeaderboard = async () => perpLeaderboard(this.gqlEndpt)
 }
