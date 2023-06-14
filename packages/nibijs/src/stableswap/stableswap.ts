@@ -1,5 +1,7 @@
 import { BigNumber } from "bignumber.js"
 
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_FLOOR })
+
 /**
  * StableSwap contains the logic for exchanging tokens
  *
