@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.19.15
+
+- Match version and fix publish script
+
 ## v0.19.14
 
 - feat: StableSwap

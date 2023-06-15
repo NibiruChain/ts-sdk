@@ -22,20 +22,23 @@ The official TypeScript SDK for the Nibiru blockchain
 <a target="_blank" href="https://github.com/NibiruChain/ts-sdk/blob/main/LICENSE">
   <img src="https://img.shields.io/npm/l/express.svg?color=050505" style="height: 20px">
 </a>
-<a target="_blank" href="https://discord.gg/sgPw8ZYfpQ">
-  <img src="https://dcbadge.vercel.app/api/server/sgPw8ZYfpQ?style=flat" style="height: 20px">
+<a target="_blank" href="https://discord.gg/nibirufi">
+  <img src="https://dcbadge.vercel.app/api/server/nibirufi?style=flat" style="height: 20px">
 </a>
-
 </div>
 
 The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions.
 
-The `nibijs` source code can be found in the ["packages" directory](https://github.com/NibiruChain/ts-sdk/tree/main/packages). The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`.
+The `nibijs` source code can be found in the ["packages" directory](https://github.com/NibiruChain/ts-sdk/tree/main/packages).  The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`.
 
 #### Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
+    - [Example: Creating a wallet](#example-creating-a-wallet)
+    - [Example: Querying](#example-querying)
+    - [Example: Sending funds](#example-sending-funds)
+    - [Example: Transaction with arbitrary messages](#example-transaction-with-arbitrary-messages)
 - [Codebase structure](#codebase-structure)
 - [Development Quick Start](#development-quick-start)
 - [🔓 License](#-license)
@@ -61,7 +64,8 @@ The entrypoint for `nibijs` is the `Sdk` object, which is meant to mimic the roo
 #### Example: Creating a wallet
 
 ```js
-import { newRandomWallet, WalletHD } from "@nibiruchain/nibijs/dist/tx"
+import { newRandomWallet, WalletHD } from "@nibiruchain/nibijs"
+
 const wallet: WalletHD = await newRandomWallet()
 const [{ address }] = await wallet.getAccounts()
 
@@ -73,37 +77,62 @@ console.log("address: ", address)
 #### Example: Querying
 
 ```js
-import { Testnet, newSdk } from "@nibiruchain/nibijs"
-const sdk = newSdk(Testnet, myMnemonic)
+import {
+  IncentivizedTestent,
+  NibiruQueryClient,
+  NibiruSigningClient,
+} from "@nibiruchain/nibijs"
 
-const balances = await sdk.query.bank.allBalances(address)
-console.log("balances: %o", balances)
+const TEST_CHAIN = IncentivizedTestent(1)
+const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
 
-const allPools = await sdk.query.vpool.allPools()
+const perpParamsResp = await queryClient.nibiruExtensions.perp.params()
+console.log("perpParams: %o", perpParamsResp)
+
+const allPools = await queryClient.nibiruExtensions.vpool.allPools()
 console.log("allPools: %o", allPools)
 
 const blockHeight = 1
-const block = sdk.tmClient.block(blockHeight)
+const block = await queryClient.getBlock(blockHeight)
 ```
 
 #### Example: Sending funds
 
 ```js
-import { Testnet, newSdk, newCoins, Coin } from "@nibiruchain/nibijs"
-const sdk = newSdk(Testnet, myMnemonic)
+import {
+  Coin,
+  NibiruSigningClient,
+  newCoins,
+  newSignerFromMnemonic,
+} from "@nibiruchain/nibijs"
+
+const signer = await newSignerFromMnemonic(mnemonic!)
+const signingClient = await NibiruSigningClient.connectWithSigner(
+  TEST_CHAIN.endptTm,
+  signer,
+)
+const [{ address: fromAddr }] = await signer.getAccounts()
+
 const tokens: Coin[] = newCoins(5, "unibi")
 const toAddr: string = "..." // bech32 address of the receiving party
-let txResp = sdk.tx.sendTokens(toAddr, tokens)
+const txResp = await signingClient.sendTokens(fromAddr, toAddr, tokens, "auto")
 ```
 
 #### Example: Transaction with arbitrary messages
 
 ```js
-import { Testnet, newSdk, newCoins, Coin, DeliverTxResponse } from "@nibiruchain/nibijs"
-import { Msg } from "@nibiruchain/nibijs/msg"
+import { IncentivizedTestent, NibiruSigningClient, newCoin } from "@nibiruchain/nibijs"
+import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
 
-const sdk = newSdk(Testnet, myMnemonic)
-let msgs: TxMessage[] = [
+const signer = await newSignerFromMnemonic(mnemonic!)
+signer.getAccounts()
+const signingClient = await NibiruSigningClient.connectWithSigner(
+  TEST_CHAIN.endptTm,
+  signer,
+)
+const [{ address: fromAddr }] = await signer.getAccounts()
+const pair = "ubtc:unusd"
+const msgs: TxMessage[] = [
   Msg.perp.openPosition({
     tokenPair: pair,
     baseAssetAmountLimit: 0,
@@ -117,8 +146,14 @@ let msgs: TxMessage[] = [
     tokenPair: pair,
     margin: newCoin("20", "unusd"),
   }),
+  Msg.perp.removeMargin({
+    tokenPair: pair,
+    sender: fromAddr,
+    margin: newCoin("5", "unusd"),
+  }),
+  // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
 ]
-let txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(...msgs)
+const txResp = await signingClient.signAndBroadcast(fromAddr, msgs, "auto")
 ```
 
 ## Codebase structure
@@ -135,8 +170,8 @@ let txResp: DeliverTxResponse = await sdk.tx.signAndBroadcast(...msgs)
 
 ---
 
-<!--
-## 📜 Contribution Guidelines
+<!-- 
+## 📜 Contribution Guidelines  
 
 TODO
 -->
@@ -145,18 +180,21 @@ TODO
 
 1. First install yarn.
 
-   ```sh
-   npm install -g yarn
-   ```
+    ```sh
+    npm install -g yarn
+    ```
 
 2. Then, install package dependencies. At the root of the repository, run
-   ```sh
-   yarn
-   ```
+
+    ```sh
+    yarn 
+    ```
+
 3. Lastly, compile the code in each package.
-   ```sh
-   yarn build
-   ```
+
+    ```sh
+    yarn build
+    ```
 
 See [HACKING.md](https://github.com/NibiruChain/ts-sdk/blob/main/HACKING.md) for the full development guide. It includes instructions on:
 
