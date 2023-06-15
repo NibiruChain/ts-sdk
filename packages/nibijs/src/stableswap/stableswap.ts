@@ -1,25 +1,6 @@
-/* global BigInt */
+import { BigNumber } from "bignumber.js"
 
-/**
- * bigIntExponentiation() takes a base bigint and an exponent bigint and does math similiar to `**` in JS
- * BigInt does not support `**` until ES7
- *
- * @param {bigint} base
- * @param {bigint} exponent
- */
-export const bigIntExponentiation = (base: bigint, exponent: bigint) => {
-  let result = BigInt(1)
-
-  while (exponent > BigInt(0)) {
-    if (exponent % BigInt(2) === BigInt(1)) {
-      result *= base
-    }
-    base *= base
-    exponent /= BigInt(2)
-  }
-
-  return result
-}
+BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_FLOOR })
 
 /**
  * StableSwap contains the logic for exchanging tokens
@@ -27,30 +8,30 @@ export const bigIntExponentiation = (base: bigint, exponent: bigint) => {
  * Based on: https://github.com/NibiruChain/nibiru/blob/master/contrib/scripts/testing/stableswap_model.py
  *
  * Constructor:
- * @param {bigint} Amplification
- * @param {bigint[]} totalTokenSupply
- * @param {bigint[]} tokenPrices
- * @param {bigint} fee
+ * @param {BigNumber} Amplification
+ * @param {BigNumber[]} totalTokenSupply
+ * @param {BigNumber[]} tokenPrices
+ * @param {BigNumber} fee
  *
  * @export
  * @class StableSwap
  */
 export class StableSwap {
-  public Amplification: bigint
-  public totalTokenSupply: bigint[]
-  public totalTokensInPool: bigint
-  public tokenPrices: bigint[]
-  public fee: bigint
+  public Amplification: BigNumber
+  public totalTokenSupply: BigNumber[]
+  public totalTokensInPool: BigNumber
+  public tokenPrices: BigNumber[]
+  public fee: BigNumber
 
   constructor(
-    Amplification: bigint,
-    totalTokenSupply: bigint[],
-    tokenPrices: bigint[],
-    fee: bigint,
+    Amplification: BigNumber,
+    totalTokenSupply: BigNumber[],
+    tokenPrices: BigNumber[],
+    fee: BigNumber,
   ) {
     this.Amplification = Amplification
     this.totalTokenSupply = totalTokenSupply
-    this.totalTokensInPool = BigInt(totalTokenSupply.length)
+    this.totalTokensInPool = BigNumber(totalTokenSupply.length)
     this.tokenPrices = tokenPrices
     this.fee = fee
   }
@@ -61,10 +42,10 @@ export class StableSwap {
    * @memberof StableSwap
    */
   xp() {
-    return this.totalTokenSupply.map(
-      (x, i) =>
-        (BigInt(x) * this.tokenPrices[i]) /
-        bigIntExponentiation(BigInt(10), BigInt(18)),
+    return this.totalTokenSupply.map((x, i) =>
+      BigNumber(x)
+        .multipliedBy(this.tokenPrices[i])
+        .dividedBy(BigNumber(10).exponentiatedBy(BigNumber(18))),
     )
   }
 
@@ -78,23 +59,34 @@ export class StableSwap {
    * @memberof StableSwap
    */
   D() {
-    let Dprev = BigInt(0)
+    let Dprev = BigNumber(0)
     const xp = this.xp()
-    const S = xp.reduce((a, b) => a + b, BigInt(0))
+    const S = xp.reduce((a, b) => a.plus(b), BigNumber(0))
     let D = S
-    const Ann =
-      this.Amplification *
-      bigIntExponentiation(this.totalTokensInPool, this.totalTokensInPool)
-    while (Math.abs(Number((D - Dprev).toString())) > 1) {
+
+    const Ann = this.Amplification.multipliedBy(
+      this.totalTokensInPool.exponentiatedBy(this.totalTokensInPool),
+    )
+
+    while (D.minus(Dprev).abs().isGreaterThan(BigNumber(1))) {
       let D_P = D
+
       for (const x of xp) {
-        D_P = (D_P * D) / (this.totalTokensInPool * x)
+        D_P = D_P.multipliedBy(D).dividedBy(this.totalTokensInPool.multipliedBy(x))
       }
+
       Dprev = D
-      D =
-        ((Ann * S + D_P * this.totalTokensInPool) * D) /
-        ((Ann - BigInt(1)) * D + (this.totalTokensInPool + BigInt(1)) * D_P)
+
+      D = Ann.multipliedBy(S)
+        .plus(D_P.multipliedBy(this.totalTokensInPool))
+        .multipliedBy(D)
+        .dividedBy(
+          Ann.minus(BigNumber(1))
+            .multipliedBy(D)
+            .plus(this.totalTokensInPool.plus(BigNumber(1)).multipliedBy(D_P)),
+        )
     }
+
     return D
   }
 
@@ -111,53 +103,61 @@ export class StableSwap {
    *
    * @param {number} fromIndex
    * @param {number} toIndex
-   * @param {bigint} x
+   * @param {BigNumber} x
    * @memberof StableSwap
    */
-  y(fromIndex: number, toIndex: number, x: bigint) {
+  y(fromIndex: number, toIndex: number, x: BigNumber) {
     const D = this.D()
     let xx = this.xp()
     xx[fromIndex] = x
     xx = xx.filter((_, idx) => idx !== toIndex)
-    const Ann =
-      this.Amplification *
-      bigIntExponentiation(this.totalTokensInPool, this.totalTokensInPool)
+    const Ann = this.Amplification.multipliedBy(
+      this.totalTokensInPool.exponentiatedBy(this.totalTokensInPool),
+    )
 
     let c = D
     for (const y of xx) {
-      c = (c * D) / (y * this.totalTokensInPool)
+      c = c.multipliedBy(D).dividedBy(y.multipliedBy(this.totalTokensInPool))
     }
-    c = (c * D) / (this.totalTokensInPool * Ann)
-    const b = xx.reduce((a, b) => a + b, BigInt(0)) + D / Ann - D
-    let yPrev = BigInt(0)
+    c = c.multipliedBy(D).dividedBy(this.totalTokensInPool.multipliedBy(Ann))
+    const b = xx
+      .reduce((a, b) => a.plus(b), BigNumber(0))
+      .plus(D.dividedBy(Ann))
+      .minus(D)
+    let yPrev = BigNumber(0)
     let yVal = D
 
-    while (Math.abs(Number(yVal - yPrev)) > 1) {
+    while (yVal.minus(yPrev).abs().isGreaterThan(BigNumber(1))) {
       yPrev = yVal
-      yVal = (bigIntExponentiation(yVal, BigInt(2)) + c) / (BigInt(2) * yVal + b)
+      yVal = yVal
+        .exponentiatedBy(BigNumber(2))
+        .plus(c)
+        .dividedBy(BigNumber(2).multipliedBy(yVal).plus(b))
     }
     return yVal
   }
 
   /**
-   * exchange() runs a theorhetical Curve StableSwap model to determine impact on token price/impact
+   * exchange() runs a theorhetical Curve StableSwap model to determine impact on token price
    *
    * @param {number} fromIndex
    * @param {number} toIndex
-   * @param {bigint} dx
+   * @param {BigNumber} dx
    * @memberof StableSwap
    */
-  exchange(fromIndex: number, toIndex: number, dx: bigint) {
+  exchange(fromIndex: number, toIndex: number, dx: BigNumber) {
     const xp = this.xp()
-    const x = xp[fromIndex] + dx
+    const x = xp[fromIndex].plus(dx)
     const y = this.y(fromIndex, toIndex, x)
-    const dy = xp[toIndex] - y
-    const fee = (dy * this.fee) / bigIntExponentiation(BigInt(10), BigInt(10))
+    const dy = xp[toIndex].minus(y)
+    const fee = dy
+      .multipliedBy(this.fee)
+      .dividedBy(BigNumber(10).exponentiatedBy(BigNumber(10)))
 
-    if (dy <= 0) {
+    if (dy.isLessThanOrEqualTo(BigNumber(0))) {
       throw new Error("Invalid exchange operation")
     }
 
-    return dy - fee
+    return dy.minus(fee)
   }
 }
