@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.19.14
+
+- Match version
+
 ## v0.6.1
 
 - feat(perpLeaderboard): Add perp leaderboard query
