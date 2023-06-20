@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.19.18
+
+- Update indexer-nibi
+
 ## v0.19.17
 
 - Update indexer-nibi
