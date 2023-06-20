@@ -21,16 +21,17 @@ export interface GqlOutPerpLeaderboard {
   perpLeaderboard: PerpLeaderboard[]
 }
 
-export const perpLeaderboard = async (endpt: string): Promise<GqlOutPerpLeaderboard> =>
+export const perpLeaderboard = async (
+  endpt: string,
+  traderAddress?: string,
+): Promise<GqlOutPerpLeaderboard> =>
   doGqlQuery(
     `{
-      perpLeaderboard {
+      perpLeaderboard ${traderAddress ? `(traderAddress: ${traderAddress})` : ""} {
         traderAddress
         percentagePnl
         rawPnl
         inputMargin
-        lastUpdatedBlock
-        lastUpdatedBlockTs
       }
     }`,
     endpt,
