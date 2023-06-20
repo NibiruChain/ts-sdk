@@ -15,6 +15,10 @@ export interface PerpLeaderboard {
   lastUpdatedBlock: number
   lastUpdatedBlockTs: Date
 }
+/** GqlInPerpLeaderboard: Optional input arguments for the PerpLeaderboard query  */
+export interface GqlInPerpLeaderboard {
+  address: string
+}
 
 /** GqlOutPerpLeaderboard: Output response for the PerpLeaderboard query  */
 export interface GqlOutPerpLeaderboard {
@@ -23,11 +27,11 @@ export interface GqlOutPerpLeaderboard {
 
 export const perpLeaderboard = async (
   endpt: string,
-  traderAddress?: string,
+  args?: GqlInPerpLeaderboard,
 ): Promise<GqlOutPerpLeaderboard> =>
   doGqlQuery(
     `{
-      perpLeaderboard ${traderAddress ? `(traderAddress: ${traderAddress})` : ""} {
+      perpLeaderboard ${args?.address ? `(traderAddress: "${args.address}")` : ""} {
         traderAddress
         percentagePnl
         rawPnl
