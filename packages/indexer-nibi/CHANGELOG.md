@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.19.17
+
+- Fix func
+
 ## v0.19.16
 
 - Update leaderboard
