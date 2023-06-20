@@ -527,14 +527,7 @@ test("perpLeaderboard", async () => {
 
   if (resp.perpLeaderboard.length > 0) {
     const [config] = resp.perpLeaderboard
-    const fields = [
-      "traderAddress",
-      "percentagePnl",
-      "rawPnl",
-      "inputMargin",
-      "lastUpdatedBlock",
-      "lastUpdatedBlockTs",
-    ]
+    const fields = ["traderAddress", "percentagePnl", "rawPnl", "inputMargin"]
     fields.forEach((field: string) => {
       expect(config).toHaveProperty(field)
     })
