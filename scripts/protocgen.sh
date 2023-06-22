@@ -11,7 +11,7 @@ set -eo pipefail
 #   PKG_OUT_DIR: Output path where the generated code will go upon 
 #     successful execution.
 NIBIRU_REPO="../nibiru"    
-PKG_OUT_DIR="./packages/protojs/src/" 
+PKG_OUT_DIR="./packages/protojs/src" 
 
 # -----------------------------------------------------------------------------
 # MAIN - Beginning of Script Execution
