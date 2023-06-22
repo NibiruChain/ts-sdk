@@ -31,3 +31,5 @@ for dir in $(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1
     buf generate --template proto/buf.gen.ts.yaml -o $PKG_OUT_DIR $file
   done
 done;
+
+rm -rf proto/
