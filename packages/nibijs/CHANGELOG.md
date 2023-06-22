@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.19.19
+
+- Update Keplr version
+
 ## v0.19.18
 
 - Update indexer-nibi
