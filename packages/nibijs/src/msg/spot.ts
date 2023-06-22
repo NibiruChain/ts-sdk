@@ -86,21 +86,35 @@ export class SpotMsgFactory {
   static joinPool(msg: MsgJoinPool): TxMessage {
     return {
       typeUrl: `/${protobufPackage}.MsgJoinPool`,
-      value: MsgJoinPool.fromPartial(msg),
+      value: MsgJoinPool.fromPartial({
+        poolId: Number(msg.poolId),
+        sender: msg.sender,
+        tokensIn: msg.tokensIn,
+        useAllCoins: msg.useAllCoins,
+      }),
     }
   }
 
   static exitPool(msg: MsgExitPool): TxMessage {
     return {
       typeUrl: `/${protobufPackage}.MsgExitPool`,
-      value: MsgExitPool.fromPartial(msg),
+      value: MsgExitPool.fromPartial({
+        poolId: Number(msg.poolId),
+        sender: msg.sender,
+        poolShares: msg.poolShares,
+      }),
     }
   }
 
   static swapAssets(msg: MsgSwapAssets): TxMessage {
     return {
       typeUrl: `/${protobufPackage}.MsgSwapAssets`,
-      value: MsgSwapAssets.fromPartial(msg),
+      value: MsgSwapAssets.fromPartial({
+        poolId: Number(msg.poolId),
+        sender: msg.sender,
+        tokenIn: msg.tokenIn,
+        tokenOutDenom: msg.tokenOutDenom,
+      }),
     }
   }
 }
