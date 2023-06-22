@@ -83,37 +83,42 @@ export class SpotMsgFactory {
     }
   }
 
-  static joinPool(msg: MsgJoinPool): TxMessage {
+  static joinPool({ poolId, sender, tokensIn, useAllCoins }: MsgJoinPool): TxMessage {
     return {
       typeUrl: `/${protobufPackage}.MsgJoinPool`,
       value: MsgJoinPool.fromPartial({
-        poolId: Number(msg.poolId),
-        sender: msg.sender,
-        tokensIn: msg.tokensIn,
-        useAllCoins: msg.useAllCoins,
+        poolId: Number(poolId),
+        sender,
+        tokensIn,
+        useAllCoins,
       }),
     }
   }
 
-  static exitPool(msg: MsgExitPool): TxMessage {
+  static exitPool({ poolId, sender, poolShares }: MsgExitPool): TxMessage {
     return {
       typeUrl: `/${protobufPackage}.MsgExitPool`,
       value: MsgExitPool.fromPartial({
-        poolId: Number(msg.poolId),
-        sender: msg.sender,
-        poolShares: msg.poolShares,
+        poolId: Number(poolId),
+        sender,
+        poolShares,
       }),
     }
   }
 
-  static swapAssets(msg: MsgSwapAssets): TxMessage {
+  static swapAssets({
+    poolId,
+    sender,
+    tokenOutDenom,
+    tokenIn,
+  }: MsgSwapAssets): TxMessage {
     return {
       typeUrl: `/${protobufPackage}.MsgSwapAssets`,
       value: MsgSwapAssets.fromPartial({
-        poolId: Number(msg.poolId),
-        sender: msg.sender,
-        tokenIn: msg.tokenIn,
-        tokenOutDenom: msg.tokenOutDenom,
+        poolId: Number(poolId),
+        sender,
+        tokenIn,
+        tokenOutDenom,
       }),
     }
   }
