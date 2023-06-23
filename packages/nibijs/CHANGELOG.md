@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.19.20
+
+- Update fetch polyfill
+
 ## v0.19.19
 
 - Update Keplr version
