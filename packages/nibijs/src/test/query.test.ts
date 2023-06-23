@@ -1,7 +1,7 @@
 import { Block, GasPrice, coins } from "@cosmjs/stargate"
-import fetch from "cross-fetch"
 import Long from "long"
 import fs from "fs"
+import * as cf from "cross-fetch"
 import { instanceOfError } from "../chain/error"
 import { NibiruQueryClient } from "../query"
 import {
@@ -15,6 +15,14 @@ import {
 import { newSignerFromMnemonic } from "../tx/signer"
 import { NibiruSigningClient } from "../tx/signingClient"
 
+declare global {
+  interface Window {
+    fetch: typeof cf.fetch
+  }
+}
+
+window.fetch = cf.fetch
+
 interface BlockResp {
   result: { block: any }
 }
@@ -27,7 +35,7 @@ describe("connections", () => {
   })
 
   test("tendermint rpc url returns block with GET", async () => {
-    const resp = await fetch(`${TEST_CHAIN.endptTm}/block`)
+    const resp = await window.fetch(`${TEST_CHAIN.endptTm}/block`)
     const respJson = (await resp.json()) as BlockResp
     expect(respJson.result, `respJson: ${respJson}`).toHaveProperty("block")
     const blockJson = respJson.result.block

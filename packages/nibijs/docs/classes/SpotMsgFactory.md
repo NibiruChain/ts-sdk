@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.19](../intro.md) / [Exports](../modules.md) / SpotMsgFactory
+[NibiJS Documentation - v0.19.20](../intro.md) / [Exports](../modules.md) / SpotMsgFactory
 
 # Class: SpotMsgFactory
 
@@ -39,19 +39,19 @@
 
 #### Defined in
 
-[msg/spot.ts:73](https://github.com/NibiruChain/ts-sdk/blob/f06ff7b1/packages/nibijs/src/msg/spot.ts#L73)
+[msg/spot.ts:73](https://github.com/NibiruChain/ts-sdk/blob/6819e4e/packages/nibijs/src/msg/spot.ts#L73)
 
 ___
 
 ### exitPool
 
-▸ `Static` **exitPool**(`msg`): [`TxMessage`](../interfaces/TxMessage.md)
+▸ `Static` **exitPool**(`«destructured»`): [`TxMessage`](../interfaces/TxMessage.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `msg` | `MsgExitPool` |
+| `«destructured»` | `MsgExitPool` |
 
 #### Returns
 
@@ -59,19 +59,19 @@ ___
 
 #### Defined in
 
-[msg/spot.ts:98](https://github.com/NibiruChain/ts-sdk/blob/f06ff7b1/packages/nibijs/src/msg/spot.ts#L98)
+[msg/spot.ts:98](https://github.com/NibiruChain/ts-sdk/blob/6819e4e/packages/nibijs/src/msg/spot.ts#L98)
 
 ___
 
 ### joinPool
 
-▸ `Static` **joinPool**(`msg`): [`TxMessage`](../interfaces/TxMessage.md)
+▸ `Static` **joinPool**(`«destructured»`): [`TxMessage`](../interfaces/TxMessage.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `msg` | `MsgJoinPool` |
+| `«destructured»` | `MsgJoinPool` |
 
 #### Returns
 
@@ -79,19 +79,19 @@ ___
 
 #### Defined in
 
-[msg/spot.ts:86](https://github.com/NibiruChain/ts-sdk/blob/f06ff7b1/packages/nibijs/src/msg/spot.ts#L86)
+[msg/spot.ts:86](https://github.com/NibiruChain/ts-sdk/blob/6819e4e/packages/nibijs/src/msg/spot.ts#L86)
 
 ___
 
 ### swapAssets
 
-▸ `Static` **swapAssets**(`msg`): [`TxMessage`](../interfaces/TxMessage.md)
+▸ `Static` **swapAssets**(`«destructured»`): [`TxMessage`](../interfaces/TxMessage.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `msg` | `MsgSwapAssets` |
+| `«destructured»` | `MsgSwapAssets` |
 
 #### Returns
 
@@ -99,4 +99,4 @@ ___
 
 #### Defined in
 
-[msg/spot.ts:109](https://github.com/NibiruChain/ts-sdk/blob/f06ff7b1/packages/nibijs/src/msg/spot.ts#L109)
+[msg/spot.ts:109](https://github.com/NibiruChain/ts-sdk/blob/6819e4e/packages/nibijs/src/msg/spot.ts#L109)

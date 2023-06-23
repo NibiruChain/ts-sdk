@@ -1,5 +1,13 @@
-import fetch from "cross-fetch"
+import * as cf from "cross-fetch"
 import { Chain, instanceOfChain } from "./chain"
+
+declare global {
+  interface Window {
+    fetch: typeof cf.fetch
+  }
+}
+
+window.fetch = cf.fetch
 
 /**
  * Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
@@ -52,17 +60,19 @@ export async function useFaucet({
     `,
   )
 
-  return fetch(faucetUrl, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ address, coins }),
-  }).catch((err) => {
-    console.error(err)
-    throw err
-  })
+  return window
+    .fetch(faucetUrl, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ address, coins }),
+    })
+    .catch((err) => {
+      console.error(err)
+      throw err
+    })
 }
 
 /** TODO doc */

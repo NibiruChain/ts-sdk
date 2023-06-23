@@ -1,4 +1,12 @@
-import fetch from "cross-fetch"
+import * as cf from "cross-fetch"
+
+declare global {
+  interface Window {
+    fetch: typeof cf.fetch
+  }
+}
+
+window.fetch = cf.fetch
 
 /**
  * The workhorse function that fetches data from the GraphQL endpoint.
@@ -11,7 +19,7 @@ import fetch from "cross-fetch"
 export async function doGqlQuery(gqlQuery: string, gqlEndpt: string): Promise<any> {
   const encodedGqlQuery = encodeURI(gqlQuery)
   const fetchString = `${gqlEndpt}?query=${encodedGqlQuery}`
-  const rawResp = await fetch(fetchString)
+  const rawResp = await window.fetch(fetchString)
   return cleanResponse(rawResp)
 }
 

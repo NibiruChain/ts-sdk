@@ -1,5 +1,13 @@
-import fetch from "cross-fetch"
+import * as cf from "cross-fetch"
 import { go } from "./types"
+
+declare global {
+  interface Window {
+    fetch: typeof cf.fetch
+  }
+}
+
+window.fetch = cf.fetch
 
 /**
  * Specifies chain information for all endpoints a node exposes such as the
@@ -122,7 +130,7 @@ export function Devnet(chainNumber: number): Chain {
 
 export async function queryChainIdWithRest(chain: Chain): Promise<[string, Error?]> {
   const queryChainId = async (chain: Chain): Promise<string> => {
-    const response = await fetch(`${chain.endptRest}/node_info`)
+    const response = await window.fetch(`${chain.endptRest}/node_info`)
     const nodeInfo: { node_info: { network: string } } = await response.json()
     return nodeInfo.node_info.network
   }
