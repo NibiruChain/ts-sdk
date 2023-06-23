@@ -1,4 +1,12 @@
-import fetch from "cross-fetch"
+import * as cf from "cross-fetch"
+
+declare global {
+  interface Window {
+    fetch: typeof cf.fetch
+  }
+}
+
+window.fetch = cf.fetch
 
 /**
  * The workhorse function that fetches data from the GraphQL endpoint.

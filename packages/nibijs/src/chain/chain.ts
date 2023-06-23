@@ -1,5 +1,13 @@
-import fetch from "cross-fetch"
+import * as cf from "cross-fetch"
 import { go } from "./types"
+
+declare global {
+  interface Window {
+    fetch: typeof cf.fetch
+  }
+}
+
+window.fetch = cf.fetch
 
 /**
  * Specifies chain information for all endpoints a node exposes such as the

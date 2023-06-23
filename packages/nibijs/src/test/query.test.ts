@@ -1,7 +1,7 @@
 import { Block, GasPrice, coins } from "@cosmjs/stargate"
-import fetch from "cross-fetch"
 import Long from "long"
 import fs from "fs"
+import * as cf from "cross-fetch"
 import { instanceOfError } from "../chain/error"
 import { NibiruQueryClient } from "../query"
 import {
@@ -14,6 +14,14 @@ import {
 } from "./helpers"
 import { newSignerFromMnemonic } from "../tx/signer"
 import { NibiruSigningClient } from "../tx/signingClient"
+
+declare global {
+  interface Window {
+    fetch: typeof cf.fetch
+  }
+}
+
+window.fetch = cf.fetch
 
 interface BlockResp {
   result: { block: any }

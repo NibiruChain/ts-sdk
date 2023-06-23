@@ -1,5 +1,13 @@
-import fetch from "cross-fetch"
+import * as cf from "cross-fetch"
 import { Chain, instanceOfChain } from "./chain"
+
+declare global {
+  interface Window {
+    fetch: typeof cf.fetch
+  }
+}
+
+window.fetch = cf.fetch
 
 /**
  * Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
