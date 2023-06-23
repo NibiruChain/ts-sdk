@@ -60,17 +60,19 @@ export async function useFaucet({
     `,
   )
 
-  return fetch(faucetUrl, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ address, coins }),
-  }).catch((err) => {
-    console.error(err)
-    throw err
-  })
+  return window
+    .fetch(faucetUrl, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ address, coins }),
+    })
+    .catch((err) => {
+      console.error(err)
+      throw err
+    })
 }
 
 /** TODO doc */

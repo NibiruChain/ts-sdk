@@ -130,7 +130,7 @@ export function Devnet(chainNumber: number): Chain {
 
 export async function queryChainIdWithRest(chain: Chain): Promise<[string, Error?]> {
   const queryChainId = async (chain: Chain): Promise<string> => {
-    const response = await fetch(`${chain.endptRest}/node_info`)
+    const response = await window.fetch(`${chain.endptRest}/node_info`)
     const nodeInfo: { node_info: { network: string } } = await response.json()
     return nodeInfo.node_info.network
   }
