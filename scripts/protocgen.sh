@@ -33,3 +33,6 @@ for dir in $(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1
 done;
 
 rm -rf proto/
+
+# the `descriptor.ts` file is only used for gogoproto, and it causes issues with TS-generated code
+rm $PKG_OUT_DIR/google/protobuf/descriptor.ts
