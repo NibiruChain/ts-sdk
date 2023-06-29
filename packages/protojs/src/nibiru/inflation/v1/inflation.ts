@@ -1,8 +1,9 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
+import Long from "long"
+import _m0 from "protobufjs/minimal"
+import { messageTypeRegistry } from "../../../typeRegistry"
 
-export const protobufPackage = "nibiru.inflation.v1";
+export const protobufPackage = "nibiru.inflation.v1"
 
 /**
  * InflationDistribution defines the distribution in which inflation is
@@ -10,21 +11,22 @@ export const protobufPackage = "nibiru.inflation.v1";
  * excludes the team vesting distribution.
  */
 export interface InflationDistribution {
+  $type: "nibiru.inflation.v1.InflationDistribution"
   /**
    * staking_rewards defines the proportion of the minted_denom that is
    * to be allocated as staking rewards
    */
-  stakingRewards: string;
+  stakingRewards: string
   /**
    * community_pool defines the proportion of the minted_denom that is to
    * be allocated to the community pool
    */
-  communityPool: string;
+  communityPool: string
   /**
    * strategic_reserves defines the proportion of the minted_denom that
    * is to be allocated to the strategic reserves module address
    */
-  strategicReserves: string;
+  strategicReserves: string
 }
 
 /**
@@ -34,199 +36,242 @@ export interface InflationDistribution {
  * f(x)            = a * (1 - r) ^ x + c
  */
 export interface ExponentialCalculation {
+  $type: "nibiru.inflation.v1.ExponentialCalculation"
   /** a defines the initial value */
-  a: string;
+  a: string
   /** r defines the reduction factor */
-  r: string;
+  r: string
   /** c defines the parameter for long term inflation */
-  c: string;
+  c: string
 }
 
 function createBaseInflationDistribution(): InflationDistribution {
-  return { stakingRewards: "", communityPool: "", strategicReserves: "" };
+  return {
+    $type: "nibiru.inflation.v1.InflationDistribution",
+    stakingRewards: "",
+    communityPool: "",
+    strategicReserves: "",
+  }
 }
 
 export const InflationDistribution = {
-  encode(message: InflationDistribution, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  $type: "nibiru.inflation.v1.InflationDistribution" as const,
+
+  encode(
+    message: InflationDistribution,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.stakingRewards !== "") {
-      writer.uint32(10).string(message.stakingRewards);
+      writer.uint32(10).string(message.stakingRewards)
     }
     if (message.communityPool !== "") {
-      writer.uint32(18).string(message.communityPool);
+      writer.uint32(18).string(message.communityPool)
     }
     if (message.strategicReserves !== "") {
-      writer.uint32(26).string(message.strategicReserves);
+      writer.uint32(26).string(message.strategicReserves)
     }
-    return writer;
+    return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InflationDistribution {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseInflationDistribution();
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = createBaseInflationDistribution()
     while (reader.pos < end) {
-      const tag = reader.uint32();
+      const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
           if (tag !== 10) {
-            break;
+            break
           }
 
-          message.stakingRewards = reader.string();
-          continue;
+          message.stakingRewards = reader.string()
+          continue
         case 2:
           if (tag !== 18) {
-            break;
+            break
           }
 
-          message.communityPool = reader.string();
-          continue;
+          message.communityPool = reader.string()
+          continue
         case 3:
           if (tag !== 26) {
-            break;
+            break
           }
 
-          message.strategicReserves = reader.string();
-          continue;
+          message.strategicReserves = reader.string()
+          continue
       }
       if ((tag & 7) === 4 || tag === 0) {
-        break;
+        break
       }
-      reader.skipType(tag & 7);
+      reader.skipType(tag & 7)
     }
-    return message;
+    return message
   },
 
   fromJSON(object: any): InflationDistribution {
     return {
+      $type: InflationDistribution.$type,
       stakingRewards: isSet(object.stakingRewards) ? String(object.stakingRewards) : "",
       communityPool: isSet(object.communityPool) ? String(object.communityPool) : "",
-      strategicReserves: isSet(object.strategicReserves) ? String(object.strategicReserves) : "",
-    };
+      strategicReserves: isSet(object.strategicReserves)
+        ? String(object.strategicReserves)
+        : "",
+    }
   },
 
   toJSON(message: InflationDistribution): unknown {
-    const obj: any = {};
-    message.stakingRewards !== undefined && (obj.stakingRewards = message.stakingRewards);
-    message.communityPool !== undefined && (obj.communityPool = message.communityPool);
-    message.strategicReserves !== undefined && (obj.strategicReserves = message.strategicReserves);
-    return obj;
+    const obj: any = {}
+    message.stakingRewards !== undefined &&
+      (obj.stakingRewards = message.stakingRewards)
+    message.communityPool !== undefined && (obj.communityPool = message.communityPool)
+    message.strategicReserves !== undefined &&
+      (obj.strategicReserves = message.strategicReserves)
+    return obj
   },
 
-  create<I extends Exact<DeepPartial<InflationDistribution>, I>>(base?: I): InflationDistribution {
-    return InflationDistribution.fromPartial(base ?? {});
+  create<I extends Exact<DeepPartial<InflationDistribution>, I>>(
+    base?: I,
+  ): InflationDistribution {
+    return InflationDistribution.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<InflationDistribution>, I>>(object: I): InflationDistribution {
-    const message = createBaseInflationDistribution();
-    message.stakingRewards = object.stakingRewards ?? "";
-    message.communityPool = object.communityPool ?? "";
-    message.strategicReserves = object.strategicReserves ?? "";
-    return message;
+  fromPartial<I extends Exact<DeepPartial<InflationDistribution>, I>>(
+    object: I,
+  ): InflationDistribution {
+    const message = createBaseInflationDistribution()
+    message.stakingRewards = object.stakingRewards ?? ""
+    message.communityPool = object.communityPool ?? ""
+    message.strategicReserves = object.strategicReserves ?? ""
+    return message
   },
-};
+}
+
+messageTypeRegistry.set(InflationDistribution.$type, InflationDistribution)
 
 function createBaseExponentialCalculation(): ExponentialCalculation {
-  return { a: "", r: "", c: "" };
+  return { $type: "nibiru.inflation.v1.ExponentialCalculation", a: "", r: "", c: "" }
 }
 
 export const ExponentialCalculation = {
-  encode(message: ExponentialCalculation, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  $type: "nibiru.inflation.v1.ExponentialCalculation" as const,
+
+  encode(
+    message: ExponentialCalculation,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.a !== "") {
-      writer.uint32(10).string(message.a);
+      writer.uint32(10).string(message.a)
     }
     if (message.r !== "") {
-      writer.uint32(18).string(message.r);
+      writer.uint32(18).string(message.r)
     }
     if (message.c !== "") {
-      writer.uint32(26).string(message.c);
+      writer.uint32(26).string(message.c)
     }
-    return writer;
+    return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ExponentialCalculation {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseExponentialCalculation();
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = createBaseExponentialCalculation()
     while (reader.pos < end) {
-      const tag = reader.uint32();
+      const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
           if (tag !== 10) {
-            break;
+            break
           }
 
-          message.a = reader.string();
-          continue;
+          message.a = reader.string()
+          continue
         case 2:
           if (tag !== 18) {
-            break;
+            break
           }
 
-          message.r = reader.string();
-          continue;
+          message.r = reader.string()
+          continue
         case 3:
           if (tag !== 26) {
-            break;
+            break
           }
 
-          message.c = reader.string();
-          continue;
+          message.c = reader.string()
+          continue
       }
       if ((tag & 7) === 4 || tag === 0) {
-        break;
+        break
       }
-      reader.skipType(tag & 7);
+      reader.skipType(tag & 7)
     }
-    return message;
+    return message
   },
 
   fromJSON(object: any): ExponentialCalculation {
     return {
+      $type: ExponentialCalculation.$type,
       a: isSet(object.a) ? String(object.a) : "",
       r: isSet(object.r) ? String(object.r) : "",
       c: isSet(object.c) ? String(object.c) : "",
-    };
+    }
   },
 
   toJSON(message: ExponentialCalculation): unknown {
-    const obj: any = {};
-    message.a !== undefined && (obj.a = message.a);
-    message.r !== undefined && (obj.r = message.r);
-    message.c !== undefined && (obj.c = message.c);
-    return obj;
+    const obj: any = {}
+    message.a !== undefined && (obj.a = message.a)
+    message.r !== undefined && (obj.r = message.r)
+    message.c !== undefined && (obj.c = message.c)
+    return obj
   },
 
-  create<I extends Exact<DeepPartial<ExponentialCalculation>, I>>(base?: I): ExponentialCalculation {
-    return ExponentialCalculation.fromPartial(base ?? {});
+  create<I extends Exact<DeepPartial<ExponentialCalculation>, I>>(
+    base?: I,
+  ): ExponentialCalculation {
+    return ExponentialCalculation.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<ExponentialCalculation>, I>>(object: I): ExponentialCalculation {
-    const message = createBaseExponentialCalculation();
-    message.a = object.a ?? "";
-    message.r = object.r ?? "";
-    message.c = object.c ?? "";
-    return message;
+  fromPartial<I extends Exact<DeepPartial<ExponentialCalculation>, I>>(
+    object: I,
+  ): ExponentialCalculation {
+    const message = createBaseExponentialCalculation()
+    message.a = object.a ?? ""
+    message.r = object.r ?? ""
+    message.c = object.c ?? ""
+    return message
   },
-};
+}
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+messageTypeRegistry.set(ExponentialCalculation.$type, ExponentialCalculation)
 
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
 
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Long
+  ? string | number | Long
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  : Partial<T>
+
+type KeysOfUnion<T> = T extends T ? keyof T : never
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
+      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+    }
 
 if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
+  _m0.util.Long = Long as any
+  _m0.configure()
 }
 
 function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
+  return value !== null && value !== undefined
 }

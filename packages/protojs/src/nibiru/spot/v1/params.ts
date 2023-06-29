@@ -1,136 +1,163 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import Long from "long"
+import _m0 from "protobufjs/minimal"
+import { Coin } from "../../../cosmos/base/v1beta1/coin"
+import { messageTypeRegistry } from "../../../typeRegistry"
 
-export const protobufPackage = "nibiru.spot.v1";
+export const protobufPackage = "nibiru.spot.v1"
 
 /** Params defines the parameters for the module. */
 export interface Params {
+  $type: "nibiru.spot.v1.Params"
   /** The start pool number, i.e. the first pool number that isn't taken yet. */
-  startingPoolNumber: Long;
+  startingPoolNumber: Long
   /** The cost of creating a pool, taken from the pool creator's account. */
-  poolCreationFee: Coin[];
+  poolCreationFee: Coin[]
   /** The assets that can be used to create liquidity pools */
-  whitelistedAsset: string[];
+  whitelistedAsset: string[]
 }
 
 function createBaseParams(): Params {
-  return { startingPoolNumber: Long.UZERO, poolCreationFee: [], whitelistedAsset: [] };
+  return {
+    $type: "nibiru.spot.v1.Params",
+    startingPoolNumber: Long.UZERO,
+    poolCreationFee: [],
+    whitelistedAsset: [],
+  }
 }
 
 export const Params = {
+  $type: "nibiru.spot.v1.Params" as const,
+
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.startingPoolNumber.isZero()) {
-      writer.uint32(8).uint64(message.startingPoolNumber);
+      writer.uint32(8).uint64(message.startingPoolNumber)
     }
     for (const v of message.poolCreationFee) {
-      Coin.encode(v!, writer.uint32(18).fork()).ldelim();
+      Coin.encode(v!, writer.uint32(18).fork()).ldelim()
     }
     for (const v of message.whitelistedAsset) {
-      writer.uint32(26).string(v!);
+      writer.uint32(26).string(v!)
     }
-    return writer;
+    return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseParams();
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = createBaseParams()
     while (reader.pos < end) {
-      const tag = reader.uint32();
+      const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
           if (tag !== 8) {
-            break;
+            break
           }
 
-          message.startingPoolNumber = reader.uint64() as Long;
-          continue;
+          message.startingPoolNumber = reader.uint64() as Long
+          continue
         case 2:
           if (tag !== 18) {
-            break;
+            break
           }
 
-          message.poolCreationFee.push(Coin.decode(reader, reader.uint32()));
-          continue;
+          message.poolCreationFee.push(Coin.decode(reader, reader.uint32()))
+          continue
         case 3:
           if (tag !== 26) {
-            break;
+            break
           }
 
-          message.whitelistedAsset.push(reader.string());
-          continue;
+          message.whitelistedAsset.push(reader.string())
+          continue
       }
       if ((tag & 7) === 4 || tag === 0) {
-        break;
+        break
       }
-      reader.skipType(tag & 7);
+      reader.skipType(tag & 7)
     }
-    return message;
+    return message
   },
 
   fromJSON(object: any): Params {
     return {
-      startingPoolNumber: isSet(object.startingPoolNumber) ? Long.fromValue(object.startingPoolNumber) : Long.UZERO,
+      $type: Params.$type,
+      startingPoolNumber: isSet(object.startingPoolNumber)
+        ? Long.fromValue(object.startingPoolNumber)
+        : Long.UZERO,
       poolCreationFee: Array.isArray(object?.poolCreationFee)
         ? object.poolCreationFee.map((e: any) => Coin.fromJSON(e))
         : [],
       whitelistedAsset: Array.isArray(object?.whitelistedAsset)
         ? object.whitelistedAsset.map((e: any) => String(e))
         : [],
-    };
+    }
   },
 
   toJSON(message: Params): unknown {
-    const obj: any = {};
+    const obj: any = {}
     message.startingPoolNumber !== undefined &&
-      (obj.startingPoolNumber = (message.startingPoolNumber || Long.UZERO).toString());
+      (obj.startingPoolNumber = (message.startingPoolNumber || Long.UZERO).toString())
     if (message.poolCreationFee) {
-      obj.poolCreationFee = message.poolCreationFee.map((e) => e ? Coin.toJSON(e) : undefined);
+      obj.poolCreationFee = message.poolCreationFee.map((e) =>
+        e ? Coin.toJSON(e) : undefined,
+      )
     } else {
-      obj.poolCreationFee = [];
+      obj.poolCreationFee = []
     }
     if (message.whitelistedAsset) {
-      obj.whitelistedAsset = message.whitelistedAsset.map((e) => e);
+      obj.whitelistedAsset = message.whitelistedAsset.map((e) => e)
     } else {
-      obj.whitelistedAsset = [];
+      obj.whitelistedAsset = []
     }
-    return obj;
+    return obj
   },
 
   create<I extends Exact<DeepPartial<Params>, I>>(base?: I): Params {
-    return Params.fromPartial(base ?? {});
+    return Params.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
-    const message = createBaseParams();
-    message.startingPoolNumber = (object.startingPoolNumber !== undefined && object.startingPoolNumber !== null)
-      ? Long.fromValue(object.startingPoolNumber)
-      : Long.UZERO;
-    message.poolCreationFee = object.poolCreationFee?.map((e) => Coin.fromPartial(e)) || [];
-    message.whitelistedAsset = object.whitelistedAsset?.map((e) => e) || [];
-    return message;
+    const message = createBaseParams()
+    message.startingPoolNumber =
+      object.startingPoolNumber !== undefined && object.startingPoolNumber !== null
+        ? Long.fromValue(object.startingPoolNumber)
+        : Long.UZERO
+    message.poolCreationFee =
+      object.poolCreationFee?.map((e) => Coin.fromPartial(e)) || []
+    message.whitelistedAsset = object.whitelistedAsset?.map((e) => e) || []
+    return message
   },
-};
+}
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+messageTypeRegistry.set(Params.$type, Params)
 
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
 
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Long
+  ? string | number | Long
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  : Partial<T>
+
+type KeysOfUnion<T> = T extends T ? keyof T : never
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
+      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+    }
 
 if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
+  _m0.util.Long = Long as any
+  _m0.configure()
 }
 
 function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
+  return value !== null && value !== undefined
 }
