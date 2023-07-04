@@ -31,9 +31,14 @@ export const ERR = {
 export function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
     header: ["version", "chain_id", "height", "last_block_id"].concat(
-      ["last_commit_hash", "data_hash", "validators_hash", "next_validators_hash"],
+      [
+        "last_commit_hash",
+        "data_hash",
+        "validators_hash",
+        "next_validators_hash",
+      ],
       ["consensus_hash", "app_hash", "last_results_hash", "evidence_hash"],
-      ["proposer_address"],
+      ["proposer_address"]
     ),
     data: ["txs"],
     evidence: ["evidence"],

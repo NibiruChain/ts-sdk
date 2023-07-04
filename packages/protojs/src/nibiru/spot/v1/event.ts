@@ -2,13 +2,11 @@
 import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Coin } from "../../../cosmos/base/v1beta1/coin"
-import { messageTypeRegistry } from "../../../typeRegistry"
 import { Pool } from "./pool"
 
 export const protobufPackage = "nibiru.spot.v1"
 
 export interface EventPoolCreated {
-  $type: "nibiru.spot.v1.EventPoolCreated"
   /** the address of the user who created the pool */
   creator: string
   /** the create pool fee */
@@ -20,7 +18,6 @@ export interface EventPoolCreated {
 }
 
 export interface EventPoolJoined {
-  $type: "nibiru.spot.v1.EventPoolJoined"
   /** the address of the user who joined the pool */
   address: string
   /** the amount of tokens that the user deposited */
@@ -36,7 +33,6 @@ export interface EventPoolJoined {
 }
 
 export interface EventPoolExited {
-  $type: "nibiru.spot.v1.EventPoolExited"
   /** the address of the user who exited the pool */
   address: string
   /** the amount of pool shares that the user exited with */
@@ -52,7 +48,6 @@ export interface EventPoolExited {
 }
 
 export interface EventAssetsSwapped {
-  $type: "nibiru.spot.v1.EventAssetsSwapped"
   /** the address of the user who swapped tokens */
   address: string
   /** the amount of tokens that the user deposited */
@@ -67,7 +62,6 @@ export interface EventAssetsSwapped {
 
 function createBaseEventPoolCreated(): EventPoolCreated {
   return {
-    $type: "nibiru.spot.v1.EventPoolCreated",
     creator: "",
     fees: [],
     finalPool: undefined,
@@ -76,11 +70,9 @@ function createBaseEventPoolCreated(): EventPoolCreated {
 }
 
 export const EventPoolCreated = {
-  $type: "nibiru.spot.v1.EventPoolCreated" as const,
-
   encode(
     message: EventPoolCreated,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
@@ -92,13 +84,17 @@ export const EventPoolCreated = {
       Pool.encode(message.finalPool, writer.uint32(34).fork()).ldelim()
     }
     if (message.finalUserPoolShares !== undefined) {
-      Coin.encode(message.finalUserPoolShares, writer.uint32(42).fork()).ldelim()
+      Coin.encode(
+        message.finalUserPoolShares,
+        writer.uint32(42).fork()
+      ).ldelim()
     }
     return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventPoolCreated {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseEventPoolCreated()
     while (reader.pos < end) {
@@ -143,12 +139,13 @@ export const EventPoolCreated = {
 
   fromJSON(object: any): EventPoolCreated {
     return {
-      $type: EventPoolCreated.$type,
       creator: isSet(object.creator) ? String(object.creator) : "",
       fees: Array.isArray(object?.fees)
         ? object.fees.map((e: any) => Coin.fromJSON(e))
         : [],
-      finalPool: isSet(object.finalPool) ? Pool.fromJSON(object.finalPool) : undefined,
+      finalPool: isSet(object.finalPool)
+        ? Pool.fromJSON(object.finalPool)
+        : undefined,
       finalUserPoolShares: isSet(object.finalUserPoolShares)
         ? Coin.fromJSON(object.finalUserPoolShares)
         : undefined,
@@ -164,7 +161,9 @@ export const EventPoolCreated = {
       obj.fees = []
     }
     message.finalPool !== undefined &&
-      (obj.finalPool = message.finalPool ? Pool.toJSON(message.finalPool) : undefined)
+      (obj.finalPool = message.finalPool
+        ? Pool.toJSON(message.finalPool)
+        : undefined)
     message.finalUserPoolShares !== undefined &&
       (obj.finalUserPoolShares = message.finalUserPoolShares
         ? Coin.toJSON(message.finalUserPoolShares)
@@ -173,13 +172,13 @@ export const EventPoolCreated = {
   },
 
   create<I extends Exact<DeepPartial<EventPoolCreated>, I>>(
-    base?: I,
+    base?: I
   ): EventPoolCreated {
     return EventPoolCreated.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<EventPoolCreated>, I>>(
-    object: I,
+    object: I
   ): EventPoolCreated {
     const message = createBaseEventPoolCreated()
     message.creator = object.creator ?? ""
@@ -189,18 +188,16 @@ export const EventPoolCreated = {
         ? Pool.fromPartial(object.finalPool)
         : undefined
     message.finalUserPoolShares =
-      object.finalUserPoolShares !== undefined && object.finalUserPoolShares !== null
+      object.finalUserPoolShares !== undefined &&
+      object.finalUserPoolShares !== null
         ? Coin.fromPartial(object.finalUserPoolShares)
         : undefined
     return message
   },
 }
 
-messageTypeRegistry.set(EventPoolCreated.$type, EventPoolCreated)
-
 function createBaseEventPoolJoined(): EventPoolJoined {
   return {
-    $type: "nibiru.spot.v1.EventPoolJoined",
     address: "",
     tokensIn: [],
     poolSharesOut: undefined,
@@ -211,11 +208,9 @@ function createBaseEventPoolJoined(): EventPoolJoined {
 }
 
 export const EventPoolJoined = {
-  $type: "nibiru.spot.v1.EventPoolJoined" as const,
-
   encode(
     message: EventPoolJoined,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address)
@@ -233,13 +228,17 @@ export const EventPoolJoined = {
       Pool.encode(message.finalPool, writer.uint32(42).fork()).ldelim()
     }
     if (message.finalUserPoolShares !== undefined) {
-      Coin.encode(message.finalUserPoolShares, writer.uint32(50).fork()).ldelim()
+      Coin.encode(
+        message.finalUserPoolShares,
+        writer.uint32(50).fork()
+      ).ldelim()
     }
     return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventPoolJoined {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseEventPoolJoined()
     while (reader.pos < end) {
@@ -298,7 +297,6 @@ export const EventPoolJoined = {
 
   fromJSON(object: any): EventPoolJoined {
     return {
-      $type: EventPoolJoined.$type,
       address: isSet(object.address) ? String(object.address) : "",
       tokensIn: Array.isArray(object?.tokensIn)
         ? object.tokensIn.map((e: any) => Coin.fromJSON(e))
@@ -309,7 +307,9 @@ export const EventPoolJoined = {
       remCoins: Array.isArray(object?.remCoins)
         ? object.remCoins.map((e: any) => Coin.fromJSON(e))
         : [],
-      finalPool: isSet(object.finalPool) ? Pool.fromJSON(object.finalPool) : undefined,
+      finalPool: isSet(object.finalPool)
+        ? Pool.fromJSON(object.finalPool)
+        : undefined,
       finalUserPoolShares: isSet(object.finalUserPoolShares)
         ? Coin.fromJSON(object.finalUserPoolShares)
         : undefined,
@@ -320,7 +320,9 @@ export const EventPoolJoined = {
     const obj: any = {}
     message.address !== undefined && (obj.address = message.address)
     if (message.tokensIn) {
-      obj.tokensIn = message.tokensIn.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.tokensIn = message.tokensIn.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      )
     } else {
       obj.tokensIn = []
     }
@@ -329,12 +331,16 @@ export const EventPoolJoined = {
         ? Coin.toJSON(message.poolSharesOut)
         : undefined)
     if (message.remCoins) {
-      obj.remCoins = message.remCoins.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.remCoins = message.remCoins.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      )
     } else {
       obj.remCoins = []
     }
     message.finalPool !== undefined &&
-      (obj.finalPool = message.finalPool ? Pool.toJSON(message.finalPool) : undefined)
+      (obj.finalPool = message.finalPool
+        ? Pool.toJSON(message.finalPool)
+        : undefined)
     message.finalUserPoolShares !== undefined &&
       (obj.finalUserPoolShares = message.finalUserPoolShares
         ? Coin.toJSON(message.finalUserPoolShares)
@@ -342,12 +348,14 @@ export const EventPoolJoined = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<EventPoolJoined>, I>>(base?: I): EventPoolJoined {
+  create<I extends Exact<DeepPartial<EventPoolJoined>, I>>(
+    base?: I
+  ): EventPoolJoined {
     return EventPoolJoined.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<EventPoolJoined>, I>>(
-    object: I,
+    object: I
   ): EventPoolJoined {
     const message = createBaseEventPoolJoined()
     message.address = object.address ?? ""
@@ -362,18 +370,16 @@ export const EventPoolJoined = {
         ? Pool.fromPartial(object.finalPool)
         : undefined
     message.finalUserPoolShares =
-      object.finalUserPoolShares !== undefined && object.finalUserPoolShares !== null
+      object.finalUserPoolShares !== undefined &&
+      object.finalUserPoolShares !== null
         ? Coin.fromPartial(object.finalUserPoolShares)
         : undefined
     return message
   },
 }
 
-messageTypeRegistry.set(EventPoolJoined.$type, EventPoolJoined)
-
 function createBaseEventPoolExited(): EventPoolExited {
   return {
-    $type: "nibiru.spot.v1.EventPoolExited",
     address: "",
     poolSharesIn: undefined,
     tokensOut: [],
@@ -384,11 +390,9 @@ function createBaseEventPoolExited(): EventPoolExited {
 }
 
 export const EventPoolExited = {
-  $type: "nibiru.spot.v1.EventPoolExited" as const,
-
   encode(
     message: EventPoolExited,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address)
@@ -406,13 +410,17 @@ export const EventPoolExited = {
       Pool.encode(message.finalPool, writer.uint32(42).fork()).ldelim()
     }
     if (message.finalUserPoolShares !== undefined) {
-      Coin.encode(message.finalUserPoolShares, writer.uint32(50).fork()).ldelim()
+      Coin.encode(
+        message.finalUserPoolShares,
+        writer.uint32(50).fork()
+      ).ldelim()
     }
     return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventPoolExited {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseEventPoolExited()
     while (reader.pos < end) {
@@ -471,7 +479,6 @@ export const EventPoolExited = {
 
   fromJSON(object: any): EventPoolExited {
     return {
-      $type: EventPoolExited.$type,
       address: isSet(object.address) ? String(object.address) : "",
       poolSharesIn: isSet(object.poolSharesIn)
         ? Coin.fromJSON(object.poolSharesIn)
@@ -482,7 +489,9 @@ export const EventPoolExited = {
       fees: Array.isArray(object?.fees)
         ? object.fees.map((e: any) => Coin.fromJSON(e))
         : [],
-      finalPool: isSet(object.finalPool) ? Pool.fromJSON(object.finalPool) : undefined,
+      finalPool: isSet(object.finalPool)
+        ? Pool.fromJSON(object.finalPool)
+        : undefined,
       finalUserPoolShares: isSet(object.finalUserPoolShares)
         ? Coin.fromJSON(object.finalUserPoolShares)
         : undefined,
@@ -497,7 +506,9 @@ export const EventPoolExited = {
         ? Coin.toJSON(message.poolSharesIn)
         : undefined)
     if (message.tokensOut) {
-      obj.tokensOut = message.tokensOut.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.tokensOut = message.tokensOut.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      )
     } else {
       obj.tokensOut = []
     }
@@ -507,7 +518,9 @@ export const EventPoolExited = {
       obj.fees = []
     }
     message.finalPool !== undefined &&
-      (obj.finalPool = message.finalPool ? Pool.toJSON(message.finalPool) : undefined)
+      (obj.finalPool = message.finalPool
+        ? Pool.toJSON(message.finalPool)
+        : undefined)
     message.finalUserPoolShares !== undefined &&
       (obj.finalUserPoolShares = message.finalUserPoolShares
         ? Coin.toJSON(message.finalUserPoolShares)
@@ -515,12 +528,14 @@ export const EventPoolExited = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<EventPoolExited>, I>>(base?: I): EventPoolExited {
+  create<I extends Exact<DeepPartial<EventPoolExited>, I>>(
+    base?: I
+  ): EventPoolExited {
     return EventPoolExited.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<EventPoolExited>, I>>(
-    object: I,
+    object: I
   ): EventPoolExited {
     const message = createBaseEventPoolExited()
     message.address = object.address ?? ""
@@ -535,18 +550,16 @@ export const EventPoolExited = {
         ? Pool.fromPartial(object.finalPool)
         : undefined
     message.finalUserPoolShares =
-      object.finalUserPoolShares !== undefined && object.finalUserPoolShares !== null
+      object.finalUserPoolShares !== undefined &&
+      object.finalUserPoolShares !== null
         ? Coin.fromPartial(object.finalUserPoolShares)
         : undefined
     return message
   },
 }
 
-messageTypeRegistry.set(EventPoolExited.$type, EventPoolExited)
-
 function createBaseEventAssetsSwapped(): EventAssetsSwapped {
   return {
-    $type: "nibiru.spot.v1.EventAssetsSwapped",
     address: "",
     tokenIn: undefined,
     tokenOut: undefined,
@@ -556,11 +569,9 @@ function createBaseEventAssetsSwapped(): EventAssetsSwapped {
 }
 
 export const EventAssetsSwapped = {
-  $type: "nibiru.spot.v1.EventAssetsSwapped" as const,
-
   encode(
     message: EventAssetsSwapped,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address)
@@ -581,7 +592,8 @@ export const EventAssetsSwapped = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventAssetsSwapped {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseEventAssetsSwapped()
     while (reader.pos < end) {
@@ -633,12 +645,17 @@ export const EventAssetsSwapped = {
 
   fromJSON(object: any): EventAssetsSwapped {
     return {
-      $type: EventAssetsSwapped.$type,
       address: isSet(object.address) ? String(object.address) : "",
-      tokenIn: isSet(object.tokenIn) ? Coin.fromJSON(object.tokenIn) : undefined,
-      tokenOut: isSet(object.tokenOut) ? Coin.fromJSON(object.tokenOut) : undefined,
+      tokenIn: isSet(object.tokenIn)
+        ? Coin.fromJSON(object.tokenIn)
+        : undefined,
+      tokenOut: isSet(object.tokenOut)
+        ? Coin.fromJSON(object.tokenOut)
+        : undefined,
       fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
-      finalPool: isSet(object.finalPool) ? Pool.fromJSON(object.finalPool) : undefined,
+      finalPool: isSet(object.finalPool)
+        ? Pool.fromJSON(object.finalPool)
+        : undefined,
     }
   },
 
@@ -648,22 +665,26 @@ export const EventAssetsSwapped = {
     message.tokenIn !== undefined &&
       (obj.tokenIn = message.tokenIn ? Coin.toJSON(message.tokenIn) : undefined)
     message.tokenOut !== undefined &&
-      (obj.tokenOut = message.tokenOut ? Coin.toJSON(message.tokenOut) : undefined)
+      (obj.tokenOut = message.tokenOut
+        ? Coin.toJSON(message.tokenOut)
+        : undefined)
     message.fee !== undefined &&
       (obj.fee = message.fee ? Coin.toJSON(message.fee) : undefined)
     message.finalPool !== undefined &&
-      (obj.finalPool = message.finalPool ? Pool.toJSON(message.finalPool) : undefined)
+      (obj.finalPool = message.finalPool
+        ? Pool.toJSON(message.finalPool)
+        : undefined)
     return obj
   },
 
   create<I extends Exact<DeepPartial<EventAssetsSwapped>, I>>(
-    base?: I,
+    base?: I
   ): EventAssetsSwapped {
     return EventAssetsSwapped.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<EventAssetsSwapped>, I>>(
-    object: I,
+    object: I
   ): EventAssetsSwapped {
     const message = createBaseEventAssetsSwapped()
     message.address = object.address ?? ""
@@ -687,9 +708,14 @@ export const EventAssetsSwapped = {
   },
 }
 
-messageTypeRegistry.set(EventAssetsSwapped.$type, EventAssetsSwapped)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -700,14 +726,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

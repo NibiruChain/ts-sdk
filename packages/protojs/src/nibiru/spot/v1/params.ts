@@ -2,13 +2,11 @@
 import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Coin } from "../../../cosmos/base/v1beta1/coin"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.spot.v1"
 
 /** Params defines the parameters for the module. */
 export interface Params {
-  $type: "nibiru.spot.v1.Params"
   /** The start pool number, i.e. the first pool number that isn't taken yet. */
   startingPoolNumber: Long
   /** The cost of creating a pool, taken from the pool creator's account. */
@@ -19,7 +17,6 @@ export interface Params {
 
 function createBaseParams(): Params {
   return {
-    $type: "nibiru.spot.v1.Params",
     startingPoolNumber: Long.UZERO,
     poolCreationFee: [],
     whitelistedAsset: [],
@@ -27,9 +24,10 @@ function createBaseParams(): Params {
 }
 
 export const Params = {
-  $type: "nibiru.spot.v1.Params" as const,
-
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: Params,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (!message.startingPoolNumber.isZero()) {
       writer.uint32(8).uint64(message.startingPoolNumber)
     }
@@ -43,7 +41,8 @@ export const Params = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseParams()
     while (reader.pos < end) {
@@ -81,7 +80,6 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      $type: Params.$type,
       startingPoolNumber: isSet(object.startingPoolNumber)
         ? Long.fromValue(object.startingPoolNumber)
         : Long.UZERO,
@@ -97,10 +95,12 @@ export const Params = {
   toJSON(message: Params): unknown {
     const obj: any = {}
     message.startingPoolNumber !== undefined &&
-      (obj.startingPoolNumber = (message.startingPoolNumber || Long.UZERO).toString())
+      (obj.startingPoolNumber = (
+        message.startingPoolNumber || Long.UZERO
+      ).toString())
     if (message.poolCreationFee) {
       obj.poolCreationFee = message.poolCreationFee.map((e) =>
-        e ? Coin.toJSON(e) : undefined,
+        e ? Coin.toJSON(e) : undefined
       )
     } else {
       obj.poolCreationFee = []
@@ -120,7 +120,8 @@ export const Params = {
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams()
     message.startingPoolNumber =
-      object.startingPoolNumber !== undefined && object.startingPoolNumber !== null
+      object.startingPoolNumber !== undefined &&
+      object.startingPoolNumber !== null
         ? Long.fromValue(object.startingPoolNumber)
         : Long.UZERO
     message.poolCreationFee =
@@ -130,9 +131,14 @@ export const Params = {
   },
 }
 
-messageTypeRegistry.set(Params.$type, Params)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -143,14 +149,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

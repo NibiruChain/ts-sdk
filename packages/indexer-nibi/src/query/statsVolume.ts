@@ -41,10 +41,11 @@ export enum StatsVolumeOrderBy {
 
 export const statsVolume = async (
   args: GqlInStatsVolume,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutStatsVolume> => {
   if (args.orderDescending === undefined) args.orderDescending = true
-  if (args.orderBy === undefined) args.orderBy = StatsVolumeOrderBy.period_start_ts
+  if (args.orderBy === undefined)
+    args.orderBy = StatsVolumeOrderBy.period_start_ts
 
   const gqlQuery = ({
     period,

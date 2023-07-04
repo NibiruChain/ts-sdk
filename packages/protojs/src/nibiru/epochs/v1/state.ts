@@ -3,12 +3,10 @@ import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Duration } from "../../../google/protobuf/duration"
 import { Timestamp } from "../../../google/protobuf/timestamp"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.epochs.v1"
 
 export interface EpochInfo {
-  $type: "nibiru.epochs.v1.EpochInfo"
   /** A string identifier for the epoch. e.g. "15min" or "1hour" */
   identifier: string
   /** When the epoch repetitino should start. */
@@ -30,7 +28,6 @@ export interface EpochInfo {
 
 function createBaseEpochInfo(): EpochInfo {
   return {
-    $type: "nibiru.epochs.v1.EpochInfo",
     identifier: "",
     startTime: undefined,
     duration: undefined,
@@ -42,16 +39,17 @@ function createBaseEpochInfo(): EpochInfo {
 }
 
 export const EpochInfo = {
-  $type: "nibiru.epochs.v1.EpochInfo" as const,
-
-  encode(message: EpochInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: EpochInfo,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.identifier !== "") {
       writer.uint32(10).string(message.identifier)
     }
     if (message.startTime !== undefined) {
       Timestamp.encode(
         toTimestamp(message.startTime),
-        writer.uint32(18).fork(),
+        writer.uint32(18).fork()
       ).ldelim()
     }
     if (message.duration !== undefined) {
@@ -63,7 +61,7 @@ export const EpochInfo = {
     if (message.currentEpochStartTime !== undefined) {
       Timestamp.encode(
         toTimestamp(message.currentEpochStartTime),
-        writer.uint32(42).fork(),
+        writer.uint32(42).fork()
       ).ldelim()
     }
     if (message.epochCountingStarted === true) {
@@ -76,7 +74,8 @@ export const EpochInfo = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EpochInfo {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseEpochInfo()
     while (reader.pos < end) {
@@ -94,7 +93,9 @@ export const EpochInfo = {
             break
           }
 
-          message.startTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()))
+          message.startTime = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32())
+          )
           continue
         case 3:
           if (tag !== 26) {
@@ -116,7 +117,7 @@ export const EpochInfo = {
           }
 
           message.currentEpochStartTime = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32()),
+            Timestamp.decode(reader, reader.uint32())
           )
           continue
         case 6:
@@ -144,12 +145,13 @@ export const EpochInfo = {
 
   fromJSON(object: any): EpochInfo {
     return {
-      $type: EpochInfo.$type,
       identifier: isSet(object.identifier) ? String(object.identifier) : "",
       startTime: isSet(object.startTime)
         ? fromJsonTimestamp(object.startTime)
         : undefined,
-      duration: isSet(object.duration) ? Duration.fromJSON(object.duration) : undefined,
+      duration: isSet(object.duration)
+        ? Duration.fromJSON(object.duration)
+        : undefined,
       currentEpoch: isSet(object.currentEpoch)
         ? Long.fromValue(object.currentEpoch)
         : Long.UZERO,
@@ -168,9 +170,12 @@ export const EpochInfo = {
   toJSON(message: EpochInfo): unknown {
     const obj: any = {}
     message.identifier !== undefined && (obj.identifier = message.identifier)
-    message.startTime !== undefined && (obj.startTime = message.startTime.toISOString())
+    message.startTime !== undefined &&
+      (obj.startTime = message.startTime.toISOString())
     message.duration !== undefined &&
-      (obj.duration = message.duration ? Duration.toJSON(message.duration) : undefined)
+      (obj.duration = message.duration
+        ? Duration.toJSON(message.duration)
+        : undefined)
     message.currentEpoch !== undefined &&
       (obj.currentEpoch = (message.currentEpoch || Long.UZERO).toString())
     message.currentEpochStartTime !== undefined &&
@@ -188,7 +193,9 @@ export const EpochInfo = {
     return EpochInfo.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<EpochInfo>, I>>(object: I): EpochInfo {
+  fromPartial<I extends Exact<DeepPartial<EpochInfo>, I>>(
+    object: I
+  ): EpochInfo {
     const message = createBaseEpochInfo()
     message.identifier = object.identifier ?? ""
     message.startTime = object.startTime ?? undefined
@@ -211,9 +218,14 @@ export const EpochInfo = {
   },
 }
 
-messageTypeRegistry.set(EpochInfo.$type, EpochInfo)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -224,20 +236,20 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
   const nanos = (date.getTime() % 1_000) * 1_000_000
-  return { $type: "google.protobuf.Timestamp", seconds, nanos }
+  return { seconds, nanos }
 }
 
 function fromTimestamp(t: Timestamp): Date {

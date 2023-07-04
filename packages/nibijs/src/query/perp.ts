@@ -1,127 +1,73 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
-import * as perpquery from "@nibiruchain/protojs/dist/perp/v1/query"
-import * as perpstate from "@nibiruchain/protojs/dist/perp/v1/state"
+import {
+  QueryClientImpl,
+  QueryMarketsRequest,
+  QueryMarketsResponse,
+  QueryModuleAccountsRequest,
+  QueryModuleAccountsResponse,
+  QueryPositionRequest,
+  QueryPositionResponse,
+  QueryPositionsRequest,
+  QueryPositionsResponse,
+} from "@nibiruchain/protojs/dist/nibiru/perp/v2/query"
 import { fromSdkDec } from "../chain"
 
-function transformPosition(
-  resp: perpquery.QueryPositionResponse,
-): perpquery.QueryPositionResponse {
-  const {
-    positionNotional: pn,
-    unrealizedPnl: upnl,
-    marginRatioMark: mr,
-    marginRatioIndex: mri,
-  } = resp
+function transformPosition(resp: QueryPositionResponse): QueryPositionResponse {
+  const { positionNotional: pn, unrealizedPnl: upnl, marginRatio: mr } = resp
   resp.positionNotional = fromSdkDec(pn).toString()
   resp.unrealizedPnl = fromSdkDec(upnl).toString()
-  resp.marginRatioMark = fromSdkDec(mr).toString()
-  resp.marginRatioIndex = fromSdkDec(mri).toString()
+  resp.marginRatio = fromSdkDec(mr).toString()
   return resp
 }
 
 export interface PerpExtension {
   perp: Readonly<{
-    params: () => Promise<perpquery.QueryParamsResponse>
+    moduleAccounts: () => Promise<QueryModuleAccountsResponse>
     position: (args: {
       pair: string
       trader: string
-    }) => Promise<perpquery.QueryPositionResponse>
-    positions: (args: { trader: string }) => Promise<perpquery.QueryPositionsResponse>
-    premiumFractions: (args: {
-      pair: string
-    }) => Promise<perpquery.QueryCumulativePremiumFractionResponse>
-    metrics: (args: { pair: string }) => Promise<perpquery.QueryMetricsResponse>
+    }) => Promise<QueryPositionResponse>
+    positions: (args: { trader: string }) => Promise<QueryPositionsResponse>
+    markets: (args: { pair: string }) => Promise<QueryMarketsResponse>
   }>
 }
 
 export function setupPerpExtension(base: QueryClient): PerpExtension {
   const rpcClient = createProtobufRpcClient(base)
-  const queryService = new perpquery.QueryClientImpl(rpcClient)
+  const queryService = new QueryClientImpl(rpcClient)
 
   return {
     perp: {
-      params: async () => {
-        const req = perpquery.QueryParamsRequest.fromPartial({})
-        const resp = await queryService.Params(req)
-
-        function transformParams(
-          pbParams?: perpstate.Params,
-        ): perpstate.Params | undefined {
-          if (!pbParams) {
-            return pbParams
-          }
-          return {
-            ...pbParams,
-            feePoolFeeRatio: fromSdkDec(pbParams.feePoolFeeRatio).toString(),
-            ecosystemFundFeeRatio: fromSdkDec(
-              pbParams.ecosystemFundFeeRatio,
-            ).toString(),
-            liquidationFeeRatio: fromSdkDec(pbParams.liquidationFeeRatio).toString(),
-            partialLiquidationRatio: fromSdkDec(
-              pbParams.partialLiquidationRatio,
-            ).toString(),
-          }
-        }
-
-        resp.params = transformParams(resp.params)
+      moduleAccounts: async (): Promise<QueryModuleAccountsResponse> => {
+        const req = QueryModuleAccountsRequest.fromPartial({})
+        const resp = await queryService.ModuleAccounts(req)
         return resp
       },
       position: async (args: { pair: string; trader: string }) => {
-        const req = perpquery.QueryPositionRequest.fromPartial(args)
+        const req = QueryPositionRequest.fromPartial(args)
         const resp = await queryService.QueryPosition(req)
         return transformPosition(resp)
       },
       positions: async (args: { trader: string }) => {
-        const req = perpquery.QueryPositionsRequest.fromPartial(args)
+        const req = QueryPositionsRequest.fromPartial(args)
         const resp = await queryService.QueryPositions(req)
 
         function transformPositions(
-          resp: perpquery.QueryPositionsResponse,
-        ): perpquery.QueryPositionsResponse {
+          resp: QueryPositionsResponse
+        ): QueryPositionsResponse {
           const { positions } = resp
-          resp.positions = positions.map((position: perpquery.QueryPositionResponse) =>
-            transformPosition(position),
+          resp.positions = positions.map((position: QueryPositionResponse) =>
+            transformPosition(position)
           )
           return resp
         }
 
         return transformPositions(resp)
       },
-      premiumFractions: async (args: { pair: string }) => {
-        const req = perpquery.QueryCumulativePremiumFractionRequest.fromPartial(args)
-        const resp = await queryService.CumulativePremiumFraction(req)
-        const transformPremiumFractions = (
-          resp: perpquery.QueryCumulativePremiumFractionResponse,
-        ): perpquery.QueryCumulativePremiumFractionResponse => {
-          const {
-            cumulativePremiumFraction: cpf,
-            estimatedNextCumulativePremiumFraction: nextCpf,
-          } = resp
-          return {
-            cumulativePremiumFraction: fromSdkDec(cpf).toString(),
-            estimatedNextCumulativePremiumFraction: fromSdkDec(nextCpf).toString(),
-          }
-        }
-        return transformPremiumFractions(resp)
-      },
-      metrics: async (args: { pair: string }) => {
-        const req = perpquery.QueryMetricsRequest.fromPartial(args)
-        const resp = await queryService.Metrics(req)
-        const transformMetrics = (
-          resp: perpquery.QueryMetricsResponse,
-        ): perpquery.QueryMetricsResponse => {
-          if (!resp.metrics) return resp
-          const { volumeBase, volumeQuote, netSize } = resp.metrics
-          return {
-            metrics: {
-              ...resp.metrics,
-              netSize: fromSdkDec(netSize).toString(),
-              volumeBase: fromSdkDec(volumeBase).toString(),
-              volumeQuote: fromSdkDec(volumeQuote).toString(),
-            },
-          }
-        }
-        return transformMetrics(resp)
+      markets: async () => {
+        const req = QueryMarketsRequest.fromPartial({})
+        const resp = queryService.QueryMarkets(req)
+        return resp
       },
     },
   }

@@ -20,7 +20,10 @@ const common = {
     "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
     "import/no-named-as-default": "off",
     "import/prefer-default-export": "off",
-    "jest/consistent-test-it": ["error", { fn: "test", withinDescribe: "test" }],
+    "jest/consistent-test-it": [
+      "error",
+      { fn: "test", withinDescribe: "test" },
+    ],
     "jest/disallow-commented-out-tests": "off",
     "jest/expect-expect": "off",
     "jest/no-disabled-tests": "warn",
@@ -42,7 +45,10 @@ const common = {
     "no-redeclare": "off",
     "no-restricted-syntax": "off",
     "no-shadow": "off",
-    "no-unused-vars": ["off", { args: "none", argsIgnorePattern: "^_", vars: "local" }],
+    "no-unused-vars": [
+      "off",
+      { args: "none", argsIgnorePattern: "^_", vars: "local" },
+    ],
     "no-use-before-define": "off",
     "no-useless-constructor": "off",
     "prettier/prettier": "error",

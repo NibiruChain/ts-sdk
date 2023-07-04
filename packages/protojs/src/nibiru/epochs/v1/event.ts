@@ -2,12 +2,10 @@
 import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Timestamp } from "../../../google/protobuf/timestamp"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.epochs.v1"
 
 export interface EventEpochStart {
-  $type: "nibiru.epochs.v1.EventEpochStart"
   /** Epoch number, starting from 1. */
   epochNumber: Long
   /** The start timestamp of the epoch. */
@@ -15,25 +13,18 @@ export interface EventEpochStart {
 }
 
 export interface EventEpochEnd {
-  $type: "nibiru.epochs.v1.EventEpochEnd"
   /** Epoch number, starting from 1. */
   epochNumber: Long
 }
 
 function createBaseEventEpochStart(): EventEpochStart {
-  return {
-    $type: "nibiru.epochs.v1.EventEpochStart",
-    epochNumber: Long.UZERO,
-    epochStartTime: undefined,
-  }
+  return { epochNumber: Long.UZERO, epochStartTime: undefined }
 }
 
 export const EventEpochStart = {
-  $type: "nibiru.epochs.v1.EventEpochStart" as const,
-
   encode(
     message: EventEpochStart,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.epochNumber.isZero()) {
       writer.uint32(8).uint64(message.epochNumber)
@@ -41,14 +32,15 @@ export const EventEpochStart = {
     if (message.epochStartTime !== undefined) {
       Timestamp.encode(
         toTimestamp(message.epochStartTime),
-        writer.uint32(18).fork(),
+        writer.uint32(18).fork()
       ).ldelim()
     }
     return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventEpochStart {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseEventEpochStart()
     while (reader.pos < end) {
@@ -67,7 +59,7 @@ export const EventEpochStart = {
           }
 
           message.epochStartTime = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32()),
+            Timestamp.decode(reader, reader.uint32())
           )
           continue
       }
@@ -81,7 +73,6 @@ export const EventEpochStart = {
 
   fromJSON(object: any): EventEpochStart {
     return {
-      $type: EventEpochStart.$type,
       epochNumber: isSet(object.epochNumber)
         ? Long.fromValue(object.epochNumber)
         : Long.UZERO,
@@ -100,12 +91,14 @@ export const EventEpochStart = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<EventEpochStart>, I>>(base?: I): EventEpochStart {
+  create<I extends Exact<DeepPartial<EventEpochStart>, I>>(
+    base?: I
+  ): EventEpochStart {
     return EventEpochStart.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<EventEpochStart>, I>>(
-    object: I,
+    object: I
   ): EventEpochStart {
     const message = createBaseEventEpochStart()
     message.epochNumber =
@@ -117,16 +110,15 @@ export const EventEpochStart = {
   },
 }
 
-messageTypeRegistry.set(EventEpochStart.$type, EventEpochStart)
-
 function createBaseEventEpochEnd(): EventEpochEnd {
-  return { $type: "nibiru.epochs.v1.EventEpochEnd", epochNumber: Long.UZERO }
+  return { epochNumber: Long.UZERO }
 }
 
 export const EventEpochEnd = {
-  $type: "nibiru.epochs.v1.EventEpochEnd" as const,
-
-  encode(message: EventEpochEnd, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: EventEpochEnd,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (!message.epochNumber.isZero()) {
       writer.uint32(8).uint64(message.epochNumber)
     }
@@ -134,7 +126,8 @@ export const EventEpochEnd = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventEpochEnd {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseEventEpochEnd()
     while (reader.pos < end) {
@@ -158,7 +151,6 @@ export const EventEpochEnd = {
 
   fromJSON(object: any): EventEpochEnd {
     return {
-      $type: EventEpochEnd.$type,
       epochNumber: isSet(object.epochNumber)
         ? Long.fromValue(object.epochNumber)
         : Long.UZERO,
@@ -172,12 +164,14 @@ export const EventEpochEnd = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<EventEpochEnd>, I>>(base?: I): EventEpochEnd {
+  create<I extends Exact<DeepPartial<EventEpochEnd>, I>>(
+    base?: I
+  ): EventEpochEnd {
     return EventEpochEnd.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<EventEpochEnd>, I>>(
-    object: I,
+    object: I
   ): EventEpochEnd {
     const message = createBaseEventEpochEnd()
     message.epochNumber =
@@ -188,9 +182,14 @@ export const EventEpochEnd = {
   },
 }
 
-messageTypeRegistry.set(EventEpochEnd.$type, EventEpochEnd)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -201,20 +200,20 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000)
   const nanos = (date.getTime() % 1_000) * 1_000_000
-  return { $type: "google.protobuf.Timestamp", seconds, nanos }
+  return { seconds, nanos }
 }
 
 function fromTimestamp(t: Timestamp): Date {

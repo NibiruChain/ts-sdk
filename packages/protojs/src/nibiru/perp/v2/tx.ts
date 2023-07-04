@@ -2,21 +2,23 @@
 import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Coin } from "../../../cosmos/base/v1beta1/coin"
-import { messageTypeRegistry } from "../../../typeRegistry"
-import { Direction, directionFromJSON, directionToJSON, Position } from "./state"
+import {
+  Direction,
+  directionFromJSON,
+  directionToJSON,
+  Position,
+} from "./state"
 
 export const protobufPackage = "nibiru.perp.v2"
 
 /** MsgRemoveMargin: Msg to remove margin. */
 export interface MsgRemoveMargin {
-  $type: "nibiru.perp.v2.MsgRemoveMargin"
   sender: string
   pair: string
   margin?: Coin
 }
 
 export interface MsgRemoveMarginResponse {
-  $type: "nibiru.perp.v2.MsgRemoveMarginResponse"
   /** tokens transferred back to the trader */
   marginOut?: Coin
   /** the funding payment applied on this position interaction */
@@ -27,37 +29,31 @@ export interface MsgRemoveMarginResponse {
 
 /** MsgAddMargin: Msg to remove margin. */
 export interface MsgAddMargin {
-  $type: "nibiru.perp.v2.MsgAddMargin"
   sender: string
   pair: string
   margin?: Coin
 }
 
 export interface MsgAddMarginResponse {
-  $type: "nibiru.perp.v2.MsgAddMarginResponse"
   fundingPayment: string
   position?: Position
 }
 
 export interface MsgMultiLiquidate {
-  $type: "nibiru.perp.v2.MsgMultiLiquidate"
   sender: string
   liquidations: MsgMultiLiquidate_Liquidation[]
 }
 
 export interface MsgMultiLiquidate_Liquidation {
-  $type: "nibiru.perp.v2.MsgMultiLiquidate.Liquidation"
   pair: string
   trader: string
 }
 
 export interface MsgMultiLiquidateResponse {
-  $type: "nibiru.perp.v2.MsgMultiLiquidateResponse"
   liquidations: MsgMultiLiquidateResponse_LiquidationResponse[]
 }
 
 export interface MsgMultiLiquidateResponse_LiquidationResponse {
-  $type: "nibiru.perp.v2.MsgMultiLiquidateResponse.LiquidationResponse"
   success: boolean
   error: string
   /** nullable since no fee is taken on failed liquidation */
@@ -65,10 +61,10 @@ export interface MsgMultiLiquidateResponse_LiquidationResponse {
   /** perp ecosystem fund */
   perpEfFee?: Coin
   trader: string
+  pair: string
 }
 
-export interface MsgOpenPosition {
-  $type: "nibiru.perp.v2.MsgOpenPosition"
+export interface MsgMarketOrder {
   sender: string
   pair: string
   side: Direction
@@ -77,8 +73,7 @@ export interface MsgOpenPosition {
   baseAssetAmountLimit: string
 }
 
-export interface MsgOpenPositionResponse {
-  $type: "nibiru.perp.v2.MsgOpenPositionResponse"
+export interface MsgMarketOrderResponse {
   position?: Position
   /** The amount of quote assets exchanged. */
   exchangedNotionalValue: string
@@ -112,13 +107,11 @@ export interface MsgOpenPositionResponse {
 }
 
 export interface MsgClosePosition {
-  $type: "nibiru.perp.v2.MsgClosePosition"
   sender: string
   pair: string
 }
 
 export interface MsgClosePositionResponse {
-  $type: "nibiru.perp.v2.MsgClosePositionResponse"
   /** The amount of quote assets exchanged. */
   exchangedNotionalValue: string
   /** The amount of base assets exchanged. */
@@ -141,31 +134,21 @@ export interface MsgClosePositionResponse {
 }
 
 export interface MsgDonateToEcosystemFund {
-  $type: "nibiru.perp.v2.MsgDonateToEcosystemFund"
   sender: string
   /** donation to the EF */
   donation?: Coin
 }
 
-export interface MsgDonateToEcosystemFundResponse {
-  $type: "nibiru.perp.v2.MsgDonateToEcosystemFundResponse"
-}
+export interface MsgDonateToEcosystemFundResponse {}
 
 function createBaseMsgRemoveMargin(): MsgRemoveMargin {
-  return {
-    $type: "nibiru.perp.v2.MsgRemoveMargin",
-    sender: "",
-    pair: "",
-    margin: undefined,
-  }
+  return { sender: "", pair: "", margin: undefined }
 }
 
 export const MsgRemoveMargin = {
-  $type: "nibiru.perp.v2.MsgRemoveMargin" as const,
-
   encode(
     message: MsgRemoveMargin,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
@@ -180,7 +163,8 @@ export const MsgRemoveMargin = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveMargin {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgRemoveMargin()
     while (reader.pos < end) {
@@ -218,7 +202,6 @@ export const MsgRemoveMargin = {
 
   fromJSON(object: any): MsgRemoveMargin {
     return {
-      $type: MsgRemoveMargin.$type,
       sender: isSet(object.sender) ? String(object.sender) : "",
       pair: isSet(object.pair) ? String(object.pair) : "",
       margin: isSet(object.margin) ? Coin.fromJSON(object.margin) : undefined,
@@ -234,12 +217,14 @@ export const MsgRemoveMargin = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<MsgRemoveMargin>, I>>(base?: I): MsgRemoveMargin {
+  create<I extends Exact<DeepPartial<MsgRemoveMargin>, I>>(
+    base?: I
+  ): MsgRemoveMargin {
     return MsgRemoveMargin.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgRemoveMargin>, I>>(
-    object: I,
+    object: I
   ): MsgRemoveMargin {
     const message = createBaseMsgRemoveMargin()
     message.sender = object.sender ?? ""
@@ -252,23 +237,14 @@ export const MsgRemoveMargin = {
   },
 }
 
-messageTypeRegistry.set(MsgRemoveMargin.$type, MsgRemoveMargin)
-
 function createBaseMsgRemoveMarginResponse(): MsgRemoveMarginResponse {
-  return {
-    $type: "nibiru.perp.v2.MsgRemoveMarginResponse",
-    marginOut: undefined,
-    fundingPayment: "",
-    position: undefined,
-  }
+  return { marginOut: undefined, fundingPayment: "", position: undefined }
 }
 
 export const MsgRemoveMarginResponse = {
-  $type: "nibiru.perp.v2.MsgRemoveMarginResponse" as const,
-
   encode(
     message: MsgRemoveMarginResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.marginOut !== undefined) {
       Coin.encode(message.marginOut, writer.uint32(10).fork()).ldelim()
@@ -282,8 +258,12 @@ export const MsgRemoveMarginResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveMarginResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgRemoveMarginResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgRemoveMarginResponse()
     while (reader.pos < end) {
@@ -321,32 +301,41 @@ export const MsgRemoveMarginResponse = {
 
   fromJSON(object: any): MsgRemoveMarginResponse {
     return {
-      $type: MsgRemoveMarginResponse.$type,
-      marginOut: isSet(object.marginOut) ? Coin.fromJSON(object.marginOut) : undefined,
-      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
-      position: isSet(object.position) ? Position.fromJSON(object.position) : undefined,
+      marginOut: isSet(object.marginOut)
+        ? Coin.fromJSON(object.marginOut)
+        : undefined,
+      fundingPayment: isSet(object.fundingPayment)
+        ? String(object.fundingPayment)
+        : "",
+      position: isSet(object.position)
+        ? Position.fromJSON(object.position)
+        : undefined,
     }
   },
 
   toJSON(message: MsgRemoveMarginResponse): unknown {
     const obj: any = {}
     message.marginOut !== undefined &&
-      (obj.marginOut = message.marginOut ? Coin.toJSON(message.marginOut) : undefined)
+      (obj.marginOut = message.marginOut
+        ? Coin.toJSON(message.marginOut)
+        : undefined)
     message.fundingPayment !== undefined &&
       (obj.fundingPayment = message.fundingPayment)
     message.position !== undefined &&
-      (obj.position = message.position ? Position.toJSON(message.position) : undefined)
+      (obj.position = message.position
+        ? Position.toJSON(message.position)
+        : undefined)
     return obj
   },
 
   create<I extends Exact<DeepPartial<MsgRemoveMarginResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgRemoveMarginResponse {
     return MsgRemoveMarginResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgRemoveMarginResponse>, I>>(
-    object: I,
+    object: I
   ): MsgRemoveMarginResponse {
     const message = createBaseMsgRemoveMarginResponse()
     message.marginOut =
@@ -362,21 +351,15 @@ export const MsgRemoveMarginResponse = {
   },
 }
 
-messageTypeRegistry.set(MsgRemoveMarginResponse.$type, MsgRemoveMarginResponse)
-
 function createBaseMsgAddMargin(): MsgAddMargin {
-  return {
-    $type: "nibiru.perp.v2.MsgAddMargin",
-    sender: "",
-    pair: "",
-    margin: undefined,
-  }
+  return { sender: "", pair: "", margin: undefined }
 }
 
 export const MsgAddMargin = {
-  $type: "nibiru.perp.v2.MsgAddMargin" as const,
-
-  encode(message: MsgAddMargin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgAddMargin,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
@@ -390,7 +373,8 @@ export const MsgAddMargin = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddMargin {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgAddMargin()
     while (reader.pos < end) {
@@ -428,7 +412,6 @@ export const MsgAddMargin = {
 
   fromJSON(object: any): MsgAddMargin {
     return {
-      $type: MsgAddMargin.$type,
       sender: isSet(object.sender) ? String(object.sender) : "",
       pair: isSet(object.pair) ? String(object.pair) : "",
       margin: isSet(object.margin) ? Coin.fromJSON(object.margin) : undefined,
@@ -444,11 +427,15 @@ export const MsgAddMargin = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<MsgAddMargin>, I>>(base?: I): MsgAddMargin {
+  create<I extends Exact<DeepPartial<MsgAddMargin>, I>>(
+    base?: I
+  ): MsgAddMargin {
     return MsgAddMargin.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgAddMargin>, I>>(object: I): MsgAddMargin {
+  fromPartial<I extends Exact<DeepPartial<MsgAddMargin>, I>>(
+    object: I
+  ): MsgAddMargin {
     const message = createBaseMsgAddMargin()
     message.sender = object.sender ?? ""
     message.pair = object.pair ?? ""
@@ -460,22 +447,14 @@ export const MsgAddMargin = {
   },
 }
 
-messageTypeRegistry.set(MsgAddMargin.$type, MsgAddMargin)
-
 function createBaseMsgAddMarginResponse(): MsgAddMarginResponse {
-  return {
-    $type: "nibiru.perp.v2.MsgAddMarginResponse",
-    fundingPayment: "",
-    position: undefined,
-  }
+  return { fundingPayment: "", position: undefined }
 }
 
 export const MsgAddMarginResponse = {
-  $type: "nibiru.perp.v2.MsgAddMarginResponse" as const,
-
   encode(
     message: MsgAddMarginResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.fundingPayment !== "") {
       writer.uint32(10).string(message.fundingPayment)
@@ -486,8 +465,12 @@ export const MsgAddMarginResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddMarginResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgAddMarginResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgAddMarginResponse()
     while (reader.pos < end) {
@@ -518,9 +501,12 @@ export const MsgAddMarginResponse = {
 
   fromJSON(object: any): MsgAddMarginResponse {
     return {
-      $type: MsgAddMarginResponse.$type,
-      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
-      position: isSet(object.position) ? Position.fromJSON(object.position) : undefined,
+      fundingPayment: isSet(object.fundingPayment)
+        ? String(object.fundingPayment)
+        : "",
+      position: isSet(object.position)
+        ? Position.fromJSON(object.position)
+        : undefined,
     }
   },
 
@@ -529,18 +515,20 @@ export const MsgAddMarginResponse = {
     message.fundingPayment !== undefined &&
       (obj.fundingPayment = message.fundingPayment)
     message.position !== undefined &&
-      (obj.position = message.position ? Position.toJSON(message.position) : undefined)
+      (obj.position = message.position
+        ? Position.toJSON(message.position)
+        : undefined)
     return obj
   },
 
   create<I extends Exact<DeepPartial<MsgAddMarginResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgAddMarginResponse {
     return MsgAddMarginResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgAddMarginResponse>, I>>(
-    object: I,
+    object: I
   ): MsgAddMarginResponse {
     const message = createBaseMsgAddMarginResponse()
     message.fundingPayment = object.fundingPayment ?? ""
@@ -552,30 +540,30 @@ export const MsgAddMarginResponse = {
   },
 }
 
-messageTypeRegistry.set(MsgAddMarginResponse.$type, MsgAddMarginResponse)
-
 function createBaseMsgMultiLiquidate(): MsgMultiLiquidate {
-  return { $type: "nibiru.perp.v2.MsgMultiLiquidate", sender: "", liquidations: [] }
+  return { sender: "", liquidations: [] }
 }
 
 export const MsgMultiLiquidate = {
-  $type: "nibiru.perp.v2.MsgMultiLiquidate" as const,
-
   encode(
     message: MsgMultiLiquidate,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
     for (const v of message.liquidations) {
-      MsgMultiLiquidate_Liquidation.encode(v!, writer.uint32(18).fork()).ldelim()
+      MsgMultiLiquidate_Liquidation.encode(
+        v!,
+        writer.uint32(18).fork()
+      ).ldelim()
     }
     return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidate {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgMultiLiquidate()
     while (reader.pos < end) {
@@ -594,7 +582,7 @@ export const MsgMultiLiquidate = {
           }
 
           message.liquidations.push(
-            MsgMultiLiquidate_Liquidation.decode(reader, reader.uint32()),
+            MsgMultiLiquidate_Liquidation.decode(reader, reader.uint32())
           )
           continue
       }
@@ -608,10 +596,11 @@ export const MsgMultiLiquidate = {
 
   fromJSON(object: any): MsgMultiLiquidate {
     return {
-      $type: MsgMultiLiquidate.$type,
       sender: isSet(object.sender) ? String(object.sender) : "",
       liquidations: Array.isArray(object?.liquidations)
-        ? object.liquidations.map((e: any) => MsgMultiLiquidate_Liquidation.fromJSON(e))
+        ? object.liquidations.map((e: any) =>
+            MsgMultiLiquidate_Liquidation.fromJSON(e)
+          )
         : [],
     }
   },
@@ -621,7 +610,7 @@ export const MsgMultiLiquidate = {
     message.sender !== undefined && (obj.sender = message.sender)
     if (message.liquidations) {
       obj.liquidations = message.liquidations.map((e) =>
-        e ? MsgMultiLiquidate_Liquidation.toJSON(e) : undefined,
+        e ? MsgMultiLiquidate_Liquidation.toJSON(e) : undefined
       )
     } else {
       obj.liquidations = []
@@ -630,35 +619,32 @@ export const MsgMultiLiquidate = {
   },
 
   create<I extends Exact<DeepPartial<MsgMultiLiquidate>, I>>(
-    base?: I,
+    base?: I
   ): MsgMultiLiquidate {
     return MsgMultiLiquidate.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidate>, I>>(
-    object: I,
+    object: I
   ): MsgMultiLiquidate {
     const message = createBaseMsgMultiLiquidate()
     message.sender = object.sender ?? ""
     message.liquidations =
-      object.liquidations?.map((e) => MsgMultiLiquidate_Liquidation.fromPartial(e)) ||
-      []
+      object.liquidations?.map((e) =>
+        MsgMultiLiquidate_Liquidation.fromPartial(e)
+      ) || []
     return message
   },
 }
 
-messageTypeRegistry.set(MsgMultiLiquidate.$type, MsgMultiLiquidate)
-
 function createBaseMsgMultiLiquidate_Liquidation(): MsgMultiLiquidate_Liquidation {
-  return { $type: "nibiru.perp.v2.MsgMultiLiquidate.Liquidation", pair: "", trader: "" }
+  return { pair: "", trader: "" }
 }
 
 export const MsgMultiLiquidate_Liquidation = {
-  $type: "nibiru.perp.v2.MsgMultiLiquidate.Liquidation" as const,
-
   encode(
     message: MsgMultiLiquidate_Liquidation,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
@@ -671,9 +657,10 @@ export const MsgMultiLiquidate_Liquidation = {
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number,
+    length?: number
   ): MsgMultiLiquidate_Liquidation {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgMultiLiquidate_Liquidation()
     while (reader.pos < end) {
@@ -704,7 +691,6 @@ export const MsgMultiLiquidate_Liquidation = {
 
   fromJSON(object: any): MsgMultiLiquidate_Liquidation {
     return {
-      $type: MsgMultiLiquidate_Liquidation.$type,
       pair: isSet(object.pair) ? String(object.pair) : "",
       trader: isSet(object.trader) ? String(object.trader) : "",
     }
@@ -718,13 +704,13 @@ export const MsgMultiLiquidate_Liquidation = {
   },
 
   create<I extends Exact<DeepPartial<MsgMultiLiquidate_Liquidation>, I>>(
-    base?: I,
+    base?: I
   ): MsgMultiLiquidate_Liquidation {
     return MsgMultiLiquidate_Liquidation.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidate_Liquidation>, I>>(
-    object: I,
+    object: I
   ): MsgMultiLiquidate_Liquidation {
     const message = createBaseMsgMultiLiquidate_Liquidation()
     message.pair = object.pair ?? ""
@@ -733,33 +719,30 @@ export const MsgMultiLiquidate_Liquidation = {
   },
 }
 
-messageTypeRegistry.set(
-  MsgMultiLiquidate_Liquidation.$type,
-  MsgMultiLiquidate_Liquidation,
-)
-
 function createBaseMsgMultiLiquidateResponse(): MsgMultiLiquidateResponse {
-  return { $type: "nibiru.perp.v2.MsgMultiLiquidateResponse", liquidations: [] }
+  return { liquidations: [] }
 }
 
 export const MsgMultiLiquidateResponse = {
-  $type: "nibiru.perp.v2.MsgMultiLiquidateResponse" as const,
-
   encode(
     message: MsgMultiLiquidateResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.liquidations) {
       MsgMultiLiquidateResponse_LiquidationResponse.encode(
         v!,
-        writer.uint32(10).fork(),
+        writer.uint32(10).fork()
       ).ldelim()
     }
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiLiquidateResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgMultiLiquidateResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgMultiLiquidateResponse()
     while (reader.pos < end) {
@@ -773,8 +756,8 @@ export const MsgMultiLiquidateResponse = {
           message.liquidations.push(
             MsgMultiLiquidateResponse_LiquidationResponse.decode(
               reader,
-              reader.uint32(),
-            ),
+              reader.uint32()
+            )
           )
           continue
       }
@@ -788,10 +771,9 @@ export const MsgMultiLiquidateResponse = {
 
   fromJSON(object: any): MsgMultiLiquidateResponse {
     return {
-      $type: MsgMultiLiquidateResponse.$type,
       liquidations: Array.isArray(object?.liquidations)
         ? object.liquidations.map((e: any) =>
-            MsgMultiLiquidateResponse_LiquidationResponse.fromJSON(e),
+            MsgMultiLiquidateResponse_LiquidationResponse.fromJSON(e)
           )
         : [],
     }
@@ -801,7 +783,7 @@ export const MsgMultiLiquidateResponse = {
     const obj: any = {}
     if (message.liquidations) {
       obj.liquidations = message.liquidations.map((e) =>
-        e ? MsgMultiLiquidateResponse_LiquidationResponse.toJSON(e) : undefined,
+        e ? MsgMultiLiquidateResponse_LiquidationResponse.toJSON(e) : undefined
       )
     } else {
       obj.liquidations = []
@@ -810,42 +792,38 @@ export const MsgMultiLiquidateResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgMultiLiquidateResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgMultiLiquidateResponse {
     return MsgMultiLiquidateResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiLiquidateResponse>, I>>(
-    object: I,
+    object: I
   ): MsgMultiLiquidateResponse {
     const message = createBaseMsgMultiLiquidateResponse()
     message.liquidations =
       object.liquidations?.map((e) =>
-        MsgMultiLiquidateResponse_LiquidationResponse.fromPartial(e),
+        MsgMultiLiquidateResponse_LiquidationResponse.fromPartial(e)
       ) || []
     return message
   },
 }
 
-messageTypeRegistry.set(MsgMultiLiquidateResponse.$type, MsgMultiLiquidateResponse)
-
 function createBaseMsgMultiLiquidateResponse_LiquidationResponse(): MsgMultiLiquidateResponse_LiquidationResponse {
   return {
-    $type: "nibiru.perp.v2.MsgMultiLiquidateResponse.LiquidationResponse",
     success: false,
     error: "",
     liquidatorFee: undefined,
     perpEfFee: undefined,
     trader: "",
+    pair: "",
   }
 }
 
 export const MsgMultiLiquidateResponse_LiquidationResponse = {
-  $type: "nibiru.perp.v2.MsgMultiLiquidateResponse.LiquidationResponse" as const,
-
   encode(
     message: MsgMultiLiquidateResponse_LiquidationResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.success === true) {
       writer.uint32(8).bool(message.success)
@@ -862,14 +840,18 @@ export const MsgMultiLiquidateResponse_LiquidationResponse = {
     if (message.trader !== "") {
       writer.uint32(42).string(message.trader)
     }
+    if (message.pair !== "") {
+      writer.uint32(50).string(message.pair)
+    }
     return writer
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number,
+    length?: number
   ): MsgMultiLiquidateResponse_LiquidationResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgMultiLiquidateResponse_LiquidationResponse()
     while (reader.pos < end) {
@@ -910,6 +892,13 @@ export const MsgMultiLiquidateResponse_LiquidationResponse = {
 
           message.trader = reader.string()
           continue
+        case 6:
+          if (tag !== 50) {
+            break
+          }
+
+          message.pair = reader.string()
+          continue
       }
       if ((tag & 7) === 4 || tag === 0) {
         break
@@ -921,14 +910,16 @@ export const MsgMultiLiquidateResponse_LiquidationResponse = {
 
   fromJSON(object: any): MsgMultiLiquidateResponse_LiquidationResponse {
     return {
-      $type: MsgMultiLiquidateResponse_LiquidationResponse.$type,
       success: isSet(object.success) ? Boolean(object.success) : false,
       error: isSet(object.error) ? String(object.error) : "",
       liquidatorFee: isSet(object.liquidatorFee)
         ? Coin.fromJSON(object.liquidatorFee)
         : undefined,
-      perpEfFee: isSet(object.perpEfFee) ? Coin.fromJSON(object.perpEfFee) : undefined,
+      perpEfFee: isSet(object.perpEfFee)
+        ? Coin.fromJSON(object.perpEfFee)
+        : undefined,
       trader: isSet(object.trader) ? String(object.trader) : "",
+      pair: isSet(object.pair) ? String(object.pair) : "",
     }
   },
 
@@ -941,19 +932,28 @@ export const MsgMultiLiquidateResponse_LiquidationResponse = {
         ? Coin.toJSON(message.liquidatorFee)
         : undefined)
     message.perpEfFee !== undefined &&
-      (obj.perpEfFee = message.perpEfFee ? Coin.toJSON(message.perpEfFee) : undefined)
+      (obj.perpEfFee = message.perpEfFee
+        ? Coin.toJSON(message.perpEfFee)
+        : undefined)
     message.trader !== undefined && (obj.trader = message.trader)
+    message.pair !== undefined && (obj.pair = message.pair)
     return obj
   },
 
   create<
-    I extends Exact<DeepPartial<MsgMultiLiquidateResponse_LiquidationResponse>, I>,
+    I extends Exact<
+      DeepPartial<MsgMultiLiquidateResponse_LiquidationResponse>,
+      I
+    >
   >(base?: I): MsgMultiLiquidateResponse_LiquidationResponse {
     return MsgMultiLiquidateResponse_LiquidationResponse.fromPartial(base ?? {})
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<MsgMultiLiquidateResponse_LiquidationResponse>, I>,
+    I extends Exact<
+      DeepPartial<MsgMultiLiquidateResponse_LiquidationResponse>,
+      I
+    >
   >(object: I): MsgMultiLiquidateResponse_LiquidationResponse {
     const message = createBaseMsgMultiLiquidateResponse_LiquidationResponse()
     message.success = object.success ?? false
@@ -967,18 +967,13 @@ export const MsgMultiLiquidateResponse_LiquidationResponse = {
         ? Coin.fromPartial(object.perpEfFee)
         : undefined
     message.trader = object.trader ?? ""
+    message.pair = object.pair ?? ""
     return message
   },
 }
 
-messageTypeRegistry.set(
-  MsgMultiLiquidateResponse_LiquidationResponse.$type,
-  MsgMultiLiquidateResponse_LiquidationResponse,
-)
-
-function createBaseMsgOpenPosition(): MsgOpenPosition {
+function createBaseMsgMarketOrder(): MsgMarketOrder {
   return {
-    $type: "nibiru.perp.v2.MsgOpenPosition",
     sender: "",
     pair: "",
     side: 0,
@@ -988,12 +983,10 @@ function createBaseMsgOpenPosition(): MsgOpenPosition {
   }
 }
 
-export const MsgOpenPosition = {
-  $type: "nibiru.perp.v2.MsgOpenPosition" as const,
-
+export const MsgMarketOrder = {
   encode(
-    message: MsgOpenPosition,
-    writer: _m0.Writer = _m0.Writer.create(),
+    message: MsgMarketOrder,
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
@@ -1016,10 +1009,11 @@ export const MsgOpenPosition = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgOpenPosition {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMarketOrder {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
-    const message = createBaseMsgOpenPosition()
+    const message = createBaseMsgMarketOrder()
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
@@ -1074,9 +1068,8 @@ export const MsgOpenPosition = {
     return message
   },
 
-  fromJSON(object: any): MsgOpenPosition {
+  fromJSON(object: any): MsgMarketOrder {
     return {
-      $type: MsgOpenPosition.$type,
       sender: isSet(object.sender) ? String(object.sender) : "",
       pair: isSet(object.pair) ? String(object.pair) : "",
       side: isSet(object.side) ? directionFromJSON(object.side) : 0,
@@ -1090,7 +1083,7 @@ export const MsgOpenPosition = {
     }
   },
 
-  toJSON(message: MsgOpenPosition): unknown {
+  toJSON(message: MsgMarketOrder): unknown {
     const obj: any = {}
     message.sender !== undefined && (obj.sender = message.sender)
     message.pair !== undefined && (obj.pair = message.pair)
@@ -1103,14 +1096,16 @@ export const MsgOpenPosition = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<MsgOpenPosition>, I>>(base?: I): MsgOpenPosition {
-    return MsgOpenPosition.fromPartial(base ?? {})
+  create<I extends Exact<DeepPartial<MsgMarketOrder>, I>>(
+    base?: I
+  ): MsgMarketOrder {
+    return MsgMarketOrder.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgOpenPosition>, I>>(
-    object: I,
-  ): MsgOpenPosition {
-    const message = createBaseMsgOpenPosition()
+  fromPartial<I extends Exact<DeepPartial<MsgMarketOrder>, I>>(
+    object: I
+  ): MsgMarketOrder {
+    const message = createBaseMsgMarketOrder()
     message.sender = object.sender ?? ""
     message.pair = object.pair ?? ""
     message.side = object.side ?? 0
@@ -1121,11 +1116,8 @@ export const MsgOpenPosition = {
   },
 }
 
-messageTypeRegistry.set(MsgOpenPosition.$type, MsgOpenPosition)
-
-function createBaseMsgOpenPositionResponse(): MsgOpenPositionResponse {
+function createBaseMsgMarketOrderResponse(): MsgMarketOrderResponse {
   return {
-    $type: "nibiru.perp.v2.MsgOpenPositionResponse",
     position: undefined,
     exchangedNotionalValue: "",
     exchangedPositionSize: "",
@@ -1137,12 +1129,10 @@ function createBaseMsgOpenPositionResponse(): MsgOpenPositionResponse {
   }
 }
 
-export const MsgOpenPositionResponse = {
-  $type: "nibiru.perp.v2.MsgOpenPositionResponse" as const,
-
+export const MsgMarketOrderResponse = {
   encode(
-    message: MsgOpenPositionResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    message: MsgMarketOrderResponse,
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.position !== undefined) {
       Position.encode(message.position, writer.uint32(10).fork()).ldelim()
@@ -1171,10 +1161,14 @@ export const MsgOpenPositionResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgOpenPositionResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgMarketOrderResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
-    const message = createBaseMsgOpenPositionResponse()
+    const message = createBaseMsgMarketOrderResponse()
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
@@ -1243,32 +1237,39 @@ export const MsgOpenPositionResponse = {
     return message
   },
 
-  fromJSON(object: any): MsgOpenPositionResponse {
+  fromJSON(object: any): MsgMarketOrderResponse {
     return {
-      $type: MsgOpenPositionResponse.$type,
-      position: isSet(object.position) ? Position.fromJSON(object.position) : undefined,
+      position: isSet(object.position)
+        ? Position.fromJSON(object.position)
+        : undefined,
       exchangedNotionalValue: isSet(object.exchangedNotionalValue)
         ? String(object.exchangedNotionalValue)
         : "",
       exchangedPositionSize: isSet(object.exchangedPositionSize)
         ? String(object.exchangedPositionSize)
         : "",
-      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
+      fundingPayment: isSet(object.fundingPayment)
+        ? String(object.fundingPayment)
+        : "",
       realizedPnl: isSet(object.realizedPnl) ? String(object.realizedPnl) : "",
       unrealizedPnlAfter: isSet(object.unrealizedPnlAfter)
         ? String(object.unrealizedPnlAfter)
         : "",
-      marginToVault: isSet(object.marginToVault) ? String(object.marginToVault) : "",
+      marginToVault: isSet(object.marginToVault)
+        ? String(object.marginToVault)
+        : "",
       positionNotional: isSet(object.positionNotional)
         ? String(object.positionNotional)
         : "",
     }
   },
 
-  toJSON(message: MsgOpenPositionResponse): unknown {
+  toJSON(message: MsgMarketOrderResponse): unknown {
     const obj: any = {}
     message.position !== undefined &&
-      (obj.position = message.position ? Position.toJSON(message.position) : undefined)
+      (obj.position = message.position
+        ? Position.toJSON(message.position)
+        : undefined)
     message.exchangedNotionalValue !== undefined &&
       (obj.exchangedNotionalValue = message.exchangedNotionalValue)
     message.exchangedPositionSize !== undefined &&
@@ -1278,22 +1279,23 @@ export const MsgOpenPositionResponse = {
     message.realizedPnl !== undefined && (obj.realizedPnl = message.realizedPnl)
     message.unrealizedPnlAfter !== undefined &&
       (obj.unrealizedPnlAfter = message.unrealizedPnlAfter)
-    message.marginToVault !== undefined && (obj.marginToVault = message.marginToVault)
+    message.marginToVault !== undefined &&
+      (obj.marginToVault = message.marginToVault)
     message.positionNotional !== undefined &&
       (obj.positionNotional = message.positionNotional)
     return obj
   },
 
-  create<I extends Exact<DeepPartial<MsgOpenPositionResponse>, I>>(
-    base?: I,
-  ): MsgOpenPositionResponse {
-    return MsgOpenPositionResponse.fromPartial(base ?? {})
+  create<I extends Exact<DeepPartial<MsgMarketOrderResponse>, I>>(
+    base?: I
+  ): MsgMarketOrderResponse {
+    return MsgMarketOrderResponse.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgOpenPositionResponse>, I>>(
-    object: I,
-  ): MsgOpenPositionResponse {
-    const message = createBaseMsgOpenPositionResponse()
+  fromPartial<I extends Exact<DeepPartial<MsgMarketOrderResponse>, I>>(
+    object: I
+  ): MsgMarketOrderResponse {
+    const message = createBaseMsgMarketOrderResponse()
     message.position =
       object.position !== undefined && object.position !== null
         ? Position.fromPartial(object.position)
@@ -1309,18 +1311,14 @@ export const MsgOpenPositionResponse = {
   },
 }
 
-messageTypeRegistry.set(MsgOpenPositionResponse.$type, MsgOpenPositionResponse)
-
 function createBaseMsgClosePosition(): MsgClosePosition {
-  return { $type: "nibiru.perp.v2.MsgClosePosition", sender: "", pair: "" }
+  return { sender: "", pair: "" }
 }
 
 export const MsgClosePosition = {
-  $type: "nibiru.perp.v2.MsgClosePosition" as const,
-
   encode(
     message: MsgClosePosition,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
@@ -1332,7 +1330,8 @@ export const MsgClosePosition = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgClosePosition {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgClosePosition()
     while (reader.pos < end) {
@@ -1363,7 +1362,6 @@ export const MsgClosePosition = {
 
   fromJSON(object: any): MsgClosePosition {
     return {
-      $type: MsgClosePosition.$type,
       sender: isSet(object.sender) ? String(object.sender) : "",
       pair: isSet(object.pair) ? String(object.pair) : "",
     }
@@ -1377,13 +1375,13 @@ export const MsgClosePosition = {
   },
 
   create<I extends Exact<DeepPartial<MsgClosePosition>, I>>(
-    base?: I,
+    base?: I
   ): MsgClosePosition {
     return MsgClosePosition.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgClosePosition>, I>>(
-    object: I,
+    object: I
   ): MsgClosePosition {
     const message = createBaseMsgClosePosition()
     message.sender = object.sender ?? ""
@@ -1392,11 +1390,8 @@ export const MsgClosePosition = {
   },
 }
 
-messageTypeRegistry.set(MsgClosePosition.$type, MsgClosePosition)
-
 function createBaseMsgClosePositionResponse(): MsgClosePositionResponse {
   return {
-    $type: "nibiru.perp.v2.MsgClosePositionResponse",
     exchangedNotionalValue: "",
     exchangedPositionSize: "",
     fundingPayment: "",
@@ -1406,11 +1401,9 @@ function createBaseMsgClosePositionResponse(): MsgClosePositionResponse {
 }
 
 export const MsgClosePositionResponse = {
-  $type: "nibiru.perp.v2.MsgClosePositionResponse" as const,
-
   encode(
     message: MsgClosePositionResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.exchangedNotionalValue !== "") {
       writer.uint32(10).string(message.exchangedNotionalValue)
@@ -1430,8 +1423,12 @@ export const MsgClosePositionResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgClosePositionResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgClosePositionResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgClosePositionResponse()
     while (reader.pos < end) {
@@ -1483,16 +1480,19 @@ export const MsgClosePositionResponse = {
 
   fromJSON(object: any): MsgClosePositionResponse {
     return {
-      $type: MsgClosePositionResponse.$type,
       exchangedNotionalValue: isSet(object.exchangedNotionalValue)
         ? String(object.exchangedNotionalValue)
         : "",
       exchangedPositionSize: isSet(object.exchangedPositionSize)
         ? String(object.exchangedPositionSize)
         : "",
-      fundingPayment: isSet(object.fundingPayment) ? String(object.fundingPayment) : "",
+      fundingPayment: isSet(object.fundingPayment)
+        ? String(object.fundingPayment)
+        : "",
       realizedPnl: isSet(object.realizedPnl) ? String(object.realizedPnl) : "",
-      marginToTrader: isSet(object.marginToTrader) ? String(object.marginToTrader) : "",
+      marginToTrader: isSet(object.marginToTrader)
+        ? String(object.marginToTrader)
+        : "",
     }
   },
 
@@ -1511,13 +1511,13 @@ export const MsgClosePositionResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgClosePositionResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgClosePositionResponse {
     return MsgClosePositionResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgClosePositionResponse>, I>>(
-    object: I,
+    object: I
   ): MsgClosePositionResponse {
     const message = createBaseMsgClosePositionResponse()
     message.exchangedNotionalValue = object.exchangedNotionalValue ?? ""
@@ -1529,22 +1529,14 @@ export const MsgClosePositionResponse = {
   },
 }
 
-messageTypeRegistry.set(MsgClosePositionResponse.$type, MsgClosePositionResponse)
-
 function createBaseMsgDonateToEcosystemFund(): MsgDonateToEcosystemFund {
-  return {
-    $type: "nibiru.perp.v2.MsgDonateToEcosystemFund",
-    sender: "",
-    donation: undefined,
-  }
+  return { sender: "", donation: undefined }
 }
 
 export const MsgDonateToEcosystemFund = {
-  $type: "nibiru.perp.v2.MsgDonateToEcosystemFund" as const,
-
   encode(
     message: MsgDonateToEcosystemFund,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
@@ -1555,8 +1547,12 @@ export const MsgDonateToEcosystemFund = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDonateToEcosystemFund {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgDonateToEcosystemFund {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgDonateToEcosystemFund()
     while (reader.pos < end) {
@@ -1587,9 +1583,10 @@ export const MsgDonateToEcosystemFund = {
 
   fromJSON(object: any): MsgDonateToEcosystemFund {
     return {
-      $type: MsgDonateToEcosystemFund.$type,
       sender: isSet(object.sender) ? String(object.sender) : "",
-      donation: isSet(object.donation) ? Coin.fromJSON(object.donation) : undefined,
+      donation: isSet(object.donation)
+        ? Coin.fromJSON(object.donation)
+        : undefined,
     }
   },
 
@@ -1597,18 +1594,20 @@ export const MsgDonateToEcosystemFund = {
     const obj: any = {}
     message.sender !== undefined && (obj.sender = message.sender)
     message.donation !== undefined &&
-      (obj.donation = message.donation ? Coin.toJSON(message.donation) : undefined)
+      (obj.donation = message.donation
+        ? Coin.toJSON(message.donation)
+        : undefined)
     return obj
   },
 
   create<I extends Exact<DeepPartial<MsgDonateToEcosystemFund>, I>>(
-    base?: I,
+    base?: I
   ): MsgDonateToEcosystemFund {
     return MsgDonateToEcosystemFund.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDonateToEcosystemFund>, I>>(
-    object: I,
+    object: I
   ): MsgDonateToEcosystemFund {
     const message = createBaseMsgDonateToEcosystemFund()
     message.sender = object.sender ?? ""
@@ -1620,27 +1619,24 @@ export const MsgDonateToEcosystemFund = {
   },
 }
 
-messageTypeRegistry.set(MsgDonateToEcosystemFund.$type, MsgDonateToEcosystemFund)
-
 function createBaseMsgDonateToEcosystemFundResponse(): MsgDonateToEcosystemFundResponse {
-  return { $type: "nibiru.perp.v2.MsgDonateToEcosystemFundResponse" }
+  return {}
 }
 
 export const MsgDonateToEcosystemFundResponse = {
-  $type: "nibiru.perp.v2.MsgDonateToEcosystemFundResponse" as const,
-
   encode(
     _: MsgDonateToEcosystemFundResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number,
+    length?: number
   ): MsgDonateToEcosystemFundResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgDonateToEcosystemFundResponse()
     while (reader.pos < end) {
@@ -1656,7 +1652,7 @@ export const MsgDonateToEcosystemFundResponse = {
   },
 
   fromJSON(_: any): MsgDonateToEcosystemFundResponse {
-    return { $type: MsgDonateToEcosystemFundResponse.$type }
+    return {}
   },
 
   toJSON(_: MsgDonateToEcosystemFundResponse): unknown {
@@ -1665,33 +1661,28 @@ export const MsgDonateToEcosystemFundResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgDonateToEcosystemFundResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgDonateToEcosystemFundResponse {
     return MsgDonateToEcosystemFundResponse.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDonateToEcosystemFundResponse>, I>>(
-    _: I,
-  ): MsgDonateToEcosystemFundResponse {
+  fromPartial<
+    I extends Exact<DeepPartial<MsgDonateToEcosystemFundResponse>, I>
+  >(_: I): MsgDonateToEcosystemFundResponse {
     const message = createBaseMsgDonateToEcosystemFundResponse()
     return message
   },
 }
-
-messageTypeRegistry.set(
-  MsgDonateToEcosystemFundResponse.$type,
-  MsgDonateToEcosystemFundResponse,
-)
 
 /** Msg defines the x/perp Msg service. */
 export interface Msg {
   RemoveMargin(request: MsgRemoveMargin): Promise<MsgRemoveMarginResponse>
   AddMargin(request: MsgAddMargin): Promise<MsgAddMarginResponse>
   MultiLiquidate(request: MsgMultiLiquidate): Promise<MsgMultiLiquidateResponse>
-  OpenPosition(request: MsgOpenPosition): Promise<MsgOpenPositionResponse>
+  MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse>
   ClosePosition(request: MsgClosePosition): Promise<MsgClosePositionResponse>
   DonateToEcosystemFund(
-    request: MsgDonateToEcosystemFund,
+    request: MsgDonateToEcosystemFund
   ): Promise<MsgDonateToEcosystemFundResponse>
 }
 
@@ -1705,7 +1696,7 @@ export class MsgClientImpl implements Msg {
     this.RemoveMargin = this.RemoveMargin.bind(this)
     this.AddMargin = this.AddMargin.bind(this)
     this.MultiLiquidate = this.MultiLiquidate.bind(this)
-    this.OpenPosition = this.OpenPosition.bind(this)
+    this.MarketOrder = this.MarketOrder.bind(this)
     this.ClosePosition = this.ClosePosition.bind(this)
     this.DonateToEcosystemFund = this.DonateToEcosystemFund.bind(this)
   }
@@ -1713,29 +1704,33 @@ export class MsgClientImpl implements Msg {
     const data = MsgRemoveMargin.encode(request).finish()
     const promise = this.rpc.request(this.service, "RemoveMargin", data)
     return promise.then((data) =>
-      MsgRemoveMarginResponse.decode(_m0.Reader.create(data)),
+      MsgRemoveMarginResponse.decode(_m0.Reader.create(data))
     )
   }
 
   AddMargin(request: MsgAddMargin): Promise<MsgAddMarginResponse> {
     const data = MsgAddMargin.encode(request).finish()
     const promise = this.rpc.request(this.service, "AddMargin", data)
-    return promise.then((data) => MsgAddMarginResponse.decode(_m0.Reader.create(data)))
-  }
-
-  MultiLiquidate(request: MsgMultiLiquidate): Promise<MsgMultiLiquidateResponse> {
-    const data = MsgMultiLiquidate.encode(request).finish()
-    const promise = this.rpc.request(this.service, "MultiLiquidate", data)
     return promise.then((data) =>
-      MsgMultiLiquidateResponse.decode(_m0.Reader.create(data)),
+      MsgAddMarginResponse.decode(_m0.Reader.create(data))
     )
   }
 
-  OpenPosition(request: MsgOpenPosition): Promise<MsgOpenPositionResponse> {
-    const data = MsgOpenPosition.encode(request).finish()
-    const promise = this.rpc.request(this.service, "OpenPosition", data)
+  MultiLiquidate(
+    request: MsgMultiLiquidate
+  ): Promise<MsgMultiLiquidateResponse> {
+    const data = MsgMultiLiquidate.encode(request).finish()
+    const promise = this.rpc.request(this.service, "MultiLiquidate", data)
     return promise.then((data) =>
-      MsgOpenPositionResponse.decode(_m0.Reader.create(data)),
+      MsgMultiLiquidateResponse.decode(_m0.Reader.create(data))
+    )
+  }
+
+  MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse> {
+    const data = MsgMarketOrder.encode(request).finish()
+    const promise = this.rpc.request(this.service, "MarketOrder", data)
+    return promise.then((data) =>
+      MsgMarketOrderResponse.decode(_m0.Reader.create(data))
     )
   }
 
@@ -1743,26 +1738,41 @@ export class MsgClientImpl implements Msg {
     const data = MsgClosePosition.encode(request).finish()
     const promise = this.rpc.request(this.service, "ClosePosition", data)
     return promise.then((data) =>
-      MsgClosePositionResponse.decode(_m0.Reader.create(data)),
+      MsgClosePositionResponse.decode(_m0.Reader.create(data))
     )
   }
 
   DonateToEcosystemFund(
-    request: MsgDonateToEcosystemFund,
+    request: MsgDonateToEcosystemFund
   ): Promise<MsgDonateToEcosystemFundResponse> {
     const data = MsgDonateToEcosystemFund.encode(request).finish()
-    const promise = this.rpc.request(this.service, "DonateToEcosystemFund", data)
+    const promise = this.rpc.request(
+      this.service,
+      "DonateToEcosystemFund",
+      data
+    )
     return promise.then((data) =>
-      MsgDonateToEcosystemFundResponse.decode(_m0.Reader.create(data)),
+      MsgDonateToEcosystemFundResponse.decode(_m0.Reader.create(data))
     )
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -1773,14 +1783,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

@@ -2,7 +2,6 @@
 import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Coin } from "../../../cosmos/base/v1beta1/coin"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.stablecoin.v1"
 
@@ -12,7 +11,6 @@ export const protobufPackage = "nibiru.stablecoin.v1"
  * by the oracle library and the current collateral ratio for the protocol.
  */
 export interface MsgMintStable {
-  $type: "nibiru.stablecoin.v1.MsgMintStable"
   creator: string
   stable?: Coin
 }
@@ -22,7 +20,6 @@ export interface MsgMintStable {
  * receive after their mint transaction
  */
 export interface MsgMintStableResponse {
-  $type: "nibiru.stablecoin.v1.MsgMintStableResponse"
   stable?: Coin
   usedCoins: Coin[]
   feesPayed: Coin[]
@@ -34,7 +31,6 @@ export interface MsgMintStableResponse {
  * the x/oracle library and the current collateral ratio.
  */
 export interface MsgBurnStable {
-  $type: "nibiru.stablecoin.v1.MsgBurnStable"
   creator: string
   stable?: Coin
 }
@@ -44,7 +40,6 @@ export interface MsgBurnStable {
  * token the user will receive after their burn transaction.
  */
 export interface MsgBurnStableResponse {
-  $type: "nibiru.stablecoin.v1.MsgBurnStableResponse"
   collateral?: Coin
   gov?: Coin
   feesPayed: Coin[]
@@ -52,14 +47,12 @@ export interface MsgBurnStableResponse {
 
 /** MsgRecollateralize */
 export interface MsgRecollateralize {
-  $type: "nibiru.stablecoin.v1.MsgRecollateralize"
   creator: string
   coll?: Coin
 }
 
 /** MsgRecollateralizeResponse is the output of a successful 'Recollateralize' */
 export interface MsgRecollateralizeResponse {
-  $type: "nibiru.stablecoin.v1.MsgRecollateralizeResponse"
   /**
    * Gov (sdk.Coin): Tokens rewarded to the caller in exchange for her
    * collateral.
@@ -69,7 +62,6 @@ export interface MsgRecollateralizeResponse {
 
 /** MsgBuyback */
 export interface MsgBuyback {
-  $type: "nibiru.stablecoin.v1.MsgBuyback"
   creator: string
   /**
    * Gov (sdk.Coin): Tokens the caller wants to sell to the protocol in exchange
@@ -80,19 +72,19 @@ export interface MsgBuyback {
 
 /** MsgBuybackResponse is the output of a successful 'Buyback' */
 export interface MsgBuybackResponse {
-  $type: "nibiru.stablecoin.v1.MsgBuybackResponse"
   /** Coll (sdk.Coin): Tokens sold to the caller in exchange for her collateral. */
   coll?: Coin
 }
 
 function createBaseMsgMintStable(): MsgMintStable {
-  return { $type: "nibiru.stablecoin.v1.MsgMintStable", creator: "", stable: undefined }
+  return { creator: "", stable: undefined }
 }
 
 export const MsgMintStable = {
-  $type: "nibiru.stablecoin.v1.MsgMintStable" as const,
-
-  encode(message: MsgMintStable, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgMintStable,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
     }
@@ -103,7 +95,8 @@ export const MsgMintStable = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgMintStable {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgMintStable()
     while (reader.pos < end) {
@@ -134,7 +127,6 @@ export const MsgMintStable = {
 
   fromJSON(object: any): MsgMintStable {
     return {
-      $type: MsgMintStable.$type,
       creator: isSet(object.creator) ? String(object.creator) : "",
       stable: isSet(object.stable) ? Coin.fromJSON(object.stable) : undefined,
     }
@@ -148,12 +140,14 @@ export const MsgMintStable = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<MsgMintStable>, I>>(base?: I): MsgMintStable {
+  create<I extends Exact<DeepPartial<MsgMintStable>, I>>(
+    base?: I
+  ): MsgMintStable {
     return MsgMintStable.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMintStable>, I>>(
-    object: I,
+    object: I
   ): MsgMintStable {
     const message = createBaseMsgMintStable()
     message.creator = object.creator ?? ""
@@ -165,23 +159,14 @@ export const MsgMintStable = {
   },
 }
 
-messageTypeRegistry.set(MsgMintStable.$type, MsgMintStable)
-
 function createBaseMsgMintStableResponse(): MsgMintStableResponse {
-  return {
-    $type: "nibiru.stablecoin.v1.MsgMintStableResponse",
-    stable: undefined,
-    usedCoins: [],
-    feesPayed: [],
-  }
+  return { stable: undefined, usedCoins: [], feesPayed: [] }
 }
 
 export const MsgMintStableResponse = {
-  $type: "nibiru.stablecoin.v1.MsgMintStableResponse" as const,
-
   encode(
     message: MsgMintStableResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.stable !== undefined) {
       Coin.encode(message.stable, writer.uint32(10).fork()).ldelim()
@@ -195,8 +180,12 @@ export const MsgMintStableResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMintStableResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgMintStableResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgMintStableResponse()
     while (reader.pos < end) {
@@ -234,7 +223,6 @@ export const MsgMintStableResponse = {
 
   fromJSON(object: any): MsgMintStableResponse {
     return {
-      $type: MsgMintStableResponse.$type,
       stable: isSet(object.stable) ? Coin.fromJSON(object.stable) : undefined,
       usedCoins: Array.isArray(object?.usedCoins)
         ? object.usedCoins.map((e: any) => Coin.fromJSON(e))
@@ -250,12 +238,16 @@ export const MsgMintStableResponse = {
     message.stable !== undefined &&
       (obj.stable = message.stable ? Coin.toJSON(message.stable) : undefined)
     if (message.usedCoins) {
-      obj.usedCoins = message.usedCoins.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.usedCoins = message.usedCoins.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      )
     } else {
       obj.usedCoins = []
     }
     if (message.feesPayed) {
-      obj.feesPayed = message.feesPayed.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.feesPayed = message.feesPayed.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      )
     } else {
       obj.feesPayed = []
     }
@@ -263,13 +255,13 @@ export const MsgMintStableResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgMintStableResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgMintStableResponse {
     return MsgMintStableResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMintStableResponse>, I>>(
-    object: I,
+    object: I
   ): MsgMintStableResponse {
     const message = createBaseMsgMintStableResponse()
     message.stable =
@@ -282,16 +274,15 @@ export const MsgMintStableResponse = {
   },
 }
 
-messageTypeRegistry.set(MsgMintStableResponse.$type, MsgMintStableResponse)
-
 function createBaseMsgBurnStable(): MsgBurnStable {
-  return { $type: "nibiru.stablecoin.v1.MsgBurnStable", creator: "", stable: undefined }
+  return { creator: "", stable: undefined }
 }
 
 export const MsgBurnStable = {
-  $type: "nibiru.stablecoin.v1.MsgBurnStable" as const,
-
-  encode(message: MsgBurnStable, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgBurnStable,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
     }
@@ -302,7 +293,8 @@ export const MsgBurnStable = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgBurnStable {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgBurnStable()
     while (reader.pos < end) {
@@ -333,7 +325,6 @@ export const MsgBurnStable = {
 
   fromJSON(object: any): MsgBurnStable {
     return {
-      $type: MsgBurnStable.$type,
       creator: isSet(object.creator) ? String(object.creator) : "",
       stable: isSet(object.stable) ? Coin.fromJSON(object.stable) : undefined,
     }
@@ -347,12 +338,14 @@ export const MsgBurnStable = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<MsgBurnStable>, I>>(base?: I): MsgBurnStable {
+  create<I extends Exact<DeepPartial<MsgBurnStable>, I>>(
+    base?: I
+  ): MsgBurnStable {
     return MsgBurnStable.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgBurnStable>, I>>(
-    object: I,
+    object: I
   ): MsgBurnStable {
     const message = createBaseMsgBurnStable()
     message.creator = object.creator ?? ""
@@ -364,23 +357,14 @@ export const MsgBurnStable = {
   },
 }
 
-messageTypeRegistry.set(MsgBurnStable.$type, MsgBurnStable)
-
 function createBaseMsgBurnStableResponse(): MsgBurnStableResponse {
-  return {
-    $type: "nibiru.stablecoin.v1.MsgBurnStableResponse",
-    collateral: undefined,
-    gov: undefined,
-    feesPayed: [],
-  }
+  return { collateral: undefined, gov: undefined, feesPayed: [] }
 }
 
 export const MsgBurnStableResponse = {
-  $type: "nibiru.stablecoin.v1.MsgBurnStableResponse" as const,
-
   encode(
     message: MsgBurnStableResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.collateral !== undefined) {
       Coin.encode(message.collateral, writer.uint32(10).fork()).ldelim()
@@ -394,8 +378,12 @@ export const MsgBurnStableResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgBurnStableResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgBurnStableResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgBurnStableResponse()
     while (reader.pos < end) {
@@ -433,7 +421,6 @@ export const MsgBurnStableResponse = {
 
   fromJSON(object: any): MsgBurnStableResponse {
     return {
-      $type: MsgBurnStableResponse.$type,
       collateral: isSet(object.collateral)
         ? Coin.fromJSON(object.collateral)
         : undefined,
@@ -453,7 +440,9 @@ export const MsgBurnStableResponse = {
     message.gov !== undefined &&
       (obj.gov = message.gov ? Coin.toJSON(message.gov) : undefined)
     if (message.feesPayed) {
-      obj.feesPayed = message.feesPayed.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.feesPayed = message.feesPayed.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      )
     } else {
       obj.feesPayed = []
     }
@@ -461,13 +450,13 @@ export const MsgBurnStableResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgBurnStableResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgBurnStableResponse {
     return MsgBurnStableResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgBurnStableResponse>, I>>(
-    object: I,
+    object: I
   ): MsgBurnStableResponse {
     const message = createBaseMsgBurnStableResponse()
     message.collateral =
@@ -483,22 +472,14 @@ export const MsgBurnStableResponse = {
   },
 }
 
-messageTypeRegistry.set(MsgBurnStableResponse.$type, MsgBurnStableResponse)
-
 function createBaseMsgRecollateralize(): MsgRecollateralize {
-  return {
-    $type: "nibiru.stablecoin.v1.MsgRecollateralize",
-    creator: "",
-    coll: undefined,
-  }
+  return { creator: "", coll: undefined }
 }
 
 export const MsgRecollateralize = {
-  $type: "nibiru.stablecoin.v1.MsgRecollateralize" as const,
-
   encode(
     message: MsgRecollateralize,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
@@ -510,7 +491,8 @@ export const MsgRecollateralize = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgRecollateralize {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgRecollateralize()
     while (reader.pos < end) {
@@ -541,7 +523,6 @@ export const MsgRecollateralize = {
 
   fromJSON(object: any): MsgRecollateralize {
     return {
-      $type: MsgRecollateralize.$type,
       creator: isSet(object.creator) ? String(object.creator) : "",
       coll: isSet(object.coll) ? Coin.fromJSON(object.coll) : undefined,
     }
@@ -556,13 +537,13 @@ export const MsgRecollateralize = {
   },
 
   create<I extends Exact<DeepPartial<MsgRecollateralize>, I>>(
-    base?: I,
+    base?: I
   ): MsgRecollateralize {
     return MsgRecollateralize.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgRecollateralize>, I>>(
-    object: I,
+    object: I
   ): MsgRecollateralize {
     const message = createBaseMsgRecollateralize()
     message.creator = object.creator ?? ""
@@ -574,18 +555,14 @@ export const MsgRecollateralize = {
   },
 }
 
-messageTypeRegistry.set(MsgRecollateralize.$type, MsgRecollateralize)
-
 function createBaseMsgRecollateralizeResponse(): MsgRecollateralizeResponse {
-  return { $type: "nibiru.stablecoin.v1.MsgRecollateralizeResponse", gov: undefined }
+  return { gov: undefined }
 }
 
 export const MsgRecollateralizeResponse = {
-  $type: "nibiru.stablecoin.v1.MsgRecollateralizeResponse" as const,
-
   encode(
     message: MsgRecollateralizeResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.gov !== undefined) {
       Coin.encode(message.gov, writer.uint32(10).fork()).ldelim()
@@ -593,8 +570,12 @@ export const MsgRecollateralizeResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRecollateralizeResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgRecollateralizeResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgRecollateralizeResponse()
     while (reader.pos < end) {
@@ -617,10 +598,7 @@ export const MsgRecollateralizeResponse = {
   },
 
   fromJSON(object: any): MsgRecollateralizeResponse {
-    return {
-      $type: MsgRecollateralizeResponse.$type,
-      gov: isSet(object.gov) ? Coin.fromJSON(object.gov) : undefined,
-    }
+    return { gov: isSet(object.gov) ? Coin.fromJSON(object.gov) : undefined }
   },
 
   toJSON(message: MsgRecollateralizeResponse): unknown {
@@ -631,13 +609,13 @@ export const MsgRecollateralizeResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgRecollateralizeResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgRecollateralizeResponse {
     return MsgRecollateralizeResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgRecollateralizeResponse>, I>>(
-    object: I,
+    object: I
   ): MsgRecollateralizeResponse {
     const message = createBaseMsgRecollateralizeResponse()
     message.gov =
@@ -648,16 +626,15 @@ export const MsgRecollateralizeResponse = {
   },
 }
 
-messageTypeRegistry.set(MsgRecollateralizeResponse.$type, MsgRecollateralizeResponse)
-
 function createBaseMsgBuyback(): MsgBuyback {
-  return { $type: "nibiru.stablecoin.v1.MsgBuyback", creator: "", gov: undefined }
+  return { creator: "", gov: undefined }
 }
 
 export const MsgBuyback = {
-  $type: "nibiru.stablecoin.v1.MsgBuyback" as const,
-
-  encode(message: MsgBuyback, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgBuyback,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
     }
@@ -668,7 +645,8 @@ export const MsgBuyback = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgBuyback {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgBuyback()
     while (reader.pos < end) {
@@ -699,7 +677,6 @@ export const MsgBuyback = {
 
   fromJSON(object: any): MsgBuyback {
     return {
-      $type: MsgBuyback.$type,
       creator: isSet(object.creator) ? String(object.creator) : "",
       gov: isSet(object.gov) ? Coin.fromJSON(object.gov) : undefined,
     }
@@ -717,7 +694,9 @@ export const MsgBuyback = {
     return MsgBuyback.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgBuyback>, I>>(object: I): MsgBuyback {
+  fromPartial<I extends Exact<DeepPartial<MsgBuyback>, I>>(
+    object: I
+  ): MsgBuyback {
     const message = createBaseMsgBuyback()
     message.creator = object.creator ?? ""
     message.gov =
@@ -728,18 +707,14 @@ export const MsgBuyback = {
   },
 }
 
-messageTypeRegistry.set(MsgBuyback.$type, MsgBuyback)
-
 function createBaseMsgBuybackResponse(): MsgBuybackResponse {
-  return { $type: "nibiru.stablecoin.v1.MsgBuybackResponse", coll: undefined }
+  return { coll: undefined }
 }
 
 export const MsgBuybackResponse = {
-  $type: "nibiru.stablecoin.v1.MsgBuybackResponse" as const,
-
   encode(
     message: MsgBuybackResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.coll !== undefined) {
       Coin.encode(message.coll, writer.uint32(10).fork()).ldelim()
@@ -748,7 +723,8 @@ export const MsgBuybackResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgBuybackResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgBuybackResponse()
     while (reader.pos < end) {
@@ -771,10 +747,7 @@ export const MsgBuybackResponse = {
   },
 
   fromJSON(object: any): MsgBuybackResponse {
-    return {
-      $type: MsgBuybackResponse.$type,
-      coll: isSet(object.coll) ? Coin.fromJSON(object.coll) : undefined,
-    }
+    return { coll: isSet(object.coll) ? Coin.fromJSON(object.coll) : undefined }
   },
 
   toJSON(message: MsgBuybackResponse): unknown {
@@ -785,13 +758,13 @@ export const MsgBuybackResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgBuybackResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgBuybackResponse {
     return MsgBuybackResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgBuybackResponse>, I>>(
-    object: I,
+    object: I
   ): MsgBuybackResponse {
     const message = createBaseMsgBuybackResponse()
     message.coll =
@@ -801,8 +774,6 @@ export const MsgBuybackResponse = {
     return message
   },
 }
-
-messageTypeRegistry.set(MsgBuybackResponse.$type, MsgBuybackResponse)
 
 /** Msg defines the x/stablecoin Msg service. */
 export interface Msg {
@@ -821,7 +792,9 @@ export interface Msg {
    * protocol in exchange for an equivalent stablecoin value in governance tokens
    * plus a small bonus.
    */
-  Recollateralize(request: MsgRecollateralize): Promise<MsgRecollateralizeResponse>
+  Recollateralize(
+    request: MsgRecollateralize
+  ): Promise<MsgRecollateralizeResponse>
   /**
    * Buyback defines a method for manually adding NIBI to the protocol
    * in exchange for an equivalent stablecoin value in collateral, effectively
@@ -846,35 +819,54 @@ export class MsgClientImpl implements Msg {
   MintStable(request: MsgMintStable): Promise<MsgMintStableResponse> {
     const data = MsgMintStable.encode(request).finish()
     const promise = this.rpc.request(this.service, "MintStable", data)
-    return promise.then((data) => MsgMintStableResponse.decode(_m0.Reader.create(data)))
+    return promise.then((data) =>
+      MsgMintStableResponse.decode(_m0.Reader.create(data))
+    )
   }
 
   BurnStable(request: MsgBurnStable): Promise<MsgBurnStableResponse> {
     const data = MsgBurnStable.encode(request).finish()
     const promise = this.rpc.request(this.service, "BurnStable", data)
-    return promise.then((data) => MsgBurnStableResponse.decode(_m0.Reader.create(data)))
+    return promise.then((data) =>
+      MsgBurnStableResponse.decode(_m0.Reader.create(data))
+    )
   }
 
-  Recollateralize(request: MsgRecollateralize): Promise<MsgRecollateralizeResponse> {
+  Recollateralize(
+    request: MsgRecollateralize
+  ): Promise<MsgRecollateralizeResponse> {
     const data = MsgRecollateralize.encode(request).finish()
     const promise = this.rpc.request(this.service, "Recollateralize", data)
     return promise.then((data) =>
-      MsgRecollateralizeResponse.decode(_m0.Reader.create(data)),
+      MsgRecollateralizeResponse.decode(_m0.Reader.create(data))
     )
   }
 
   Buyback(request: MsgBuyback): Promise<MsgBuybackResponse> {
     const data = MsgBuyback.encode(request).finish()
     const promise = this.rpc.request(this.service, "Buyback", data)
-    return promise.then((data) => MsgBuybackResponse.decode(_m0.Reader.create(data)))
+    return promise.then((data) =>
+      MsgBuybackResponse.decode(_m0.Reader.create(data))
+    )
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -885,14 +877,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

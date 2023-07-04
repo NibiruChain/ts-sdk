@@ -2,7 +2,6 @@
 import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Coin } from "../../../cosmos/base/v1beta1/coin"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.spot.v1"
 
@@ -47,7 +46,6 @@ export function poolTypeToJSON(object: PoolType): string {
 
 /** Configuration parameters for the pool. */
 export interface PoolParams {
-  $type: "nibiru.spot.v1.PoolParams"
   swapFee: string
   exitFee: string
   /**
@@ -63,7 +61,6 @@ export interface PoolParams {
 
 /** Which assets the pool contains. */
 export interface PoolAsset {
-  $type: "nibiru.spot.v1.PoolAsset"
   /**
    * Coins we are talking about,
    * the denomination must be unique amongst all PoolAssets for this pool.
@@ -74,7 +71,6 @@ export interface PoolAsset {
 }
 
 export interface Pool {
-  $type: "nibiru.spot.v1.Pool"
   /** The pool id. */
   id: Long
   /** The pool account address. */
@@ -93,19 +89,14 @@ export interface Pool {
 }
 
 function createBasePoolParams(): PoolParams {
-  return {
-    $type: "nibiru.spot.v1.PoolParams",
-    swapFee: "",
-    exitFee: "",
-    A: "",
-    poolType: 0,
-  }
+  return { swapFee: "", exitFee: "", A: "", poolType: 0 }
 }
 
 export const PoolParams = {
-  $type: "nibiru.spot.v1.PoolParams" as const,
-
-  encode(message: PoolParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: PoolParams,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.swapFee !== "") {
       writer.uint32(10).string(message.swapFee)
     }
@@ -122,7 +113,8 @@ export const PoolParams = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PoolParams {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBasePoolParams()
     while (reader.pos < end) {
@@ -167,7 +159,6 @@ export const PoolParams = {
 
   fromJSON(object: any): PoolParams {
     return {
-      $type: PoolParams.$type,
       swapFee: isSet(object.swapFee) ? String(object.swapFee) : "",
       exitFee: isSet(object.exitFee) ? String(object.exitFee) : "",
       A: isSet(object.A) ? String(object.A) : "",
@@ -180,7 +171,8 @@ export const PoolParams = {
     message.swapFee !== undefined && (obj.swapFee = message.swapFee)
     message.exitFee !== undefined && (obj.exitFee = message.exitFee)
     message.A !== undefined && (obj.A = message.A)
-    message.poolType !== undefined && (obj.poolType = poolTypeToJSON(message.poolType))
+    message.poolType !== undefined &&
+      (obj.poolType = poolTypeToJSON(message.poolType))
     return obj
   },
 
@@ -188,7 +180,9 @@ export const PoolParams = {
     return PoolParams.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<PoolParams>, I>>(object: I): PoolParams {
+  fromPartial<I extends Exact<DeepPartial<PoolParams>, I>>(
+    object: I
+  ): PoolParams {
     const message = createBasePoolParams()
     message.swapFee = object.swapFee ?? ""
     message.exitFee = object.exitFee ?? ""
@@ -198,16 +192,15 @@ export const PoolParams = {
   },
 }
 
-messageTypeRegistry.set(PoolParams.$type, PoolParams)
-
 function createBasePoolAsset(): PoolAsset {
-  return { $type: "nibiru.spot.v1.PoolAsset", token: undefined, weight: "" }
+  return { token: undefined, weight: "" }
 }
 
 export const PoolAsset = {
-  $type: "nibiru.spot.v1.PoolAsset" as const,
-
-  encode(message: PoolAsset, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: PoolAsset,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.token !== undefined) {
       Coin.encode(message.token, writer.uint32(10).fork()).ldelim()
     }
@@ -218,7 +211,8 @@ export const PoolAsset = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PoolAsset {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBasePoolAsset()
     while (reader.pos < end) {
@@ -249,7 +243,6 @@ export const PoolAsset = {
 
   fromJSON(object: any): PoolAsset {
     return {
-      $type: PoolAsset.$type,
       token: isSet(object.token) ? Coin.fromJSON(object.token) : undefined,
       weight: isSet(object.weight) ? String(object.weight) : "",
     }
@@ -267,7 +260,9 @@ export const PoolAsset = {
     return PoolAsset.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<PoolAsset>, I>>(object: I): PoolAsset {
+  fromPartial<I extends Exact<DeepPartial<PoolAsset>, I>>(
+    object: I
+  ): PoolAsset {
     const message = createBasePoolAsset()
     message.token =
       object.token !== undefined && object.token !== null
@@ -278,11 +273,8 @@ export const PoolAsset = {
   },
 }
 
-messageTypeRegistry.set(PoolAsset.$type, PoolAsset)
-
 function createBasePool(): Pool {
   return {
-    $type: "nibiru.spot.v1.Pool",
     id: Long.UZERO,
     address: "",
     poolParams: undefined,
@@ -293,8 +285,6 @@ function createBasePool(): Pool {
 }
 
 export const Pool = {
-  $type: "nibiru.spot.v1.Pool" as const,
-
   encode(message: Pool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id)
@@ -318,7 +308,8 @@ export const Pool = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Pool {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBasePool()
     while (reader.pos < end) {
@@ -377,7 +368,6 @@ export const Pool = {
 
   fromJSON(object: any): Pool {
     return {
-      $type: Pool.$type,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       address: isSet(object.address) ? String(object.address) : "",
       poolParams: isSet(object.poolParams)
@@ -403,7 +393,7 @@ export const Pool = {
         : undefined)
     if (message.poolAssets) {
       obj.poolAssets = message.poolAssets.map((e) =>
-        e ? PoolAsset.toJSON(e) : undefined,
+        e ? PoolAsset.toJSON(e) : undefined
       )
     } else {
       obj.poolAssets = []
@@ -431,7 +421,8 @@ export const Pool = {
       object.poolParams !== undefined && object.poolParams !== null
         ? PoolParams.fromPartial(object.poolParams)
         : undefined
-    message.poolAssets = object.poolAssets?.map((e) => PoolAsset.fromPartial(e)) || []
+    message.poolAssets =
+      object.poolAssets?.map((e) => PoolAsset.fromPartial(e)) || []
     message.totalWeight = object.totalWeight ?? ""
     message.totalShares =
       object.totalShares !== undefined && object.totalShares !== null
@@ -441,9 +432,14 @@ export const Pool = {
   },
 }
 
-messageTypeRegistry.set(Pool.$type, Pool)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -454,14 +450,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

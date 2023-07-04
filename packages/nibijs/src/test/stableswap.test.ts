@@ -6,11 +6,14 @@ import { StableSwap } from "../stableswap"
 describe("stableswap tests", () => {
   test("stabletests", () => {
     const csv = fs
-      .readFileSync(path.resolve(__dirname, path.join("mocks", "stabletests.csv")))
+      .readFileSync(
+        path.resolve(__dirname, path.join("mocks", "stabletests.csv"))
+      )
       .toString()
     const rl = csv.substring(0, csv.length - 1).split("\n")
     rl.forEach((line) => {
-      const regex = /"(\[[^"]+\])",(\d+),(\d+),(\d+),(\d+(\.\d+)?),(\d+(\.\d+)?)/
+      const regex =
+        /"(\[[^"]+\])",(\d+),(\d+),(\d+),(\d+(\.\d+)?),(\d+(\.\d+)?)/
       const match = line.match(regex)
       if (!match) {
         throw new Error("Invalid line format")
@@ -26,12 +29,16 @@ describe("stableswap tests", () => {
       const curveModel = new StableSwap(
         amplification,
         balances,
-        Array(balances.length).fill(BigNumber(10).exponentiatedBy(BigNumber(18))),
-        BigNumber(0),
+        Array(balances.length).fill(
+          BigNumber(10).exponentiatedBy(BigNumber(18))
+        ),
+        BigNumber(0)
       )
 
       const dy = curveModel.exchange(send, recv, dx)
-      expect(dy.minus(expectedDy).abs().isLessThanOrEqualTo(BigNumber(1))).toEqual(true)
+      expect(
+        dy.minus(expectedDy).abs().isLessThanOrEqualTo(BigNumber(1))
+      ).toEqual(true)
     })
   })
 })

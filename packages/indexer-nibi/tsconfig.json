@@ -6,7 +6,5 @@
     "baseUrl": "./",
     "composite": true
   },
-  "include": [
-    "src/**/*"
-  ],
+  "include": ["src/**/*"]
 }

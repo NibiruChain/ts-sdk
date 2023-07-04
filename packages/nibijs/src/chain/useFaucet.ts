@@ -1,13 +1,4 @@
-import * as cf from "cross-fetch"
 import { Chain, instanceOfChain } from "./chain"
-
-declare global {
-  interface Window {
-    fetch: typeof cf.fetch
-  }
-}
-
-window.fetch = cf.fetch
 
 /**
  * Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
@@ -21,7 +12,7 @@ export async function useFaucet({
   address: string
   amts?: { nibi: number; nusd: number; usdt: number }
   chain?: Chain | string
-  faucetUrl?: string
+  faucetUrl?: string | Error
 }): Promise<Response> {
   amts = {
     nibi: amts?.nibi ?? 11,
@@ -35,14 +26,14 @@ export async function useFaucet({
     `${(micro * amts.usdt).toString()}uusdt`,
   ]
 
-  if (chain !== undefined) {
+  if (chain) {
     // deduce faucet URL from 'chain' if possible
     if (typeof chain === "string" || chain instanceof String) {
       const [outFaucetUrl, err] = faucetUrlFromEndpoint(chain as string)
       if (err) throw err
       faucetUrl = outFaucetUrl
     } else if (instanceOfChain(chain)) {
-      const [outFaucetUrl, err] = faucetUrlFromChain(chain as Chain)
+      const [outFaucetUrl, err] = faucetUrlFromChain(chain)
       if (err) throw err
       faucetUrl = outFaucetUrl
     } else {
@@ -52,12 +43,16 @@ export async function useFaucet({
     faucetUrl = "https://faucet.testnet-1.nibiru.fi/"
   }
 
+  if (faucetUrl instanceof Error || !faucetUrl) {
+    throw Error(`Faucet URL undefined\n${faucetUrl}`)
+  }
+
   // Execute faucet request
   console.info(
     `Requesting funds from faucet @ ${faucetUrl}: 
     Coins: ${coins}
     Address: ${address}
-    `,
+    `
   )
 
   return window
@@ -76,7 +71,7 @@ export async function useFaucet({
 }
 
 /** TODO doc */
-function faucetUrlFromEndpoint(endptTm: string): [string, Error?] {
+const faucetUrlFromEndpoint = (endptTm: string) => {
   const endptTmParts: string[] = endptTm.split(".")
   let rpcIdx: number = -1
   endptTmParts.forEach((part, idx) => {
@@ -88,7 +83,9 @@ function faucetUrlFromEndpoint(endptTm: string): [string, Error?] {
   if (rpcIdx === -1) {
     return [
       "https://faucet.testnet-1.nibiru.fi/",
-      new Error(`failed to deduce chain name from Tendermint RPC endpoint: ${endptTm}`),
+      new Error(
+        `failed to deduce chain name from Tendermint RPC endpoint: ${endptTm}`
+      ),
     ]
   }
 
@@ -99,6 +96,5 @@ function faucetUrlFromEndpoint(endptTm: string): [string, Error?] {
 }
 
 /** TODO doc */
-function faucetUrlFromChain(chain: Chain): [string, Error?] {
-  return faucetUrlFromEndpoint(chain.endptTm)
-}
+const faucetUrlFromChain = (chain: Chain) =>
+  faucetUrlFromEndpoint(chain.endptTm)

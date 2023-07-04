@@ -1,7 +1,6 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../typeRegistry"
 
 export const protobufPackage = "cosmos_proto"
 
@@ -49,7 +48,6 @@ export function scalarTypeToJSON(object: ScalarType): string {
  * accepts_interface and implements_interface and declared by declare_interface.
  */
 export interface InterfaceDescriptor {
-  $type: "cosmos_proto.InterfaceDescriptor"
   /**
    * name is the name of the interface. It should be a short-name (without
    * a period) such that the fully qualified name of the interface will be
@@ -74,7 +72,6 @@ export interface InterfaceDescriptor {
  * i.e. the encoding should be deterministic.
  */
 export interface ScalarDescriptor {
-  $type: "cosmos_proto.ScalarDescriptor"
   /**
    * name is the name of the scalar. It should be a short-name (without
    * a period) such that the fully qualified name of the scalar will be
@@ -98,15 +95,13 @@ export interface ScalarDescriptor {
 }
 
 function createBaseInterfaceDescriptor(): InterfaceDescriptor {
-  return { $type: "cosmos_proto.InterfaceDescriptor", name: "", description: "" }
+  return { name: "", description: "" }
 }
 
 export const InterfaceDescriptor = {
-  $type: "cosmos_proto.InterfaceDescriptor" as const,
-
   encode(
     message: InterfaceDescriptor,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name)
@@ -118,7 +113,8 @@ export const InterfaceDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InterfaceDescriptor {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseInterfaceDescriptor()
     while (reader.pos < end) {
@@ -149,7 +145,6 @@ export const InterfaceDescriptor = {
 
   fromJSON(object: any): InterfaceDescriptor {
     return {
-      $type: InterfaceDescriptor.$type,
       name: isSet(object.name) ? String(object.name) : "",
       description: isSet(object.description) ? String(object.description) : "",
     }
@@ -163,13 +158,13 @@ export const InterfaceDescriptor = {
   },
 
   create<I extends Exact<DeepPartial<InterfaceDescriptor>, I>>(
-    base?: I,
+    base?: I
   ): InterfaceDescriptor {
     return InterfaceDescriptor.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<InterfaceDescriptor>, I>>(
-    object: I,
+    object: I
   ): InterfaceDescriptor {
     const message = createBaseInterfaceDescriptor()
     message.name = object.name ?? ""
@@ -178,23 +173,14 @@ export const InterfaceDescriptor = {
   },
 }
 
-messageTypeRegistry.set(InterfaceDescriptor.$type, InterfaceDescriptor)
-
 function createBaseScalarDescriptor(): ScalarDescriptor {
-  return {
-    $type: "cosmos_proto.ScalarDescriptor",
-    name: "",
-    description: "",
-    fieldType: [],
-  }
+  return { name: "", description: "", fieldType: [] }
 }
 
 export const ScalarDescriptor = {
-  $type: "cosmos_proto.ScalarDescriptor" as const,
-
   encode(
     message: ScalarDescriptor,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name)
@@ -211,7 +197,8 @@ export const ScalarDescriptor = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ScalarDescriptor {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseScalarDescriptor()
     while (reader.pos < end) {
@@ -259,7 +246,6 @@ export const ScalarDescriptor = {
 
   fromJSON(object: any): ScalarDescriptor {
     return {
-      $type: ScalarDescriptor.$type,
       name: isSet(object.name) ? String(object.name) : "",
       description: isSet(object.description) ? String(object.description) : "",
       fieldType: Array.isArray(object?.fieldType)
@@ -281,13 +267,13 @@ export const ScalarDescriptor = {
   },
 
   create<I extends Exact<DeepPartial<ScalarDescriptor>, I>>(
-    base?: I,
+    base?: I
   ): ScalarDescriptor {
     return ScalarDescriptor.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<ScalarDescriptor>, I>>(
-    object: I,
+    object: I
   ): ScalarDescriptor {
     const message = createBaseScalarDescriptor()
     message.name = object.name ?? ""
@@ -297,9 +283,14 @@ export const ScalarDescriptor = {
   },
 }
 
-messageTypeRegistry.set(ScalarDescriptor.$type, ScalarDescriptor)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -310,14 +301,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

@@ -40,7 +40,7 @@ export enum BalanceOrderBy {
 
 export const balances = async (
   args: GqlInBalance,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutBalance> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = BalanceOrderBy.block_ts

@@ -41,7 +41,7 @@ export enum BalanceOrderBy {
 
 export const delegations = async (
   args: GqlInDelegations,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutDelegations> => {
   if (args.limit === undefined) args.limit = 100
   if (args.orderDescending === undefined) args.orderDescending = true

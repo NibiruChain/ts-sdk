@@ -1,9 +1,43 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
-import * as pb from "@nibiruchain/protojs/dist/spot/v1/pool"
-import * as qpb from "@nibiruchain/protojs/dist/spot/v1/query"
+import { Pool, PoolParams } from "@nibiruchain/protojs/dist/nibiru/spot/v1/pool"
+import {
+  QueryClientImpl as SpotQueryClientImpl,
+  QueryExitExactAmountInRequest,
+  QueryExitExactAmountInResponse,
+  QueryExitExactAmountOutRequest,
+  QueryExitExactAmountOutResponse,
+  QueryJoinExactAmountInRequest,
+  QueryJoinExactAmountInResponse,
+  QueryJoinExactAmountOutRequest,
+  QueryJoinExactAmountOutResponse,
+  QueryNumPoolsRequest,
+  QueryNumPoolsResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryPoolNumberRequest,
+  QueryPoolNumberResponse,
+  QueryPoolParamsRequest,
+  QueryPoolParamsResponse,
+  QueryPoolRequest,
+  QueryPoolResponse,
+  QueryPoolsRequest,
+  QueryPoolsResponse,
+  QuerySpotPriceRequest,
+  QuerySpotPriceResponse,
+  QuerySwapExactAmountInRequest,
+  QuerySwapExactAmountInResponse,
+  QuerySwapExactAmountOutRequest,
+  QuerySwapExactAmountOutResponse,
+  QueryTotalLiquidityRequest,
+  QueryTotalLiquidityResponse,
+  QueryTotalPoolLiquidityRequest,
+  QueryTotalPoolLiquidityResponse,
+  QueryTotalSharesRequest,
+  QueryTotalSharesResponse,
+} from "@nibiruchain/protojs/dist/nibiru/spot/v1/query"
 import { Coin, fromSdkDec } from "../chain"
 
-function transformPoolParams(pp?: pb.PoolParams): pb.PoolParams | undefined {
+function transformPoolParams(pp?: PoolParams): PoolParams | undefined {
   if (pp) {
     pp.swapFee = fromSdkDec(pp?.swapFee).toString()
     pp.exitFee = fromSdkDec(pp?.exitFee).toString()
@@ -11,7 +45,7 @@ function transformPoolParams(pp?: pb.PoolParams): pb.PoolParams | undefined {
   return pp
 }
 
-function transformPool(p?: pb.Pool): pb.Pool | undefined {
+function transformPool(p?: Pool): Pool | undefined {
   if (!p) {
     return p
   }
@@ -21,99 +55,105 @@ function transformPool(p?: pb.Pool): pb.Pool | undefined {
 
 export interface SpotExtension {
   spot: Readonly<{
-    params: () => Promise<qpb.QueryParamsResponse>
-    poolNumber: () => Promise<qpb.QueryPoolNumberResponse>
-    pool: (poolId: number) => Promise<qpb.QueryPoolResponse>
-    pools: (pagination?: PageRequest) => Promise<qpb.QueryPoolsResponse>
-    poolParams: (poolId: number) => Promise<qpb.QueryPoolParamsResponse>
-    numPools: () => Promise<qpb.QueryNumPoolsResponse>
-    totalLiquidity: () => Promise<qpb.QueryTotalLiquidityResponse>
-    totalPoolLiquidity: (poolId: number) => Promise<qpb.QueryTotalPoolLiquidityResponse>
-    totalShares: (poolId: number) => Promise<qpb.QueryTotalSharesResponse>
+    params: () => Promise<QueryParamsResponse>
+    poolNumber: () => Promise<QueryPoolNumberResponse>
+    pool: (poolId: number) => Promise<QueryPoolResponse>
+    pools: (pagination?: PageRequest) => Promise<QueryPoolsResponse>
+    poolParams: (poolId: number) => Promise<QueryPoolParamsResponse>
+    numPools: () => Promise<QueryNumPoolsResponse>
+    totalLiquidity: () => Promise<QueryTotalLiquidityResponse>
+    totalPoolLiquidity: (
+      poolId: number
+    ) => Promise<QueryTotalPoolLiquidityResponse>
+    totalShares: (poolId: number) => Promise<QueryTotalSharesResponse>
     spotPrice: (
       poolId: number,
       tokenInDenom: string,
-      tokenOutDenom: string,
-    ) => Promise<qpb.QuerySpotPriceResponse>
+      tokenOutDenom: string
+    ) => Promise<QuerySpotPriceResponse>
     estimateSwapExactAmountIn: (
       poolId: number,
       tokeOutDenom: string,
-      tokenIn?: Coin,
-    ) => Promise<qpb.QuerySwapExactAmountInResponse>
+      tokenIn?: Coin
+    ) => Promise<QuerySwapExactAmountInResponse>
     estimateSwapExactAmountOut: (
       poolId: number,
       tokenInDenom: string,
-      tokenOut?: Coin,
-    ) => Promise<qpb.QuerySwapExactAmountOutResponse>
+      tokenOut?: Coin
+    ) => Promise<QuerySwapExactAmountOutResponse>
     estimateJoinExactAmountIn: (
       poolId: number,
-      tokensIn: Coin[],
-    ) => Promise<qpb.QueryJoinExactAmountInResponse>
+      tokensIn: Coin[]
+    ) => Promise<QueryJoinExactAmountInResponse>
     estimateJoinExactAmountOut: (
-      poolId: number,
-    ) => Promise<qpb.QueryJoinExactAmountOutResponse>
+      poolId: number
+    ) => Promise<QueryJoinExactAmountOutResponse>
     estimateExitExactAmountIn: (
       poolId: number,
-      poolSharesIn: number,
-    ) => Promise<qpb.QueryExitExactAmountInResponse>
+      poolSharesIn: number
+    ) => Promise<QueryExitExactAmountInResponse>
     estimateExitExactAmountOut: (
-      poolId: number,
-    ) => Promise<qpb.QueryExitExactAmountOutResponse>
+      poolId: number
+    ) => Promise<QueryExitExactAmountOutResponse>
   }>
 }
 
-export function setupSpotExtension(base: QueryClient): SpotExtension {
+export const setupSpotExtension = (base: QueryClient): SpotExtension => {
   const rpcClient = createProtobufRpcClient(base)
-  const queryService = new qpb.QueryClientImpl(rpcClient)
+  const queryService = new SpotQueryClientImpl(rpcClient)
 
   return {
     spot: {
       params: () => {
-        const req = qpb.QueryParamsRequest.fromPartial({})
+        const req = QueryParamsRequest.fromPartial({})
         return queryService.Params(req)
       },
       poolNumber: () => {
-        const req = qpb.QueryPoolNumberRequest.fromPartial({})
+        const req = QueryPoolNumberRequest.fromPartial({})
         return queryService.PoolNumber(req)
       },
       pool: async (poolId: number) => {
-        const req = qpb.QueryPoolRequest.fromPartial({ poolId })
+        const req = QueryPoolRequest.fromPartial({ poolId })
         const resp = await queryService.Pool(req)
         resp.pool = transformPool(resp.pool)
         return resp
       },
       pools: async (pagination?: PageRequest) => {
-        const req = qpb.QueryPoolsRequest.fromPartial({ pagination })
+        const req = QueryPoolsRequest.fromPartial({ pagination })
         const resp = await queryService.Pools(req)
         resp.pools = resp.pools.map((p) => transformPool(p)!)
         return resp
       },
       poolParams: async (poolId: number) => {
-        const req = qpb.QueryPoolParamsRequest.fromPartial({ poolId })
+        const req = QueryPoolParamsRequest.fromPartial({ poolId })
         const resp = await queryService.PoolParams(req)
         resp.poolParams = transformPoolParams(resp.poolParams)
         return resp
       },
       numPools: () => {
-        const req = qpb.QueryNumPoolsRequest.fromPartial({})
+        const req = QueryNumPoolsRequest.fromPartial({})
         return queryService.NumPools(req)
       },
       totalLiquidity: () => {
-        const req = qpb.QueryTotalLiquidityRequest.fromPartial({})
+        const req = QueryTotalLiquidityRequest.fromPartial({})
         return queryService.TotalLiquidity(req)
       },
       totalPoolLiquidity: (poolId: number) => {
-        const req = qpb.QueryTotalPoolLiquidityRequest.fromPartial({
+        const req = QueryTotalPoolLiquidityRequest.fromPartial({
           poolId,
         })
         return queryService.TotalPoolLiquidity(req)
       },
       totalShares: (poolId: number) => {
-        const req = qpb.QueryTotalSharesRequest.fromPartial({ poolId })
+        const req = QueryTotalSharesRequest.fromPartial({ poolId })
         return queryService.TotalShares(req)
       },
-      spotPrice: (poolId: number, tokenInDenom: string, tokenOutDenom: string) => {
-        const req = qpb.QuerySpotPriceRequest.fromPartial({
+      spotPrice: (
+        poolId: number,
+        tokenInDenom: string,
+        tokenOutDenom: string
+      ) => {
+        const req = QuerySpotPriceRequest.fromPartial({
           poolId,
           tokenInDenom,
           tokenOutDenom,
@@ -123,9 +163,9 @@ export function setupSpotExtension(base: QueryClient): SpotExtension {
       estimateSwapExactAmountIn: (
         poolId: number,
         tokenOutDenom: string,
-        tokenIn?: Coin,
+        tokenIn?: Coin
       ) => {
-        const req = qpb.QuerySwapExactAmountInRequest.fromPartial({
+        const req = QuerySwapExactAmountInRequest.fromPartial({
           poolId,
           tokenOutDenom,
           tokenIn,
@@ -135,9 +175,9 @@ export function setupSpotExtension(base: QueryClient): SpotExtension {
       estimateSwapExactAmountOut: (
         poolId: number,
         tokenInDenom: string,
-        tokenOut?: Coin,
+        tokenOut?: Coin
       ) => {
-        const req = qpb.QuerySwapExactAmountOutRequest.fromPartial({
+        const req = QuerySwapExactAmountOutRequest.fromPartial({
           poolId,
           tokenInDenom,
           tokenOut,
@@ -145,27 +185,27 @@ export function setupSpotExtension(base: QueryClient): SpotExtension {
         return queryService.EstimateSwapExactAmountOut(req)
       },
       estimateJoinExactAmountIn: (poolId: number, tokensIn: Coin[]) => {
-        const req = qpb.QueryJoinExactAmountInRequest.fromPartial({
+        const req = QueryJoinExactAmountInRequest.fromPartial({
           poolId,
           tokensIn,
         })
         return queryService.EstimateJoinExactAmountIn(req)
       },
       estimateJoinExactAmountOut: (poolId: number) => {
-        const req = qpb.QueryJoinExactAmountOutRequest.fromPartial({
+        const req = QueryJoinExactAmountOutRequest.fromPartial({
           poolId,
         })
         return queryService.EstimateJoinExactAmountOut(req)
       },
       estimateExitExactAmountIn: (poolId: number, poolSharesIn: number) => {
-        const req = qpb.QueryExitExactAmountInRequest.fromPartial({
+        const req = QueryExitExactAmountInRequest.fromPartial({
           poolId,
           poolSharesIn: poolSharesIn.toString(),
         })
         return queryService.EstimateExitExactAmountIn(req)
       },
       estimateExitExactAmountOut: (poolId: number) => {
-        const req = qpb.QueryExitExactAmountOutRequest.fromPartial({
+        const req = QueryExitExactAmountOutRequest.fromPartial({
           poolId,
         })
         return queryService.EstimateExitExactAmountOut(req)

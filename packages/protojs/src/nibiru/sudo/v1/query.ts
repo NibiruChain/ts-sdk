@@ -1,34 +1,32 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 import { Sudoers } from "./state"
 
 export const protobufPackage = "nibiru.sudo.v1"
 
-export interface QuerySudoersRequest {
-  $type: "nibiru.sudo.v1.QuerySudoersRequest"
-}
+export interface QuerySudoersRequest {}
 
 /** QuerySudoersResponse indicates the successful execution of MsgEditSudeors. */
 export interface QuerySudoersResponse {
-  $type: "nibiru.sudo.v1.QuerySudoersResponse"
   sudoers?: Sudoers
 }
 
 function createBaseQuerySudoersRequest(): QuerySudoersRequest {
-  return { $type: "nibiru.sudo.v1.QuerySudoersRequest" }
+  return {}
 }
 
 export const QuerySudoersRequest = {
-  $type: "nibiru.sudo.v1.QuerySudoersRequest" as const,
-
-  encode(_: QuerySudoersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: QuerySudoersRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QuerySudoersRequest {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQuerySudoersRequest()
     while (reader.pos < end) {
@@ -44,7 +42,7 @@ export const QuerySudoersRequest = {
   },
 
   fromJSON(_: any): QuerySudoersRequest {
-    return { $type: QuerySudoersRequest.$type }
+    return {}
   },
 
   toJSON(_: QuerySudoersRequest): unknown {
@@ -53,31 +51,27 @@ export const QuerySudoersRequest = {
   },
 
   create<I extends Exact<DeepPartial<QuerySudoersRequest>, I>>(
-    base?: I,
+    base?: I
   ): QuerySudoersRequest {
     return QuerySudoersRequest.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QuerySudoersRequest>, I>>(
-    _: I,
+    _: I
   ): QuerySudoersRequest {
     const message = createBaseQuerySudoersRequest()
     return message
   },
 }
 
-messageTypeRegistry.set(QuerySudoersRequest.$type, QuerySudoersRequest)
-
 function createBaseQuerySudoersResponse(): QuerySudoersResponse {
-  return { $type: "nibiru.sudo.v1.QuerySudoersResponse", sudoers: undefined }
+  return { sudoers: undefined }
 }
 
 export const QuerySudoersResponse = {
-  $type: "nibiru.sudo.v1.QuerySudoersResponse" as const,
-
   encode(
     message: QuerySudoersResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.sudoers !== undefined) {
       Sudoers.encode(message.sudoers, writer.uint32(10).fork()).ldelim()
@@ -85,8 +79,12 @@ export const QuerySudoersResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QuerySudoersResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QuerySudoersResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQuerySudoersResponse()
     while (reader.pos < end) {
@@ -110,26 +108,29 @@ export const QuerySudoersResponse = {
 
   fromJSON(object: any): QuerySudoersResponse {
     return {
-      $type: QuerySudoersResponse.$type,
-      sudoers: isSet(object.sudoers) ? Sudoers.fromJSON(object.sudoers) : undefined,
+      sudoers: isSet(object.sudoers)
+        ? Sudoers.fromJSON(object.sudoers)
+        : undefined,
     }
   },
 
   toJSON(message: QuerySudoersResponse): unknown {
     const obj: any = {}
     message.sudoers !== undefined &&
-      (obj.sudoers = message.sudoers ? Sudoers.toJSON(message.sudoers) : undefined)
+      (obj.sudoers = message.sudoers
+        ? Sudoers.toJSON(message.sudoers)
+        : undefined)
     return obj
   },
 
   create<I extends Exact<DeepPartial<QuerySudoersResponse>, I>>(
-    base?: I,
+    base?: I
   ): QuerySudoersResponse {
     return QuerySudoersResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QuerySudoersResponse>, I>>(
-    object: I,
+    object: I
   ): QuerySudoersResponse {
     const message = createBaseQuerySudoersResponse()
     message.sudoers =
@@ -139,8 +140,6 @@ export const QuerySudoersResponse = {
     return message
   },
 }
-
-messageTypeRegistry.set(QuerySudoersResponse.$type, QuerySudoersResponse)
 
 /** Query defines the gRPC querier service. */
 export interface Query {
@@ -159,15 +158,28 @@ export class QueryClientImpl implements Query {
   QuerySudoers(request: QuerySudoersRequest): Promise<QuerySudoersResponse> {
     const data = QuerySudoersRequest.encode(request).finish()
     const promise = this.rpc.request(this.service, "QuerySudoers", data)
-    return promise.then((data) => QuerySudoersResponse.decode(_m0.Reader.create(data)))
+    return promise.then((data) =>
+      QuerySudoersResponse.decode(_m0.Reader.create(data))
+    )
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -178,14 +190,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

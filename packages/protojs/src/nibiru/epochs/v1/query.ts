@@ -1,46 +1,42 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 import { EpochInfo } from "./state"
 
 export const protobufPackage = "nibiru.epochs.v1"
 
-export interface QueryEpochsInfoRequest {
-  $type: "nibiru.epochs.v1.QueryEpochsInfoRequest"
-}
+export interface QueryEpochsInfoRequest {}
 
 export interface QueryEpochsInfoResponse {
-  $type: "nibiru.epochs.v1.QueryEpochsInfoResponse"
   epochs: EpochInfo[]
 }
 
 export interface QueryCurrentEpochRequest {
-  $type: "nibiru.epochs.v1.QueryCurrentEpochRequest"
   identifier: string
 }
 
 export interface QueryCurrentEpochResponse {
-  $type: "nibiru.epochs.v1.QueryCurrentEpochResponse"
   currentEpoch: Long
 }
 
 function createBaseQueryEpochsInfoRequest(): QueryEpochsInfoRequest {
-  return { $type: "nibiru.epochs.v1.QueryEpochsInfoRequest" }
+  return {}
 }
 
 export const QueryEpochsInfoRequest = {
-  $type: "nibiru.epochs.v1.QueryEpochsInfoRequest" as const,
-
   encode(
     _: QueryEpochsInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryEpochsInfoRequest {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryEpochsInfoRequest {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryEpochsInfoRequest()
     while (reader.pos < end) {
@@ -56,7 +52,7 @@ export const QueryEpochsInfoRequest = {
   },
 
   fromJSON(_: any): QueryEpochsInfoRequest {
-    return { $type: QueryEpochsInfoRequest.$type }
+    return {}
   },
 
   toJSON(_: QueryEpochsInfoRequest): unknown {
@@ -65,31 +61,27 @@ export const QueryEpochsInfoRequest = {
   },
 
   create<I extends Exact<DeepPartial<QueryEpochsInfoRequest>, I>>(
-    base?: I,
+    base?: I
   ): QueryEpochsInfoRequest {
     return QueryEpochsInfoRequest.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryEpochsInfoRequest>, I>>(
-    _: I,
+    _: I
   ): QueryEpochsInfoRequest {
     const message = createBaseQueryEpochsInfoRequest()
     return message
   },
 }
 
-messageTypeRegistry.set(QueryEpochsInfoRequest.$type, QueryEpochsInfoRequest)
-
 function createBaseQueryEpochsInfoResponse(): QueryEpochsInfoResponse {
-  return { $type: "nibiru.epochs.v1.QueryEpochsInfoResponse", epochs: [] }
+  return { epochs: [] }
 }
 
 export const QueryEpochsInfoResponse = {
-  $type: "nibiru.epochs.v1.QueryEpochsInfoResponse" as const,
-
   encode(
     message: QueryEpochsInfoResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.epochs) {
       EpochInfo.encode(v!, writer.uint32(10).fork()).ldelim()
@@ -97,8 +89,12 @@ export const QueryEpochsInfoResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryEpochsInfoResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryEpochsInfoResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryEpochsInfoResponse()
     while (reader.pos < end) {
@@ -122,7 +118,6 @@ export const QueryEpochsInfoResponse = {
 
   fromJSON(object: any): QueryEpochsInfoResponse {
     return {
-      $type: QueryEpochsInfoResponse.$type,
       epochs: Array.isArray(object?.epochs)
         ? object.epochs.map((e: any) => EpochInfo.fromJSON(e))
         : [],
@@ -132,7 +127,9 @@ export const QueryEpochsInfoResponse = {
   toJSON(message: QueryEpochsInfoResponse): unknown {
     const obj: any = {}
     if (message.epochs) {
-      obj.epochs = message.epochs.map((e) => (e ? EpochInfo.toJSON(e) : undefined))
+      obj.epochs = message.epochs.map((e) =>
+        e ? EpochInfo.toJSON(e) : undefined
+      )
     } else {
       obj.epochs = []
     }
@@ -140,13 +137,13 @@ export const QueryEpochsInfoResponse = {
   },
 
   create<I extends Exact<DeepPartial<QueryEpochsInfoResponse>, I>>(
-    base?: I,
+    base?: I
   ): QueryEpochsInfoResponse {
     return QueryEpochsInfoResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryEpochsInfoResponse>, I>>(
-    object: I,
+    object: I
   ): QueryEpochsInfoResponse {
     const message = createBaseQueryEpochsInfoResponse()
     message.epochs = object.epochs?.map((e) => EpochInfo.fromPartial(e)) || []
@@ -154,18 +151,14 @@ export const QueryEpochsInfoResponse = {
   },
 }
 
-messageTypeRegistry.set(QueryEpochsInfoResponse.$type, QueryEpochsInfoResponse)
-
 function createBaseQueryCurrentEpochRequest(): QueryCurrentEpochRequest {
-  return { $type: "nibiru.epochs.v1.QueryCurrentEpochRequest", identifier: "" }
+  return { identifier: "" }
 }
 
 export const QueryCurrentEpochRequest = {
-  $type: "nibiru.epochs.v1.QueryCurrentEpochRequest" as const,
-
   encode(
     message: QueryCurrentEpochRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.identifier !== "") {
       writer.uint32(10).string(message.identifier)
@@ -173,8 +166,12 @@ export const QueryCurrentEpochRequest = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryCurrentEpochRequest {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryCurrentEpochRequest {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryCurrentEpochRequest()
     while (reader.pos < end) {
@@ -198,7 +195,6 @@ export const QueryCurrentEpochRequest = {
 
   fromJSON(object: any): QueryCurrentEpochRequest {
     return {
-      $type: QueryCurrentEpochRequest.$type,
       identifier: isSet(object.identifier) ? String(object.identifier) : "",
     }
   },
@@ -210,13 +206,13 @@ export const QueryCurrentEpochRequest = {
   },
 
   create<I extends Exact<DeepPartial<QueryCurrentEpochRequest>, I>>(
-    base?: I,
+    base?: I
   ): QueryCurrentEpochRequest {
     return QueryCurrentEpochRequest.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryCurrentEpochRequest>, I>>(
-    object: I,
+    object: I
   ): QueryCurrentEpochRequest {
     const message = createBaseQueryCurrentEpochRequest()
     message.identifier = object.identifier ?? ""
@@ -224,21 +220,14 @@ export const QueryCurrentEpochRequest = {
   },
 }
 
-messageTypeRegistry.set(QueryCurrentEpochRequest.$type, QueryCurrentEpochRequest)
-
 function createBaseQueryCurrentEpochResponse(): QueryCurrentEpochResponse {
-  return {
-    $type: "nibiru.epochs.v1.QueryCurrentEpochResponse",
-    currentEpoch: Long.UZERO,
-  }
+  return { currentEpoch: Long.UZERO }
 }
 
 export const QueryCurrentEpochResponse = {
-  $type: "nibiru.epochs.v1.QueryCurrentEpochResponse" as const,
-
   encode(
     message: QueryCurrentEpochResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.currentEpoch.isZero()) {
       writer.uint32(8).uint64(message.currentEpoch)
@@ -246,8 +235,12 @@ export const QueryCurrentEpochResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryCurrentEpochResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryCurrentEpochResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryCurrentEpochResponse()
     while (reader.pos < end) {
@@ -271,7 +264,6 @@ export const QueryCurrentEpochResponse = {
 
   fromJSON(object: any): QueryCurrentEpochResponse {
     return {
-      $type: QueryCurrentEpochResponse.$type,
       currentEpoch: isSet(object.currentEpoch)
         ? Long.fromValue(object.currentEpoch)
         : Long.UZERO,
@@ -286,13 +278,13 @@ export const QueryCurrentEpochResponse = {
   },
 
   create<I extends Exact<DeepPartial<QueryCurrentEpochResponse>, I>>(
-    base?: I,
+    base?: I
   ): QueryCurrentEpochResponse {
     return QueryCurrentEpochResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryCurrentEpochResponse>, I>>(
-    object: I,
+    object: I
   ): QueryCurrentEpochResponse {
     const message = createBaseQueryCurrentEpochResponse()
     message.currentEpoch =
@@ -303,14 +295,14 @@ export const QueryCurrentEpochResponse = {
   },
 }
 
-messageTypeRegistry.set(QueryCurrentEpochResponse.$type, QueryCurrentEpochResponse)
-
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** EpochInfos provide running epochInfos */
   EpochInfos(request: QueryEpochsInfoRequest): Promise<QueryEpochsInfoResponse>
   /** CurrentEpoch provide current epoch of specified identifier */
-  CurrentEpoch(request: QueryCurrentEpochRequest): Promise<QueryCurrentEpochResponse>
+  CurrentEpoch(
+    request: QueryCurrentEpochRequest
+  ): Promise<QueryCurrentEpochResponse>
 }
 
 export const QueryServiceName = "nibiru.epochs.v1.Query"
@@ -323,28 +315,43 @@ export class QueryClientImpl implements Query {
     this.EpochInfos = this.EpochInfos.bind(this)
     this.CurrentEpoch = this.CurrentEpoch.bind(this)
   }
-  EpochInfos(request: QueryEpochsInfoRequest): Promise<QueryEpochsInfoResponse> {
+  EpochInfos(
+    request: QueryEpochsInfoRequest
+  ): Promise<QueryEpochsInfoResponse> {
     const data = QueryEpochsInfoRequest.encode(request).finish()
     const promise = this.rpc.request(this.service, "EpochInfos", data)
     return promise.then((data) =>
-      QueryEpochsInfoResponse.decode(_m0.Reader.create(data)),
+      QueryEpochsInfoResponse.decode(_m0.Reader.create(data))
     )
   }
 
-  CurrentEpoch(request: QueryCurrentEpochRequest): Promise<QueryCurrentEpochResponse> {
+  CurrentEpoch(
+    request: QueryCurrentEpochRequest
+  ): Promise<QueryCurrentEpochResponse> {
     const data = QueryCurrentEpochRequest.encode(request).finish()
     const promise = this.rpc.request(this.service, "CurrentEpoch", data)
     return promise.then((data) =>
-      QueryCurrentEpochResponse.decode(_m0.Reader.create(data)),
+      QueryCurrentEpochResponse.decode(_m0.Reader.create(data))
     )
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -355,14 +362,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

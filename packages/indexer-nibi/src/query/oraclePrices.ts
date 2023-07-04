@@ -37,7 +37,7 @@ export enum OraclePriceOrderBy {
 
 export const oraclePrices = async (
   args: GqlInOraclePrice,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutOraclePrice> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = OraclePriceOrderBy.block_ts

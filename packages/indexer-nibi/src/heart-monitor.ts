@@ -1,5 +1,9 @@
 import { arg, gqlEndptFromTmRpc } from "./gql"
-import { fundingRates, GqlInFundingRate, GqlOutFundingRate } from "./query/fundingRates"
+import {
+  fundingRates,
+  GqlInFundingRate,
+  GqlOutFundingRate,
+} from "./query/fundingRates"
 import {
   GqlInLiquidation,
   GqlOutLiquidations,
@@ -12,13 +16,29 @@ import {
 } from "./query/markPriceCandles"
 import { GqlInMarkPrice, GqlOutMarkPrice, markPrices } from "./query/markPrices"
 import { GqlInTransfer, GqlOutTransfer, transfers } from "./query/transfer"
-import { GqlInOraclePrice, GqlOutOraclePrice, oraclePrices } from "./query/oraclePrices"
+import {
+  GqlInOraclePrice,
+  GqlOutOraclePrice,
+  oraclePrices,
+} from "./query/oraclePrices"
 import { GqlInPosition, GqlOutPosition, positions } from "./query/positions"
-import { GqlInUnbondings, GqlOutUnbondings, unbondings } from "./query/unbondings"
-import { GqlInStatsVolume, GqlOutStatsVolume, statsVolume } from "./query/statsVolume"
+import {
+  GqlInUnbondings,
+  GqlOutUnbondings,
+  unbondings,
+} from "./query/unbondings"
+import {
+  GqlInStatsVolume,
+  GqlOutStatsVolume,
+  statsVolume,
+} from "./query/statsVolume"
 import { GqlInValidator, GqlOutValidator, validators } from "./query/validators"
 import { balances, GqlInBalance, GqlOutBalance } from "./query/balances"
-import { GqlInVPoolConfig, GqlOutVPoolConfig, vpoolConfigs } from "./query/vpoolConfigs"
+import {
+  GqlInVPoolConfig,
+  GqlOutVPoolConfig,
+  vpoolConfigs,
+} from "./query/vpoolConfigs"
 import {
   GqlInPositionChange,
   GqlOutPositionChange,
@@ -30,8 +50,16 @@ import {
   GqlInAmmTotalLiquidity,
   GqlOutAmmTotalLiquidity,
 } from "./query/ammTotalLiquidity"
-import { delegations, GqlInDelegations, GqlOutDelegations } from "./query/delegations"
-import { GqlInStakingPool, GqlOutStakingPool, stakingPool } from "./query/stakingPool"
+import {
+  delegations,
+  GqlInDelegations,
+  GqlOutDelegations,
+} from "./query/delegations"
+import {
+  GqlInStakingPool,
+  GqlOutStakingPool,
+  stakingPool,
+} from "./query/stakingPool"
 import {
   GqlInPerpLeaderboard,
   GqlOutPerpLeaderboard,
@@ -42,7 +70,7 @@ import {
  * Each of its methods corresponds to a query function. */
 export interface IHeartMonitor {
   readonly markPriceCandles: (
-    args: GqlInMarkPriceCandle,
+    args: GqlInMarkPriceCandle
   ) => Promise<GqlOutMarkPriceCandle>
 
   readonly markPrices: (args: GqlInMarkPrice) => Promise<GqlOutMarkPrice>
@@ -57,7 +85,9 @@ export interface IHeartMonitor {
 
   readonly positions: (args: GqlInPosition) => Promise<GqlOutPosition>
 
-  readonly positionChanges: (args: GqlInPositionChange) => Promise<GqlOutPositionChange>
+  readonly positionChanges: (
+    args: GqlInPositionChange
+  ) => Promise<GqlOutPositionChange>
 
   readonly unbondings: (args: GqlInUnbondings) => Promise<GqlOutUnbondings>
 
@@ -76,11 +106,11 @@ export interface IHeartMonitor {
   readonly ammPools: (args: GqlInAmmPool) => Promise<GqlOutAmmPool>
 
   readonly ammTotalLiquidity: (
-    args: GqlInAmmTotalLiquidity,
+    args: GqlInAmmTotalLiquidity
   ) => Promise<GqlOutAmmTotalLiquidity>
 
   readonly perpLeaderboard: (
-    args?: GqlInPerpLeaderboard,
+    args?: GqlInPerpLeaderboard
   ) => Promise<GqlOutPerpLeaderboard>
 }
 
@@ -100,7 +130,8 @@ export class HeartMonitor implements IHeartMonitor {
       this.gqlEndpt = gqlEndpt
     } else if (chain?.endptTm !== undefined) {
       const endptFromRpc: string | null = gqlEndptFromTmRpc(chain?.endptTm)
-      this.gqlEndpt = endptFromRpc !== null ? endptFromRpc : this.defaultGqlEndpt
+      this.gqlEndpt =
+        endptFromRpc !== null ? endptFromRpc : this.defaultGqlEndpt
     } else {
       this.gqlEndpt = this.defaultGqlEndpt
     }
@@ -111,7 +142,7 @@ export class HeartMonitor implements IHeartMonitor {
   // ------------------------------------------------------------
 
   markPriceCandles = async (
-    args: GqlInMarkPriceCandle,
+    args: GqlInMarkPriceCandle
   ): Promise<GqlOutMarkPriceCandle> => markPriceCandles(args, this.gqlEndpt)
 
   markPrices = async (args: GqlInMarkPrice): Promise<GqlOutMarkPrice> =>
@@ -132,8 +163,9 @@ export class HeartMonitor implements IHeartMonitor {
   positions = async (args: GqlInPosition): Promise<GqlOutPosition> =>
     positions(args, this.gqlEndpt)
 
-  positionChanges = (args: GqlInPositionChange): Promise<GqlOutPositionChange> =>
-    positionChanges(args, this.gqlEndpt)
+  positionChanges = (
+    args: GqlInPositionChange
+  ): Promise<GqlOutPositionChange> => positionChanges(args, this.gqlEndpt)
 
   unbondings = async (args: GqlInUnbondings): Promise<GqlOutUnbondings> =>
     unbondings(args, this.gqlEndpt)
@@ -160,7 +192,7 @@ export class HeartMonitor implements IHeartMonitor {
     ammPools(args, this.gqlEndpt)
 
   ammTotalLiquidity = async (
-    args: GqlInAmmTotalLiquidity,
+    args: GqlInAmmTotalLiquidity
   ): Promise<GqlOutAmmTotalLiquidity> => ammTotalLiquidity(args, this.gqlEndpt)
 
   perpLeaderboard = async (args?: GqlInPerpLeaderboard) =>

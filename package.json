@@ -1,6 +1,6 @@
 {
   "name": "@nibiruchain/ts-sdk",
-  "version": "0.19.0",
+  "version": "0.21.0",
   "license": "MIT",
   "private": "true",
   "workspaces": {
@@ -26,16 +26,17 @@
     "format": "yarn lint --fix",
     "format:md": "yarn lint:md --fix",
     "proto-gen": "yarn exec ./scripts/protocgen.sh",
+    "prettier": "prettier --write . --ignore-path .gitignore",
     "prepare": "husky install"
   },
   "lint-staged": {
     "*.{js,ts}": [
       "eslint --fix",
-      "prettier --write",
+      "prettier --write . --ignore-path .gitignore",
       "git add ."
     ],
     "*.json": [
-      "prettier --write",
+      "prettier --write . --ignore-path .gitignore",
       "git add ."
     ]
   },

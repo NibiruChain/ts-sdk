@@ -36,7 +36,7 @@ export enum StakingPoolOrderBy {
 
 export const stakingPool = async (
   args: GqlInStakingPool,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutStakingPool> => {
   if (args.limit === undefined) args.limit = 1
   if (args.orderDescending === undefined) args.orderDescending = true

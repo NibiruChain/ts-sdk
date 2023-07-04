@@ -36,7 +36,7 @@ export enum AmmTotalLiquidityOrderBy {
 
 export const ammTotalLiquidity = async (
   args: GqlInAmmTotalLiquidity,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutAmmTotalLiquidity> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = AmmTotalLiquidityOrderBy.block

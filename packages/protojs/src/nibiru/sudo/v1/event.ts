@@ -1,28 +1,24 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 import { Sudoers } from "./state"
 
 export const protobufPackage = "nibiru.sudo.v1"
 
 export interface EventUpdateSudoers {
-  $type: "nibiru.sudo.v1.EventUpdateSudoers"
   sudoers?: Sudoers
   /** Action is the type of update that occured to the "sudoers" */
   action: string
 }
 
 function createBaseEventUpdateSudoers(): EventUpdateSudoers {
-  return { $type: "nibiru.sudo.v1.EventUpdateSudoers", sudoers: undefined, action: "" }
+  return { sudoers: undefined, action: "" }
 }
 
 export const EventUpdateSudoers = {
-  $type: "nibiru.sudo.v1.EventUpdateSudoers" as const,
-
   encode(
     message: EventUpdateSudoers,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.sudoers !== undefined) {
       Sudoers.encode(message.sudoers, writer.uint32(10).fork()).ldelim()
@@ -34,7 +30,8 @@ export const EventUpdateSudoers = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EventUpdateSudoers {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseEventUpdateSudoers()
     while (reader.pos < end) {
@@ -65,8 +62,9 @@ export const EventUpdateSudoers = {
 
   fromJSON(object: any): EventUpdateSudoers {
     return {
-      $type: EventUpdateSudoers.$type,
-      sudoers: isSet(object.sudoers) ? Sudoers.fromJSON(object.sudoers) : undefined,
+      sudoers: isSet(object.sudoers)
+        ? Sudoers.fromJSON(object.sudoers)
+        : undefined,
       action: isSet(object.action) ? String(object.action) : "",
     }
   },
@@ -74,19 +72,21 @@ export const EventUpdateSudoers = {
   toJSON(message: EventUpdateSudoers): unknown {
     const obj: any = {}
     message.sudoers !== undefined &&
-      (obj.sudoers = message.sudoers ? Sudoers.toJSON(message.sudoers) : undefined)
+      (obj.sudoers = message.sudoers
+        ? Sudoers.toJSON(message.sudoers)
+        : undefined)
     message.action !== undefined && (obj.action = message.action)
     return obj
   },
 
   create<I extends Exact<DeepPartial<EventUpdateSudoers>, I>>(
-    base?: I,
+    base?: I
   ): EventUpdateSudoers {
     return EventUpdateSudoers.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<EventUpdateSudoers>, I>>(
-    object: I,
+    object: I
   ): EventUpdateSudoers {
     const message = createBaseEventUpdateSudoers()
     message.sudoers =
@@ -98,9 +98,14 @@ export const EventUpdateSudoers = {
   },
 }
 
-messageTypeRegistry.set(EventUpdateSudoers.$type, EventUpdateSudoers)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -111,14 +116,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

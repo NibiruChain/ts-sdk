@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.20](../intro.md) / [Exports](../modules.md) / CustomChain
+[NibiJS Documentation - v0.21.1](../intro.md) / [Exports](../modules.md) / CustomChain
 
 # Class: CustomChain
 
@@ -50,13 +50,13 @@ export const TEST_CHAIN = new CustomChain({
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type                                            |
+| :------------- | :---------------------------------------------- |
 | `chainIdParts` | [`ChainIdParts`](../interfaces/ChainIdParts.md) |
 
 #### Defined in
 
-[chain/chain.ts:75](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L75)
+[chain/chain.ts:74](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L74)
 
 ## Properties
 
@@ -72,9 +72,9 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:66](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L66)
+[chain/chain.ts:65](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L65)
 
-___
+---
 
 ### chainIdParts
 
@@ -82,9 +82,9 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:73](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L73)
+[chain/chain.ts:72](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L72)
 
-___
+---
 
 ### chainName
 
@@ -98,9 +98,9 @@ chainName: the name of the chain to display to the user
 
 #### Defined in
 
-[chain/chain.ts:67](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L67)
+[chain/chain.ts:66](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L66)
 
-___
+---
 
 ### endptGrpc
 
@@ -114,9 +114,9 @@ endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 #### Defined in
 
-[chain/chain.ts:70](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L70)
+[chain/chain.ts:69](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L69)
 
-___
+---
 
 ### endptRest
 
@@ -130,9 +130,9 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 #### Defined in
 
-[chain/chain.ts:69](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L69)
+[chain/chain.ts:68](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L68)
 
-___
+---
 
 ### endptTm
 
@@ -146,13 +146,13 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 #### Defined in
 
-[chain/chain.ts:68](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L68)
+[chain/chain.ts:67](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L67)
 
-___
+---
 
 ### feeDenom
 
-• `Readonly` **feeDenom**: `string` = `"unibi"`
+• `Readonly` **feeDenom**: `"unibi"`
 
 feeDenom: the denomination of the fee to be paid for transactions.
 
@@ -162,7 +162,7 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:71](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L71)
+[chain/chain.ts:70](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L70)
 
 ## Methods
 
@@ -176,9 +176,9 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:85](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L85)
+[chain/chain.ts:83](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L83)
 
-___
+---
 
 ### initGrpcEndpoint
 
@@ -190,9 +190,9 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:100](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L100)
+[chain/chain.ts:98](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L98)
 
-___
+---
 
 ### initRestEndpoint
 
@@ -204,9 +204,9 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:95](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L95)
+[chain/chain.ts:93](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L93)
 
-___
+---
 
 ### initTendermintEndpoint
 
@@ -218,4 +218,4 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:90](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/chain/chain.ts#L90)
+[chain/chain.ts:88](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/chain/chain.ts#L88)

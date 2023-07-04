@@ -40,7 +40,7 @@ export enum FundingRateOrderBy {
 
 export const fundingRates = async (
   args: GqlInFundingRate,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutFundingRate> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = FundingRateOrderBy.block_ts

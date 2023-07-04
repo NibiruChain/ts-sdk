@@ -8,7 +8,9 @@ const toBlock = 10
 const lastN = 20
 const pair = "ubtc:unusd"
 
-const heartMonitor = new HeartMonitor({ endptTm: "https://rpc.itn-1.nibiru.fi" })
+const heartMonitor = new HeartMonitor({
+  endptTm: "https://rpc.itn-1.nibiru.fi",
+})
 
 describe("Heart Monitor constructor", () => {
   interface TestCase {
@@ -51,7 +53,10 @@ describe("gqlEndptFromTmRpc", () => {
       in: "https://rpc.devnet-2.nibiru.fi",
       want: "https://hm-graphql.devnet-2.nibiru.fi/graphql",
     },
-    { in: "----rpc.itn-1.-----", want: "https://hm-graphql.itn-1.nibiru.fi/graphql" },
+    {
+      in: "----rpc.itn-1.-----",
+      want: "https://hm-graphql.itn-1.nibiru.fi/graphql",
+    },
     { in: "", want: null },
     { in: "rpctestnet-nodots", want: null },
     {
@@ -81,7 +86,15 @@ test("markPriceCandles", async () => {
 
   if (resp.markPriceCandles.length > 0) {
     const [candle] = resp.markPriceCandles
-    const fields = ["pair", "open", "close", "high", "low", "period", "periodStartTs"]
+    const fields = [
+      "pair",
+      "open",
+      "close",
+      "high",
+      "low",
+      "period",
+      "periodStartTs",
+    ]
     fields.forEach((field: string) => {
       expect(candle).toHaveProperty(field)
     })
