@@ -9,7 +9,7 @@ import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import {
   MsgAddMargin,
   MsgClosePosition,
-  MsgOpenPosition,
+  MsgMarketOrder,
   MsgRemoveMargin,
 } from "@nibiruchain/protojs/dist/nibiru/perp/v2/tx"
 import { Direction } from "@nibiruchain/protojs/dist/nibiru/perp/v2/state"
@@ -79,8 +79,8 @@ describe("nibid tx perp", () => {
 
     const msgs: TxMessage[] = [
       {
-        typeUrl: PERP_MSG_TYPE_URLS.MsgOpenPosition,
-        value: MsgOpenPosition.fromPartial({
+        typeUrl: PERP_MSG_TYPE_URLS.MsgMarketOrder,
+        value: MsgMarketOrder.fromPartial({
           pair,
           baseAssetAmountLimit: "0",
           leverage: "10",
@@ -120,7 +120,7 @@ describe("nibid tx perp", () => {
 
       // perp tx open-position events
       let idx = 0
-      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgOpenPosition, txLogs[idx].events)
+      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgMarketOrder, txLogs[idx].events)
       assertHasEventType(
         "nibiru.perp.v1.PositionChangedEvent",
         txLogs[idx].events
@@ -152,7 +152,7 @@ describe("nibid tx perp", () => {
 
       // perp tx open-position events
       idx = 3
-      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgOpenPosition, txLogs[idx].events)
+      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgAddMargin, txLogs[idx].events)
       assertHasEventType(
         "nibiru.perp.v1.PositionChangedEvent",
         txLogs[idx].events
