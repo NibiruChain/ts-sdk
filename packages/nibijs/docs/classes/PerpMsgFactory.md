@@ -47,7 +47,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:103](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/msg/perp.ts#L103)
+[msg/perp.ts:106](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/msg/perp.ts#L106)
 
 ---
 
@@ -67,7 +67,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:140](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/msg/perp.ts#L140)
+[msg/perp.ts:143](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/msg/perp.ts#L143)
 
 ---
 
@@ -87,7 +87,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:147](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/msg/perp.ts#L147)
+[msg/perp.ts:150](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/msg/perp.ts#L150)
 
 ---
 
@@ -107,7 +107,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:110](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/msg/perp.ts#L110)
+[msg/perp.ts:113](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/msg/perp.ts#L113)
 
 ---
 
@@ -133,7 +133,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:117](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/msg/perp.ts#L117)
+[msg/perp.ts:120](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/msg/perp.ts#L120)
 
 ---
 
@@ -153,4 +153,4 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:89](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/msg/perp.ts#L89)
+[msg/perp.ts:92](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/msg/perp.ts#L92)

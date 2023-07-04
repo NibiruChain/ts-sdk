@@ -46,7 +46,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:62](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/tx/signingClient.ts#L62)
+[tx/signingClient.ts:69](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/tx/signingClient.ts#L69)
 
 ## Properties
 
@@ -56,7 +56,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:35](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/tx/signingClient.ts#L35)
+[tx/signingClient.ts:38](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/tx/signingClient.ts#L38)
 
 ---
 
@@ -66,7 +66,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:36](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/tx/signingClient.ts#L36)
+[tx/signingClient.ts:39](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/tx/signingClient.ts#L39)
 
 ## Methods
 
@@ -86,7 +86,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:85](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/tx/signingClient.ts#L85)
+[tx/signingClient.ts:94](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/tx/signingClient.ts#L94)
 
 ---
 
@@ -100,7 +100,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:93](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/tx/signingClient.ts#L93)
+[tx/signingClient.ts:102](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/tx/signingClient.ts#L102)
 
 ---
 
@@ -127,4 +127,4 @@ SigningStargateClient.connectWithSigner
 
 #### Defined in
 
-[tx/signingClient.ts:38](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/tx/signingClient.ts#L38)
+[tx/signingClient.ts:41](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/tx/signingClient.ts#L41)

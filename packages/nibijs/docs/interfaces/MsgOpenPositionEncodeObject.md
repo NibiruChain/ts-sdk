@@ -27,13 +27,13 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/perp.ts:60](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/msg/perp.ts#L60)
+[msg/perp.ts:61](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/msg/perp.ts#L61)
 
 ---
 
 ### value
 
-• `Readonly` **value**: `Partial`<`MsgOpenPosition`\>
+• `Readonly` **value**: `Partial`<`MsgMarketOrder`\>
 
 #### Overrides
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/perp.ts:61](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/msg/perp.ts#L61)
+[msg/perp.ts:62](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/msg/perp.ts#L62)

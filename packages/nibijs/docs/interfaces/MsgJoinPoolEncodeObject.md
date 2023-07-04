@@ -27,7 +27,7 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/spot.ts:35](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/msg/spot.ts#L35)
+[msg/spot.ts:35](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/msg/spot.ts#L35)
 
 ---
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/spot.ts:36](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/msg/spot.ts#L36)
+[msg/spot.ts:36](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/msg/spot.ts#L36)

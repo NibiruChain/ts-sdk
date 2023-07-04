@@ -45,7 +45,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:52](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/query/query.ts#L52)
+[query/query.ts:56](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/query/query.ts#L56)
 
 ## Properties
 
@@ -55,7 +55,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:40](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/query/query.ts#L40)
+[query/query.ts:44](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/query/query.ts#L44)
 
 ---
 
@@ -65,7 +65,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:41](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/query/query.ts#L41)
+[query/query.ts:45](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/query/query.ts#L45)
 
 ## Methods
 
@@ -85,7 +85,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:74](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/query/query.ts#L74)
+[query/query.ts:80](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/query/query.ts#L80)
 
 ---
 
@@ -99,7 +99,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:82](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/query/query.ts#L82)
+[query/query.ts:88](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/query/query.ts#L88)
 
 ---
 
@@ -124,4 +124,4 @@ StargateClient.connect
 
 #### Defined in
 
-[query/query.ts:43](https://github.com/NibiruChain/ts-sdk/blob/552089e/packages/nibijs/src/query/query.ts#L43)
+[query/query.ts:47](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/query/query.ts#L47)
