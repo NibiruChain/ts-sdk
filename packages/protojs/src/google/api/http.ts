@@ -363,7 +363,11 @@ export interface CustomHttpPattern {
 }
 
 function createBaseHttp(): Http {
-  return { $type: "google.api.Http", rules: [], fullyDecodeReservedExpansion: false }
+  return {
+    $type: "google.api.Http",
+    rules: [],
+    fullyDecodeReservedExpansion: false,
+  }
 }
 
 export const Http = {
