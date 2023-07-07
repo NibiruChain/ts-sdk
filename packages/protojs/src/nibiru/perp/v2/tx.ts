@@ -133,6 +133,34 @@ export interface MsgClosePositionResponse {
   marginToTrader: string
 }
 
+export interface MsgPartialClose {
+  sender: string
+  pair: string
+  size: string
+}
+
+export interface MsgPartialCloseResponse {
+  /** The amount of quote assets exchanged. */
+  exchangedNotionalValue: string
+  /** The amount of base assets exchanged. */
+  exchangedPositionSize: string
+  /**
+   * The funding payment applied on this position change, measured in quote
+   * units.
+   */
+  fundingPayment: string
+  /**
+   * The amount of PnL realized on this position changed, measured in quote
+   * units.
+   */
+  realizedPnl: string
+  /**
+   * The amount of margin the trader receives after closing the position, from
+   * the vault. Should never be negative.
+   */
+  marginToTrader: string
+}
+
 export interface MsgDonateToEcosystemFund {
   sender: string
   /** donation to the EF */
@@ -1418,7 +1446,7 @@ export const MsgClosePositionResponse = {
       writer.uint32(34).string(message.realizedPnl)
     }
     if (message.marginToTrader !== "") {
-      writer.uint32(58).string(message.marginToTrader)
+      writer.uint32(42).string(message.marginToTrader)
     }
     return writer
   },
@@ -1462,8 +1490,8 @@ export const MsgClosePositionResponse = {
 
           message.realizedPnl = reader.string()
           continue
-        case 7:
-          if (tag !== 58) {
+        case 5:
+          if (tag !== 42) {
             break
           }
 
@@ -1520,6 +1548,237 @@ export const MsgClosePositionResponse = {
     object: I
   ): MsgClosePositionResponse {
     const message = createBaseMsgClosePositionResponse()
+    message.exchangedNotionalValue = object.exchangedNotionalValue ?? ""
+    message.exchangedPositionSize = object.exchangedPositionSize ?? ""
+    message.fundingPayment = object.fundingPayment ?? ""
+    message.realizedPnl = object.realizedPnl ?? ""
+    message.marginToTrader = object.marginToTrader ?? ""
+    return message
+  },
+}
+
+function createBaseMsgPartialClose(): MsgPartialClose {
+  return { sender: "", pair: "", size: "" }
+}
+
+export const MsgPartialClose = {
+  encode(
+    message: MsgPartialClose,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender)
+    }
+    if (message.pair !== "") {
+      writer.uint32(18).string(message.pair)
+    }
+    if (message.size !== "") {
+      writer.uint32(26).string(message.size)
+    }
+    return writer
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgPartialClose {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = createBaseMsgPartialClose()
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break
+          }
+
+          message.sender = reader.string()
+          continue
+        case 2:
+          if (tag !== 18) {
+            break
+          }
+
+          message.pair = reader.string()
+          continue
+        case 3:
+          if (tag !== 26) {
+            break
+          }
+
+          message.size = reader.string()
+          continue
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break
+      }
+      reader.skipType(tag & 7)
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgPartialClose {
+    return {
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      pair: isSet(object.pair) ? String(object.pair) : "",
+      size: isSet(object.size) ? String(object.size) : "",
+    }
+  },
+
+  toJSON(message: MsgPartialClose): unknown {
+    const obj: any = {}
+    message.sender !== undefined && (obj.sender = message.sender)
+    message.pair !== undefined && (obj.pair = message.pair)
+    message.size !== undefined && (obj.size = message.size)
+    return obj
+  },
+
+  create<I extends Exact<DeepPartial<MsgPartialClose>, I>>(
+    base?: I
+  ): MsgPartialClose {
+    return MsgPartialClose.fromPartial(base ?? {})
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgPartialClose>, I>>(
+    object: I
+  ): MsgPartialClose {
+    const message = createBaseMsgPartialClose()
+    message.sender = object.sender ?? ""
+    message.pair = object.pair ?? ""
+    message.size = object.size ?? ""
+    return message
+  },
+}
+
+function createBaseMsgPartialCloseResponse(): MsgPartialCloseResponse {
+  return {
+    exchangedNotionalValue: "",
+    exchangedPositionSize: "",
+    fundingPayment: "",
+    realizedPnl: "",
+    marginToTrader: "",
+  }
+}
+
+export const MsgPartialCloseResponse = {
+  encode(
+    message: MsgPartialCloseResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.exchangedNotionalValue !== "") {
+      writer.uint32(10).string(message.exchangedNotionalValue)
+    }
+    if (message.exchangedPositionSize !== "") {
+      writer.uint32(18).string(message.exchangedPositionSize)
+    }
+    if (message.fundingPayment !== "") {
+      writer.uint32(26).string(message.fundingPayment)
+    }
+    if (message.realizedPnl !== "") {
+      writer.uint32(34).string(message.realizedPnl)
+    }
+    if (message.marginToTrader !== "") {
+      writer.uint32(42).string(message.marginToTrader)
+    }
+    return writer
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgPartialCloseResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = createBaseMsgPartialCloseResponse()
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break
+          }
+
+          message.exchangedNotionalValue = reader.string()
+          continue
+        case 2:
+          if (tag !== 18) {
+            break
+          }
+
+          message.exchangedPositionSize = reader.string()
+          continue
+        case 3:
+          if (tag !== 26) {
+            break
+          }
+
+          message.fundingPayment = reader.string()
+          continue
+        case 4:
+          if (tag !== 34) {
+            break
+          }
+
+          message.realizedPnl = reader.string()
+          continue
+        case 5:
+          if (tag !== 42) {
+            break
+          }
+
+          message.marginToTrader = reader.string()
+          continue
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break
+      }
+      reader.skipType(tag & 7)
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgPartialCloseResponse {
+    return {
+      exchangedNotionalValue: isSet(object.exchangedNotionalValue)
+        ? String(object.exchangedNotionalValue)
+        : "",
+      exchangedPositionSize: isSet(object.exchangedPositionSize)
+        ? String(object.exchangedPositionSize)
+        : "",
+      fundingPayment: isSet(object.fundingPayment)
+        ? String(object.fundingPayment)
+        : "",
+      realizedPnl: isSet(object.realizedPnl) ? String(object.realizedPnl) : "",
+      marginToTrader: isSet(object.marginToTrader)
+        ? String(object.marginToTrader)
+        : "",
+    }
+  },
+
+  toJSON(message: MsgPartialCloseResponse): unknown {
+    const obj: any = {}
+    message.exchangedNotionalValue !== undefined &&
+      (obj.exchangedNotionalValue = message.exchangedNotionalValue)
+    message.exchangedPositionSize !== undefined &&
+      (obj.exchangedPositionSize = message.exchangedPositionSize)
+    message.fundingPayment !== undefined &&
+      (obj.fundingPayment = message.fundingPayment)
+    message.realizedPnl !== undefined && (obj.realizedPnl = message.realizedPnl)
+    message.marginToTrader !== undefined &&
+      (obj.marginToTrader = message.marginToTrader)
+    return obj
+  },
+
+  create<I extends Exact<DeepPartial<MsgPartialCloseResponse>, I>>(
+    base?: I
+  ): MsgPartialCloseResponse {
+    return MsgPartialCloseResponse.fromPartial(base ?? {})
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgPartialCloseResponse>, I>>(
+    object: I
+  ): MsgPartialCloseResponse {
+    const message = createBaseMsgPartialCloseResponse()
     message.exchangedNotionalValue = object.exchangedNotionalValue ?? ""
     message.exchangedPositionSize = object.exchangedPositionSize ?? ""
     message.fundingPayment = object.fundingPayment ?? ""
@@ -1681,6 +1940,7 @@ export interface Msg {
   MultiLiquidate(request: MsgMultiLiquidate): Promise<MsgMultiLiquidateResponse>
   MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse>
   ClosePosition(request: MsgClosePosition): Promise<MsgClosePositionResponse>
+  PartialClose(request: MsgPartialClose): Promise<MsgPartialCloseResponse>
   DonateToEcosystemFund(
     request: MsgDonateToEcosystemFund
   ): Promise<MsgDonateToEcosystemFundResponse>
@@ -1698,6 +1958,7 @@ export class MsgClientImpl implements Msg {
     this.MultiLiquidate = this.MultiLiquidate.bind(this)
     this.MarketOrder = this.MarketOrder.bind(this)
     this.ClosePosition = this.ClosePosition.bind(this)
+    this.PartialClose = this.PartialClose.bind(this)
     this.DonateToEcosystemFund = this.DonateToEcosystemFund.bind(this)
   }
   RemoveMargin(request: MsgRemoveMargin): Promise<MsgRemoveMarginResponse> {
@@ -1739,6 +2000,14 @@ export class MsgClientImpl implements Msg {
     const promise = this.rpc.request(this.service, "ClosePosition", data)
     return promise.then((data) =>
       MsgClosePositionResponse.decode(_m0.Reader.create(data))
+    )
+  }
+
+  PartialClose(request: MsgPartialClose): Promise<MsgPartialCloseResponse> {
+    const data = MsgPartialClose.encode(request).finish()
+    const promise = this.rpc.request(this.service, "PartialClose", data)
+    return promise.then((data) =>
+      MsgPartialCloseResponse.decode(_m0.Reader.create(data))
     )
   }
 
