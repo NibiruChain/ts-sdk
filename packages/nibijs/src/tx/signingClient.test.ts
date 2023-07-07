@@ -157,10 +157,10 @@ describe("nibid tx perp", () => {
 
     try {
       const result = await signingClient.signAndBroadcast(sender, msgs, fee)
+      console.log(result)
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {
-      console.log(error)
       const okErrors: string[] = [ERR.noPrices, ERR.sequence]
       assertExpectedError(error, okErrors)
     }
