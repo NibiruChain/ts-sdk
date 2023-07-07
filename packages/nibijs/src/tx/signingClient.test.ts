@@ -55,7 +55,7 @@ describe("nibid tx bank send", () => {
       fromAddr,
       toAddr,
       parseCoins("1unibi"),
-      200000
+      400000
     )
     assertIsDeliverTxSuccess(resp)
   })
