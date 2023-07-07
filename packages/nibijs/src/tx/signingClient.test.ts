@@ -222,9 +222,8 @@ describe("nibid tx perp", () => {
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {
-      console.log(JSON.stringify(error))
       const okErrors: string[] = [ERR.collections, ERR.sequence]
-      assertExpectedError(error, okErrors)
+      assertExpectedError(error.rawLog, okErrors)
     }
   })
 })
