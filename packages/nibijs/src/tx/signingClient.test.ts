@@ -223,7 +223,7 @@ describe("nibid tx perp", () => {
       assertHappyPath(result)
     } catch (error) {
       const okErrors: string[] = [ERR.collections, ERR.sequence]
-      assertExpectedError(error.rawLog, okErrors)
+      assertExpectedError((error as { rawLog: string }).rawLog, okErrors)
     }
   })
 })
