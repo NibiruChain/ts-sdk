@@ -125,11 +125,6 @@ describe("nibid tx perp", () => {
         "nibiru.perp.v1.PositionChangedEvent",
         txLogs[idx].events
       )
-      assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[idx].events)
-      assertHasEventType(
-        "nibiru.vpool.v1.MarkPriceChangedEvent",
-        txLogs[idx].events
-      )
       assertHasEventType("transfer", txLogs[idx].events)
 
       // perp tx add-margin events
@@ -155,11 +150,6 @@ describe("nibid tx perp", () => {
       assertHasMsgType(PERP_MSG_TYPE_URLS.MsgAddMargin, txLogs[idx].events)
       assertHasEventType(
         "nibiru.perp.v1.PositionChangedEvent",
-        txLogs[idx].events
-      )
-      assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[idx].events)
-      assertHasEventType(
-        "nibiru.vpool.v1.MarkPriceChangedEvent",
         txLogs[idx].events
       )
       assertHasEventType("transfer", txLogs[idx].events)
@@ -221,11 +211,6 @@ describe("nibid tx perp", () => {
       assertHasMsgType("MsgClosePosition", txLogs[0].events)
       assertHasEventType(
         "nibiru.perp.v1.PositionChangedEvent",
-        txLogs[0].events
-      )
-      assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[0].events)
-      assertHasEventType(
-        "nibiru.vpool.v1.MarkPriceChangedEvent",
         txLogs[0].events
       )
       assertHasEventType("transfer", txLogs[0].events)

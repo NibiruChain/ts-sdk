@@ -89,8 +89,10 @@ const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
 const perpParamsResp = await queryClient.nibiruExtensions.perp.params()
 console.log("perpParams: %o", perpParamsResp)
 
-const allPools = await queryClient.nibiruExtensions.vpool.allPools()
-console.log("allPools: %o", allPools)
+const allMarkets = await queryClient.nibiruExtensions.perp.markets({
+  pair: "ueth:unusd",
+})
+console.log("allMarkets: %o", allMarkets)
 
 const blockHeight = 1
 const block = await queryClient.getBlock(blockHeight)
