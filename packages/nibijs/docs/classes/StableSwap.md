@@ -56,7 +56,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:26](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/stableswap/stableswap.ts#L26)
+[stableswap/stableswap.ts:26](https://github.com/NibiruChain/ts-sdk/blob/48eabde/packages/nibijs/src/stableswap/stableswap.ts#L26)
 
 ## Properties
 
@@ -66,7 +66,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/stableswap/stableswap.ts#L20)
+[stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/48eabde/packages/nibijs/src/stableswap/stableswap.ts#L20)
 
 ---
 
@@ -76,7 +76,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:24](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/stableswap/stableswap.ts#L24)
+[stableswap/stableswap.ts:24](https://github.com/NibiruChain/ts-sdk/blob/48eabde/packages/nibijs/src/stableswap/stableswap.ts#L24)
 
 ---
 
@@ -86,7 +86,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/stableswap/stableswap.ts#L23)
+[stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/48eabde/packages/nibijs/src/stableswap/stableswap.ts#L23)
 
 ---
 
@@ -96,7 +96,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/stableswap/stableswap.ts#L21)
+[stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/48eabde/packages/nibijs/src/stableswap/stableswap.ts#L21)
 
 ---
 
@@ -106,7 +106,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:22](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/stableswap/stableswap.ts#L22)
+[stableswap/stableswap.ts:22](https://github.com/NibiruChain/ts-sdk/blob/48eabde/packages/nibijs/src/stableswap/stableswap.ts#L22)
 
 ## Methods
 
@@ -129,7 +129,7 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:61](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/stableswap/stableswap.ts#L61)
+[stableswap/stableswap.ts:61](https://github.com/NibiruChain/ts-sdk/blob/48eabde/packages/nibijs/src/stableswap/stableswap.ts#L61)
 
 ---
 
@@ -157,7 +157,7 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:150](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/stableswap/stableswap.ts#L150)
+[stableswap/stableswap.ts:150](https://github.com/NibiruChain/ts-sdk/blob/48eabde/packages/nibijs/src/stableswap/stableswap.ts#L150)
 
 ---
 
@@ -177,7 +177,7 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:44](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/stableswap/stableswap.ts#L44)
+[stableswap/stableswap.ts:44](https://github.com/NibiruChain/ts-sdk/blob/48eabde/packages/nibijs/src/stableswap/stableswap.ts#L44)
 
 ---
 
@@ -190,8 +190,8 @@ y()
 Calculate x[j] if one makes x[i] = x
 
 Done by solving quadratic equation iteratively.
-x*1**2 + x1 * (sum' - (A*n**n - 1) * D / (A _ n**n)) = D ** (n+1)/(n \*\* (2 _ n) \_ prod' \* A)
-x_1\*\*2 + b\*x_1 = c
+x_1**2 + x1 * (sum' - (A*n**n - 1) _ D / (A _ n**n)) = D ** (n+1)/(n ** (2 _ n) _ prod' \* A)
+x_1**2 + b\*x_1 = c
 
 x_1 = (x_1\**2 + c) / (2*x_1 + b)
 
@@ -213,4 +213,4 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:111](https://github.com/NibiruChain/ts-sdk/blob/ba65ed8/packages/nibijs/src/stableswap/stableswap.ts#L111)
+[stableswap/stableswap.ts:111](https://github.com/NibiruChain/ts-sdk/blob/48eabde/packages/nibijs/src/stableswap/stableswap.ts#L111)
