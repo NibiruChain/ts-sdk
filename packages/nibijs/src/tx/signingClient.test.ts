@@ -160,6 +160,7 @@ describe("nibid tx perp", () => {
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {
+      console.log(error)
       const okErrors: string[] = [ERR.noPrices, ERR.sequence]
       assertExpectedError(error, okErrors)
     }
@@ -221,6 +222,7 @@ describe("nibid tx perp", () => {
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {
+      console.log(error)
       const okErrors: string[] = [ERR.collections, ERR.sequence]
       assertExpectedError(error, okErrors)
     }
