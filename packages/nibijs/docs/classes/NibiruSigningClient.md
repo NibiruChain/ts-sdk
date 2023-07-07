@@ -35,7 +35,7 @@
 
 | Name       | Type                           |
 | :--------- | :----------------------------- |
-| `tmClient` | `Tendermint34Client`           |
+| `tmClient` | `Tendermint37Client`           |
 | `signer`   | `OfflineSigner`                |
 | `options`  | `SigningStargateClientOptions` |
 | `wasm`     | `SigningCosmWasmClient`        |

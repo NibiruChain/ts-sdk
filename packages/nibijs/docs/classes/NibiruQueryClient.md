@@ -35,7 +35,7 @@
 
 | Name         | Type                    |
 | :----------- | :---------------------- |
-| `tmClient`   | `Tendermint34Client`    |
+| `tmClient`   | `Tendermint37Client`    |
 | `options`    | `StargateClientOptions` |
 | `wasmClient` | `CosmWasmClient`        |
 

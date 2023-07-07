@@ -13,7 +13,7 @@ import {
   StargateClient,
   StargateClientOptions,
 } from "@cosmjs/stargate"
-import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
+import { Tendermint37Client } from "@cosmjs/tendermint-rpc"
 import {
   CosmWasmClient,
   setupWasmExtension,
@@ -48,13 +48,13 @@ export class NibiruQueryClient extends StargateClient {
     endpoint: string,
     options: StargateClientOptions = {}
   ): Promise<NibiruQueryClient> {
-    const tmClient = await Tendermint34Client.connect(endpoint)
+    const tmClient = await Tendermint37Client.connect(endpoint)
     const wasmClient = await CosmWasmClient.connect(endpoint)
     return new NibiruQueryClient(tmClient, options, wasmClient)
   }
 
   protected constructor(
-    tmClient: Tendermint34Client,
+    tmClient: Tendermint37Client,
     options: StargateClientOptions,
     wasmClient: CosmWasmClient
   ) {

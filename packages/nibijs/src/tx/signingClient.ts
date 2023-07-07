@@ -11,7 +11,7 @@ import {
   SigningStargateClient,
   SigningStargateClientOptions,
 } from "@cosmjs/stargate"
-import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
+import { Tendermint37Client } from "@cosmjs/tendermint-rpc"
 import {
   SigningCosmWasmClient,
   SigningCosmWasmClientOptions,
@@ -44,7 +44,7 @@ export class NibiruSigningClient extends SigningStargateClient {
     options: SigningStargateClientOptions = {},
     wasmOptions: SigningCosmWasmClientOptions = {}
   ): Promise<NibiruSigningClient> {
-    const tmClient = await Tendermint34Client.connect(endpoint)
+    const tmClient = await Tendermint37Client.connect(endpoint)
     const wasmClient = await SigningCosmWasmClient.connectWithSigner(
       endpoint,
       signer,
@@ -67,7 +67,7 @@ export class NibiruSigningClient extends SigningStargateClient {
   }
 
   protected constructor(
-    tmClient: Tendermint34Client,
+    tmClient: Tendermint37Client,
     signer: OfflineSigner,
     options: SigningStargateClientOptions,
     wasm: SigningCosmWasmClient
