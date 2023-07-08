@@ -80,7 +80,7 @@ export function assertHasEventType(eventType: string, events: Event[]): void {
 
 export const assertExpectedError = (err: unknown, okErrors: string[]) => {
   let errMsg: string
-  if (instanceOfError(err)) {
+  if (err instanceof Error) {
     errMsg = err.message
   } else {
     errMsg = `${err}`
