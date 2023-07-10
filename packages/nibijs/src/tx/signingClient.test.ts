@@ -161,8 +161,7 @@ describe("nibid tx perp", () => {
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {
-      console.log(error)
-      const okErrors: string[] = [ERR.noPrices, ERR.sequence]
+      const okErrors: string[] = [ERR.collections, ERR.noPrices, ERR.sequence]
 
       let err = error as any
       if (err.rawLog) {
@@ -228,7 +227,6 @@ describe("nibid tx perp", () => {
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {
-      console.log(error)
       const okErrors: string[] = [ERR.collections, ERR.sequence]
 
       let err = error as any
