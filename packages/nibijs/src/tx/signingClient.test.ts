@@ -161,8 +161,14 @@ describe("nibid tx perp", () => {
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {
+      console.log(error)
       const okErrors: string[] = [ERR.noPrices, ERR.sequence]
-      assertExpectedError(error, okErrors)
+
+      let err: string = error
+      if (error.rawLog) {
+        err = error.rawLog
+      }
+      assertExpectedError(err, okErrors)
     }
   }, 40_000 /* default timeout is not sufficient. */)
 
@@ -222,8 +228,14 @@ describe("nibid tx perp", () => {
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {
+      console.log(error)
       const okErrors: string[] = [ERR.collections, ERR.sequence]
-      assertExpectedError((error as { rawLog: string }).rawLog, okErrors)
+
+      let err: string = error
+      if (error.rawLog) {
+        err = error.rawLog
+      }
+      assertExpectedError(err, okErrors)
     }
   })
 })
