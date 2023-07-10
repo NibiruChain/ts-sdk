@@ -7,7 +7,6 @@ import {
   IncentivizedTestent,
   Localnet,
 } from "../chain"
-import { instanceOfError } from "../chain/error"
 
 export const TEST_CHAIN = Localnet
 // export const TEST_CHAIN = new CustomChain({
@@ -85,9 +84,12 @@ export const assertExpectedError = (err: unknown, okErrors: string[]) => {
   } else {
     errMsg = `${err}`
   }
-  let isContained: boolean = false
+  console.log(errMsg)
+  let isContained = false
   okErrors.forEach((e) => {
-    if (errMsg.includes(e)) isContained = true
+    if (errMsg.includes(e)) {
+      isContained = true
+    }
   })
   expect(isContained).toBeTruthy()
 }
