@@ -164,7 +164,7 @@ describe("nibid tx perp", () => {
       console.log(error)
       const okErrors: string[] = [ERR.noPrices, ERR.sequence]
 
-      let err: any = error
+      let err = error as any
       if (error.rawLog) {
         err = error.rawLog
       }
@@ -231,7 +231,7 @@ describe("nibid tx perp", () => {
       console.log(error)
       const okErrors: string[] = [ERR.collections, ERR.sequence]
 
-      let err: any = error
+      let err = error as any
       if (error.rawLog) {
         err = error.rawLog
       }
