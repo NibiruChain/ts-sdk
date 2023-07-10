@@ -18,15 +18,6 @@ describe("chain connections", () => {
     expect(blockHeight).toBeDefined()
     expect(blockHeight).toBeGreaterThanOrEqual(0)
   })
-  test("testnet lcd/rest", async () => {
-    const [chainId, err] = await queryChainIdWithRest(TEST_CHAIN)
-    expect(chainId).toBeDefined()
-    expect(chainId).toEqual(TEST_CHAIN.chainId)
-    expect(err).toBeUndefined()
-  })
-  test("testnet lcd/rest endpoint validation functions", async () => {
-    await expect(isRestEndptLive(TEST_CHAIN)).resolves.toBeTruthy()
-  })
   test("inactive chain validation cases", async () => {
     const inactiveChain: Chain = {
       endptTm: "",

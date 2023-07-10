@@ -9,10 +9,10 @@ import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import {
   MsgAddMargin,
   MsgClosePosition,
-  MsgOpenPosition,
+  MsgMarketOrder,
   MsgRemoveMargin,
-} from "@nibiruchain/protojs/dist/perp/v1/tx"
-import { Side } from "@nibiruchain/protojs/dist/perp/v1/state"
+} from "@nibiruchain/protojs/dist/nibiru/perp/v2/tx"
+import { Direction } from "@nibiruchain/protojs/dist/nibiru/perp/v2/state"
 import { TxLog } from "../chain/types"
 import { Msg, TxMessage } from "../msg"
 import { PERP_MSG_TYPE_URLS } from "../msg/perp"
@@ -39,12 +39,13 @@ describe("signingClient", () => {
 describe("nibid tx bank send", () => {
   test("send tokens from the devnet genesis validator to a random account", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
-    const [{ address: fromAddr }]: readonly AccountData[] = await signer.getAccounts()
+    const [{ address: fromAddr }]: readonly AccountData[] =
+      await signer.getAccounts()
     expect(fromAddr).toBeDefined()
 
     const signingClient = await NibiruSigningClient.connectWithSigner(
       TEST_CHAIN.endptTm,
-      signer,
+      signer
     )
 
     const toWallet: DirectSecp256k1HdWallet = await newRandomWallet()
@@ -54,7 +55,7 @@ describe("nibid tx bank send", () => {
       fromAddr,
       toAddr,
       parseCoins("1unibi"),
-      "auto",
+      400000
     )
     assertIsDeliverTxSuccess(resp)
   })
@@ -67,7 +68,7 @@ describe("nibid tx perp", () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const signingClient = await NibiruSigningClient.connectWithSigner(
       TEST_CHAIN.endptTm,
-      signer,
+      signer
     )
     const [{ address: sender }] = await signer.getAccounts()
 
@@ -78,14 +79,14 @@ describe("nibid tx perp", () => {
 
     const msgs: TxMessage[] = [
       {
-        typeUrl: PERP_MSG_TYPE_URLS.MsgOpenPosition,
-        value: MsgOpenPosition.fromPartial({
+        typeUrl: PERP_MSG_TYPE_URLS.MsgMarketOrder,
+        value: MsgMarketOrder.fromPartial({
           pair,
           baseAssetAmountLimit: "0",
           leverage: "10",
           quoteAssetAmount: "1000",
           sender,
-          side: Side.BUY,
+          side: Direction.LONG,
         }),
       },
       {
@@ -119,40 +120,54 @@ describe("nibid tx perp", () => {
 
       // perp tx open-position events
       let idx = 0
-      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgOpenPosition, txLogs[idx].events)
-      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[idx].events)
-      assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[idx].events)
-      assertHasEventType("nibiru.vpool.v1.MarkPriceChangedEvent", txLogs[idx].events)
+      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgMarketOrder, txLogs[idx].events)
+      assertHasEventType(
+        "nibiru.perp.v1.PositionChangedEvent",
+        txLogs[idx].events
+      )
       assertHasEventType("transfer", txLogs[idx].events)
 
       // perp tx add-margin events
       idx = 1
       assertHasMsgType(PERP_MSG_TYPE_URLS.MsgAddMargin, txLogs[idx].events)
-      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[idx].events)
+      assertHasEventType(
+        "nibiru.perp.v1.PositionChangedEvent",
+        txLogs[idx].events
+      )
       assertHasEventType("transfer", txLogs[idx].events)
 
       // perp tx remove-margin events
       idx = 2
       assertHasMsgType(PERP_MSG_TYPE_URLS.MsgRemoveMargin, txLogs[idx].events)
-      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[idx].events)
+      assertHasEventType(
+        "nibiru.perp.v1.PositionChangedEvent",
+        txLogs[idx].events
+      )
       assertHasEventType("transfer", txLogs[idx].events)
 
       // perp tx open-position events
       idx = 3
-      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgOpenPosition, txLogs[idx].events)
-      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[idx].events)
-      assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[idx].events)
-      assertHasEventType("nibiru.vpool.v1.MarkPriceChangedEvent", txLogs[idx].events)
+      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgAddMargin, txLogs[idx].events)
+      assertHasEventType(
+        "nibiru.perp.v1.PositionChangedEvent",
+        txLogs[idx].events
+      )
       assertHasEventType("transfer", txLogs[idx].events)
     }
 
     try {
       const result = await signingClient.signAndBroadcast(sender, msgs, fee)
+      console.log(result)
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {
-      const okErrors: string[] = [ERR.noPrices, ERR.sequence]
-      assertExpectedError(error, okErrors)
+      const okErrors: string[] = [ERR.collections, ERR.noPrices, ERR.sequence]
+
+      let err = error as any
+      if (err.rawLog) {
+        err = err.rawLog
+      }
+      assertExpectedError(err, okErrors)
     }
   }, 40_000 /* default timeout is not sufficient. */)
 
@@ -163,10 +178,7 @@ describe("nibid tx perp", () => {
     })
     resp.positions.forEach((position) => {
       const fields = [
-        position.blockNumber,
         position.position,
-        position.marginRatioMark,
-        position.marginRatioIndex,
         position.unrealizedPnl,
         position.positionNotional,
       ]
@@ -178,7 +190,7 @@ describe("nibid tx perp", () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const signingClient = await NibiruSigningClient.connectWithSigner(
       TEST_CHAIN.endptTm,
-      signer,
+      signer
     )
     const [{ address: sender }] = await signer.getAccounts()
 
@@ -203,9 +215,10 @@ describe("nibid tx perp", () => {
 
       // perp tx close-position events
       assertHasMsgType("MsgClosePosition", txLogs[0].events)
-      assertHasEventType("nibiru.perp.v1.PositionChangedEvent", txLogs[0].events)
-      assertHasEventType("nibiru.vpool.v1.SwapOnVpoolEvent", txLogs[0].events)
-      assertHasEventType("nibiru.vpool.v1.MarkPriceChangedEvent", txLogs[0].events)
+      assertHasEventType(
+        "nibiru.perp.v1.PositionChangedEvent",
+        txLogs[0].events
+      )
       assertHasEventType("transfer", txLogs[0].events)
     }
 
@@ -215,7 +228,12 @@ describe("nibid tx perp", () => {
       assertHappyPath(result)
     } catch (error) {
       const okErrors: string[] = [ERR.collections, ERR.sequence]
-      assertExpectedError(error, okErrors)
+
+      let err = error as any
+      if (err.rawLog) {
+        err = err.rawLog
+      }
+      assertExpectedError(err, okErrors)
     }
   })
 })

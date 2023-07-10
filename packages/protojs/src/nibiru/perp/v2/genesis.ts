@@ -1,14 +1,12 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 import { AMM, Market, Position, ReserveSnapshot } from "./state"
 
 export const protobufPackage = "nibiru.perp.v2"
 
 /** GenesisState defines the perp module's genesis state. */
 export interface GenesisState {
-  $type: "nibiru.perp.v2.GenesisState"
   markets: Market[]
   amms: AMM[]
   positions: Position[]
@@ -16,19 +14,14 @@ export interface GenesisState {
 }
 
 function createBaseGenesisState(): GenesisState {
-  return {
-    $type: "nibiru.perp.v2.GenesisState",
-    markets: [],
-    amms: [],
-    positions: [],
-    reserveSnapshots: [],
-  }
+  return { markets: [], amms: [], positions: [], reserveSnapshots: [] }
 }
 
 export const GenesisState = {
-  $type: "nibiru.perp.v2.GenesisState" as const,
-
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GenesisState,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     for (const v of message.markets) {
       Market.encode(v!, writer.uint32(18).fork()).ldelim()
     }
@@ -45,7 +38,8 @@ export const GenesisState = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseGenesisState()
     while (reader.pos < end) {
@@ -77,7 +71,9 @@ export const GenesisState = {
             break
           }
 
-          message.reserveSnapshots.push(ReserveSnapshot.decode(reader, reader.uint32()))
+          message.reserveSnapshots.push(
+            ReserveSnapshot.decode(reader, reader.uint32())
+          )
           continue
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -90,7 +86,6 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      $type: GenesisState.$type,
       markets: Array.isArray(object?.markets)
         ? object.markets.map((e: any) => Market.fromJSON(e))
         : [],
@@ -109,7 +104,9 @@ export const GenesisState = {
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
     if (message.markets) {
-      obj.markets = message.markets.map((e) => (e ? Market.toJSON(e) : undefined))
+      obj.markets = message.markets.map((e) =>
+        e ? Market.toJSON(e) : undefined
+      )
     } else {
       obj.markets = []
     }
@@ -119,13 +116,15 @@ export const GenesisState = {
       obj.amms = []
     }
     if (message.positions) {
-      obj.positions = message.positions.map((e) => (e ? Position.toJSON(e) : undefined))
+      obj.positions = message.positions.map((e) =>
+        e ? Position.toJSON(e) : undefined
+      )
     } else {
       obj.positions = []
     }
     if (message.reserveSnapshots) {
       obj.reserveSnapshots = message.reserveSnapshots.map((e) =>
-        e ? ReserveSnapshot.toJSON(e) : undefined,
+        e ? ReserveSnapshot.toJSON(e) : undefined
       )
     } else {
       obj.reserveSnapshots = []
@@ -133,24 +132,34 @@ export const GenesisState = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(
+    base?: I
+  ): GenesisState {
     return GenesisState.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
+    object: I
+  ): GenesisState {
     const message = createBaseGenesisState()
     message.markets = object.markets?.map((e) => Market.fromPartial(e)) || []
     message.amms = object.amms?.map((e) => AMM.fromPartial(e)) || []
-    message.positions = object.positions?.map((e) => Position.fromPartial(e)) || []
+    message.positions =
+      object.positions?.map((e) => Position.fromPartial(e)) || []
     message.reserveSnapshots =
       object.reserveSnapshots?.map((e) => ReserveSnapshot.fromPartial(e)) || []
     return message
   },
 }
 
-messageTypeRegistry.set(GenesisState.$type, GenesisState)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -161,14 +170,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

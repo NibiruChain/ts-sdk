@@ -13,7 +13,7 @@ import {
   StargateClient,
   StargateClientOptions,
 } from "@cosmjs/stargate"
-import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
+import { Tendermint37Client } from "@cosmjs/tendermint-rpc"
 import {
   CosmWasmClient,
   setupWasmExtension,
@@ -23,18 +23,18 @@ import { EpochsExtension, setupEpochsExtension } from "./epochs"
 import { OracleExtension, setupOracleExtension } from "./oracle"
 import { PerpExtension, setupPerpExtension } from "./perp"
 import { setupSpotExtension, SpotExtension } from "./spot"
-import { setupUtilsExtension, UtilsExtension } from "./util"
-import { setupVpoolExtension, VpoolExtension } from "./vpool"
+import { setupSudoExtension, SudoExtension } from "./sudo"
+import { InflationExtension, setupInflationExtension } from "./inflation"
 
 export type NibiruExtensions = QueryClient &
   SpotExtension &
   PerpExtension &
-  VpoolExtension &
+  SudoExtension &
+  InflationExtension &
   OracleExtension &
   EpochsExtension &
   DistributionExtension &
   GovExtension &
-  UtilsExtension &
   StakingExtension &
   IbcExtension &
   WasmExtension &
@@ -46,17 +46,17 @@ export class NibiruQueryClient extends StargateClient {
 
   public static async connect(
     endpoint: string,
-    options: StargateClientOptions = {},
+    options: StargateClientOptions = {}
   ): Promise<NibiruQueryClient> {
-    const tmClient = await Tendermint34Client.connect(endpoint)
+    const tmClient = await Tendermint37Client.connect(endpoint)
     const wasmClient = await CosmWasmClient.connect(endpoint)
     return new NibiruQueryClient(tmClient, options, wasmClient)
   }
 
   protected constructor(
-    tmClient: Tendermint34Client,
+    tmClient: Tendermint37Client,
     options: StargateClientOptions,
-    wasmClient: CosmWasmClient,
+    wasmClient: CosmWasmClient
   ) {
     super(tmClient, options)
     this.wasmClient = wasmClient
@@ -65,15 +65,15 @@ export class NibiruQueryClient extends StargateClient {
       setupEpochsExtension,
       setupOracleExtension,
       setupPerpExtension,
+      setupSudoExtension,
+      setupInflationExtension,
       setupSpotExtension,
-      setupVpoolExtension,
       setupDistributionExtension,
       setupGovExtension,
       setupStakingExtension,
-      setupUtilsExtension,
       setupIbcExtension,
       setupWasmExtension,
-      setupAuthExtension,
+      setupAuthExtension
     )
   }
 

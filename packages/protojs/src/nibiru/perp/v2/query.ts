@@ -2,18 +2,15 @@
 import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Coin } from "../../../cosmos/base/v1beta1/coin"
-import { messageTypeRegistry } from "../../../typeRegistry"
 import { AMM, Market, Position } from "./state"
 
 export const protobufPackage = "nibiru.perp.v2"
 
 export interface QueryPositionsRequest {
-  $type: "nibiru.perp.v2.QueryPositionsRequest"
   trader: string
 }
 
 export interface QueryPositionsResponse {
-  $type: "nibiru.perp.v2.QueryPositionsResponse"
   positions: QueryPositionResponse[]
 }
 
@@ -22,13 +19,11 @@ export interface QueryPositionsResponse {
  * module account.
  */
 export interface QueryPositionRequest {
-  $type: "nibiru.perp.v2.QueryPositionRequest"
   pair: string
   trader: string
 }
 
 export interface QueryPositionResponse {
-  $type: "nibiru.perp.v2.QueryPositionResponse"
   /** The position as it exists in the blockchain state */
   position?: Position
   /**
@@ -42,47 +37,37 @@ export interface QueryPositionResponse {
   marginRatio: string
 }
 
-export interface QueryModuleAccountsRequest {
-  $type: "nibiru.perp.v2.QueryModuleAccountsRequest"
-}
+export interface QueryModuleAccountsRequest {}
 
 export interface QueryModuleAccountsResponse {
-  $type: "nibiru.perp.v2.QueryModuleAccountsResponse"
   accounts: AccountWithBalance[]
 }
 
 export interface AccountWithBalance {
-  $type: "nibiru.perp.v2.AccountWithBalance"
   name: string
   address: string
   balance: Coin[]
 }
 
 export interface AmmMarket {
-  $type: "nibiru.perp.v2.AmmMarket"
   market?: Market
   amm?: AMM
 }
 
-export interface QueryMarketsRequest {
-  $type: "nibiru.perp.v2.QueryMarketsRequest"
-}
+export interface QueryMarketsRequest {}
 
 export interface QueryMarketsResponse {
-  $type: "nibiru.perp.v2.QueryMarketsResponse"
   ammMarkets: AmmMarket[]
 }
 
 function createBaseQueryPositionsRequest(): QueryPositionsRequest {
-  return { $type: "nibiru.perp.v2.QueryPositionsRequest", trader: "" }
+  return { trader: "" }
 }
 
 export const QueryPositionsRequest = {
-  $type: "nibiru.perp.v2.QueryPositionsRequest" as const,
-
   encode(
     message: QueryPositionsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.trader !== "") {
       writer.uint32(10).string(message.trader)
@@ -90,8 +75,12 @@ export const QueryPositionsRequest = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionsRequest {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryPositionsRequest {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryPositionsRequest()
     while (reader.pos < end) {
@@ -114,10 +103,7 @@ export const QueryPositionsRequest = {
   },
 
   fromJSON(object: any): QueryPositionsRequest {
-    return {
-      $type: QueryPositionsRequest.$type,
-      trader: isSet(object.trader) ? String(object.trader) : "",
-    }
+    return { trader: isSet(object.trader) ? String(object.trader) : "" }
   },
 
   toJSON(message: QueryPositionsRequest): unknown {
@@ -127,13 +113,13 @@ export const QueryPositionsRequest = {
   },
 
   create<I extends Exact<DeepPartial<QueryPositionsRequest>, I>>(
-    base?: I,
+    base?: I
   ): QueryPositionsRequest {
     return QueryPositionsRequest.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPositionsRequest>, I>>(
-    object: I,
+    object: I
   ): QueryPositionsRequest {
     const message = createBaseQueryPositionsRequest()
     message.trader = object.trader ?? ""
@@ -141,18 +127,14 @@ export const QueryPositionsRequest = {
   },
 }
 
-messageTypeRegistry.set(QueryPositionsRequest.$type, QueryPositionsRequest)
-
 function createBaseQueryPositionsResponse(): QueryPositionsResponse {
-  return { $type: "nibiru.perp.v2.QueryPositionsResponse", positions: [] }
+  return { positions: [] }
 }
 
 export const QueryPositionsResponse = {
-  $type: "nibiru.perp.v2.QueryPositionsResponse" as const,
-
   encode(
     message: QueryPositionsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.positions) {
       QueryPositionResponse.encode(v!, writer.uint32(10).fork()).ldelim()
@@ -160,8 +142,12 @@ export const QueryPositionsResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionsResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryPositionsResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryPositionsResponse()
     while (reader.pos < end) {
@@ -172,7 +158,9 @@ export const QueryPositionsResponse = {
             break
           }
 
-          message.positions.push(QueryPositionResponse.decode(reader, reader.uint32()))
+          message.positions.push(
+            QueryPositionResponse.decode(reader, reader.uint32())
+          )
           continue
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -185,7 +173,6 @@ export const QueryPositionsResponse = {
 
   fromJSON(object: any): QueryPositionsResponse {
     return {
-      $type: QueryPositionsResponse.$type,
       positions: Array.isArray(object?.positions)
         ? object.positions.map((e: any) => QueryPositionResponse.fromJSON(e))
         : [],
@@ -196,7 +183,7 @@ export const QueryPositionsResponse = {
     const obj: any = {}
     if (message.positions) {
       obj.positions = message.positions.map((e) =>
-        e ? QueryPositionResponse.toJSON(e) : undefined,
+        e ? QueryPositionResponse.toJSON(e) : undefined
       )
     } else {
       obj.positions = []
@@ -205,13 +192,13 @@ export const QueryPositionsResponse = {
   },
 
   create<I extends Exact<DeepPartial<QueryPositionsResponse>, I>>(
-    base?: I,
+    base?: I
   ): QueryPositionsResponse {
     return QueryPositionsResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPositionsResponse>, I>>(
-    object: I,
+    object: I
   ): QueryPositionsResponse {
     const message = createBaseQueryPositionsResponse()
     message.positions =
@@ -220,18 +207,14 @@ export const QueryPositionsResponse = {
   },
 }
 
-messageTypeRegistry.set(QueryPositionsResponse.$type, QueryPositionsResponse)
-
 function createBaseQueryPositionRequest(): QueryPositionRequest {
-  return { $type: "nibiru.perp.v2.QueryPositionRequest", pair: "", trader: "" }
+  return { pair: "", trader: "" }
 }
 
 export const QueryPositionRequest = {
-  $type: "nibiru.perp.v2.QueryPositionRequest" as const,
-
   encode(
     message: QueryPositionRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
@@ -242,8 +225,12 @@ export const QueryPositionRequest = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionRequest {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryPositionRequest {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryPositionRequest()
     while (reader.pos < end) {
@@ -274,7 +261,6 @@ export const QueryPositionRequest = {
 
   fromJSON(object: any): QueryPositionRequest {
     return {
-      $type: QueryPositionRequest.$type,
       pair: isSet(object.pair) ? String(object.pair) : "",
       trader: isSet(object.trader) ? String(object.trader) : "",
     }
@@ -288,13 +274,13 @@ export const QueryPositionRequest = {
   },
 
   create<I extends Exact<DeepPartial<QueryPositionRequest>, I>>(
-    base?: I,
+    base?: I
   ): QueryPositionRequest {
     return QueryPositionRequest.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPositionRequest>, I>>(
-    object: I,
+    object: I
   ): QueryPositionRequest {
     const message = createBaseQueryPositionRequest()
     message.pair = object.pair ?? ""
@@ -303,11 +289,8 @@ export const QueryPositionRequest = {
   },
 }
 
-messageTypeRegistry.set(QueryPositionRequest.$type, QueryPositionRequest)
-
 function createBaseQueryPositionResponse(): QueryPositionResponse {
   return {
-    $type: "nibiru.perp.v2.QueryPositionResponse",
     position: undefined,
     positionNotional: "",
     unrealizedPnl: "",
@@ -316,11 +299,9 @@ function createBaseQueryPositionResponse(): QueryPositionResponse {
 }
 
 export const QueryPositionResponse = {
-  $type: "nibiru.perp.v2.QueryPositionResponse" as const,
-
   encode(
     message: QueryPositionResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.position !== undefined) {
       Position.encode(message.position, writer.uint32(10).fork()).ldelim()
@@ -337,8 +318,12 @@ export const QueryPositionResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPositionResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryPositionResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryPositionResponse()
     while (reader.pos < end) {
@@ -383,12 +368,15 @@ export const QueryPositionResponse = {
 
   fromJSON(object: any): QueryPositionResponse {
     return {
-      $type: QueryPositionResponse.$type,
-      position: isSet(object.position) ? Position.fromJSON(object.position) : undefined,
+      position: isSet(object.position)
+        ? Position.fromJSON(object.position)
+        : undefined,
       positionNotional: isSet(object.positionNotional)
         ? String(object.positionNotional)
         : "",
-      unrealizedPnl: isSet(object.unrealizedPnl) ? String(object.unrealizedPnl) : "",
+      unrealizedPnl: isSet(object.unrealizedPnl)
+        ? String(object.unrealizedPnl)
+        : "",
       marginRatio: isSet(object.marginRatio) ? String(object.marginRatio) : "",
     }
   },
@@ -396,22 +384,25 @@ export const QueryPositionResponse = {
   toJSON(message: QueryPositionResponse): unknown {
     const obj: any = {}
     message.position !== undefined &&
-      (obj.position = message.position ? Position.toJSON(message.position) : undefined)
+      (obj.position = message.position
+        ? Position.toJSON(message.position)
+        : undefined)
     message.positionNotional !== undefined &&
       (obj.positionNotional = message.positionNotional)
-    message.unrealizedPnl !== undefined && (obj.unrealizedPnl = message.unrealizedPnl)
+    message.unrealizedPnl !== undefined &&
+      (obj.unrealizedPnl = message.unrealizedPnl)
     message.marginRatio !== undefined && (obj.marginRatio = message.marginRatio)
     return obj
   },
 
   create<I extends Exact<DeepPartial<QueryPositionResponse>, I>>(
-    base?: I,
+    base?: I
   ): QueryPositionResponse {
     return QueryPositionResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPositionResponse>, I>>(
-    object: I,
+    object: I
   ): QueryPositionResponse {
     const message = createBaseQueryPositionResponse()
     message.position =
@@ -425,24 +416,24 @@ export const QueryPositionResponse = {
   },
 }
 
-messageTypeRegistry.set(QueryPositionResponse.$type, QueryPositionResponse)
-
 function createBaseQueryModuleAccountsRequest(): QueryModuleAccountsRequest {
-  return { $type: "nibiru.perp.v2.QueryModuleAccountsRequest" }
+  return {}
 }
 
 export const QueryModuleAccountsRequest = {
-  $type: "nibiru.perp.v2.QueryModuleAccountsRequest" as const,
-
   encode(
     _: QueryModuleAccountsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountsRequest {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryModuleAccountsRequest {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryModuleAccountsRequest()
     while (reader.pos < end) {
@@ -458,7 +449,7 @@ export const QueryModuleAccountsRequest = {
   },
 
   fromJSON(_: any): QueryModuleAccountsRequest {
-    return { $type: QueryModuleAccountsRequest.$type }
+    return {}
   },
 
   toJSON(_: QueryModuleAccountsRequest): unknown {
@@ -467,31 +458,27 @@ export const QueryModuleAccountsRequest = {
   },
 
   create<I extends Exact<DeepPartial<QueryModuleAccountsRequest>, I>>(
-    base?: I,
+    base?: I
   ): QueryModuleAccountsRequest {
     return QueryModuleAccountsRequest.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryModuleAccountsRequest>, I>>(
-    _: I,
+    _: I
   ): QueryModuleAccountsRequest {
     const message = createBaseQueryModuleAccountsRequest()
     return message
   },
 }
 
-messageTypeRegistry.set(QueryModuleAccountsRequest.$type, QueryModuleAccountsRequest)
-
 function createBaseQueryModuleAccountsResponse(): QueryModuleAccountsResponse {
-  return { $type: "nibiru.perp.v2.QueryModuleAccountsResponse", accounts: [] }
+  return { accounts: [] }
 }
 
 export const QueryModuleAccountsResponse = {
-  $type: "nibiru.perp.v2.QueryModuleAccountsResponse" as const,
-
   encode(
     message: QueryModuleAccountsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.accounts) {
       AccountWithBalance.encode(v!, writer.uint32(10).fork()).ldelim()
@@ -499,8 +486,12 @@ export const QueryModuleAccountsResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountsResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryModuleAccountsResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryModuleAccountsResponse()
     while (reader.pos < end) {
@@ -511,7 +502,9 @@ export const QueryModuleAccountsResponse = {
             break
           }
 
-          message.accounts.push(AccountWithBalance.decode(reader, reader.uint32()))
+          message.accounts.push(
+            AccountWithBalance.decode(reader, reader.uint32())
+          )
           continue
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -524,7 +517,6 @@ export const QueryModuleAccountsResponse = {
 
   fromJSON(object: any): QueryModuleAccountsResponse {
     return {
-      $type: QueryModuleAccountsResponse.$type,
       accounts: Array.isArray(object?.accounts)
         ? object.accounts.map((e: any) => AccountWithBalance.fromJSON(e))
         : [],
@@ -535,7 +527,7 @@ export const QueryModuleAccountsResponse = {
     const obj: any = {}
     if (message.accounts) {
       obj.accounts = message.accounts.map((e) =>
-        e ? AccountWithBalance.toJSON(e) : undefined,
+        e ? AccountWithBalance.toJSON(e) : undefined
       )
     } else {
       obj.accounts = []
@@ -544,13 +536,13 @@ export const QueryModuleAccountsResponse = {
   },
 
   create<I extends Exact<DeepPartial<QueryModuleAccountsResponse>, I>>(
-    base?: I,
+    base?: I
   ): QueryModuleAccountsResponse {
     return QueryModuleAccountsResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryModuleAccountsResponse>, I>>(
-    object: I,
+    object: I
   ): QueryModuleAccountsResponse {
     const message = createBaseQueryModuleAccountsResponse()
     message.accounts =
@@ -559,23 +551,14 @@ export const QueryModuleAccountsResponse = {
   },
 }
 
-messageTypeRegistry.set(QueryModuleAccountsResponse.$type, QueryModuleAccountsResponse)
-
 function createBaseAccountWithBalance(): AccountWithBalance {
-  return {
-    $type: "nibiru.perp.v2.AccountWithBalance",
-    name: "",
-    address: "",
-    balance: [],
-  }
+  return { name: "", address: "", balance: [] }
 }
 
 export const AccountWithBalance = {
-  $type: "nibiru.perp.v2.AccountWithBalance" as const,
-
   encode(
     message: AccountWithBalance,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name)
@@ -590,7 +573,8 @@ export const AccountWithBalance = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AccountWithBalance {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseAccountWithBalance()
     while (reader.pos < end) {
@@ -628,7 +612,6 @@ export const AccountWithBalance = {
 
   fromJSON(object: any): AccountWithBalance {
     return {
-      $type: AccountWithBalance.$type,
       name: isSet(object.name) ? String(object.name) : "",
       address: isSet(object.address) ? String(object.address) : "",
       balance: Array.isArray(object?.balance)
@@ -650,13 +633,13 @@ export const AccountWithBalance = {
   },
 
   create<I extends Exact<DeepPartial<AccountWithBalance>, I>>(
-    base?: I,
+    base?: I
   ): AccountWithBalance {
     return AccountWithBalance.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<AccountWithBalance>, I>>(
-    object: I,
+    object: I
   ): AccountWithBalance {
     const message = createBaseAccountWithBalance()
     message.name = object.name ?? ""
@@ -666,16 +649,15 @@ export const AccountWithBalance = {
   },
 }
 
-messageTypeRegistry.set(AccountWithBalance.$type, AccountWithBalance)
-
 function createBaseAmmMarket(): AmmMarket {
-  return { $type: "nibiru.perp.v2.AmmMarket", market: undefined, amm: undefined }
+  return { market: undefined, amm: undefined }
 }
 
 export const AmmMarket = {
-  $type: "nibiru.perp.v2.AmmMarket" as const,
-
-  encode(message: AmmMarket, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: AmmMarket,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.market !== undefined) {
       Market.encode(message.market, writer.uint32(10).fork()).ldelim()
     }
@@ -686,7 +668,8 @@ export const AmmMarket = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AmmMarket {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseAmmMarket()
     while (reader.pos < end) {
@@ -717,7 +700,6 @@ export const AmmMarket = {
 
   fromJSON(object: any): AmmMarket {
     return {
-      $type: AmmMarket.$type,
       market: isSet(object.market) ? Market.fromJSON(object.market) : undefined,
       amm: isSet(object.amm) ? AMM.fromJSON(object.amm) : undefined,
     }
@@ -736,7 +718,9 @@ export const AmmMarket = {
     return AmmMarket.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<AmmMarket>, I>>(object: I): AmmMarket {
+  fromPartial<I extends Exact<DeepPartial<AmmMarket>, I>>(
+    object: I
+  ): AmmMarket {
     const message = createBaseAmmMarket()
     message.market =
       object.market !== undefined && object.market !== null
@@ -750,21 +734,21 @@ export const AmmMarket = {
   },
 }
 
-messageTypeRegistry.set(AmmMarket.$type, AmmMarket)
-
 function createBaseQueryMarketsRequest(): QueryMarketsRequest {
-  return { $type: "nibiru.perp.v2.QueryMarketsRequest" }
+  return {}
 }
 
 export const QueryMarketsRequest = {
-  $type: "nibiru.perp.v2.QueryMarketsRequest" as const,
-
-  encode(_: QueryMarketsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    _: QueryMarketsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     return writer
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryMarketsRequest {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryMarketsRequest()
     while (reader.pos < end) {
@@ -780,7 +764,7 @@ export const QueryMarketsRequest = {
   },
 
   fromJSON(_: any): QueryMarketsRequest {
-    return { $type: QueryMarketsRequest.$type }
+    return {}
   },
 
   toJSON(_: QueryMarketsRequest): unknown {
@@ -789,31 +773,27 @@ export const QueryMarketsRequest = {
   },
 
   create<I extends Exact<DeepPartial<QueryMarketsRequest>, I>>(
-    base?: I,
+    base?: I
   ): QueryMarketsRequest {
     return QueryMarketsRequest.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryMarketsRequest>, I>>(
-    _: I,
+    _: I
   ): QueryMarketsRequest {
     const message = createBaseQueryMarketsRequest()
     return message
   },
 }
 
-messageTypeRegistry.set(QueryMarketsRequest.$type, QueryMarketsRequest)
-
 function createBaseQueryMarketsResponse(): QueryMarketsResponse {
-  return { $type: "nibiru.perp.v2.QueryMarketsResponse", ammMarkets: [] }
+  return { ammMarkets: [] }
 }
 
 export const QueryMarketsResponse = {
-  $type: "nibiru.perp.v2.QueryMarketsResponse" as const,
-
   encode(
     message: QueryMarketsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.ammMarkets) {
       AmmMarket.encode(v!, writer.uint32(10).fork()).ldelim()
@@ -821,8 +801,12 @@ export const QueryMarketsResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryMarketsResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryMarketsResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseQueryMarketsResponse()
     while (reader.pos < end) {
@@ -846,7 +830,6 @@ export const QueryMarketsResponse = {
 
   fromJSON(object: any): QueryMarketsResponse {
     return {
-      $type: QueryMarketsResponse.$type,
       ammMarkets: Array.isArray(object?.ammMarkets)
         ? object.ammMarkets.map((e: any) => AmmMarket.fromJSON(e))
         : [],
@@ -857,7 +840,7 @@ export const QueryMarketsResponse = {
     const obj: any = {}
     if (message.ammMarkets) {
       obj.ammMarkets = message.ammMarkets.map((e) =>
-        e ? AmmMarket.toJSON(e) : undefined,
+        e ? AmmMarket.toJSON(e) : undefined
       )
     } else {
       obj.ammMarkets = []
@@ -866,29 +849,30 @@ export const QueryMarketsResponse = {
   },
 
   create<I extends Exact<DeepPartial<QueryMarketsResponse>, I>>(
-    base?: I,
+    base?: I
   ): QueryMarketsResponse {
     return QueryMarketsResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryMarketsResponse>, I>>(
-    object: I,
+    object: I
   ): QueryMarketsResponse {
     const message = createBaseQueryMarketsResponse()
-    message.ammMarkets = object.ammMarkets?.map((e) => AmmMarket.fromPartial(e)) || []
+    message.ammMarkets =
+      object.ammMarkets?.map((e) => AmmMarket.fromPartial(e)) || []
     return message
   },
 }
 
-messageTypeRegistry.set(QueryMarketsResponse.$type, QueryMarketsResponse)
-
 /** Query defines the gRPC querier service. */
 export interface Query {
   QueryPosition(request: QueryPositionRequest): Promise<QueryPositionResponse>
-  QueryPositions(request: QueryPositionsRequest): Promise<QueryPositionsResponse>
+  QueryPositions(
+    request: QueryPositionsRequest
+  ): Promise<QueryPositionsResponse>
   /** Queries the reserve assets in a given pool, identified by a token pair. */
   ModuleAccounts(
-    request: QueryModuleAccountsRequest,
+    request: QueryModuleAccountsRequest
   ): Promise<QueryModuleAccountsResponse>
   QueryMarkets(request: QueryMarketsRequest): Promise<QueryMarketsResponse>
 }
@@ -908,39 +892,56 @@ export class QueryClientImpl implements Query {
   QueryPosition(request: QueryPositionRequest): Promise<QueryPositionResponse> {
     const data = QueryPositionRequest.encode(request).finish()
     const promise = this.rpc.request(this.service, "QueryPosition", data)
-    return promise.then((data) => QueryPositionResponse.decode(_m0.Reader.create(data)))
+    return promise.then((data) =>
+      QueryPositionResponse.decode(_m0.Reader.create(data))
+    )
   }
 
-  QueryPositions(request: QueryPositionsRequest): Promise<QueryPositionsResponse> {
+  QueryPositions(
+    request: QueryPositionsRequest
+  ): Promise<QueryPositionsResponse> {
     const data = QueryPositionsRequest.encode(request).finish()
     const promise = this.rpc.request(this.service, "QueryPositions", data)
     return promise.then((data) =>
-      QueryPositionsResponse.decode(_m0.Reader.create(data)),
+      QueryPositionsResponse.decode(_m0.Reader.create(data))
     )
   }
 
   ModuleAccounts(
-    request: QueryModuleAccountsRequest,
+    request: QueryModuleAccountsRequest
   ): Promise<QueryModuleAccountsResponse> {
     const data = QueryModuleAccountsRequest.encode(request).finish()
     const promise = this.rpc.request(this.service, "ModuleAccounts", data)
     return promise.then((data) =>
-      QueryModuleAccountsResponse.decode(_m0.Reader.create(data)),
+      QueryModuleAccountsResponse.decode(_m0.Reader.create(data))
     )
   }
 
   QueryMarkets(request: QueryMarketsRequest): Promise<QueryMarketsResponse> {
     const data = QueryMarketsRequest.encode(request).finish()
     const promise = this.rpc.request(this.service, "QueryMarkets", data)
-    return promise.then((data) => QueryMarketsResponse.decode(_m0.Reader.create(data)))
+    return promise.then((data) =>
+      QueryMarketsResponse.decode(_m0.Reader.create(data))
+    )
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -951,14 +952,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

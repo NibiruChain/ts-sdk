@@ -1,12 +1,10 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.sudo.v1"
 
 export interface Sudoers {
-  $type: "nibiru.sudo.v1.Sudoers"
   /** Root: The "root" user. */
   root: string
   /** Contracts: The set of contracts with elevated permissions. */
@@ -15,18 +13,18 @@ export interface Sudoers {
 
 /** GenesisState defines the module's genesis state. */
 export interface GenesisState {
-  $type: "nibiru.sudo.v1.GenesisState"
   sudoers?: Sudoers
 }
 
 function createBaseSudoers(): Sudoers {
-  return { $type: "nibiru.sudo.v1.Sudoers", root: "", contracts: [] }
+  return { root: "", contracts: [] }
 }
 
 export const Sudoers = {
-  $type: "nibiru.sudo.v1.Sudoers" as const,
-
-  encode(message: Sudoers, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: Sudoers,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.root !== "") {
       writer.uint32(10).string(message.root)
     }
@@ -37,7 +35,8 @@ export const Sudoers = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Sudoers {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseSudoers()
     while (reader.pos < end) {
@@ -68,7 +67,6 @@ export const Sudoers = {
 
   fromJSON(object: any): Sudoers {
     return {
-      $type: Sudoers.$type,
       root: isSet(object.root) ? String(object.root) : "",
       contracts: Array.isArray(object?.contracts)
         ? object.contracts.map((e: any) => String(e))
@@ -99,16 +97,15 @@ export const Sudoers = {
   },
 }
 
-messageTypeRegistry.set(Sudoers.$type, Sudoers)
-
 function createBaseGenesisState(): GenesisState {
-  return { $type: "nibiru.sudo.v1.GenesisState", sudoers: undefined }
+  return { sudoers: undefined }
 }
 
 export const GenesisState = {
-  $type: "nibiru.sudo.v1.GenesisState" as const,
-
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GenesisState,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.sudoers !== undefined) {
       Sudoers.encode(message.sudoers, writer.uint32(10).fork()).ldelim()
     }
@@ -116,7 +113,8 @@ export const GenesisState = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseGenesisState()
     while (reader.pos < end) {
@@ -140,23 +138,30 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      $type: GenesisState.$type,
-      sudoers: isSet(object.sudoers) ? Sudoers.fromJSON(object.sudoers) : undefined,
+      sudoers: isSet(object.sudoers)
+        ? Sudoers.fromJSON(object.sudoers)
+        : undefined,
     }
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
     message.sudoers !== undefined &&
-      (obj.sudoers = message.sudoers ? Sudoers.toJSON(message.sudoers) : undefined)
+      (obj.sudoers = message.sudoers
+        ? Sudoers.toJSON(message.sudoers)
+        : undefined)
     return obj
   },
 
-  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(
+    base?: I
+  ): GenesisState {
     return GenesisState.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
+    object: I
+  ): GenesisState {
     const message = createBaseGenesisState()
     message.sudoers =
       object.sudoers !== undefined && object.sudoers !== null
@@ -166,9 +171,14 @@ export const GenesisState = {
   },
 }
 
-messageTypeRegistry.set(GenesisState.$type, GenesisState)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -179,14 +189,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

@@ -58,7 +58,7 @@ export enum AmmPoolOrderBy {
 
 export const ammPools = async (
   args: GqlInAmmPool,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutAmmPool> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = AmmPoolOrderBy.pool_id

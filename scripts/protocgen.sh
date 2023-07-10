@@ -28,7 +28,7 @@ cp -r $NIBIRU_REPO/proto/ proto/
 for dir in $(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | uniq | sort); do \
   for file in $(find "${dir}" -maxdepth 1 -name '*.proto'); do
     echo "Generating ts proto code for $file"
-    npx buf generate --template proto/buf.gen.ts.yaml -o $PKG_OUT_DIR $file
+    npx buf generate --template proto/proto/buf.gen.ts.yaml -o $PKG_OUT_DIR $file
   done
 done;
 

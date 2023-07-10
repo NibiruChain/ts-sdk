@@ -11,21 +11,22 @@ import {
   SigningStargateClient,
   SigningStargateClientOptions,
 } from "@cosmjs/stargate"
-import { Tendermint34Client } from "@cosmjs/tendermint-rpc"
+import { Tendermint37Client } from "@cosmjs/tendermint-rpc"
 import {
   SigningCosmWasmClient,
   SigningCosmWasmClientOptions,
   setupWasmExtension,
 } from "@cosmjs/cosmwasm-stargate"
-import { perpTypes } from "../msg/perp"
-import { spotTypes } from "../msg/spot"
-import { setupEpochsExtension } from "../query/epochs"
-import { setupOracleExtension } from "../query/oracle"
-import { setupPerpExtension } from "../query/perp"
-import { NibiruExtensions } from "../query/query"
-import { setupSpotExtension } from "../query/spot"
-import { setupUtilsExtension } from "../query/util"
-import { setupVpoolExtension } from "../query/vpool"
+import { perpTypes, spotTypes } from "../msg"
+import {
+  setupInflationExtension,
+  setupSudoExtension,
+  setupSpotExtension,
+  NibiruExtensions,
+  setupPerpExtension,
+  setupOracleExtension,
+  setupEpochsExtension,
+} from "../query"
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
   ...defaultRegistryTypes,
@@ -41,13 +42,17 @@ export class NibiruSigningClient extends SigningStargateClient {
     endpoint: string,
     signer: OfflineSigner,
     options: SigningStargateClientOptions = {},
-    wasmOptions: SigningCosmWasmClientOptions = {},
+    wasmOptions: SigningCosmWasmClientOptions = {}
   ): Promise<NibiruSigningClient> {
-    const tmClient = await Tendermint34Client.connect(endpoint)
-    const wasmClient = await SigningCosmWasmClient.connectWithSigner(endpoint, signer, {
-      gasPrice: GasPrice.fromString("0.025unibi"),
-      ...wasmOptions,
-    })
+    const tmClient = await Tendermint37Client.connect(endpoint)
+    const wasmClient = await SigningCosmWasmClient.connectWithSigner(
+      endpoint,
+      signer,
+      {
+        gasPrice: GasPrice.fromString("0.025unibi"),
+        ...wasmOptions,
+      }
+    )
     return new NibiruSigningClient(
       tmClient,
       signer,
@@ -57,15 +62,15 @@ export class NibiruSigningClient extends SigningStargateClient {
         broadcastPollIntervalMs: 1_000, // 1 second poll times
         ...options,
       },
-      wasmClient,
+      wasmClient
     )
   }
 
   protected constructor(
-    tmClient: Tendermint34Client,
+    tmClient: Tendermint37Client,
     signer: OfflineSigner,
     options: SigningStargateClientOptions,
-    wasm: SigningCosmWasmClient,
+    wasm: SigningCosmWasmClient
   ) {
     super(tmClient, signer, options)
     this.wasmClient = wasm
@@ -75,14 +80,14 @@ export class NibiruSigningClient extends SigningStargateClient {
       setupOracleExtension,
       setupPerpExtension,
       setupSpotExtension,
-      setupVpoolExtension,
+      setupSudoExtension,
+      setupInflationExtension,
       setupDistributionExtension,
       setupGovExtension,
       setupStakingExtension,
-      setupUtilsExtension,
       setupIbcExtension,
       setupWasmExtension,
-      setupAuthExtension,
+      setupAuthExtension
     )
   }
 

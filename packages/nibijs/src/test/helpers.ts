@@ -7,7 +7,6 @@ import {
   IncentivizedTestent,
   Localnet,
 } from "../chain"
-import { instanceOfError } from "../chain/error"
 
 export const TEST_CHAIN = Localnet
 // export const TEST_CHAIN = new CustomChain({
@@ -31,9 +30,14 @@ export const ERR = {
 export function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
     header: ["version", "chain_id", "height", "last_block_id"].concat(
-      ["last_commit_hash", "data_hash", "validators_hash", "next_validators_hash"],
+      [
+        "last_commit_hash",
+        "data_hash",
+        "validators_hash",
+        "next_validators_hash",
+      ],
       ["consensus_hash", "app_hash", "last_results_hash", "evidence_hash"],
-      ["proposer_address"],
+      ["proposer_address"]
     ),
     data: ["txs"],
     evidence: ["evidence"],
@@ -75,14 +79,17 @@ export function assertHasEventType(eventType: string, events: Event[]): void {
 
 export const assertExpectedError = (err: unknown, okErrors: string[]) => {
   let errMsg: string
-  if (instanceOfError(err)) {
+  if (err instanceof Error) {
     errMsg = err.message
   } else {
     errMsg = `${err}`
   }
-  let isContained: boolean = false
+  console.log(errMsg)
+  let isContained = false
   okErrors.forEach((e) => {
-    if (errMsg.includes(e)) isContained = true
+    if (errMsg.includes(e)) {
+      isContained = true
+    }
   })
   expect(isContained).toBeTruthy()
 }

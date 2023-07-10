@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.20](../intro.md) / [Exports](../modules.md) / MsgDonateToEcosystemFundEncodeObject
+[NibiJS Documentation - v0.21.1](../intro.md) / [Exports](../modules.md) / MsgDonateToEcosystemFundEncodeObject
 
 # Interface: MsgDonateToEcosystemFundEncodeObject
 
@@ -27,9 +27,9 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/perp.ts:104](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/msg/perp.ts#L104)
+[msg/perp.ts:79](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/msg/perp.ts#L79)
 
-___
+---
 
 ### value
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/perp.ts:105](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/msg/perp.ts#L105)
+[msg/perp.ts:80](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/msg/perp.ts#L80)

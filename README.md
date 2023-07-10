@@ -27,16 +27,16 @@ The official TypeScript SDK for the Nibiru blockchain
 
 The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions.
 
-The `nibijs` source code can be found in the ["packages" directory](https://github.com/NibiruChain/ts-sdk/tree/main/packages).  The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`.
+The `nibijs` source code can be found in the ["packages" directory](https://github.com/NibiruChain/ts-sdk/tree/main/packages). The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`.
 
 #### Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Example: Creating a wallet](#example-creating-a-wallet)
-    - [Example: Querying](#example-querying)
-    - [Example: Sending funds](#example-sending-funds)
-    - [Example: Transaction with arbitrary messages](#example-transaction-with-arbitrary-messages)
+  - [Example: Creating a wallet](#example-creating-a-wallet)
+  - [Example: Querying](#example-querying)
+  - [Example: Sending funds](#example-sending-funds)
+  - [Example: Transaction with arbitrary messages](#example-transaction-with-arbitrary-messages)
 - [Codebase structure](#codebase-structure)
 - [Development Quick Start](#development-quick-start)
 - [🔓 License](#-license)
@@ -87,8 +87,10 @@ const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
 const perpParamsResp = await queryClient.nibiruExtensions.perp.params()
 console.log("perpParams: %o", perpParamsResp)
 
-const allPools = await queryClient.nibiruExtensions.vpool.allPools()
-console.log("allPools: %o", allPools)
+const allMarkets = await queryClient.nibiruExtensions.perp.markets({
+  pair: "ueth:unusd",
+})
+console.log("allMarkets: %o", allMarkets)
 
 const blockHeight = 1
 const block = await queryClient.getBlock(blockHeight)
@@ -168,8 +170,8 @@ const txResp = await signingClient.signAndBroadcast(fromAddr, msgs, "auto")
 
 ---
 
-<!-- 
-## 📜 Contribution Guidelines  
+<!--
+## 📜 Contribution Guidelines
 
 TODO
 -->
@@ -178,21 +180,21 @@ TODO
 
 1. First install yarn.
 
-    ```sh
-    npm install -g yarn
-    ```
+   ```sh
+   npm install -g yarn
+   ```
 
 2. Then, install package dependencies. At the root of the repository, run
 
-    ```sh
-    yarn 
-    ```
+   ```sh
+   yarn
+   ```
 
 3. Lastly, compile the code in each package.
 
-    ```sh
-    yarn build
-    ```
+   ```sh
+   yarn build
+   ```
 
 See [HACKING.md](https://github.com/NibiruChain/ts-sdk/blob/main/HACKING.md) for the full development guide. It includes instructions on:
 

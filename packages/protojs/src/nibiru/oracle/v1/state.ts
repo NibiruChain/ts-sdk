@@ -1,13 +1,11 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.oracle.v1"
 
 /** a snapshot of the prices at a given point in time */
 export interface PriceSnapshot {
-  $type: "nibiru.oracle.v1.PriceSnapshot"
   pair: string
   price: string
   /** milliseconds since unix epoch */
@@ -15,18 +13,14 @@ export interface PriceSnapshot {
 }
 
 function createBasePriceSnapshot(): PriceSnapshot {
-  return {
-    $type: "nibiru.oracle.v1.PriceSnapshot",
-    pair: "",
-    price: "",
-    timestampMs: Long.ZERO,
-  }
+  return { pair: "", price: "", timestampMs: Long.ZERO }
 }
 
 export const PriceSnapshot = {
-  $type: "nibiru.oracle.v1.PriceSnapshot" as const,
-
-  encode(message: PriceSnapshot, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: PriceSnapshot,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
     }
@@ -40,7 +34,8 @@ export const PriceSnapshot = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PriceSnapshot {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBasePriceSnapshot()
     while (reader.pos < end) {
@@ -78,7 +73,6 @@ export const PriceSnapshot = {
 
   fromJSON(object: any): PriceSnapshot {
     return {
-      $type: PriceSnapshot.$type,
       pair: isSet(object.pair) ? String(object.pair) : "",
       price: isSet(object.price) ? String(object.price) : "",
       timestampMs: isSet(object.timestampMs)
@@ -96,12 +90,14 @@ export const PriceSnapshot = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<PriceSnapshot>, I>>(base?: I): PriceSnapshot {
+  create<I extends Exact<DeepPartial<PriceSnapshot>, I>>(
+    base?: I
+  ): PriceSnapshot {
     return PriceSnapshot.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<PriceSnapshot>, I>>(
-    object: I,
+    object: I
   ): PriceSnapshot {
     const message = createBasePriceSnapshot()
     message.pair = object.pair ?? ""
@@ -114,9 +110,14 @@ export const PriceSnapshot = {
   },
 }
 
-messageTypeRegistry.set(PriceSnapshot.$type, PriceSnapshot)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -127,14 +128,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

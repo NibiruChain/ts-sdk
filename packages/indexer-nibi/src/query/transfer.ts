@@ -40,7 +40,7 @@ export enum TransferOrderBy {
 
 export const transfers = async (
   args: GqlInTransfer,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutTransfer> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = TransferOrderBy.block_ts

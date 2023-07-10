@@ -1,7 +1,6 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 import {
   AggregateExchangeRatePrevote,
   AggregateExchangeRateVote,
@@ -14,7 +13,6 @@ export const protobufPackage = "nibiru.oracle.v1"
 
 /** GenesisState defines the oracle module's genesis state. */
 export interface GenesisState {
-  $type: "nibiru.oracle.v1.GenesisState"
   params?: Params
   feederDelegations: FeederDelegation[]
   exchangeRates: ExchangeRateTuple[]
@@ -31,7 +29,6 @@ export interface GenesisState {
  * default feeder addresses.
  */
 export interface FeederDelegation {
-  $type: "nibiru.oracle.v1.FeederDelegation"
   feederAddress: string
   validatorAddress: string
 }
@@ -41,14 +38,12 @@ export interface FeederDelegation {
  * oracle module's genesis state
  */
 export interface MissCounter {
-  $type: "nibiru.oracle.v1.MissCounter"
   validatorAddress: string
   missCounter: Long
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
-    $type: "nibiru.oracle.v1.GenesisState",
     params: undefined,
     feederDelegations: [],
     exchangeRates: [],
@@ -61,9 +56,10 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
-  $type: "nibiru.oracle.v1.GenesisState" as const,
-
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GenesisState,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim()
     }
@@ -92,7 +88,8 @@ export const GenesisState = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseGenesisState()
     while (reader.pos < end) {
@@ -111,7 +108,7 @@ export const GenesisState = {
           }
 
           message.feederDelegations.push(
-            FeederDelegation.decode(reader, reader.uint32()),
+            FeederDelegation.decode(reader, reader.uint32())
           )
           continue
         case 3:
@@ -119,7 +116,9 @@ export const GenesisState = {
             break
           }
 
-          message.exchangeRates.push(ExchangeRateTuple.decode(reader, reader.uint32()))
+          message.exchangeRates.push(
+            ExchangeRateTuple.decode(reader, reader.uint32())
+          )
           continue
         case 4:
           if (tag !== 34) {
@@ -134,7 +133,7 @@ export const GenesisState = {
           }
 
           message.aggregateExchangeRatePrevotes.push(
-            AggregateExchangeRatePrevote.decode(reader, reader.uint32()),
+            AggregateExchangeRatePrevote.decode(reader, reader.uint32())
           )
           continue
         case 6:
@@ -143,7 +142,7 @@ export const GenesisState = {
           }
 
           message.aggregateExchangeRateVotes.push(
-            AggregateExchangeRateVote.decode(reader, reader.uint32()),
+            AggregateExchangeRateVote.decode(reader, reader.uint32())
           )
           continue
         case 7:
@@ -171,7 +170,6 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      $type: GenesisState.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       feederDelegations: Array.isArray(object?.feederDelegations)
         ? object.feederDelegations.map((e: any) => FeederDelegation.fromJSON(e))
@@ -183,15 +181,17 @@ export const GenesisState = {
         ? object.missCounters.map((e: any) => MissCounter.fromJSON(e))
         : [],
       aggregateExchangeRatePrevotes: Array.isArray(
-        object?.aggregateExchangeRatePrevotes,
+        object?.aggregateExchangeRatePrevotes
       )
         ? object.aggregateExchangeRatePrevotes.map((e: any) =>
-            AggregateExchangeRatePrevote.fromJSON(e),
+            AggregateExchangeRatePrevote.fromJSON(e)
           )
         : [],
-      aggregateExchangeRateVotes: Array.isArray(object?.aggregateExchangeRateVotes)
+      aggregateExchangeRateVotes: Array.isArray(
+        object?.aggregateExchangeRateVotes
+      )
         ? object.aggregateExchangeRateVotes.map((e: any) =>
-            AggregateExchangeRateVote.fromJSON(e),
+            AggregateExchangeRateVote.fromJSON(e)
           )
         : [],
       pairs: Array.isArray(object?.pairs)
@@ -209,35 +209,36 @@ export const GenesisState = {
       (obj.params = message.params ? Params.toJSON(message.params) : undefined)
     if (message.feederDelegations) {
       obj.feederDelegations = message.feederDelegations.map((e) =>
-        e ? FeederDelegation.toJSON(e) : undefined,
+        e ? FeederDelegation.toJSON(e) : undefined
       )
     } else {
       obj.feederDelegations = []
     }
     if (message.exchangeRates) {
       obj.exchangeRates = message.exchangeRates.map((e) =>
-        e ? ExchangeRateTuple.toJSON(e) : undefined,
+        e ? ExchangeRateTuple.toJSON(e) : undefined
       )
     } else {
       obj.exchangeRates = []
     }
     if (message.missCounters) {
       obj.missCounters = message.missCounters.map((e) =>
-        e ? MissCounter.toJSON(e) : undefined,
+        e ? MissCounter.toJSON(e) : undefined
       )
     } else {
       obj.missCounters = []
     }
     if (message.aggregateExchangeRatePrevotes) {
-      obj.aggregateExchangeRatePrevotes = message.aggregateExchangeRatePrevotes.map(
-        (e) => (e ? AggregateExchangeRatePrevote.toJSON(e) : undefined),
-      )
+      obj.aggregateExchangeRatePrevotes =
+        message.aggregateExchangeRatePrevotes.map((e) =>
+          e ? AggregateExchangeRatePrevote.toJSON(e) : undefined
+        )
     } else {
       obj.aggregateExchangeRatePrevotes = []
     }
     if (message.aggregateExchangeRateVotes) {
-      obj.aggregateExchangeRateVotes = message.aggregateExchangeRateVotes.map((e) =>
-        e ? AggregateExchangeRateVote.toJSON(e) : undefined,
+      obj.aggregateExchangeRateVotes = message.aggregateExchangeRateVotes.map(
+        (e) => (e ? AggregateExchangeRateVote.toJSON(e) : undefined)
       )
     } else {
       obj.aggregateExchangeRateVotes = []
@@ -248,36 +249,43 @@ export const GenesisState = {
       obj.pairs = []
     }
     if (message.rewards) {
-      obj.rewards = message.rewards.map((e) => (e ? Rewards.toJSON(e) : undefined))
+      obj.rewards = message.rewards.map((e) =>
+        e ? Rewards.toJSON(e) : undefined
+      )
     } else {
       obj.rewards = []
     }
     return obj
   },
 
-  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(
+    base?: I
+  ): GenesisState {
     return GenesisState.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
+    object: I
+  ): GenesisState {
     const message = createBaseGenesisState()
     message.params =
       object.params !== undefined && object.params !== null
         ? Params.fromPartial(object.params)
         : undefined
     message.feederDelegations =
-      object.feederDelegations?.map((e) => FeederDelegation.fromPartial(e)) || []
+      object.feederDelegations?.map((e) => FeederDelegation.fromPartial(e)) ||
+      []
     message.exchangeRates =
       object.exchangeRates?.map((e) => ExchangeRateTuple.fromPartial(e)) || []
     message.missCounters =
       object.missCounters?.map((e) => MissCounter.fromPartial(e)) || []
     message.aggregateExchangeRatePrevotes =
       object.aggregateExchangeRatePrevotes?.map((e) =>
-        AggregateExchangeRatePrevote.fromPartial(e),
+        AggregateExchangeRatePrevote.fromPartial(e)
       ) || []
     message.aggregateExchangeRateVotes =
       object.aggregateExchangeRateVotes?.map((e) =>
-        AggregateExchangeRateVote.fromPartial(e),
+        AggregateExchangeRateVote.fromPartial(e)
       ) || []
     message.pairs = object.pairs?.map((e) => e) || []
     message.rewards = object.rewards?.map((e) => Rewards.fromPartial(e)) || []
@@ -285,22 +293,14 @@ export const GenesisState = {
   },
 }
 
-messageTypeRegistry.set(GenesisState.$type, GenesisState)
-
 function createBaseFeederDelegation(): FeederDelegation {
-  return {
-    $type: "nibiru.oracle.v1.FeederDelegation",
-    feederAddress: "",
-    validatorAddress: "",
-  }
+  return { feederAddress: "", validatorAddress: "" }
 }
 
 export const FeederDelegation = {
-  $type: "nibiru.oracle.v1.FeederDelegation" as const,
-
   encode(
     message: FeederDelegation,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.feederAddress !== "") {
       writer.uint32(10).string(message.feederAddress)
@@ -312,7 +312,8 @@ export const FeederDelegation = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FeederDelegation {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseFeederDelegation()
     while (reader.pos < end) {
@@ -343,8 +344,9 @@ export const FeederDelegation = {
 
   fromJSON(object: any): FeederDelegation {
     return {
-      $type: FeederDelegation.$type,
-      feederAddress: isSet(object.feederAddress) ? String(object.feederAddress) : "",
+      feederAddress: isSet(object.feederAddress)
+        ? String(object.feederAddress)
+        : "",
       validatorAddress: isSet(object.validatorAddress)
         ? String(object.validatorAddress)
         : "",
@@ -353,20 +355,21 @@ export const FeederDelegation = {
 
   toJSON(message: FeederDelegation): unknown {
     const obj: any = {}
-    message.feederAddress !== undefined && (obj.feederAddress = message.feederAddress)
+    message.feederAddress !== undefined &&
+      (obj.feederAddress = message.feederAddress)
     message.validatorAddress !== undefined &&
       (obj.validatorAddress = message.validatorAddress)
     return obj
   },
 
   create<I extends Exact<DeepPartial<FeederDelegation>, I>>(
-    base?: I,
+    base?: I
   ): FeederDelegation {
     return FeederDelegation.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<FeederDelegation>, I>>(
-    object: I,
+    object: I
   ): FeederDelegation {
     const message = createBaseFeederDelegation()
     message.feederAddress = object.feederAddress ?? ""
@@ -375,20 +378,15 @@ export const FeederDelegation = {
   },
 }
 
-messageTypeRegistry.set(FeederDelegation.$type, FeederDelegation)
-
 function createBaseMissCounter(): MissCounter {
-  return {
-    $type: "nibiru.oracle.v1.MissCounter",
-    validatorAddress: "",
-    missCounter: Long.UZERO,
-  }
+  return { validatorAddress: "", missCounter: Long.UZERO }
 }
 
 export const MissCounter = {
-  $type: "nibiru.oracle.v1.MissCounter" as const,
-
-  encode(message: MissCounter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MissCounter,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress)
     }
@@ -399,7 +397,8 @@ export const MissCounter = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MissCounter {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMissCounter()
     while (reader.pos < end) {
@@ -430,7 +429,6 @@ export const MissCounter = {
 
   fromJSON(object: any): MissCounter {
     return {
-      $type: MissCounter.$type,
       validatorAddress: isSet(object.validatorAddress)
         ? String(object.validatorAddress)
         : "",
@@ -453,7 +451,9 @@ export const MissCounter = {
     return MissCounter.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<MissCounter>, I>>(object: I): MissCounter {
+  fromPartial<I extends Exact<DeepPartial<MissCounter>, I>>(
+    object: I
+  ): MissCounter {
     const message = createBaseMissCounter()
     message.validatorAddress = object.validatorAddress ?? ""
     message.missCounter =
@@ -464,9 +464,14 @@ export const MissCounter = {
   },
 }
 
-messageTypeRegistry.set(MissCounter.$type, MissCounter)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -477,14 +482,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

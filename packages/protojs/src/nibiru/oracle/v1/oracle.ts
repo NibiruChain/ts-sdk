@@ -3,13 +3,11 @@ import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Coin } from "../../../cosmos/base/v1beta1/coin"
 import { Duration } from "../../../google/protobuf/duration"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.oracle.v1"
 
 /** Params defines the module parameters for the x/oracle module. */
 export interface Params {
-  $type: "nibiru.oracle.v1.Params"
   /** VotePeriod defines the number of blocks during which voting takes place. */
   votePeriod: Long
   /**
@@ -66,7 +64,6 @@ export interface Params {
  * SHA256("{salt}:({pair},{exchange_rate})|...|({pair},{exchange_rate}):{voter}")
  */
 export interface AggregateExchangeRatePrevote {
-  $type: "nibiru.oracle.v1.AggregateExchangeRatePrevote"
   hash: string
   voter: string
   submitBlock: Long
@@ -77,20 +74,17 @@ export interface AggregateExchangeRatePrevote {
  * the exchange rates different assets.
  */
 export interface AggregateExchangeRateVote {
-  $type: "nibiru.oracle.v1.AggregateExchangeRateVote"
   exchangeRateTuples: ExchangeRateTuple[]
   voter: string
 }
 
 /** ExchangeRateTuple - struct to store interpreted exchange rates data to store */
 export interface ExchangeRateTuple {
-  $type: "nibiru.oracle.v1.ExchangeRateTuple"
   pair: string
   exchangeRate: string
 }
 
 export interface DatedPrice {
-  $type: "nibiru.oracle.v1.DatedPrice"
   exchangeRate: string
   createdBlock: Long
 }
@@ -100,7 +94,6 @@ export interface DatedPrice {
  * which provide prices faithfully for different pairs.
  */
 export interface Rewards {
-  $type: "nibiru.oracle.v1.Rewards"
   /** id uniquely identifies the rewards instance of the pair */
   id: Long
   /**
@@ -114,7 +107,6 @@ export interface Rewards {
 
 function createBaseParams(): Params {
   return {
-    $type: "nibiru.oracle.v1.Params",
     votePeriod: Long.UZERO,
     voteThreshold: "",
     rewardBand: "",
@@ -130,9 +122,10 @@ function createBaseParams(): Params {
 }
 
 export const Params = {
-  $type: "nibiru.oracle.v1.Params" as const,
-
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: Params,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (!message.votePeriod.isZero()) {
       writer.uint32(8).uint64(message.votePeriod)
     }
@@ -155,7 +148,10 @@ export const Params = {
       writer.uint32(58).string(message.minValidPerWindow)
     }
     if (message.twapLookbackWindow !== undefined) {
-      Duration.encode(message.twapLookbackWindow, writer.uint32(66).fork()).ldelim()
+      Duration.encode(
+        message.twapLookbackWindow,
+        writer.uint32(66).fork()
+      ).ldelim()
     }
     if (!message.minVoters.isZero()) {
       writer.uint32(72).uint64(message.minVoters)
@@ -170,7 +166,8 @@ export const Params = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseParams()
     while (reader.pos < end) {
@@ -264,16 +261,19 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      $type: Params.$type,
       votePeriod: isSet(object.votePeriod)
         ? Long.fromValue(object.votePeriod)
         : Long.UZERO,
-      voteThreshold: isSet(object.voteThreshold) ? String(object.voteThreshold) : "",
+      voteThreshold: isSet(object.voteThreshold)
+        ? String(object.voteThreshold)
+        : "",
       rewardBand: isSet(object.rewardBand) ? String(object.rewardBand) : "",
       whitelist: Array.isArray(object?.whitelist)
         ? object.whitelist.map((e: any) => String(e))
         : [],
-      slashFraction: isSet(object.slashFraction) ? String(object.slashFraction) : "",
+      slashFraction: isSet(object.slashFraction)
+        ? String(object.slashFraction)
+        : "",
       slashWindow: isSet(object.slashWindow)
         ? Long.fromValue(object.slashWindow)
         : Long.UZERO,
@@ -299,14 +299,16 @@ export const Params = {
     const obj: any = {}
     message.votePeriod !== undefined &&
       (obj.votePeriod = (message.votePeriod || Long.UZERO).toString())
-    message.voteThreshold !== undefined && (obj.voteThreshold = message.voteThreshold)
+    message.voteThreshold !== undefined &&
+      (obj.voteThreshold = message.voteThreshold)
     message.rewardBand !== undefined && (obj.rewardBand = message.rewardBand)
     if (message.whitelist) {
       obj.whitelist = message.whitelist.map((e) => e)
     } else {
       obj.whitelist = []
     }
-    message.slashFraction !== undefined && (obj.slashFraction = message.slashFraction)
+    message.slashFraction !== undefined &&
+      (obj.slashFraction = message.slashFraction)
     message.slashWindow !== undefined &&
       (obj.slashWindow = (message.slashWindow || Long.UZERO).toString())
     message.minValidPerWindow !== undefined &&
@@ -320,7 +322,9 @@ export const Params = {
     message.validatorFeeRatio !== undefined &&
       (obj.validatorFeeRatio = message.validatorFeeRatio)
     message.expirationBlocks !== undefined &&
-      (obj.expirationBlocks = (message.expirationBlocks || Long.UZERO).toString())
+      (obj.expirationBlocks = (
+        message.expirationBlocks || Long.UZERO
+      ).toString())
     return obj
   },
 
@@ -344,7 +348,8 @@ export const Params = {
         : Long.UZERO
     message.minValidPerWindow = object.minValidPerWindow ?? ""
     message.twapLookbackWindow =
-      object.twapLookbackWindow !== undefined && object.twapLookbackWindow !== null
+      object.twapLookbackWindow !== undefined &&
+      object.twapLookbackWindow !== null
         ? Duration.fromPartial(object.twapLookbackWindow)
         : undefined
     message.minVoters =
@@ -360,23 +365,14 @@ export const Params = {
   },
 }
 
-messageTypeRegistry.set(Params.$type, Params)
-
 function createBaseAggregateExchangeRatePrevote(): AggregateExchangeRatePrevote {
-  return {
-    $type: "nibiru.oracle.v1.AggregateExchangeRatePrevote",
-    hash: "",
-    voter: "",
-    submitBlock: Long.UZERO,
-  }
+  return { hash: "", voter: "", submitBlock: Long.UZERO }
 }
 
 export const AggregateExchangeRatePrevote = {
-  $type: "nibiru.oracle.v1.AggregateExchangeRatePrevote" as const,
-
   encode(
     message: AggregateExchangeRatePrevote,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.hash !== "") {
       writer.uint32(10).string(message.hash)
@@ -392,9 +388,10 @@ export const AggregateExchangeRatePrevote = {
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number,
+    length?: number
   ): AggregateExchangeRatePrevote {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseAggregateExchangeRatePrevote()
     while (reader.pos < end) {
@@ -432,7 +429,6 @@ export const AggregateExchangeRatePrevote = {
 
   fromJSON(object: any): AggregateExchangeRatePrevote {
     return {
-      $type: AggregateExchangeRatePrevote.$type,
       hash: isSet(object.hash) ? String(object.hash) : "",
       voter: isSet(object.voter) ? String(object.voter) : "",
       submitBlock: isSet(object.submitBlock)
@@ -451,13 +447,13 @@ export const AggregateExchangeRatePrevote = {
   },
 
   create<I extends Exact<DeepPartial<AggregateExchangeRatePrevote>, I>>(
-    base?: I,
+    base?: I
   ): AggregateExchangeRatePrevote {
     return AggregateExchangeRatePrevote.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<AggregateExchangeRatePrevote>, I>>(
-    object: I,
+    object: I
   ): AggregateExchangeRatePrevote {
     const message = createBaseAggregateExchangeRatePrevote()
     message.hash = object.hash ?? ""
@@ -470,25 +466,14 @@ export const AggregateExchangeRatePrevote = {
   },
 }
 
-messageTypeRegistry.set(
-  AggregateExchangeRatePrevote.$type,
-  AggregateExchangeRatePrevote,
-)
-
 function createBaseAggregateExchangeRateVote(): AggregateExchangeRateVote {
-  return {
-    $type: "nibiru.oracle.v1.AggregateExchangeRateVote",
-    exchangeRateTuples: [],
-    voter: "",
-  }
+  return { exchangeRateTuples: [], voter: "" }
 }
 
 export const AggregateExchangeRateVote = {
-  $type: "nibiru.oracle.v1.AggregateExchangeRateVote" as const,
-
   encode(
     message: AggregateExchangeRateVote,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.exchangeRateTuples) {
       ExchangeRateTuple.encode(v!, writer.uint32(10).fork()).ldelim()
@@ -499,8 +484,12 @@ export const AggregateExchangeRateVote = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): AggregateExchangeRateVote {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): AggregateExchangeRateVote {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseAggregateExchangeRateVote()
     while (reader.pos < end) {
@@ -512,7 +501,7 @@ export const AggregateExchangeRateVote = {
           }
 
           message.exchangeRateTuples.push(
-            ExchangeRateTuple.decode(reader, reader.uint32()),
+            ExchangeRateTuple.decode(reader, reader.uint32())
           )
           continue
         case 2:
@@ -533,9 +522,10 @@ export const AggregateExchangeRateVote = {
 
   fromJSON(object: any): AggregateExchangeRateVote {
     return {
-      $type: AggregateExchangeRateVote.$type,
       exchangeRateTuples: Array.isArray(object?.exchangeRateTuples)
-        ? object.exchangeRateTuples.map((e: any) => ExchangeRateTuple.fromJSON(e))
+        ? object.exchangeRateTuples.map((e: any) =>
+            ExchangeRateTuple.fromJSON(e)
+          )
         : [],
       voter: isSet(object.voter) ? String(object.voter) : "",
     }
@@ -545,7 +535,7 @@ export const AggregateExchangeRateVote = {
     const obj: any = {}
     if (message.exchangeRateTuples) {
       obj.exchangeRateTuples = message.exchangeRateTuples.map((e) =>
-        e ? ExchangeRateTuple.toJSON(e) : undefined,
+        e ? ExchangeRateTuple.toJSON(e) : undefined
       )
     } else {
       obj.exchangeRateTuples = []
@@ -555,34 +545,31 @@ export const AggregateExchangeRateVote = {
   },
 
   create<I extends Exact<DeepPartial<AggregateExchangeRateVote>, I>>(
-    base?: I,
+    base?: I
   ): AggregateExchangeRateVote {
     return AggregateExchangeRateVote.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<AggregateExchangeRateVote>, I>>(
-    object: I,
+    object: I
   ): AggregateExchangeRateVote {
     const message = createBaseAggregateExchangeRateVote()
     message.exchangeRateTuples =
-      object.exchangeRateTuples?.map((e) => ExchangeRateTuple.fromPartial(e)) || []
+      object.exchangeRateTuples?.map((e) => ExchangeRateTuple.fromPartial(e)) ||
+      []
     message.voter = object.voter ?? ""
     return message
   },
 }
 
-messageTypeRegistry.set(AggregateExchangeRateVote.$type, AggregateExchangeRateVote)
-
 function createBaseExchangeRateTuple(): ExchangeRateTuple {
-  return { $type: "nibiru.oracle.v1.ExchangeRateTuple", pair: "", exchangeRate: "" }
+  return { pair: "", exchangeRate: "" }
 }
 
 export const ExchangeRateTuple = {
-  $type: "nibiru.oracle.v1.ExchangeRateTuple" as const,
-
   encode(
     message: ExchangeRateTuple,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
@@ -594,7 +581,8 @@ export const ExchangeRateTuple = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ExchangeRateTuple {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseExchangeRateTuple()
     while (reader.pos < end) {
@@ -625,27 +613,29 @@ export const ExchangeRateTuple = {
 
   fromJSON(object: any): ExchangeRateTuple {
     return {
-      $type: ExchangeRateTuple.$type,
       pair: isSet(object.pair) ? String(object.pair) : "",
-      exchangeRate: isSet(object.exchangeRate) ? String(object.exchangeRate) : "",
+      exchangeRate: isSet(object.exchangeRate)
+        ? String(object.exchangeRate)
+        : "",
     }
   },
 
   toJSON(message: ExchangeRateTuple): unknown {
     const obj: any = {}
     message.pair !== undefined && (obj.pair = message.pair)
-    message.exchangeRate !== undefined && (obj.exchangeRate = message.exchangeRate)
+    message.exchangeRate !== undefined &&
+      (obj.exchangeRate = message.exchangeRate)
     return obj
   },
 
   create<I extends Exact<DeepPartial<ExchangeRateTuple>, I>>(
-    base?: I,
+    base?: I
   ): ExchangeRateTuple {
     return ExchangeRateTuple.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<ExchangeRateTuple>, I>>(
-    object: I,
+    object: I
   ): ExchangeRateTuple {
     const message = createBaseExchangeRateTuple()
     message.pair = object.pair ?? ""
@@ -654,20 +644,15 @@ export const ExchangeRateTuple = {
   },
 }
 
-messageTypeRegistry.set(ExchangeRateTuple.$type, ExchangeRateTuple)
-
 function createBaseDatedPrice(): DatedPrice {
-  return {
-    $type: "nibiru.oracle.v1.DatedPrice",
-    exchangeRate: "",
-    createdBlock: Long.UZERO,
-  }
+  return { exchangeRate: "", createdBlock: Long.UZERO }
 }
 
 export const DatedPrice = {
-  $type: "nibiru.oracle.v1.DatedPrice" as const,
-
-  encode(message: DatedPrice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: DatedPrice,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.exchangeRate !== "") {
       writer.uint32(10).string(message.exchangeRate)
     }
@@ -678,7 +663,8 @@ export const DatedPrice = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): DatedPrice {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseDatedPrice()
     while (reader.pos < end) {
@@ -709,8 +695,9 @@ export const DatedPrice = {
 
   fromJSON(object: any): DatedPrice {
     return {
-      $type: DatedPrice.$type,
-      exchangeRate: isSet(object.exchangeRate) ? String(object.exchangeRate) : "",
+      exchangeRate: isSet(object.exchangeRate)
+        ? String(object.exchangeRate)
+        : "",
       createdBlock: isSet(object.createdBlock)
         ? Long.fromValue(object.createdBlock)
         : Long.UZERO,
@@ -719,7 +706,8 @@ export const DatedPrice = {
 
   toJSON(message: DatedPrice): unknown {
     const obj: any = {}
-    message.exchangeRate !== undefined && (obj.exchangeRate = message.exchangeRate)
+    message.exchangeRate !== undefined &&
+      (obj.exchangeRate = message.exchangeRate)
     message.createdBlock !== undefined &&
       (obj.createdBlock = (message.createdBlock || Long.UZERO).toString())
     return obj
@@ -729,7 +717,9 @@ export const DatedPrice = {
     return DatedPrice.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<DatedPrice>, I>>(object: I): DatedPrice {
+  fromPartial<I extends Exact<DeepPartial<DatedPrice>, I>>(
+    object: I
+  ): DatedPrice {
     const message = createBaseDatedPrice()
     message.exchangeRate = object.exchangeRate ?? ""
     message.createdBlock =
@@ -740,21 +730,15 @@ export const DatedPrice = {
   },
 }
 
-messageTypeRegistry.set(DatedPrice.$type, DatedPrice)
-
 function createBaseRewards(): Rewards {
-  return {
-    $type: "nibiru.oracle.v1.Rewards",
-    id: Long.UZERO,
-    votePeriods: Long.UZERO,
-    coins: [],
-  }
+  return { id: Long.UZERO, votePeriods: Long.UZERO, coins: [] }
 }
 
 export const Rewards = {
-  $type: "nibiru.oracle.v1.Rewards" as const,
-
-  encode(message: Rewards, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: Rewards,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id)
     }
@@ -768,7 +752,8 @@ export const Rewards = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Rewards {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseRewards()
     while (reader.pos < end) {
@@ -806,7 +791,6 @@ export const Rewards = {
 
   fromJSON(object: any): Rewards {
     return {
-      $type: Rewards.$type,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       votePeriods: isSet(object.votePeriods)
         ? Long.fromValue(object.votePeriods)
@@ -849,9 +833,14 @@ export const Rewards = {
   },
 }
 
-messageTypeRegistry.set(Rewards.$type, Rewards)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -862,14 +851,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

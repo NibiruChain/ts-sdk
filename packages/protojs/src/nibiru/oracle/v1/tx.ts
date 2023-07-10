@@ -1,7 +1,6 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.oracle.v1"
 
@@ -10,7 +9,6 @@ export const protobufPackage = "nibiru.oracle.v1"
  * aggregate exchange rate prevote.
  */
 export interface MsgAggregateExchangeRatePrevote {
-  $type: "nibiru.oracle.v1.MsgAggregateExchangeRatePrevote"
   hash: string
   /**
    * Feeder is the Bech32 address of the price feeder. A validator may
@@ -26,16 +24,13 @@ export interface MsgAggregateExchangeRatePrevote {
  * MsgAggregateExchangeRatePrevoteResponse defines the
  * Msg/AggregateExchangeRatePrevote response type.
  */
-export interface MsgAggregateExchangeRatePrevoteResponse {
-  $type: "nibiru.oracle.v1.MsgAggregateExchangeRatePrevoteResponse"
-}
+export interface MsgAggregateExchangeRatePrevoteResponse {}
 
 /**
  * MsgAggregateExchangeRateVote represents a message to submit
  * aggregate exchange rate vote.
  */
 export interface MsgAggregateExchangeRateVote {
-  $type: "nibiru.oracle.v1.MsgAggregateExchangeRateVote"
   salt: string
   exchangeRates: string
   /**
@@ -52,16 +47,13 @@ export interface MsgAggregateExchangeRateVote {
  * MsgAggregateExchangeRateVoteResponse defines the
  * Msg/AggregateExchangeRateVote response type.
  */
-export interface MsgAggregateExchangeRateVoteResponse {
-  $type: "nibiru.oracle.v1.MsgAggregateExchangeRateVoteResponse"
-}
+export interface MsgAggregateExchangeRateVoteResponse {}
 
 /**
  * MsgDelegateFeedConsent represents a message to delegate oracle voting rights
  * to another address.
  */
 export interface MsgDelegateFeedConsent {
-  $type: "nibiru.oracle.v1.MsgDelegateFeedConsent"
   operator: string
   delegate: string
 }
@@ -70,25 +62,16 @@ export interface MsgDelegateFeedConsent {
  * MsgDelegateFeedConsentResponse defines the Msg/DelegateFeedConsent response
  * type.
  */
-export interface MsgDelegateFeedConsentResponse {
-  $type: "nibiru.oracle.v1.MsgDelegateFeedConsentResponse"
-}
+export interface MsgDelegateFeedConsentResponse {}
 
 function createBaseMsgAggregateExchangeRatePrevote(): MsgAggregateExchangeRatePrevote {
-  return {
-    $type: "nibiru.oracle.v1.MsgAggregateExchangeRatePrevote",
-    hash: "",
-    feeder: "",
-    validator: "",
-  }
+  return { hash: "", feeder: "", validator: "" }
 }
 
 export const MsgAggregateExchangeRatePrevote = {
-  $type: "nibiru.oracle.v1.MsgAggregateExchangeRatePrevote" as const,
-
   encode(
     message: MsgAggregateExchangeRatePrevote,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.hash !== "") {
       writer.uint32(10).string(message.hash)
@@ -104,9 +87,10 @@ export const MsgAggregateExchangeRatePrevote = {
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number,
+    length?: number
   ): MsgAggregateExchangeRatePrevote {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgAggregateExchangeRatePrevote()
     while (reader.pos < end) {
@@ -144,7 +128,6 @@ export const MsgAggregateExchangeRatePrevote = {
 
   fromJSON(object: any): MsgAggregateExchangeRatePrevote {
     return {
-      $type: MsgAggregateExchangeRatePrevote.$type,
       hash: isSet(object.hash) ? String(object.hash) : "",
       feeder: isSet(object.feeder) ? String(object.feeder) : "",
       validator: isSet(object.validator) ? String(object.validator) : "",
@@ -160,13 +143,13 @@ export const MsgAggregateExchangeRatePrevote = {
   },
 
   create<I extends Exact<DeepPartial<MsgAggregateExchangeRatePrevote>, I>>(
-    base?: I,
+    base?: I
   ): MsgAggregateExchangeRatePrevote {
     return MsgAggregateExchangeRatePrevote.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgAggregateExchangeRatePrevote>, I>>(
-    object: I,
+    object: I
   ): MsgAggregateExchangeRatePrevote {
     const message = createBaseMsgAggregateExchangeRatePrevote()
     message.hash = object.hash ?? ""
@@ -176,30 +159,24 @@ export const MsgAggregateExchangeRatePrevote = {
   },
 }
 
-messageTypeRegistry.set(
-  MsgAggregateExchangeRatePrevote.$type,
-  MsgAggregateExchangeRatePrevote,
-)
-
 function createBaseMsgAggregateExchangeRatePrevoteResponse(): MsgAggregateExchangeRatePrevoteResponse {
-  return { $type: "nibiru.oracle.v1.MsgAggregateExchangeRatePrevoteResponse" }
+  return {}
 }
 
 export const MsgAggregateExchangeRatePrevoteResponse = {
-  $type: "nibiru.oracle.v1.MsgAggregateExchangeRatePrevoteResponse" as const,
-
   encode(
     _: MsgAggregateExchangeRatePrevoteResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number,
+    length?: number
   ): MsgAggregateExchangeRatePrevoteResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgAggregateExchangeRatePrevoteResponse()
     while (reader.pos < end) {
@@ -215,7 +192,7 @@ export const MsgAggregateExchangeRatePrevoteResponse = {
   },
 
   fromJSON(_: any): MsgAggregateExchangeRatePrevoteResponse {
-    return { $type: MsgAggregateExchangeRatePrevoteResponse.$type }
+    return {}
   },
 
   toJSON(_: MsgAggregateExchangeRatePrevoteResponse): unknown {
@@ -223,41 +200,28 @@ export const MsgAggregateExchangeRatePrevoteResponse = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<MsgAggregateExchangeRatePrevoteResponse>, I>>(
-    base?: I,
-  ): MsgAggregateExchangeRatePrevoteResponse {
+  create<
+    I extends Exact<DeepPartial<MsgAggregateExchangeRatePrevoteResponse>, I>
+  >(base?: I): MsgAggregateExchangeRatePrevoteResponse {
     return MsgAggregateExchangeRatePrevoteResponse.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgAggregateExchangeRatePrevoteResponse>, I>>(
-    _: I,
-  ): MsgAggregateExchangeRatePrevoteResponse {
+  fromPartial<
+    I extends Exact<DeepPartial<MsgAggregateExchangeRatePrevoteResponse>, I>
+  >(_: I): MsgAggregateExchangeRatePrevoteResponse {
     const message = createBaseMsgAggregateExchangeRatePrevoteResponse()
     return message
   },
 }
 
-messageTypeRegistry.set(
-  MsgAggregateExchangeRatePrevoteResponse.$type,
-  MsgAggregateExchangeRatePrevoteResponse,
-)
-
 function createBaseMsgAggregateExchangeRateVote(): MsgAggregateExchangeRateVote {
-  return {
-    $type: "nibiru.oracle.v1.MsgAggregateExchangeRateVote",
-    salt: "",
-    exchangeRates: "",
-    feeder: "",
-    validator: "",
-  }
+  return { salt: "", exchangeRates: "", feeder: "", validator: "" }
 }
 
 export const MsgAggregateExchangeRateVote = {
-  $type: "nibiru.oracle.v1.MsgAggregateExchangeRateVote" as const,
-
   encode(
     message: MsgAggregateExchangeRateVote,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.salt !== "") {
       writer.uint32(10).string(message.salt)
@@ -276,9 +240,10 @@ export const MsgAggregateExchangeRateVote = {
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number,
+    length?: number
   ): MsgAggregateExchangeRateVote {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgAggregateExchangeRateVote()
     while (reader.pos < end) {
@@ -323,9 +288,10 @@ export const MsgAggregateExchangeRateVote = {
 
   fromJSON(object: any): MsgAggregateExchangeRateVote {
     return {
-      $type: MsgAggregateExchangeRateVote.$type,
       salt: isSet(object.salt) ? String(object.salt) : "",
-      exchangeRates: isSet(object.exchangeRates) ? String(object.exchangeRates) : "",
+      exchangeRates: isSet(object.exchangeRates)
+        ? String(object.exchangeRates)
+        : "",
       feeder: isSet(object.feeder) ? String(object.feeder) : "",
       validator: isSet(object.validator) ? String(object.validator) : "",
     }
@@ -334,20 +300,21 @@ export const MsgAggregateExchangeRateVote = {
   toJSON(message: MsgAggregateExchangeRateVote): unknown {
     const obj: any = {}
     message.salt !== undefined && (obj.salt = message.salt)
-    message.exchangeRates !== undefined && (obj.exchangeRates = message.exchangeRates)
+    message.exchangeRates !== undefined &&
+      (obj.exchangeRates = message.exchangeRates)
     message.feeder !== undefined && (obj.feeder = message.feeder)
     message.validator !== undefined && (obj.validator = message.validator)
     return obj
   },
 
   create<I extends Exact<DeepPartial<MsgAggregateExchangeRateVote>, I>>(
-    base?: I,
+    base?: I
   ): MsgAggregateExchangeRateVote {
     return MsgAggregateExchangeRateVote.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgAggregateExchangeRateVote>, I>>(
-    object: I,
+    object: I
   ): MsgAggregateExchangeRateVote {
     const message = createBaseMsgAggregateExchangeRateVote()
     message.salt = object.salt ?? ""
@@ -358,30 +325,24 @@ export const MsgAggregateExchangeRateVote = {
   },
 }
 
-messageTypeRegistry.set(
-  MsgAggregateExchangeRateVote.$type,
-  MsgAggregateExchangeRateVote,
-)
-
 function createBaseMsgAggregateExchangeRateVoteResponse(): MsgAggregateExchangeRateVoteResponse {
-  return { $type: "nibiru.oracle.v1.MsgAggregateExchangeRateVoteResponse" }
+  return {}
 }
 
 export const MsgAggregateExchangeRateVoteResponse = {
-  $type: "nibiru.oracle.v1.MsgAggregateExchangeRateVoteResponse" as const,
-
   encode(
     _: MsgAggregateExchangeRateVoteResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number,
+    length?: number
   ): MsgAggregateExchangeRateVoteResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgAggregateExchangeRateVoteResponse()
     while (reader.pos < end) {
@@ -397,7 +358,7 @@ export const MsgAggregateExchangeRateVoteResponse = {
   },
 
   fromJSON(_: any): MsgAggregateExchangeRateVoteResponse {
-    return { $type: MsgAggregateExchangeRateVoteResponse.$type }
+    return {}
   },
 
   toJSON(_: MsgAggregateExchangeRateVoteResponse): unknown {
@@ -406,38 +367,27 @@ export const MsgAggregateExchangeRateVoteResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgAggregateExchangeRateVoteResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgAggregateExchangeRateVoteResponse {
     return MsgAggregateExchangeRateVoteResponse.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgAggregateExchangeRateVoteResponse>, I>>(
-    _: I,
-  ): MsgAggregateExchangeRateVoteResponse {
+  fromPartial<
+    I extends Exact<DeepPartial<MsgAggregateExchangeRateVoteResponse>, I>
+  >(_: I): MsgAggregateExchangeRateVoteResponse {
     const message = createBaseMsgAggregateExchangeRateVoteResponse()
     return message
   },
 }
 
-messageTypeRegistry.set(
-  MsgAggregateExchangeRateVoteResponse.$type,
-  MsgAggregateExchangeRateVoteResponse,
-)
-
 function createBaseMsgDelegateFeedConsent(): MsgDelegateFeedConsent {
-  return {
-    $type: "nibiru.oracle.v1.MsgDelegateFeedConsent",
-    operator: "",
-    delegate: "",
-  }
+  return { operator: "", delegate: "" }
 }
 
 export const MsgDelegateFeedConsent = {
-  $type: "nibiru.oracle.v1.MsgDelegateFeedConsent" as const,
-
   encode(
     message: MsgDelegateFeedConsent,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.operator !== "") {
       writer.uint32(10).string(message.operator)
@@ -448,8 +398,12 @@ export const MsgDelegateFeedConsent = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDelegateFeedConsent {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgDelegateFeedConsent {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgDelegateFeedConsent()
     while (reader.pos < end) {
@@ -480,7 +434,6 @@ export const MsgDelegateFeedConsent = {
 
   fromJSON(object: any): MsgDelegateFeedConsent {
     return {
-      $type: MsgDelegateFeedConsent.$type,
       operator: isSet(object.operator) ? String(object.operator) : "",
       delegate: isSet(object.delegate) ? String(object.delegate) : "",
     }
@@ -494,13 +447,13 @@ export const MsgDelegateFeedConsent = {
   },
 
   create<I extends Exact<DeepPartial<MsgDelegateFeedConsent>, I>>(
-    base?: I,
+    base?: I
   ): MsgDelegateFeedConsent {
     return MsgDelegateFeedConsent.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDelegateFeedConsent>, I>>(
-    object: I,
+    object: I
   ): MsgDelegateFeedConsent {
     const message = createBaseMsgDelegateFeedConsent()
     message.operator = object.operator ?? ""
@@ -509,27 +462,24 @@ export const MsgDelegateFeedConsent = {
   },
 }
 
-messageTypeRegistry.set(MsgDelegateFeedConsent.$type, MsgDelegateFeedConsent)
-
 function createBaseMsgDelegateFeedConsentResponse(): MsgDelegateFeedConsentResponse {
-  return { $type: "nibiru.oracle.v1.MsgDelegateFeedConsentResponse" }
+  return {}
 }
 
 export const MsgDelegateFeedConsentResponse = {
-  $type: "nibiru.oracle.v1.MsgDelegateFeedConsentResponse" as const,
-
   encode(
     _: MsgDelegateFeedConsentResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number,
+    length?: number
   ): MsgDelegateFeedConsentResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgDelegateFeedConsentResponse()
     while (reader.pos < end) {
@@ -545,7 +495,7 @@ export const MsgDelegateFeedConsentResponse = {
   },
 
   fromJSON(_: any): MsgDelegateFeedConsentResponse {
-    return { $type: MsgDelegateFeedConsentResponse.$type }
+    return {}
   },
 
   toJSON(_: MsgDelegateFeedConsentResponse): unknown {
@@ -554,23 +504,18 @@ export const MsgDelegateFeedConsentResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgDelegateFeedConsentResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgDelegateFeedConsentResponse {
     return MsgDelegateFeedConsentResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDelegateFeedConsentResponse>, I>>(
-    _: I,
+    _: I
   ): MsgDelegateFeedConsentResponse {
     const message = createBaseMsgDelegateFeedConsentResponse()
     return message
   },
 }
-
-messageTypeRegistry.set(
-  MsgDelegateFeedConsentResponse.$type,
-  MsgDelegateFeedConsentResponse,
-)
 
 /** Msg defines the oracle Msg service. */
 export interface Msg {
@@ -579,14 +524,14 @@ export interface Msg {
    * aggregate exchange rate prevote
    */
   AggregateExchangeRatePrevote(
-    request: MsgAggregateExchangeRatePrevote,
+    request: MsgAggregateExchangeRatePrevote
   ): Promise<MsgAggregateExchangeRatePrevoteResponse>
   /**
    * AggregateExchangeRateVote defines a method for submitting
    * aggregate exchange rate vote
    */
   AggregateExchangeRateVote(
-    request: MsgAggregateExchangeRateVote,
+    request: MsgAggregateExchangeRateVote
   ): Promise<MsgAggregateExchangeRateVoteResponse>
   /**
    * DelegateFeedConsent defines a method for delegating oracle voting rights
@@ -594,7 +539,7 @@ export interface Msg {
    * See https://github.com/NibiruChain/pricefeeder.
    */
   DelegateFeedConsent(
-    request: MsgDelegateFeedConsent,
+    request: MsgDelegateFeedConsent
   ): Promise<MsgDelegateFeedConsentResponse>
 }
 
@@ -605,46 +550,66 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc, opts?: { service?: string }) {
     this.service = opts?.service || MsgServiceName
     this.rpc = rpc
-    this.AggregateExchangeRatePrevote = this.AggregateExchangeRatePrevote.bind(this)
+    this.AggregateExchangeRatePrevote =
+      this.AggregateExchangeRatePrevote.bind(this)
     this.AggregateExchangeRateVote = this.AggregateExchangeRateVote.bind(this)
     this.DelegateFeedConsent = this.DelegateFeedConsent.bind(this)
   }
   AggregateExchangeRatePrevote(
-    request: MsgAggregateExchangeRatePrevote,
+    request: MsgAggregateExchangeRatePrevote
   ): Promise<MsgAggregateExchangeRatePrevoteResponse> {
     const data = MsgAggregateExchangeRatePrevote.encode(request).finish()
-    const promise = this.rpc.request(this.service, "AggregateExchangeRatePrevote", data)
+    const promise = this.rpc.request(
+      this.service,
+      "AggregateExchangeRatePrevote",
+      data
+    )
     return promise.then((data) =>
-      MsgAggregateExchangeRatePrevoteResponse.decode(_m0.Reader.create(data)),
+      MsgAggregateExchangeRatePrevoteResponse.decode(_m0.Reader.create(data))
     )
   }
 
   AggregateExchangeRateVote(
-    request: MsgAggregateExchangeRateVote,
+    request: MsgAggregateExchangeRateVote
   ): Promise<MsgAggregateExchangeRateVoteResponse> {
     const data = MsgAggregateExchangeRateVote.encode(request).finish()
-    const promise = this.rpc.request(this.service, "AggregateExchangeRateVote", data)
+    const promise = this.rpc.request(
+      this.service,
+      "AggregateExchangeRateVote",
+      data
+    )
     return promise.then((data) =>
-      MsgAggregateExchangeRateVoteResponse.decode(_m0.Reader.create(data)),
+      MsgAggregateExchangeRateVoteResponse.decode(_m0.Reader.create(data))
     )
   }
 
   DelegateFeedConsent(
-    request: MsgDelegateFeedConsent,
+    request: MsgDelegateFeedConsent
   ): Promise<MsgDelegateFeedConsentResponse> {
     const data = MsgDelegateFeedConsent.encode(request).finish()
     const promise = this.rpc.request(this.service, "DelegateFeedConsent", data)
     return promise.then((data) =>
-      MsgDelegateFeedConsentResponse.decode(_m0.Reader.create(data)),
+      MsgDelegateFeedConsentResponse.decode(_m0.Reader.create(data))
     )
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -655,14 +620,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

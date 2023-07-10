@@ -2,26 +2,22 @@
 import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Coin } from "../../../cosmos/base/v1beta1/coin"
-import { messageTypeRegistry } from "../../../typeRegistry"
 import { Pool, PoolAsset, PoolParams } from "./pool"
 
 export const protobufPackage = "nibiru.spot.v1"
 
 export interface MsgCreatePool {
-  $type: "nibiru.spot.v1.MsgCreatePool"
   creator: string
   poolParams?: PoolParams
   poolAssets: PoolAsset[]
 }
 
 export interface MsgCreatePoolResponse {
-  $type: "nibiru.spot.v1.MsgCreatePoolResponse"
   poolId: Long
 }
 
 /** Message to join a pool (identified by poolId) with a set of tokens to deposit. */
 export interface MsgJoinPool {
-  $type: "nibiru.spot.v1.MsgJoinPool"
   sender: string
   poolId: Long
   tokensIn: Coin[]
@@ -30,7 +26,6 @@ export interface MsgJoinPool {
 
 /** Response when a user joins a pool. */
 export interface MsgJoinPoolResponse {
-  $type: "nibiru.spot.v1.MsgJoinPoolResponse"
   /** the final state of the pool after a join */
   pool?: Pool
   /** sum of LP tokens minted from the join */
@@ -40,19 +35,16 @@ export interface MsgJoinPoolResponse {
 }
 
 export interface MsgExitPool {
-  $type: "nibiru.spot.v1.MsgExitPool"
   sender: string
   poolId: Long
   poolShares?: Coin
 }
 
 export interface MsgExitPoolResponse {
-  $type: "nibiru.spot.v1.MsgExitPoolResponse"
   tokensOut: Coin[]
 }
 
 export interface MsgSwapAssets {
-  $type: "nibiru.spot.v1.MsgSwapAssets"
   sender: string
   poolId: Long
   tokenIn?: Coin
@@ -60,23 +52,18 @@ export interface MsgSwapAssets {
 }
 
 export interface MsgSwapAssetsResponse {
-  $type: "nibiru.spot.v1.MsgSwapAssetsResponse"
   tokenOut?: Coin
 }
 
 function createBaseMsgCreatePool(): MsgCreatePool {
-  return {
-    $type: "nibiru.spot.v1.MsgCreatePool",
-    creator: "",
-    poolParams: undefined,
-    poolAssets: [],
-  }
+  return { creator: "", poolParams: undefined, poolAssets: [] }
 }
 
 export const MsgCreatePool = {
-  $type: "nibiru.spot.v1.MsgCreatePool" as const,
-
-  encode(message: MsgCreatePool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgCreatePool,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator)
     }
@@ -90,7 +77,8 @@ export const MsgCreatePool = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePool {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgCreatePool()
     while (reader.pos < end) {
@@ -128,7 +116,6 @@ export const MsgCreatePool = {
 
   fromJSON(object: any): MsgCreatePool {
     return {
-      $type: MsgCreatePool.$type,
       creator: isSet(object.creator) ? String(object.creator) : "",
       poolParams: isSet(object.poolParams)
         ? PoolParams.fromJSON(object.poolParams)
@@ -148,7 +135,7 @@ export const MsgCreatePool = {
         : undefined)
     if (message.poolAssets) {
       obj.poolAssets = message.poolAssets.map((e) =>
-        e ? PoolAsset.toJSON(e) : undefined,
+        e ? PoolAsset.toJSON(e) : undefined
       )
     } else {
       obj.poolAssets = []
@@ -156,12 +143,14 @@ export const MsgCreatePool = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<MsgCreatePool>, I>>(base?: I): MsgCreatePool {
+  create<I extends Exact<DeepPartial<MsgCreatePool>, I>>(
+    base?: I
+  ): MsgCreatePool {
     return MsgCreatePool.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCreatePool>, I>>(
-    object: I,
+    object: I
   ): MsgCreatePool {
     const message = createBaseMsgCreatePool()
     message.creator = object.creator ?? ""
@@ -169,23 +158,20 @@ export const MsgCreatePool = {
       object.poolParams !== undefined && object.poolParams !== null
         ? PoolParams.fromPartial(object.poolParams)
         : undefined
-    message.poolAssets = object.poolAssets?.map((e) => PoolAsset.fromPartial(e)) || []
+    message.poolAssets =
+      object.poolAssets?.map((e) => PoolAsset.fromPartial(e)) || []
     return message
   },
 }
 
-messageTypeRegistry.set(MsgCreatePool.$type, MsgCreatePool)
-
 function createBaseMsgCreatePoolResponse(): MsgCreatePoolResponse {
-  return { $type: "nibiru.spot.v1.MsgCreatePoolResponse", poolId: Long.UZERO }
+  return { poolId: Long.UZERO }
 }
 
 export const MsgCreatePoolResponse = {
-  $type: "nibiru.spot.v1.MsgCreatePoolResponse" as const,
-
   encode(
     message: MsgCreatePoolResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.poolId.isZero()) {
       writer.uint32(8).uint64(message.poolId)
@@ -193,8 +179,12 @@ export const MsgCreatePoolResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePoolResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgCreatePoolResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgCreatePoolResponse()
     while (reader.pos < end) {
@@ -218,7 +208,6 @@ export const MsgCreatePoolResponse = {
 
   fromJSON(object: any): MsgCreatePoolResponse {
     return {
-      $type: MsgCreatePoolResponse.$type,
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
     }
   },
@@ -231,13 +220,13 @@ export const MsgCreatePoolResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgCreatePoolResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgCreatePoolResponse {
     return MsgCreatePoolResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCreatePoolResponse>, I>>(
-    object: I,
+    object: I
   ): MsgCreatePoolResponse {
     const message = createBaseMsgCreatePoolResponse()
     message.poolId =
@@ -248,22 +237,15 @@ export const MsgCreatePoolResponse = {
   },
 }
 
-messageTypeRegistry.set(MsgCreatePoolResponse.$type, MsgCreatePoolResponse)
-
 function createBaseMsgJoinPool(): MsgJoinPool {
-  return {
-    $type: "nibiru.spot.v1.MsgJoinPool",
-    sender: "",
-    poolId: Long.UZERO,
-    tokensIn: [],
-    useAllCoins: false,
-  }
+  return { sender: "", poolId: Long.UZERO, tokensIn: [], useAllCoins: false }
 }
 
 export const MsgJoinPool = {
-  $type: "nibiru.spot.v1.MsgJoinPool" as const,
-
-  encode(message: MsgJoinPool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgJoinPool,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
@@ -280,7 +262,8 @@ export const MsgJoinPool = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgJoinPool {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgJoinPool()
     while (reader.pos < end) {
@@ -325,13 +308,14 @@ export const MsgJoinPool = {
 
   fromJSON(object: any): MsgJoinPool {
     return {
-      $type: MsgJoinPool.$type,
       sender: isSet(object.sender) ? String(object.sender) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       tokensIn: Array.isArray(object?.tokensIn)
         ? object.tokensIn.map((e: any) => Coin.fromJSON(e))
         : [],
-      useAllCoins: isSet(object.useAllCoins) ? Boolean(object.useAllCoins) : false,
+      useAllCoins: isSet(object.useAllCoins)
+        ? Boolean(object.useAllCoins)
+        : false,
     }
   },
 
@@ -341,7 +325,9 @@ export const MsgJoinPool = {
     message.poolId !== undefined &&
       (obj.poolId = (message.poolId || Long.UZERO).toString())
     if (message.tokensIn) {
-      obj.tokensIn = message.tokensIn.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.tokensIn = message.tokensIn.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      )
     } else {
       obj.tokensIn = []
     }
@@ -353,7 +339,9 @@ export const MsgJoinPool = {
     return MsgJoinPool.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgJoinPool>, I>>(object: I): MsgJoinPool {
+  fromPartial<I extends Exact<DeepPartial<MsgJoinPool>, I>>(
+    object: I
+  ): MsgJoinPool {
     const message = createBaseMsgJoinPool()
     message.sender = object.sender ?? ""
     message.poolId =
@@ -366,23 +354,14 @@ export const MsgJoinPool = {
   },
 }
 
-messageTypeRegistry.set(MsgJoinPool.$type, MsgJoinPool)
-
 function createBaseMsgJoinPoolResponse(): MsgJoinPoolResponse {
-  return {
-    $type: "nibiru.spot.v1.MsgJoinPoolResponse",
-    pool: undefined,
-    numPoolSharesOut: undefined,
-    remainingCoins: [],
-  }
+  return { pool: undefined, numPoolSharesOut: undefined, remainingCoins: [] }
 }
 
 export const MsgJoinPoolResponse = {
-  $type: "nibiru.spot.v1.MsgJoinPoolResponse" as const,
-
   encode(
     message: MsgJoinPoolResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.pool !== undefined) {
       Pool.encode(message.pool, writer.uint32(10).fork()).ldelim()
@@ -397,7 +376,8 @@ export const MsgJoinPoolResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgJoinPoolResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgJoinPoolResponse()
     while (reader.pos < end) {
@@ -435,7 +415,6 @@ export const MsgJoinPoolResponse = {
 
   fromJSON(object: any): MsgJoinPoolResponse {
     return {
-      $type: MsgJoinPoolResponse.$type,
       pool: isSet(object.pool) ? Pool.fromJSON(object.pool) : undefined,
       numPoolSharesOut: isSet(object.numPoolSharesOut)
         ? Coin.fromJSON(object.numPoolSharesOut)
@@ -456,7 +435,7 @@ export const MsgJoinPoolResponse = {
         : undefined)
     if (message.remainingCoins) {
       obj.remainingCoins = message.remainingCoins.map((e) =>
-        e ? Coin.toJSON(e) : undefined,
+        e ? Coin.toJSON(e) : undefined
       )
     } else {
       obj.remainingCoins = []
@@ -465,13 +444,13 @@ export const MsgJoinPoolResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgJoinPoolResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgJoinPoolResponse {
     return MsgJoinPoolResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgJoinPoolResponse>, I>>(
-    object: I,
+    object: I
   ): MsgJoinPoolResponse {
     const message = createBaseMsgJoinPoolResponse()
     message.pool =
@@ -488,21 +467,15 @@ export const MsgJoinPoolResponse = {
   },
 }
 
-messageTypeRegistry.set(MsgJoinPoolResponse.$type, MsgJoinPoolResponse)
-
 function createBaseMsgExitPool(): MsgExitPool {
-  return {
-    $type: "nibiru.spot.v1.MsgExitPool",
-    sender: "",
-    poolId: Long.UZERO,
-    poolShares: undefined,
-  }
+  return { sender: "", poolId: Long.UZERO, poolShares: undefined }
 }
 
 export const MsgExitPool = {
-  $type: "nibiru.spot.v1.MsgExitPool" as const,
-
-  encode(message: MsgExitPool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgExitPool,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
@@ -516,7 +489,8 @@ export const MsgExitPool = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgExitPool {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgExitPool()
     while (reader.pos < end) {
@@ -554,7 +528,6 @@ export const MsgExitPool = {
 
   fromJSON(object: any): MsgExitPool {
     return {
-      $type: MsgExitPool.$type,
       sender: isSet(object.sender) ? String(object.sender) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       poolShares: isSet(object.poolShares)
@@ -579,7 +552,9 @@ export const MsgExitPool = {
     return MsgExitPool.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgExitPool>, I>>(object: I): MsgExitPool {
+  fromPartial<I extends Exact<DeepPartial<MsgExitPool>, I>>(
+    object: I
+  ): MsgExitPool {
     const message = createBaseMsgExitPool()
     message.sender = object.sender ?? ""
     message.poolId =
@@ -594,18 +569,14 @@ export const MsgExitPool = {
   },
 }
 
-messageTypeRegistry.set(MsgExitPool.$type, MsgExitPool)
-
 function createBaseMsgExitPoolResponse(): MsgExitPoolResponse {
-  return { $type: "nibiru.spot.v1.MsgExitPoolResponse", tokensOut: [] }
+  return { tokensOut: [] }
 }
 
 export const MsgExitPoolResponse = {
-  $type: "nibiru.spot.v1.MsgExitPoolResponse" as const,
-
   encode(
     message: MsgExitPoolResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.tokensOut) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim()
@@ -614,7 +585,8 @@ export const MsgExitPoolResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgExitPoolResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgExitPoolResponse()
     while (reader.pos < end) {
@@ -638,7 +610,6 @@ export const MsgExitPoolResponse = {
 
   fromJSON(object: any): MsgExitPoolResponse {
     return {
-      $type: MsgExitPoolResponse.$type,
       tokensOut: Array.isArray(object?.tokensOut)
         ? object.tokensOut.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -648,7 +619,9 @@ export const MsgExitPoolResponse = {
   toJSON(message: MsgExitPoolResponse): unknown {
     const obj: any = {}
     if (message.tokensOut) {
-      obj.tokensOut = message.tokensOut.map((e) => (e ? Coin.toJSON(e) : undefined))
+      obj.tokensOut = message.tokensOut.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      )
     } else {
       obj.tokensOut = []
     }
@@ -656,13 +629,13 @@ export const MsgExitPoolResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgExitPoolResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgExitPoolResponse {
     return MsgExitPoolResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgExitPoolResponse>, I>>(
-    object: I,
+    object: I
   ): MsgExitPoolResponse {
     const message = createBaseMsgExitPoolResponse()
     message.tokensOut = object.tokensOut?.map((e) => Coin.fromPartial(e)) || []
@@ -670,11 +643,8 @@ export const MsgExitPoolResponse = {
   },
 }
 
-messageTypeRegistry.set(MsgExitPoolResponse.$type, MsgExitPoolResponse)
-
 function createBaseMsgSwapAssets(): MsgSwapAssets {
   return {
-    $type: "nibiru.spot.v1.MsgSwapAssets",
     sender: "",
     poolId: Long.UZERO,
     tokenIn: undefined,
@@ -683,9 +653,10 @@ function createBaseMsgSwapAssets(): MsgSwapAssets {
 }
 
 export const MsgSwapAssets = {
-  $type: "nibiru.spot.v1.MsgSwapAssets" as const,
-
-  encode(message: MsgSwapAssets, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgSwapAssets,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender)
     }
@@ -702,7 +673,8 @@ export const MsgSwapAssets = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgSwapAssets {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgSwapAssets()
     while (reader.pos < end) {
@@ -747,11 +719,14 @@ export const MsgSwapAssets = {
 
   fromJSON(object: any): MsgSwapAssets {
     return {
-      $type: MsgSwapAssets.$type,
       sender: isSet(object.sender) ? String(object.sender) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      tokenIn: isSet(object.tokenIn) ? Coin.fromJSON(object.tokenIn) : undefined,
-      tokenOutDenom: isSet(object.tokenOutDenom) ? String(object.tokenOutDenom) : "",
+      tokenIn: isSet(object.tokenIn)
+        ? Coin.fromJSON(object.tokenIn)
+        : undefined,
+      tokenOutDenom: isSet(object.tokenOutDenom)
+        ? String(object.tokenOutDenom)
+        : "",
     }
   },
 
@@ -762,16 +737,19 @@ export const MsgSwapAssets = {
       (obj.poolId = (message.poolId || Long.UZERO).toString())
     message.tokenIn !== undefined &&
       (obj.tokenIn = message.tokenIn ? Coin.toJSON(message.tokenIn) : undefined)
-    message.tokenOutDenom !== undefined && (obj.tokenOutDenom = message.tokenOutDenom)
+    message.tokenOutDenom !== undefined &&
+      (obj.tokenOutDenom = message.tokenOutDenom)
     return obj
   },
 
-  create<I extends Exact<DeepPartial<MsgSwapAssets>, I>>(base?: I): MsgSwapAssets {
+  create<I extends Exact<DeepPartial<MsgSwapAssets>, I>>(
+    base?: I
+  ): MsgSwapAssets {
     return MsgSwapAssets.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSwapAssets>, I>>(
-    object: I,
+    object: I
   ): MsgSwapAssets {
     const message = createBaseMsgSwapAssets()
     message.sender = object.sender ?? ""
@@ -788,18 +766,14 @@ export const MsgSwapAssets = {
   },
 }
 
-messageTypeRegistry.set(MsgSwapAssets.$type, MsgSwapAssets)
-
 function createBaseMsgSwapAssetsResponse(): MsgSwapAssetsResponse {
-  return { $type: "nibiru.spot.v1.MsgSwapAssetsResponse", tokenOut: undefined }
+  return { tokenOut: undefined }
 }
 
 export const MsgSwapAssetsResponse = {
-  $type: "nibiru.spot.v1.MsgSwapAssetsResponse" as const,
-
   encode(
     message: MsgSwapAssetsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.tokenOut !== undefined) {
       Coin.encode(message.tokenOut, writer.uint32(26).fork()).ldelim()
@@ -807,8 +781,12 @@ export const MsgSwapAssetsResponse = {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSwapAssetsResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgSwapAssetsResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgSwapAssetsResponse()
     while (reader.pos < end) {
@@ -832,26 +810,29 @@ export const MsgSwapAssetsResponse = {
 
   fromJSON(object: any): MsgSwapAssetsResponse {
     return {
-      $type: MsgSwapAssetsResponse.$type,
-      tokenOut: isSet(object.tokenOut) ? Coin.fromJSON(object.tokenOut) : undefined,
+      tokenOut: isSet(object.tokenOut)
+        ? Coin.fromJSON(object.tokenOut)
+        : undefined,
     }
   },
 
   toJSON(message: MsgSwapAssetsResponse): unknown {
     const obj: any = {}
     message.tokenOut !== undefined &&
-      (obj.tokenOut = message.tokenOut ? Coin.toJSON(message.tokenOut) : undefined)
+      (obj.tokenOut = message.tokenOut
+        ? Coin.toJSON(message.tokenOut)
+        : undefined)
     return obj
   },
 
   create<I extends Exact<DeepPartial<MsgSwapAssetsResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgSwapAssetsResponse {
     return MsgSwapAssetsResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSwapAssetsResponse>, I>>(
-    object: I,
+    object: I
   ): MsgSwapAssetsResponse {
     const message = createBaseMsgSwapAssetsResponse()
     message.tokenOut =
@@ -861,8 +842,6 @@ export const MsgSwapAssetsResponse = {
     return message
   },
 }
-
-messageTypeRegistry.set(MsgSwapAssetsResponse.$type, MsgSwapAssetsResponse)
 
 /** Msg defines the Msg service. */
 export interface Msg {
@@ -891,33 +870,52 @@ export class MsgClientImpl implements Msg {
   CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse> {
     const data = MsgCreatePool.encode(request).finish()
     const promise = this.rpc.request(this.service, "CreatePool", data)
-    return promise.then((data) => MsgCreatePoolResponse.decode(_m0.Reader.create(data)))
+    return promise.then((data) =>
+      MsgCreatePoolResponse.decode(_m0.Reader.create(data))
+    )
   }
 
   JoinPool(request: MsgJoinPool): Promise<MsgJoinPoolResponse> {
     const data = MsgJoinPool.encode(request).finish()
     const promise = this.rpc.request(this.service, "JoinPool", data)
-    return promise.then((data) => MsgJoinPoolResponse.decode(_m0.Reader.create(data)))
+    return promise.then((data) =>
+      MsgJoinPoolResponse.decode(_m0.Reader.create(data))
+    )
   }
 
   ExitPool(request: MsgExitPool): Promise<MsgExitPoolResponse> {
     const data = MsgExitPool.encode(request).finish()
     const promise = this.rpc.request(this.service, "ExitPool", data)
-    return promise.then((data) => MsgExitPoolResponse.decode(_m0.Reader.create(data)))
+    return promise.then((data) =>
+      MsgExitPoolResponse.decode(_m0.Reader.create(data))
+    )
   }
 
   SwapAssets(request: MsgSwapAssets): Promise<MsgSwapAssetsResponse> {
     const data = MsgSwapAssets.encode(request).finish()
     const promise = this.rpc.request(this.service, "SwapAssets", data)
-    return promise.then((data) => MsgSwapAssetsResponse.decode(_m0.Reader.create(data)))
+    return promise.then((data) =>
+      MsgSwapAssetsResponse.decode(_m0.Reader.create(data))
+    )
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -928,14 +926,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

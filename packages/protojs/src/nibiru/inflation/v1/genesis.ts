@@ -1,14 +1,12 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 import { ExponentialCalculation, InflationDistribution } from "./inflation"
 
 export const protobufPackage = "nibiru.inflation.v1"
 
 /** GenesisState defines the inflation module's genesis state. */
 export interface GenesisState {
-  $type: "nibiru.inflation.v1.GenesisState"
   /** params defines all the parameters of the module. */
   params?: Params
   /** period is the amount of past periods, based on the epochs per period param */
@@ -22,7 +20,6 @@ export interface GenesisState {
 
 /** Params holds parameters for the inflation module. */
 export interface Params {
-  $type: "nibiru.inflation.v1.Params"
   /**
    * inflation_enabled is the parameter that enables inflation and halts
    * increasing the skipped_epochs
@@ -43,18 +40,14 @@ export interface Params {
 }
 
 function createBaseGenesisState(): GenesisState {
-  return {
-    $type: "nibiru.inflation.v1.GenesisState",
-    params: undefined,
-    period: Long.UZERO,
-    skippedEpochs: Long.UZERO,
-  }
+  return { params: undefined, period: Long.UZERO, skippedEpochs: Long.UZERO }
 }
 
 export const GenesisState = {
-  $type: "nibiru.inflation.v1.GenesisState" as const,
-
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: GenesisState,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim()
     }
@@ -68,7 +61,8 @@ export const GenesisState = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseGenesisState()
     while (reader.pos < end) {
@@ -106,7 +100,6 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      $type: GenesisState.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       period: isSet(object.period) ? Long.fromValue(object.period) : Long.UZERO,
       skippedEpochs: isSet(object.skippedEpochs)
@@ -126,11 +119,15 @@ export const GenesisState = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(
+    base?: I
+  ): GenesisState {
     return GenesisState.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
+    object: I
+  ): GenesisState {
     const message = createBaseGenesisState()
     message.params =
       object.params !== undefined && object.params !== null
@@ -148,11 +145,8 @@ export const GenesisState = {
   },
 }
 
-messageTypeRegistry.set(GenesisState.$type, GenesisState)
-
 function createBaseParams(): Params {
   return {
-    $type: "nibiru.inflation.v1.Params",
     inflationEnabled: false,
     exponentialCalculation: undefined,
     inflationDistribution: undefined,
@@ -161,22 +155,23 @@ function createBaseParams(): Params {
 }
 
 export const Params = {
-  $type: "nibiru.inflation.v1.Params" as const,
-
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: Params,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.inflationEnabled === true) {
       writer.uint32(8).bool(message.inflationEnabled)
     }
     if (message.exponentialCalculation !== undefined) {
       ExponentialCalculation.encode(
         message.exponentialCalculation,
-        writer.uint32(18).fork(),
+        writer.uint32(18).fork()
       ).ldelim()
     }
     if (message.inflationDistribution !== undefined) {
       InflationDistribution.encode(
         message.inflationDistribution,
-        writer.uint32(26).fork(),
+        writer.uint32(26).fork()
       ).ldelim()
     }
     if (!message.epochsPerPeriod.isZero()) {
@@ -186,7 +181,8 @@ export const Params = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseParams()
     while (reader.pos < end) {
@@ -206,7 +202,7 @@ export const Params = {
 
           message.exponentialCalculation = ExponentialCalculation.decode(
             reader,
-            reader.uint32(),
+            reader.uint32()
           )
           continue
         case 3:
@@ -216,7 +212,7 @@ export const Params = {
 
           message.inflationDistribution = InflationDistribution.decode(
             reader,
-            reader.uint32(),
+            reader.uint32()
           )
           continue
         case 4:
@@ -237,7 +233,6 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      $type: Params.$type,
       inflationEnabled: isSet(object.inflationEnabled)
         ? Boolean(object.inflationEnabled)
         : false,
@@ -295,9 +290,14 @@ export const Params = {
   },
 }
 
-messageTypeRegistry.set(Params.$type, Params)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -308,14 +308,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

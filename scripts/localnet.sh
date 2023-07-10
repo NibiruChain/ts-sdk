@@ -34,17 +34,6 @@ echo_success() {
   echo "${reset}"
 }
 
-echo_info "Get nibid binary..."
-if make install; then
-  echo_info "Building from source..."
-  echo_success "Successfully built binary"
-elif nibid; then
-  echo_success "Successfully used pre-installed binary."
-else
-  echo_error "Could not build binary. Failed to make install."
-  exit 1
-fi
-
 # Set localnet settings
 BINARY="nibid"
 CHAIN_ID="nibiru-localnet-0"
@@ -103,7 +92,7 @@ fi
 
 # Configure broadcast mode
 echo_info "Configuring broadcast mode..."
-if $BINARY config broadcast-mode block; then
+if $BINARY config broadcast-mode sync; then
   echo_success "Successfully configured broadcast-mode"
 else
   echo_error "Failed to configure broadcast mode"
@@ -150,14 +139,14 @@ else
 fi
 
 echo_info "Adding gentx validator..."
-if $BINARY gentx validator 900000000unibi --chain-id $CHAIN_ID; then
+if $BINARY genesis gentx validator 900000000unibi --chain-id $CHAIN_ID; then
   echo_success "Successfully added gentx"
 else
   echo_error "Failed to add gentx"
 fi
 
 echo_info "Collecting gentx..."
-if $BINARY collect-gentxs; then
+if $BINARY genesis collect-gentxs; then
   echo_success "Successfully collected genesis txs into genesis.json"
 else
   echo_error "Failed to collect genesis txs"
@@ -179,10 +168,9 @@ add_genesis_param() {
   mv $CHAIN_DIR/config/tmp_genesis.json $CHAIN_DIR/config/genesis.json
 }
 
-echo_info "Configuring genesis params"
 
-add_genesis_vpools_with_coingecko_prices() {
-  local temp_json_fname="tmp_vpool_prices.json"
+add_genesis_perp_markets_with_coingecko_prices() {
+  local temp_json_fname="tmp_market_prices.json"
   curl -X 'GET' \
     'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_currencies=usd' \
     -H 'accept: application/json' \
@@ -190,63 +178,54 @@ add_genesis_vpools_with_coingecko_prices() {
 
   local M=1000000
 
-  local num_users=24000
+  local num_users=300000
   local faucet_nusd_amt=100
-  local quote_amt=$(($num_users * $faucet_nusd_amt * $M))
+  local reserve_amt=$(($num_users * $faucet_nusd_amt * $M))
 
-  price_btc=$(cat tmp_vpool_prices.json | jq -r '.bitcoin.usd')
+  price_btc=$(cat tmp_market_prices.json | jq -r '.bitcoin.usd')
   price_btc=${price_btc%.*}
-  base_amt_btc=$(($quote_amt / $price_btc))
+  if [ -z "$price_btc" ]; then
+    return 1
+  fi
 
-  price_eth=$(cat tmp_vpool_prices.json | jq -r '.ethereum.usd')
+  check_fail() {
+    if [ $? -eq 0 ]; then
+      echo_success "Command \"$*\" executed successfully."
+    else
+      echo_error "Command \"$*\" failed."
+      exit 1
+    fi 
+  }
+
+  nibid genesis add-genesis-perp-market --pair=ubtc:unusd --sqrt-depth=$reserve_amt --price-multiplier=$price_btc
+  check_fail nibid genesis add-genesis-perp-market
+
+  price_eth=$(cat tmp_market_prices.json | jq -r '.ethereum.usd')
   price_eth=${price_eth%.*}
-  base_amt_eth=$(($quote_amt / $price_eth))
+  if [ -z "$price_eth" ]; then
+    return 1
+  fi
 
-  nibid add-genesis-vpool --pair=ubtc:unusd --base-amt=$base_amt_btc --quote-amt=$quote_amt --max-leverage=12
-  nibid add-genesis-vpool --pair=ueth:unusd --base-amt=$base_amt_eth --quote-amt=$quote_amt --max-leverage=20 --mmr=0.04
+  nibid genesis add-genesis-perp-market --pair=ueth:unusd --sqrt-depth=$reserve_amt --price-multiplier=$price_eth
+  check_fail nibid genesis add-genesis-perp-market
 
-  echo 'tmp_vpool_prices: '
+  echo 'tmp_market_prices: '
   cat $temp_json_fname | jq .
   rm -f $temp_json_fname
 }
 
-add_genesis_vpools_default() {
-  # nibid add-genesis-vpool [pair] [base-asset-reserve] [quote-asset-reserve] [trade-limit-ratio] [fluctuation-limit-ratio] [maxOracle-spread-ratio] [maintenance-margin-ratio] [max-leverage]
-  local KILO="000"
-  local MEGA="000000"
-  local quote_amt=10$KILO$MEGA
-  local base_amt_btc=$(($quote_amt / 16500))
-  local base_amt_eth=$(($quote_amt / 1200))
-  nibid add-genesis-vpool --pair=ubtc:unusd --base-amt=$base_amt_btc --quote-amt=$quote_amt --max-leverage=12
-  nibid add-genesis-vpool --pair=ueth:unusd --base-amt=$base_amt_eth --quote-amt=$quote_amt --max-leverage=20 --mmr=0.04
-}
-
-# x/vpool
-if add_genesis_vpools_with_coingecko_prices; then
-  echo_success "set vpools with coingecko prices"
-elif add_genesis_vpools_default; then
-  echo_success "set vpools with defaults"
+echo_info "Configuring genesis params"
+if add_genesis_perp_markets_with_coingecko_prices; then
+  echo_success "set perp markets with coingecko prices"
 else
-  echo_error "failed to set genesis vpools"
+  echo_error "failed to set genesis perp markets"
+  exit 1
 fi
 
-# x/perp
-add_genesis_param '.app_state.perp.params.stopped = false'
-add_genesis_param '.app_state.perp.params.fee_pool_fee_ratio = "0.001"'
-add_genesis_param '.app_state.perp.params.ecosystem_fund_fee_ratio = "0.001"'
-add_genesis_param '.app_state.perp.params.liquidation_fee_ratio = "0.025"'
-add_genesis_param '.app_state.perp.params.partial_liquidation_ratio = "0.25"'
-add_genesis_param '.app_state.perp.params.funding_rate_interval = "30 min"'
-add_genesis_param '.app_state.perp.params.twap_lookback_window = "900s"'
-add_genesis_param '.app_state.perp.params.whitelisted_liquidators = ["nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl"]'
-add_genesis_param '.app_state.perp.pair_metadata[0].pair = "ubtc:unusd"'
-add_genesis_param '.app_state.perp.pair_metadata[0].latest_cumulative_premium_fraction = "0"'
-add_genesis_param '.app_state.perp.pair_metadata[1].pair = "ueth:unusd"'
-add_genesis_param '.app_state.perp.pair_metadata[1].latest_cumulative_premium_fraction = "0"'
+# set validator as sudoer
+add_genesis_param '.app_state.sudo.sudoers.root = "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl"'
 
-add_genesis_param '.app_state.oracle.params.twap_lookback_window = "900s"'
-add_genesis_param '.app_state.oracle.params.vote_period = "10"'
-add_genesis_param '.app_state.oracle.params.min_voters = "1"'
+# hack for localnet since we don't have a pricefeeder yet
 add_genesis_param '.app_state.oracle.exchange_rates[0].pair = "ubtc:unusd"'
 add_genesis_param '.app_state.oracle.exchange_rates[0].exchange_rate = "20000"'
 add_genesis_param '.app_state.oracle.exchange_rates[1].pair = "ueth:unusd"'
@@ -254,4 +233,4 @@ add_genesis_param '.app_state.oracle.exchange_rates[1].exchange_rate = "2000"'
 
 # Start the network
 echo_info "Starting $CHAIN_ID in $CHAIN_DIR..."
-$BINARY start
+$BINARY start --home "$CHAIN_DIR"

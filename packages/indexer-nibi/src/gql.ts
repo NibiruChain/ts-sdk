@@ -16,7 +16,10 @@ window.fetch = cf.fetch
  * @param {string} gqlEndpt - URL for the GraphQL endpoint.
  * @returns {Promise<any>}
  */
-export async function doGqlQuery(gqlQuery: string, gqlEndpt: string): Promise<any> {
+export async function doGqlQuery(
+  gqlQuery: string,
+  gqlEndpt: string
+): Promise<any> {
   const encodedGqlQuery = encodeURI(gqlQuery)
   const fetchString = `${gqlEndpt}?query=${encodedGqlQuery}`
   const rawResp = await window.fetch(fetchString)

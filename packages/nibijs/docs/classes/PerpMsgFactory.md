@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.20](../intro.md) / [Exports](../modules.md) / PerpMsgFactory
+[NibiJS Documentation - v0.21.1](../intro.md) / [Exports](../modules.md) / PerpMsgFactory
 
 # Class: PerpMsgFactory
 
@@ -35,8 +35,8 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name  | Type           | Description           |
+| :---- | :------------- | :-------------------- |
 | `msg` | `MsgAddMargin` | Message to add margin |
 
 #### Returns
@@ -47,9 +47,9 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:134](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/msg/perp.ts#L134)
+[msg/perp.ts:106](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/msg/perp.ts#L106)
 
-___
+---
 
 ### closePosition
 
@@ -57,8 +57,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type               |
+| :---- | :----------------- |
 | `msg` | `MsgClosePosition` |
 
 #### Returns
@@ -67,9 +67,9 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:171](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/msg/perp.ts#L171)
+[msg/perp.ts:143](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/msg/perp.ts#L143)
 
-___
+---
 
 ### donateToPerpEF
 
@@ -77,8 +77,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type                       |
+| :---- | :------------------------- |
 | `msg` | `MsgDonateToEcosystemFund` |
 
 #### Returns
@@ -87,9 +87,9 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:178](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/msg/perp.ts#L178)
+[msg/perp.ts:150](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/msg/perp.ts#L150)
 
-___
+---
 
 ### liquidate
 
@@ -97,8 +97,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type                |
+| :---- | :------------------ |
 | `msg` | `MsgMultiLiquidate` |
 
 #### Returns
@@ -107,9 +107,9 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:141](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/msg/perp.ts#L141)
+[msg/perp.ts:113](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/msg/perp.ts#L113)
 
-___
+---
 
 ### openPosition
 
@@ -117,15 +117,15 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `msg` | `Object` |
-| `msg.baseAssetAmountLimit?` | `number` |
-| `msg.goLong` | `boolean` |
-| `msg.leverage` | `number` |
-| `msg.pair` | `string` |
-| `msg.quoteAssetAmount` | `number` |
-| `msg.sender` | `string` |
+| Name                        | Type      |
+| :-------------------------- | :-------- |
+| `msg`                       | `Object`  |
+| `msg.baseAssetAmountLimit?` | `number`  |
+| `msg.goLong`                | `boolean` |
+| `msg.leverage`              | `number`  |
+| `msg.pair`                  | `string`  |
+| `msg.quoteAssetAmount`      | `number`  |
+| `msg.sender`                | `string`  |
 
 #### Returns
 
@@ -133,9 +133,9 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:148](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/msg/perp.ts#L148)
+[msg/perp.ts:120](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/msg/perp.ts#L120)
 
-___
+---
 
 ### removeMargin
 
@@ -143,8 +143,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type              |
+| :---- | :---------------- |
 | `msg` | `MsgRemoveMargin` |
 
 #### Returns
@@ -153,4 +153,4 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:120](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/msg/perp.ts#L120)
+[msg/perp.ts:92](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/msg/perp.ts#L92)

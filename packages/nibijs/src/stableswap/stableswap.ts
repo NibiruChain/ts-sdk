@@ -27,7 +27,7 @@ export class StableSwap {
     Amplification: BigNumber,
     totalTokenSupply: BigNumber[],
     tokenPrices: BigNumber[],
-    fee: BigNumber,
+    fee: BigNumber
   ) {
     this.Amplification = Amplification
     this.totalTokenSupply = totalTokenSupply
@@ -45,7 +45,7 @@ export class StableSwap {
     return this.totalTokenSupply.map((x, i) =>
       BigNumber(x)
         .multipliedBy(this.tokenPrices[i])
-        .dividedBy(BigNumber(10).exponentiatedBy(BigNumber(18))),
+        .dividedBy(BigNumber(10).exponentiatedBy(BigNumber(18)))
     )
   }
 
@@ -65,14 +65,16 @@ export class StableSwap {
     let D = S
 
     const Ann = this.Amplification.multipliedBy(
-      this.totalTokensInPool.exponentiatedBy(this.totalTokensInPool),
+      this.totalTokensInPool.exponentiatedBy(this.totalTokensInPool)
     )
 
     while (D.minus(Dprev).abs().isGreaterThan(BigNumber(1))) {
       let D_P = D
 
       for (const x of xp) {
-        D_P = D_P.multipliedBy(D).dividedBy(this.totalTokensInPool.multipliedBy(x))
+        D_P = D_P.multipliedBy(D).dividedBy(
+          this.totalTokensInPool.multipliedBy(x)
+        )
       }
 
       Dprev = D
@@ -83,7 +85,7 @@ export class StableSwap {
         .dividedBy(
           Ann.minus(BigNumber(1))
             .multipliedBy(D)
-            .plus(this.totalTokensInPool.plus(BigNumber(1)).multipliedBy(D_P)),
+            .plus(this.totalTokensInPool.plus(BigNumber(1)).multipliedBy(D_P))
         )
     }
 
@@ -112,7 +114,7 @@ export class StableSwap {
     xx[fromIndex] = x
     xx = xx.filter((_, idx) => idx !== toIndex)
     const Ann = this.Amplification.multipliedBy(
-      this.totalTokensInPool.exponentiatedBy(this.totalTokensInPool),
+      this.totalTokensInPool.exponentiatedBy(this.totalTokensInPool)
     )
 
     let c = D

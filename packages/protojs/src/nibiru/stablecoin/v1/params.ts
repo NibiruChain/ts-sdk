@@ -1,13 +1,11 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.stablecoin.v1"
 
 /** Params defines the parameters for the module. */
 export interface Params {
-  $type: "nibiru.stablecoin.v1.Params"
   /** collRatio is the ratio needed as collateral to exchange for stables */
   collRatio: Long
   /** feeRatio is the ratio taken as fees when minting or burning stables */
@@ -45,7 +43,6 @@ export interface Params {
 
 function createBaseParams(): Params {
   return {
-    $type: "nibiru.stablecoin.v1.Params",
     collRatio: Long.ZERO,
     feeRatio: Long.ZERO,
     efFeeRatio: Long.ZERO,
@@ -59,9 +56,10 @@ function createBaseParams(): Params {
 }
 
 export const Params = {
-  $type: "nibiru.stablecoin.v1.Params" as const,
-
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: Params,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (!message.collRatio.isZero()) {
       writer.uint32(8).int64(message.collRatio)
     }
@@ -93,7 +91,8 @@ export const Params = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseParams()
     while (reader.pos < end) {
@@ -173,9 +172,12 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      $type: Params.$type,
-      collRatio: isSet(object.collRatio) ? Long.fromValue(object.collRatio) : Long.ZERO,
-      feeRatio: isSet(object.feeRatio) ? Long.fromValue(object.feeRatio) : Long.ZERO,
+      collRatio: isSet(object.collRatio)
+        ? Long.fromValue(object.collRatio)
+        : Long.ZERO,
+      feeRatio: isSet(object.feeRatio)
+        ? Long.fromValue(object.feeRatio)
+        : Long.ZERO,
       efFeeRatio: isSet(object.efFeeRatio)
         ? Long.fromValue(object.efFeeRatio)
         : Long.ZERO,
@@ -263,9 +265,14 @@ export const Params = {
   },
 }
 
-messageTypeRegistry.set(Params.$type, Params)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -276,14 +283,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

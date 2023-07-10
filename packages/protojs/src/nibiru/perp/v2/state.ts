@@ -3,7 +3,6 @@ import Long from "long"
 import _m0 from "protobufjs/minimal"
 import { Coin } from "../../../cosmos/base/v1beta1/coin"
 import { Duration } from "../../../google/protobuf/duration"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.perp.v2"
 
@@ -101,7 +100,6 @@ export function twapCalcOptionToJSON(object: TwapCalcOption): string {
 }
 
 export interface Market {
-  $type: "nibiru.perp.v2.Market"
   /**
    * the trading pair represented by this market
    * always BASE:QUOTE, e.g. BTC:NUSD or ETH:NUSD
@@ -147,7 +145,6 @@ export interface Market {
 }
 
 export interface AMM {
-  $type: "nibiru.perp.v2.AMM"
   /** identifies the market this AMM belongs to */
   pair: string
   /** the amount of base reserves this AMM has */
@@ -165,7 +162,6 @@ export interface AMM {
 }
 
 export interface Position {
-  $type: "nibiru.perp.v2.Position"
   /** address identifies the address owner of this position */
   traderAddress: string
   /** pair identifies the pair associated with this position */
@@ -187,7 +183,6 @@ export interface Position {
 
 /** a snapshot of the perp.amm's reserves at a given point in time */
 export interface ReserveSnapshot {
-  $type: "nibiru.perp.v2.ReserveSnapshot"
   amm?: AMM
   /** milliseconds since unix epoch */
   timestampMs: Long
@@ -195,7 +190,6 @@ export interface ReserveSnapshot {
 
 function createBaseMarket(): Market {
   return {
-    $type: "nibiru.perp.v2.Market",
     pair: "",
     enabled: false,
     maintenanceMarginRatio: "",
@@ -212,9 +206,10 @@ function createBaseMarket(): Market {
 }
 
 export const Market = {
-  $type: "nibiru.perp.v2.Market" as const,
-
-  encode(message: Market, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: Market,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
     }
@@ -246,7 +241,10 @@ export const Market = {
       writer.uint32(82).string(message.fundingRateEpochId)
     }
     if (message.twapLookbackWindow !== undefined) {
-      Duration.encode(message.twapLookbackWindow, writer.uint32(90).fork()).ldelim()
+      Duration.encode(
+        message.twapLookbackWindow,
+        writer.uint32(90).fork()
+      ).ldelim()
     }
     if (message.prepaidBadDebt !== undefined) {
       Coin.encode(message.prepaidBadDebt, writer.uint32(98).fork()).ldelim()
@@ -255,7 +253,8 @@ export const Market = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Market {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMarket()
     while (reader.pos < end) {
@@ -356,14 +355,15 @@ export const Market = {
 
   fromJSON(object: any): Market {
     return {
-      $type: Market.$type,
       pair: isSet(object.pair) ? String(object.pair) : "",
       enabled: isSet(object.enabled) ? Boolean(object.enabled) : false,
       maintenanceMarginRatio: isSet(object.maintenanceMarginRatio)
         ? String(object.maintenanceMarginRatio)
         : "",
       maxLeverage: isSet(object.maxLeverage) ? String(object.maxLeverage) : "",
-      latestCumulativePremiumFraction: isSet(object.latestCumulativePremiumFraction)
+      latestCumulativePremiumFraction: isSet(
+        object.latestCumulativePremiumFraction
+      )
         ? String(object.latestCumulativePremiumFraction)
         : "",
       exchangeFeeRatio: isSet(object.exchangeFeeRatio)
@@ -398,7 +398,8 @@ export const Market = {
       (obj.maintenanceMarginRatio = message.maintenanceMarginRatio)
     message.maxLeverage !== undefined && (obj.maxLeverage = message.maxLeverage)
     message.latestCumulativePremiumFraction !== undefined &&
-      (obj.latestCumulativePremiumFraction = message.latestCumulativePremiumFraction)
+      (obj.latestCumulativePremiumFraction =
+        message.latestCumulativePremiumFraction)
     message.exchangeFeeRatio !== undefined &&
       (obj.exchangeFeeRatio = message.exchangeFeeRatio)
     message.ecosystemFundFeeRatio !== undefined &&
@@ -438,7 +439,8 @@ export const Market = {
     message.partialLiquidationRatio = object.partialLiquidationRatio ?? ""
     message.fundingRateEpochId = object.fundingRateEpochId ?? ""
     message.twapLookbackWindow =
-      object.twapLookbackWindow !== undefined && object.twapLookbackWindow !== null
+      object.twapLookbackWindow !== undefined &&
+      object.twapLookbackWindow !== null
         ? Duration.fromPartial(object.twapLookbackWindow)
         : undefined
     message.prepaidBadDebt =
@@ -449,11 +451,8 @@ export const Market = {
   },
 }
 
-messageTypeRegistry.set(Market.$type, Market)
-
 function createBaseAMM(): AMM {
   return {
-    $type: "nibiru.perp.v2.AMM",
     pair: "",
     baseReserve: "",
     quoteReserve: "",
@@ -465,8 +464,6 @@ function createBaseAMM(): AMM {
 }
 
 export const AMM = {
-  $type: "nibiru.perp.v2.AMM" as const,
-
   encode(message: AMM, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pair !== "") {
       writer.uint32(10).string(message.pair)
@@ -493,7 +490,8 @@ export const AMM = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AMM {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseAMM()
     while (reader.pos < end) {
@@ -559,10 +557,11 @@ export const AMM = {
 
   fromJSON(object: any): AMM {
     return {
-      $type: AMM.$type,
       pair: isSet(object.pair) ? String(object.pair) : "",
       baseReserve: isSet(object.baseReserve) ? String(object.baseReserve) : "",
-      quoteReserve: isSet(object.quoteReserve) ? String(object.quoteReserve) : "",
+      quoteReserve: isSet(object.quoteReserve)
+        ? String(object.quoteReserve)
+        : "",
       sqrtDepth: isSet(object.sqrtDepth) ? String(object.sqrtDepth) : "",
       priceMultiplier: isSet(object.priceMultiplier)
         ? String(object.priceMultiplier)
@@ -576,7 +575,8 @@ export const AMM = {
     const obj: any = {}
     message.pair !== undefined && (obj.pair = message.pair)
     message.baseReserve !== undefined && (obj.baseReserve = message.baseReserve)
-    message.quoteReserve !== undefined && (obj.quoteReserve = message.quoteReserve)
+    message.quoteReserve !== undefined &&
+      (obj.quoteReserve = message.quoteReserve)
     message.sqrtDepth !== undefined && (obj.sqrtDepth = message.sqrtDepth)
     message.priceMultiplier !== undefined &&
       (obj.priceMultiplier = message.priceMultiplier)
@@ -602,11 +602,8 @@ export const AMM = {
   },
 }
 
-messageTypeRegistry.set(AMM.$type, AMM)
-
 function createBasePosition(): Position {
   return {
-    $type: "nibiru.perp.v2.Position",
     traderAddress: "",
     pair: "",
     size: "",
@@ -618,9 +615,10 @@ function createBasePosition(): Position {
 }
 
 export const Position = {
-  $type: "nibiru.perp.v2.Position" as const,
-
-  encode(message: Position, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: Position,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.traderAddress !== "") {
       writer.uint32(10).string(message.traderAddress)
     }
@@ -646,7 +644,8 @@ export const Position = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Position {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBasePosition()
     while (reader.pos < end) {
@@ -712,13 +711,18 @@ export const Position = {
 
   fromJSON(object: any): Position {
     return {
-      $type: Position.$type,
-      traderAddress: isSet(object.traderAddress) ? String(object.traderAddress) : "",
+      traderAddress: isSet(object.traderAddress)
+        ? String(object.traderAddress)
+        : "",
       pair: isSet(object.pair) ? String(object.pair) : "",
       size: isSet(object.size) ? String(object.size) : "",
       margin: isSet(object.margin) ? String(object.margin) : "",
-      openNotional: isSet(object.openNotional) ? String(object.openNotional) : "",
-      latestCumulativePremiumFraction: isSet(object.latestCumulativePremiumFraction)
+      openNotional: isSet(object.openNotional)
+        ? String(object.openNotional)
+        : "",
+      latestCumulativePremiumFraction: isSet(
+        object.latestCumulativePremiumFraction
+      )
         ? String(object.latestCumulativePremiumFraction)
         : "",
       lastUpdatedBlockNumber: isSet(object.lastUpdatedBlockNumber)
@@ -729,13 +733,16 @@ export const Position = {
 
   toJSON(message: Position): unknown {
     const obj: any = {}
-    message.traderAddress !== undefined && (obj.traderAddress = message.traderAddress)
+    message.traderAddress !== undefined &&
+      (obj.traderAddress = message.traderAddress)
     message.pair !== undefined && (obj.pair = message.pair)
     message.size !== undefined && (obj.size = message.size)
     message.margin !== undefined && (obj.margin = message.margin)
-    message.openNotional !== undefined && (obj.openNotional = message.openNotional)
+    message.openNotional !== undefined &&
+      (obj.openNotional = message.openNotional)
     message.latestCumulativePremiumFraction !== undefined &&
-      (obj.latestCumulativePremiumFraction = message.latestCumulativePremiumFraction)
+      (obj.latestCumulativePremiumFraction =
+        message.latestCumulativePremiumFraction)
     message.lastUpdatedBlockNumber !== undefined &&
       (obj.lastUpdatedBlockNumber = (
         message.lastUpdatedBlockNumber || Long.ZERO
@@ -765,22 +772,14 @@ export const Position = {
   },
 }
 
-messageTypeRegistry.set(Position.$type, Position)
-
 function createBaseReserveSnapshot(): ReserveSnapshot {
-  return {
-    $type: "nibiru.perp.v2.ReserveSnapshot",
-    amm: undefined,
-    timestampMs: Long.ZERO,
-  }
+  return { amm: undefined, timestampMs: Long.ZERO }
 }
 
 export const ReserveSnapshot = {
-  $type: "nibiru.perp.v2.ReserveSnapshot" as const,
-
   encode(
     message: ReserveSnapshot,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.amm !== undefined) {
       AMM.encode(message.amm, writer.uint32(10).fork()).ldelim()
@@ -792,7 +791,8 @@ export const ReserveSnapshot = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ReserveSnapshot {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseReserveSnapshot()
     while (reader.pos < end) {
@@ -823,7 +823,6 @@ export const ReserveSnapshot = {
 
   fromJSON(object: any): ReserveSnapshot {
     return {
-      $type: ReserveSnapshot.$type,
       amm: isSet(object.amm) ? AMM.fromJSON(object.amm) : undefined,
       timestampMs: isSet(object.timestampMs)
         ? Long.fromValue(object.timestampMs)
@@ -840,12 +839,14 @@ export const ReserveSnapshot = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<ReserveSnapshot>, I>>(base?: I): ReserveSnapshot {
+  create<I extends Exact<DeepPartial<ReserveSnapshot>, I>>(
+    base?: I
+  ): ReserveSnapshot {
     return ReserveSnapshot.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<ReserveSnapshot>, I>>(
-    object: I,
+    object: I
   ): ReserveSnapshot {
     const message = createBaseReserveSnapshot()
     message.amm =
@@ -860,9 +861,14 @@ export const ReserveSnapshot = {
   },
 }
 
-messageTypeRegistry.set(ReserveSnapshot.$type, ReserveSnapshot)
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -873,14 +879,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {

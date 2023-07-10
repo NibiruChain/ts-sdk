@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.20](../intro.md) / [Exports](../modules.md) / NibiruQueryClient
+[NibiJS Documentation - v0.21.1](../intro.md) / [Exports](../modules.md) / NibiruQueryClient
 
 # Class: NibiruQueryClient
 
@@ -33,11 +33,11 @@
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `tmClient` | `Tendermint34Client` |
-| `options` | `StargateClientOptions` |
-| `wasmClient` | `CosmWasmClient` |
+| Name         | Type                    |
+| :----------- | :---------------------- |
+| `tmClient`   | `Tendermint37Client`    |
+| `options`    | `StargateClientOptions` |
+| `wasmClient` | `CosmWasmClient`        |
 
 #### Overrides
 
@@ -45,7 +45,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:56](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/query/query.ts#L56)
+[query/query.ts:56](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/query/query.ts#L56)
 
 ## Properties
 
@@ -55,9 +55,9 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:44](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/query/query.ts#L44)
+[query/query.ts:44](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/query/query.ts#L44)
 
-___
+---
 
 ### wasmClient
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[query/query.ts:45](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/query/query.ts#L45)
+[query/query.ts:45](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/query/query.ts#L45)
 
 ## Methods
 
@@ -75,8 +75,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type     |
+| :------- | :------- |
 | `height` | `number` |
 
 #### Returns
@@ -85,9 +85,9 @@ ___
 
 #### Defined in
 
-[query/query.ts:80](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/query/query.ts#L80)
+[query/query.ts:80](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/query/query.ts#L80)
 
-___
+---
 
 ### waitForNextBlock
 
@@ -99,9 +99,9 @@ ___
 
 #### Defined in
 
-[query/query.ts:88](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/query/query.ts#L88)
+[query/query.ts:88](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/query/query.ts#L88)
 
-___
+---
 
 ### connect
 
@@ -109,10 +109,10 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `endpoint` | `string` |
-| `options` | `StargateClientOptions` |
+| Name       | Type                    |
+| :--------- | :---------------------- |
+| `endpoint` | `string`                |
+| `options`  | `StargateClientOptions` |
 
 #### Returns
 
@@ -124,4 +124,4 @@ StargateClient.connect
 
 #### Defined in
 
-[query/query.ts:47](https://github.com/NibiruChain/ts-sdk/blob/675d0e42/packages/nibijs/src/query/query.ts#L47)
+[query/query.ts:47](https://github.com/NibiruChain/ts-sdk/blob/c58cf2d/packages/nibijs/src/query/query.ts#L47)

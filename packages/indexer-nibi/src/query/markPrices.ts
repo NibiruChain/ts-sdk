@@ -37,7 +37,7 @@ export enum MarkPriceOrderBy {
 
 export const markPrices = async (
   args: GqlInMarkPrice,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutMarkPrice> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = MarkPriceOrderBy.block_ts

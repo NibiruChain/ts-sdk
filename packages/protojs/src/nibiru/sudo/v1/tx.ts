@@ -1,13 +1,11 @@
 /* eslint-disable */
 import Long from "long"
 import _m0 from "protobufjs/minimal"
-import { messageTypeRegistry } from "../../../typeRegistry"
 
 export const protobufPackage = "nibiru.sudo.v1"
 
 /** MsgEditSudoers: Msg to update the "Sudoers" state. */
 export interface MsgEditSudoers {
-  $type: "nibiru.sudo.v1.MsgEditSudoers"
   /**
    * Action: identifier for the type of edit that will take place. Using this
    *   action field prevents us from needing to create several similar message
@@ -21,25 +19,16 @@ export interface MsgEditSudoers {
 }
 
 /** MsgEditSudoersResponse indicates the successful execution of MsgEditSudeors. */
-export interface MsgEditSudoersResponse {
-  $type: "nibiru.sudo.v1.MsgEditSudoersResponse"
-}
+export interface MsgEditSudoersResponse {}
 
 function createBaseMsgEditSudoers(): MsgEditSudoers {
-  return {
-    $type: "nibiru.sudo.v1.MsgEditSudoers",
-    action: "",
-    contracts: [],
-    sender: "",
-  }
+  return { action: "", contracts: [], sender: "" }
 }
 
 export const MsgEditSudoers = {
-  $type: "nibiru.sudo.v1.MsgEditSudoers" as const,
-
   encode(
     message: MsgEditSudoers,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.action !== "") {
       writer.uint32(10).string(message.action)
@@ -54,7 +43,8 @@ export const MsgEditSudoers = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgEditSudoers {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgEditSudoers()
     while (reader.pos < end) {
@@ -92,7 +82,6 @@ export const MsgEditSudoers = {
 
   fromJSON(object: any): MsgEditSudoers {
     return {
-      $type: MsgEditSudoers.$type,
       action: isSet(object.action) ? String(object.action) : "",
       contracts: Array.isArray(object?.contracts)
         ? object.contracts.map((e: any) => String(e))
@@ -113,12 +102,14 @@ export const MsgEditSudoers = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<MsgEditSudoers>, I>>(base?: I): MsgEditSudoers {
+  create<I extends Exact<DeepPartial<MsgEditSudoers>, I>>(
+    base?: I
+  ): MsgEditSudoers {
     return MsgEditSudoers.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgEditSudoers>, I>>(
-    object: I,
+    object: I
   ): MsgEditSudoers {
     const message = createBaseMsgEditSudoers()
     message.action = object.action ?? ""
@@ -128,24 +119,24 @@ export const MsgEditSudoers = {
   },
 }
 
-messageTypeRegistry.set(MsgEditSudoers.$type, MsgEditSudoers)
-
 function createBaseMsgEditSudoersResponse(): MsgEditSudoersResponse {
-  return { $type: "nibiru.sudo.v1.MsgEditSudoersResponse" }
+  return {}
 }
 
 export const MsgEditSudoersResponse = {
-  $type: "nibiru.sudo.v1.MsgEditSudoersResponse" as const,
-
   encode(
     _: MsgEditSudoersResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
+    writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgEditSudoersResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgEditSudoersResponse {
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
     const message = createBaseMsgEditSudoersResponse()
     while (reader.pos < end) {
@@ -161,7 +152,7 @@ export const MsgEditSudoersResponse = {
   },
 
   fromJSON(_: any): MsgEditSudoersResponse {
-    return { $type: MsgEditSudoersResponse.$type }
+    return {}
   },
 
   toJSON(_: MsgEditSudoersResponse): unknown {
@@ -170,20 +161,18 @@ export const MsgEditSudoersResponse = {
   },
 
   create<I extends Exact<DeepPartial<MsgEditSudoersResponse>, I>>(
-    base?: I,
+    base?: I
   ): MsgEditSudoersResponse {
     return MsgEditSudoersResponse.fromPartial(base ?? {})
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgEditSudoersResponse>, I>>(
-    _: I,
+    _: I
   ): MsgEditSudoersResponse {
     const message = createBaseMsgEditSudoersResponse()
     return message
   },
 }
-
-messageTypeRegistry.set(MsgEditSudoersResponse.$type, MsgEditSudoersResponse)
 
 /**
  * Msg defines the x/sudo module's Msg service. Protobuf `Msg` services are
@@ -208,16 +197,27 @@ export class MsgClientImpl implements Msg {
     const data = MsgEditSudoers.encode(request).finish()
     const promise = this.rpc.request(this.service, "EditSudoers", data)
     return promise.then((data) =>
-      MsgEditSudoersResponse.decode(_m0.Reader.create(data)),
+      MsgEditSudoersResponse.decode(_m0.Reader.create(data))
     )
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined
 
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -228,14 +228,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
 
 type KeysOfUnion<T> = T extends T ? keyof T : never
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never
     }
 
 if (_m0.util.Long !== Long) {
