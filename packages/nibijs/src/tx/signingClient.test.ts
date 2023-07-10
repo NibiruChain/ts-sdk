@@ -165,8 +165,8 @@ describe("nibid tx perp", () => {
       const okErrors: string[] = [ERR.noPrices, ERR.sequence]
 
       let err = error as any
-      if (error.rawLog) {
-        err = error.rawLog
+      if (err.rawLog) {
+        err = err.rawLog
       }
       assertExpectedError(err, okErrors)
     }
@@ -232,8 +232,8 @@ describe("nibid tx perp", () => {
       const okErrors: string[] = [ERR.collections, ERR.sequence]
 
       let err = error as any
-      if (error.rawLog) {
-        err = error.rawLog
+      if (err.rawLog) {
+        err = err.rawLog
       }
       assertExpectedError(err, okErrors)
     }
