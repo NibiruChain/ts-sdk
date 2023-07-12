@@ -28,7 +28,7 @@ export interface PerpExtension {
       trader: string
     }) => Promise<QueryPositionResponse>
     positions: (args: { trader: string }) => Promise<QueryPositionsResponse>
-    markets: (args: { pair: string }) => Promise<QueryMarketsResponse>
+    markets: () => Promise<QueryMarketsResponse>
   }>
 }
 

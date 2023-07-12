@@ -7,6 +7,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.21.4
+
+- Actually fix build
+
+## v0.21.3
+
+- Fix build
+
 ## v0.21.2
 
 - Aligning package versions
