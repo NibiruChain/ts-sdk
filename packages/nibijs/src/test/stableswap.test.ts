@@ -26,14 +26,7 @@ describe("stableswap tests", () => {
       const dx = BigNumber(match[5])
       const expectedDy = BigNumber(match[7])
 
-      const curveModel = new StableSwap(
-        amplification,
-        balances,
-        Array(balances.length).fill(
-          BigNumber(10).exponentiatedBy(BigNumber(18))
-        ),
-        BigNumber(0)
-      )
+      const curveModel = new StableSwap(amplification, balances, BigNumber(0))
 
       const dy = curveModel.exchange(send, recv, dx)
       expect(
