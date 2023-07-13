@@ -20,33 +20,26 @@ export class StableSwap {
   public Amplification: BigNumber
   public totalTokenSupply: BigNumber[]
   public totalTokensInPool: BigNumber
-  public tokenPrices: BigNumber[]
   public fee: BigNumber
 
   constructor(
     Amplification: BigNumber,
     totalTokenSupply: BigNumber[],
-    tokenPrices: BigNumber[],
     fee: BigNumber
   ) {
     this.Amplification = Amplification
     this.totalTokenSupply = totalTokenSupply
     this.totalTokensInPool = BigNumber(totalTokenSupply.length)
-    this.tokenPrices = tokenPrices
     this.fee = fee
   }
 
   /**
-   * xp() gives an array of total token cap per token
+   * xp() gives an array of total tokens
    *
    * @memberof StableSwap
    */
   xp() {
-    return this.totalTokenSupply.map((x, i) =>
-      BigNumber(x)
-        .multipliedBy(this.tokenPrices[i])
-        .dividedBy(BigNumber(10).exponentiatedBy(BigNumber(18)))
-    )
+    return this.totalTokenSupply.map((x) => BigNumber(x))
   }
 
   /**
