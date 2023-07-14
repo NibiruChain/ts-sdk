@@ -7,6 +7,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.21.5
+
+- Refactor stableswap class
+- Add balancer class for predicting outputs
+
 ## v0.21.4
 
 - Actually fix build
