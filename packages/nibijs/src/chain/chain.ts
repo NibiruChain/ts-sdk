@@ -34,19 +34,10 @@ export interface Chain {
   feeDenom: string
 }
 
-/**
- * A function for strongly typing. Returns true if the input object satisfies
- * the Chain interface.
- */
-export const instanceOfChain = (obj: any): obj is Chain =>
-  ["endptTm", "endptRest", "chainId", "chainName", "feeDenom"].every(
-    (attr) => attr in obj
-  )
-
 export interface ChainIdParts {
-  prefix: string
-  shortName: string
-  number: number
+  prefix: string // e.g. `nibiru`
+  shortName: string // e.g. `itn`
+  number: number // e.g. `1`
 }
 
 /** CustomChain is a convenience class for intializing the endpoints of a chain
@@ -75,29 +66,14 @@ export class CustomChain implements Chain {
     this.chainIdParts = chainIdParts
     this.chainId = this.initChainId()
     this.chainName = this.chainId
-    this.endptTm = this.initTendermintEndpoint()
-    this.endptRest = this.initRestEndpoint()
-    this.endptGrpc = this.initGrpcEndpoint()
+    this.endptTm = `https://rpc.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
+    this.endptRest = `https://lcd.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
+    this.endptGrpc = `grpc.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
   }
 
   private initChainId = () => {
     const { prefix, shortName, number } = this.chainIdParts
     return [prefix, shortName, number].join("-")
-  }
-
-  public initTendermintEndpoint = () => {
-    const { shortName, number } = this.chainIdParts
-    return `https://rpc.${shortName}-${number}.nibiru.fi`
-  }
-
-  public initRestEndpoint = () => {
-    const { shortName, number } = this.chainIdParts
-    return `https://lcd.${shortName}-${number}.nibiru.fi`
-  }
-
-  public initGrpcEndpoint = () => {
-    const { shortName, number } = this.chainIdParts
-    return `grpc.${shortName}-${number}.nibiru.fi`
   }
 }
 
@@ -138,4 +114,18 @@ export const queryChainIdWithRest = async (chain: Chain) => {
 export const isRestEndptLive = async (chain: Chain) => {
   const [_chainId, err] = await queryChainIdWithRest(chain)
   return err === undefined
+}
+
+/**
+ * Converts a Chain object to its constituent parts.
+ * @param chain a Chain object
+ * @returns a ChainIdParts object
+ */
+export const chainToParts = (chain: Chain) => {
+  const parts = chain.chainId.split("-")
+  return {
+    prefix: parts[0],
+    shortName: parts[1],
+    number: Number(parts[2]),
+  } as ChainIdParts
 }

@@ -1,51 +1,32 @@
-import { Chain, instanceOfChain } from "./chain"
+import { Chain, ChainIdParts, chainToParts } from "./chain"
 
 /**
- * Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
+ * Sends 11 NIBI, 100 NUSD, and 100 USDT to the given address from the testnet faucet.
  */
 export async function useFaucet({
   address,
-  amts,
   chain,
-  faucetUrl,
+  amts,
 }: {
   address: string
+  chain: Chain
   amts?: { nibi: number; nusd: number; usdt: number }
-  chain?: Chain | string
-  faucetUrl?: string | Error
 }): Promise<Response> {
-  amts = {
-    nibi: amts?.nibi ?? 11,
-    nusd: amts?.nusd ?? 100,
-    usdt: amts?.usdt ?? 100,
-  }
-  const micro = 1_000_000
-  const coins: string[] = [
-    `${(micro * amts.nibi).toString()}unibi`,
-    `${(micro * amts.nusd).toString()}unusd`,
-    `${(micro * amts.usdt).toString()}uusdt`,
-  ]
-
-  if (chain) {
-    // deduce faucet URL from 'chain' if possible
-    if (typeof chain === "string" || chain instanceof String) {
-      const [outFaucetUrl, err] = faucetUrlFromEndpoint(chain as string)
-      if (err) throw err
-      faucetUrl = outFaucetUrl
-    } else if (instanceOfChain(chain)) {
-      const [outFaucetUrl, err] = faucetUrlFromChain(chain)
-      if (err) throw err
-      faucetUrl = outFaucetUrl
-    } else {
-      throw TypeError("'chain' must be a string or Chain")
+  if (!amts) {
+    // default values
+    amts = {
+      nibi: 11,
+      nusd: 100,
+      usdt: 100,
     }
-  } else if (faucetUrl === undefined) {
-    faucetUrl = "https://faucet.testnet-1.nibiru.fi/"
   }
 
-  if (faucetUrl instanceof Error || !faucetUrl) {
-    throw Error(`Faucet URL undefined\n${faucetUrl}`)
-  }
+  const coins: string[] = [
+    `${amts.nibi * 1e6}unibi`,
+    `${amts.nusd * 1e6}unusd`,
+    `${amts.usdt * 1e6}uusdt`,
+  ]
+  const faucetUrl = faucetUrlFromChain(chain)
 
   // Execute faucet request
   console.info(
@@ -70,31 +51,12 @@ export async function useFaucet({
     })
 }
 
-/** TODO doc */
-const faucetUrlFromEndpoint = (endptTm: string) => {
-  const endptTmParts: string[] = endptTm.split(".")
-  let rpcIdx: number = -1
-  endptTmParts.forEach((part, idx) => {
-    if (part.includes("rpc")) {
-      rpcIdx = idx
-    }
-  })
-
-  if (rpcIdx === -1) {
-    return [
-      "https://faucet.testnet-1.nibiru.fi/",
-      new Error(
-        `failed to deduce chain name from Tendermint RPC endpoint: ${endptTm}`
-      ),
-    ]
-  }
-
-  const chainIdx = rpcIdx + 1
-  const chainName = endptTmParts[chainIdx]
-  const faucetUrl = `https://faucet.${chainName}.nibiru.fi/`
-  return [faucetUrl, undefined]
+/**
+ * Constructs a faucet URL from a Chain object.
+ * @param chain a Chain object
+ */
+export const faucetUrlFromChain = (chain: Chain) => {
+  const parts = chainToParts(chain)
+  // e.g. https://faucet.itn-1.nibiru.fi/
+  return `https://faucet.${parts.shortName}-${parts.number}.nibiru.fi/`
 }
-
-/** TODO doc */
-const faucetUrlFromChain = (chain: Chain) =>
-  faucetUrlFromEndpoint(chain.endptTm)
