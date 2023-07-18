@@ -19,5 +19,4 @@
  * @package
  */
 export * from "./heart-monitor"
-export * from "./types"
 export * from "./enum"

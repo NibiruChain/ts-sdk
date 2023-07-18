@@ -1,81 +1,31 @@
-import { doGqlQuery, arg } from "../gql"
+import { gqlQuery } from "../utils"
+import { doGqlQuery } from "../gql"
+import {
+  MarkPricesOrder,
+  QueryExt,
+  QueryExtMarkPricesArgs,
+} from "../gql/generated"
 
-// ------------------------------------------------
-// MarkPrice
-// ------------------------------------------------
-
-/**
- * MarkPrice: A single mark price data.
- */
-export interface MarkPrice {
-  block: number
-  blockTs: string
-  pair: string
-  price: number
-}
-
-/** GqlOutMarkPrice: Output response for the MarkPrice query  */
 export interface GqlOutMarkPrice {
-  markPrices: MarkPrice[]
-}
-
-/** GqlInMarkPrice: Input arguments for the MarkPrice query  */
-export interface GqlInMarkPrice {
-  pair: string
-  limit: number
-  block?: string
-  startTs?: string
-  endTs?: string
-  orderBy?: MarkPriceOrderBy | string
-  orderDescending?: boolean // defaults to true
-}
-
-export enum MarkPriceOrderBy {
-  block = "block",
-  block_ts = "block_ts",
+  markPrices: QueryExt["markPrices"]
 }
 
 export const markPrices = async (
-  args: GqlInMarkPrice,
+  args: QueryExtMarkPricesArgs,
   endpt: string
 ): Promise<GqlOutMarkPrice> => {
-  if (args.orderDescending === undefined) args.orderDescending = true
-  if (args.orderBy === undefined) args.orderBy = MarkPriceOrderBy.block_ts
+  if (!args.orderDesc) args.orderDesc = true
+  if (!args.order) args.order = MarkPricesOrder.BlockTs
 
-  const gqlQuery = ({
-    pair,
-    block,
-    startTs,
-    endTs,
-    limit,
-    orderBy,
-    orderDescending,
-  }: GqlInMarkPrice): string => {
-    const argWhere = (): string => {
-      const whereConditions: string[] = []
-      whereConditions.push(`pairEq: "${pair}"`)
-      if (block) whereConditions.push(`blockEq: "${block}"`)
-      if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
-      if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
-      const argWhereBody: string = whereConditions.join(", ")
-      return `where: { ${argWhereBody} }`
-    }
-
-    const queryArgList: string[] = [
-      argWhere(),
-      arg("limit", limit),
-      arg("order", orderBy),
-      arg("orderDesc", orderDescending),
-    ]
-    const queryArgs: string = queryArgList.join(", ")
-    return `{
-        markPrices(${queryArgs}) {
-          block
-          blockTs
-          pair
-          price
-        }
-      }`
-  }
-  return doGqlQuery(gqlQuery(args), endpt)
+  return doGqlQuery(
+    gqlQuery(
+      "markPrices",
+      args,
+      `block
+       blockTs
+       pair
+       price`
+    ),
+    endpt
+  )
 }

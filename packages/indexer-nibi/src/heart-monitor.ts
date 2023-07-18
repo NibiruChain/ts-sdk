@@ -15,7 +15,7 @@ import {
   markPriceCandles,
 } from "./query/markPriceCandles"
 import { GqlInMarkPrice, GqlOutMarkPrice, markPrices } from "./query/markPrices"
-import { GqlInTransfer, GqlOutTransfer, transfers } from "./query/transfer"
+import { GqlInTransfer, GqlOutTransfer, transfers } from "./query/transfers"
 import {
   GqlInOraclePrice,
   GqlOutOraclePrice,

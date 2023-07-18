@@ -51,7 +51,6 @@ const common = {
     ],
     "no-use-before-define": "off",
     "no-useless-constructor": "off",
-    "prettier/prettier": "error",
     quotes: ["off"],
     "quote-props": ["warn", "as-needed"],
     radix: "off",
