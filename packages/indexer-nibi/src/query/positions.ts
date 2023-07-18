@@ -45,7 +45,7 @@ export enum PositionOrderBy {
 
 export const positions = async (
   args: GqlInPosition,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutPosition> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = PositionOrderBy.block

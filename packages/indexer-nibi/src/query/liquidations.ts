@@ -47,7 +47,7 @@ export enum LiquidationsOrderBy {
 
 export const liquidations = async (
   args: GqlInLiquidation,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutLiquidations> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = LiquidationsOrderBy.block_ts
@@ -67,7 +67,8 @@ export const liquidations = async (
       const whereConditions: string[] = []
       whereConditions.push(`pairEq: "${pair}"`)
       if (block) whereConditions.push(`blockEq: "${block}"`)
-      if (liquidator) whereConditions.push(`liquidatorAddressEq: "${liquidator}"`)
+      if (liquidator)
+        whereConditions.push(`liquidatorAddressEq: "${liquidator}"`)
       if (trader) whereConditions.push(`traderAddressEq: "${trader}"`)
       if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
       if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)

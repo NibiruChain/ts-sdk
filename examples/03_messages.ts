@@ -1,4 +1,8 @@
-import { IncentivizedTestent, NibiruSigningClient, newCoin } from "@nibiruchain/nibijs"
+import {
+  IncentivizedTestent,
+  NibiruSigningClient,
+  newCoin,
+} from "@nibiruchain/nibijs"
 import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
 import { newSignerFromMnemonic } from "@nibiruchain/nibijs/dist/tx"
 
@@ -10,7 +14,7 @@ async function runExample() {
   signer.getAccounts()
   const signingClient = await NibiruSigningClient.connectWithSigner(
     TEST_CHAIN.endptTm,
-    signer,
+    signer
   )
   const [{ address: fromAddr }] = await signer.getAccounts()
   const pair = "ubtc:unusd"

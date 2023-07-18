@@ -20,7 +20,7 @@ class ErrorParseNumber extends Error {
  * @param {string} dec
  * @returns {string}
  */
-export function toSdkDec(dec: string): string {
+export const toSdkDec = (dec: string) => {
   /*
   create a decimal from an input decimal.
   valid must come in the form:
@@ -44,7 +44,7 @@ export function toSdkDec(dec: string): string {
 
   // first extract any negative symbol
   let neg = false
-  if (decStr[0] === "-") {
+  if (decStr.startsWith("-")) {
     neg = true
     decStr = decStr.slice(/* start? */ 1)
   }
@@ -66,7 +66,7 @@ export function toSdkDec(dec: string): string {
     sdkDec += digitBlocks[1]
   } else if (digitBlocks.length > 2) {
     throw new ErrorParseNumber(
-      `Invalid input has more than one decimal point: ${decStr}`,
+      `Invalid input has more than one decimal point: ${decStr}`
     )
   }
 
@@ -74,7 +74,7 @@ export function toSdkDec(dec: string): string {
     throw new ErrorParseNumber(
       `value \${decStr}' exceeds max precision by ${
         PRECISION - lenDigitBlock
-      } decimal places: max precision ${PRECISION}`,
+      } decimal places: max precision ${PRECISION}`
     )
   }
 
@@ -85,7 +85,9 @@ export function toSdkDec(dec: string): string {
   sdkDec += zeros
 
   if (Number.isNaN(parseInt(sdkDec, 10))) {
-    throw new ErrorParseNumber(`failed to set decimal string with base 10: ${sdkDec}`)
+    throw new ErrorParseNumber(
+      `failed to set decimal string with base 10: ${sdkDec}`
+    )
   }
 
   if (neg) {
@@ -94,14 +96,14 @@ export function toSdkDec(dec: string): string {
   return sdkDec
 }
 
-export function fromSdkDec(sdkDec: string): number {
+export const fromSdkDec = (sdkDec: string) => {
   if (!sdkDec) {
     return 0
   }
 
   if (sdkDec.indexOf(".") !== -1) {
     throw new ErrorParseNumber(
-      `expected a decimal string but got ${sdkDec} containing '.'`,
+      `expected a decimal string but got ${sdkDec} containing '.'`
     )
   }
 
@@ -111,7 +113,7 @@ export function fromSdkDec(sdkDec: string): number {
 
   // Check if the sdkDec is negative.
   let neg = false
-  if (sdkDec[0] === "-") {
+  if (sdkDec.startsWith("-")) {
     neg = true
     sdkDec = sdkDec.slice(1)
   }
@@ -143,17 +145,13 @@ export function fromSdkDec(sdkDec: string): number {
   return parseFloat(bzStr)
 }
 
-export function toSdkInt(i: number): string {
-  return Math.round(i).toString()
-}
+export const toSdkInt = (i: number) => Math.round(i).toString()
 
-export function fromSdkInt(intStr: string): number {
-  return parseInt(intStr)
-}
+export const fromSdkInt = (intStr: string) => parseInt(intStr)
 
 // TODO docs
 // TODO test
-export function fromSdkDecSafe(inStr: string): number {
+export const fromSdkDecSafe = (inStr: string) => {
   let sdkDec: number
   try {
     sdkDec = fromSdkDec(inStr)
@@ -169,10 +167,4 @@ export function fromSdkDecSafe(inStr: string): number {
   }
   sdkDec = parseFloat(inStr)
   return sdkDec
-}
-
-// TODO test
-// Useful for https://github.com/NibiruChain/ts-sdk/issues/41
-function camelToSnakeCase(str: string): string {
-  return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`)
 }

@@ -90,7 +90,7 @@ describe("fromSdkDec - sdk.Dec to float conversion", () => {
 
   const tests: TestCase[] = casesInvalidInput.concat(
     casesValidIntegerOnly,
-    casesWithFractional,
+    casesWithFractional
   )
 
   test.each(tests)("%o", (tt) => {

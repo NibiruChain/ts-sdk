@@ -2,11 +2,10 @@ import { Window as KeplrWindow, Keplr } from "@keplr-wallet/types"
 import { Chain } from "../chain"
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Window extends KeplrWindow {}
 }
 
-export async function getKeplr(chain: Chain): Promise<Keplr> {
+export const getKeplr = async (chain: Chain) => {
   if ((window as any).keplr) {
     throw Error("Keplr wallet not found")
   }

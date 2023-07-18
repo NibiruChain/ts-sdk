@@ -28,53 +28,41 @@ export interface MsgCreatePoolEncodeObject extends EncodeObject {
   readonly value: Partial<MsgCreatePool>
 }
 
-export function isMsgCreatePoolEncodeObject(
-  encodeObject: EncodeObject,
-): encodeObject is MsgCreatePoolEncodeObject {
-  return encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgCreatePool
-}
+export const isMsgCreatePoolEncodeObject = (encodeObject: EncodeObject) =>
+  encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgCreatePool
 
 export interface MsgJoinPoolEncodeObject extends EncodeObject {
   readonly typeUrl: string
   readonly value: Partial<MsgJoinPool>
 }
 
-export function isMsgJoinPoolEncodeObject(
-  encodeObject: EncodeObject,
-): encodeObject is MsgJoinPoolEncodeObject {
-  return encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgJoinPool
-}
+export const isMsgJoinPoolEncodeObject = (encodeObject: EncodeObject) =>
+  encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgJoinPool
 
 export interface MsgExitPoolEncodeObject extends EncodeObject {
   readonly typeUrl: string
   readonly value: Partial<MsgExitPool>
 }
 
-export function isMsgExitPoolEncodeObject(
-  encodeObject: EncodeObject,
-): encodeObject is MsgExitPoolEncodeObject {
-  return encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgExitPool
-}
+export const isMsgExitPoolEncodeObject = (encodeObject: EncodeObject) =>
+  encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgExitPool
 
 export interface MsgSwapAssetsEncodeObject extends EncodeObject {
   readonly typeUrl: string
   readonly value: Partial<MsgSwapAssets>
 }
 
-export function isMsgSwapAssetsEncodeObject(
-  encodeObject: EncodeObject,
-): encodeObject is MsgSwapAssetsEncodeObject {
-  return encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgSwapAssets
-}
+export const isMsgSwapAssetsEncodeObject = (encodeObject: EncodeObject) =>
+  encodeObject.typeUrl === SPOT_MSG_TYPE_URLS.MsgSwapAssets
 
 // ----------------------------------------------------------------------------
 
 export class SpotMsgFactory {
   static createPool(msg: MsgCreatePool): TxMessage {
     if (msg.poolParams) {
-      const { swapFee, exitFee } = msg.poolParams!
-      msg.poolParams!.swapFee = toSdkDec(swapFee)
-      msg.poolParams!.exitFee = toSdkDec(exitFee)
+      const { swapFee, exitFee } = msg.poolParams
+      msg.poolParams.swapFee = toSdkDec(swapFee)
+      msg.poolParams.exitFee = toSdkDec(exitFee)
     }
 
     return {
@@ -83,24 +71,48 @@ export class SpotMsgFactory {
     }
   }
 
-  static joinPool(msg: MsgJoinPool): TxMessage {
+  static joinPool({
+    poolId,
+    sender,
+    tokensIn,
+    useAllCoins,
+  }: MsgJoinPool): TxMessage {
     return {
       typeUrl: `/${protobufPackage}.MsgJoinPool`,
-      value: MsgJoinPool.fromPartial(msg),
+      value: MsgJoinPool.fromPartial({
+        poolId: Number(poolId),
+        sender,
+        tokensIn,
+        useAllCoins,
+      }),
     }
   }
 
-  static exitPool(msg: MsgExitPool): TxMessage {
+  static exitPool({ poolId, sender, poolShares }: MsgExitPool): TxMessage {
     return {
       typeUrl: `/${protobufPackage}.MsgExitPool`,
-      value: MsgExitPool.fromPartial(msg),
+      value: MsgExitPool.fromPartial({
+        poolId: Number(poolId),
+        sender,
+        poolShares,
+      }),
     }
   }
 
-  static swapAssets(msg: MsgSwapAssets): TxMessage {
+  static swapAssets({
+    poolId,
+    sender,
+    tokenOutDenom,
+    tokenIn,
+  }: MsgSwapAssets): TxMessage {
     return {
       typeUrl: `/${protobufPackage}.MsgSwapAssets`,
-      value: MsgSwapAssets.fromPartial(msg),
+      value: MsgSwapAssets.fromPartial({
+        poolId: Number(poolId),
+        sender,
+        tokenIn,
+        tokenOutDenom,
+      }),
     }
   }
 }

@@ -2,10 +2,10 @@ name: ⛓️ Tests @nibiruchain/indexer-nibi
 
 on:
   pull_request:
-    branches: ["main", "release/*"]
+    branches: ["main", "releases/*"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
   push:
-    branches: ["main", "release/*"]
+    branches: ["main", "releases/*"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
 
 concurrency:

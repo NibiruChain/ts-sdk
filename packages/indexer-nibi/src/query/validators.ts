@@ -50,7 +50,7 @@ export enum ValidatorOrderBy {
 
 export const validators = async (
   args: GqlInValidator,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutValidator> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = ValidatorOrderBy.block

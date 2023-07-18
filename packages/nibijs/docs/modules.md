@@ -1,6 +1,6 @@
-[NibiJS Documentation - v0.19.19](intro.md) / Exports
+[NibiJS Documentation - v0.19.21](intro.md) / Exports
 
-# NibiJS Documentation - v0.19.19
+# NibiJS Documentation - v0.19.21
 
 ## Table of contents
 
@@ -12,11 +12,14 @@
 ### Classes
 
 - [CustomChain](classes/CustomChain.md)
+- [ErrorTxBroadcast](classes/ErrorTxBroadcast.md)
+- [ErrorTxSimulation](classes/ErrorTxSimulation.md)
 - [MsgFactory](classes/MsgFactory.md)
 - [NibiruQueryClient](classes/NibiruQueryClient.md)
 - [NibiruSigningClient](classes/NibiruSigningClient.md)
 - [PerpMsgFactory](classes/PerpMsgFactory.md)
 - [SpotMsgFactory](classes/SpotMsgFactory.md)
+- [StableSwap](classes/StableSwap.md)
 
 ### Interfaces
 
@@ -24,6 +27,7 @@
 - [Chain](interfaces/Chain.md)
 - [ChainIdParts](interfaces/ChainIdParts.md)
 - [CoinMap](interfaces/CoinMap.md)
+- [EpochsExtension](interfaces/EpochsExtension.md)
 - [Event](interfaces/Event.md)
 - [MsgAddMarginEncodeObject](interfaces/MsgAddMarginEncodeObject.md)
 - [MsgClosePositionEncodeObject](interfaces/MsgClosePositionEncodeObject.md)
@@ -36,6 +40,10 @@
 - [MsgRemoveMarginEncodeObject](interfaces/MsgRemoveMarginEncodeObject.md)
 - [MsgSwapAssetsEncodeObject](interfaces/MsgSwapAssetsEncodeObject.md)
 - [MsgTypeUrls](interfaces/MsgTypeUrls.md)
+- [OracleExtension](interfaces/OracleExtension.md)
+- [PageRequest](interfaces/PageRequest.md)
+- [PerpExtension](interfaces/PerpExtension.md)
+- [SpotExtension](interfaces/SpotExtension.md)
 - [TxLog](interfaces/TxLog.md)
 - [TxMessage](interfaces/TxMessage.md)
 
@@ -49,6 +57,7 @@
 - [Localnet](modules.md#localnet)
 - [Msg](modules.md#msg)
 - [PERP\_MSG\_TYPE\_URLS](modules.md#perp_msg_type_urls)
+- [PerpErrors](modules.md#perperrors)
 - [SPOT\_MSG\_TYPE\_URLS](modules.md#spot_msg_type_urls)
 - [nibiruRegistryTypes](modules.md#nibiruregistrytypes)
 - [perpTypes](modules.md#perptypes)
@@ -59,13 +68,15 @@
 - [Devnet](modules.md#devnet)
 - [IncentivizedTestent](modules.md#incentivizedtestent)
 - [assert](modules.md#assert)
+- [chainToParts](modules.md#chaintoparts)
+- [faucetUrlFromChain](modules.md#fauceturlfromchain)
 - [fromSdkDec](modules.md#fromsdkdec)
 - [fromSdkDecSafe](modules.md#fromsdkdecsafe)
 - [fromSdkInt](modules.md#fromsdkint)
 - [getKeplr](modules.md#getkeplr)
 - [getRegistry](modules.md#getregistry)
 - [go](modules.md#go)
-- [instanceOfChain](modules.md#instanceofchain)
+- [instanceOfError](modules.md#instanceoferror)
 - [isMsgAddMarginEncodeObject](modules.md#ismsgaddmarginencodeobject)
 - [isMsgClosePositionEncodeObject](modules.md#ismsgclosepositionencodeobject)
 - [isMsgCreatePoolEncodeObject](modules.md#ismsgcreatepoolencodeobject)
@@ -82,6 +93,11 @@
 - [newSignerFromKeplr](modules.md#newsignerfromkeplr)
 - [newSignerFromMnemonic](modules.md#newsignerfrommnemonic)
 - [queryChainIdWithRest](modules.md#querychainidwithrest)
+- [raises](modules.md#raises)
+- [setupEpochsExtension](modules.md#setupepochsextension)
+- [setupOracleExtension](modules.md#setuporacleextension)
+- [setupPerpExtension](modules.md#setupperpextension)
+- [setupSpotExtension](modules.md#setupspotextension)
 - [toSdkDec](modules.md#tosdkdec)
 - [toSdkInt](modules.md#tosdkint)
 - [useFaucet](modules.md#usefaucet)
@@ -90,11 +106,11 @@
 
 ### NibiruExtensions
 
-Ƭ **NibiruExtensions**: `QueryClient` & `SpotExtension` & `PerpExtension` & `VpoolExtension` & `OracleExtension` & `EpochsExtension` & `DistributionExtension` & `GovExtension` & `UtilsExtension` & `StakingExtension` & `IbcExtension` & `WasmExtension` & `AuthExtension`
+Ƭ **NibiruExtensions**: `QueryClient` & [`SpotExtension`](interfaces/SpotExtension.md) & [`PerpExtension`](interfaces/PerpExtension.md) & `VpoolExtension` & [`OracleExtension`](interfaces/OracleExtension.md) & [`EpochsExtension`](interfaces/EpochsExtension.md) & `DistributionExtension` & `GovExtension` & `UtilsExtension` & `StakingExtension` & `IbcExtension` & `WasmExtension` & `AuthExtension`
 
 #### Defined in
 
-[query/query.ts:29](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/query/query.ts#L29)
+[query/query.ts:29](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/query/query.ts#L29)
 
 ## Variables
 
@@ -104,7 +120,7 @@
 
 #### Defined in
 
-[chain/parse.ts:2](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/parse.ts#L2)
+[chain/parse.ts:2](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/parse.ts#L2)
 
 ___
 
@@ -114,7 +130,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:98](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/chain.ts#L98)
+[chain/chain.ts:80](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/chain.ts#L80)
 
 ___
 
@@ -124,7 +140,7 @@ ___
 
 #### Defined in
 
-[msg/index.ts:10](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/index.ts#L10)
+[msg/index.ts:10](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/index.ts#L10)
 
 ___
 
@@ -145,7 +161,21 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:15](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/perp.ts#L15)
+[msg/perp.ts:15](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/perp.ts#L15)
+
+___
+
+### PerpErrors
+
+• `Const` **PerpErrors**: `Object`
+
+#### Index signature
+
+▪ [key: `string`]: `string`
+
+#### Defined in
+
+[chain/error.ts:40](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/error.ts#L40)
 
 ___
 
@@ -164,7 +194,7 @@ ___
 
 #### Defined in
 
-[msg/spot.ts:12](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/spot.ts#L12)
+[msg/spot.ts:12](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/spot.ts#L12)
 
 ___
 
@@ -174,7 +204,7 @@ ___
 
 #### Defined in
 
-[tx/signingClient.ts:30](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/tx/signingClient.ts#L30)
+[tx/signingClient.ts:30](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/tx/signingClient.ts#L30)
 
 ___
 
@@ -184,7 +214,7 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:24](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/perp.ts#L24)
+[msg/perp.ts:24](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/perp.ts#L24)
 
 ___
 
@@ -194,13 +224,13 @@ ___
 
 #### Defined in
 
-[msg/spot.ts:19](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/spot.ts#L19)
+[msg/spot.ts:19](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/spot.ts#L19)
 
 ## Functions
 
 ### Devnet
 
-▸ **Devnet**(`chainNumber`): [`Chain`](interfaces/Chain.md)
+▸ **Devnet**(`chainNumber`): [`CustomChain`](classes/CustomChain.md)
 
 #### Parameters
 
@@ -210,17 +240,17 @@ ___
 
 #### Returns
 
-[`Chain`](interfaces/Chain.md)
+[`CustomChain`](classes/CustomChain.md)
 
 #### Defined in
 
-[chain/chain.ts:115](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/chain.ts#L115)
+[chain/chain.ts:96](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/chain.ts#L96)
 
 ___
 
 ### IncentivizedTestent
 
-▸ **IncentivizedTestent**(`chainNumber`): [`Chain`](interfaces/Chain.md)
+▸ **IncentivizedTestent**(`chainNumber`): [`CustomChain`](classes/CustomChain.md)
 
 #### Parameters
 
@@ -230,11 +260,11 @@ ___
 
 #### Returns
 
-[`Chain`](interfaces/Chain.md)
+[`CustomChain`](classes/CustomChain.md)
 
 #### Defined in
 
-[chain/chain.ts:107](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/chain.ts#L107)
+[chain/chain.ts:89](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/chain.ts#L89)
 
 ___
 
@@ -255,7 +285,53 @@ ___
 
 #### Defined in
 
-[chain/types.ts:27](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/types.ts#L27)
+[chain/types.ts:25](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/types.ts#L25)
+
+___
+
+### chainToParts
+
+▸ **chainToParts**(`chain`): [`ChainIdParts`](interfaces/ChainIdParts.md)
+
+Converts a Chain object to its constituent parts.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `chain` | [`Chain`](interfaces/Chain.md) | a Chain object |
+
+#### Returns
+
+[`ChainIdParts`](interfaces/ChainIdParts.md)
+
+a ChainIdParts object
+
+#### Defined in
+
+[chain/chain.ts:124](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/chain.ts#L124)
+
+___
+
+### faucetUrlFromChain
+
+▸ **faucetUrlFromChain**(`chain`): `string`
+
+Constructs a faucet URL from a Chain object.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `chain` | [`Chain`](interfaces/Chain.md) | a Chain object |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[chain/useFaucet.ts:58](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/useFaucet.ts#L58)
 
 ___
 
@@ -275,7 +351,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:97](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/parse.ts#L97)
+[chain/parse.ts:99](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/parse.ts#L99)
 
 ___
 
@@ -295,7 +371,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:156](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/parse.ts#L156)
+[chain/parse.ts:154](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/parse.ts#L154)
 
 ___
 
@@ -315,7 +391,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:150](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/parse.ts#L150)
+[chain/parse.ts:150](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/parse.ts#L150)
 
 ___
 
@@ -335,7 +411,7 @@ ___
 
 #### Defined in
 
-[wallet/keplr.ts:9](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/wallet/keplr.ts#L9)
+[wallet/keplr.ts:8](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/wallet/keplr.ts#L8)
 
 ___
 
@@ -349,13 +425,13 @@ ___
 
 #### Defined in
 
-[tx/signer.ts:28](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/tx/signer.ts#L28)
+[tx/signer.ts:20](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/tx/signer.ts#L20)
 
 ___
 
 ### go
 
-▸ **go**<`T`\>(`promise`): `Promise`<{ `err`: `undefined` \| `Error` ; `res`: `T` \| `undefined`  }\>
+▸ **go**<`T`\>(`promise`): `Promise`<{ `err`: `undefined` = undefined; `res`: `Awaited`<`T`\>  } \| { `err`: `Error` ; `res`: `undefined` = undefined }\>
 
 #### Type parameters
 
@@ -371,20 +447,33 @@ ___
 
 #### Returns
 
-`Promise`<{ `err`: `undefined` \| `Error` ; `res`: `T` \| `undefined`  }\>
+`Promise`<{ `err`: `undefined` = undefined; `res`: `Awaited`<`T`\>  } \| { `err`: `Error` ; `res`: `undefined` = undefined }\>
 
 #### Defined in
 
-[chain/types.ts:13](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/types.ts#L13)
+[chain/types.ts:13](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/types.ts#L13)
 
 ___
 
-### instanceOfChain
+### instanceOfError
 
-▸ **instanceOfChain**(`obj`): obj is Chain
+▸ **instanceOfError**(`obj`): obj is Error
 
-A function for strongly typing. Returns true if the input object satisfies
-the Chain interface.
+A function for strongly typing errors. The errors given in
+catch blocks are not typed by default. This means they may not
+have the message and name attributes.
+
+**`Example`**
+
+```js
+try { functionThatThrowsError() }
+catch (err) {
+  if (!instanceOfError(err)) {throw err};
+  alert(err.message)
+}
+```
+
+**`Export`**
 
 #### Parameters
 
@@ -394,17 +483,17 @@ the Chain interface.
 
 #### Returns
 
-obj is Chain
+obj is Error
 
 #### Defined in
 
-[chain/chain.ts:33](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/chain.ts#L33)
+[chain/error.ts:21](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/error.ts#L21)
 
 ___
 
 ### isMsgAddMarginEncodeObject
 
-▸ **isMsgAddMarginEncodeObject**(`encodeObject`): encodeObject is MsgAddMarginEncodeObject
+▸ **isMsgAddMarginEncodeObject**(`encodeObject`): `boolean`
 
 #### Parameters
 
@@ -414,17 +503,17 @@ ___
 
 #### Returns
 
-encodeObject is MsgAddMarginEncodeObject
+`boolean`
 
 #### Defined in
 
-[msg/perp.ts:38](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/perp.ts#L38)
+[msg/perp.ts:38](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/perp.ts#L38)
 
 ___
 
 ### isMsgClosePositionEncodeObject
 
-▸ **isMsgClosePositionEncodeObject**(`encodeObject`): encodeObject is MsgClosePositionEncodeObject
+▸ **isMsgClosePositionEncodeObject**(`encodeObject`): `boolean`
 
 #### Parameters
 
@@ -434,17 +523,17 @@ ___
 
 #### Returns
 
-encodeObject is MsgClosePositionEncodeObject
+`boolean`
 
 #### Defined in
 
-[msg/perp.ts:94](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/perp.ts#L94)
+[msg/perp.ts:74](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/perp.ts#L74)
 
 ___
 
 ### isMsgCreatePoolEncodeObject
 
-▸ **isMsgCreatePoolEncodeObject**(`encodeObject`): encodeObject is MsgCreatePoolEncodeObject
+▸ **isMsgCreatePoolEncodeObject**(`encodeObject`): `boolean`
 
 #### Parameters
 
@@ -454,17 +543,17 @@ ___
 
 #### Returns
 
-encodeObject is MsgCreatePoolEncodeObject
+`boolean`
 
 #### Defined in
 
-[msg/spot.ts:31](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/spot.ts#L31)
+[msg/spot.ts:31](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/spot.ts#L31)
 
 ___
 
 ### isMsgDonateToEcosystemFundEncodeObject
 
-▸ **isMsgDonateToEcosystemFundEncodeObject**(`encodeObject`): encodeObject is MsgDonateToEcosystemFundEncodeObject
+▸ **isMsgDonateToEcosystemFundEncodeObject**(`encodeObject`): `boolean`
 
 #### Parameters
 
@@ -474,17 +563,17 @@ ___
 
 #### Returns
 
-encodeObject is MsgDonateToEcosystemFundEncodeObject
+`boolean`
 
 #### Defined in
 
-[msg/perp.ts:108](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/perp.ts#L108)
+[msg/perp.ts:83](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/perp.ts#L83)
 
 ___
 
 ### isMsgExitPoolEncodeObject
 
-▸ **isMsgExitPoolEncodeObject**(`encodeObject`): encodeObject is MsgExitPoolEncodeObject
+▸ **isMsgExitPoolEncodeObject**(`encodeObject`): `boolean`
 
 #### Parameters
 
@@ -494,17 +583,17 @@ ___
 
 #### Returns
 
-encodeObject is MsgExitPoolEncodeObject
+`boolean`
 
 #### Defined in
 
-[msg/spot.ts:53](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/spot.ts#L53)
+[msg/spot.ts:47](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/spot.ts#L47)
 
 ___
 
 ### isMsgJoinPoolEncodeObject
 
-▸ **isMsgJoinPoolEncodeObject**(`encodeObject`): encodeObject is MsgJoinPoolEncodeObject
+▸ **isMsgJoinPoolEncodeObject**(`encodeObject`): `boolean`
 
 #### Parameters
 
@@ -514,17 +603,17 @@ ___
 
 #### Returns
 
-encodeObject is MsgJoinPoolEncodeObject
+`boolean`
 
 #### Defined in
 
-[msg/spot.ts:42](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/spot.ts#L42)
+[msg/spot.ts:39](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/spot.ts#L39)
 
 ___
 
 ### isMsgMultiLiquidateEncodeObject
 
-▸ **isMsgMultiLiquidateEncodeObject**(`encodeObject`): encodeObject is MsgMultiLiquidateEncodeObject
+▸ **isMsgMultiLiquidateEncodeObject**(`encodeObject`): `boolean`
 
 #### Parameters
 
@@ -534,17 +623,17 @@ ___
 
 #### Returns
 
-encodeObject is MsgMultiLiquidateEncodeObject
+`boolean`
 
 #### Defined in
 
-[msg/perp.ts:66](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/perp.ts#L66)
+[msg/perp.ts:56](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/perp.ts#L56)
 
 ___
 
 ### isMsgOpenPositionEncodeObject
 
-▸ **isMsgOpenPositionEncodeObject**(`encodeObject`): encodeObject is MsgOpenPositionEncodeObject
+▸ **isMsgOpenPositionEncodeObject**(`encodeObject`): `boolean`
 
 #### Parameters
 
@@ -554,17 +643,17 @@ ___
 
 #### Returns
 
-encodeObject is MsgOpenPositionEncodeObject
+`boolean`
 
 #### Defined in
 
-[msg/perp.ts:80](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/perp.ts#L80)
+[msg/perp.ts:65](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/perp.ts#L65)
 
 ___
 
 ### isMsgRemoveMarginEncodeObject
 
-▸ **isMsgRemoveMarginEncodeObject**(`encodeObject`): encodeObject is MsgRemoveMarginEncodeObject
+▸ **isMsgRemoveMarginEncodeObject**(`encodeObject`): `boolean`
 
 #### Parameters
 
@@ -574,17 +663,17 @@ ___
 
 #### Returns
 
-encodeObject is MsgRemoveMarginEncodeObject
+`boolean`
 
 #### Defined in
 
-[msg/perp.ts:52](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/perp.ts#L52)
+[msg/perp.ts:47](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/perp.ts#L47)
 
 ___
 
 ### isMsgSwapAssetsEncodeObject
 
-▸ **isMsgSwapAssetsEncodeObject**(`encodeObject`): encodeObject is MsgSwapAssetsEncodeObject
+▸ **isMsgSwapAssetsEncodeObject**(`encodeObject`): `boolean`
 
 #### Parameters
 
@@ -594,11 +683,11 @@ ___
 
 #### Returns
 
-encodeObject is MsgSwapAssetsEncodeObject
+`boolean`
 
 #### Defined in
 
-[msg/spot.ts:64](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/spot.ts#L64)
+[msg/spot.ts:55](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/spot.ts#L55)
 
 ___
 
@@ -618,7 +707,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:134](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/chain.ts#L134)
+[chain/chain.ts:114](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/chain.ts#L114)
 
 ___
 
@@ -638,7 +727,7 @@ ___
 
 #### Defined in
 
-[chain/types.ts:39](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/types.ts#L39)
+[chain/types.ts:37](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/types.ts#L37)
 
 ___
 
@@ -665,13 +754,13 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT.
 
 #### Defined in
 
-[tx/signer.ts:62](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/tx/signer.ts#L62)
+[tx/signer.ts:46](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/tx/signer.ts#L46)
 
 ___
 
 ### newSignerFromKeplr
 
-▸ **newSignerFromKeplr**(`keplr`, `chainId`): `OfflineSigner` & `OfflineDirectSigner`
+▸ **newSignerFromKeplr**(`keplr`, `chainId`): `OfflineAminoSigner` & `OfflineDirectSigner`
 
 #### Parameters
 
@@ -682,11 +771,11 @@ ___
 
 #### Returns
 
-`OfflineSigner` & `OfflineDirectSigner`
+`OfflineAminoSigner` & `OfflineDirectSigner`
 
 #### Defined in
 
-[tx/signer.ts:47](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/tx/signer.ts#L47)
+[tx/signer.ts:35](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/tx/signer.ts#L35)
 
 ___
 
@@ -713,13 +802,13 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT
 
 #### Defined in
 
-[tx/signer.ts:40](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/tx/signer.ts#L40)
+[tx/signer.ts:30](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/tx/signer.ts#L30)
 
 ___
 
 ### queryChainIdWithRest
 
-▸ **queryChainIdWithRest**(`chain`): `Promise`<[`string`, Error?]\>
+▸ **queryChainIdWithRest**(`chain`): `Promise`<(`undefined` \| `string` \| `Error`)[]\>
 
 #### Parameters
 
@@ -729,11 +818,115 @@ ___
 
 #### Returns
 
-`Promise`<[`string`, Error?]\>
+`Promise`<(`undefined` \| `string` \| `Error`)[]\>
 
 #### Defined in
 
-[chain/chain.ts:123](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/chain.ts#L123)
+[chain/chain.ts:103](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/chain.ts#L103)
+
+___
+
+### raises
+
+▸ **raises**(`errs`, `err`): `boolean`
+
+Makes sure one of the errors in 'errs' is contained in 'err'. If none of the
+given exceptions are raised, it returns false.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `errs` | `string`[] |
+| `err` | `Error` |
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[chain/error.ts:53](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/error.ts#L53)
+
+___
+
+### setupEpochsExtension
+
+▸ **setupEpochsExtension**(`base`): [`EpochsExtension`](interfaces/EpochsExtension.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `base` | `QueryClient` |
+
+#### Returns
+
+[`EpochsExtension`](interfaces/EpochsExtension.md)
+
+#### Defined in
+
+[query/epochs.ts:19](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/query/epochs.ts#L19)
+
+___
+
+### setupOracleExtension
+
+▸ **setupOracleExtension**(`base`): [`OracleExtension`](interfaces/OracleExtension.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `base` | `QueryClient` |
+
+#### Returns
+
+[`OracleExtension`](interfaces/OracleExtension.md)
+
+#### Defined in
+
+[query/oracle.ts:91](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/query/oracle.ts#L91)
+
+___
+
+### setupPerpExtension
+
+▸ **setupPerpExtension**(`base`): [`PerpExtension`](interfaces/PerpExtension.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `base` | `QueryClient` |
+
+#### Returns
+
+[`PerpExtension`](interfaces/PerpExtension.md)
+
+#### Defined in
+
+[query/perp.ts:37](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/query/perp.ts#L37)
+
+___
+
+### setupSpotExtension
+
+▸ **setupSpotExtension**(`base`): [`SpotExtension`](interfaces/SpotExtension.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `base` | `QueryClient` |
+
+#### Returns
+
+[`SpotExtension`](interfaces/SpotExtension.md)
+
+#### Defined in
+
+[query/spot.ts:101](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/query/spot.ts#L101)
 
 ___
 
@@ -762,7 +955,7 @@ ref: Reimplementation of cosmos-sdk/types/decimal.go
 
 #### Defined in
 
-[chain/parse.ts:23](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/parse.ts#L23)
+[chain/parse.ts:23](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/parse.ts#L23)
 
 ___
 
@@ -782,7 +975,7 @@ ___
 
 #### Defined in
 
-[chain/parse.ts:146](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/parse.ts#L146)
+[chain/parse.ts:148](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/parse.ts#L148)
 
 ___
 
@@ -790,7 +983,7 @@ ___
 
 ▸ **useFaucet**(`«destructured»`): `Promise`<`Response`\>
 
-Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
+Sends 11 NIBI, 100 NUSD, and 100 USDT to the given address from the testnet faucet.
 
 #### Parameters
 
@@ -802,8 +995,7 @@ Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
 | › `amts.nibi` | `number` |
 | › `amts.nusd` | `number` |
 | › `amts.usdt` | `number` |
-| › `chain?` | `string` \| [`Chain`](interfaces/Chain.md) |
-| › `faucetUrl?` | `string` |
+| › `chain` | [`Chain`](interfaces/Chain.md) |
 
 #### Returns
 
@@ -811,4 +1003,4 @@ Sends 10 NIBI and 100 NUSD to the given address from the testnet faucet.
 
 #### Defined in
 
-[chain/useFaucet.ts:7](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/chain/useFaucet.ts#L7)
+[chain/useFaucet.ts:6](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/chain/useFaucet.ts#L6)

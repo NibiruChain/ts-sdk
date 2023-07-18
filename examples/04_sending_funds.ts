@@ -11,13 +11,18 @@ async function runExample() {
   const signer = await newSignerFromMnemonic(mnemonic!)
   const signingClient = await NibiruSigningClient.connectWithSigner(
     TEST_CHAIN.endptTm,
-    signer,
+    signer
   )
   const [{ address: fromAddr }] = await signer.getAccounts()
 
   const tokens: Coin[] = newCoins(5, "unibi")
   const toAddr: string = "..." // bech32 address of the receiving party
-  const txResp = await signingClient.sendTokens(fromAddr, toAddr, tokens, "auto")
+  const txResp = await signingClient.sendTokens(
+    fromAddr,
+    toAddr,
+    tokens,
+    "auto"
+  )
   console.log("txResp: %o", txResp)
 }
 

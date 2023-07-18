@@ -47,10 +47,11 @@ export enum MarkPriceCandleOrderBy {
 
 export const markPriceCandles = async (
   args: GqlInMarkPriceCandle,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutMarkPriceCandle> => {
   if (args.orderDescending === undefined) args.orderDescending = true
-  if (args.orderBy === undefined) args.orderBy = MarkPriceCandleOrderBy.period_start_ts
+  if (args.orderBy === undefined)
+    args.orderBy = MarkPriceCandleOrderBy.period_start_ts
 
   const gqlQuery = ({
     pair,

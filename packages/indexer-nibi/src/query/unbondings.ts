@@ -42,7 +42,7 @@ export enum UnbondingsOrderBy {
 
 export const unbondings = async (
   args: GqlInUnbondings,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutUnbondings> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = UnbondingsOrderBy.block

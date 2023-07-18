@@ -10,9 +10,7 @@ import { instanceOfError } from "./error"
 
 export { AccountData, newCoin, newCoins, Coin, parseCoins, WalletHD }
 
-export async function go<T>(
-  promise: Promise<T>,
-): Promise<{ res: T | undefined; err: undefined | Error }> {
+export const go = async <T>(promise: Promise<T>) => {
   try {
     return { res: await promise, err: undefined }
   } catch (err) {
@@ -24,7 +22,7 @@ export async function go<T>(
   }
 }
 
-export function assert(condition: boolean, message?: string) {
+export const assert = (condition: boolean, message?: string) => {
   if (!condition) {
     const errMsg = message ? `AssertionError: ${message}` : "AssertionError"
     throw new Error(errMsg)
@@ -36,7 +34,7 @@ export interface CoinMap {
 }
 
 // TODO test
-export function newCoinMapFromCoins(coins: readonly Coin[]): CoinMap {
+export const newCoinMapFromCoins = (coins: readonly Coin[]) => {
   const coinMap: CoinMap = {}
   for (const coin of coins) {
     coinMap[coin.denom] = parseInt(coin.amount)
