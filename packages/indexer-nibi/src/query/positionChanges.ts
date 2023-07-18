@@ -49,7 +49,7 @@ export enum PositionChangeOrderBy {
 
 export const positionChanges = async (
   args: GqlInPositionChange,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutPositionChange> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = PositionChangeOrderBy.block

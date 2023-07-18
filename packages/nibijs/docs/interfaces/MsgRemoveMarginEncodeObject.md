@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.19](../intro.md) / [Exports](../modules.md) / MsgRemoveMarginEncodeObject
+[NibiJS Documentation - v0.19.21](../intro.md) / [Exports](../modules.md) / MsgRemoveMarginEncodeObject
 
 # Interface: MsgRemoveMarginEncodeObject
 
@@ -27,7 +27,7 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/perp.ts:48](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/perp.ts#L48)
+[msg/perp.ts:43](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/perp.ts#L43)
 
 ___
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/perp.ts:49](https://github.com/NibiruChain/ts-sdk/blob/d2376c3/packages/nibijs/src/msg/perp.ts#L49)
+[msg/perp.ts:44](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/msg/perp.ts#L44)

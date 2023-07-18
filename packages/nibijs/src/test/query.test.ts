@@ -1,8 +1,7 @@
-import { Block, GasPrice, coins } from "@cosmjs/stargate"
-import fetch from "cross-fetch"
+import { Block, coins } from "@cosmjs/stargate"
 import Long from "long"
 import fs from "fs"
-import { instanceOfError } from "../chain/error"
+import * as cf from "cross-fetch"
 import { NibiruQueryClient } from "../query"
 import {
   TEST_CHAIN,
@@ -14,6 +13,15 @@ import {
 } from "./helpers"
 import { newSignerFromMnemonic } from "../tx/signer"
 import { NibiruSigningClient } from "../tx/signingClient"
+import { instanceOfError } from "../chain"
+
+declare global {
+  interface Window {
+    fetch: typeof cf.fetch
+  }
+}
+
+window.fetch = cf.fetch
 
 interface BlockResp {
   result: { block: any }
@@ -27,7 +35,7 @@ describe("connections", () => {
   })
 
   test("tendermint rpc url returns block with GET", async () => {
-    const resp = await fetch(`${TEST_CHAIN.endptTm}/block`)
+    const resp = await window.fetch(`${TEST_CHAIN.endptTm}/block`)
     const respJson = (await resp.json()) as BlockResp
     expect(respJson.result, `respJson: ${respJson}`).toHaveProperty("block")
     const blockJson = respJson.result.block
@@ -77,7 +85,7 @@ describe("x/vpool queries", () => {
       expect(queryResp.pools.length).toBeGreaterThan(0)
       expect(queryResp.prices).toHaveLength(queryResp.pools.length)
     },
-    timeoutMs,
+    timeoutMs
   )
 
   test(
@@ -93,7 +101,7 @@ describe("x/vpool queries", () => {
       expect(basePrice.length).toBeGreaterThan(0)
       expect(parseFloat(basePrice)).toBeGreaterThan(0)
     },
-    timeoutMs,
+    timeoutMs
   )
 })
 
@@ -130,9 +138,8 @@ describe("x/perp queries", () => {
 
     try {
       const args = { pair: "ubtc:unusd" }
-      const premiumFractions = await queryClient.nibiruExtensions.perp.premiumFractions(
-        args,
-      )
+      const premiumFractions =
+        await queryClient.nibiruExtensions.perp.premiumFractions(args)
       expect(premiumFractions).not.toBeNull()
     } catch (error) {
       assertExpectedError(error)
@@ -164,14 +171,16 @@ describe("x/oracle queries", () => {
 
   test("query oracle params", async () => {
     const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const { params: moduleParams } = await queryClient.nibiruExtensions.oracle.params()
+    const { params: moduleParams } =
+      await queryClient.nibiruExtensions.oracle.params()
     expect(moduleParams).toBeDefined()
     expect(moduleParams!.whitelist.length).toBeGreaterThan(0)
   })
 
   test("query exchange rates", async () => {
     const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const exhangeRateMap = await queryClient.nibiruExtensions.oracle.exchangeRates()
+    const exhangeRateMap =
+      await queryClient.nibiruExtensions.oracle.exchangeRates()
     if (Object.keys(exhangeRateMap).length > 0) {
       for (const pair in exhangeRateMap) {
         const exchangeRate = exhangeRateMap[pair]
@@ -195,12 +204,13 @@ describe("x/epochs queries", () => {
       expect(infoResp.epochs.length).toBeGreaterThan(0)
 
       const epochId = infoResp.epochs[0].identifier
-      const currentEpochResp = await queryClient.nibiruExtensions.epochs.currentEpoch({
-        identifier: epochId,
-      })
+      const currentEpochResp =
+        await queryClient.nibiruExtensions.epochs.currentEpoch({
+          identifier: epochId,
+        })
       expect(Long.isLong(currentEpochResp.currentEpoch)).toBeTruthy()
     },
-    timeoutMs,
+    timeoutMs
   )
 })
 
@@ -208,7 +218,7 @@ describe("x/staking module queries", () => {
   test("query bonded validators", async () => {
     const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
     const infoResp = await queryClient.nibiruExtensions.staking.validators(
-      "BOND_STATUS_BONDED",
+      "BOND_STATUS_BONDED"
     )
     expect(infoResp).toHaveProperty("validators")
     expect(infoResp.validators.length).toBeGreaterThan(0)
@@ -269,7 +279,8 @@ describe("ibc module queries", () => {
   })
   test("all connections", async () => {
     const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const resp = await queryClient.nibiruExtensions.ibc.connection.allConnections()
+    const resp =
+      await queryClient.nibiruExtensions.ibc.connection.allConnections()
     const { connections } = resp
     expect(connections).toBeDefined()
     const properties: string[] = [
@@ -308,10 +319,11 @@ describe("ibc module queries", () => {
   })
   test("verified channel", async () => {
     const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const channel = await queryClient.nibiruExtensions.ibc.verified.channel.channel(
-      "transfer",
-      "channel-0",
-    )
+    const channel =
+      await queryClient.nibiruExtensions.ibc.verified.channel.channel(
+        "transfer",
+        "channel-0"
+      )
     const properties: string[] = [
       "state",
       "ordering",
@@ -352,7 +364,7 @@ describe("wasm", () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const signingClient = await NibiruSigningClient.connectWithSigner(
       TEST_CHAIN.endptTm,
-      signer,
+      signer
     )
     const [{ address: sender }] = await signer.getAccounts()
     const fee = {
@@ -361,7 +373,11 @@ describe("wasm", () => {
     }
 
     const assertHappyPath = async () => {
-      const uploadRes = await signingClient.wasmClient.upload(sender, wasmBinary, fee)
+      const uploadRes = await signingClient.wasmClient.upload(
+        sender,
+        wasmBinary,
+        fee
+      )
       codeId = uploadRes.codeId
 
       const initRes = await signingClient.wasmClient.instantiate(
@@ -374,7 +390,7 @@ describe("wasm", () => {
           initial_balances: [],
         },
         "CW20",
-        "auto",
+        "auto"
       )
       contractAddress = initRes.contractAddress
 
@@ -400,10 +416,12 @@ describe("wasm", () => {
 
   const testGetAllContractState = async (
     queryClient: NibiruQueryClient,
-    contractAddress: string,
+    contractAddress: string
   ) => {
     const respContractState =
-      await queryClient.nibiruExtensions.wasm.getAllContractState(contractAddress)
+      await queryClient.nibiruExtensions.wasm.getAllContractState(
+        contractAddress
+      )
     const { models } = respContractState
     expect(models).toBeDefined()
   }

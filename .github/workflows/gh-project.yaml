@@ -3,7 +3,7 @@ name: Add to GitHub Project
 on:
   issues:
     types: ["opened", "labeled"]
-  pull_request: 
+  pull_request:
     types: ["opened", "labeled", "edited"]
 
 jobs:

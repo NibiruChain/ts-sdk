@@ -18,7 +18,6 @@
   - [validators](#validators)
   - [vpoolConfigs](#vpoolconfigs)
 
-
 ## balances
 
 TODO docs
@@ -30,7 +29,6 @@ balances(
   orderDesc: Boolean
   limit: Int): [Balances]
 ```
-
 
 TODO docs
 
@@ -64,9 +62,9 @@ delegations(
 
 #### Query Example - delegations
 
-```graphql 
+```graphql
 {
-  # TODO missing fields: where, order 
+  # TODO missing fields: where, order
   delegations(orderDesc: true, limit: 3) {
     validatorAddress
     delegatorAddress
@@ -114,6 +112,7 @@ delegations(
 ```
 
 ## fundingRates
+
 TODO docs
 
 ```graphql
@@ -123,7 +122,9 @@ fundingRates(
   orderDesc: Boolean
   limit: Int): [FundingRates]
 ```
+
 ## liquidations
+
 TODO docs
 
 ```graphql
@@ -133,6 +134,7 @@ liquidations(
   orderDesc: Boolean
   limit: Int): [Liquidations]
 ```
+
 ## markPriceCandles
 
 TODO docs
@@ -153,7 +155,7 @@ markPriceCandles(
 #### `MarkPriceCandles`
 
 ```graphql
-type MarkPriceCandles  {
+type MarkPriceCandles {
   pair: String
   open: Int
   close: Int
@@ -167,21 +169,22 @@ type MarkPriceCandles  {
 ANKI `Boolean` in GraphQL means `true` or `false`.
 
 The `where` parameter has options for filtering based on conditions for each field. The filter condition must match the type of the corresponding field. Examples include:
+
 ```graphql
 where: { pairEq: "ubtc:unusd" }
 where: { lowGt: 100 }
-where: { periodStartTsLt: "2023-02-22" } 
+where: { periodStartTsLt: "2023-02-22" }
 ```
 
-Every field, e.g. `pair`, `open`, `close`, `period`, has filter options. In the case of `MarkPriceCandles`, every field has methods for: 
+Every field, e.g. `pair`, `open`, `close`, `period`, has filter options. In the case of `MarkPriceCandles`, every field has methods for:
+
 - `=` : `Eq` : equals
 - `>` : `Gt` : greater than
-- `<` : `Lt` : less than 
+- `<` : `Lt` : less than
 - `>=` : `Gte` : greater than or equal
-- `<=` : `Lte` : less than or equal 
+- `<=` : `Lte` : less than or equal
 
 Except, `pair`, which only has the `pairEq` method.
-
 
 ### `order: MarkPriceCandlesOrder`
 
@@ -192,7 +195,6 @@ markPriceCandles(
   orderDesc: Boolean
   limit: Int): [MarkPriceCandles]
 ```
-
 
 ```graphql
 type MarkPriceCandlesOrder {
@@ -206,13 +208,13 @@ type MarkPriceCandlesOrder {
 }
 ```
 
-This means we can use one of these values with the `order` argument in the query like follows: 
+This means we can use one of these values with the `order` argument in the query like follows:
+
 ```graphql
 order: pair
 order: close
 order: period_start_ts
 ```
-
 
 ## markPrices
 
@@ -225,7 +227,9 @@ markPrices(
   orderDesc: Boolean
   limit: Int): [MarkPrices]
 ```
+
 ## oraclePrices
+
 TODO docs
 
 ```graphql
@@ -235,7 +239,9 @@ oraclePrices(
   orderDesc: Boolean
   limit: Int): [OraclePrices]
 ```
+
 ## positionChanges
+
 TODO docs
 
 ```graphql
@@ -245,7 +251,9 @@ positionChanges(
   orderDesc: Boolean
   limit: Int): [PositionChanges]
 ```
+
 ## positions
+
 TODO docs
 
 ```graphql
@@ -255,7 +263,9 @@ positions(
   orderDesc: Boolean
   limit: Int): [Positions]
 ```
+
 ## statsVolume
+
 TODO docs
 
 ```graphql
@@ -265,7 +275,9 @@ statsVolume(
   orderDesc: Boolean
   limit: Int): [StatsVolume]
 ```
+
 ## transfers
+
 TODO docs
 
 ```graphql
@@ -275,7 +287,9 @@ transfers(
   orderDesc: Boolean
   limit: Int): [Transfers]
 ```
+
 ## txMessages
+
 TODO docs
 
 ```graphql
@@ -285,7 +299,9 @@ txMessages(
   orderDesc: Boolean
   limit: Int): [TxMessages]
 ```
+
 ## txMessagesFailed
+
 TODO docs
 
 ```graphql
@@ -295,6 +311,7 @@ txMessagesFailed(
   orderDesc: Boolean
   limit: Int): [TxMessagesFailed]
 ```
+
 ## unbondings
 
 TODO docs
@@ -306,6 +323,7 @@ unbondings(
   orderDesc: Boolean
   limit: Int): [Unbondings]
 ```
+
 ## validators
 
 TODO docs
@@ -317,6 +335,7 @@ validators(
   orderDesc: Boolean
   limit: Int): [Validators]
 ```
+
 ## vpoolConfigs
 
 TODO docs

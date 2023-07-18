@@ -27,16 +27,18 @@ export interface GqlOutPerpLeaderboard {
 
 export const perpLeaderboard = async (
   endpt: string,
-  args?: GqlInPerpLeaderboard,
+  args?: GqlInPerpLeaderboard
 ): Promise<GqlOutPerpLeaderboard> =>
   doGqlQuery(
     `{
-      perpLeaderboard ${args?.address ? `(traderAddress: "${args.address}")` : ""} {
+      perpLeaderboard ${
+        args?.address ? `(traderAddress: "${args.address}")` : ""
+      } {
         traderAddress
         percentagePnl
         rawPnl
         inputMargin
       }
     }`,
-    endpt,
+    endpt
   )

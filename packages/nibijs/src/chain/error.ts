@@ -18,9 +18,8 @@
  * @param {*} obj
  * @returns {obj is Error}
  */
-export function instanceOfError(obj: any): obj is Error {
-  return ["message", "name"].every((attr) => attr in obj)
-}
+export const instanceOfError = (obj: any): obj is Error =>
+  ["message", "name"].every((attr) => attr in obj)
 
 export class ErrorTxSimulation extends Error {
   constructor(message: string, stack?: string) {
@@ -51,6 +50,5 @@ export const PerpErrors: { [key: string]: string } = {
  * @param {string[]} errs
  * @param {Error} err
  */
-export function raises(errs: string[], err: Error): boolean {
-  return errs.some((e) => err.message.includes(e))
-}
+export const raises = (errs: string[], err: Error) =>
+  errs.some((e) => err.message.includes(e))

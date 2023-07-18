@@ -41,7 +41,7 @@ export enum VPoolConfigOrderBy {
 
 export const vpoolConfigs = async (
   args: GqlInVPoolConfig,
-  endpt: string,
+  endpt: string
 ): Promise<GqlOutVPoolConfig> => {
   if (args.orderDescending === undefined) args.orderDescending = true
   if (args.orderBy === undefined) args.orderBy = VPoolConfigOrderBy.block_ts

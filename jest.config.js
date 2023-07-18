@@ -1,5 +1,5 @@
-const { pathsToModuleNameMapper } = require('ts-jest')
-const { compilerOptions } = require('./tsconfig')
+const { pathsToModuleNameMapper } = require("ts-jest")
+const { compilerOptions } = require("./tsconfig")
 
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
@@ -31,15 +31,11 @@ module.exports = function (root = __dirname) {
     // coverageDirectory: null,
 
     // An array of regexp pattern strings used to skip coverage collection
-    coveragePathIgnorePatterns: [
-      "/node_modules/",
-      "api/*",
-      "<rootDir>/dist/"
-    ],
+    coveragePathIgnorePatterns: ["/node_modules/", "api/*", "<rootDir>/dist/"],
 
     // A list of reporter names that Jest uses when writing coverage reports
     // coverageReporters: ['json', 'html', 'lcov', 'text'],
-    coverageReporters: ['json', 'text'],
+    coverageReporters: ["json", "text"],
 
     // An object that configures minimum threshold enforcement for coverage results
     // coverageThreshold: null,
@@ -62,15 +58,15 @@ module.exports = function (root = __dirname) {
     // A set of global variables that need to be available in all test environments
     globals: {
       window: {
-        location: {}
-      }
+        location: {},
+      },
     },
 
     // An array of directory names to be searched recursively up from the requiring module's location
-    moduleDirectories: ['.', 'node_modules', 'src'],
+    moduleDirectories: [".", "node_modules", "src"],
 
     // An array of file extensions your modules use
-    moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
+    moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
 
     // A map from regular expressions to module names that allow to stub out resources with a single module
     // moduleNameMapper: {
@@ -79,7 +75,7 @@ module.exports = function (root = __dirname) {
     // },
     moduleNameMapper: {
       ...pathsToModuleNameMapper(
-        compilerOptions.paths /* , { prefix: '<rootDir>/' }, */,
+        compilerOptions.paths /* , { prefix: '<rootDir>/' }, */
       ),
     },
 
@@ -93,7 +89,7 @@ module.exports = function (root = __dirname) {
     // notifyMode: "failure-change",
 
     // A preset that is used as a base for Jest's configuration
-    preset: 'ts-jest',
+    preset: "ts-jest",
 
     // Run tests from one or more projects
     // projects: null,
@@ -132,7 +128,7 @@ module.exports = function (root = __dirname) {
     // snapshotSerializers: [],
 
     // The test environment that will be used for testing. Options: ["node", "jsdom"]
-    testEnvironment: 'node',
+    testEnvironment: "node",
 
     // Options that will be passed to the testEnvironment
     // testEnvironmentOptions: {},
@@ -147,10 +143,7 @@ module.exports = function (root = __dirname) {
     // ],
 
     // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-    testPathIgnorePatterns: [
-      "/node_modules/",
-      "<rootDir>/src/wallet/"
-    ],
+    testPathIgnorePatterns: ["/node_modules/", "<rootDir>/src/wallet/"],
 
     // The regexp pattern or array of patterns that Jest uses to detect test files
     // testRegex: [],
@@ -186,6 +179,6 @@ module.exports = function (root = __dirname) {
 
     // Whether to use watchman for file crawling
     // watchman: true,
-    testTimeout: 120000
-  };
+    testTimeout: 120000,
+  }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/nibijs",
   "description": "The TypeScript SDK for the Nibiru blockchain.",
-  "version": "0.19.19",
+  "version": "0.19.21",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc --build && yarn docgen",
+    "build": "rm -f tsconfig.tsbuildinfo && tsc --build && yarn docgen",
     "build:watch": "tsc --build --watch",
     "clean": "tsc --clean",
     "docgen": "yarn run typedoc --tsconfig tsconfig.json --plugin typedoc-plugin-markdown",

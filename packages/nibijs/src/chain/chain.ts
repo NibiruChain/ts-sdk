@@ -1,5 +1,13 @@
-import fetch from "cross-fetch"
+import * as cf from "cross-fetch"
 import { go } from "./types"
+
+declare global {
+  interface Window {
+    fetch: typeof cf.fetch
+  }
+}
+
+window.fetch = cf.fetch
 
 /**
  * Specifies chain information for all endpoints a node exposes such as the
@@ -26,20 +34,10 @@ export interface Chain {
   feeDenom: string
 }
 
-/**
- * A function for strongly typing. Returns true if the input object satisfies
- * the Chain interface.
- */
-export function instanceOfChain(obj: any): obj is Chain {
-  return ["endptTm", "endptRest", "chainId", "chainName", "feeDenom"].every(
-    (attr) => attr in obj,
-  )
-}
-
 export interface ChainIdParts {
-  prefix: string
-  shortName: string
-  number: number
+  prefix: string // e.g. `nibiru`
+  shortName: string // e.g. `itn`
+  number: number // e.g. `1`
 }
 
 /** CustomChain is a convenience class for intializing the endpoints of a chain
@@ -60,38 +58,22 @@ export class CustomChain implements Chain {
   public readonly endptTm: string
   public readonly endptRest: string
   public readonly endptGrpc: string
-  public readonly feeDenom: string = "unibi"
+  public readonly feeDenom = "unibi"
 
   private readonly chainIdParts: ChainIdParts
 
   constructor(chainIdParts: ChainIdParts) {
     this.chainIdParts = chainIdParts
-
     this.chainId = this.initChainId()
     this.chainName = this.chainId
-    this.endptTm = this.initTendermintEndpoint()
-    this.endptRest = this.initRestEndpoint()
-    this.endptGrpc = this.initGrpcEndpoint()
+    this.endptTm = `https://rpc.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
+    this.endptRest = `https://lcd.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
+    this.endptGrpc = `grpc.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
   }
 
-  private initChainId = (): string => {
+  private initChainId = () => {
     const { prefix, shortName, number } = this.chainIdParts
     return [prefix, shortName, number].join("-")
-  }
-
-  public initTendermintEndpoint = (): string => {
-    const { shortName, number } = this.chainIdParts
-    return `https://rpc.${shortName}-${number}.nibiru.fi`
-  }
-
-  public initRestEndpoint = (): string => {
-    const { shortName, number } = this.chainIdParts
-    return `https://lcd.${shortName}-${number}.nibiru.fi`
-  }
-
-  public initGrpcEndpoint = (): string => {
-    const { shortName, number } = this.chainIdParts
-    return `grpc.${shortName}-${number}.nibiru.fi`
   }
 }
 
@@ -104,25 +86,23 @@ export const Localnet: Chain = {
   feeDenom: "unibi",
 }
 
-export function IncentivizedTestent(chainNumber: number): Chain {
-  return new CustomChain({
+export const IncentivizedTestent = (chainNumber: number) =>
+  new CustomChain({
     prefix: "nibiru",
     shortName: "itn",
     number: chainNumber,
   })
-}
 
-export function Devnet(chainNumber: number): Chain {
-  return new CustomChain({
+export const Devnet = (chainNumber: number) =>
+  new CustomChain({
     prefix: "nibiru",
     shortName: "devnet",
     number: chainNumber,
   })
-}
 
-export async function queryChainIdWithRest(chain: Chain): Promise<[string, Error?]> {
+export const queryChainIdWithRest = async (chain: Chain) => {
   const queryChainId = async (chain: Chain): Promise<string> => {
-    const response = await fetch(`${chain.endptRest}/node_info`)
+    const response = await window.fetch(`${chain.endptRest}/node_info`)
     const nodeInfo: { node_info: { network: string } } = await response.json()
     return nodeInfo.node_info.network
   }
@@ -131,7 +111,21 @@ export async function queryChainIdWithRest(chain: Chain): Promise<[string, Error
   return [chainId ?? "", err]
 }
 
-export async function isRestEndptLive(chain: Chain): Promise<boolean> {
+export const isRestEndptLive = async (chain: Chain) => {
   const [_chainId, err] = await queryChainIdWithRest(chain)
   return err === undefined
+}
+
+/**
+ * Converts a Chain object to its constituent parts.
+ * @param chain a Chain object
+ * @returns a ChainIdParts object
+ */
+export const chainToParts = (chain: Chain) => {
+  const parts = chain.chainId.split("-")
+  return {
+    prefix: parts[0],
+    shortName: parts[1],
+    number: Number(parts[2]),
+  } as ChainIdParts
 }

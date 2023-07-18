@@ -1,9 +1,4 @@
-import {
-  DirectSecp256k1HdWallet,
-  OfflineDirectSigner,
-  OfflineSigner,
-  Registry,
-} from "@cosmjs/proto-signing"
+import { DirectSecp256k1HdWallet, Registry } from "@cosmjs/proto-signing"
 import { defaultRegistryTypes as defaultStargateTypes } from "@cosmjs/stargate"
 import { Keplr } from "../wallet"
 
@@ -22,12 +17,7 @@ export enum BECH32_PREFIX {
   PUB_VALCONS = "nibivalconspub",
 }
 
-// Q: Why is this constant here?
-const DEFAULT_DERIVATION_PATH = "m/44'/118'/0'/0/0"
-
-export function getRegistry() {
-  return new Registry(defaultStargateTypes)
-}
+export const getRegistry = () => new Registry(defaultStargateTypes)
 
 /**
  * Creates a wallet from the given BIP39 mnemonic.
@@ -37,19 +27,13 @@ export function getRegistry() {
  * @param prefix - (optional) Bech32 address prefix. Defaults to "nibi".
  * @returns A wallet for protobuf based signing using SIGN_MODE_DIRECT
  */
-export async function newSignerFromMnemonic(
+export const newSignerFromMnemonic = async (
   mnemonic: string,
-  prefix = BECH32_PREFIX.ADDR,
-): Promise<DirectSecp256k1HdWallet> {
-  return DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix })
-}
+  prefix = BECH32_PREFIX.ADDR
+) => DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix })
 
-export function newSignerFromKeplr(
-  keplr: Keplr,
-  chainId: string,
-): OfflineSigner & OfflineDirectSigner {
-  return keplr.getOfflineSigner(chainId)
-}
+export const newSignerFromKeplr = (keplr: Keplr, chainId: string) =>
+  keplr.getOfflineSigner(chainId)
 
 /**
  * Generates a new wallet with a BIP39 mnemonic of length 24.
@@ -59,12 +43,10 @@ export function newSignerFromKeplr(
  * @param prefix - (optional) Bech32 address prefix. Defaults to "nibi".
  * @returns A wallet for protobuf based signing using SIGN_MODE_DIRECT.
  */
-export function newRandomWallet(
+export const newRandomWallet = (
   length?: 12 | 15 | 18 | 21 | 24,
-  prefix = BECH32_PREFIX.ADDR,
-): Promise<DirectSecp256k1HdWallet> {
-  return DirectSecp256k1HdWallet.generate(length || 24, { prefix })
-}
+  prefix = BECH32_PREFIX.ADDR
+) => DirectSecp256k1HdWallet.generate(length ?? 24, { prefix })
 
 export enum Signer {
   Keplr = "keplr",
