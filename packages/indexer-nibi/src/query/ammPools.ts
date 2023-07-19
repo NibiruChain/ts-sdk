@@ -1,9 +1,35 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
-import { AmmPoolsOrder, QueryExt, QueryExtAmmPoolsArgs } from "../gql/generated"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
+import {
+  AmmPools,
+  AmmPoolsOrder,
+  QueryExt,
+  QueryExtAmmPoolsArgs,
+} from "../gql/generated"
+
+export const defaultAmmPoolsObject: Partial<AmmPools> = {
+  block: "",
+  blockTs: "",
+  poolId: "",
+  address: "",
+  swapFee: 0,
+  exitFee: 0,
+  amplification: 0,
+  poolType: "",
+  assets: [
+    {
+      amount: 0,
+      denom: "",
+    },
+  ],
+  totalWeight: 0,
+  totalShares: {
+    amount: 0,
+    denom: "",
+  },
+}
 
 export interface GqlOutAmmPools {
-  ammPools: QueryExt["ammPools"]
+  ammPools?: QueryExt["ammPools"]
 }
 
 export const ammPools = async (
@@ -17,23 +43,7 @@ export const ammPools = async (
     gqlQuery(
       "ammPools",
       args,
-      `block
-       blockTs
-       poolId
-       address
-       swapFee
-       exitFee
-       amplification
-       poolType
-       assets {
-         amount
-         denom
-       }
-       totalWeight
-       totalShares {
-         amount
-         denom
-       }`
+      convertObjectToPropertiesString(defaultAmmPoolsObject)
     ),
     endpt
   )

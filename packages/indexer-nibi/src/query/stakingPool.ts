@@ -1,13 +1,20 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   QueryExt,
   QueryExtStakingPoolArgs,
+  StakingPool,
   StakingPoolOrder,
 } from "../gql/generated"
 
+export const defaultStakingPoolObject: Partial<StakingPool> = {
+  block: "",
+  blockTs: "",
+  bondedTokens: "",
+  notBondedTokens: "",
+}
+
 export interface GqlOutStakingPool {
-  stakingPool: QueryExt["stakingPool"]
+  stakingPool?: QueryExt["stakingPool"]
 }
 
 export const stakingPool = async (
@@ -22,10 +29,7 @@ export const stakingPool = async (
     gqlQuery(
       "stakingPool",
       args,
-      `block
-       blockTs
-       bondedTokens
-       notBondedTokens`
+      convertObjectToPropertiesString(defaultStakingPoolObject)
     ),
     endpt
   )

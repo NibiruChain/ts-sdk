@@ -1,19 +1,29 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
+  MarkPriceCandles,
   MarkPriceCandlesOrder,
   QueryExt,
   QueryExtMarkPriceCandlesArgs,
 } from "../gql/generated"
 
-export interface GqlOutMarkPriceCandle {
-  markPriceCandles: QueryExt["markPriceCandles"]
+export const defaultMarkPriceCandlesObject: Partial<MarkPriceCandles> = {
+  pair: "",
+  open: 0,
+  close: 0,
+  low: 0,
+  high: 0,
+  period: "",
+  periodStartTs: "",
+}
+
+export interface GqlOutMarkPriceCandles {
+  markPriceCandles?: QueryExt["markPriceCandles"]
 }
 
 export const markPriceCandles = async (
   args: QueryExtMarkPriceCandlesArgs,
   endpt: string
-): Promise<GqlOutMarkPriceCandle> => {
+): Promise<GqlOutMarkPriceCandles> => {
   if (!args.orderDesc) args.orderDesc = true
   if (!args.order) args.order = MarkPriceCandlesOrder.PeriodStartTs
 
@@ -21,13 +31,7 @@ export const markPriceCandles = async (
     gqlQuery(
       "markPriceCandles",
       args,
-      `pair
-       open
-       close
-       low
-       high
-       period
-       periodStartTs`
+      convertObjectToPropertiesString(defaultMarkPriceCandlesObject)
     ),
     endpt
   )

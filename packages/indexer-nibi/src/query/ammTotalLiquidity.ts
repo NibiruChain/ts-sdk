@@ -1,13 +1,24 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   QueryExt,
   AmmTotalLiquidityOrder,
   QueryExtAmmTotalLiquidityArgs,
+  AmmTotalLiquidity,
 } from "../gql/generated"
 
+export const defaultAmmTotalLiquidityObject: Partial<AmmTotalLiquidity> = {
+  block: "",
+  blockTs: "",
+  liquidity: [
+    {
+      amount: 0,
+      denom: "",
+    },
+  ],
+}
+
 export interface GqlOutAmmTotalLiquidity {
-  ammTotalLiquidity: QueryExt["ammTotalLiquidity"]
+  ammTotalLiquidity?: QueryExt["ammTotalLiquidity"]
 }
 
 export const ammTotalLiquidity = async (
@@ -21,12 +32,7 @@ export const ammTotalLiquidity = async (
     gqlQuery(
       "ammTotalLiquidity",
       args,
-      `block
-       blockTs
-       liquidity {
-         amount
-         denom
-       }`
+      convertObjectToPropertiesString(defaultAmmTotalLiquidityObject)
     ),
     endpt
   )

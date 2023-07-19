@@ -1,18 +1,25 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   QueryExt,
   QueryExtDelegationsArgs,
   DelegationsOrder,
+  Delegations,
 } from "../gql/generated"
 
-export interface GqlOutDelegations {
-  delegations: QueryExt["delegations"]
+export const defaultDelegationsObject: Partial<Delegations> = {
+  block: "",
+  blockTs: "",
+  delegatorAddress: "",
+  validatorAddress: "",
+  shares: 0,
+  balance: {
+    amount: 0,
+    denom: "",
+  },
 }
 
-export enum BalanceOrderBy {
-  block = "block",
-  block_ts = "block_ts",
+export interface GqlOutDelegations {
+  delegations?: QueryExt["delegations"]
 }
 
 export const delegations = async (
@@ -27,15 +34,7 @@ export const delegations = async (
     gqlQuery(
       "delegations",
       args,
-      `block
-       blockTs
-       delegatorAddress
-       validatorAddress
-       shares
-       balance {
-         amount
-         denom
-       }`
+      convertObjectToPropertiesString(defaultDelegationsObject)
     ),
     endpt
   )

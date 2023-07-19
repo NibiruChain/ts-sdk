@@ -1,13 +1,23 @@
-import { getWhereArgArr } from "../utils"
-import { doGqlQuery, arg } from "../gql"
+import { doGqlQuery, gqlQuery, convertObjectToPropertiesString } from "../gql"
 import {
+  FundingRates,
   FundingRatesOrder,
   QueryExt,
   QueryExtFundingRatesArgs,
 } from "../gql/generated"
 
+export const defaultFundingRatesObject: Partial<FundingRates> = {
+  block: "",
+  blockTs: "",
+  pair: "",
+  markPrice: 0,
+  indexPrice: 0,
+  latestFundingRate: 0,
+  cumulativePremiumFraction: 0,
+}
+
 export interface GqlOutFundingRate {
-  fundingRates: QueryExt["fundingRates"]
+  fundingRates?: QueryExt["fundingRates"]
 }
 
 export const fundingRates = async (
@@ -17,30 +27,12 @@ export const fundingRates = async (
   if (!args.orderDesc) args.orderDesc = true
   if (!args.order) args.order = FundingRatesOrder.BlockTs
 
-  const gqlQuery = ({
-    where,
-    limit,
-    order,
-    orderDesc,
-  }: QueryExtFundingRatesArgs) => {
-    const queryArgList = [
-      getWhereArgArr(where),
-      arg("limit", limit),
-      arg("order", order),
-      arg("orderDesc", orderDesc),
-    ]
-    const queryArgs = queryArgList.join(", ")
-    return `{
-        fundingRates(${queryArgs}) {
-          block
-          blockTs
-          pair
-          markPrice
-          indexPrice
-          latestFundingRate
-          cumulativePremiumFraction
-        }
-      }`
-  }
-  return doGqlQuery(gqlQuery(args), endpt)
+  return doGqlQuery(
+    gqlQuery(
+      "fundingRates",
+      args,
+      convertObjectToPropertiesString(defaultFundingRatesObject)
+    ),
+    endpt
+  )
 }

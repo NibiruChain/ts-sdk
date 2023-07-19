@@ -1,9 +1,26 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
-import { QueryExt, QueryExtBalancesArgs, BalancesOrder } from "../gql/generated"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
+import {
+  QueryExt,
+  QueryExtBalancesArgs,
+  BalancesOrder,
+  Balances,
+} from "../gql/generated"
+
+export const defaultBalancesObject: Partial<Balances> = {
+  block: "",
+  blockTs: "",
+  moduleName: "",
+  address: "",
+  balance: [
+    {
+      amount: 0,
+      denom: "",
+    },
+  ],
+}
 
 export interface GqlOutBalances {
-  balances: QueryExt["balances"]
+  balances?: QueryExt["balances"]
 }
 
 export const balances = async (
@@ -17,14 +34,7 @@ export const balances = async (
     gqlQuery(
       "balances",
       args,
-      `block
-       blockTs
-       moduleName
-       address
-       balance {
-         amount
-         denom
-       }`
+      convertObjectToPropertiesString(defaultBalancesObject)
     ),
     endpt
   )

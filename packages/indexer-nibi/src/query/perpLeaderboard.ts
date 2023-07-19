@@ -2,7 +2,7 @@ import { doGqlQuery } from "../gql"
 import { QueryExt, QueryExtPerpLeaderboardArgs } from "../gql/generated"
 
 export interface GqlOutPerpLeaderboard {
-  perpLeaderboard: QueryExt["perpLeaderboard"]
+  perpLeaderboard?: QueryExt["perpLeaderboard"]
 }
 
 export const perpLeaderboard = async (

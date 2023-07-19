@@ -1,19 +1,32 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   QueryExt,
   QueryExtTransfersArgs,
+  Transfers,
   TransfersOrder,
 } from "../gql/generated"
 
-export interface GqlOutTransfer {
-  transfers: QueryExt["transfers"]
+export const defaultTransfersObject: Partial<Transfers> = {
+  block: "",
+  blockTs: "",
+  recipient: "",
+  sender: "",
+  amount: [
+    {
+      amount: 0,
+      denom: "",
+    },
+  ],
+}
+
+export interface GqlOutTransfers {
+  transfers?: QueryExt["transfers"]
 }
 
 export const transfers = async (
   args: QueryExtTransfersArgs,
   endpt: string
-): Promise<GqlOutTransfer> => {
+): Promise<GqlOutTransfers> => {
   if (!args.orderDesc) args.orderDesc = true
   if (!args.order) args.order = TransfersOrder.BlockTs
 
@@ -21,14 +34,7 @@ export const transfers = async (
     gqlQuery(
       "transfers",
       args,
-      `block
-       blockTs
-       recipient
-       sender
-       amount {
-         amount
-         denom
-       }`
+      convertObjectToPropertiesString(defaultTransfersObject)
     ),
     endpt
   )

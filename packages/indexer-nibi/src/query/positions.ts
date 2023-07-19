@@ -1,19 +1,34 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
+  Positions,
   PositionsOrder,
   QueryExt,
   QueryExtPositionsArgs,
 } from "../gql/generated"
 
-export interface GqlOutPosition {
-  positions: QueryExt["positions"]
+export const defaultPositionsObject: Partial<Positions> = {
+  block: "",
+  blockTs: "",
+  pair: "",
+  trader: "",
+  size: 0,
+  margin: 0,
+  openNotional: 0,
+  positionNotional: 0,
+  unrealizedPnl: 0,
+  marginRatioMark: 0,
+  marginRatioIndex: 0,
+  openBlock: 0,
+}
+
+export interface GqlOutPositions {
+  positions?: QueryExt["positions"]
 }
 
 export const positions = async (
   args: QueryExtPositionsArgs,
   endpt: string
-): Promise<GqlOutPosition> => {
+): Promise<GqlOutPositions> => {
   if (!args.orderDesc) args.orderDesc = true
   if (!args.order) args.order = PositionsOrder.Block
 
@@ -21,18 +36,7 @@ export const positions = async (
     gqlQuery(
       "positions",
       args,
-      `block
-       blockTs
-       pair
-       trader
-       size
-       margin
-       openNotional
-       positionNotional
-       unrealizedPnl
-       marginRatioMark
-       marginRatioIndex
-       openBlock`
+      convertObjectToPropertiesString(defaultPositionsObject)
     ),
     endpt
   )

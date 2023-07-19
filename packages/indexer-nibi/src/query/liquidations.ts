@@ -1,13 +1,35 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
+  Liquidations,
   LiquidationsOrder,
   QueryExt,
   QueryExtLiquidationsArgs,
 } from "../gql/generated"
 
+export const defaultLiquidationsObject: Partial<Liquidations> = {
+  block: "",
+  blockTs: "",
+  traderAddress: "",
+  pair: "",
+  liquidatorAddress: "",
+  exchangedQuoteAmount: 0,
+  exchangedPositionSize: 0,
+  feeToLiquidator: {
+    amount: 0,
+    denom: "",
+  },
+  feeToEcosystemFund: {
+    amount: 0,
+    denom: "",
+  },
+  badDebt: {
+    amount: 0,
+    denom: "",
+  },
+}
+
 export interface GqlOutLiquidations {
-  liquidations: QueryExt["liquidations"]
+  liquidations?: QueryExt["liquidations"]
 }
 
 export const liquidations = async (
@@ -21,25 +43,7 @@ export const liquidations = async (
     gqlQuery(
       "liquidations",
       args,
-      `block
-       blockTs
-       traderAddress
-       pair
-       liquidatorAddress
-       exchangedQuoteAmount
-       exchangedPositionSize
-       feeToLiquidator {
-         amount
-         denom
-       }
-       feeToEcosystemFund {
-         amount
-         denom
-       }
-       badDebt {
-         amount
-         denom
-       }`
+      convertObjectToPropertiesString(defaultLiquidationsObject)
     ),
     endpt
   )

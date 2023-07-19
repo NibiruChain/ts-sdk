@@ -1,19 +1,26 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
+  MarkPrices,
   MarkPricesOrder,
   QueryExt,
   QueryExtMarkPricesArgs,
 } from "../gql/generated"
 
-export interface GqlOutMarkPrice {
-  markPrices: QueryExt["markPrices"]
+export interface GqlOutMarkPrices {
+  markPrices?: QueryExt["markPrices"]
+}
+
+export const defaultMarkPricesObject: Partial<MarkPrices> = {
+  block: "",
+  blockTs: "",
+  pair: "",
+  price: 0,
 }
 
 export const markPrices = async (
   args: QueryExtMarkPricesArgs,
   endpt: string
-): Promise<GqlOutMarkPrice> => {
+): Promise<GqlOutMarkPrices> => {
   if (!args.orderDesc) args.orderDesc = true
   if (!args.order) args.order = MarkPricesOrder.BlockTs
 
@@ -21,10 +28,7 @@ export const markPrices = async (
     gqlQuery(
       "markPrices",
       args,
-      `block
-       blockTs
-       pair
-       price`
+      convertObjectToPropertiesString(defaultMarkPricesObject)
     ),
     endpt
   )

@@ -1,19 +1,26 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
+  OraclePrices,
   OraclePricesOrder,
   QueryExt,
   QueryExtOraclePricesArgs,
 } from "../gql/generated"
 
-export interface GqlOutOraclePrice {
-  oraclePrices: QueryExt["oraclePrices"]
+export const defaultOraclePricesObject: Partial<OraclePrices> = {
+  block: "",
+  blockTs: "",
+  pair: "",
+  price: 0,
+}
+
+export interface GqlOutOraclePrices {
+  oraclePrices?: QueryExt["oraclePrices"]
 }
 
 export const oraclePrices = async (
   args: QueryExtOraclePricesArgs,
   endpt: string
-): Promise<GqlOutOraclePrice> => {
+): Promise<GqlOutOraclePrices> => {
   if (!args.orderDesc) args.orderDesc = true
   if (!args.order) args.order = OraclePricesOrder.BlockTs
 
@@ -21,10 +28,7 @@ export const oraclePrices = async (
     gqlQuery(
       "oraclePrices",
       args,
-      `block
-       blockTs
-       pair
-       price`
+      convertObjectToPropertiesString(defaultOraclePricesObject)
     ),
     endpt
   )

@@ -1,13 +1,24 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   QueryExt,
   QueryExtStatsVolumeArgs,
+  StatsVolume,
   StatsVolumeOrder,
 } from "../gql/generated"
 
+export const defaultStatsVolumeObject: Partial<StatsVolume> = {
+  period: 0,
+  periodStartTs: 0,
+  volumePerp: 0,
+  volumeSwap: 0,
+  volumeTotal: 0,
+  volumePerpCumulative: 0,
+  volumeSwapCumulative: 0,
+  volumeTotalCumulative: 0,
+}
+
 export interface GqlOutStatsVolume {
-  statsVolume: QueryExt["statsVolume"]
+  statsVolume?: QueryExt["statsVolume"]
 }
 
 export const statsVolume = async (
@@ -21,14 +32,7 @@ export const statsVolume = async (
     gqlQuery(
       "statsVolume",
       args,
-      `period
-       periodStartTs
-       volumePerp
-       volumeSwap
-       volumeTotal
-       volumePerpCumulative
-       volumeSwapCumulative
-       volumeTotalCumulative`
+      convertObjectToPropertiesString(defaultStatsVolumeObject)
     ),
     endpt
   )

@@ -1,13 +1,24 @@
-import { gqlQuery } from "../utils"
-import { doGqlQuery } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   QueryExt,
   QueryExtUnbondingsArgs,
+  Unbondings,
   UnbondingsOrder,
 } from "../gql/generated"
 
+export const defaultUnbondingsObject: Partial<Unbondings> = {
+  block: "",
+  blockTs: "",
+  validatorAddress: "",
+  delegatorAddress: "",
+  creationHeight: "",
+  completionTime: "",
+  initialBalance: "",
+  balance: "",
+}
+
 export interface GqlOutUnbondings {
-  unbondings: QueryExt["unbondings"]
+  unbondings?: QueryExt["unbondings"]
 }
 
 export const unbondings = async (
@@ -21,14 +32,7 @@ export const unbondings = async (
     gqlQuery(
       "unbondings",
       args,
-      `block
-      blockTs
-      validatorAddress
-      delegatorAddress
-      creationHeight
-      completionTime
-      initialBalance
-      balance`
+      convertObjectToPropertiesString(defaultUnbondingsObject)
     ),
     endpt
   )
