@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.19.22
+
+- Graphql introspection
+
 ## v0.19.21
 
 - Release branch
