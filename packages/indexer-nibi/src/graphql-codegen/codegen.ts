@@ -15,6 +15,23 @@ const config: CodegenConfig = {
     },
     "./src/gql/generated.ts": {
       plugins: ["typescript", "typescript-operations"],
+      config: {
+        immutableTypes: true,
+        scalars: {
+          DateTime: {
+            input: "string",
+            output: "string",
+          },
+          Decimal: {
+            input: "string",
+            output: "string",
+          },
+          Long: {
+            input: "number",
+            output: "number",
+          },
+        },
+      },
     },
   },
 }

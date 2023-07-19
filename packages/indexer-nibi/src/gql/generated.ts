@@ -25,38 +25,38 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean }
   Int: { input: number; output: number }
   Float: { input: number; output: number }
-  DateTime: { input: any; output: any }
-  Decimal: { input: any; output: any }
-  Long: { input: any; output: any }
+  DateTime: { input: string; output: string }
+  Decimal: { input: string; output: string }
+  Long: { input: number; output: number }
 }
 
 export type AmmPoolExits = {
-  __typename?: "AmmPoolExits"
-  address?: Maybe<Scalars["String"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  poolId?: Maybe<Scalars["Long"]["output"]>
-  poolSharesIn?: Maybe<Coin>
-  tokensOut?: Maybe<Array<Maybe<Coin>>>
+  readonly __typename?: "AmmPoolExits"
+  readonly address?: Maybe<Scalars["String"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly poolId?: Maybe<Scalars["Long"]["output"]>
+  readonly poolSharesIn?: Maybe<Coin>
+  readonly tokensOut?: Maybe<ReadonlyArray<Maybe<Coin>>>
 }
 
 export type AmmPoolExitsFilter = {
-  addressEq?: InputMaybe<Scalars["String"]["input"]>
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  poolIdEq?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdGt?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdGte?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdLt?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly addressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly poolIdEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdLte?: InputMaybe<Scalars["Long"]["input"]>
 }
 
 export enum AmmPoolExitsOrder {
@@ -66,33 +66,33 @@ export enum AmmPoolExitsOrder {
 }
 
 export type AmmPoolJoins = {
-  __typename?: "AmmPoolJoins"
-  address?: Maybe<Scalars["String"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  poolId?: Maybe<Scalars["Long"]["output"]>
-  poolSharesOut?: Maybe<Coin>
-  remCoins?: Maybe<Array<Maybe<Coin>>>
-  tokensIn?: Maybe<Array<Maybe<Coin>>>
+  readonly __typename?: "AmmPoolJoins"
+  readonly address?: Maybe<Scalars["String"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly poolId?: Maybe<Scalars["Long"]["output"]>
+  readonly poolSharesOut?: Maybe<Coin>
+  readonly remCoins?: Maybe<ReadonlyArray<Maybe<Coin>>>
+  readonly tokensIn?: Maybe<ReadonlyArray<Maybe<Coin>>>
 }
 
 export type AmmPoolJoinsFilter = {
-  addressEq?: InputMaybe<Scalars["String"]["input"]>
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  poolIdEq?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdGt?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdGte?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdLt?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly addressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly poolIdEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdLte?: InputMaybe<Scalars["Long"]["input"]>
 }
 
 export enum AmmPoolJoinsOrder {
@@ -102,52 +102,52 @@ export enum AmmPoolJoinsOrder {
 }
 
 export type AmmPools = {
-  __typename?: "AmmPools"
-  address?: Maybe<Scalars["String"]["output"]>
-  amplification?: Maybe<Scalars["Float"]["output"]>
-  assets?: Maybe<Array<Maybe<Coin>>>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  exitFee?: Maybe<Scalars["Float"]["output"]>
-  poolId?: Maybe<Scalars["Long"]["output"]>
-  poolType?: Maybe<Scalars["String"]["output"]>
-  swapFee?: Maybe<Scalars["Float"]["output"]>
-  totalShares?: Maybe<Coin>
-  totalWeight?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "AmmPools"
+  readonly address?: Maybe<Scalars["String"]["output"]>
+  readonly amplification?: Maybe<Scalars["Float"]["output"]>
+  readonly assets?: Maybe<ReadonlyArray<Maybe<Coin>>>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly exitFee?: Maybe<Scalars["Float"]["output"]>
+  readonly poolId?: Maybe<Scalars["Long"]["output"]>
+  readonly poolType?: Maybe<Scalars["String"]["output"]>
+  readonly swapFee?: Maybe<Scalars["Float"]["output"]>
+  readonly totalShares?: Maybe<Coin>
+  readonly totalWeight?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type AmmPoolsFilter = {
-  addressEq?: InputMaybe<Scalars["String"]["input"]>
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  exitFeeEq?: InputMaybe<Scalars["Float"]["input"]>
-  exitFeeGt?: InputMaybe<Scalars["Float"]["input"]>
-  exitFeeGte?: InputMaybe<Scalars["Float"]["input"]>
-  exitFeeLt?: InputMaybe<Scalars["Float"]["input"]>
-  exitFeeLte?: InputMaybe<Scalars["Float"]["input"]>
-  poolIdEq?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdGt?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdGte?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdLt?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdLte?: InputMaybe<Scalars["Long"]["input"]>
-  swapFeeEq?: InputMaybe<Scalars["Float"]["input"]>
-  swapFeeGt?: InputMaybe<Scalars["Float"]["input"]>
-  swapFeeGte?: InputMaybe<Scalars["Float"]["input"]>
-  swapFeeLt?: InputMaybe<Scalars["Float"]["input"]>
-  swapFeeLte?: InputMaybe<Scalars["Float"]["input"]>
-  totalWeightEq?: InputMaybe<Scalars["Float"]["input"]>
-  totalWeightGt?: InputMaybe<Scalars["Float"]["input"]>
-  totalWeightGte?: InputMaybe<Scalars["Float"]["input"]>
-  totalWeightLt?: InputMaybe<Scalars["Float"]["input"]>
-  totalWeightLte?: InputMaybe<Scalars["Float"]["input"]>
+  readonly addressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly exitFeeEq?: InputMaybe<Scalars["Float"]["input"]>
+  readonly exitFeeGt?: InputMaybe<Scalars["Float"]["input"]>
+  readonly exitFeeGte?: InputMaybe<Scalars["Float"]["input"]>
+  readonly exitFeeLt?: InputMaybe<Scalars["Float"]["input"]>
+  readonly exitFeeLte?: InputMaybe<Scalars["Float"]["input"]>
+  readonly poolIdEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly swapFeeEq?: InputMaybe<Scalars["Float"]["input"]>
+  readonly swapFeeGt?: InputMaybe<Scalars["Float"]["input"]>
+  readonly swapFeeGte?: InputMaybe<Scalars["Float"]["input"]>
+  readonly swapFeeLt?: InputMaybe<Scalars["Float"]["input"]>
+  readonly swapFeeLte?: InputMaybe<Scalars["Float"]["input"]>
+  readonly totalWeightEq?: InputMaybe<Scalars["Float"]["input"]>
+  readonly totalWeightGt?: InputMaybe<Scalars["Float"]["input"]>
+  readonly totalWeightGte?: InputMaybe<Scalars["Float"]["input"]>
+  readonly totalWeightLt?: InputMaybe<Scalars["Float"]["input"]>
+  readonly totalWeightLte?: InputMaybe<Scalars["Float"]["input"]>
 }
 
 export enum AmmPoolsOrder {
@@ -160,32 +160,32 @@ export enum AmmPoolsOrder {
 }
 
 export type AmmSwaps = {
-  __typename?: "AmmSwaps"
-  address?: Maybe<Scalars["String"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  poolId?: Maybe<Scalars["Long"]["output"]>
-  tokenIn?: Maybe<Coin>
-  tokenOut?: Maybe<Coin>
+  readonly __typename?: "AmmSwaps"
+  readonly address?: Maybe<Scalars["String"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly poolId?: Maybe<Scalars["Long"]["output"]>
+  readonly tokenIn?: Maybe<Coin>
+  readonly tokenOut?: Maybe<Coin>
 }
 
 export type AmmSwapsFilter = {
-  addressEq?: InputMaybe<Scalars["String"]["input"]>
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  poolIdEq?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdGt?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdGte?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdLt?: InputMaybe<Scalars["Long"]["input"]>
-  poolIdLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly addressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly poolIdEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly poolIdLte?: InputMaybe<Scalars["Long"]["input"]>
 }
 
 export enum AmmSwapsOrder {
@@ -195,23 +195,23 @@ export enum AmmSwapsOrder {
 }
 
 export type AmmTotalLiquidity = {
-  __typename?: "AmmTotalLiquidity"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  liquidity?: Maybe<Array<Maybe<Coin>>>
+  readonly __typename?: "AmmTotalLiquidity"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly liquidity?: Maybe<ReadonlyArray<Maybe<Coin>>>
 }
 
 export type AmmTotalLiquidityFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum AmmTotalLiquidityOrder {
@@ -220,27 +220,27 @@ export enum AmmTotalLiquidityOrder {
 }
 
 export type Balances = {
-  __typename?: "Balances"
-  address?: Maybe<Scalars["String"]["output"]>
-  balance?: Maybe<Array<Maybe<Coin>>>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  moduleName?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "Balances"
+  readonly address?: Maybe<Scalars["String"]["output"]>
+  readonly balance?: Maybe<ReadonlyArray<Maybe<Coin>>>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly moduleName?: Maybe<Scalars["String"]["output"]>
 }
 
 export type BalancesFilter = {
-  addressEq?: InputMaybe<Scalars["String"]["input"]>
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  moduleNameEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly addressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly moduleNameEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum BalancesOrder {
@@ -249,29 +249,29 @@ export enum BalancesOrder {
 }
 
 export type Blocks = {
-  __typename?: "Blocks"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  duration?: Maybe<Scalars["Int"]["output"]>
-  numTxs?: Maybe<Scalars["Long"]["output"]>
+  readonly __typename?: "Blocks"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly duration?: Maybe<Scalars["Int"]["output"]>
+  readonly numTxs?: Maybe<Scalars["Long"]["output"]>
 }
 
 export type BlocksFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  numTxsEq?: InputMaybe<Scalars["Long"]["input"]>
-  numTxsGt?: InputMaybe<Scalars["Long"]["input"]>
-  numTxsGte?: InputMaybe<Scalars["Long"]["input"]>
-  numTxsLt?: InputMaybe<Scalars["Long"]["input"]>
-  numTxsLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly numTxsEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly numTxsGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly numTxsGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly numTxsLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly numTxsLte?: InputMaybe<Scalars["Long"]["input"]>
 }
 
 export enum BlocksOrder {
@@ -281,34 +281,34 @@ export enum BlocksOrder {
 }
 
 export type Coin = {
-  __typename?: "Coin"
-  amount?: Maybe<Scalars["Float"]["output"]>
-  denom?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "Coin"
+  readonly amount?: Maybe<Scalars["Float"]["output"]>
+  readonly denom?: Maybe<Scalars["String"]["output"]>
 }
 
 export type DelegateEvents = {
-  __typename?: "DelegateEvents"
-  amount?: Maybe<Scalars["Float"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  delegator?: Maybe<Scalars["String"]["output"]>
-  newShares?: Maybe<Scalars["Float"]["output"]>
-  validator?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "DelegateEvents"
+  readonly amount?: Maybe<Scalars["Float"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly delegator?: Maybe<Scalars["String"]["output"]>
+  readonly newShares?: Maybe<Scalars["Float"]["output"]>
+  readonly validator?: Maybe<Scalars["String"]["output"]>
 }
 
 export type DelegateEventsFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  delegatorEq?: InputMaybe<Scalars["String"]["input"]>
-  validatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly delegatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly validatorEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum DelegateEventsOrder {
@@ -317,28 +317,28 @@ export enum DelegateEventsOrder {
 }
 
 export type Delegations = {
-  __typename?: "Delegations"
-  balance?: Maybe<Coin>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  delegatorAddress?: Maybe<Scalars["String"]["output"]>
-  shares?: Maybe<Scalars["Float"]["output"]>
-  validatorAddress?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "Delegations"
+  readonly balance?: Maybe<Coin>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly delegatorAddress?: Maybe<Scalars["String"]["output"]>
+  readonly shares?: Maybe<Scalars["Float"]["output"]>
+  readonly validatorAddress?: Maybe<Scalars["String"]["output"]>
 }
 
 export type DelegationsFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  delegatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
-  validatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly delegatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly validatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum DelegationsOrder {
@@ -347,29 +347,29 @@ export enum DelegationsOrder {
 }
 
 export type EventGovProposalDeposit = {
-  __typename?: "EventGovProposalDeposit"
-  amount?: Maybe<Array<Maybe<Coin>>>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  proposalId?: Maybe<Scalars["Long"]["output"]>
+  readonly __typename?: "EventGovProposalDeposit"
+  readonly amount?: Maybe<ReadonlyArray<Maybe<Coin>>>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly proposalId?: Maybe<Scalars["Long"]["output"]>
 }
 
 export type EventGovProposalDepositFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  proposalIdEq?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdGt?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdGte?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdLt?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly proposalIdEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdLte?: InputMaybe<Scalars["Long"]["input"]>
 }
 
 export enum EventGovProposalDepositOrder {
@@ -379,29 +379,29 @@ export enum EventGovProposalDepositOrder {
 }
 
 export type EventGovProposalVote = {
-  __typename?: "EventGovProposalVote"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  option?: Maybe<Scalars["Int"]["output"]>
-  proposalId?: Maybe<Scalars["Long"]["output"]>
+  readonly __typename?: "EventGovProposalVote"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly option?: Maybe<Scalars["Int"]["output"]>
+  readonly proposalId?: Maybe<Scalars["Long"]["output"]>
 }
 
 export type EventGovProposalVoteFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  proposalIdEq?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdGt?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdGte?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdLt?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly proposalIdEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdLte?: InputMaybe<Scalars["Long"]["input"]>
 }
 
 export enum EventGovProposalVoteOrder {
@@ -411,28 +411,28 @@ export enum EventGovProposalVoteOrder {
 }
 
 export type EventGovSubmitProposal = {
-  __typename?: "EventGovSubmitProposal"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  proposalId?: Maybe<Scalars["Long"]["output"]>
+  readonly __typename?: "EventGovSubmitProposal"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly proposalId?: Maybe<Scalars["Long"]["output"]>
 }
 
 export type EventGovSubmitProposalFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  proposalIdEq?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdGt?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdGte?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdLt?: InputMaybe<Scalars["Long"]["input"]>
-  proposalIdLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly proposalIdEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly proposalIdLte?: InputMaybe<Scalars["Long"]["input"]>
 }
 
 export enum EventGovSubmitProposalOrder {
@@ -442,24 +442,24 @@ export enum EventGovSubmitProposalOrder {
 }
 
 export type EventOracleAggregatePrevote = {
-  __typename?: "EventOracleAggregatePrevote"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  validator?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "EventOracleAggregatePrevote"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly validator?: Maybe<Scalars["String"]["output"]>
 }
 
 export type EventOracleAggregatePrevoteFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  validatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly validatorEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum EventOracleAggregatePrevoteOrder {
@@ -468,24 +468,24 @@ export enum EventOracleAggregatePrevoteOrder {
 }
 
 export type EventOracleAggregateVote = {
-  __typename?: "EventOracleAggregateVote"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  validator?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "EventOracleAggregateVote"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly validator?: Maybe<Scalars["String"]["output"]>
 }
 
 export type EventOracleAggregateVoteFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  validatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly validatorEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum EventOracleAggregateVoteOrder {
@@ -494,37 +494,37 @@ export enum EventOracleAggregateVoteOrder {
 }
 
 export type EventPerpPositionChanged = {
-  __typename?: "EventPerpPositionChanged"
-  badDebt?: Maybe<Coin>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  exchangedNotional?: Maybe<Scalars["Float"]["output"]>
-  exchangedSize?: Maybe<Scalars["Float"]["output"]>
-  fundingPayment?: Maybe<Scalars["Float"]["output"]>
-  margin?: Maybe<Coin>
-  markPrice?: Maybe<Scalars["Float"]["output"]>
-  pair?: Maybe<Scalars["String"]["output"]>
-  positionNotional?: Maybe<Scalars["Float"]["output"]>
-  positionSize?: Maybe<Scalars["Float"]["output"]>
-  realizedPnl?: Maybe<Scalars["Float"]["output"]>
-  traderAddress?: Maybe<Scalars["String"]["output"]>
-  transactionFee?: Maybe<Coin>
-  unrealizedPnlAfter?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "EventPerpPositionChanged"
+  readonly badDebt?: Maybe<Coin>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly exchangedNotional?: Maybe<Scalars["Float"]["output"]>
+  readonly exchangedSize?: Maybe<Scalars["Float"]["output"]>
+  readonly fundingPayment?: Maybe<Scalars["Float"]["output"]>
+  readonly margin?: Maybe<Coin>
+  readonly markPrice?: Maybe<Scalars["Float"]["output"]>
+  readonly pair?: Maybe<Scalars["String"]["output"]>
+  readonly positionNotional?: Maybe<Scalars["Float"]["output"]>
+  readonly positionSize?: Maybe<Scalars["Float"]["output"]>
+  readonly realizedPnl?: Maybe<Scalars["Float"]["output"]>
+  readonly traderAddress?: Maybe<Scalars["String"]["output"]>
+  readonly transactionFee?: Maybe<Coin>
+  readonly unrealizedPnlAfter?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type EventPerpPositionChangedFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  pairEq?: InputMaybe<Scalars["String"]["input"]>
-  traderAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly traderAddressEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum EventPerpPositionChangedOrder {
@@ -533,33 +533,33 @@ export enum EventPerpPositionChangedOrder {
 }
 
 export type EventPerpPositionLiquidated = {
-  __typename?: "EventPerpPositionLiquidated"
-  badDebt?: Maybe<Coin>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  exchangedPositionSize?: Maybe<Scalars["Float"]["output"]>
-  exchangedQuoteAmount?: Maybe<Scalars["Float"]["output"]>
-  feeToEcosystemFund?: Maybe<Coin>
-  feeToLiquidator?: Maybe<Coin>
-  liquidatorAddress?: Maybe<Scalars["String"]["output"]>
-  pair?: Maybe<Scalars["String"]["output"]>
-  traderAddress?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "EventPerpPositionLiquidated"
+  readonly badDebt?: Maybe<Coin>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly exchangedPositionSize?: Maybe<Scalars["Float"]["output"]>
+  readonly exchangedQuoteAmount?: Maybe<Scalars["Float"]["output"]>
+  readonly feeToEcosystemFund?: Maybe<Coin>
+  readonly feeToLiquidator?: Maybe<Coin>
+  readonly liquidatorAddress?: Maybe<Scalars["String"]["output"]>
+  readonly pair?: Maybe<Scalars["String"]["output"]>
+  readonly traderAddress?: Maybe<Scalars["String"]["output"]>
 }
 
 export type EventPerpPositionLiquidatedFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  liquidatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
-  pairEq?: InputMaybe<Scalars["String"]["input"]>
-  traderAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly liquidatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly traderAddressEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum EventPerpPositionLiquidatedOrder {
@@ -568,28 +568,28 @@ export enum EventPerpPositionLiquidatedOrder {
 }
 
 export type EventStakingDelegate = {
-  __typename?: "EventStakingDelegate"
-  amount?: Maybe<Scalars["Float"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  delegator?: Maybe<Scalars["String"]["output"]>
-  newShares?: Maybe<Scalars["Float"]["output"]>
-  validator?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "EventStakingDelegate"
+  readonly amount?: Maybe<Scalars["Float"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly delegator?: Maybe<Scalars["String"]["output"]>
+  readonly newShares?: Maybe<Scalars["Float"]["output"]>
+  readonly validator?: Maybe<Scalars["String"]["output"]>
 }
 
 export type EventStakingDelegateFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  delegatorEq?: InputMaybe<Scalars["String"]["input"]>
-  validatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly delegatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly validatorEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum EventStakingDelegateOrder {
@@ -598,30 +598,30 @@ export enum EventStakingDelegateOrder {
 }
 
 export type EventStakingRedelegate = {
-  __typename?: "EventStakingRedelegate"
-  amount?: Maybe<Scalars["Float"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  completionTime?: Maybe<Scalars["DateTime"]["output"]>
-  delegator?: Maybe<Scalars["String"]["output"]>
-  destinationValidator?: Maybe<Scalars["String"]["output"]>
-  sourceValidator?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "EventStakingRedelegate"
+  readonly amount?: Maybe<Scalars["Float"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly completionTime?: Maybe<Scalars["DateTime"]["output"]>
+  readonly delegator?: Maybe<Scalars["String"]["output"]>
+  readonly destinationValidator?: Maybe<Scalars["String"]["output"]>
+  readonly sourceValidator?: Maybe<Scalars["String"]["output"]>
 }
 
 export type EventStakingRedelegateFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  delegatorEq?: InputMaybe<Scalars["String"]["input"]>
-  destinationValidatorEq?: InputMaybe<Scalars["String"]["input"]>
-  sourceValidatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly delegatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly destinationValidatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly sourceValidatorEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum EventStakingRedelegateOrder {
@@ -630,28 +630,28 @@ export enum EventStakingRedelegateOrder {
 }
 
 export type EventStakingUnbond = {
-  __typename?: "EventStakingUnbond"
-  amount?: Maybe<Scalars["Float"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  completionTime?: Maybe<Scalars["DateTime"]["output"]>
-  delegator?: Maybe<Scalars["String"]["output"]>
-  validator?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "EventStakingUnbond"
+  readonly amount?: Maybe<Scalars["Float"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly completionTime?: Maybe<Scalars["DateTime"]["output"]>
+  readonly delegator?: Maybe<Scalars["String"]["output"]>
+  readonly validator?: Maybe<Scalars["String"]["output"]>
 }
 
 export type EventStakingUnbondFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  delegatorEq?: InputMaybe<Scalars["String"]["input"]>
-  validatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly delegatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly validatorEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum EventStakingUnbondOrder {
@@ -660,26 +660,26 @@ export enum EventStakingUnbondOrder {
 }
 
 export type EventWasmExecute = {
-  __typename?: "EventWasmExecute"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  contractAddress?: Maybe<Scalars["String"]["output"]>
-  sender?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "EventWasmExecute"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly contractAddress?: Maybe<Scalars["String"]["output"]>
+  readonly sender?: Maybe<Scalars["String"]["output"]>
 }
 
 export type EventWasmExecuteFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  contractAddressEq?: InputMaybe<Scalars["String"]["input"]>
-  senderEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly contractAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly senderEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum EventWasmExecuteOrder {
@@ -688,32 +688,32 @@ export enum EventWasmExecuteOrder {
 }
 
 export type EventWasmInstantiate = {
-  __typename?: "EventWasmInstantiate"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  codeId?: Maybe<Scalars["Long"]["output"]>
-  contractAddress?: Maybe<Scalars["String"]["output"]>
-  sender?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "EventWasmInstantiate"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly codeId?: Maybe<Scalars["Long"]["output"]>
+  readonly contractAddress?: Maybe<Scalars["String"]["output"]>
+  readonly sender?: Maybe<Scalars["String"]["output"]>
 }
 
 export type EventWasmInstantiateFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  codeIdEq?: InputMaybe<Scalars["Long"]["input"]>
-  codeIdGt?: InputMaybe<Scalars["Long"]["input"]>
-  codeIdGte?: InputMaybe<Scalars["Long"]["input"]>
-  codeIdLt?: InputMaybe<Scalars["Long"]["input"]>
-  codeIdLte?: InputMaybe<Scalars["Long"]["input"]>
-  contractAddressEq?: InputMaybe<Scalars["String"]["input"]>
-  senderEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly codeIdEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly codeIdGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly codeIdGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly codeIdLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly codeIdLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly contractAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly senderEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum EventWasmInstantiateOrder {
@@ -723,30 +723,30 @@ export enum EventWasmInstantiateOrder {
 }
 
 export type EventWasmStoreCode = {
-  __typename?: "EventWasmStoreCode"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  codeId?: Maybe<Scalars["Long"]["output"]>
-  sender?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "EventWasmStoreCode"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly codeId?: Maybe<Scalars["Long"]["output"]>
+  readonly sender?: Maybe<Scalars["String"]["output"]>
 }
 
 export type EventWasmStoreCodeFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  codeIdEq?: InputMaybe<Scalars["Long"]["input"]>
-  codeIdGt?: InputMaybe<Scalars["Long"]["input"]>
-  codeIdGte?: InputMaybe<Scalars["Long"]["input"]>
-  codeIdLt?: InputMaybe<Scalars["Long"]["input"]>
-  codeIdLte?: InputMaybe<Scalars["Long"]["input"]>
-  senderEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly codeIdEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly codeIdGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly codeIdGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly codeIdLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly codeIdLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly senderEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum EventWasmStoreCodeOrder {
@@ -756,28 +756,28 @@ export enum EventWasmStoreCodeOrder {
 }
 
 export type FundingRates = {
-  __typename?: "FundingRates"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  cumulativePremiumFraction?: Maybe<Scalars["Float"]["output"]>
-  indexPrice?: Maybe<Scalars["Float"]["output"]>
-  latestFundingRate?: Maybe<Scalars["Float"]["output"]>
-  markPrice?: Maybe<Scalars["Float"]["output"]>
-  pair?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "FundingRates"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly cumulativePremiumFraction?: Maybe<Scalars["Float"]["output"]>
+  readonly indexPrice?: Maybe<Scalars["Float"]["output"]>
+  readonly latestFundingRate?: Maybe<Scalars["Float"]["output"]>
+  readonly markPrice?: Maybe<Scalars["Float"]["output"]>
+  readonly pair?: Maybe<Scalars["String"]["output"]>
 }
 
 export type FundingRatesFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum FundingRatesOrder {
@@ -786,33 +786,33 @@ export enum FundingRatesOrder {
 }
 
 export type Liquidations = {
-  __typename?: "Liquidations"
-  badDebt?: Maybe<Coin>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  exchangedPositionSize?: Maybe<Scalars["Float"]["output"]>
-  exchangedQuoteAmount?: Maybe<Scalars["Float"]["output"]>
-  feeToEcosystemFund?: Maybe<Coin>
-  feeToLiquidator?: Maybe<Coin>
-  liquidatorAddress?: Maybe<Scalars["String"]["output"]>
-  pair?: Maybe<Scalars["String"]["output"]>
-  traderAddress?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "Liquidations"
+  readonly badDebt?: Maybe<Coin>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly exchangedPositionSize?: Maybe<Scalars["Float"]["output"]>
+  readonly exchangedQuoteAmount?: Maybe<Scalars["Float"]["output"]>
+  readonly feeToEcosystemFund?: Maybe<Coin>
+  readonly feeToLiquidator?: Maybe<Coin>
+  readonly liquidatorAddress?: Maybe<Scalars["String"]["output"]>
+  readonly pair?: Maybe<Scalars["String"]["output"]>
+  readonly traderAddress?: Maybe<Scalars["String"]["output"]>
 }
 
 export type LiquidationsFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  liquidatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
-  pairEq?: InputMaybe<Scalars["String"]["input"]>
-  traderAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly liquidatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly traderAddressEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum LiquidationsOrder {
@@ -821,28 +821,28 @@ export enum LiquidationsOrder {
 }
 
 export type MarkPriceCandles = {
-  __typename?: "MarkPriceCandles"
-  close?: Maybe<Scalars["Float"]["output"]>
-  high?: Maybe<Scalars["Float"]["output"]>
-  low?: Maybe<Scalars["Float"]["output"]>
-  open?: Maybe<Scalars["Float"]["output"]>
-  pair?: Maybe<Scalars["String"]["output"]>
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly __typename?: "MarkPriceCandles"
+  readonly close?: Maybe<Scalars["Float"]["output"]>
+  readonly high?: Maybe<Scalars["Float"]["output"]>
+  readonly low?: Maybe<Scalars["Float"]["output"]>
+  readonly open?: Maybe<Scalars["Float"]["output"]>
+  readonly pair?: Maybe<Scalars["String"]["output"]>
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
 }
 
 export type MarkPriceCandlesFilter = {
-  pairEq?: InputMaybe<Scalars["String"]["input"]>
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum MarkPriceCandlesOrder {
@@ -851,27 +851,27 @@ export enum MarkPriceCandlesOrder {
 }
 
 export type MarkPrices = {
-  __typename?: "MarkPrices"
-  baseReserve?: Maybe<Scalars["Float"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  pair?: Maybe<Scalars["String"]["output"]>
-  price?: Maybe<Scalars["Float"]["output"]>
-  quoteReserve?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "MarkPrices"
+  readonly baseReserve?: Maybe<Scalars["Float"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly pair?: Maybe<Scalars["String"]["output"]>
+  readonly price?: Maybe<Scalars["Float"]["output"]>
+  readonly quoteReserve?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type MarkPricesFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum MarkPricesOrder {
@@ -880,25 +880,25 @@ export enum MarkPricesOrder {
 }
 
 export type OraclePrices = {
-  __typename?: "OraclePrices"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  pair?: Maybe<Scalars["String"]["output"]>
-  price?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "OraclePrices"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly pair?: Maybe<Scalars["String"]["output"]>
+  readonly price?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type OraclePricesFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum OraclePricesOrder {
@@ -907,47 +907,47 @@ export enum OraclePricesOrder {
 }
 
 export type PerpLeaderboard = {
-  __typename?: "PerpLeaderboard"
-  inputMargin?: Maybe<Scalars["Decimal"]["output"]>
-  lastUpdatedBlock?: Maybe<Scalars["Int"]["output"]>
-  lastUpdatedBlockTs?: Maybe<Scalars["DateTime"]["output"]>
-  percentagePnl?: Maybe<Scalars["Decimal"]["output"]>
-  rawPnl?: Maybe<Scalars["Decimal"]["output"]>
-  traderAddress?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "PerpLeaderboard"
+  readonly inputMargin?: Maybe<Scalars["Decimal"]["output"]>
+  readonly lastUpdatedBlock?: Maybe<Scalars["Int"]["output"]>
+  readonly lastUpdatedBlockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly percentagePnl?: Maybe<Scalars["Decimal"]["output"]>
+  readonly rawPnl?: Maybe<Scalars["Decimal"]["output"]>
+  readonly traderAddress?: Maybe<Scalars["String"]["output"]>
 }
 
 export type PositionChanges = {
-  __typename?: "PositionChanges"
-  badDebt?: Maybe<Coin>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  exchangedNotional?: Maybe<Scalars["Float"]["output"]>
-  exchangedSize?: Maybe<Scalars["Float"]["output"]>
-  fundingPayment?: Maybe<Scalars["Float"]["output"]>
-  margin?: Maybe<Coin>
-  markPrice?: Maybe<Scalars["Float"]["output"]>
-  pair?: Maybe<Scalars["String"]["output"]>
-  positionNotional?: Maybe<Scalars["Float"]["output"]>
-  positionSize?: Maybe<Scalars["Float"]["output"]>
-  realizedPnl?: Maybe<Scalars["Float"]["output"]>
-  traderAddress?: Maybe<Scalars["String"]["output"]>
-  transactionFee?: Maybe<Coin>
-  unrealizedPnlAfter?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "PositionChanges"
+  readonly badDebt?: Maybe<Coin>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly exchangedNotional?: Maybe<Scalars["Float"]["output"]>
+  readonly exchangedSize?: Maybe<Scalars["Float"]["output"]>
+  readonly fundingPayment?: Maybe<Scalars["Float"]["output"]>
+  readonly margin?: Maybe<Coin>
+  readonly markPrice?: Maybe<Scalars["Float"]["output"]>
+  readonly pair?: Maybe<Scalars["String"]["output"]>
+  readonly positionNotional?: Maybe<Scalars["Float"]["output"]>
+  readonly positionSize?: Maybe<Scalars["Float"]["output"]>
+  readonly realizedPnl?: Maybe<Scalars["Float"]["output"]>
+  readonly traderAddress?: Maybe<Scalars["String"]["output"]>
+  readonly transactionFee?: Maybe<Coin>
+  readonly unrealizedPnlAfter?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type PositionChangesFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  pairEq?: InputMaybe<Scalars["String"]["input"]>
-  traderAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly traderAddressEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum PositionChangesOrder {
@@ -956,41 +956,41 @@ export enum PositionChangesOrder {
 }
 
 export type Positions = {
-  __typename?: "Positions"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  id?: Maybe<Scalars["Int"]["output"]>
-  latestCumulativePremiumFraction?: Maybe<Scalars["Float"]["output"]>
-  margin?: Maybe<Scalars["Float"]["output"]>
-  marginRatioIndex?: Maybe<Scalars["Float"]["output"]>
-  marginRatioMark?: Maybe<Scalars["Float"]["output"]>
-  openBlock?: Maybe<Scalars["Long"]["output"]>
-  openNotional?: Maybe<Scalars["Float"]["output"]>
-  pair?: Maybe<Scalars["String"]["output"]>
-  positionNotional?: Maybe<Scalars["Float"]["output"]>
-  size?: Maybe<Scalars["Float"]["output"]>
-  trader?: Maybe<Scalars["String"]["output"]>
-  unrealizedPnl?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "Positions"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly id?: Maybe<Scalars["Int"]["output"]>
+  readonly latestCumulativePremiumFraction?: Maybe<Scalars["Float"]["output"]>
+  readonly margin?: Maybe<Scalars["Float"]["output"]>
+  readonly marginRatioIndex?: Maybe<Scalars["Float"]["output"]>
+  readonly marginRatioMark?: Maybe<Scalars["Float"]["output"]>
+  readonly openBlock?: Maybe<Scalars["Long"]["output"]>
+  readonly openNotional?: Maybe<Scalars["Float"]["output"]>
+  readonly pair?: Maybe<Scalars["String"]["output"]>
+  readonly positionNotional?: Maybe<Scalars["Float"]["output"]>
+  readonly size?: Maybe<Scalars["Float"]["output"]>
+  readonly trader?: Maybe<Scalars["String"]["output"]>
+  readonly unrealizedPnl?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type PositionsFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  idEq?: InputMaybe<Scalars["Int"]["input"]>
-  idGt?: InputMaybe<Scalars["Int"]["input"]>
-  idGte?: InputMaybe<Scalars["Int"]["input"]>
-  idLt?: InputMaybe<Scalars["Int"]["input"]>
-  idLte?: InputMaybe<Scalars["Int"]["input"]>
-  pairEq?: InputMaybe<Scalars["String"]["input"]>
-  traderEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly idEq?: InputMaybe<Scalars["Int"]["input"]>
+  readonly idGt?: InputMaybe<Scalars["Int"]["input"]>
+  readonly idGte?: InputMaybe<Scalars["Int"]["input"]>
+  readonly idLt?: InputMaybe<Scalars["Int"]["input"]>
+  readonly idLte?: InputMaybe<Scalars["Int"]["input"]>
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly traderEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum PositionsOrder {
@@ -1001,56 +1001,78 @@ export enum PositionsOrder {
 
 /** Extensible query class to add custom resolvers and endpoints not defined in the schema */
 export type QueryExt = {
-  __typename?: "QueryExt"
-  ammPoolExits?: Maybe<Array<Maybe<AmmPoolExits>>>
-  ammPoolJoins?: Maybe<Array<Maybe<AmmPoolJoins>>>
-  ammPools?: Maybe<Array<Maybe<AmmPools>>>
-  ammSwaps?: Maybe<Array<Maybe<AmmSwaps>>>
-  ammTotalLiquidity?: Maybe<Array<Maybe<AmmTotalLiquidity>>>
-  balances?: Maybe<Array<Maybe<Balances>>>
-  blocks?: Maybe<Array<Maybe<Blocks>>>
-  delegateEvents?: Maybe<Array<Maybe<DelegateEvents>>>
-  delegations?: Maybe<Array<Maybe<Delegations>>>
-  eventGovProposalDeposit?: Maybe<Array<Maybe<EventGovProposalDeposit>>>
-  eventGovProposalVote?: Maybe<Array<Maybe<EventGovProposalVote>>>
-  eventGovSubmitProposal?: Maybe<Array<Maybe<EventGovSubmitProposal>>>
-  eventOracleAggregatePrevote?: Maybe<Array<Maybe<EventOracleAggregatePrevote>>>
-  eventOracleAggregateVote?: Maybe<Array<Maybe<EventOracleAggregateVote>>>
-  eventPerpPositionChanged?: Maybe<Array<Maybe<EventPerpPositionChanged>>>
-  eventPerpPositionLiquidated?: Maybe<Array<Maybe<EventPerpPositionLiquidated>>>
-  eventStakingDelegate?: Maybe<Array<Maybe<EventStakingDelegate>>>
-  eventStakingRedelegate?: Maybe<Array<Maybe<EventStakingRedelegate>>>
-  eventStakingUnbond?: Maybe<Array<Maybe<EventStakingUnbond>>>
-  eventWasmExecute?: Maybe<Array<Maybe<EventWasmExecute>>>
-  eventWasmInstantiate?: Maybe<Array<Maybe<EventWasmInstantiate>>>
-  eventWasmStoreCode?: Maybe<Array<Maybe<EventWasmStoreCode>>>
-  fundingRates?: Maybe<Array<Maybe<FundingRates>>>
-  liquidations?: Maybe<Array<Maybe<Liquidations>>>
-  markPriceCandles?: Maybe<Array<Maybe<MarkPriceCandles>>>
-  markPrices?: Maybe<Array<Maybe<MarkPrices>>>
-  oraclePrices?: Maybe<Array<Maybe<OraclePrices>>>
-  perpLeaderboard?: Maybe<Array<Maybe<PerpLeaderboard>>>
-  positionChanges?: Maybe<Array<Maybe<PositionChanges>>>
-  positions?: Maybe<Array<Maybe<Positions>>>
-  redelegationEvents?: Maybe<Array<Maybe<RedelegationEvents>>>
-  stablecoinCirculatingSupply?: Maybe<Array<Maybe<StablecoinCirculatingSupply>>>
-  stakingPool?: Maybe<Array<Maybe<StakingPool>>>
-  statsFees?: Maybe<Array<Maybe<StatsFees>>>
-  statsNewUsers?: Maybe<Array<Maybe<StatsNewUsers>>>
-  statsOpenInterest?: Maybe<Array<Maybe<StatsOpenInterest>>>
-  statsPerpPnl?: Maybe<Array<Maybe<StatsPerpPnl>>>
-  statsTotals?: Maybe<Array<Maybe<StatsTotals>>>
-  statsTvl?: Maybe<Array<Maybe<StatsTvl>>>
-  statsTx?: Maybe<Array<Maybe<StatsTx>>>
-  statsUniqueUsers?: Maybe<Array<Maybe<StatsUniqueUsers>>>
-  statsUsers?: Maybe<Array<Maybe<StatsUsers>>>
-  statsVolume?: Maybe<Array<Maybe<StatsVolume>>>
-  transfers?: Maybe<Array<Maybe<Transfers>>>
-  unbondingEvents?: Maybe<Array<Maybe<UnbondingEvents>>>
-  unbondings?: Maybe<Array<Maybe<Unbondings>>>
-  userJoins?: Maybe<Array<Maybe<UserJoins>>>
-  validators?: Maybe<Array<Maybe<Validators>>>
-  vpoolConfigs?: Maybe<Array<Maybe<VpoolConfigs>>>
+  readonly __typename?: "QueryExt"
+  readonly ammPoolExits?: Maybe<ReadonlyArray<Maybe<AmmPoolExits>>>
+  readonly ammPoolJoins?: Maybe<ReadonlyArray<Maybe<AmmPoolJoins>>>
+  readonly ammPools?: Maybe<ReadonlyArray<Maybe<AmmPools>>>
+  readonly ammSwaps?: Maybe<ReadonlyArray<Maybe<AmmSwaps>>>
+  readonly ammTotalLiquidity?: Maybe<ReadonlyArray<Maybe<AmmTotalLiquidity>>>
+  readonly balances?: Maybe<ReadonlyArray<Maybe<Balances>>>
+  readonly blocks?: Maybe<ReadonlyArray<Maybe<Blocks>>>
+  readonly delegateEvents?: Maybe<ReadonlyArray<Maybe<DelegateEvents>>>
+  readonly delegations?: Maybe<ReadonlyArray<Maybe<Delegations>>>
+  readonly eventGovProposalDeposit?: Maybe<
+    ReadonlyArray<Maybe<EventGovProposalDeposit>>
+  >
+  readonly eventGovProposalVote?: Maybe<
+    ReadonlyArray<Maybe<EventGovProposalVote>>
+  >
+  readonly eventGovSubmitProposal?: Maybe<
+    ReadonlyArray<Maybe<EventGovSubmitProposal>>
+  >
+  readonly eventOracleAggregatePrevote?: Maybe<
+    ReadonlyArray<Maybe<EventOracleAggregatePrevote>>
+  >
+  readonly eventOracleAggregateVote?: Maybe<
+    ReadonlyArray<Maybe<EventOracleAggregateVote>>
+  >
+  readonly eventPerpPositionChanged?: Maybe<
+    ReadonlyArray<Maybe<EventPerpPositionChanged>>
+  >
+  readonly eventPerpPositionLiquidated?: Maybe<
+    ReadonlyArray<Maybe<EventPerpPositionLiquidated>>
+  >
+  readonly eventStakingDelegate?: Maybe<
+    ReadonlyArray<Maybe<EventStakingDelegate>>
+  >
+  readonly eventStakingRedelegate?: Maybe<
+    ReadonlyArray<Maybe<EventStakingRedelegate>>
+  >
+  readonly eventStakingUnbond?: Maybe<ReadonlyArray<Maybe<EventStakingUnbond>>>
+  readonly eventWasmExecute?: Maybe<ReadonlyArray<Maybe<EventWasmExecute>>>
+  readonly eventWasmInstantiate?: Maybe<
+    ReadonlyArray<Maybe<EventWasmInstantiate>>
+  >
+  readonly eventWasmStoreCode?: Maybe<ReadonlyArray<Maybe<EventWasmStoreCode>>>
+  readonly fundingRates?: Maybe<ReadonlyArray<Maybe<FundingRates>>>
+  readonly liquidations?: Maybe<ReadonlyArray<Maybe<Liquidations>>>
+  readonly markPriceCandles?: Maybe<ReadonlyArray<Maybe<MarkPriceCandles>>>
+  readonly markPrices?: Maybe<ReadonlyArray<Maybe<MarkPrices>>>
+  readonly oraclePrices?: Maybe<ReadonlyArray<Maybe<OraclePrices>>>
+  readonly perpLeaderboard?: Maybe<ReadonlyArray<Maybe<PerpLeaderboard>>>
+  readonly positionChanges?: Maybe<ReadonlyArray<Maybe<PositionChanges>>>
+  readonly positions?: Maybe<ReadonlyArray<Maybe<Positions>>>
+  readonly redelegationEvents?: Maybe<ReadonlyArray<Maybe<RedelegationEvents>>>
+  readonly stablecoinCirculatingSupply?: Maybe<
+    ReadonlyArray<Maybe<StablecoinCirculatingSupply>>
+  >
+  readonly stakingPool?: Maybe<ReadonlyArray<Maybe<StakingPool>>>
+  readonly statsFees?: Maybe<ReadonlyArray<Maybe<StatsFees>>>
+  readonly statsNewUsers?: Maybe<ReadonlyArray<Maybe<StatsNewUsers>>>
+  readonly statsOpenInterest?: Maybe<ReadonlyArray<Maybe<StatsOpenInterest>>>
+  readonly statsPerpPnl?: Maybe<ReadonlyArray<Maybe<StatsPerpPnl>>>
+  readonly statsTotals?: Maybe<ReadonlyArray<Maybe<StatsTotals>>>
+  readonly statsTvl?: Maybe<ReadonlyArray<Maybe<StatsTvl>>>
+  readonly statsTx?: Maybe<ReadonlyArray<Maybe<StatsTx>>>
+  readonly statsUniqueUsers?: Maybe<ReadonlyArray<Maybe<StatsUniqueUsers>>>
+  readonly statsUsers?: Maybe<ReadonlyArray<Maybe<StatsUsers>>>
+  readonly statsVolume?: Maybe<ReadonlyArray<Maybe<StatsVolume>>>
+  readonly transfers?: Maybe<ReadonlyArray<Maybe<Transfers>>>
+  readonly unbondingEvents?: Maybe<ReadonlyArray<Maybe<UnbondingEvents>>>
+  readonly unbondings?: Maybe<ReadonlyArray<Maybe<Unbondings>>>
+  readonly userJoins?: Maybe<ReadonlyArray<Maybe<UserJoins>>>
+  readonly validators?: Maybe<ReadonlyArray<Maybe<Validators>>>
+  readonly vpoolConfigs?: Maybe<ReadonlyArray<Maybe<VpoolConfigs>>>
 }
 
 /** Extensible query class to add custom resolvers and endpoints not defined in the schema */
@@ -1443,29 +1465,29 @@ export type QueryExtVpoolConfigsArgs = {
 }
 
 export type RedelegationEvents = {
-  __typename?: "RedelegationEvents"
-  amount?: Maybe<Scalars["Float"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  delegator?: Maybe<Scalars["String"]["output"]>
-  destinationValidator?: Maybe<Scalars["String"]["output"]>
-  sourceValidator?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "RedelegationEvents"
+  readonly amount?: Maybe<Scalars["Float"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly delegator?: Maybe<Scalars["String"]["output"]>
+  readonly destinationValidator?: Maybe<Scalars["String"]["output"]>
+  readonly sourceValidator?: Maybe<Scalars["String"]["output"]>
 }
 
 export type RedelegationEventsFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  delegatorEq?: InputMaybe<Scalars["String"]["input"]>
-  destinationValidatorEq?: InputMaybe<Scalars["String"]["input"]>
-  sourceValidatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly delegatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly destinationValidatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly sourceValidatorEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum RedelegationEventsOrder {
@@ -1474,23 +1496,23 @@ export enum RedelegationEventsOrder {
 }
 
 export type StablecoinCirculatingSupply = {
-  __typename?: "StablecoinCirculatingSupply"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  supply?: Maybe<Array<Maybe<Coin>>>
+  readonly __typename?: "StablecoinCirculatingSupply"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly supply?: Maybe<ReadonlyArray<Maybe<Coin>>>
 }
 
 export type StablecoinCirculatingSupplyFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StablecoinCirculatingSupplyOrder {
@@ -1499,24 +1521,24 @@ export enum StablecoinCirculatingSupplyOrder {
 }
 
 export type StakingPool = {
-  __typename?: "StakingPool"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  bondedTokens?: Maybe<Scalars["Long"]["output"]>
-  notBondedTokens?: Maybe<Scalars["Long"]["output"]>
+  readonly __typename?: "StakingPool"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly bondedTokens?: Maybe<Scalars["Long"]["output"]>
+  readonly notBondedTokens?: Maybe<Scalars["Long"]["output"]>
 }
 
 export type StakingPoolFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StakingPoolOrder {
@@ -1525,30 +1547,30 @@ export enum StakingPoolOrder {
 }
 
 export type StatsFees = {
-  __typename?: "StatsFees"
-  feesLiquidations?: Maybe<Scalars["Float"]["output"]>
-  feesLiquidationsCumulative?: Maybe<Scalars["Float"]["output"]>
-  feesPerp?: Maybe<Scalars["Float"]["output"]>
-  feesPerpCumulative?: Maybe<Scalars["Float"]["output"]>
-  feesSwap?: Maybe<Scalars["Float"]["output"]>
-  feesSwapCumulative?: Maybe<Scalars["Float"]["output"]>
-  feesTotal?: Maybe<Scalars["Float"]["output"]>
-  feesTotalCumulative?: Maybe<Scalars["Float"]["output"]>
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly __typename?: "StatsFees"
+  readonly feesLiquidations?: Maybe<Scalars["Float"]["output"]>
+  readonly feesLiquidationsCumulative?: Maybe<Scalars["Float"]["output"]>
+  readonly feesPerp?: Maybe<Scalars["Float"]["output"]>
+  readonly feesPerpCumulative?: Maybe<Scalars["Float"]["output"]>
+  readonly feesSwap?: Maybe<Scalars["Float"]["output"]>
+  readonly feesSwapCumulative?: Maybe<Scalars["Float"]["output"]>
+  readonly feesTotal?: Maybe<Scalars["Float"]["output"]>
+  readonly feesTotalCumulative?: Maybe<Scalars["Float"]["output"]>
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
 }
 
 export type StatsFeesFilter = {
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StatsFeesOrder {
@@ -1557,31 +1579,31 @@ export enum StatsFeesOrder {
 }
 
 export type StatsNewUsers = {
-  __typename?: "StatsNewUsers"
-  newUsersDelegate?: Maybe<Scalars["Long"]["output"]>
-  newUsersLp?: Maybe<Scalars["Long"]["output"]>
-  newUsersLpExit?: Maybe<Scalars["Long"]["output"]>
-  newUsersPerp?: Maybe<Scalars["Long"]["output"]>
-  newUsersRedelegate?: Maybe<Scalars["Long"]["output"]>
-  newUsersSwap?: Maybe<Scalars["Long"]["output"]>
-  newUsersTotal?: Maybe<Scalars["Long"]["output"]>
-  newUsersTransfer?: Maybe<Scalars["Long"]["output"]>
-  newUsersUnbonding?: Maybe<Scalars["Long"]["output"]>
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly __typename?: "StatsNewUsers"
+  readonly newUsersDelegate?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersLp?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersLpExit?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersPerp?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersRedelegate?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersSwap?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersTotal?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersTransfer?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersUnbonding?: Maybe<Scalars["Long"]["output"]>
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
 }
 
 export type StatsNewUsersFilter = {
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StatsNewUsersOrder {
@@ -1590,25 +1612,25 @@ export enum StatsNewUsersOrder {
 }
 
 export type StatsOpenInterest = {
-  __typename?: "StatsOpenInterest"
-  openInterestLong?: Maybe<Scalars["Float"]["output"]>
-  openInterestShort?: Maybe<Scalars["Float"]["output"]>
-  openInterestTotal?: Maybe<Scalars["Float"]["output"]>
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly __typename?: "StatsOpenInterest"
+  readonly openInterestLong?: Maybe<Scalars["Float"]["output"]>
+  readonly openInterestShort?: Maybe<Scalars["Float"]["output"]>
+  readonly openInterestTotal?: Maybe<Scalars["Float"]["output"]>
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
 }
 
 export type StatsOpenInterestFilter = {
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StatsOpenInterestOrder {
@@ -1617,28 +1639,28 @@ export enum StatsOpenInterestOrder {
 }
 
 export type StatsPerpPnl = {
-  __typename?: "StatsPerpPnl"
-  loss?: Maybe<Scalars["Float"]["output"]>
-  lossCumulative?: Maybe<Scalars["Float"]["output"]>
-  netPnl?: Maybe<Scalars["Float"]["output"]>
-  netPnlCumulative?: Maybe<Scalars["Float"]["output"]>
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
-  profit?: Maybe<Scalars["Float"]["output"]>
-  profitCumulative?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "StatsPerpPnl"
+  readonly loss?: Maybe<Scalars["Float"]["output"]>
+  readonly lossCumulative?: Maybe<Scalars["Float"]["output"]>
+  readonly netPnl?: Maybe<Scalars["Float"]["output"]>
+  readonly netPnlCumulative?: Maybe<Scalars["Float"]["output"]>
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly profit?: Maybe<Scalars["Float"]["output"]>
+  readonly profitCumulative?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type StatsPerpPnlFilter = {
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StatsPerpPnlOrder {
@@ -1647,28 +1669,28 @@ export enum StatsPerpPnlOrder {
 }
 
 export type StatsTotals = {
-  __typename?: "StatsTotals"
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
-  totalFeesLiquidations?: Maybe<Scalars["Float"]["output"]>
-  totalFeesPerp?: Maybe<Scalars["Float"]["output"]>
-  totalOpenInterest?: Maybe<Scalars["Float"]["output"]>
-  totalPerp?: Maybe<Scalars["Float"]["output"]>
-  totalSwap?: Maybe<Scalars["Float"]["output"]>
-  totalTvl?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "StatsTotals"
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly totalFeesLiquidations?: Maybe<Scalars["Float"]["output"]>
+  readonly totalFeesPerp?: Maybe<Scalars["Float"]["output"]>
+  readonly totalOpenInterest?: Maybe<Scalars["Float"]["output"]>
+  readonly totalPerp?: Maybe<Scalars["Float"]["output"]>
+  readonly totalSwap?: Maybe<Scalars["Float"]["output"]>
+  readonly totalTvl?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type StatsTotalsFilter = {
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StatsTotalsOrder {
@@ -1677,27 +1699,27 @@ export enum StatsTotalsOrder {
 }
 
 export type StatsTvl = {
-  __typename?: "StatsTvl"
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
-  tvlPerp?: Maybe<Scalars["Float"]["output"]>
-  tvlStablecoin?: Maybe<Scalars["Float"]["output"]>
-  tvlStaking?: Maybe<Scalars["Float"]["output"]>
-  tvlSwap?: Maybe<Scalars["Float"]["output"]>
-  tvlTotal?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "StatsTvl"
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly tvlPerp?: Maybe<Scalars["Float"]["output"]>
+  readonly tvlStablecoin?: Maybe<Scalars["Float"]["output"]>
+  readonly tvlStaking?: Maybe<Scalars["Float"]["output"]>
+  readonly tvlSwap?: Maybe<Scalars["Float"]["output"]>
+  readonly tvlTotal?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type StatsTvlFilter = {
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StatsTvlOrder {
@@ -1706,31 +1728,31 @@ export enum StatsTvlOrder {
 }
 
 export type StatsTx = {
-  __typename?: "StatsTx"
-  numAmmExit?: Maybe<Scalars["Float"]["output"]>
-  numAmmJoin?: Maybe<Scalars["Float"]["output"]>
-  numAmmSwap?: Maybe<Scalars["Float"]["output"]>
-  numDelegates?: Maybe<Scalars["Float"]["output"]>
-  numPositionChanged?: Maybe<Scalars["Float"]["output"]>
-  numRedelegates?: Maybe<Scalars["Float"]["output"]>
-  numTransfers?: Maybe<Scalars["Float"]["output"]>
-  numUnbonds?: Maybe<Scalars["Float"]["output"]>
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
-  total?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "StatsTx"
+  readonly numAmmExit?: Maybe<Scalars["Float"]["output"]>
+  readonly numAmmJoin?: Maybe<Scalars["Float"]["output"]>
+  readonly numAmmSwap?: Maybe<Scalars["Float"]["output"]>
+  readonly numDelegates?: Maybe<Scalars["Float"]["output"]>
+  readonly numPositionChanged?: Maybe<Scalars["Float"]["output"]>
+  readonly numRedelegates?: Maybe<Scalars["Float"]["output"]>
+  readonly numTransfers?: Maybe<Scalars["Float"]["output"]>
+  readonly numUnbonds?: Maybe<Scalars["Float"]["output"]>
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly total?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type StatsTxFilter = {
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StatsTxOrder {
@@ -1739,31 +1761,31 @@ export enum StatsTxOrder {
 }
 
 export type StatsUniqueUsers = {
-  __typename?: "StatsUniqueUsers"
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
-  uniqueUsersDelegate?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersLp?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersLpExit?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersPerp?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersRedelegate?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersSwap?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersTotal?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersTransfer?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersUnbonding?: Maybe<Scalars["Long"]["output"]>
+  readonly __typename?: "StatsUniqueUsers"
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly uniqueUsersDelegate?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersLp?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersLpExit?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersPerp?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersRedelegate?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersSwap?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersTotal?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersTransfer?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersUnbonding?: Maybe<Scalars["Long"]["output"]>
 }
 
 export type StatsUniqueUsersFilter = {
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StatsUniqueUsersOrder {
@@ -1772,38 +1794,38 @@ export enum StatsUniqueUsersOrder {
 }
 
 export type StatsUsers = {
-  __typename?: "StatsUsers"
-  newUsersLp?: Maybe<Scalars["Long"]["output"]>
-  newUsersLpCumulative?: Maybe<Scalars["Long"]["output"]>
-  newUsersPerp?: Maybe<Scalars["Long"]["output"]>
-  newUsersPerpCumulative?: Maybe<Scalars["Long"]["output"]>
-  newUsersSwap?: Maybe<Scalars["Long"]["output"]>
-  newUsersSwapCumulative?: Maybe<Scalars["Long"]["output"]>
-  newUsersTotal?: Maybe<Scalars["Long"]["output"]>
-  newUsersTotalCumulative?: Maybe<Scalars["Long"]["output"]>
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
-  uniqueUsersLp?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersPerp?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersSwap?: Maybe<Scalars["Long"]["output"]>
-  uniqueUsersTotal?: Maybe<Scalars["Long"]["output"]>
-  userActionsLp?: Maybe<Scalars["Long"]["output"]>
-  userActionsPerp?: Maybe<Scalars["Long"]["output"]>
-  userActionsSwap?: Maybe<Scalars["Long"]["output"]>
-  userActionsTotal?: Maybe<Scalars["Long"]["output"]>
+  readonly __typename?: "StatsUsers"
+  readonly newUsersLp?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersLpCumulative?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersPerp?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersPerpCumulative?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersSwap?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersSwapCumulative?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersTotal?: Maybe<Scalars["Long"]["output"]>
+  readonly newUsersTotalCumulative?: Maybe<Scalars["Long"]["output"]>
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly uniqueUsersLp?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersPerp?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersSwap?: Maybe<Scalars["Long"]["output"]>
+  readonly uniqueUsersTotal?: Maybe<Scalars["Long"]["output"]>
+  readonly userActionsLp?: Maybe<Scalars["Long"]["output"]>
+  readonly userActionsPerp?: Maybe<Scalars["Long"]["output"]>
+  readonly userActionsSwap?: Maybe<Scalars["Long"]["output"]>
+  readonly userActionsTotal?: Maybe<Scalars["Long"]["output"]>
 }
 
 export type StatsUsersFilter = {
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StatsUsersOrder {
@@ -1812,28 +1834,28 @@ export enum StatsUsersOrder {
 }
 
 export type StatsVolume = {
-  __typename?: "StatsVolume"
-  period?: Maybe<Scalars["Long"]["output"]>
-  periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
-  volumePerp?: Maybe<Scalars["Float"]["output"]>
-  volumePerpCumulative?: Maybe<Scalars["Float"]["output"]>
-  volumeSwap?: Maybe<Scalars["Float"]["output"]>
-  volumeSwapCumulative?: Maybe<Scalars["Float"]["output"]>
-  volumeTotal?: Maybe<Scalars["Float"]["output"]>
-  volumeTotalCumulative?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "StatsVolume"
+  readonly period?: Maybe<Scalars["Long"]["output"]>
+  readonly periodStartTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly volumePerp?: Maybe<Scalars["Float"]["output"]>
+  readonly volumePerpCumulative?: Maybe<Scalars["Float"]["output"]>
+  readonly volumeSwap?: Maybe<Scalars["Float"]["output"]>
+  readonly volumeSwapCumulative?: Maybe<Scalars["Float"]["output"]>
+  readonly volumeTotal?: Maybe<Scalars["Float"]["output"]>
+  readonly volumeTotalCumulative?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type StatsVolumeFilter = {
-  periodEq?: InputMaybe<Scalars["Long"]["input"]>
-  periodGt?: InputMaybe<Scalars["Long"]["input"]>
-  periodGte?: InputMaybe<Scalars["Long"]["input"]>
-  periodLt?: InputMaybe<Scalars["Long"]["input"]>
-  periodLte?: InputMaybe<Scalars["Long"]["input"]>
-  periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum StatsVolumeOrder {
@@ -1842,27 +1864,27 @@ export enum StatsVolumeOrder {
 }
 
 export type Transfers = {
-  __typename?: "Transfers"
-  amount?: Maybe<Array<Maybe<Coin>>>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  recipient?: Maybe<Scalars["String"]["output"]>
-  sender?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "Transfers"
+  readonly amount?: Maybe<ReadonlyArray<Maybe<Coin>>>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly recipient?: Maybe<Scalars["String"]["output"]>
+  readonly sender?: Maybe<Scalars["String"]["output"]>
 }
 
 export type TransfersFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  recipientEq?: InputMaybe<Scalars["String"]["input"]>
-  senderEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly recipientEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly senderEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum TransfersOrder {
@@ -1871,27 +1893,27 @@ export enum TransfersOrder {
 }
 
 export type UnbondingEvents = {
-  __typename?: "UnbondingEvents"
-  amount?: Maybe<Scalars["Float"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  delegator?: Maybe<Scalars["String"]["output"]>
-  validator?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "UnbondingEvents"
+  readonly amount?: Maybe<Scalars["Float"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly delegator?: Maybe<Scalars["String"]["output"]>
+  readonly validator?: Maybe<Scalars["String"]["output"]>
 }
 
 export type UnbondingEventsFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  delegatorEq?: InputMaybe<Scalars["String"]["input"]>
-  validatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly delegatorEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly validatorEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum UnbondingEventsOrder {
@@ -1900,30 +1922,30 @@ export enum UnbondingEventsOrder {
 }
 
 export type Unbondings = {
-  __typename?: "Unbondings"
-  balance?: Maybe<Scalars["Long"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  completionTime?: Maybe<Scalars["DateTime"]["output"]>
-  creationHeight?: Maybe<Scalars["Long"]["output"]>
-  delegatorAddress?: Maybe<Scalars["String"]["output"]>
-  initialBalance?: Maybe<Scalars["Long"]["output"]>
-  validatorAddress?: Maybe<Scalars["String"]["output"]>
+  readonly __typename?: "Unbondings"
+  readonly balance?: Maybe<Scalars["Long"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly completionTime?: Maybe<Scalars["DateTime"]["output"]>
+  readonly creationHeight?: Maybe<Scalars["Long"]["output"]>
+  readonly delegatorAddress?: Maybe<Scalars["String"]["output"]>
+  readonly initialBalance?: Maybe<Scalars["Long"]["output"]>
+  readonly validatorAddress?: Maybe<Scalars["String"]["output"]>
 }
 
 export type UnbondingsFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  delegatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
-  validatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly delegatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly validatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum UnbondingsOrder {
@@ -1932,26 +1954,26 @@ export enum UnbondingsOrder {
 }
 
 export type UserJoins = {
-  __typename?: "UserJoins"
-  action?: Maybe<Scalars["String"]["output"]>
-  address?: Maybe<Scalars["String"]["output"]>
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly __typename?: "UserJoins"
+  readonly action?: Maybe<Scalars["String"]["output"]>
+  readonly address?: Maybe<Scalars["String"]["output"]>
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
 }
 
 export type UserJoinsFilter = {
-  actionEq?: InputMaybe<Scalars["String"]["input"]>
-  addressEq?: InputMaybe<Scalars["String"]["input"]>
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly actionEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly addressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
 }
 
 export enum UserJoinsOrder {
@@ -1960,40 +1982,40 @@ export enum UserJoinsOrder {
 }
 
 export type Validators = {
-  __typename?: "Validators"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  commissionRates?: Maybe<Scalars["String"]["output"]>
-  commissionUpdateTime?: Maybe<Scalars["DateTime"]["output"]>
-  delegatorShares?: Maybe<Scalars["Float"]["output"]>
-  description?: Maybe<Scalars["String"]["output"]>
-  jailed?: Maybe<Scalars["Boolean"]["output"]>
-  operatorAddress?: Maybe<Scalars["String"]["output"]>
-  statusBonded?: Maybe<Scalars["Boolean"]["output"]>
-  tokens?: Maybe<Scalars["Long"]["output"]>
-  unbondingHeight?: Maybe<Scalars["Long"]["output"]>
-  unbondingTime?: Maybe<Scalars["DateTime"]["output"]>
+  readonly __typename?: "Validators"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly commissionRates?: Maybe<Scalars["String"]["output"]>
+  readonly commissionUpdateTime?: Maybe<Scalars["DateTime"]["output"]>
+  readonly delegatorShares?: Maybe<Scalars["Float"]["output"]>
+  readonly description?: Maybe<Scalars["String"]["output"]>
+  readonly jailed?: Maybe<Scalars["Boolean"]["output"]>
+  readonly operatorAddress?: Maybe<Scalars["String"]["output"]>
+  readonly statusBonded?: Maybe<Scalars["Boolean"]["output"]>
+  readonly tokens?: Maybe<Scalars["Long"]["output"]>
+  readonly unbondingHeight?: Maybe<Scalars["Long"]["output"]>
+  readonly unbondingTime?: Maybe<Scalars["DateTime"]["output"]>
 }
 
 export type ValidatorsFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  jailedEq?: InputMaybe<Scalars["Boolean"]["input"]>
-  operatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
-  statusBondedEq?: InputMaybe<Scalars["Boolean"]["input"]>
-  tokensEq?: InputMaybe<Scalars["Long"]["input"]>
-  tokensGt?: InputMaybe<Scalars["Long"]["input"]>
-  tokensGte?: InputMaybe<Scalars["Long"]["input"]>
-  tokensLt?: InputMaybe<Scalars["Long"]["input"]>
-  tokensLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly jailedEq?: InputMaybe<Scalars["Boolean"]["input"]>
+  readonly operatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly statusBondedEq?: InputMaybe<Scalars["Boolean"]["input"]>
+  readonly tokensEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly tokensGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly tokensGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly tokensLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly tokensLte?: InputMaybe<Scalars["Long"]["input"]>
 }
 
 export enum ValidatorsOrder {
@@ -2005,29 +2027,29 @@ export enum ValidatorsOrder {
 }
 
 export type VpoolConfigs = {
-  __typename?: "VpoolConfigs"
-  block?: Maybe<Scalars["Long"]["output"]>
-  blockTs?: Maybe<Scalars["DateTime"]["output"]>
-  fluctuationLimitRatio?: Maybe<Scalars["Float"]["output"]>
-  maintenanceMarginRatio?: Maybe<Scalars["Float"]["output"]>
-  maxLeverage?: Maybe<Scalars["Float"]["output"]>
-  maxOracleSpreadRatio?: Maybe<Scalars["Float"]["output"]>
-  pair?: Maybe<Scalars["String"]["output"]>
-  tradeLimitRatio?: Maybe<Scalars["Float"]["output"]>
+  readonly __typename?: "VpoolConfigs"
+  readonly block?: Maybe<Scalars["Long"]["output"]>
+  readonly blockTs?: Maybe<Scalars["DateTime"]["output"]>
+  readonly fluctuationLimitRatio?: Maybe<Scalars["Float"]["output"]>
+  readonly maintenanceMarginRatio?: Maybe<Scalars["Float"]["output"]>
+  readonly maxLeverage?: Maybe<Scalars["Float"]["output"]>
+  readonly maxOracleSpreadRatio?: Maybe<Scalars["Float"]["output"]>
+  readonly pair?: Maybe<Scalars["String"]["output"]>
+  readonly tradeLimitRatio?: Maybe<Scalars["Float"]["output"]>
 }
 
 export type VpoolConfigsFilter = {
-  blockEq?: InputMaybe<Scalars["Long"]["input"]>
-  blockGt?: InputMaybe<Scalars["Long"]["input"]>
-  blockGte?: InputMaybe<Scalars["Long"]["input"]>
-  blockLt?: InputMaybe<Scalars["Long"]["input"]>
-  blockLte?: InputMaybe<Scalars["Long"]["input"]>
-  blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
-  blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
-  pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly blockEq?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockGte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLt?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockLte?: InputMaybe<Scalars["Long"]["input"]>
+  readonly blockTsEq?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsGte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLt?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly blockTsLte?: InputMaybe<Scalars["DateTime"]["input"]>
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum VpoolConfigsOrder {
