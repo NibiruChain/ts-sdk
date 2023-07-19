@@ -9,10 +9,6 @@ declare global {
 
 window.fetch = cf.fetch
 
-export interface QueryField {
-  [key: string]: string | QueryField
-}
-
 export interface GraphQLQuery {
   limit?: InputMaybe<Scalars["Int"]["input"]>
   order?: InputMaybe<any>
