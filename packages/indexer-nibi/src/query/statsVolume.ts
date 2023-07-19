@@ -8,7 +8,7 @@ import {
 
 export const defaultStatsVolumeObject: Partial<StatsVolume> = {
   period: 0,
-  periodStartTs: 0,
+  periodStartTs: "",
   volumePerp: 0,
   volumeSwap: 0,
   volumeTotal: 0,

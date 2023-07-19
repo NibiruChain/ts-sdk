@@ -7,7 +7,7 @@ import {
 } from "../gql/generated"
 
 export const defaultFundingRatesObject: Partial<FundingRates> = {
-  block: "",
+  block: 0,
   blockTs: "",
   pair: "",
   markPrice: 0,
@@ -16,14 +16,14 @@ export const defaultFundingRatesObject: Partial<FundingRates> = {
   cumulativePremiumFraction: 0,
 }
 
-export interface GqlOutFundingRate {
+export interface GqlOutFundingRates {
   fundingRates?: QueryExt["fundingRates"]
 }
 
 export const fundingRates = async (
   args: QueryExtFundingRatesArgs,
   endpt: string
-): Promise<GqlOutFundingRate> => {
+): Promise<GqlOutFundingRates> => {
   if (!args.orderDesc) args.orderDesc = true
   if (!args.order) args.order = FundingRatesOrder.BlockTs
 

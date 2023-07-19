@@ -19,7 +19,7 @@ import {
   QueryExtStakingPoolArgs,
   QueryExtPerpLeaderboardArgs,
 } from "./gql/generated"
-import { fundingRates, GqlOutFundingRate } from "./query/fundingRates"
+import { fundingRates, GqlOutFundingRates } from "./query/fundingRates"
 import { GqlOutLiquidations, liquidations } from "./query/liquidations"
 import {
   GqlOutMarkPriceCandles,
@@ -61,7 +61,7 @@ export interface IHeartMonitor {
 
   readonly fundingRates: (
     args: QueryExtFundingRatesArgs
-  ) => Promise<GqlOutFundingRate>
+  ) => Promise<GqlOutFundingRates>
 
   readonly transfers: (args: QueryExtTransfersArgs) => Promise<GqlOutTransfers>
 

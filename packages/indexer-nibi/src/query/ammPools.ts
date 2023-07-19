@@ -7,9 +7,9 @@ import {
 } from "../gql/generated"
 
 export const defaultAmmPoolsObject: Partial<AmmPools> = {
-  block: "",
+  block: 0,
   blockTs: "",
-  poolId: "",
+  poolId: 0,
   address: "",
   swapFee: 0,
   exitFee: 0,

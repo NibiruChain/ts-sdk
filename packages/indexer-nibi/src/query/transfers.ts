@@ -7,7 +7,7 @@ import {
 } from "../gql/generated"
 
 export const defaultTransfersObject: Partial<Transfers> = {
-  block: "",
+  block: 0,
   blockTs: "",
   recipient: "",
   sender: "",

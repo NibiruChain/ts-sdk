@@ -12,7 +12,7 @@ export const defaultMarkPriceCandlesObject: Partial<MarkPriceCandles> = {
   close: 0,
   low: 0,
   high: 0,
-  period: "",
+  period: 0,
   periodStartTs: "",
 }
 

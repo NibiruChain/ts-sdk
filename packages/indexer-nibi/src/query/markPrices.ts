@@ -11,7 +11,7 @@ export interface GqlOutMarkPrices {
 }
 
 export const defaultMarkPricesObject: Partial<MarkPrices> = {
-  block: "",
+  block: 0,
   blockTs: "",
   pair: "",
   price: 0,

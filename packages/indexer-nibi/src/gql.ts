@@ -32,18 +32,31 @@ export const getWhereArgArr = (whereArgs: any) =>
     .join(", ")}
  }`
 
-export const convertObjectToPropertiesString = <T>(obj: T, indent = 0) => {
+export const convertObjectToPropertiesString = (obj: any) => {
   let result = ""
 
   for (const key in obj) {
     const value = obj[key]
-
-    if (typeof value === "object") {
-      result += `${" ".repeat(indent)}${key} {\n`
-      result += convertObjectToPropertiesString(value, indent + 2)
-      result += `${" ".repeat(indent)}}\n`
+    if (Array.isArray(value)) {
+      const innerString = value
+        .map(
+          (item) =>
+            `${key} {
+              ${Object.keys(item)
+                .map((k) => `${k}`)
+                .join("\n")}
+            }`
+        )
+        .join("\n")
+      result += `${innerString}\n`
+    } else if (typeof value === "object" && value !== null) {
+      result += `${key} {
+                  ${Object.keys(value)
+                    .map((k) => `${k}`)
+                    .join("\n")}
+                }\n`
     } else {
-      result += `${" ".repeat(indent)}${key}\n`
+      result += `${key}\n`
     }
   }
 

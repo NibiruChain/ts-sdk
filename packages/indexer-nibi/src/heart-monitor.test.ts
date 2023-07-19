@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-conditional-expect */
 import { HeartMonitor } from "./heart-monitor"
 import { CandlePeriod } from "./enum"
 import { gqlEndptFromTmRpc } from "./gql"
@@ -199,6 +198,7 @@ test("transfers", async () => {
     },
     limit: 3,
   })
+  console.log(resp)
   expect(resp).toHaveProperty("transfers")
 
   if (resp.transfers!.length > 0) {

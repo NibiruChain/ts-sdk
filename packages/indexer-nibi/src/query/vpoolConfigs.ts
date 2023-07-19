@@ -7,7 +7,7 @@ import {
 } from "../gql/generated"
 
 export const defaultVpoolConfigsObject: Partial<VpoolConfigs> = {
-  block: "",
+  block: 0,
   blockTs: "",
   pair: "",
   tradeLimitRatio: 0,

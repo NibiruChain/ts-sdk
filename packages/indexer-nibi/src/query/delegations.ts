@@ -7,7 +7,7 @@ import {
 } from "../gql/generated"
 
 export const defaultDelegationsObject: Partial<Delegations> = {
-  block: "",
+  block: 0,
   blockTs: "",
   delegatorAddress: "",
   validatorAddress: "",

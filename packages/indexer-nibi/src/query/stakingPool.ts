@@ -7,10 +7,10 @@ import {
 } from "../gql/generated"
 
 export const defaultStakingPoolObject: Partial<StakingPool> = {
-  block: "",
+  block: 0,
   blockTs: "",
-  bondedTokens: "",
-  notBondedTokens: "",
+  bondedTokens: 0,
+  notBondedTokens: 0,
 }
 
 export interface GqlOutStakingPool {

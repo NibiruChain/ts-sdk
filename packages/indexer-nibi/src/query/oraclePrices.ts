@@ -7,7 +7,7 @@ import {
 } from "../gql/generated"
 
 export const defaultOraclePricesObject: Partial<OraclePrices> = {
-  block: "",
+  block: 0,
   blockTs: "",
   pair: "",
   price: 0,

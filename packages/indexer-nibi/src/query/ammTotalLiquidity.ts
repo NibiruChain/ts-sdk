@@ -7,7 +7,7 @@ import {
 } from "../gql/generated"
 
 export const defaultAmmTotalLiquidityObject: Partial<AmmTotalLiquidity> = {
-  block: "",
+  block: 0,
   blockTs: "",
   liquidity: [
     {

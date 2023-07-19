@@ -7,7 +7,7 @@ import {
 } from "../gql/generated"
 
 export const defaultLiquidationsObject: Partial<Liquidations> = {
-  block: "",
+  block: 0,
   blockTs: "",
   traderAddress: "",
   pair: "",

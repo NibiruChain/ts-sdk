@@ -7,7 +7,7 @@ import {
 } from "../gql/generated"
 
 export const defaultPositionsObject: Partial<Positions> = {
-  block: "",
+  block: 0,
   blockTs: "",
   pair: "",
   trader: "",

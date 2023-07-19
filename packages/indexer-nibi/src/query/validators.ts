@@ -7,15 +7,15 @@ import {
 } from "../gql/generated"
 
 export const defaultValidatorsObject: Partial<Validators> = {
-  block: "",
+  block: 0,
   blockTs: "",
   operatorAddress: "",
   jailed: false,
   statusBonded: false,
-  tokens: "",
+  tokens: 0,
   delegatorShares: 0,
   description: "",
-  unbondingHeight: "",
+  unbondingHeight: 0,
   unbondingTime: "",
   commissionRates: "",
   commissionUpdateTime: "",

@@ -7,14 +7,14 @@ import {
 } from "../gql/generated"
 
 export const defaultUnbondingsObject: Partial<Unbondings> = {
-  block: "",
+  block: 0,
   blockTs: "",
   validatorAddress: "",
   delegatorAddress: "",
-  creationHeight: "",
+  creationHeight: 0,
   completionTime: "",
-  initialBalance: "",
-  balance: "",
+  initialBalance: 0,
+  balance: 0,
 }
 
 export interface GqlOutUnbondings {

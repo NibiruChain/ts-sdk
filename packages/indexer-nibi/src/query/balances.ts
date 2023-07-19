@@ -7,7 +7,7 @@ import {
 } from "../gql/generated"
 
 export const defaultBalancesObject: Partial<Balances> = {
-  block: "",
+  block: 0,
   blockTs: "",
   moduleName: "",
   address: "",
