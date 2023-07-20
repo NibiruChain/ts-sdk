@@ -198,7 +198,6 @@ test("transfers", async () => {
     },
     limit: 3,
   })
-  console.log(resp)
   expect(resp).toHaveProperty("transfers")
 
   if (resp.transfers!.length > 0) {
