@@ -36,8 +36,6 @@ export async function cleanResponse(rawResp: Response): Promise<any> {
     throw new Error(`${respJson}`)
   } else if (respJson.data !== undefined) {
     return respJson.data
-  } else if (respJson !== undefined) {
-    return respJson
   } else {
     return respJson
   }
