@@ -129,7 +129,7 @@ export class HeartMonitor implements IHeartMonitor {
     } else if (typeof gqlEndpt === "string") {
       this.gqlEndpt = gqlEndpt
     } else if (chain && chain.endptTm !== undefined) {
-      const endptFromRpc: string | null = gqlEndptFromTmRpc(chain.endptTm)
+      const endptFromRpc = gqlEndptFromTmRpc(chain.endptTm)
       this.gqlEndpt =
         endptFromRpc !== null ? endptFromRpc : this.defaultGqlEndpt
     } else {
