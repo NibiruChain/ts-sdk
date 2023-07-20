@@ -33,7 +33,6 @@ module.exports = function (root = __dirname) {
     // An array of regexp pattern strings used to skip coverage collection
     coveragePathIgnorePatterns: [
       "/node_modules/",
-      "api/*",
       "<rootDir>/dist/",
       "protojs/dist/",
     ],
