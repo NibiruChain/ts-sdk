@@ -1,11 +1,7 @@
-/* eslint-disable jest/no-conditional-expect */
 import { HeartMonitor } from "./heart-monitor"
-import { CandlePeriod, StatsPeriod } from "./enum"
+import { CandlePeriod } from "./enum"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
 
-const fromBlock = 1
-const toBlock = 10
-const lastN = 20
 const pair = "ubtc:unusd"
 
 const heartMonitor = new HeartMonitor({
@@ -81,16 +77,18 @@ test("markPriceCandles", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.markPriceCandles({
-    pair,
-    period: CandlePeriod.MIN_5,
+    where: {
+      pairEq: pair,
+      periodStartTsGte: startDate.toISOString(),
+      periodStartTsLt: endDate.toISOString(),
+      periodEq: CandlePeriod.MIN_5,
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("markPriceCandles")
 
-  if (resp.markPriceCandles.length > 0) {
-    const [candle] = resp.markPriceCandles
+  if (resp.markPriceCandles!.length > 0) {
+    const [candle] = resp.markPriceCandles!
     const fields = [
       "pair",
       "open",
@@ -111,15 +109,17 @@ test("markPrices", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.markPrices({
-    pair,
+    where: {
+      pairEq: pair,
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("markPrices")
 
-  if (resp.markPrices.length > 0) {
-    const [price] = resp.markPrices
+  if (resp.markPrices!.length > 0) {
+    const [price] = resp.markPrices!
     const fields = ["pair", "block", "blockTs", "price"]
     fields.forEach((field: string) => {
       expect(price).toHaveProperty(field)
@@ -132,15 +132,17 @@ test("liquidations", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 30 * 24 * 60 * 60)
   const resp = await heartMonitor.liquidations({
-    pair,
+    where: {
+      pairEq: pair,
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("liquidations")
 
-  if (resp.liquidations.length > 0) {
-    const [liquidation] = resp.liquidations
+  if (resp.liquidations!.length > 0) {
+    const [liquidation] = resp.liquidations!
     const fields = [
       "block",
       "blockTs",
@@ -164,15 +166,17 @@ test("fundingRates", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 30 * 24 * 60 * 60)
   const resp = await heartMonitor.fundingRates({
-    pair,
+    where: {
+      pairEq: pair,
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("fundingRates")
 
-  if (resp.fundingRates.length > 0) {
-    const [fundingRate] = resp.fundingRates
+  if (resp.fundingRates!.length > 0) {
+    const [fundingRate] = resp.fundingRates!
     const fields = [
       "block",
       "blockTs",
@@ -193,14 +197,16 @@ test("transfers", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.transfers({
+    where: {
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("transfers")
 
-  if (resp.transfers.length > 0) {
-    const [transfer] = resp.transfers
+  if (resp.transfers!.length > 0) {
+    const [transfer] = resp.transfers!
     const fields = ["block", "blockTs", "recipient", "sender", "amount"]
     fields.forEach((field: string) => {
       expect(transfer).toHaveProperty(field)
@@ -213,15 +219,17 @@ test("oraclePrices", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.oraclePrices({
-    pair,
+    where: {
+      pairEq: pair,
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("oraclePrices")
 
-  if (resp.oraclePrices.length > 0) {
-    const [price] = resp.oraclePrices
+  if (resp.oraclePrices!.length > 0) {
+    const [price] = resp.oraclePrices!
     const fields = ["pair", "block", "blockTs", "price"]
     fields.forEach((field: string) => {
       expect(price).toHaveProperty(field)
@@ -234,15 +242,17 @@ test("positions", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.positions({
-    pair,
+    where: {
+      pairEq: pair,
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("positions")
 
-  if (resp.positions.length > 0) {
-    const [position] = resp.positions
+  if (resp.positions!.length > 0) {
+    const [position] = resp.positions!
     const fields = [
       "pair",
       "block",
@@ -268,15 +278,17 @@ test("positionChanges", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.positionChanges({
-    pair,
+    where: {
+      pairEq: pair,
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("positionChanges")
 
-  if (resp.positionChanges.length > 0) {
-    const [change] = resp.positionChanges
+  if (resp.positionChanges!.length > 0) {
+    const [change] = resp.positionChanges!
     const fields = [
       "pair",
       "block",
@@ -305,14 +317,16 @@ test("unbondings", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.unbondings({
+    where: {
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("unbondings")
 
-  if (resp.unbondings.length > 0) {
-    const [unbonding] = resp.unbondings
+  if (resp.unbondings!.length > 0) {
+    const [unbonding] = resp.unbondings!
     const fields = [
       "block",
       "blockTs",
@@ -334,15 +348,17 @@ test("statsVolume", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.statsVolume({
+    where: {
+      periodStartTsGte: startDate.toISOString(),
+      periodStartTsLt: endDate.toISOString(),
+      periodEq: CandlePeriod.HOUR_1,
+    },
     limit: 3,
-    period: StatsPeriod.HOUR_1,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("statsVolume")
 
-  if (resp.statsVolume.length > 0) {
-    const [statVolume] = resp.statsVolume
+  if (resp.statsVolume!.length > 0) {
+    const [statVolume] = resp.statsVolume!
     const fields = [
       "period",
       "periodStartTs",
@@ -364,14 +380,16 @@ test("validators", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.validators({
+    where: {
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("validators")
 
-  if (resp.validators.length > 0) {
-    const [validator] = resp.validators
+  if (resp.validators!.length > 0) {
+    const [validator] = resp.validators!
     const fields = [
       "block",
       "blockTs",
@@ -397,13 +415,15 @@ test("delegations", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.delegations({
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
+    where: {
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
   })
   expect(resp).toHaveProperty("delegations")
 
-  if (resp.delegations.length > 0) {
-    const [delegation] = resp.delegations
+  if (resp.delegations!.length > 0) {
+    const [delegation] = resp.delegations!
     const fields = [
       "block",
       "blockTs",
@@ -423,13 +443,15 @@ test("staking pool", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.stakingPool({
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
+    where: {
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
   })
   expect(resp).toHaveProperty("stakingPool")
 
-  if (resp.stakingPool.length > 0) {
-    const [stakingPool] = resp.stakingPool
+  if (resp.stakingPool!.length > 0) {
+    const [stakingPool] = resp.stakingPool!
     const fields = ["block", "blockTs", "bondedTokens", "notBondedTokens"]
     fields.forEach((field: string) => {
       expect(stakingPool).toHaveProperty(field)
@@ -442,14 +464,16 @@ test("balances", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.balances({
+    where: {
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("balances")
 
-  if (resp.balances.length > 0) {
-    const [balance] = resp.balances
+  if (resp.balances!.length > 0) {
+    const [balance] = resp.balances!
     const fields = ["block", "blockTs", "moduleName", "address", "balance"]
     fields.forEach((field: string) => {
       expect(balance).toHaveProperty(field)
@@ -462,15 +486,17 @@ test("vpoolConfigs", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.vpoolConfigs({
-    pair,
+    where: {
+      pairEq: pair,
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("vpoolConfigs")
 
-  if (resp.vpoolConfigs.length > 0) {
-    const [config] = resp.vpoolConfigs
+  if (resp.vpoolConfigs!.length > 0) {
+    const [config] = resp.vpoolConfigs!
     const fields = [
       "block",
       "blockTs",
@@ -492,14 +518,16 @@ test("ammPools", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.ammPools({
+    where: {
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("ammPools")
 
-  if (resp.ammPools.length > 0) {
-    const [config] = resp.ammPools
+  if (resp.ammPools!.length > 0) {
+    const [config] = resp.ammPools!
     const fields = [
       "block",
       "blockTs",
@@ -524,14 +552,16 @@ test("ammTotalLiquidity", async () => {
   const endDate = new Date(nowTimestamp)
   const startDate = new Date(nowTimestamp - 1000 * 7 * 24 * 60 * 60)
   const resp = await heartMonitor.ammTotalLiquidity({
+    where: {
+      blockTsGte: startDate.toISOString(),
+      blockTsLt: endDate.toISOString(),
+    },
     limit: 3,
-    startTs: startDate.toISOString(),
-    endTs: endDate.toISOString(),
   })
   expect(resp).toHaveProperty("ammTotalLiquidity")
 
-  if (resp.ammTotalLiquidity.length > 0) {
-    const [config] = resp.ammTotalLiquidity
+  if (resp.ammTotalLiquidity!.length > 0) {
+    const [config] = resp.ammTotalLiquidity!
     const fields = ["block", "blockTs", "liquidity"]
     fields.forEach((field: string) => {
       expect(config).toHaveProperty(field)
@@ -543,8 +573,8 @@ test("perpLeaderboard", async () => {
   const resp = await heartMonitor.perpLeaderboard()
   expect(resp).toHaveProperty("perpLeaderboard")
 
-  if (resp.perpLeaderboard.length > 0) {
-    const [config] = resp.perpLeaderboard
+  if (resp.perpLeaderboard!.length > 0) {
+    const [config] = resp.perpLeaderboard!
     const fields = ["traderAddress", "percentagePnl", "rawPnl", "inputMargin"]
     fields.forEach((field: string) => {
       expect(config).toHaveProperty(field)

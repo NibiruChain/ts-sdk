@@ -1,0 +1,1828 @@
+schema {
+  query: QueryExt
+}
+
+type AmmPoolExits {
+  address: String
+  block: Long
+  blockTs: DateTime
+  poolId: Long
+  poolSharesIn: Coin
+  tokensOut: [Coin]
+}
+
+input AmmPoolExitsFilter {
+  addressEq: String
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  poolIdEq: Long
+  poolIdGt: Long
+  poolIdGte: Long
+  poolIdLt: Long
+  poolIdLte: Long
+}
+
+enum AmmPoolExitsOrder {
+  block
+  block_ts
+  pool_id
+}
+
+type AmmPoolJoins {
+  address: String
+  block: Long
+  blockTs: DateTime
+  poolId: Long
+  poolSharesOut: Coin
+  remCoins: [Coin]
+  tokensIn: [Coin]
+}
+
+input AmmPoolJoinsFilter {
+  addressEq: String
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  poolIdEq: Long
+  poolIdGt: Long
+  poolIdGte: Long
+  poolIdLt: Long
+  poolIdLte: Long
+}
+
+enum AmmPoolJoinsOrder {
+  block
+  block_ts
+  pool_id
+}
+
+type AmmPools {
+  address: String
+  amplification: Float
+  assets: [Coin]
+  block: Long
+  blockTs: DateTime
+  exitFee: Float
+  poolId: Long
+  poolType: String
+  swapFee: Float
+  totalShares: Coin
+  totalWeight: Float
+}
+
+input AmmPoolsFilter {
+  addressEq: String
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  exitFeeEq: Float
+  exitFeeGt: Float
+  exitFeeGte: Float
+  exitFeeLt: Float
+  exitFeeLte: Float
+  poolIdEq: Long
+  poolIdGt: Long
+  poolIdGte: Long
+  poolIdLt: Long
+  poolIdLte: Long
+  swapFeeEq: Float
+  swapFeeGt: Float
+  swapFeeGte: Float
+  swapFeeLt: Float
+  swapFeeLte: Float
+  totalWeightEq: Float
+  totalWeightGt: Float
+  totalWeightGte: Float
+  totalWeightLt: Float
+  totalWeightLte: Float
+}
+
+enum AmmPoolsOrder {
+  block
+  block_ts
+  exit_fee
+  pool_id
+  swap_fee
+  total_weight
+}
+
+type AmmSwaps {
+  address: String
+  block: Long
+  blockTs: DateTime
+  poolId: Long
+  tokenIn: Coin
+  tokenOut: Coin
+}
+
+input AmmSwapsFilter {
+  addressEq: String
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  poolIdEq: Long
+  poolIdGt: Long
+  poolIdGte: Long
+  poolIdLt: Long
+  poolIdLte: Long
+}
+
+enum AmmSwapsOrder {
+  block
+  block_ts
+  pool_id
+}
+
+type AmmTotalLiquidity {
+  block: Long
+  blockTs: DateTime
+  liquidity: [Coin]
+}
+
+input AmmTotalLiquidityFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+}
+
+enum AmmTotalLiquidityOrder {
+  block
+  block_ts
+}
+
+type Balances {
+  address: String
+  balance: [Coin]
+  block: Long
+  blockTs: DateTime
+  moduleName: String
+}
+
+input BalancesFilter {
+  addressEq: String
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  moduleNameEq: String
+}
+
+enum BalancesOrder {
+  block
+  block_ts
+}
+
+type Blocks {
+  block: Long
+  blockTs: DateTime
+  duration: Int
+  numTxs: Long
+}
+
+input BlocksFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  numTxsEq: Long
+  numTxsGt: Long
+  numTxsGte: Long
+  numTxsLt: Long
+  numTxsLte: Long
+}
+
+enum BlocksOrder {
+  block
+  block_ts
+  num_txs
+}
+
+type Coin {
+  amount: Float
+  denom: String
+}
+
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+"""
+The `Decimal` scalar type represents a python Decimal.
+"""
+scalar Decimal
+
+type DelegateEvents {
+  amount: Float
+  block: Long
+  blockTs: DateTime
+  delegator: String
+  newShares: Float
+  validator: String
+}
+
+input DelegateEventsFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  delegatorEq: String
+  validatorEq: String
+}
+
+enum DelegateEventsOrder {
+  block
+  block_ts
+}
+
+type Delegations {
+  balance: Coin
+  block: Long
+  blockTs: DateTime
+  delegatorAddress: String
+  shares: Float
+  validatorAddress: String
+}
+
+input DelegationsFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  delegatorAddressEq: String
+  validatorAddressEq: String
+}
+
+enum DelegationsOrder {
+  block
+  block_ts
+}
+
+type EventGovProposalDeposit {
+  amount: [Coin]
+  block: Long
+  blockTs: DateTime
+  proposalId: Long
+}
+
+input EventGovProposalDepositFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  proposalIdEq: Long
+  proposalIdGt: Long
+  proposalIdGte: Long
+  proposalIdLt: Long
+  proposalIdLte: Long
+}
+
+enum EventGovProposalDepositOrder {
+  block
+  block_ts
+  proposal_id
+}
+
+type EventGovProposalVote {
+  block: Long
+  blockTs: DateTime
+  option: Int
+  proposalId: Long
+}
+
+input EventGovProposalVoteFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  proposalIdEq: Long
+  proposalIdGt: Long
+  proposalIdGte: Long
+  proposalIdLt: Long
+  proposalIdLte: Long
+}
+
+enum EventGovProposalVoteOrder {
+  block
+  block_ts
+  proposal_id
+}
+
+type EventGovSubmitProposal {
+  block: Long
+  blockTs: DateTime
+  proposalId: Long
+}
+
+input EventGovSubmitProposalFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  proposalIdEq: Long
+  proposalIdGt: Long
+  proposalIdGte: Long
+  proposalIdLt: Long
+  proposalIdLte: Long
+}
+
+enum EventGovSubmitProposalOrder {
+  block
+  block_ts
+  proposal_id
+}
+
+type EventOracleAggregatePrevote {
+  block: Long
+  blockTs: DateTime
+  validator: String
+}
+
+input EventOracleAggregatePrevoteFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  validatorEq: String
+}
+
+enum EventOracleAggregatePrevoteOrder {
+  block
+  block_ts
+}
+
+type EventOracleAggregateVote {
+  block: Long
+  blockTs: DateTime
+  validator: String
+}
+
+input EventOracleAggregateVoteFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  validatorEq: String
+}
+
+enum EventOracleAggregateVoteOrder {
+  block
+  block_ts
+}
+
+type EventPerpPositionChanged {
+  badDebt: Coin
+  block: Long
+  blockTs: DateTime
+  exchangedNotional: Float
+  exchangedSize: Float
+  fundingPayment: Float
+  margin: Coin
+  markPrice: Float
+  pair: String
+  positionNotional: Float
+  positionSize: Float
+  realizedPnl: Float
+  traderAddress: String
+  transactionFee: Coin
+  unrealizedPnlAfter: Float
+}
+
+input EventPerpPositionChangedFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  pairEq: String
+  traderAddressEq: String
+}
+
+enum EventPerpPositionChangedOrder {
+  block
+  block_ts
+}
+
+type EventPerpPositionLiquidated {
+  badDebt: Coin
+  block: Long
+  blockTs: DateTime
+  exchangedPositionSize: Float
+  exchangedQuoteAmount: Float
+  feeToEcosystemFund: Coin
+  feeToLiquidator: Coin
+  liquidatorAddress: String
+  pair: String
+  traderAddress: String
+}
+
+input EventPerpPositionLiquidatedFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  liquidatorAddressEq: String
+  pairEq: String
+  traderAddressEq: String
+}
+
+enum EventPerpPositionLiquidatedOrder {
+  block
+  block_ts
+}
+
+type EventStakingDelegate {
+  amount: Float
+  block: Long
+  blockTs: DateTime
+  delegator: String
+  newShares: Float
+  validator: String
+}
+
+input EventStakingDelegateFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  delegatorEq: String
+  validatorEq: String
+}
+
+enum EventStakingDelegateOrder {
+  block
+  block_ts
+}
+
+type EventStakingRedelegate {
+  amount: Float
+  block: Long
+  blockTs: DateTime
+  completionTime: DateTime
+  delegator: String
+  destinationValidator: String
+  sourceValidator: String
+}
+
+input EventStakingRedelegateFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  delegatorEq: String
+  destinationValidatorEq: String
+  sourceValidatorEq: String
+}
+
+enum EventStakingRedelegateOrder {
+  block
+  block_ts
+}
+
+type EventStakingUnbond {
+  amount: Float
+  block: Long
+  blockTs: DateTime
+  completionTime: DateTime
+  delegator: String
+  validator: String
+}
+
+input EventStakingUnbondFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  delegatorEq: String
+  validatorEq: String
+}
+
+enum EventStakingUnbondOrder {
+  block
+  block_ts
+}
+
+type EventWasmExecute {
+  block: Long
+  blockTs: DateTime
+  contractAddress: String
+  sender: String
+}
+
+input EventWasmExecuteFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  contractAddressEq: String
+  senderEq: String
+}
+
+enum EventWasmExecuteOrder {
+  block
+  block_ts
+}
+
+type EventWasmInstantiate {
+  block: Long
+  blockTs: DateTime
+  codeId: Long
+  contractAddress: String
+  sender: String
+}
+
+input EventWasmInstantiateFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  codeIdEq: Long
+  codeIdGt: Long
+  codeIdGte: Long
+  codeIdLt: Long
+  codeIdLte: Long
+  contractAddressEq: String
+  senderEq: String
+}
+
+enum EventWasmInstantiateOrder {
+  block
+  block_ts
+  code_id
+}
+
+type EventWasmStoreCode {
+  block: Long
+  blockTs: DateTime
+  codeId: Long
+  sender: String
+}
+
+input EventWasmStoreCodeFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  codeIdEq: Long
+  codeIdGt: Long
+  codeIdGte: Long
+  codeIdLt: Long
+  codeIdLte: Long
+  senderEq: String
+}
+
+enum EventWasmStoreCodeOrder {
+  block
+  block_ts
+  code_id
+}
+
+type FundingRates {
+  block: Long
+  blockTs: DateTime
+  cumulativePremiumFraction: Float
+  indexPrice: Float
+  latestFundingRate: Float
+  markPrice: Float
+  pair: String
+}
+
+input FundingRatesFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  pairEq: String
+}
+
+enum FundingRatesOrder {
+  block
+  block_ts
+}
+
+type Liquidations {
+  badDebt: Coin
+  block: Long
+  blockTs: DateTime
+  exchangedPositionSize: Float
+  exchangedQuoteAmount: Float
+  feeToEcosystemFund: Coin
+  feeToLiquidator: Coin
+  liquidatorAddress: String
+  pair: String
+  traderAddress: String
+}
+
+input LiquidationsFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  liquidatorAddressEq: String
+  pairEq: String
+  traderAddressEq: String
+}
+
+enum LiquidationsOrder {
+  block
+  block_ts
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric
+                        values. Long can represent values between -2^63 and 2^63 - 1
+"""
+scalar Long
+
+type MarkPriceCandles {
+  close: Float
+  high: Float
+  low: Float
+  open: Float
+  pair: String
+  period: Long
+  periodStartTs: DateTime
+}
+
+input MarkPriceCandlesFilter {
+  pairEq: String
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum MarkPriceCandlesOrder {
+  period
+  period_start_ts
+}
+
+type MarkPrices {
+  baseReserve: Float
+  block: Long
+  blockTs: DateTime
+  pair: String
+  price: Float
+  quoteReserve: Float
+}
+
+input MarkPricesFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  pairEq: String
+}
+
+enum MarkPricesOrder {
+  block
+  block_ts
+}
+
+type OraclePrices {
+  block: Long
+  blockTs: DateTime
+  pair: String
+  price: Float
+}
+
+input OraclePricesFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  pairEq: String
+}
+
+enum OraclePricesOrder {
+  block
+  block_ts
+}
+
+type PerpLeaderboard {
+  inputMargin: Decimal
+  lastUpdatedBlock: Int
+  lastUpdatedBlockTs: DateTime
+  percentagePnl: Decimal
+  rawPnl: Decimal
+  traderAddress: String
+}
+
+type PositionChanges {
+  badDebt: Coin
+  block: Long
+  blockTs: DateTime
+  exchangedNotional: Float
+  exchangedSize: Float
+  fundingPayment: Float
+  margin: Coin
+  markPrice: Float
+  pair: String
+  positionNotional: Float
+  positionSize: Float
+  realizedPnl: Float
+  traderAddress: String
+  transactionFee: Coin
+  unrealizedPnlAfter: Float
+}
+
+input PositionChangesFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  pairEq: String
+  traderAddressEq: String
+}
+
+enum PositionChangesOrder {
+  block
+  block_ts
+}
+
+type Positions {
+  block: Long
+  blockTs: DateTime
+  id: Int
+  latestCumulativePremiumFraction: Float
+  margin: Float
+  marginRatioIndex: Float
+  marginRatioMark: Float
+  openBlock: Long
+  openNotional: Float
+  pair: String
+  positionNotional: Float
+  size: Float
+  trader: String
+  unrealizedPnl: Float
+}
+
+input PositionsFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  idEq: Int
+  idGt: Int
+  idGte: Int
+  idLt: Int
+  idLte: Int
+  pairEq: String
+  traderEq: String
+}
+
+enum PositionsOrder {
+  block
+  block_ts
+  id
+}
+
+"""
+Extensible query class to add custom resolvers and endpoints not defined in the schema
+"""
+type QueryExt {
+  ammPoolExits(
+    limit: Int
+    order: AmmPoolExitsOrder
+    orderDesc: Boolean
+    where: AmmPoolExitsFilter
+  ): [AmmPoolExits]
+  ammPoolJoins(
+    limit: Int
+    order: AmmPoolJoinsOrder
+    orderDesc: Boolean
+    where: AmmPoolJoinsFilter
+  ): [AmmPoolJoins]
+  ammPools(
+    limit: Int
+    order: AmmPoolsOrder
+    orderDesc: Boolean
+    where: AmmPoolsFilter
+  ): [AmmPools]
+  ammSwaps(
+    limit: Int
+    order: AmmSwapsOrder
+    orderDesc: Boolean
+    where: AmmSwapsFilter
+  ): [AmmSwaps]
+  ammTotalLiquidity(
+    limit: Int
+    order: AmmTotalLiquidityOrder
+    orderDesc: Boolean
+    where: AmmTotalLiquidityFilter
+  ): [AmmTotalLiquidity]
+  balances(
+    limit: Int
+    order: BalancesOrder
+    orderDesc: Boolean
+    where: BalancesFilter
+  ): [Balances]
+  blocks(
+    limit: Int
+    order: BlocksOrder
+    orderDesc: Boolean
+    where: BlocksFilter
+  ): [Blocks]
+  delegateEvents(
+    limit: Int
+    order: DelegateEventsOrder
+    orderDesc: Boolean
+    where: DelegateEventsFilter
+  ): [DelegateEvents]
+  delegations(
+    limit: Int
+    order: DelegationsOrder
+    orderDesc: Boolean
+    where: DelegationsFilter
+  ): [Delegations]
+  eventGovProposalDeposit(
+    limit: Int
+    order: EventGovProposalDepositOrder
+    orderDesc: Boolean
+    where: EventGovProposalDepositFilter
+  ): [EventGovProposalDeposit]
+  eventGovProposalVote(
+    limit: Int
+    order: EventGovProposalVoteOrder
+    orderDesc: Boolean
+    where: EventGovProposalVoteFilter
+  ): [EventGovProposalVote]
+  eventGovSubmitProposal(
+    limit: Int
+    order: EventGovSubmitProposalOrder
+    orderDesc: Boolean
+    where: EventGovSubmitProposalFilter
+  ): [EventGovSubmitProposal]
+  eventOracleAggregatePrevote(
+    limit: Int
+    order: EventOracleAggregatePrevoteOrder
+    orderDesc: Boolean
+    where: EventOracleAggregatePrevoteFilter
+  ): [EventOracleAggregatePrevote]
+  eventOracleAggregateVote(
+    limit: Int
+    order: EventOracleAggregateVoteOrder
+    orderDesc: Boolean
+    where: EventOracleAggregateVoteFilter
+  ): [EventOracleAggregateVote]
+  eventPerpPositionChanged(
+    limit: Int
+    order: EventPerpPositionChangedOrder
+    orderDesc: Boolean
+    where: EventPerpPositionChangedFilter
+  ): [EventPerpPositionChanged]
+  eventPerpPositionLiquidated(
+    limit: Int
+    order: EventPerpPositionLiquidatedOrder
+    orderDesc: Boolean
+    where: EventPerpPositionLiquidatedFilter
+  ): [EventPerpPositionLiquidated]
+  eventStakingDelegate(
+    limit: Int
+    order: EventStakingDelegateOrder
+    orderDesc: Boolean
+    where: EventStakingDelegateFilter
+  ): [EventStakingDelegate]
+  eventStakingRedelegate(
+    limit: Int
+    order: EventStakingRedelegateOrder
+    orderDesc: Boolean
+    where: EventStakingRedelegateFilter
+  ): [EventStakingRedelegate]
+  eventStakingUnbond(
+    limit: Int
+    order: EventStakingUnbondOrder
+    orderDesc: Boolean
+    where: EventStakingUnbondFilter
+  ): [EventStakingUnbond]
+  eventWasmExecute(
+    limit: Int
+    order: EventWasmExecuteOrder
+    orderDesc: Boolean
+    where: EventWasmExecuteFilter
+  ): [EventWasmExecute]
+  eventWasmInstantiate(
+    limit: Int
+    order: EventWasmInstantiateOrder
+    orderDesc: Boolean
+    where: EventWasmInstantiateFilter
+  ): [EventWasmInstantiate]
+  eventWasmStoreCode(
+    limit: Int
+    order: EventWasmStoreCodeOrder
+    orderDesc: Boolean
+    where: EventWasmStoreCodeFilter
+  ): [EventWasmStoreCode]
+  fundingRates(
+    limit: Int
+    order: FundingRatesOrder
+    orderDesc: Boolean
+    where: FundingRatesFilter
+  ): [FundingRates]
+  liquidations(
+    limit: Int
+    order: LiquidationsOrder
+    orderDesc: Boolean
+    where: LiquidationsFilter
+  ): [Liquidations]
+  markPriceCandles(
+    limit: Int
+    order: MarkPriceCandlesOrder
+    orderDesc: Boolean
+    where: MarkPriceCandlesFilter
+  ): [MarkPriceCandles]
+  markPrices(
+    limit: Int
+    order: MarkPricesOrder
+    orderDesc: Boolean
+    where: MarkPricesFilter
+  ): [MarkPrices]
+  oraclePrices(
+    limit: Int
+    order: OraclePricesOrder
+    orderDesc: Boolean
+    where: OraclePricesFilter
+  ): [OraclePrices]
+  perpLeaderboard(traderAddress: String): [PerpLeaderboard]
+  positionChanges(
+    limit: Int
+    order: PositionChangesOrder
+    orderDesc: Boolean
+    where: PositionChangesFilter
+  ): [PositionChanges]
+  positions(
+    limit: Int
+    order: PositionsOrder
+    orderDesc: Boolean
+    where: PositionsFilter
+  ): [Positions]
+  redelegationEvents(
+    limit: Int
+    order: RedelegationEventsOrder
+    orderDesc: Boolean
+    where: RedelegationEventsFilter
+  ): [RedelegationEvents]
+  stablecoinCirculatingSupply(
+    limit: Int
+    order: StablecoinCirculatingSupplyOrder
+    orderDesc: Boolean
+    where: StablecoinCirculatingSupplyFilter
+  ): [StablecoinCirculatingSupply]
+  stakingPool(
+    limit: Int
+    order: StakingPoolOrder
+    orderDesc: Boolean
+    where: StakingPoolFilter
+  ): [StakingPool]
+  statsFees(
+    limit: Int
+    order: StatsFeesOrder
+    orderDesc: Boolean
+    where: StatsFeesFilter
+  ): [StatsFees]
+  statsNewUsers(
+    limit: Int
+    order: StatsNewUsersOrder
+    orderDesc: Boolean
+    where: StatsNewUsersFilter
+  ): [StatsNewUsers]
+  statsOpenInterest(
+    limit: Int
+    order: StatsOpenInterestOrder
+    orderDesc: Boolean
+    where: StatsOpenInterestFilter
+  ): [StatsOpenInterest]
+  statsPerpPnl(
+    limit: Int
+    order: StatsPerpPnlOrder
+    orderDesc: Boolean
+    where: StatsPerpPnlFilter
+  ): [StatsPerpPnl]
+  statsTotals(
+    limit: Int
+    order: StatsTotalsOrder
+    orderDesc: Boolean
+    where: StatsTotalsFilter
+  ): [StatsTotals]
+  statsTvl(
+    limit: Int
+    order: StatsTvlOrder
+    orderDesc: Boolean
+    where: StatsTvlFilter
+  ): [StatsTvl]
+  statsTx(
+    limit: Int
+    order: StatsTxOrder
+    orderDesc: Boolean
+    where: StatsTxFilter
+  ): [StatsTx]
+  statsUniqueUsers(
+    limit: Int
+    order: StatsUniqueUsersOrder
+    orderDesc: Boolean
+    where: StatsUniqueUsersFilter
+  ): [StatsUniqueUsers]
+  statsUsers(
+    limit: Int
+    order: StatsUsersOrder
+    orderDesc: Boolean
+    where: StatsUsersFilter
+  ): [StatsUsers]
+  statsVolume(
+    limit: Int
+    order: StatsVolumeOrder
+    orderDesc: Boolean
+    where: StatsVolumeFilter
+  ): [StatsVolume]
+  transfers(
+    limit: Int
+    order: TransfersOrder
+    orderDesc: Boolean
+    where: TransfersFilter
+  ): [Transfers]
+  unbondingEvents(
+    limit: Int
+    order: UnbondingEventsOrder
+    orderDesc: Boolean
+    where: UnbondingEventsFilter
+  ): [UnbondingEvents]
+  unbondings(
+    limit: Int
+    order: UnbondingsOrder
+    orderDesc: Boolean
+    where: UnbondingsFilter
+  ): [Unbondings]
+  userJoins(
+    limit: Int
+    order: UserJoinsOrder
+    orderDesc: Boolean
+    where: UserJoinsFilter
+  ): [UserJoins]
+  validators(
+    limit: Int
+    order: ValidatorsOrder
+    orderDesc: Boolean
+    where: ValidatorsFilter
+  ): [Validators]
+  vpoolConfigs(
+    limit: Int
+    order: VpoolConfigsOrder
+    orderDesc: Boolean
+    where: VpoolConfigsFilter
+  ): [VpoolConfigs]
+}
+
+type RedelegationEvents {
+  amount: Float
+  block: Long
+  blockTs: DateTime
+  delegator: String
+  destinationValidator: String
+  sourceValidator: String
+}
+
+input RedelegationEventsFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  delegatorEq: String
+  destinationValidatorEq: String
+  sourceValidatorEq: String
+}
+
+enum RedelegationEventsOrder {
+  block
+  block_ts
+}
+
+type StablecoinCirculatingSupply {
+  block: Long
+  blockTs: DateTime
+  supply: [Coin]
+}
+
+input StablecoinCirculatingSupplyFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+}
+
+enum StablecoinCirculatingSupplyOrder {
+  block
+  block_ts
+}
+
+type StakingPool {
+  block: Long
+  blockTs: DateTime
+  bondedTokens: Long
+  notBondedTokens: Long
+}
+
+input StakingPoolFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+}
+
+enum StakingPoolOrder {
+  block
+  block_ts
+}
+
+type StatsFees {
+  feesLiquidations: Float
+  feesLiquidationsCumulative: Float
+  feesPerp: Float
+  feesPerpCumulative: Float
+  feesSwap: Float
+  feesSwapCumulative: Float
+  feesTotal: Float
+  feesTotalCumulative: Float
+  period: Long
+  periodStartTs: DateTime
+}
+
+input StatsFeesFilter {
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum StatsFeesOrder {
+  period
+  period_start_ts
+}
+
+type StatsNewUsers {
+  newUsersDelegate: Long
+  newUsersLp: Long
+  newUsersLpExit: Long
+  newUsersPerp: Long
+  newUsersRedelegate: Long
+  newUsersSwap: Long
+  newUsersTotal: Long
+  newUsersTransfer: Long
+  newUsersUnbonding: Long
+  period: Long
+  periodStartTs: DateTime
+}
+
+input StatsNewUsersFilter {
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum StatsNewUsersOrder {
+  period
+  period_start_ts
+}
+
+type StatsOpenInterest {
+  openInterestLong: Float
+  openInterestShort: Float
+  openInterestTotal: Float
+  period: Long
+  periodStartTs: DateTime
+}
+
+input StatsOpenInterestFilter {
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum StatsOpenInterestOrder {
+  period
+  period_start_ts
+}
+
+type StatsPerpPnl {
+  loss: Float
+  lossCumulative: Float
+  netPnl: Float
+  netPnlCumulative: Float
+  period: Long
+  periodStartTs: DateTime
+  profit: Float
+  profitCumulative: Float
+}
+
+input StatsPerpPnlFilter {
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum StatsPerpPnlOrder {
+  period
+  period_start_ts
+}
+
+type StatsTotals {
+  period: Long
+  periodStartTs: DateTime
+  totalFeesLiquidations: Float
+  totalFeesPerp: Float
+  totalOpenInterest: Float
+  totalPerp: Float
+  totalSwap: Float
+  totalTvl: Float
+}
+
+input StatsTotalsFilter {
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum StatsTotalsOrder {
+  period
+  period_start_ts
+}
+
+type StatsTvl {
+  period: Long
+  periodStartTs: DateTime
+  tvlPerp: Float
+  tvlStablecoin: Float
+  tvlStaking: Float
+  tvlSwap: Float
+  tvlTotal: Float
+}
+
+input StatsTvlFilter {
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum StatsTvlOrder {
+  period
+  period_start_ts
+}
+
+type StatsTx {
+  numAmmExit: Float
+  numAmmJoin: Float
+  numAmmSwap: Float
+  numDelegates: Float
+  numPositionChanged: Float
+  numRedelegates: Float
+  numTransfers: Float
+  numUnbonds: Float
+  period: Long
+  periodStartTs: DateTime
+  total: Float
+}
+
+input StatsTxFilter {
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum StatsTxOrder {
+  period
+  period_start_ts
+}
+
+type StatsUniqueUsers {
+  period: Long
+  periodStartTs: DateTime
+  uniqueUsersDelegate: Long
+  uniqueUsersLp: Long
+  uniqueUsersLpExit: Long
+  uniqueUsersPerp: Long
+  uniqueUsersRedelegate: Long
+  uniqueUsersSwap: Long
+  uniqueUsersTotal: Long
+  uniqueUsersTransfer: Long
+  uniqueUsersUnbonding: Long
+}
+
+input StatsUniqueUsersFilter {
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum StatsUniqueUsersOrder {
+  period
+  period_start_ts
+}
+
+type StatsUsers {
+  newUsersLp: Long
+  newUsersLpCumulative: Long
+  newUsersPerp: Long
+  newUsersPerpCumulative: Long
+  newUsersSwap: Long
+  newUsersSwapCumulative: Long
+  newUsersTotal: Long
+  newUsersTotalCumulative: Long
+  period: Long
+  periodStartTs: DateTime
+  uniqueUsersLp: Long
+  uniqueUsersPerp: Long
+  uniqueUsersSwap: Long
+  uniqueUsersTotal: Long
+  userActionsLp: Long
+  userActionsPerp: Long
+  userActionsSwap: Long
+  userActionsTotal: Long
+}
+
+input StatsUsersFilter {
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum StatsUsersOrder {
+  period
+  period_start_ts
+}
+
+type StatsVolume {
+  period: Long
+  periodStartTs: DateTime
+  volumePerp: Float
+  volumePerpCumulative: Float
+  volumeSwap: Float
+  volumeSwapCumulative: Float
+  volumeTotal: Float
+  volumeTotalCumulative: Float
+}
+
+input StatsVolumeFilter {
+  periodEq: Long
+  periodGt: Long
+  periodGte: Long
+  periodLt: Long
+  periodLte: Long
+  periodStartTsEq: DateTime
+  periodStartTsGt: DateTime
+  periodStartTsGte: DateTime
+  periodStartTsLt: DateTime
+  periodStartTsLte: DateTime
+}
+
+enum StatsVolumeOrder {
+  period
+  period_start_ts
+}
+
+type Transfers {
+  amount: [Coin]
+  block: Long
+  blockTs: DateTime
+  recipient: String
+  sender: String
+}
+
+input TransfersFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  recipientEq: String
+  senderEq: String
+}
+
+enum TransfersOrder {
+  block
+  block_ts
+}
+
+type UnbondingEvents {
+  amount: Float
+  block: Long
+  blockTs: DateTime
+  delegator: String
+  validator: String
+}
+
+input UnbondingEventsFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  delegatorEq: String
+  validatorEq: String
+}
+
+enum UnbondingEventsOrder {
+  block
+  block_ts
+}
+
+type Unbondings {
+  balance: Long
+  block: Long
+  blockTs: DateTime
+  completionTime: DateTime
+  creationHeight: Long
+  delegatorAddress: String
+  initialBalance: Long
+  validatorAddress: String
+}
+
+input UnbondingsFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  delegatorAddressEq: String
+  validatorAddressEq: String
+}
+
+enum UnbondingsOrder {
+  block
+  block_ts
+}
+
+type UserJoins {
+  action: String
+  address: String
+  block: Long
+  blockTs: DateTime
+}
+
+input UserJoinsFilter {
+  actionEq: String
+  addressEq: String
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+}
+
+enum UserJoinsOrder {
+  block
+  block_ts
+}
+
+type Validators {
+  block: Long
+  blockTs: DateTime
+  commissionRates: String
+  commissionUpdateTime: DateTime
+  delegatorShares: Float
+  description: String
+  jailed: Boolean
+  operatorAddress: String
+  statusBonded: Boolean
+  tokens: Long
+  unbondingHeight: Long
+  unbondingTime: DateTime
+}
+
+input ValidatorsFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  jailedEq: Boolean
+  operatorAddressEq: String
+  statusBondedEq: Boolean
+  tokensEq: Long
+  tokensGt: Long
+  tokensGte: Long
+  tokensLt: Long
+  tokensLte: Long
+}
+
+enum ValidatorsOrder {
+  block
+  block_ts
+  jailed
+  status_bonded
+  tokens
+}
+
+type VpoolConfigs {
+  block: Long
+  blockTs: DateTime
+  fluctuationLimitRatio: Float
+  maintenanceMarginRatio: Float
+  maxLeverage: Float
+  maxOracleSpreadRatio: Float
+  pair: String
+  tradeLimitRatio: Float
+}
+
+input VpoolConfigsFilter {
+  blockEq: Long
+  blockGt: Long
+  blockGte: Long
+  blockLt: Long
+  blockLte: Long
+  blockTsEq: DateTime
+  blockTsGt: DateTime
+  blockTsGte: DateTime
+  blockTsLt: DateTime
+  blockTsLte: DateTime
+  pairEq: String
+}
+
+enum VpoolConfigsOrder {
+  block
+  block_ts
+}

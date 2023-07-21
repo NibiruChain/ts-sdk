@@ -1,97 +1,43 @@
-import { doGqlQuery, arg } from "../gql"
+import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
+import {
+  Positions,
+  PositionsOrder,
+  QueryExt,
+  QueryExtPositionsArgs,
+} from "../gql/generated"
 
-// ------------------------------------------------
-// Position
-// ------------------------------------------------
-
-/**
- * Position: A single position data.
- */
-export interface Position {
-  pair: string
-  block: number
-  blockTs: string
-  trader: string
-  size: number
-  margin: number
-  openNotional: number
-  positionNotional: number
-  unrealizedPnl: number
-  marginRatioMark: number
-  marginRatioIndex: number
-  openBlock: number
+export const defaultPositionsObject: Partial<Positions> = {
+  block: 0,
+  blockTs: "",
+  pair: "",
+  trader: "",
+  size: 0,
+  margin: 0,
+  openNotional: 0,
+  positionNotional: 0,
+  unrealizedPnl: 0,
+  marginRatioMark: 0,
+  marginRatioIndex: 0,
+  openBlock: 0,
 }
 
-/** GqlOutPosition: Output response for the Position query  */
-export interface GqlOutPosition {
-  positions: Position[]
-}
-
-/** GqlInPosition: Input arguments for the Position query  */
-export interface GqlInPosition {
-  pair?: string
-  limit: number
-  startTs?: string
-  endTs?: string
-  trader?: string
-  orderBy?: PositionOrderBy | string
-  orderDescending?: boolean // defaults to true
-}
-
-export enum PositionOrderBy {
-  block = "block",
-  block_ts = "block_ts",
+export interface GqlOutPositions {
+  positions?: QueryExt["positions"]
 }
 
 export const positions = async (
-  args: GqlInPosition,
+  args: QueryExtPositionsArgs,
   endpt: string
-): Promise<GqlOutPosition> => {
-  if (args.orderDescending === undefined) args.orderDescending = true
-  if (args.orderBy === undefined) args.orderBy = PositionOrderBy.block
+): Promise<GqlOutPositions> => {
+  if (!args.orderDesc) args.orderDesc = true
+  if (!args.order) args.order = PositionsOrder.Block
 
-  const gqlQuery = ({
-    pair,
-    trader,
-    startTs,
-    endTs,
-    limit,
-    orderBy,
-    orderDescending,
-  }: GqlInPosition): string => {
-    const argWhere = (): string => {
-      const whereConditions: string[] = []
-      if (pair) whereConditions.push(`pairEq: "${pair}"`)
-      if (trader) whereConditions.push(`traderEq: "${trader}"`)
-      if (startTs) whereConditions.push(`blockTsGte: "${startTs}"`)
-      if (endTs) whereConditions.push(`blockTsLt: "${endTs}"`)
-      const argWhereBody: string = whereConditions.join(", ")
-      return `where: { ${argWhereBody} }`
-    }
-
-    const queryArgList: string[] = [
-      argWhere(),
-      arg("limit", limit),
-      arg("order", orderBy),
-      arg("orderDesc", orderDescending),
-    ]
-    const queryArgs: string = queryArgList.join(", ")
-    return `{
-        positions(${queryArgs}) {
-          block
-          blockTs
-          pair
-          trader
-          size
-          margin
-          openNotional
-          positionNotional
-          unrealizedPnl
-          marginRatioMark
-          marginRatioIndex
-          openBlock
-        }
-      }`
-  }
-  return doGqlQuery(gqlQuery(args), endpt)
+  return doGqlQuery(
+    gqlQuery(
+      "positions",
+      args,
+      convertObjectToPropertiesString(defaultPositionsObject)
+    ),
+    endpt
+  )
 }
