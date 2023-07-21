@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.22](../intro.md) / [Exports](../modules.md) / PerpMsgFactory
+[NibiJS Documentation - v0.19.23](../intro.md) / [Exports](../modules.md) / PerpMsgFactory
 
 # Class: PerpMsgFactory
 
@@ -47,7 +47,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:106](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/msg/perp.ts#L106)
+[msg/perp.ts:106](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/msg/perp.ts#L106)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:143](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/msg/perp.ts#L143)
+[msg/perp.ts:143](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/msg/perp.ts#L143)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:150](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/msg/perp.ts#L150)
+[msg/perp.ts:150](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/msg/perp.ts#L150)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:113](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/msg/perp.ts#L113)
+[msg/perp.ts:113](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/msg/perp.ts#L113)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:120](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/msg/perp.ts#L120)
+[msg/perp.ts:120](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/msg/perp.ts#L120)
 
 ___
 
@@ -153,4 +153,4 @@ ___
 
 #### Defined in
 
-[msg/perp.ts:92](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/msg/perp.ts#L92)
+[msg/perp.ts:92](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/msg/perp.ts#L92)

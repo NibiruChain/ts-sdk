@@ -22,11 +22,13 @@ const createGqlEndpt = (chain: string) =>
 export const arg = (name: string, value: any) => `${name}: ${value}`
 
 export const getWhereArgArr = (whereArgs: any) =>
-  `where: {
-  ${Object.keys(whereArgs)
-    .map((key) => `${key}: "${whereArgs[key]}"`)
-    .join(", ")}
- }`
+  whereArgs
+    ? `where: {
+        ${Object.keys(whereArgs)
+          ?.map((key) => `${key}: "${whereArgs[key]}"`)
+          .join(", ")}
+      }`
+    : ""
 
 export const convertObjectToPropertiesString = (obj: any) => {
   let result = ""

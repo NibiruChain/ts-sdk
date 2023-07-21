@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.19.23
+
+- Fix undefined error
+
 ## v0.19.22
 
 - Graphql introspection
