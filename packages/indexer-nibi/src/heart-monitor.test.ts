@@ -1,6 +1,6 @@
 import { HeartMonitor } from "./heart-monitor"
 import { CandlePeriod } from "./enum"
-import { gqlEndptFromTmRpc } from "./gql"
+import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
 
 const pair = "ubtc:unusd"
 
@@ -21,14 +21,19 @@ describe("Heart Monitor constructor", () => {
     { name: "undefined", in: undefined, expected: defaultGqlEndpt },
     { name: "valid string", in: "abc123", expected: "abc123" },
     {
-      name: "invalid string",
-      in: undefined,
-      expected: "https://hm-graphql.devnet-2.nibiru.fi/graphql",
-    },
-    {
       name: "chain",
       in: { endptTm: "https://rpc.itn-1.nibiru.fi" },
       expected: "https://hm-graphql.itn-1.nibiru.fi/graphql",
+    },
+    {
+      name: "empty chain string",
+      in: { endptTm: "" },
+      expected: defaultGqlEndpt,
+    },
+    {
+      name: "undefined as string",
+      in: { endptTm: undefined as unknown as string },
+      expected: defaultGqlEndpt,
     },
   ]
 
@@ -575,4 +580,41 @@ test("perpLeaderboard", async () => {
       expect(config).toHaveProperty(field)
     })
   }
+})
+
+describe("gql cleanResponse", () => {
+  test("should return the response data if rawResp is ok and contains data", async () => {
+    const rawResp = {
+      ok: true,
+      json: () => Promise.resolve({ data: "response data" }),
+    } as Response
+    const result = await cleanResponse(rawResp)
+    expect(result).toEqual("response data")
+  })
+
+  test("should return the response JSON if rawResp is ok and does not contain data", async () => {
+    const rawResp = {
+      ok: true,
+      json: () => Promise.resolve({ key: "value" }),
+    } as Response
+    const result = await cleanResponse(rawResp)
+    expect(result).toEqual({ key: "value" })
+  })
+
+  test("should throw an error if rawResp is not ok", async () => {
+    const error = { error: "Error message" }
+    const rawResp = {
+      ok: false,
+      json: () => Promise.resolve(error),
+    } as Response
+    await expect(cleanResponse(rawResp)).rejects.toThrowError(`${error}`)
+  })
+
+  test("should throw an error if unable to parse JSON", async () => {
+    const rawResp = {
+      ok: true,
+      json: () => Promise.reject(new Error("invalid json")),
+    } as Response
+    await expect(cleanResponse(rawResp)).rejects.toThrowError(``)
+  })
 })
