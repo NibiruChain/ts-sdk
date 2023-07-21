@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.21](../intro.md) / [Exports](../modules.md) / StableSwap
+[NibiJS Documentation - v0.19.22](../intro.md) / [Exports](../modules.md) / StableSwap
 
 # Class: StableSwap
 
@@ -54,7 +54,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:25](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/stableswap/stableswap.ts#L25)
+[stableswap/stableswap.ts:25](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/stableswap/stableswap.ts#L25)
 
 ## Properties
 
@@ -64,7 +64,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/stableswap/stableswap.ts#L20)
+[stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/stableswap/stableswap.ts#L20)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/stableswap/stableswap.ts#L23)
+[stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/stableswap/stableswap.ts#L23)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/stableswap/stableswap.ts#L21)
+[stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/stableswap/stableswap.ts#L21)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[stableswap/stableswap.ts:22](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/stableswap/stableswap.ts#L22)
+[stableswap/stableswap.ts:22](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/stableswap/stableswap.ts#L22)
 
 ## Methods
 
@@ -117,7 +117,7 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:54](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/stableswap/stableswap.ts#L54)
+[stableswap/stableswap.ts:54](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/stableswap/stableswap.ts#L54)
 
 ___
 
@@ -145,7 +145,7 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:143](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/stableswap/stableswap.ts#L143)
+[stableswap/stableswap.ts:143](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/stableswap/stableswap.ts#L143)
 
 ___
 
@@ -165,7 +165,7 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:41](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/stableswap/stableswap.ts#L41)
+[stableswap/stableswap.ts:41](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/stableswap/stableswap.ts#L41)
 
 ___
 
@@ -201,4 +201,4 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:104](https://github.com/NibiruChain/ts-sdk/blob/152b3c1/packages/nibijs/src/stableswap/stableswap.ts#L104)
+[stableswap/stableswap.ts:104](https://github.com/NibiruChain/ts-sdk/blob/e2c1f26/packages/nibijs/src/stableswap/stableswap.ts#L104)
