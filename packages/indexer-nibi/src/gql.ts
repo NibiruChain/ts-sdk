@@ -1,5 +1,4 @@
 import * as cf from "cross-fetch"
-import { InputMaybe, Scalars } from "./gql/generated"
 
 declare global {
   interface Window {
@@ -9,26 +8,21 @@ declare global {
 
 window.fetch = cf.fetch
 
-export interface GraphQLQuery {
-  limit?: InputMaybe<Scalars["Int"]["input"]>
-  order?: InputMaybe<any>
-  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
-  where?: InputMaybe<any>
-}
-
 const createGqlEndpt = (chain: string) =>
   `https://hm-graphql.${chain}.nibiru.fi/graphql`
 
-export const arg = (name: string, value: any) => `${name}: ${value}`
+export const arg = (name: string, value: any, ignoreQuotes?: boolean) => {
+  const isString = typeof value === "string" && !ignoreQuotes ? `"` : ""
+
+  return `${name}: ${isString}${value}${isString}`
+}
 
 export const getWhereArgArr = (whereArgs: any) =>
-  whereArgs
-    ? `where: {
-        ${Object.keys(whereArgs)
-          ?.map((key) => `${key}: "${whereArgs[key]}"`)
-          .join(", ")}
-      }`
-    : ""
+  `where: {
+    ${Object.keys(whereArgs)
+      .map((key) => arg(key, whereArgs[key]))
+      .join(", ")}
+  }`
 
 export const convertObjectToPropertiesString = (obj: any) => {
   let result = ""
@@ -49,9 +43,7 @@ export const convertObjectToPropertiesString = (obj: any) => {
       result += `${innerString}\n`
     } else if (typeof value === "object" && value !== null) {
       result += `${key} {
-                  ${Object.keys(value)
-                    .map((k) => `${k}`)
-                    .join("\n")}
+                  ${convertObjectToPropertiesString(value)}
                 }\n`
     } else {
       result += `${key}\n`
@@ -76,21 +68,44 @@ export const cleanResponse = async (rawResp: Response) => {
   }
 }
 
-export const gqlQuery = (
+export const gqlQuery = <T>(
   name: string,
-  { where, limit, order, orderDesc }: GraphQLQuery,
+  typedQueryArgs: { [key: string]: T },
   properties: string
 ) => {
-  const queryArgList = [
-    getWhereArgArr(where),
-    arg("limit", limit),
-    arg("order", order),
-    arg("orderDesc", orderDesc),
-  ]
-  const queryArgs = queryArgList.join(", ")
+  let queryArgList = []
+
+  if (
+    typedQueryArgs.where !== undefined ||
+    typedQueryArgs.limit !== undefined ||
+    typedQueryArgs.order_by !== undefined ||
+    typedQueryArgs.order_desc !== undefined
+  ) {
+    if (typedQueryArgs.where !== undefined) {
+      queryArgList.push(getWhereArgArr(typedQueryArgs.where))
+    }
+
+    if (typedQueryArgs.limit !== undefined) {
+      queryArgList.push(arg("limit", typedQueryArgs.limit))
+    }
+
+    if (typedQueryArgs.order_by !== undefined) {
+      queryArgList.push(arg("order_by", typedQueryArgs.order_by, true))
+    }
+
+    if (typedQueryArgs.order_desc !== undefined) {
+      queryArgList.push(arg("order_desc", typedQueryArgs.order_desc))
+    }
+  } else {
+    queryArgList = Object.keys(typedQueryArgs).map((key) =>
+      arg(key, typedQueryArgs[key])
+    )
+  }
+
+  const hasQueryList = (char: string) => (queryArgList.length > 0 ? char : "")
 
   return `{
-    ${name}(${queryArgs}) {
+    ${name} ${hasQueryList("(")}${queryArgList.join(", ")}${hasQueryList(")")} {
       ${properties}
     }
   }`
