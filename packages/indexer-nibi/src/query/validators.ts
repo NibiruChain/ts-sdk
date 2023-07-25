@@ -1,36 +1,25 @@
+import { defaultValidator } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
-  QueryExt,
-  QueryExtValidatorsArgs,
-  Validators,
-  ValidatorsOrder,
+  Query,
+  QueryValidatorsArgs,
+  Validator,
+  ValidatorOrder,
 } from "../gql/generated"
 
-export const defaultValidatorsObject: Partial<Validators> = {
-  block: 0,
-  blockTs: "",
-  operatorAddress: "",
-  jailed: false,
-  statusBonded: false,
-  tokens: 0,
-  delegatorShares: 0,
-  description: "",
-  unbondingHeight: 0,
-  unbondingTime: "",
-  commissionRates: "",
-  commissionUpdateTime: "",
-}
+export const defaultValidatorsObject: Validator = defaultValidator
 
 export interface GqlOutValidators {
-  validators?: QueryExt["validators"]
+  validators?: Query["validators"]
 }
 
 export const validators = async (
-  args: QueryExtValidatorsArgs,
+  args: QueryValidatorsArgs,
   endpt: string
 ): Promise<GqlOutValidators> => {
-  if (!args.orderDesc) args.orderDesc = true
-  if (!args.order) args.order = ValidatorsOrder.Block
+  if (!args.limit) args.limit = 100
+  if (args.order_desc === undefined) args.order_desc = true
+  if (!args.order_by) args.order_by = ValidatorOrder.OperatorAddress
 
   return doGqlQuery(
     gqlQuery(

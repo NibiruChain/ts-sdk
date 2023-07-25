@@ -1,5 +1,4 @@
 import * as cf from "cross-fetch"
-import { InputMaybe, Scalars } from "./gql/generated"
 
 declare global {
   interface Window {
@@ -9,24 +8,20 @@ declare global {
 
 window.fetch = cf.fetch
 
-export interface GraphQLQuery {
-  limit?: InputMaybe<Scalars["Int"]["input"]>
-  order?: InputMaybe<any>
-  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
-  where?: InputMaybe<any>
-}
-
 const createGqlEndpt = (chain: string) =>
   `https://hm-graphql.${chain}.nibiru.fi/graphql`
 
-export const arg = (name: string, value: any) => `${name}: ${value}`
+export const arg = (name: string, value: any) => {
+  const isString = typeof value === "string" ? `"` : ""
+  return `${name}: ${isString}${value}${isString}`
+}
 
 export const getWhereArgArr = (whereArgs: any) =>
   `where: {
-  ${Object.keys(whereArgs)
-    .map((key) => `${key}: "${whereArgs[key]}"`)
-    .join(", ")}
- }`
+    ${Object.keys(whereArgs)
+      .map((key) => arg(key, whereArgs[key]))
+      .join(", ")}
+  }`
 
 export const convertObjectToPropertiesString = (obj: any) => {
   let result = ""
@@ -74,21 +69,33 @@ export const cleanResponse = async (rawResp: Response) => {
   }
 }
 
-export const gqlQuery = (
+export const gqlQuery = <T>(
   name: string,
-  { where, limit, order, orderDesc }: GraphQLQuery,
+  typedQueryArgs: { [key: string]: T },
   properties: string
 ) => {
-  const queryArgList = [
-    getWhereArgArr(where),
-    arg("limit", limit),
-    arg("order", order),
-    arg("orderDesc", orderDesc),
-  ]
-  const queryArgs = queryArgList.join(", ")
+  let queryArgList = []
+
+  if (
+    typedQueryArgs.where &&
+    typedQueryArgs.limit &&
+    typedQueryArgs.order &&
+    typedQueryArgs.orderDesc
+  ) {
+    queryArgList = [
+      getWhereArgArr(typedQueryArgs.where),
+      arg("limit", typedQueryArgs.limit),
+      arg("order", typedQueryArgs.order),
+      arg("orderDesc", typedQueryArgs.orderDesc),
+    ]
+  } else {
+    queryArgList = Object.keys(typedQueryArgs).map((key) =>
+      arg(key, typedQueryArgs[key])
+    )
+  }
 
   return `{
-    ${name}(${queryArgs}) {
+    ${name}(${queryArgList.join(", ")}) {
       ${properties}
     }
   }`

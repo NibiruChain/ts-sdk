@@ -1,34 +1,29 @@
+import { defaultDelegator, defaultValidator } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
-  QueryExt,
-  QueryExtDelegationsArgs,
-  DelegationsOrder,
-  Delegations,
+  Query,
+  QueryDelegationsArgs,
+  DelegationOrder,
+  Delegation,
 } from "../gql/generated"
 
-export const defaultDelegationsObject: Partial<Delegations> = {
-  block: 0,
-  blockTs: "",
-  delegatorAddress: "",
-  validatorAddress: "",
-  shares: 0,
-  balance: {
-    amount: 0,
-    denom: "",
-  },
+export const defaultDelegationsObject: Delegation = {
+  amount: 0,
+  delegator: defaultDelegator,
+  validator: defaultValidator,
 }
 
 export interface GqlOutDelegations {
-  delegations?: QueryExt["delegations"]
+  delegations?: Query["delegations"]
 }
 
 export const delegations = async (
-  args: QueryExtDelegationsArgs,
+  args: QueryDelegationsArgs,
   endpt: string
 ): Promise<GqlOutDelegations> => {
   if (!args.limit) args.limit = 100
-  if (!args.orderDesc) args.orderDesc = true
-  if (!args.order) args.order = DelegationsOrder.BlockTs
+  if (!args.order_desc) args.order_desc = true
+  if (!args.order_by) args.order_by = DelegationOrder.DelegatorAddress
 
   return doGqlQuery(
     gqlQuery(

@@ -1,115 +1,120 @@
 import { gqlEndptFromTmRpc } from "./gql"
 import {
-  QueryExtFundingRatesArgs,
-  QueryExtLiquidationsArgs,
-  QueryExtMarkPriceCandlesArgs,
-  QueryExtMarkPricesArgs,
-  QueryExtTransfersArgs,
-  QueryExtOraclePricesArgs,
-  QueryExtPositionsArgs,
-  QueryExtUnbondingsArgs,
-  QueryExtStatsVolumeArgs,
-  QueryExtValidatorsArgs,
-  QueryExtBalancesArgs,
-  QueryExtVpoolConfigsArgs,
-  QueryExtPositionChangesArgs,
-  QueryExtAmmPoolsArgs,
-  QueryExtAmmTotalLiquidityArgs,
-  QueryExtDelegationsArgs,
-  QueryExtStakingPoolArgs,
-  QueryExtPerpLeaderboardArgs,
+  QueryCommunityPoolArgs,
+  QueryDelegationsArgs,
+  QueryDistributionCommissionsArgs,
+  QueryPerpMarketArgs,
+  QueryPerpMarketsArgs,
+  QueryPerpPositionArgs,
+  QueryPerpPositionsArgs,
+  QueryRedelegationsArgs,
+  QuerySpotLpPositionsArgs,
+  QuerySpotPoolCreatedArgs,
+  QuerySpotPoolExitedArgs,
+  QuerySpotPoolJoinedArgs,
+  QuerySpotPoolSwapArgs,
+  QuerySpotPoolsArgs,
+  QueryUnbondingsArgs,
+  QueryUsersArgs,
+  QueryValidatorsArgs,
 } from "./gql/generated"
-import { fundingRates, GqlOutFundingRates } from "./query/fundingRates"
-import { GqlOutLiquidations, liquidations } from "./query/liquidations"
 import {
-  GqlOutMarkPriceCandles,
-  markPriceCandles,
-} from "./query/markPriceCandles"
-import { GqlOutMarkPrices, markPrices } from "./query/markPrices"
-import { GqlOutTransfers, transfers } from "./query/transfers"
-import { GqlOutOraclePrices, oraclePrices } from "./query/oraclePrices"
-import { GqlOutPositions, positions } from "./query/positions"
-import { GqlOutUnbondings, unbondings } from "./query/unbondings"
-import { GqlOutStatsVolume, statsVolume } from "./query/statsVolume"
-import { GqlOutValidators, validators } from "./query/validators"
-import { balances, GqlOutBalances } from "./query/balances"
-import { GqlOutVPoolConfigs, vpoolConfigs } from "./query/vpoolConfigs"
-import { GqlOutPositionChanges, positionChanges } from "./query/positionChanges"
-import { ammPools, GqlOutAmmPools } from "./query/ammPools"
-import {
-  ammTotalLiquidity,
-  GqlOutAmmTotalLiquidity,
-} from "./query/ammTotalLiquidity"
-import { delegations, GqlOutDelegations } from "./query/delegations"
-import { GqlOutStakingPool, stakingPool } from "./query/stakingPool"
-import { GqlOutPerpLeaderboard, perpLeaderboard } from "./query/perpLeaderboard"
+  GqlOutCommunityPool,
+  GqlOutDelegations,
+  GqlOutDistributionCommissions,
+  GqlOutPerpMarket,
+  GqlOutPerpMarkets,
+  GqlOutPerpPosition,
+  GqlOutPerpPositions,
+  GqlOutRedelegations,
+  GqlOutSpotLpPositions,
+  GqlOutSpotPoolCreated,
+  GqlOutSpotPoolExited,
+  GqlOutSpotPoolJoined,
+  GqlOutSpotPoolSwap,
+  GqlOutSpotPools,
+  GqlOutUnbondings,
+  GqlOutUsers,
+  GqlOutValidators,
+  communityPool,
+  delegations,
+  distributionCommissions,
+  perpMarket,
+  perpMarkets,
+  perpPosition,
+  perpPositions,
+  redelegations,
+  spotLpPositions,
+  spotPoolCreated,
+  spotPoolExited,
+  spotPoolJoined,
+  spotPoolSwap,
+  spotPools,
+  unbondings,
+  users,
+  validators,
+} from "./query"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
 export interface IHeartMonitor {
-  readonly markPriceCandles: (
-    args: QueryExtMarkPriceCandlesArgs
-  ) => Promise<GqlOutMarkPriceCandles>
-
-  readonly markPrices: (
-    args: QueryExtMarkPricesArgs
-  ) => Promise<GqlOutMarkPrices>
-
-  readonly liquidations: (
-    args: QueryExtLiquidationsArgs
-  ) => Promise<GqlOutLiquidations>
-
-  readonly fundingRates: (
-    args: QueryExtFundingRatesArgs
-  ) => Promise<GqlOutFundingRates>
-
-  readonly transfers: (args: QueryExtTransfersArgs) => Promise<GqlOutTransfers>
-
-  readonly oraclePrices: (
-    args: QueryExtOraclePricesArgs
-  ) => Promise<GqlOutOraclePrices>
-
-  readonly positions: (args: QueryExtPositionsArgs) => Promise<GqlOutPositions>
-
-  readonly positionChanges: (
-    args: QueryExtPositionChangesArgs
-  ) => Promise<GqlOutPositionChanges>
-
-  readonly unbondings: (
-    args: QueryExtUnbondingsArgs
-  ) => Promise<GqlOutUnbondings>
-
-  readonly statsVolume: (
-    args: QueryExtStatsVolumeArgs
-  ) => Promise<GqlOutStatsVolume>
-
-  readonly validators: (
-    args: QueryExtValidatorsArgs
-  ) => Promise<GqlOutValidators>
+  readonly communityPool: (
+    args: QueryCommunityPoolArgs
+  ) => Promise<GqlOutCommunityPool>
 
   readonly delegations: (
-    args: QueryExtDelegationsArgs
+    args: QueryDelegationsArgs
   ) => Promise<GqlOutDelegations>
 
-  readonly stakingPool: (
-    args: QueryExtStakingPoolArgs
-  ) => Promise<GqlOutStakingPool>
+  readonly distributionCommissions: (
+    args: QueryDistributionCommissionsArgs
+  ) => Promise<GqlOutDistributionCommissions>
 
-  readonly balances: (args: QueryExtBalancesArgs) => Promise<GqlOutBalances>
+  readonly perpMarket: (args: QueryPerpMarketArgs) => Promise<GqlOutPerpMarket>
 
-  readonly vpoolConfigs: (
-    args: QueryExtVpoolConfigsArgs
-  ) => Promise<GqlOutVPoolConfigs>
+  readonly perpMarkets: (
+    args: QueryPerpMarketsArgs
+  ) => Promise<GqlOutPerpMarkets>
 
-  readonly ammPools: (args: QueryExtAmmPoolsArgs) => Promise<GqlOutAmmPools>
+  readonly perpPosition: (
+    args: QueryPerpPositionArgs
+  ) => Promise<GqlOutPerpPosition>
 
-  readonly ammTotalLiquidity: (
-    args: QueryExtAmmTotalLiquidityArgs
-  ) => Promise<GqlOutAmmTotalLiquidity>
+  readonly perpPositions: (
+    args: QueryPerpPositionsArgs
+  ) => Promise<GqlOutPerpPositions>
 
-  readonly perpLeaderboard: (
-    args?: QueryExtPerpLeaderboardArgs
-  ) => Promise<GqlOutPerpLeaderboard>
+  readonly redelegations: (
+    args: QueryRedelegationsArgs
+  ) => Promise<GqlOutRedelegations>
+
+  readonly spotLpPositions: (
+    args: QuerySpotLpPositionsArgs
+  ) => Promise<GqlOutSpotLpPositions>
+
+  readonly spotPoolCreated: (
+    args: QuerySpotPoolCreatedArgs
+  ) => Promise<GqlOutSpotPoolCreated>
+
+  readonly spotPoolExited: (
+    args: QuerySpotPoolExitedArgs
+  ) => Promise<GqlOutSpotPoolExited>
+
+  readonly spotPoolJoined: (
+    args: QuerySpotPoolJoinedArgs
+  ) => Promise<GqlOutSpotPoolJoined>
+
+  readonly spotPools: (args: QuerySpotPoolsArgs) => Promise<GqlOutSpotPools>
+
+  readonly spotPoolSwap: (
+    args: QuerySpotPoolSwapArgs
+  ) => Promise<GqlOutSpotPoolSwap>
+
+  readonly unbondings: (args: QueryUnbondingsArgs) => Promise<GqlOutUnbondings>
+
+  readonly users: (args: QueryUsersArgs) => Promise<GqlOutUsers>
+
+  readonly validators: (args: QueryValidatorsArgs) => Promise<GqlOutValidators>
 }
 
 /** HeartMonitor is an API for "Heart Monitor" that indexes the Nibiru blockchain
@@ -133,55 +138,52 @@ export class HeartMonitor implements IHeartMonitor {
     }
   }
 
-  markPriceCandles = async (args: QueryExtMarkPriceCandlesArgs) =>
-    markPriceCandles(args, this.gqlEndpt)
+  communityPool = async (args: QueryCommunityPoolArgs) =>
+    communityPool(args, this.gqlEndpt)
 
-  markPrices = async (args: QueryExtMarkPricesArgs) =>
-    markPrices(args, this.gqlEndpt)
-
-  liquidations = async (args: QueryExtLiquidationsArgs) =>
-    liquidations(args, this.gqlEndpt)
-
-  fundingRates = async (args: QueryExtFundingRatesArgs) =>
-    fundingRates(args, this.gqlEndpt)
-
-  transfers = async (args: QueryExtTransfersArgs) =>
-    transfers(args, this.gqlEndpt)
-
-  oraclePrices = async (args: QueryExtOraclePricesArgs) =>
-    oraclePrices(args, this.gqlEndpt)
-
-  positions = async (args: QueryExtPositionsArgs) =>
-    positions(args, this.gqlEndpt)
-
-  positionChanges = (args: QueryExtPositionChangesArgs) =>
-    positionChanges(args, this.gqlEndpt)
-
-  unbondings = async (args: QueryExtUnbondingsArgs) =>
-    unbondings(args, this.gqlEndpt)
-
-  statsVolume = async (args: QueryExtStatsVolumeArgs) =>
-    statsVolume(args, this.gqlEndpt)
-
-  validators = async (args: QueryExtValidatorsArgs) =>
-    validators(args, this.gqlEndpt)
-
-  delegations = (args: QueryExtDelegationsArgs) =>
+  delegations = async (args: QueryDelegationsArgs) =>
     delegations(args, this.gqlEndpt)
 
-  stakingPool = (args: QueryExtStakingPoolArgs) =>
-    stakingPool(args, this.gqlEndpt)
+  distributionCommissions = async (args: QueryDistributionCommissionsArgs) =>
+    distributionCommissions(args, this.gqlEndpt)
 
-  balances = async (args: QueryExtBalancesArgs) => balances(args, this.gqlEndpt)
+  perpMarket = async (args: QueryPerpMarketArgs) =>
+    perpMarket(args, this.gqlEndpt)
 
-  vpoolConfigs = async (args: QueryExtVpoolConfigsArgs) =>
-    vpoolConfigs(args, this.gqlEndpt)
+  perpMarkets = async (args: QueryPerpMarketsArgs) =>
+    perpMarkets(args, this.gqlEndpt)
 
-  ammPools = async (args: QueryExtAmmPoolsArgs) => ammPools(args, this.gqlEndpt)
+  perpPosition = async (args: QueryPerpPositionArgs) =>
+    perpPosition(args, this.gqlEndpt)
 
-  ammTotalLiquidity = async (args: QueryExtAmmTotalLiquidityArgs) =>
-    ammTotalLiquidity(args, this.gqlEndpt)
+  perpPositions = async (args: QueryPerpPositionsArgs) =>
+    perpPositions(args, this.gqlEndpt)
 
-  perpLeaderboard = async (args?: QueryExtPerpLeaderboardArgs) =>
-    perpLeaderboard(this.gqlEndpt, args)
+  redelegations = async (args: QueryRedelegationsArgs) =>
+    redelegations(args, this.gqlEndpt)
+
+  spotLpPositions = async (args: QuerySpotLpPositionsArgs) =>
+    spotLpPositions(args, this.gqlEndpt)
+
+  spotPoolCreated = async (args: QuerySpotPoolCreatedArgs) =>
+    spotPoolCreated(args, this.gqlEndpt)
+
+  spotPoolExited = async (args: QuerySpotPoolExitedArgs) =>
+    spotPoolExited(args, this.gqlEndpt)
+
+  spotPoolJoined = async (args: QuerySpotPoolJoinedArgs) =>
+    spotPoolJoined(args, this.gqlEndpt)
+
+  spotPools = async (args: QuerySpotPoolsArgs) => spotPools(args, this.gqlEndpt)
+
+  spotPoolSwap = async (args: QuerySpotPoolSwapArgs) =>
+    spotPoolSwap(args, this.gqlEndpt)
+
+  unbondings = async (args: QueryUnbondingsArgs) =>
+    unbondings(args, this.gqlEndpt)
+
+  users = async (args: QueryUsersArgs) => users(args, this.gqlEndpt)
+
+  validators = async (args: QueryValidatorsArgs) =>
+    validators(args, this.gqlEndpt)
 }
