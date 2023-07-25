@@ -102,8 +102,10 @@ export const gqlQuery = <T>(
     )
   }
 
+  const hasQueryList = (char: string) => (queryArgList.length > 0 ? char : "")
+
   return `{
-    ${name}(${queryArgList.join(", ")}) {
+    ${name} ${hasQueryList("(")}${queryArgList.join(", ")}${hasQueryList(")")} {
       ${properties}
     }
   }`
