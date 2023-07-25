@@ -122,7 +122,7 @@ export interface IHeartMonitor {
  * corresponds to a query function. */
 export class HeartMonitor implements IHeartMonitor {
   gqlEndpt: string
-  defaultGqlEndpt = "https://hm-graphql.devnet-2.nibiru.fi/graphql"
+  defaultGqlEndpt = "https://hm-graphql.devnet-2.nibiru.fi/query"
 
   constructor(gqlEndpt?: string | { endptTm: string }) {
     const chain = gqlEndpt as { endptTm: string }

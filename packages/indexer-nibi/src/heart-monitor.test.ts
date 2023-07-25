@@ -2,7 +2,7 @@ import { HeartMonitor } from "./heart-monitor"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
 
 const heartMonitor = new HeartMonitor({
-  endptTm: "https://rpc.itn-1.nibiru.fi",
+  endptTm: "https://hm-graphql.devnet-2.nibiru.fi",
 })
 
 describe("Heart Monitor constructor", () => {
@@ -69,50 +69,314 @@ describe("gqlEndptFromTmRpc", () => {
   })
 })
 
+test("communityPool", async () => {
+  const resp = await heartMonitor.communityPool({})
+  expect(resp).toHaveProperty("communityPool")
+
+  if (resp.communityPool!.length > 0) {
+    const [communityPool] = resp.communityPool!
+    const fields = ["amount", "denom"]
+    fields.forEach((field: string) => {
+      expect(communityPool).toHaveProperty(field)
+    })
+  }
+})
+
 test("delegations", async () => {
   const resp = await heartMonitor.delegations({
-    where: {
-      delegator_address: "",
-    },
+    limit: 1,
   })
   expect(resp).toHaveProperty("delegations")
 
   if (resp.delegations!.length > 0) {
     const [delegation] = resp.delegations!
-    const fields = [
-      "block",
-      "blockTs",
-      "validatorAddress",
-      "delegatorAddress",
-      "shares",
-      "balance",
-    ]
+    const fields = ["amount", "delegator", "validator"]
     fields.forEach((field: string) => {
       expect(delegation).toHaveProperty(field)
     })
   }
 })
 
+test("distributionCommissions", async () => {
+  const resp = await heartMonitor.distributionCommissions({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("distributionCommissions")
+
+  if (resp.distributionCommissions!.length > 0) {
+    const [distributionCommissions] = resp.distributionCommissions!
+    const fields = ["commission", "validator"]
+    fields.forEach((field: string) => {
+      expect(distributionCommissions).toHaveProperty(field)
+    })
+  }
+})
+
+test("perpMarket", async () => {
+  const resp = await heartMonitor.perpMarket({ pair: "" })
+  expect(resp).toHaveProperty("perpMarket")
+
+  if (resp.perpMarket) {
+    const perpMarket = resp.perpMarket!
+    const fields = [
+      "pair",
+      "enabled",
+      "maintenance_margin_ratio",
+      "max_leverage",
+      "latest_cumulative_premium_fraction",
+      "exchange_fee_ratio",
+      "ecosystem_fund_fee_ratio",
+      "liquidation_fee_ratio",
+      "partial_liquidation_ratio",
+      "funding_rate_epoch_id",
+      "twap_lookback_window",
+      "prepaid_bad_debt",
+      "base_reserve",
+      "quote_reserve",
+      "sqrt_depth",
+      "price_multiplier",
+      "total_long",
+      "total_short",
+      "mark_price",
+      "mark_price_twap",
+      "index_price_twap",
+      "is_deleted",
+    ]
+    fields.forEach((field: string) => {
+      expect(perpMarket).toHaveProperty(field)
+    })
+  }
+})
+
+test("perpMarkets", async () => {
+  const resp = await heartMonitor.perpMarkets({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("perpMarkets")
+
+  if (resp.perpMarkets) {
+    const [perpMarkets] = resp.perpMarkets!
+    const fields = [
+      "pair",
+      "enabled",
+      "maintenance_margin_ratio",
+      "max_leverage",
+      "latest_cumulative_premium_fraction",
+      "exchange_fee_ratio",
+      "ecosystem_fund_fee_ratio",
+      "liquidation_fee_ratio",
+      "partial_liquidation_ratio",
+      "funding_rate_epoch_id",
+      "twap_lookback_window",
+      "prepaid_bad_debt",
+      "base_reserve",
+      "quote_reserve",
+      "sqrt_depth",
+      "price_multiplier",
+      "total_long",
+      "total_short",
+      "mark_price",
+      "mark_price_twap",
+      "index_price_twap",
+      "is_deleted",
+    ]
+    fields.forEach((field: string) => {
+      expect(perpMarkets).toHaveProperty(field)
+    })
+  }
+})
+
+test("perpPosition", async () => {
+  const resp = await heartMonitor.perpPosition({ pair: "", trader_address: "" })
+  expect(resp).toHaveProperty("perpPosition")
+
+  if (resp.perpPosition) {
+    const perpPosition = resp.perpPosition!
+    const fields = [
+      "pair",
+      "trader_address",
+      "size",
+      "margin",
+      "open_notional",
+      "position_notional",
+      "latest_cumulative_premium_fraction",
+      "unrealized_pnl",
+      "unrealized_funding_payment",
+      "margin_ratio",
+      "bad_debt",
+      "last_updated_block",
+    ]
+    fields.forEach((field: string) => {
+      expect(perpPosition).toHaveProperty(field)
+    })
+  }
+})
+
+test("perpPositions", async () => {
+  const resp = await heartMonitor.perpPositions({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("perpPositions")
+
+  if (resp.perpPositions) {
+    const [perpPositions] = resp.perpPositions!
+    const fields = [
+      "pair",
+      "trader_address",
+      "size",
+      "margin",
+      "open_notional",
+      "position_notional",
+      "latest_cumulative_premium_fraction",
+      "unrealized_pnl",
+      "unrealized_funding_payment",
+      "margin_ratio",
+      "bad_debt",
+      "last_updated_block",
+    ]
+    fields.forEach((field: string) => {
+      expect(perpPositions).toHaveProperty(field)
+    })
+  }
+})
+
+test("redelegations", async () => {
+  const resp = await heartMonitor.redelegations({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("redelegations")
+
+  if (resp.redelegations!.length > 0) {
+    const [redelegations] = resp.redelegations!
+    const fields = [
+      "delegator",
+      "source_validator",
+      "destination_validator",
+      "amount",
+      "creation_block",
+      "completion_time",
+    ]
+    fields.forEach((field: string) => {
+      expect(redelegations).toHaveProperty(field)
+    })
+  }
+})
+
+test("spotLpPositions", async () => {
+  const resp = await heartMonitor.spotLpPositions({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("spotLpPositions")
+
+  if (resp.spotLpPositions!.length > 0) {
+    const [spotLpPositions] = resp.spotLpPositions!
+    const fields = ["pool", "user", "pool_shares", "created_block"]
+    fields.forEach((field: string) => {
+      expect(spotLpPositions).toHaveProperty(field)
+    })
+  }
+})
+
+test("spotPoolCreated", async () => {
+  const resp = await heartMonitor.spotPoolCreated({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("spotPoolCreated")
+
+  if (resp.spotPoolCreated!.length > 0) {
+    const [spotPoolCreated] = resp.spotPoolCreated!
+    const fields = ["user_address", "block", "pool", "pool_shares"]
+    fields.forEach((field: string) => {
+      expect(spotPoolCreated).toHaveProperty(field)
+    })
+  }
+})
+
+test("spotPoolExited", async () => {
+  const resp = await heartMonitor.spotPoolExited({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("spotPoolExited")
+
+  if (resp.spotPoolExited!.length > 0) {
+    const [spotPoolExited] = resp.spotPoolExited!
+    const fields = ["user_address", "block", "pool", "pool_shares"]
+    fields.forEach((field: string) => {
+      expect(spotPoolExited).toHaveProperty(field)
+    })
+  }
+})
+
+test("spotPoolJoined", async () => {
+  const resp = await heartMonitor.spotPoolJoined({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("spotPoolJoined")
+
+  if (resp.spotPoolJoined!.length > 0) {
+    const [spotPoolJoined] = resp.spotPoolJoined!
+    const fields = ["user_address", "block", "pool", "pool_shares"]
+    fields.forEach((field: string) => {
+      expect(spotPoolJoined).toHaveProperty(field)
+    })
+  }
+})
+
+test("spotPools", async () => {
+  const resp = await heartMonitor.spotPools({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("spotPools")
+
+  if (resp.spotPools!.length > 0) {
+    const [spotPools] = resp.spotPools!
+    const fields = [
+      "pool_id",
+      "pool_type",
+      "swap_fee",
+      "exit_fee",
+      "amplification",
+      "tokens",
+      "weights",
+      "total_weight",
+      "total_shares",
+      "created_block",
+    ]
+    fields.forEach((field: string) => {
+      expect(spotPools).toHaveProperty(field)
+    })
+  }
+})
+
+test("spotPoolSwap", async () => {
+  const resp = await heartMonitor.spotPoolSwap({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("spotPoolSwap")
+
+  if (resp.spotPoolSwap!.length > 0) {
+    const [spotPoolSwap] = resp.spotPoolSwap!
+    const fields = ["user_address", "block", "token_in", "token_out", "pool"]
+    fields.forEach((field: string) => {
+      expect(spotPoolSwap).toHaveProperty(field)
+    })
+  }
+})
+
 test("unbondings", async () => {
   const resp = await heartMonitor.unbondings({
-    where: {
-      delegator_address: "",
-    },
-    limit: 3,
+    limit: 1,
   })
   expect(resp).toHaveProperty("unbondings")
 
   if (resp.unbondings!.length > 0) {
     const [unbonding] = resp.unbondings!
     const fields = [
-      "block",
-      "blockTs",
-      "validatorAddress",
-      "delegatorAddress",
-      "creationHeight",
-      "completionTime",
-      "initialBalance",
-      "balance",
+      "delegator",
+      "validator",
+      "amount",
+      "creation_block",
+      "completion_time",
     ]
     fields.forEach((field: string) => {
       expect(unbonding).toHaveProperty(field)
@@ -120,30 +384,41 @@ test("unbondings", async () => {
   }
 })
 
+test("users", async () => {
+  const resp = await heartMonitor.users({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("users")
+
+  if (resp.users!.length > 0) {
+    const [users] = resp.users!
+    const fields = ["address", "balances", "created_block"]
+    fields.forEach((field: string) => {
+      expect(users).toHaveProperty(field)
+    })
+  }
+})
+
 test("validators", async () => {
   const resp = await heartMonitor.validators({
-    where: {
-      operator_address: "",
-    },
-    limit: 3,
+    limit: 1,
   })
   expect(resp).toHaveProperty("validators")
 
   if (resp.validators!.length > 0) {
     const [validator] = resp.validators!
     const fields = [
-      "block",
-      "blockTs",
-      "operatorAddress",
-      "jailed",
-      "statusBonded",
-      "tokens",
-      "delegatorShares",
+      "commission_rates",
+      "commission_update_time",
+      "delegator_shares",
       "description",
-      "unbondingHeight",
-      "unbondingTime",
-      "commissionRates",
-      "commissionUpdateTime",
+      "jailed",
+      "min_self_delegation",
+      "operator_address",
+      "status",
+      "tokens",
+      "unbonding_block",
+      "unbonding_time",
     ]
     fields.forEach((field: string) => {
       expect(validator).toHaveProperty(field)

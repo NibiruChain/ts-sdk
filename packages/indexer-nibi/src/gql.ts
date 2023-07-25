@@ -11,8 +11,9 @@ window.fetch = cf.fetch
 const createGqlEndpt = (chain: string) =>
   `https://hm-graphql.${chain}.nibiru.fi/graphql`
 
-export const arg = (name: string, value: any) => {
-  const isString = typeof value === "string" ? `"` : ""
+export const arg = (name: string, value: any, ignoreQuotes?: boolean) => {
+  const isString = typeof value === "string" && !ignoreQuotes ? `"` : ""
+
   return `${name}: ${isString}${value}${isString}`
 }
 
@@ -42,9 +43,7 @@ export const convertObjectToPropertiesString = (obj: any) => {
       result += `${innerString}\n`
     } else if (typeof value === "object" && value !== null) {
       result += `${key} {
-                  ${Object.keys(value)
-                    .map((k) => `${k}`)
-                    .join("\n")}
+                  ${convertObjectToPropertiesString(value)}
                 }\n`
     } else {
       result += `${key}\n`
@@ -77,17 +76,26 @@ export const gqlQuery = <T>(
   let queryArgList = []
 
   if (
-    typedQueryArgs.where &&
-    typedQueryArgs.limit &&
-    typedQueryArgs.order &&
-    typedQueryArgs.orderDesc
+    typedQueryArgs.where !== undefined ||
+    typedQueryArgs.limit !== undefined ||
+    typedQueryArgs.order_by !== undefined ||
+    typedQueryArgs.order_desc !== undefined
   ) {
-    queryArgList = [
-      getWhereArgArr(typedQueryArgs.where),
-      arg("limit", typedQueryArgs.limit),
-      arg("order", typedQueryArgs.order),
-      arg("orderDesc", typedQueryArgs.orderDesc),
-    ]
+    if (typedQueryArgs.where !== undefined) {
+      queryArgList.push(getWhereArgArr(typedQueryArgs.where))
+    }
+
+    if (typedQueryArgs.limit !== undefined) {
+      queryArgList.push(arg("limit", typedQueryArgs.limit))
+    }
+
+    if (typedQueryArgs.order_by !== undefined) {
+      queryArgList.push(arg("order_by", typedQueryArgs.order_by, true))
+    }
+
+    if (typedQueryArgs.order_desc !== undefined) {
+      queryArgList.push(arg("order_desc", typedQueryArgs.order_desc))
+    }
   } else {
     queryArgList = Object.keys(typedQueryArgs).map((key) =>
       arg(key, typedQueryArgs[key])
