@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.4](../intro.md) / [Exports](../modules.md) / StableSwap
+[NibiJS Documentation - v0.21.6](../intro.md) / [Exports](../modules.md) / StableSwap
 
 # Class: StableSwap
 
@@ -28,7 +28,6 @@ Constructor:
 
 - [Amplification](StableSwap.md#amplification)
 - [fee](StableSwap.md#fee)
-- [tokenPrices](StableSwap.md#tokenprices)
 - [totalTokenSupply](StableSwap.md#totaltokensupply)
 - [totalTokensInPool](StableSwap.md#totaltokensinpool)
 
@@ -43,7 +42,7 @@ Constructor:
 
 ### constructor
 
-• **new StableSwap**(`Amplification`, `totalTokenSupply`, `tokenPrices`, `fee`)
+• **new StableSwap**(`Amplification`, `totalTokenSupply`, `fee`)
 
 #### Parameters
 
@@ -51,12 +50,11 @@ Constructor:
 | :----------------- | :------------ |
 | `Amplification`    | `BigNumber`   |
 | `totalTokenSupply` | `BigNumber`[] |
-| `tokenPrices`      | `BigNumber`[] |
 | `fee`              | `BigNumber`   |
 
 #### Defined in
 
-[stableswap/stableswap.ts:26](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/stableswap/stableswap.ts#L26)
+[stableswap/stableswap.ts:25](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/stableswap/stableswap.ts#L25)
 
 ## Properties
 
@@ -66,7 +64,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/stableswap/stableswap.ts#L20)
+[stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/stableswap/stableswap.ts#L20)
 
 ---
 
@@ -76,17 +74,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:24](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/stableswap/stableswap.ts#L24)
-
----
-
-### tokenPrices
-
-• **tokenPrices**: `BigNumber`[]
-
-#### Defined in
-
-[stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/stableswap/stableswap.ts#L23)
+[stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/stableswap/stableswap.ts#L23)
 
 ---
 
@@ -96,7 +84,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/stableswap/stableswap.ts#L21)
+[stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/stableswap/stableswap.ts#L21)
 
 ---
 
@@ -106,7 +94,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:22](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/stableswap/stableswap.ts#L22)
+[stableswap/stableswap.ts:22](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/stableswap/stableswap.ts#L22)
 
 ## Methods
 
@@ -129,7 +117,7 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:61](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/stableswap/stableswap.ts#L61)
+[stableswap/stableswap.ts:54](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/stableswap/stableswap.ts#L54)
 
 ---
 
@@ -157,7 +145,7 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:150](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/stableswap/stableswap.ts#L150)
+[stableswap/stableswap.ts:143](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/stableswap/stableswap.ts#L143)
 
 ---
 
@@ -165,7 +153,7 @@ StableSwap
 
 ▸ **xp**(): `BigNumber`[]
 
-xp() gives an array of total token cap per token
+xp() gives an array of total tokens
 
 **`Memberof`**
 
@@ -177,7 +165,7 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:44](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/stableswap/stableswap.ts#L44)
+[stableswap/stableswap.ts:41](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/stableswap/stableswap.ts#L41)
 
 ---
 
@@ -190,8 +178,8 @@ y()
 Calculate x[j] if one makes x[i] = x
 
 Done by solving quadratic equation iteratively.
-x*1\*\*2 + x1 * (sum' - (A*n\*\*n - 1) * D / (A _ n**n)) = D ** (n+1)/(n \*\* (2 _ n) \_ prod' \* A)
-x_1\*\*2 + b\*x_1 = c
+x_1**2 + x1 * (sum' - (A*n**n - 1) _ D / (A _ n**n)) = D ** (n+1)/(n ** (2 _ n) _ prod' \* A)
+x_1**2 + b\*x_1 = c
 
 x_1 = (x_1\**2 + c) / (2*x_1 + b)
 
@@ -213,4 +201,4 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:111](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/stableswap/stableswap.ts#L111)
+[stableswap/stableswap.ts:104](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/stableswap/stableswap.ts#L104)

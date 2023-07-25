@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.4](../intro.md) / [Exports](../modules.md) / Attribute
+[NibiJS Documentation - v0.21.6](../intro.md) / [Exports](../modules.md) / Attribute
 
 # Interface: Attribute
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[chain/types.ts:51](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/chain/types.ts#L51)
+[chain/types.ts:51](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/chain/types.ts#L51)
 
 ---
 
@@ -27,4 +27,4 @@
 
 #### Defined in
 
-[chain/types.ts:52](https://github.com/NibiruChain/ts-sdk/blob/df2649e/packages/nibijs/src/chain/types.ts#L52)
+[chain/types.ts:52](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/chain/types.ts#L52)
