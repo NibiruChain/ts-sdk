@@ -78,8 +78,8 @@ export const gqlQuery = <T>(
   if (
     typedQueryArgs.where !== undefined ||
     typedQueryArgs.limit !== undefined ||
-    typedQueryArgs.order_by !== undefined ||
-    typedQueryArgs.order_desc !== undefined
+    typedQueryArgs.order !== undefined ||
+    typedQueryArgs.orderDesc !== undefined
   ) {
     if (typedQueryArgs.where !== undefined) {
       queryArgList.push(getWhereArgArr(typedQueryArgs.where))
@@ -89,12 +89,12 @@ export const gqlQuery = <T>(
       queryArgList.push(arg("limit", typedQueryArgs.limit))
     }
 
-    if (typedQueryArgs.order_by !== undefined) {
-      queryArgList.push(arg("order_by", typedQueryArgs.order_by, true))
+    if (typedQueryArgs.order !== undefined) {
+      queryArgList.push(arg("order", typedQueryArgs.order, true))
     }
 
-    if (typedQueryArgs.order_desc !== undefined) {
-      queryArgList.push(arg("order_desc", typedQueryArgs.order_desc))
+    if (typedQueryArgs.orderDesc !== undefined) {
+      queryArgList.push(arg("orderDesc", typedQueryArgs.orderDesc))
     }
   } else {
     queryArgList = Object.keys(typedQueryArgs).map((key) =>
