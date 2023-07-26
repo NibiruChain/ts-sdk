@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.19.24
+
+- Update gql function
+
 ## v0.19.23
 
 - Fix undefined error

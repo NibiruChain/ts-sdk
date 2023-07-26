@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.23](../intro.md) / [Exports](../modules.md) / BECH32\_PREFIX
+[NibiJS Documentation - v0.19.24](../intro.md) / [Exports](../modules.md) / BECH32\_PREFIX
 
 # Enumeration: BECH32\_PREFIX
 
@@ -23,7 +23,7 @@ ADDR defines the Bech32 prefix of an account address
 
 #### Defined in
 
-[tx/signer.ts:7](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/tx/signer.ts#L7)
+[tx/signer.ts:7](https://github.com/NibiruChain/ts-sdk/blob/d55c80d/packages/nibijs/src/tx/signer.ts#L7)
 
 ___
 
@@ -35,7 +35,7 @@ ADDR_VAL defines the Bech32 prefix of an validator's operator address
 
 #### Defined in
 
-[tx/signer.ts:9](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/tx/signer.ts#L9)
+[tx/signer.ts:9](https://github.com/NibiruChain/ts-sdk/blob/d55c80d/packages/nibijs/src/tx/signer.ts#L9)
 
 ___
 
@@ -47,7 +47,7 @@ ADDR_VALCONS defines the Bech32 prefix of a consensus node address
 
 #### Defined in
 
-[tx/signer.ts:11](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/tx/signer.ts#L11)
+[tx/signer.ts:11](https://github.com/NibiruChain/ts-sdk/blob/d55c80d/packages/nibijs/src/tx/signer.ts#L11)
 
 ___
 
@@ -59,7 +59,7 @@ PUB defines the Bech32 prefix of an account's public key
 
 #### Defined in
 
-[tx/signer.ts:13](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/tx/signer.ts#L13)
+[tx/signer.ts:13](https://github.com/NibiruChain/ts-sdk/blob/d55c80d/packages/nibijs/src/tx/signer.ts#L13)
 
 ___
 
@@ -71,7 +71,7 @@ PUB_VAL defines the Bech32 prefix of an validator's operator public key
 
 #### Defined in
 
-[tx/signer.ts:15](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/tx/signer.ts#L15)
+[tx/signer.ts:15](https://github.com/NibiruChain/ts-sdk/blob/d55c80d/packages/nibijs/src/tx/signer.ts#L15)
 
 ___
 
@@ -83,4 +83,4 @@ PUB_VALCONS defines the Bech32 prefix of a consensus node public key
 
 #### Defined in
 
-[tx/signer.ts:17](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/tx/signer.ts#L17)
+[tx/signer.ts:17](https://github.com/NibiruChain/ts-sdk/blob/d55c80d/packages/nibijs/src/tx/signer.ts#L17)

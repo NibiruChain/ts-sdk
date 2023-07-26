@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.19.23](../intro.md) / [Exports](../modules.md) / TxLog
+[NibiJS Documentation - v0.19.24](../intro.md) / [Exports](../modules.md) / TxLog
 
 # Interface: TxLog
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[chain/types.ts:56](https://github.com/NibiruChain/ts-sdk/blob/b2fc1dc/packages/nibijs/src/chain/types.ts#L56)
+[chain/types.ts:56](https://github.com/NibiruChain/ts-sdk/blob/d55c80d/packages/nibijs/src/chain/types.ts#L56)
