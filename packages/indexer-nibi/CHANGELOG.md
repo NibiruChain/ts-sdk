@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.21.6
+
+- V21 introspection
+
 ## v0.21.4
 
 - Actually fix build

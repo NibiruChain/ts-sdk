@@ -1,0 +1,421 @@
+type Block {
+  block: Int!
+  block_duration: Float!
+  block_ts: Int!
+  num_txs: Int!
+}
+
+type CommunityPoolToken {
+  amount: Float!
+  denom: String!
+}
+
+type Delegation {
+  amount: Int!
+  delegator: User!
+  validator: Validator!
+}
+
+input DelegationFilter {
+  delegator_address: String
+  validator_address: String
+}
+
+enum DelegationOrder {
+  delegator_address
+  validator_address
+}
+
+type DistributionCommission {
+  commission: [Token!]
+  validator: Validator!
+}
+
+input DistributionCommissionFilter {
+  validator_address: String!
+}
+
+enum DistributionCommissionOrder {
+  validator_address
+}
+
+type PerpMarket {
+  base_reserve: Float!
+  ecosystem_fund_fee_ratio: Float!
+  enabled: Boolean!
+  exchange_fee_ratio: Float!
+  funding_rate_epoch_id: String!
+  index_price_twap: Float!
+  is_deleted: Boolean!
+  latest_cumulative_premium_fraction: Float!
+  liquidation_fee_ratio: Float!
+  maintenance_margin_ratio: Float!
+  mark_price: Float!
+  mark_price_twap: Float!
+  max_leverage: Float!
+  pair: String!
+  partial_liquidation_ratio: Float!
+  prepaid_bad_debt: Token!
+  price_multiplier: Float!
+  quote_reserve: Float!
+  sqrt_depth: Float!
+  total_long: Float!
+  total_short: Float!
+  twap_lookback_window: String!
+}
+
+input PerpMarketFilter {
+  is_deleted: Boolean
+  pair: String
+}
+
+enum PerpMarketOrder {
+  pair
+}
+
+type PerpPosition {
+  bad_debt: Float!
+  last_updated_block: Block!
+  latest_cumulative_premium_fraction: Float!
+  margin: Float!
+  margin_ratio: Float!
+  open_notional: Float!
+  pair: String!
+  position_notional: Float!
+  size: Float!
+  trader_address: String!
+  unrealized_funding_payment: Float!
+  unrealized_pnl: Float!
+}
+
+input PerpPositionFilter {
+  include_closed: Boolean
+  pair: String
+  trader_address: String
+}
+
+enum PerpPositionOrder {
+  created_block
+  pair
+  trader_address
+}
+
+type Query {
+  communityPool(denom: String): [CommunityPoolToken!]!
+  delegations(
+    limit: Int
+    order_by: DelegationOrder
+    order_desc: Boolean
+    where: DelegationFilter
+  ): [Delegation!]!
+  distributionCommissions(
+    limit: Int
+    order_by: DistributionCommissionOrder
+    order_desc: Boolean
+    where: DistributionCommissionFilter
+  ): [DistributionCommission!]!
+  perpMarket(pair: String!): PerpMarket
+  perpMarkets(
+    limit: Int
+    order_by: PerpMarketOrder
+    order_desc: Boolean
+    where: PerpMarketFilter
+  ): [PerpMarket!]!
+  perpPosition(pair: String!, trader_address: String!): PerpPosition
+  perpPositions(
+    limit: Int
+    order_by: PerpPositionOrder
+    order_desc: Boolean
+    where: PerpPositionFilter
+  ): [PerpPosition!]!
+  redelegations(
+    limit: Int
+    order_by: RedelegationOrder
+    order_desc: Boolean
+    where: RedelegationFilter
+  ): [Redelegation!]!
+  spotLpPositions(
+    limit: Int
+    order_by: SpotLpPositionOrder
+    order_desc: Boolean
+    where: SpotLpPositionFilter
+  ): [SpotLpPosition!]!
+  spotPoolCreated(
+    limit: Int
+    order_by: SpotPoolCreatedOrder
+    order_desc: Boolean
+    where: SpotPoolCreatedFilter
+  ): [SpotPoolCreated!]!
+  spotPoolExited(
+    limit: Int
+    order_by: SpotPoolExitedOrder
+    order_desc: Boolean
+    where: SpotPoolExitedFilter
+  ): [SpotPoolExited!]!
+  spotPoolJoined(
+    limit: Int
+    order_by: SpotPoolJoinedOrder
+    order_desc: Boolean
+    where: SpotPoolJoinedFilter
+  ): [SpotPoolJoined!]!
+  spotPoolSwap(
+    limit: Int
+    order_by: SpotPoolSwapOrder
+    order_desc: Boolean
+    where: SpotPoolSwapFilter
+  ): [SpotPoolSwap!]!
+  spotPools(
+    limit: Int
+    order_by: SpotPoolOrder
+    order_desc: Boolean
+    where: SpotPoolFilter
+  ): [SpotPool!]!
+  unbondings(
+    limit: Int
+    order_by: UnbondingOrder
+    order_desc: Boolean
+    where: UnbondingFilter
+  ): [Unbonding!]!
+  users(
+    limit: Int
+    order_by: UserOrder
+    order_desc: Boolean
+    where: UserFilter
+  ): [User!]!
+  validators(
+    limit: Int
+    order_by: ValidatorOrder
+    order_desc: Boolean
+    where: ValidatorFilter
+  ): [Validator!]!
+}
+
+type Redelegation {
+  amount: Int!
+  completion_time: String!
+  creation_block: Block!
+  delegator: User!
+  destination_validator: Validator!
+  source_validator: Validator!
+}
+
+input RedelegationFilter {
+  delegator_address: String
+  destination_validator_address: String
+  source_validator_address: String
+}
+
+enum RedelegationOrder {
+  completion_time
+  creation_height
+  delegator_address
+  destinaiton_validator_address
+  source_validator_address
+}
+
+type SharesToken {
+  amount: String!
+  denom: String!
+}
+
+type SpotLpPosition {
+  created_block: Block!
+  pool: SpotPool!
+  pool_shares: SharesToken!
+  user: User!
+}
+
+input SpotLpPositionFilter {
+  pool_id: Int
+  user_address: String
+}
+
+enum SpotLpPositionOrder {
+  pool_id
+  user_address
+}
+
+type SpotPool {
+  amplification: Float!
+  created_block: Block!
+  exit_fee: Float!
+  pool_id: Int!
+  pool_type: String!
+  swap_fee: Float!
+  tokens: [Token!]!
+  total_shares: SharesToken!
+  total_weight: Float!
+  weights: [Token!]!
+}
+
+type SpotPoolCreated {
+  block: Block!
+  pool: SpotPool!
+  pool_shares: SharesToken!
+  user_address: String!
+}
+
+input SpotPoolCreatedFilter {
+  pool_id: Int
+  user_address: String
+}
+
+enum SpotPoolCreatedOrder {
+  pool_id
+  user_address
+}
+
+type SpotPoolExited {
+  block: Block!
+  pool: SpotPool!
+  pool_shares: SharesToken!
+  user_address: String!
+}
+
+input SpotPoolExitedFilter {
+  pool_id: Int
+  user_address: String
+}
+
+enum SpotPoolExitedOrder {
+  pool_id
+  user_address
+}
+
+input SpotPoolFilter {
+  pool_id: Int
+}
+
+type SpotPoolJoined {
+  block: Block!
+  pool: SpotPool!
+  pool_shares: SharesToken!
+  user_address: String!
+}
+
+input SpotPoolJoinedFilter {
+  pool_id: Int
+  user_address: String
+}
+
+enum SpotPoolJoinedOrder {
+  pool_id
+  user_address
+}
+
+enum SpotPoolOrder {
+  pool_id
+}
+
+type SpotPoolSwap {
+  block: Block!
+  pool: SpotPool!
+  token_in: Token!
+  token_out: Token!
+  user_address: String!
+}
+
+input SpotPoolSwapFilter {
+  block_eq: Int
+  block_gte: Int
+  block_lte: Int
+  pool_id: Int
+  user_address: String
+}
+
+enum SpotPoolSwapOrder {
+  block
+  pool_id
+  user_address
+}
+
+type Token {
+  amount: Int!
+  denom: String!
+}
+
+type Unbonding {
+  amount: Int!
+  completion_time: String!
+  creation_block: Block!
+  delegator: User!
+  validator: Validator!
+}
+
+input UnbondingFilter {
+  delegator_address: String
+  validator_address: String
+}
+
+enum UnbondingOrder {
+  completion_time
+  creation_height
+  delegator_address
+  validator_address
+}
+
+type User {
+  address: String!
+  balances: [Token]!
+  created_block: Block!
+}
+
+input UserFilter {
+  address: String
+  created_block_eq: Int
+  created_block_gte: Int
+  created_block_lte: Int
+}
+
+enum UserOrder {
+  address
+  created_block
+}
+
+type Validator {
+  commission_rates: ValidatorCommission
+  commission_update_time: String!
+  delegator_shares: Float!
+  description: ValidatorDescription!
+  jailed: Boolean!
+  min_self_delegation: Int!
+  operator_address: String!
+  status: ValidatorStatus!
+  tokens: Int!
+  unbonding_block: Block!
+  unbonding_time: String!
+}
+
+type ValidatorCommission {
+  max_change_rate: Float!
+  max_rate: Float!
+  rate: Float!
+}
+
+type ValidatorDescription {
+  details: String!
+  identity: String!
+  moniker: String!
+  security_contact: String!
+  website: String!
+}
+
+input ValidatorFilter {
+  jailed: Boolean
+  moniker: String
+  operator_address: String
+  status: ValidatorStatus
+}
+
+enum ValidatorOrder {
+  jailed
+  moniker
+  operator_address
+  status
+}
+
+enum ValidatorStatus {
+  BONDED
+  UNBONDED
+  UNBONDING
+}
