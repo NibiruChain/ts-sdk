@@ -38,7 +38,7 @@ const common = {
     "guard-for-in": "off",
     "max-classes-per-file": ["off", {}],
     "no-await-in-loop": "off",
-    "no-console": "off",
+    "no-console": "error",
     "no-iterator": "off",
     "no-else-return": "off",
     "no-param-reassign": "off",

@@ -53,21 +53,6 @@ export const convertObjectToPropertiesString = (obj: any) => {
   return result
 }
 
-export const cleanResponse = async (rawResp: Response) => {
-  const respJson = await rawResp.json().catch((err) => {
-    console.error(err)
-  })
-  // console.debug("DEBUG respJson: %o", respJson)
-
-  if (!rawResp.ok || !respJson) {
-    throw new Error(`${respJson}`)
-  } else if (respJson.data) {
-    return respJson.data
-  } else {
-    return respJson
-  }
-}
-
 export const gqlQuery = <T>(
   name: string,
   typedQueryArgs: { [key: string]: T },
@@ -115,7 +100,16 @@ export const doGqlQuery = async (gqlQuery: string, gqlEndpt: string) => {
   const encodedGqlQuery = encodeURI(gqlQuery)
   const fetchString = `${gqlEndpt}?query=${encodedGqlQuery}`
   const rawResp = await window.fetch(fetchString)
-  return cleanResponse(rawResp)
+  if (!rawResp.ok) {
+    throw new Error(`${rawResp}`)
+  }
+
+  const respJson = await rawResp.json()
+  if (respJson.data) {
+    return respJson.data
+  }
+
+  return respJson
 }
 
 export const gqlEndptFromTmRpc = (endptTm: string) => {

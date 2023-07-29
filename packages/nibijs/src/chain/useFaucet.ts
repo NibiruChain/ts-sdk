@@ -28,27 +28,14 @@ export async function useFaucet({
   ]
   const faucetUrl = faucetUrlFromChain(chain)
 
-  // Execute faucet request
-  console.info(
-    `Requesting funds from faucet @ ${faucetUrl}: 
-    Coins: ${coins}
-    Address: ${address}
-    `
-  )
-
-  return window
-    .fetch(faucetUrl, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ address, coins }),
-    })
-    .catch((err) => {
-      console.error(err)
-      throw err
-    })
+  return window.fetch(faucetUrl, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ address, coins }),
+  })
 }
 
 /**

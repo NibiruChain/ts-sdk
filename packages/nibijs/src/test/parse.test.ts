@@ -38,7 +38,7 @@ describe("toSdkDec - float to sdk.Dec conversion", () => {
       expect(res).toBe(tt.expected)
     } catch (e) {
       if (!tt.shouldFail) {
-        console.error(`Test ${tt.name} failed with error: ${e}`)
+        console.error(`Test ${tt.name} failed with error: ${e}`) // eslint-disable-line no-console
       }
       failed = true
     }
@@ -100,7 +100,7 @@ describe("fromSdkDec - sdk.Dec to float conversion", () => {
       expect(res.toString()).toEqual(tt.expected)
     } catch (e) {
       if (!tt.shouldFail) {
-        console.error(`Test ${tt.name} failed with error: ${e}`)
+        console.error(`Test ${tt.name} failed with error: ${e}`) // eslint-disable-line no-console
       }
       failed = true
     }
@@ -132,7 +132,7 @@ describe("toSdkInt - int to sdk.Dec conversion", () => {
       expect(res).toBe(tt.expected)
     } catch (e) {
       if (!tt.shouldFail) {
-        console.error(`Test ${tt.name} failed with error: ${e}`)
+        console.error(`Test ${tt.name} failed with error: ${e}`) // eslint-disable-line no-console
       }
       failed = true
     }

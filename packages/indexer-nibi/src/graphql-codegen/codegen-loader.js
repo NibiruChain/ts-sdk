@@ -18,7 +18,7 @@ module.exports = async () => {
 
     return buildClientSchema(data)
   } catch (error) {
-    console.error(error)
+    console.error(error) // eslint-disable-line no-console
     throw error
   }
 }

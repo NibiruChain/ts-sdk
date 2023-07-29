@@ -157,7 +157,7 @@ describe("nibid tx perp", () => {
 
     try {
       const result = await signingClient.signAndBroadcast(sender, msgs, fee)
-      console.log(result)
+      console.log(result) // eslint-disable-line no-console
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {

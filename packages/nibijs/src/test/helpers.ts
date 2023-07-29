@@ -84,7 +84,7 @@ export const assertExpectedError = (err: unknown, okErrors: string[]) => {
   } else {
     errMsg = `${err}`
   }
-  console.log(errMsg)
+  console.log(errMsg) // eslint-disable-line no-console
   let isContained = false
   okErrors.forEach((e) => {
     if (errMsg.includes(e)) {
