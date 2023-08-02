@@ -1,4 +1,4 @@
-NibiJS Documentation - v0.21.7 / [Exports](modules.md)
+NibiJS Documentation - v0.21.8 / [Exports](modules.md)
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibijs.png" width="100%">
@@ -13,9 +13,10 @@ The official TypeScript SDK for the Nibiru blockchain
 <a target="_blank" href="https://www.npmjs.com/package/@nibiruchain/nibijs">
   <img src="https://img.shields.io/npm/v/@nibiruchain/nibijs.svg?color=AE8CCD" style="height: 20px">
 </a>
-<a target="_blank" href="https://github.com/NibiruChain/ts-sdk/actions/workflows/tests.yaml">
-  <img src="https://github.com/NibiruChain/ts-sdk/actions/workflows/tests.yaml/badge.svg" style="height: 20px">
-</a>
+
+[![⛓️ Tests @nibiruchain/nibijs](https://github.com/NibiruChain/ts-sdk/actions/workflows/test-nibijs.yaml/badge.svg?branch=releases%2Fv0.21.x)](https://github.com/NibiruChain/ts-sdk/actions/workflows/test-nibijs.yaml)
+[![⛓️ Tests @nibiruchain/indexer-nibi](https://github.com/NibiruChain/ts-sdk/actions/workflows/test-indexer-nibi.yaml/badge.svg?branch=releases%2Fv0.21.x)](https://github.com/NibiruChain/ts-sdk/actions/workflows/test-indexer-nibi.yaml)
+
 <a target="_blank" href="https://www.npmjs.com/package/@nibiruchain/nibijs">
   <img src="https://img.shields.io/npm/dm/@nibiruchain/nibijs.svg?color=FFF3CD" style="height: 20px">
 </a>
