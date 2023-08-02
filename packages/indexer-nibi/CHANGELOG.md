@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.21.8
+
+- Latest build, fix test
+
 ## v0.21.7
 
 - Latest build

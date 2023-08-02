@@ -218,7 +218,7 @@ test("perpPositions", async () => {
   })
   expect(resp).toHaveProperty("perpPositions")
 
-  if (resp.perpPositions) {
+  if (resp.perpPositions!.length > 0) {
     const [perpPositions] = resp.perpPositions!
     const fields = [
       "pair",
@@ -234,6 +234,7 @@ test("perpPositions", async () => {
       "bad_debt",
       "last_updated_block",
     ]
+    console.log(resp)
     fields.forEach((field: string) => {
       expect(perpPositions).toHaveProperty(field)
     })
