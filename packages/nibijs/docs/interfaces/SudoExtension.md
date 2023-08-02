@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.6](../intro.md) / [Exports](../modules.md) / SudoExtension
+[NibiJS Documentation - v0.21.7](../intro.md) / [Exports](../modules.md) / SudoExtension
 
 # Interface: SudoExtension
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/sudo.ts:9](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/query/sudo.ts#L9)
+[query/sudo.ts:9](https://github.com/NibiruChain/ts-sdk/blob/a41de73/packages/nibijs/src/query/sudo.ts#L9)
