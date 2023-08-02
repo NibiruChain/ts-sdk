@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
+## v0.19.26
+
+- Publish release
+
 ## v0.19.24
 
 - Update gql function
