@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.6](../intro.md) / [Exports](../modules.md) / ErrorTxSimulation
+[NibiJS Documentation - v0.21.7](../intro.md) / [Exports](../modules.md) / ErrorTxSimulation
 
 # Class: ErrorTxSimulation
 
@@ -33,4 +33,4 @@ Error.constructor
 
 #### Defined in
 
-[chain/error.ts:25](https://github.com/NibiruChain/ts-sdk/blob/2eedd33/packages/nibijs/src/chain/error.ts#L25)
+[chain/error.ts:25](https://github.com/NibiruChain/ts-sdk/blob/a41de73/packages/nibijs/src/chain/error.ts#L25)
