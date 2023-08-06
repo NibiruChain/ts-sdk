@@ -1,0 +1,40 @@
+name: Semantic Release 🚀
+on:
+  push:
+    branches: ["releases/*"]
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup NodeJS and npm
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/hydrogen"
+      - name: Install yarn using npm
+        run: npm install -g yarn
+      - name: Setup NodeJS with yarn caching
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/hydrogen"
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn --prefer-offline --check-files
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: yarn semantic-release

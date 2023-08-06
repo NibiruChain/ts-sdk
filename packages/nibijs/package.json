@@ -40,5 +40,10 @@
     "typedoc": "^0.23.22",
     "typedoc-plugin-markdown": "^3.14.0"
   },
-  "gitHead": "c64b2f8df67f7823b9835e2f6c89e98c33cda12e"
+  "gitHead": "c64b2f8df67f7823b9835e2f6c89e98c33cda12e",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest",
+    "access": "public"
+  }
 }

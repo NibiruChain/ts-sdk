@@ -13,5 +13,10 @@
     "build:watch": "tsc --build --watch",
     "clean": "tsc --clean"
   },
-  "gitHead": "189a24da66595240102f4fddcda98a62f3f017ad"
+  "gitHead": "189a24da66595240102f4fddcda98a62f3f017ad",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest",
+    "access": "public"
+  }
 }
