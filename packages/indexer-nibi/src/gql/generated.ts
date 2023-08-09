@@ -25,6 +25,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean }
   Int: { input: number; output: number }
   Float: { input: number; output: number }
+  Time: { input: any; output: any }
 }
 
 export type Block = {
@@ -35,10 +36,12 @@ export type Block = {
   readonly num_txs: Scalars["Int"]["output"]
 }
 
-export type CommunityPoolToken = {
-  readonly __typename?: "CommunityPoolToken"
-  readonly amount: Scalars["Float"]["output"]
-  readonly denom: Scalars["String"]["output"]
+export type CommunityPoolFilter = {
+  readonly denom?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export enum CommunityPoolOrder {
+  Denom = "denom",
 }
 
 export type Delegation = {
@@ -60,16 +63,90 @@ export enum DelegationOrder {
 
 export type DistributionCommission = {
   readonly __typename?: "DistributionCommission"
-  readonly commission?: Maybe<ReadonlyArray<Token>>
+  readonly commission?: Maybe<ReadonlyArray<FloatToken>>
   readonly validator: Validator
 }
 
 export type DistributionCommissionFilter = {
-  readonly validator_address: Scalars["String"]["input"]
+  readonly validator_address?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export enum DistributionCommissionOrder {
   ValidatorAddress = "validator_address",
+}
+
+export type FloatToken = {
+  readonly __typename?: "FloatToken"
+  readonly amount: Scalars["Float"]["output"]
+  readonly denom: Scalars["String"]["output"]
+}
+
+export type MarkPriceCandle = {
+  readonly __typename?: "MarkPriceCandle"
+  readonly close: Scalars["Float"]["output"]
+  readonly high: Scalars["Float"]["output"]
+  readonly low: Scalars["Float"]["output"]
+  readonly open: Scalars["Float"]["output"]
+  readonly pair: Scalars["String"]["output"]
+  readonly period: Scalars["Int"]["output"]
+  readonly periodStartTs: Scalars["Time"]["output"]
+}
+
+export type MarkPriceCandlesFilter = {
+  readonly pairEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly periodEq?: InputMaybe<Scalars["Int"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Int"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Int"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Int"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Int"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["Time"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["Time"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["Time"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["Time"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["Time"]["input"]>
+}
+
+export enum MarkPriceCandlesOrder {
+  Period = "period",
+  PeriodStartTs = "periodStartTs",
+}
+
+export type PeriodFilter = {
+  readonly periodEq?: InputMaybe<Scalars["Int"]["input"]>
+  readonly periodGt?: InputMaybe<Scalars["Int"]["input"]>
+  readonly periodGte?: InputMaybe<Scalars["Int"]["input"]>
+  readonly periodLt?: InputMaybe<Scalars["Int"]["input"]>
+  readonly periodLte?: InputMaybe<Scalars["Int"]["input"]>
+  readonly periodStartTsEq?: InputMaybe<Scalars["Time"]["input"]>
+  readonly periodStartTsGt?: InputMaybe<Scalars["Time"]["input"]>
+  readonly periodStartTsGte?: InputMaybe<Scalars["Time"]["input"]>
+  readonly periodStartTsLt?: InputMaybe<Scalars["Time"]["input"]>
+  readonly periodStartTsLte?: InputMaybe<Scalars["Time"]["input"]>
+}
+
+export enum PeriodOrder {
+  Period = "period",
+  PeriodStartTs = "period_start_ts",
+}
+
+export type PerpLeaderboard = {
+  readonly __typename?: "PerpLeaderboard"
+  readonly avg_pct_pnl: Scalars["Float"]["output"]
+  readonly input_margin: Scalars["Float"]["output"]
+  readonly raw_pnl: Scalars["Float"]["output"]
+  readonly raw_pnl_with_unrealized: Scalars["Float"]["output"]
+  readonly trader_address: Scalars["String"]["output"]
+}
+
+export type PerpLeaderboardFilter = {
+  readonly trader_address?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export enum PerpLeaderboardOrder {
+  AvgPctPnl = "avg_pct_pnl",
+  RawPnl = "raw_pnl",
+  RawPnlWithUnrealized = "raw_pnl_with_unrealized",
+  TraderAddress = "trader_address",
 }
 
 export type PerpMarket = {
@@ -137,9 +214,11 @@ export enum PerpPositionOrder {
 
 export type Query = {
   readonly __typename?: "Query"
-  readonly communityPool: ReadonlyArray<CommunityPoolToken>
+  readonly communityPool: ReadonlyArray<FloatToken>
   readonly delegations: ReadonlyArray<Delegation>
   readonly distributionCommissions: ReadonlyArray<DistributionCommission>
+  readonly markPriceCandles: ReadonlyArray<MarkPriceCandle>
+  readonly perpLeaderboard: ReadonlyArray<PerpLeaderboard>
   readonly perpMarket?: Maybe<PerpMarket>
   readonly perpMarkets: ReadonlyArray<PerpMarket>
   readonly perpPosition?: Maybe<PerpPosition>
@@ -151,13 +230,17 @@ export type Query = {
   readonly spotPoolJoined: ReadonlyArray<SpotPoolJoined>
   readonly spotPoolSwap: ReadonlyArray<SpotPoolSwap>
   readonly spotPools: ReadonlyArray<SpotPool>
+  readonly stats: Stats
   readonly unbondings: ReadonlyArray<Unbonding>
   readonly users: ReadonlyArray<User>
   readonly validators: ReadonlyArray<Validator>
 }
 
 export type QueryCommunityPoolArgs = {
-  denom?: InputMaybe<Scalars["String"]["input"]>
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<CommunityPoolOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<CommunityPoolFilter>
 }
 
 export type QueryDelegationsArgs = {
@@ -174,8 +257,22 @@ export type QueryDistributionCommissionsArgs = {
   where?: InputMaybe<DistributionCommissionFilter>
 }
 
+export type QueryMarkPriceCandlesArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<MarkPriceCandlesOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<MarkPriceCandlesFilter>
+}
+
+export type QueryPerpLeaderboardArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<PerpLeaderboardOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PerpLeaderboardFilter>
+}
+
 export type QueryPerpMarketArgs = {
-  pair: Scalars["String"]["input"]
+  where?: InputMaybe<PerpMarketFilter>
 }
 
 export type QueryPerpMarketsArgs = {
@@ -186,8 +283,7 @@ export type QueryPerpMarketsArgs = {
 }
 
 export type QueryPerpPositionArgs = {
-  pair: Scalars["String"]["input"]
-  trader_address: Scalars["String"]["input"]
+  where?: InputMaybe<PerpPositionFilter>
 }
 
 export type QueryPerpPositionsArgs = {
@@ -336,7 +432,7 @@ export type SpotPoolCreated = {
   readonly block: Block
   readonly pool: SpotPool
   readonly pool_shares: SharesToken
-  readonly user_address: Scalars["String"]["output"]
+  readonly user: User
 }
 
 export type SpotPoolCreatedFilter = {
@@ -354,7 +450,7 @@ export type SpotPoolExited = {
   readonly block: Block
   readonly pool: SpotPool
   readonly pool_shares: SharesToken
-  readonly user_address: Scalars["String"]["output"]
+  readonly user: User
 }
 
 export type SpotPoolExitedFilter = {
@@ -376,7 +472,7 @@ export type SpotPoolJoined = {
   readonly block: Block
   readonly pool: SpotPool
   readonly pool_shares: SharesToken
-  readonly user_address: Scalars["String"]["output"]
+  readonly user: User
 }
 
 export type SpotPoolJoinedFilter = {
@@ -399,7 +495,7 @@ export type SpotPoolSwap = {
   readonly pool: SpotPool
   readonly token_in: Token
   readonly token_out: Token
-  readonly user_address: Scalars["String"]["output"]
+  readonly user: User
 }
 
 export type SpotPoolSwapFilter = {
@@ -414,6 +510,243 @@ export enum SpotPoolSwapOrder {
   Block = "block",
   PoolId = "pool_id",
   UserAddress = "user_address",
+}
+
+export type Stats = {
+  readonly __typename?: "Stats"
+  readonly fees: ReadonlyArray<StatsFees>
+  readonly perpOpenInterest: ReadonlyArray<StatsPerpOpenInterest>
+  readonly perpPnl: ReadonlyArray<StatsPerpPnl>
+  readonly totals: ReadonlyArray<StatsTotals>
+  readonly tvl: ReadonlyArray<StatsTvl>
+  readonly users: ReadonlyArray<StatsUsers>
+  readonly volume: ReadonlyArray<StatsVolume>
+}
+
+export type StatsFeesArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order?: InputMaybe<StatsFeesOrder>
+  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PeriodFilter>
+}
+
+export type StatsPerpOpenInterestArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order?: InputMaybe<StatsPerpOpenInterestOrder>
+  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PeriodFilter>
+}
+
+export type StatsPerpPnlArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order?: InputMaybe<StatsPerpPnlOrder>
+  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PeriodFilter>
+}
+
+export type StatsTotalsArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order?: InputMaybe<StatsTotalsOrder>
+  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PeriodFilter>
+}
+
+export type StatsTvlArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order?: InputMaybe<StatsTvlOrder>
+  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PeriodFilter>
+}
+
+export type StatsUsersArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order?: InputMaybe<StatsUsersOrder>
+  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PeriodFilter>
+}
+
+export type StatsVolumeArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order?: InputMaybe<StatsVolumeOrder>
+  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PeriodFilter>
+}
+
+export type StatsFees = {
+  readonly __typename?: "StatsFees"
+  readonly feesLiquidations: Scalars["Float"]["output"]
+  readonly feesLiquidationsCumulative: Scalars["Float"]["output"]
+  readonly feesPerp: Scalars["Float"]["output"]
+  readonly feesPerpCumulative: Scalars["Float"]["output"]
+  readonly feesSwap: Scalars["Float"]["output"]
+  readonly feesSwapCumulative: Scalars["Float"]["output"]
+  readonly feesTotal: Scalars["Float"]["output"]
+  readonly feesTotalCumulative: Scalars["Float"]["output"]
+  readonly period: Scalars["Int"]["output"]
+  readonly periodStartTs: Scalars["Time"]["output"]
+}
+
+export enum StatsFeesOrder {
+  FeesLiquidations = "fees_liquidations",
+  FeesLiquidationsCumulative = "fees_liquidations_cumulative",
+  FeesPerp = "fees_perp",
+  FeesPerpCumulative = "fees_perp_cumulative",
+  FeesSwap = "fees_swap",
+  FeesSwapCumulative = "fees_swap_cumulative",
+  FeesTotal = "fees_total",
+  FeesTotalCumulative = "fees_total_cumulative",
+  Period = "period",
+  PeriodStartTs = "period_start_ts",
+}
+
+export type StatsPerpOpenInterest = {
+  readonly __typename?: "StatsPerpOpenInterest"
+  readonly openInterestLong: Scalars["Float"]["output"]
+  readonly openInterestShort: Scalars["Float"]["output"]
+  readonly openInterestTotal: Scalars["Float"]["output"]
+  readonly period: Scalars["Int"]["output"]
+  readonly periodStartTs: Scalars["Time"]["output"]
+}
+
+export enum StatsPerpOpenInterestOrder {
+  OpenInterestLong = "open_interest_long",
+  OpenInterestShort = "open_interest_short",
+  OpenInterestTotal = "open_interest_total",
+  Period = "period",
+  PeriodStartTs = "period_start_ts",
+}
+
+export type StatsPerpPnl = {
+  readonly __typename?: "StatsPerpPnl"
+  readonly loss: Scalars["Float"]["output"]
+  readonly lossCumulative: Scalars["Float"]["output"]
+  readonly netPnl: Scalars["Float"]["output"]
+  readonly netPnlCumulative: Scalars["Float"]["output"]
+  readonly period: Scalars["Int"]["output"]
+  readonly periodStartTs: Scalars["Time"]["output"]
+  readonly profit: Scalars["Float"]["output"]
+  readonly profitCumulative: Scalars["Float"]["output"]
+}
+
+export enum StatsPerpPnlOrder {
+  Loss = "loss",
+  LossCumulative = "loss_cumulative",
+  NetPnl = "net_pnl",
+  NetPnlCumulative = "net_pnl_cumulative",
+  Period = "period",
+  PeriodStartTs = "period_start_ts",
+  Profit = "profit",
+  ProfitCumulative = "profit_cumulative",
+}
+
+export type StatsTotals = {
+  readonly __typename?: "StatsTotals"
+  readonly period: Scalars["Int"]["output"]
+  readonly periodStartTs: Scalars["Time"]["output"]
+  readonly totalFeesLiquidations: Scalars["Float"]["output"]
+  readonly totalFeesPerp: Scalars["Float"]["output"]
+  readonly totalOpenInterest: Scalars["Float"]["output"]
+  readonly totalPerp: Scalars["Float"]["output"]
+  readonly totalSwap: Scalars["Float"]["output"]
+  readonly totalTvl: Scalars["Float"]["output"]
+}
+
+export enum StatsTotalsOrder {
+  Period = "period",
+  PeriodStartTs = "period_start_ts",
+  TotalFeesLiquidations = "total_fees_liquidations",
+  TotalFeesPerp = "total_fees_perp",
+  TotalOpenInterest = "total_open_interest",
+  TotalPerp = "total_perp",
+  TotalSwap = "total_swap",
+  TotalTvl = "total_tvl",
+}
+
+export type StatsTvl = {
+  readonly __typename?: "StatsTvl"
+  readonly period: Scalars["Int"]["output"]
+  readonly periodStartTs: Scalars["Time"]["output"]
+  readonly tvlPerp: Scalars["Float"]["output"]
+  readonly tvlStablecoin: Scalars["Float"]["output"]
+  readonly tvlStaking: Scalars["Float"]["output"]
+  readonly tvlSwap: Scalars["Float"]["output"]
+  readonly tvlTotal: Scalars["Float"]["output"]
+}
+
+export enum StatsTvlOrder {
+  Period = "period",
+  PeriodStartTs = "period_start_ts",
+  TvlPerp = "tvl_perp",
+  TvlStablecoin = "tvl_stablecoin",
+  TvlStaking = "tvl_staking",
+  TvlSwap = "tvl_swap",
+  TvlTotal = "tvl_total",
+}
+
+export type StatsUsers = {
+  readonly __typename?: "StatsUsers"
+  readonly newUsersLp: Scalars["Int"]["output"]
+  readonly newUsersLpCumulative: Scalars["Int"]["output"]
+  readonly newUsersPerp: Scalars["Int"]["output"]
+  readonly newUsersPerpCumulative: Scalars["Int"]["output"]
+  readonly newUsersSwap: Scalars["Int"]["output"]
+  readonly newUsersSwapCumulative: Scalars["Int"]["output"]
+  readonly newUsersTotal: Scalars["Int"]["output"]
+  readonly newUsersTotalCumulative: Scalars["Int"]["output"]
+  readonly period: Scalars["Int"]["output"]
+  readonly periodStartTs: Scalars["Time"]["output"]
+  readonly uniqueUsersLp: Scalars["Int"]["output"]
+  readonly uniqueUsersPerp: Scalars["Int"]["output"]
+  readonly uniqueUsersSwap: Scalars["Int"]["output"]
+  readonly uniqueUsersTotal: Scalars["Int"]["output"]
+  readonly userActionsLp: Scalars["Int"]["output"]
+  readonly userActionsPerp: Scalars["Int"]["output"]
+  readonly userActionsSwap: Scalars["Int"]["output"]
+  readonly userActionsTotal: Scalars["Int"]["output"]
+}
+
+export enum StatsUsersOrder {
+  NewUsersLp = "new_users_lp",
+  NewUsersLpCumulative = "new_users_lp_cumulative",
+  NewUsersPerp = "new_users_perp",
+  NewUsersPerpCumulative = "new_users_perp_cumulative",
+  NewUsersSwap = "new_users_swap",
+  NewUsersSwapCumulative = "new_users_swap_cumulative",
+  NewUsersTotal = "new_users_total",
+  NewUsersTotalCumulative = "new_users_total_cumulative",
+  Period = "period",
+  PeriodStartTs = "period_start_ts",
+  UniqueUsersLp = "unique_users_lp",
+  UniqueUsersPerp = "unique_users_perp",
+  UniqueUsersSwap = "unique_users_swap",
+  UniqueUsersTotal = "unique_users_total",
+  UserActionsLp = "user_actions_lp",
+  UserActionsPerp = "user_actions_perp",
+  UserActionsSwap = "user_actions_swap",
+  UserActionsTotal = "user_actions_total",
+}
+
+export type StatsVolume = {
+  readonly __typename?: "StatsVolume"
+  readonly period: Scalars["Int"]["output"]
+  readonly periodStartTs: Scalars["Time"]["output"]
+  readonly volumePerp: Scalars["Float"]["output"]
+  readonly volumePerpCumulative: Scalars["Float"]["output"]
+  readonly volumeSwap: Scalars["Float"]["output"]
+  readonly volumeSwapCumulative: Scalars["Float"]["output"]
+  readonly volumeTotal: Scalars["Float"]["output"]
+  readonly volumeTotalCumulative: Scalars["Float"]["output"]
+}
+
+export enum StatsVolumeOrder {
+  Period = "period",
+  PeriodStartTs = "period_start_ts",
+  VolumePerp = "volume_perp",
+  VolumePerpCumulative = "volume_perp_cumulative",
+  VolumeSwap = "volume_swap",
+  VolumeSwapCumulative = "volume_swap_cumulative",
+  VolumeTotal = "volume_total",
+  VolumeTotalCumulative = "volume_total_cumulative",
 }
 
 export type Token = {

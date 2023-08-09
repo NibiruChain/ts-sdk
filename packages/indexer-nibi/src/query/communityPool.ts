@@ -1,12 +1,8 @@
 import { defaultToken } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
-import {
-  QueryCommunityPoolArgs,
-  Query,
-  CommunityPoolToken,
-} from "../gql/generated"
+import { QueryCommunityPoolArgs, Query, FloatToken } from "../gql/generated"
 
-export const defaultCommunityPoolObject: CommunityPoolToken = defaultToken
+export const defaultCommunityPoolObject: FloatToken = defaultToken
 
 export interface GqlOutCommunityPool {
   communityPool?: Query["communityPool"]

@@ -112,8 +112,52 @@ test("distributionCommissions", async () => {
   }
 })
 
+test("markPriceCandles", async () => {
+  const resp = await heartMonitor.markPriceCandles({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("markPriceCandles")
+
+  if (resp.markPriceCandles!.length > 0) {
+    const [markPriceCandle] = resp.markPriceCandles!
+    const fields = [
+      "close",
+      "high",
+      "low",
+      "open",
+      "pair",
+      "period",
+      "periodStartTs",
+    ]
+    fields.forEach((field: string) => {
+      expect(markPriceCandle).toHaveProperty(field)
+    })
+  }
+})
+
+test("perpLeaderboard", async () => {
+  const resp = await heartMonitor.perpLeaderboard({
+    limit: 1,
+  })
+  expect(resp).toHaveProperty("perpLeaderboard")
+
+  if (resp.perpLeaderboard!.length > 0) {
+    const [perpLeaderboard] = resp.perpLeaderboard!
+    const fields = [
+      "avg_pct_pnl",
+      "input_margin",
+      "raw_pnl",
+      "raw_pnl_with_unrealized",
+      "trader_address",
+    ]
+    fields.forEach((field: string) => {
+      expect(perpLeaderboard).toHaveProperty(field)
+    })
+  }
+})
+
 test("perpMarket", async () => {
-  const resp = await heartMonitor.perpMarket({ pair: "" })
+  const resp = await heartMonitor.perpMarket({ where: { pair: "" } })
   expect(resp).toHaveProperty("perpMarket")
 
   if (resp.perpMarket) {
@@ -187,7 +231,9 @@ test("perpMarkets", async () => {
 })
 
 test("perpPosition", async () => {
-  const resp = await heartMonitor.perpPosition({ pair: "", trader_address: "" })
+  const resp = await heartMonitor.perpPosition({
+    where: { pair: "", trader_address: "" },
+  })
   expect(resp).toHaveProperty("perpPosition")
 
   if (resp.perpPosition) {
@@ -234,7 +280,6 @@ test("perpPositions", async () => {
       "bad_debt",
       "last_updated_block",
     ]
-    console.log(resp)
     fields.forEach((field: string) => {
       expect(perpPositions).toHaveProperty(field)
     })
@@ -364,6 +409,49 @@ test("spotPoolSwap", async () => {
   }
 })
 
+test("stats", async () => {
+  const resp = await heartMonitor.stats({
+    totals: {
+      limit: 1,
+    },
+    fees: {
+      limit: 1,
+    },
+    perpOpenInterest: {
+      limit: 1,
+    },
+    tvl: {
+      limit: 1,
+    },
+    perpPnl: {
+      limit: 1,
+    },
+    users: {
+      limit: 1,
+    },
+    volume: {
+      limit: 1,
+    },
+  })
+  expect(resp).toHaveProperty("stats")
+
+  if (resp.stats) {
+    const stats = resp.stats!
+    const fields = [
+      "totals",
+      "fees",
+      "perpOpenInterest",
+      "tvl",
+      "perpPnl",
+      "users",
+      "volume",
+    ]
+    fields.forEach((field: string) => {
+      expect(stats).toHaveProperty(field)
+    })
+  }
+})
+
 test("unbondings", async () => {
   const resp = await heartMonitor.unbondings({
     limit: 1,
@@ -426,19 +514,6 @@ test("validators", async () => {
     })
   }
 })
-
-// test("perpLeaderboard", async () => {
-//   const resp = await heartMonitor.perpLeaderboard()
-//   expect(resp).toHaveProperty("perpLeaderboard")
-
-//   if (resp.perpLeaderboard!.length > 0) {
-//     const [config] = resp.perpLeaderboard!
-//     const fields = ["traderAddress", "percentagePnl", "rawPnl", "inputMargin"]
-//     fields.forEach((field: string) => {
-//       expect(config).toHaveProperty(field)
-//     })
-//   }
-// })
 
 describe("gql cleanResponse", () => {
   test("should return the response data if rawResp is ok and contains data", async () => {
