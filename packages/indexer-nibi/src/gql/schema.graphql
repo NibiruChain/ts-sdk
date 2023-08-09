@@ -1,3 +1,8 @@
+directive @goModel(
+  model: String
+  models: [String!]
+) on ENUM | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
+
 type Block {
   block: Int!
   block_duration: Float!
@@ -5,9 +10,12 @@ type Block {
   num_txs: Int!
 }
 
-type CommunityPoolToken {
-  amount: Float!
-  denom: String!
+input CommunityPoolFilter {
+  denom: String
+}
+
+enum CommunityPoolOrder {
+  denom
 }
 
 type Delegation {
@@ -27,16 +35,87 @@ enum DelegationOrder {
 }
 
 type DistributionCommission {
-  commission: [Token!]
+  commission: [FloatToken!]
   validator: Validator!
 }
 
 input DistributionCommissionFilter {
-  validator_address: String!
+  validator_address: String
 }
 
 enum DistributionCommissionOrder {
   validator_address
+}
+
+type FloatToken {
+  amount: Float!
+  denom: String!
+}
+
+type MarkPriceCandle {
+  close: Float!
+  high: Float!
+  low: Float!
+  open: Float!
+  pair: String!
+  period: Int!
+  periodStartTs: Time!
+}
+
+input MarkPriceCandlesFilter {
+  pairEq: String
+  periodEq: Int
+  periodGt: Int
+  periodGte: Int
+  periodLt: Int
+  periodLte: Int
+  periodStartTsEq: Time
+  periodStartTsGt: Time
+  periodStartTsGte: Time
+  periodStartTsLt: Time
+  periodStartTsLte: Time
+}
+
+enum MarkPriceCandlesOrder {
+  period
+  periodStartTs
+}
+
+input PeriodFilter {
+  periodEq: Int
+  periodGt: Int
+  periodGte: Int
+  periodLt: Int
+  periodLte: Int
+  periodStartTsEq: Time
+  periodStartTsGt: Time
+  periodStartTsGte: Time
+  periodStartTsLt: Time
+  periodStartTsLte: Time
+}
+
+enum PeriodOrder {
+  period
+  period_start_ts
+}
+
+type PerpLeaderboard {
+  avg_pct_pnl: Float!
+  input_margin: Float!
+  raw_pnl: Float!
+  raw_pnl_with_unrealized: Float!
+  trader_address: String!
+}
+
+input PerpLeaderboardFilter {
+  trader_address: String
+}
+
+enum PerpLeaderboardOrder {
+  avg_pct_pnl
+  raw_pnl
+  raw_pnl_with_unrealized
+  trader_address
 }
 
 type PerpMarket {
@@ -101,7 +180,12 @@ enum PerpPositionOrder {
 }
 
 type Query {
-  communityPool(denom: String): [CommunityPoolToken!]!
+  communityPool(
+    limit: Int
+    order_by: CommunityPoolOrder
+    order_desc: Boolean
+    where: CommunityPoolFilter
+  ): [FloatToken!]!
   delegations(
     limit: Int
     order_by: DelegationOrder
@@ -114,14 +198,26 @@ type Query {
     order_desc: Boolean
     where: DistributionCommissionFilter
   ): [DistributionCommission!]!
-  perpMarket(pair: String!): PerpMarket
+  markPriceCandles(
+    limit: Int
+    order_by: MarkPriceCandlesOrder
+    order_desc: Boolean
+    where: MarkPriceCandlesFilter
+  ): [MarkPriceCandle!]!
+  perpLeaderboard(
+    limit: Int
+    order_by: PerpLeaderboardOrder
+    order_desc: Boolean
+    where: PerpLeaderboardFilter
+  ): [PerpLeaderboard!]!
+  perpMarket(where: PerpMarketFilter): PerpMarket
   perpMarkets(
     limit: Int
     order_by: PerpMarketOrder
     order_desc: Boolean
     where: PerpMarketFilter
   ): [PerpMarket!]!
-  perpPosition(pair: String!, trader_address: String!): PerpPosition
+  perpPosition(where: PerpPositionFilter): PerpPosition
   perpPositions(
     limit: Int
     order_by: PerpPositionOrder
@@ -170,6 +266,7 @@ type Query {
     order_desc: Boolean
     where: SpotPoolFilter
   ): [SpotPool!]!
+  stats: Stats!
   unbondings(
     limit: Int
     order_by: UnbondingOrder
@@ -252,7 +349,7 @@ type SpotPoolCreated {
   block: Block!
   pool: SpotPool!
   pool_shares: SharesToken!
-  user_address: String!
+  user: User!
 }
 
 input SpotPoolCreatedFilter {
@@ -269,7 +366,7 @@ type SpotPoolExited {
   block: Block!
   pool: SpotPool!
   pool_shares: SharesToken!
-  user_address: String!
+  user: User!
 }
 
 input SpotPoolExitedFilter {
@@ -290,7 +387,7 @@ type SpotPoolJoined {
   block: Block!
   pool: SpotPool!
   pool_shares: SharesToken!
-  user_address: String!
+  user: User!
 }
 
 input SpotPoolJoinedFilter {
@@ -312,7 +409,7 @@ type SpotPoolSwap {
   pool: SpotPool!
   token_in: Token!
   token_out: Token!
-  user_address: String!
+  user: User!
 }
 
 input SpotPoolSwapFilter {
@@ -328,6 +425,223 @@ enum SpotPoolSwapOrder {
   pool_id
   user_address
 }
+
+type Stats {
+  fees(
+    limit: Int
+    order: StatsFeesOrder
+    orderDesc: Boolean
+    where: PeriodFilter
+  ): [StatsFees!]!
+  perpOpenInterest(
+    limit: Int
+    order: StatsPerpOpenInterestOrder
+    orderDesc: Boolean
+    where: PeriodFilter
+  ): [StatsPerpOpenInterest!]!
+  perpPnl(
+    limit: Int
+    order: StatsPerpPnlOrder
+    orderDesc: Boolean
+    where: PeriodFilter
+  ): [StatsPerpPnl!]!
+  totals(
+    limit: Int
+    order: StatsTotalsOrder
+    orderDesc: Boolean
+    where: PeriodFilter
+  ): [StatsTotals!]!
+  tvl(
+    limit: Int
+    order: StatsTvlOrder
+    orderDesc: Boolean
+    where: PeriodFilter
+  ): [StatsTvl!]!
+  users(
+    limit: Int
+    order: StatsUsersOrder
+    orderDesc: Boolean
+    where: PeriodFilter
+  ): [StatsUsers!]!
+  volume(
+    limit: Int
+    order: StatsVolumeOrder
+    orderDesc: Boolean
+    where: PeriodFilter
+  ): [StatsVolume!]!
+}
+
+type StatsFees {
+  feesLiquidations: Float!
+  feesLiquidationsCumulative: Float!
+  feesPerp: Float!
+  feesPerpCumulative: Float!
+  feesSwap: Float!
+  feesSwapCumulative: Float!
+  feesTotal: Float!
+  feesTotalCumulative: Float!
+  period: Int!
+  periodStartTs: Time!
+}
+
+enum StatsFeesOrder {
+  fees_liquidations
+  fees_liquidations_cumulative
+  fees_perp
+  fees_perp_cumulative
+  fees_swap
+  fees_swap_cumulative
+  fees_total
+  fees_total_cumulative
+  period
+  period_start_ts
+}
+
+type StatsPerpOpenInterest {
+  openInterestLong: Float!
+  openInterestShort: Float!
+  openInterestTotal: Float!
+  period: Int!
+  periodStartTs: Time!
+}
+
+enum StatsPerpOpenInterestOrder {
+  open_interest_long
+  open_interest_short
+  open_interest_total
+  period
+  period_start_ts
+}
+
+type StatsPerpPnl {
+  loss: Float!
+  lossCumulative: Float!
+  netPnl: Float!
+  netPnlCumulative: Float!
+  period: Int!
+  periodStartTs: Time!
+  profit: Float!
+  profitCumulative: Float!
+}
+
+enum StatsPerpPnlOrder {
+  loss
+  loss_cumulative
+  net_pnl
+  net_pnl_cumulative
+  period
+  period_start_ts
+  profit
+  profit_cumulative
+}
+
+type StatsTotals {
+  period: Int!
+  periodStartTs: Time!
+  totalFeesLiquidations: Float!
+  totalFeesPerp: Float!
+  totalOpenInterest: Float!
+  totalPerp: Float!
+  totalSwap: Float!
+  totalTvl: Float!
+}
+
+enum StatsTotalsOrder {
+  period
+  period_start_ts
+  total_fees_liquidations
+  total_fees_perp
+  total_open_interest
+  total_perp
+  total_swap
+  total_tvl
+}
+
+type StatsTvl {
+  period: Int!
+  periodStartTs: Time!
+  tvlPerp: Float!
+  tvlStablecoin: Float!
+  tvlStaking: Float!
+  tvlSwap: Float!
+  tvlTotal: Float!
+}
+
+enum StatsTvlOrder {
+  period
+  period_start_ts
+  tvl_perp
+  tvl_stablecoin
+  tvl_staking
+  tvl_swap
+  tvl_total
+}
+
+type StatsUsers {
+  newUsersLp: Int!
+  newUsersLpCumulative: Int!
+  newUsersPerp: Int!
+  newUsersPerpCumulative: Int!
+  newUsersSwap: Int!
+  newUsersSwapCumulative: Int!
+  newUsersTotal: Int!
+  newUsersTotalCumulative: Int!
+  period: Int!
+  periodStartTs: Time!
+  uniqueUsersLp: Int!
+  uniqueUsersPerp: Int!
+  uniqueUsersSwap: Int!
+  uniqueUsersTotal: Int!
+  userActionsLp: Int!
+  userActionsPerp: Int!
+  userActionsSwap: Int!
+  userActionsTotal: Int!
+}
+
+enum StatsUsersOrder {
+  new_users_lp
+  new_users_lp_cumulative
+  new_users_perp
+  new_users_perp_cumulative
+  new_users_swap
+  new_users_swap_cumulative
+  new_users_total
+  new_users_total_cumulative
+  period
+  period_start_ts
+  unique_users_lp
+  unique_users_perp
+  unique_users_swap
+  unique_users_total
+  user_actions_lp
+  user_actions_perp
+  user_actions_swap
+  user_actions_total
+}
+
+type StatsVolume {
+  period: Int!
+  periodStartTs: Time!
+  volumePerp: Float!
+  volumePerpCumulative: Float!
+  volumeSwap: Float!
+  volumeSwapCumulative: Float!
+  volumeTotal: Float!
+  volumeTotalCumulative: Float!
+}
+
+enum StatsVolumeOrder {
+  period
+  period_start_ts
+  volume_perp
+  volume_perp_cumulative
+  volume_swap
+  volume_swap_cumulative
+  volume_total
+  volume_total_cumulative
+}
+
+scalar Time
 
 type Token {
   amount: Int!

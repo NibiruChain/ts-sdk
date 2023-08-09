@@ -3,6 +3,8 @@ import {
   QueryCommunityPoolArgs,
   QueryDelegationsArgs,
   QueryDistributionCommissionsArgs,
+  QueryMarkPriceCandlesArgs,
+  QueryPerpLeaderboardArgs,
   QueryPerpMarketArgs,
   QueryPerpMarketsArgs,
   QueryPerpPositionArgs,
@@ -54,6 +56,12 @@ import {
   users,
   validators,
 } from "./query"
+import {
+  GqlOutMarkPriceCandles,
+  markPriceCandles,
+} from "./query/markPriceCandles"
+import { GqlOutPerpLeaderboard, perpLeaderboard } from "./query/perpLeaderboard"
+import { GqlOutStats, QueryStatsArgs, stats } from "./query/stats"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -69,6 +77,14 @@ export interface IHeartMonitor {
   readonly distributionCommissions: (
     args: QueryDistributionCommissionsArgs
   ) => Promise<GqlOutDistributionCommissions>
+
+  readonly markPriceCandles: (
+    args: QueryMarkPriceCandlesArgs
+  ) => Promise<GqlOutMarkPriceCandles>
+
+  readonly perpLeaderboard: (
+    args: QueryPerpLeaderboardArgs
+  ) => Promise<GqlOutPerpLeaderboard>
 
   readonly perpMarket: (args: QueryPerpMarketArgs) => Promise<GqlOutPerpMarket>
 
@@ -110,6 +126,8 @@ export interface IHeartMonitor {
     args: QuerySpotPoolSwapArgs
   ) => Promise<GqlOutSpotPoolSwap>
 
+  readonly stats: (args: QueryStatsArgs) => Promise<GqlOutStats>
+
   readonly unbondings: (args: QueryUnbondingsArgs) => Promise<GqlOutUnbondings>
 
   readonly users: (args: QueryUsersArgs) => Promise<GqlOutUsers>
@@ -147,6 +165,12 @@ export class HeartMonitor implements IHeartMonitor {
   distributionCommissions = async (args: QueryDistributionCommissionsArgs) =>
     distributionCommissions(args, this.gqlEndpt)
 
+  markPriceCandles = async (args: QueryMarkPriceCandlesArgs) =>
+    markPriceCandles(args, this.gqlEndpt)
+
+  perpLeaderboard = async (args: QueryPerpLeaderboardArgs) =>
+    perpLeaderboard(args, this.gqlEndpt)
+
   perpMarket = async (args: QueryPerpMarketArgs) =>
     perpMarket(args, this.gqlEndpt)
 
@@ -178,6 +202,8 @@ export class HeartMonitor implements IHeartMonitor {
 
   spotPoolSwap = async (args: QuerySpotPoolSwapArgs) =>
     spotPoolSwap(args, this.gqlEndpt)
+
+  stats = async (args: QueryStatsArgs) => stats(args, this.gqlEndpt)
 
   unbondings = async (args: QueryUnbondingsArgs) =>
     unbondings(args, this.gqlEndpt)

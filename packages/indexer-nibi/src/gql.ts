@@ -71,7 +71,8 @@ export const cleanResponse = async (rawResp: Response) => {
 export const gqlQuery = <T>(
   name: string,
   typedQueryArgs: { [key: string]: T },
-  properties: string
+  properties: string,
+  excludeParentObject?: boolean
 ) => {
   let queryArgList = []
 
@@ -104,11 +105,11 @@ export const gqlQuery = <T>(
 
   const hasQueryList = (char: string) => (queryArgList.length > 0 ? char : "")
 
-  return `{
+  return `${excludeParentObject ? "" : "{"}
     ${name} ${hasQueryList("(")}${queryArgList.join(", ")}${hasQueryList(")")} {
       ${properties}
     }
-  }`
+    ${excludeParentObject ? "" : "}"}`
 }
 
 export const doGqlQuery = async (gqlQuery: string, gqlEndpt: string) => {
