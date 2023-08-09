@@ -123,39 +123,48 @@ export const stats = async (
     gqlQuery(
       "fees",
       args.fees,
-      convertObjectToPropertiesString(defaultStatsFeesObject)
+      convertObjectToPropertiesString(defaultStatsFeesObject),
+      true
     ),
     gqlQuery(
       "perpOpenInterest",
       args.perpOpenInterest,
-      convertObjectToPropertiesString(defaultPerpOpenInterestObject)
+      convertObjectToPropertiesString(defaultPerpOpenInterestObject),
+      true
     ),
     gqlQuery(
       "perpPnl",
       args.perpPnl,
-      convertObjectToPropertiesString(defaultPerpPnlObject)
+      convertObjectToPropertiesString(defaultPerpPnlObject),
+      true
     ),
     gqlQuery(
       "totals",
       args.totals,
-      convertObjectToPropertiesString(defaultTotalsObject)
+      convertObjectToPropertiesString(defaultTotalsObject),
+      true
     ),
     gqlQuery(
       "tvl",
       args.tvl,
-      convertObjectToPropertiesString(defaultTvlObject)
+      convertObjectToPropertiesString(defaultTvlObject),
+      true
     ),
     gqlQuery(
       "users",
       args.users,
-      convertObjectToPropertiesString(defaultUsersObject)
+      convertObjectToPropertiesString(defaultUsersObject),
+      true
     ),
     gqlQuery(
       "volume",
       args.volume,
-      convertObjectToPropertiesString(defaultVolumeObject)
+      convertObjectToPropertiesString(defaultVolumeObject),
+      true
     ),
   ]
+
+  console.log(statsQuery)
 
   return doGqlQuery(
     `{

@@ -119,7 +119,7 @@ test("markPriceCandles", async () => {
   expect(resp).toHaveProperty("markPriceCandles")
 
   if (resp.markPriceCandles!.length > 0) {
-    const [markPriceCandles] = resp.markPriceCandles!
+    const [markPriceCandle] = resp.markPriceCandles!
     const fields = [
       "close",
       "high",
@@ -130,7 +130,7 @@ test("markPriceCandles", async () => {
       "periodStartTs",
     ]
     fields.forEach((field: string) => {
-      expect(markPriceCandles).toHaveProperty(field)
+      expect(markPriceCandle).toHaveProperty(field)
     })
   }
 })
@@ -280,7 +280,6 @@ test("perpPositions", async () => {
       "bad_debt",
       "last_updated_block",
     ]
-    console.log(resp)
     fields.forEach((field: string) => {
       expect(perpPositions).toHaveProperty(field)
     })
