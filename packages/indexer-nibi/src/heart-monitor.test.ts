@@ -119,7 +119,7 @@ test("markPriceCandles", async () => {
   expect(resp).toHaveProperty("markPriceCandles")
 
   if (resp.markPriceCandles!.length > 0) {
-    const markPriceCandles = resp.markPriceCandles!
+    const [markPriceCandles] = resp.markPriceCandles!
     const fields = [
       "close",
       "high",
@@ -142,7 +142,7 @@ test("perpLeaderboard", async () => {
   expect(resp).toHaveProperty("perpLeaderboard")
 
   if (resp.perpLeaderboard!.length > 0) {
-    const perpLeaderboard = resp.perpLeaderboard!
+    const [perpLeaderboard] = resp.perpLeaderboard!
     const fields = [
       "avg_pct_pnl",
       "input_margin",
