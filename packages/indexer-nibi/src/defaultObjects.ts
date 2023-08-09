@@ -108,5 +108,5 @@ export const defaultSpotPool = {
   block: defaultBlock,
   pool: defaultPool,
   pool_shares: defaultTokenAsString,
-  user_address: "",
+  user: defaultUser,
 }
