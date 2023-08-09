@@ -48,12 +48,16 @@ describe("chain/types", () => {
     newCoin(10, "unusd"),
     newCoin(50, "unibi"),
     { amount: "42.42", denom: "uatom" },
+    { amount: "16800456610195729831", denom: "nibiru/pool/2" },
+    { denom: "unibi2", amount: "21519262" },
   ]
   test("coin map fns", () => {
     const coins: CoinMap = newCoinMapFromCoins(coinsIn)
-    expect(coins).toHaveProperty("unusd", 10)
-    expect(coins).toHaveProperty("unibi", 50)
-    expect(coins).toHaveProperty("uatom", 42)
+    expect(coins.unusd.toString()).toBe("10")
+    expect(coins.unibi.toString()).toBe("50")
+    expect(coins.uatom.toString()).toBe("42.42")
+    expect(coins.unibi2.toString()).toBe("21519262")
+    expect(coins["nibiru/pool/2"].toString()).toBe("16800456610195729831")
   })
 })
 
