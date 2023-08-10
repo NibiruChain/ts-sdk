@@ -9,6 +9,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## v0.21.9
 
+- Fix incorrect dist
+
+## v0.21.9
+
 - BigNumber, V21 introspection
 
 ## v0.21.8
