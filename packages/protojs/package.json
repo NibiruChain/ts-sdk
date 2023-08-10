@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/protojs",
   "description": "Protobuf-generated types for Nibiru Chain",
-  "version": "0.21.8",
+  "version": "0.21.9",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,10 +13,10 @@
     "build:watch": "tsc --build --watch",
     "clean": "tsc --clean"
   },
-  "gitHead": "189a24da66595240102f4fddcda98a62f3f017ad",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "tag": "latest",
     "access": "public"
-  }
+  },
+  "gitHead": "bac1729be8575a9e75bf9e04447a63c45e227c8c"
 }
