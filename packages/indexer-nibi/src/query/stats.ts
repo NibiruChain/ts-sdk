@@ -164,8 +164,6 @@ export const stats = async (
     ),
   ]
 
-  console.log(statsQuery)
-
   return doGqlQuery(
     `{
       stats {
