@@ -7,12 +7,10 @@ export async function useFaucet({
   address,
   chain,
   amts,
-  grecaptcha,
 }: {
   address: string
   chain: Chain
   amts?: { nibi: number; nusd: number; usdt: number }
-  grecaptcha: string
 }): Promise<Response> {
   if (!amts) {
     // default values
@@ -32,7 +30,7 @@ export async function useFaucet({
 
   // Execute faucet request
   console.info(
-    `Requesting funds from faucet @ ${faucetUrl}:
+    `Requesting funds from faucet @ ${faucetUrl}: 
     Coins: ${coins}
     Address: ${address}
     `
@@ -45,7 +43,7 @@ export async function useFaucet({
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ address, coins, grecaptcha }),
+      body: JSON.stringify({ address, coins }),
     })
     .catch((err) => {
       console.error(err)
