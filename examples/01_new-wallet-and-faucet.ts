@@ -18,6 +18,7 @@ async function runExample() {
   await useFaucet({
     address,
     chain: TEST_CHAIN,
+    grecaptcha: "",
   })
 }
 
