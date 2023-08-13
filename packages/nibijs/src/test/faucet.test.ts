@@ -46,8 +46,10 @@ test("faucet utility works", async () => {
   const balancesEnd = newCoinMapFromCoins(
     await signingClient.getAllBalances(toAddr)
   )
-  expect(balancesEnd.unusd - balancesStart.unusd).toEqual(100 * 1e6)
-  expect(balancesEnd.unibi - balancesStart.unibi).toEqual(11 * 1e6)
+  expect(
+    balancesEnd.unusd.minus(balancesStart.unusd).eq(100 * 1e6)
+  ).toBeTruthy()
+  expect(balancesEnd.unibi.minus(balancesStart.unibi).eq(11 * 1e6)).toBeTruthy()
 }, 60_000) // 60 seconds
 
 describe("useFaucet", () => {

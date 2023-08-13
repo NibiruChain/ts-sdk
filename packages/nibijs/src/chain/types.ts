@@ -6,6 +6,7 @@ import {
   DirectSecp256k1HdWallet as WalletHD,
   parseCoins,
 } from "@cosmjs/proto-signing"
+import BigNumber from "bignumber.js"
 import { instanceOfError } from "./error"
 
 export { AccountData, newCoin, newCoins, Coin, parseCoins, WalletHD }
@@ -30,14 +31,14 @@ export const assert = (condition: boolean, message?: string) => {
 }
 
 export interface CoinMap {
-  [denom: string]: number
+  [denom: string]: BigNumber
 }
 
 // TODO test
 export const newCoinMapFromCoins = (coins: readonly Coin[]) => {
   const coinMap: CoinMap = {}
   for (const coin of coins) {
-    coinMap[coin.denom] = parseInt(coin.amount)
+    coinMap[coin.denom] = BigNumber(coin.amount)
   }
   return coinMap
 }
