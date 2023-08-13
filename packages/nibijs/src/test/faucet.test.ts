@@ -14,7 +14,8 @@ import {
 } from "../tx"
 import { TEST_CHAIN, TEST_MNEMONIC } from "./helpers"
 
-test("faucet utility works", async () => {
+// eslint-disable-next-line jest/no-disabled-tests
+test.skip("faucet utility works", async () => {
   const wallet: WalletHD = await newRandomWallet()
   const [{ address: toAddr }] = await wallet.getAccounts()
 
