@@ -211,7 +211,7 @@ See [HACKING.md](https://github.com/NibiruChain/ts-sdk/blob/main/HACKING.md) for
 
 This software is licensed under the MIT license. See [LICENSE](https://github.com/NibiruChain/ts-sdk/blob/main/LICENSE) for full disclosure.
 
-© 2022 Nibi, Inc.
+© 2023 Nibi, Inc.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibi-logo-onwhite.png" style="width:200px">
