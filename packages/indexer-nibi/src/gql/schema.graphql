@@ -156,6 +156,7 @@ type PerpPosition {
   bad_debt: Float!
   last_updated_block: Block!
   latest_cumulative_premium_fraction: Float!
+  liquidation_price: Float!
   margin: Float!
   margin_ratio: Float!
   open_notional: Float!

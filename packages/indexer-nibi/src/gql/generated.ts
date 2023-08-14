@@ -189,6 +189,7 @@ export type PerpPosition = {
   readonly bad_debt: Scalars["Float"]["output"]
   readonly last_updated_block: Block
   readonly latest_cumulative_premium_fraction: Scalars["Float"]["output"]
+  readonly liquidation_price: Scalars["Float"]["output"]
   readonly margin: Scalars["Float"]["output"]
   readonly margin_ratio: Scalars["Float"]["output"]
   readonly open_notional: Scalars["Float"]["output"]
