@@ -84,6 +84,7 @@ export const defaultPerpPosition = {
   margin_ratio: 0,
   open_notional: 0,
   pair: "",
+  liquidation_price: 0,
   position_notional: 0,
   size: 0,
   trader_address: "",
