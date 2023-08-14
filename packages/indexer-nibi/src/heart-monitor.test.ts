@@ -331,7 +331,7 @@ test("spotPoolCreated", async () => {
 
   if (resp.spotPoolCreated!.length > 0) {
     const [spotPoolCreated] = resp.spotPoolCreated!
-    const fields = ["user_address", "block", "pool", "pool_shares"]
+    const fields = ["user", "block", "pool", "pool_shares"]
     fields.forEach((field: string) => {
       expect(spotPoolCreated).toHaveProperty(field)
     })
@@ -346,7 +346,7 @@ test("spotPoolExited", async () => {
 
   if (resp.spotPoolExited!.length > 0) {
     const [spotPoolExited] = resp.spotPoolExited!
-    const fields = ["user_address", "block", "pool", "pool_shares"]
+    const fields = ["user", "block", "pool", "pool_shares"]
     fields.forEach((field: string) => {
       expect(spotPoolExited).toHaveProperty(field)
     })
@@ -361,7 +361,7 @@ test("spotPoolJoined", async () => {
 
   if (resp.spotPoolJoined!.length > 0) {
     const [spotPoolJoined] = resp.spotPoolJoined!
-    const fields = ["user_address", "block", "pool", "pool_shares"]
+    const fields = ["user", "block", "pool", "pool_shares"]
     fields.forEach((field: string) => {
       expect(spotPoolJoined).toHaveProperty(field)
     })
@@ -402,7 +402,7 @@ test("spotPoolSwap", async () => {
 
   if (resp.spotPoolSwap!.length > 0) {
     const [spotPoolSwap] = resp.spotPoolSwap!
-    const fields = ["user_address", "block", "token_in", "token_out", "pool"]
+    const fields = ["user", "block", "token_in", "token_out", "pool"]
     fields.forEach((field: string) => {
       expect(spotPoolSwap).toHaveProperty(field)
     })

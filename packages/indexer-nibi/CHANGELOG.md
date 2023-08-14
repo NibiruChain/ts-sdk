@@ -7,7 +7,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - .
 
-## v0.21.9
+## v0.21.11
+
+- New schema
+
+## v0.21.10
 
 - Fix incorrect dist
 
