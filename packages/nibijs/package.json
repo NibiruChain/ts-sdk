@@ -41,7 +41,7 @@
     "typedoc-plugin-markdown": "^3.14.0"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
+    "registry": "https://registry.npmjs.org/@nibiruchain/nibijs",
     "tag": "latest",
     "access": "public"
   },

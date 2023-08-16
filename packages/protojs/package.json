@@ -14,7 +14,7 @@
     "clean": "tsc --clean"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
+    "registry": "https://registry.npmjs.org/@nibiruchain/protojs",
     "tag": "latest",
     "access": "public"
   },
