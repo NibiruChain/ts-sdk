@@ -168,16 +168,17 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@nibiruchain/nibijs@^0.19.13":
-  version "0.19.13"
-  resolved "https://registry.yarnpkg.com/@nibiruchain/nibijs/-/nibijs-0.19.13.tgz#78325f3e472a1e290650bc1c277a131b94a9a73a"
-  integrity sha512-TNJy5HJZ0/dGd2fmN00vGlzD2rowc6oWYkMy3vyqlfd+VpYVRCASZevj6M/0ZqHU4lk54v31yL0c+8eMMWeREg==
+"@nibiruchain/nibijs@^0.19.14":
+  version "0.19.26"
+  resolved "https://registry.yarnpkg.com/@nibiruchain/nibijs/-/nibijs-0.19.26.tgz#9dc9362bed376262b9b59604769084e019412cb5"
+  integrity sha512-bLhZioDoVc1axHnX3adjSrsXpNh3+gd8Oo6W6acENSMWFWaPyX6KW7s7K/WKWvxkwHi7lf97jV/rvh3ayC0S8Q==
   dependencies:
     "@cosmjs/cosmwasm-stargate" "^0.28.11"
     "@cosmjs/proto-signing" "^0.28.11"
     "@cosmjs/stargate" "^0.28.11"
     "@cosmjs/tendermint-rpc" "^0.28.11"
     "@nibiruchain/protojs" "^0.19.0"
+    bignumber.js "^9.1.1"
     cross-fetch "^3.1.5"
     long "^5.2.0"
 
@@ -305,6 +306,11 @@ bech32@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/bech32/-/bech32-1.1.4.tgz#e38c9f37bf179b8eb16ae3a772b40c356d4832e9"
   integrity sha512-s0IrSOzLlbvX7yp4WBfPITzpAU8sqQcpsmwXDiKwrG4r491vwCO/XpejasRNl0piBMe/DvP4Tz0mIS/X1DPJBQ==
+
+bignumber.js@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.1.1.tgz#c4df7dc496bd849d4c9464344c1aa74228b4dac6"
+  integrity sha512-pHm4LsMJ6lzgNGVfZHjMoO8sdoRhOzOH4MLmY65Jg70bpxCKu5iOHNJyfF6OyvYw7t8Fpf35RuzUyqnQsj8Vig==
 
 bn.js@^4.11.9:
   version "4.12.0"
@@ -494,9 +500,9 @@ pako@^2.0.2:
   integrity sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==
 
 protobufjs@^6.8.8, protobufjs@~6.11.2, protobufjs@~6.11.3:
-  version "6.11.3"
-  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-6.11.3.tgz#637a527205a35caa4f3e2a9a4a13ddffe0e7af74"
-  integrity sha512-xL96WDdCZYdU7Slin569tFX712BxsxslWwAfAhCYjQKGTq7dAU91Lomy6nLLhh/dyGhk/YH4TwTSRxTzhuHyZg==
+  version "6.11.4"
+  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-6.11.4.tgz#29a412c38bf70d89e537b6d02d904a6f448173aa"
+  integrity sha512-5kQWPaJHi1WoCpjTGszzQ32PG2F4+wRY6BmAT4Vfw56Q2FZ4YZzK20xUYQH4YkfehY1e6QSICrJquM6xXZNcrw==
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
     "@protobufjs/base64" "^1.1.2"
