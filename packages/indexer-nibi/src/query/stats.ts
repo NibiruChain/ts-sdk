@@ -129,7 +129,84 @@ export const stats = async (
   }>
 ): Promise<GqlOutStats> => {
   const statsQuery: string[] = []
-  if (fields?.fees) {
+  if (fields) {
+    if (fields?.fees) {
+      statsQuery.push(
+        gqlQuery(
+          "fees",
+          args.fees,
+          convertObjectToPropertiesString(fields.fees),
+          true
+        )
+      )
+    }
+
+    if (fields?.perpOpenInterest) {
+      statsQuery.push(
+        gqlQuery(
+          "perpOpenInterest",
+          args.perpOpenInterest,
+          convertObjectToPropertiesString(fields.perpOpenInterest),
+          true
+        )
+      )
+    }
+
+    if (fields?.perpPnl) {
+      statsQuery.push(
+        gqlQuery(
+          "perpPnl",
+          args.perpPnl,
+          convertObjectToPropertiesString(fields.perpPnl),
+          true
+        )
+      )
+    }
+
+    if (fields?.totals) {
+      statsQuery.push(
+        gqlQuery(
+          "totals",
+          args.totals,
+          convertObjectToPropertiesString(fields.totals),
+          true
+        )
+      )
+    }
+
+    if (fields?.tvl) {
+      statsQuery.push(
+        gqlQuery(
+          "tvl",
+          args.tvl,
+          convertObjectToPropertiesString(fields.tvl),
+          true
+        )
+      )
+    }
+
+    if (fields?.users) {
+      statsQuery.push(
+        gqlQuery(
+          "users",
+          args.users,
+          convertObjectToPropertiesString(fields.users),
+          true
+        )
+      )
+    }
+
+    if (fields?.volume) {
+      statsQuery.push(
+        gqlQuery(
+          "volume",
+          args.volume,
+          convertObjectToPropertiesString(fields.volume),
+          true
+        )
+      )
+    }
+  } else {
     statsQuery.push(
       gqlQuery(
         "fees",
@@ -138,9 +215,7 @@ export const stats = async (
         true
       )
     )
-  }
 
-  if (fields?.perpOpenInterest) {
     statsQuery.push(
       gqlQuery(
         "perpOpenInterest",
@@ -149,9 +224,7 @@ export const stats = async (
         true
       )
     )
-  }
 
-  if (fields?.perpPnl) {
     statsQuery.push(
       gqlQuery(
         "perpPnl",
@@ -160,9 +233,7 @@ export const stats = async (
         true
       )
     )
-  }
 
-  if (fields?.totals) {
     statsQuery.push(
       gqlQuery(
         "totals",
@@ -171,9 +242,7 @@ export const stats = async (
         true
       )
     )
-  }
 
-  if (fields?.tvl) {
     statsQuery.push(
       gqlQuery(
         "tvl",
@@ -182,9 +251,7 @@ export const stats = async (
         true
       )
     )
-  }
 
-  if (fields?.users) {
     statsQuery.push(
       gqlQuery(
         "users",
@@ -193,9 +260,7 @@ export const stats = async (
         true
       )
     )
-  }
 
-  if (fields?.volume) {
     statsQuery.push(
       gqlQuery(
         "volume",
