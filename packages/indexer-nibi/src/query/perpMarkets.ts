@@ -15,7 +15,8 @@ export interface GqlOutPerpMarkets {
 
 export const perpMarkets = async (
   args: QueryPerpMarketsArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<PerpMarket>
 ): Promise<GqlOutPerpMarkets> => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -25,7 +26,9 @@ export const perpMarkets = async (
     gqlQuery(
       "perpMarkets",
       args,
-      convertObjectToPropertiesString(defaultPerpMarketsObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultPerpMarketsObject)
     ),
     endpt
   )

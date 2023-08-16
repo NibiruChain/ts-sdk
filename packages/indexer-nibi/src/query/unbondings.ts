@@ -25,7 +25,8 @@ export interface GqlOutUnbondings {
 
 export const unbondings = async (
   args: QueryUnbondingsArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<Unbonding>
 ): Promise<GqlOutUnbondings> => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -35,7 +36,9 @@ export const unbondings = async (
     gqlQuery(
       "unbondings",
       args,
-      convertObjectToPropertiesString(defaultUnbondingsObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultUnbondingsObject)
     ),
     endpt
   )

@@ -15,7 +15,8 @@ export interface GqlOutPerpPositions {
 
 export const perpPositions = async (
   args: QueryPerpPositionsArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<PerpPosition>
 ): Promise<GqlOutPerpPositions> => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -25,7 +26,9 @@ export const perpPositions = async (
     gqlQuery(
       "perpPositions",
       args,
-      convertObjectToPropertiesString(defaultPerpPositionsObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultPerpPositionsObject)
     ),
     endpt
   )

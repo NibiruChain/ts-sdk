@@ -10,13 +10,16 @@ export interface GqlOutPerpMarket {
 
 export const perpMarket = async (
   args: QueryPerpMarketArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<PerpMarket>
 ): Promise<GqlOutPerpMarket> =>
   doGqlQuery(
     gqlQuery(
       "perpMarket",
       args,
-      convertObjectToPropertiesString(defaultPerpMarketObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultPerpMarketObject)
     ),
     endpt
   )

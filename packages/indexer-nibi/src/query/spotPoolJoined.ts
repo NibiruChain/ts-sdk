@@ -15,7 +15,8 @@ export interface GqlOutSpotPoolJoined {
 
 export const spotPoolJoined = async (
   args: QuerySpotPoolJoinedArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<SpotPoolJoined>
 ): Promise<GqlOutSpotPoolJoined> => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -25,7 +26,9 @@ export const spotPoolJoined = async (
     gqlQuery(
       "spotPoolJoined",
       args,
-      convertObjectToPropertiesString(defaultSpotPoolJoinedObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultSpotPoolJoinedObject)
     ),
     endpt
   )

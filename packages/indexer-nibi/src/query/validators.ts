@@ -15,7 +15,8 @@ export interface GqlOutValidators {
 
 export const validators = async (
   args: QueryValidatorsArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<Validator>
 ): Promise<GqlOutValidators> => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -25,7 +26,9 @@ export const validators = async (
     gqlQuery(
       "validators",
       args,
-      convertObjectToPropertiesString(defaultValidatorsObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultValidatorsObject)
     ),
     endpt
   )

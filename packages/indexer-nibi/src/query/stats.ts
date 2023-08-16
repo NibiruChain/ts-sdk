@@ -117,52 +117,94 @@ export interface GqlOutStats {
 
 export const stats = async (
   args: QueryStatsArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<{
+    fees?: StatsFees
+    perpOpenInterest?: StatsPerpOpenInterest
+    perpPnl?: StatsPerpPnl
+    totals?: StatsTotals
+    tvl?: StatsTvl
+    users?: StatsUsers
+    volume?: StatsVolume
+  }>
 ): Promise<GqlOutStats> => {
-  const statsQuery = [
-    gqlQuery(
-      "fees",
-      args.fees,
-      convertObjectToPropertiesString(defaultStatsFeesObject),
-      true
-    ),
-    gqlQuery(
-      "perpOpenInterest",
-      args.perpOpenInterest,
-      convertObjectToPropertiesString(defaultPerpOpenInterestObject),
-      true
-    ),
-    gqlQuery(
-      "perpPnl",
-      args.perpPnl,
-      convertObjectToPropertiesString(defaultPerpPnlObject),
-      true
-    ),
-    gqlQuery(
-      "totals",
-      args.totals,
-      convertObjectToPropertiesString(defaultTotalsObject),
-      true
-    ),
-    gqlQuery(
-      "tvl",
-      args.tvl,
-      convertObjectToPropertiesString(defaultTvlObject),
-      true
-    ),
-    gqlQuery(
-      "users",
-      args.users,
-      convertObjectToPropertiesString(defaultUsersObject),
-      true
-    ),
-    gqlQuery(
-      "volume",
-      args.volume,
-      convertObjectToPropertiesString(defaultVolumeObject),
-      true
-    ),
-  ]
+  const statsQuery: string[] = []
+  if (fields?.fees) {
+    statsQuery.push(
+      gqlQuery(
+        "fees",
+        args.fees,
+        convertObjectToPropertiesString(defaultStatsFeesObject),
+        true
+      )
+    )
+  }
+
+  if (fields?.perpOpenInterest) {
+    statsQuery.push(
+      gqlQuery(
+        "perpOpenInterest",
+        args.perpOpenInterest,
+        convertObjectToPropertiesString(defaultPerpOpenInterestObject),
+        true
+      )
+    )
+  }
+
+  if (fields?.perpPnl) {
+    statsQuery.push(
+      gqlQuery(
+        "perpPnl",
+        args.perpPnl,
+        convertObjectToPropertiesString(defaultPerpPnlObject),
+        true
+      )
+    )
+  }
+
+  if (fields?.totals) {
+    statsQuery.push(
+      gqlQuery(
+        "totals",
+        args.totals,
+        convertObjectToPropertiesString(defaultTotalsObject),
+        true
+      )
+    )
+  }
+
+  if (fields?.tvl) {
+    statsQuery.push(
+      gqlQuery(
+        "tvl",
+        args.tvl,
+        convertObjectToPropertiesString(defaultTvlObject),
+        true
+      )
+    )
+  }
+
+  if (fields?.users) {
+    statsQuery.push(
+      gqlQuery(
+        "users",
+        args.users,
+        convertObjectToPropertiesString(defaultUsersObject),
+        true
+      )
+    )
+  }
+
+  if (fields?.volume) {
+    statsQuery.push(
+      gqlQuery(
+        "volume",
+        args.volume,
+        convertObjectToPropertiesString(defaultVolumeObject),
+        true
+      )
+    )
+  }
 
   return doGqlQuery(
     `{

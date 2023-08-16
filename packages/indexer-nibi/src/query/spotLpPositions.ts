@@ -25,7 +25,8 @@ export interface GqlOutSpotLpPositions {
 
 export const spotLpPositions = async (
   args: QuerySpotLpPositionsArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<SpotLpPosition>
 ): Promise<GqlOutSpotLpPositions> => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -35,7 +36,9 @@ export const spotLpPositions = async (
     gqlQuery(
       "spotLpPositions",
       args,
-      convertObjectToPropertiesString(defaultSpotLpPositionObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultSpotLpPositionObject)
     ),
     endpt
   )
