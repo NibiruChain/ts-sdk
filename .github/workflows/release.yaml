@@ -23,13 +23,13 @@ jobs:
       - name: Setup NodeJS and npm
         uses: actions/setup-node@v3
         with:
-          node-version: "lts/hydrogen"
+          node-version: "lts/gallium"
       - name: Install yarn using npm
         run: npm install -g yarn
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
         with:
-          node-version: "lts/hydrogen"
+          node-version: "lts/gallium"
           cache: "yarn"
       - name: Install dependencies
         run: yarn --prefer-offline --check-files
