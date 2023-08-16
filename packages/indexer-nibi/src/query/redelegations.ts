@@ -26,7 +26,8 @@ export interface GqlOutRedelegations {
 
 export const redelegations = async (
   args: QueryRedelegationsArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<Redelegation>
 ): Promise<GqlOutRedelegations> => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -36,7 +37,9 @@ export const redelegations = async (
     gqlQuery(
       "redelegations",
       args,
-      convertObjectToPropertiesString(defaultRedelegationsObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultRedelegationsObject)
     ),
     endpt
   )

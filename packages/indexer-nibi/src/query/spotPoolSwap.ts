@@ -26,7 +26,8 @@ export interface GqlOutSpotPoolSwap {
 
 export const spotPoolSwap = async (
   args: QuerySpotPoolSwapArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<SpotPoolSwap>
 ): Promise<GqlOutSpotPoolSwap> => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -36,7 +37,9 @@ export const spotPoolSwap = async (
     gqlQuery(
       "spotPoolSwap",
       args,
-      convertObjectToPropertiesString(defaultSpotPoolSwapObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultSpotPoolSwapObject)
     ),
     endpt
   )

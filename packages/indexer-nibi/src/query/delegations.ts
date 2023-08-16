@@ -19,7 +19,8 @@ export interface GqlOutDelegations {
 
 export const delegations = async (
   args: QueryDelegationsArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<Delegation>
 ): Promise<GqlOutDelegations> => {
   if (!args.limit) args.limit = 100
   if (!args.order_desc) args.order_desc = true
@@ -29,7 +30,9 @@ export const delegations = async (
     gqlQuery(
       "delegations",
       args,
-      convertObjectToPropertiesString(defaultDelegationsObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultDelegationsObject)
     ),
     endpt
   )

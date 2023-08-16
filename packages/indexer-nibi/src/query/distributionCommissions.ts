@@ -18,7 +18,8 @@ export interface GqlOutDistributionCommissions {
 
 export const distributionCommissions = async (
   args: QueryDistributionCommissionsArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<DistributionCommission>
 ): Promise<GqlOutDistributionCommissions> => {
   if (!args.limit) args.limit = 100
   if (!args.order_desc) args.order_desc = true
@@ -29,7 +30,9 @@ export const distributionCommissions = async (
     gqlQuery(
       "distributionCommissions",
       args,
-      convertObjectToPropertiesString(defaultDistributionCommissionObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultDistributionCommissionObject)
     ),
     endpt
   )

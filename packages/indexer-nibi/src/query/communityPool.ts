@@ -10,13 +10,16 @@ export interface GqlOutCommunityPool {
 
 export const communityPool = async (
   args: QueryCommunityPoolArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<FloatToken>
 ): Promise<GqlOutCommunityPool> =>
   doGqlQuery(
     gqlQuery(
       "communityPool",
       args,
-      convertObjectToPropertiesString(defaultCommunityPoolObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultCommunityPoolObject)
     ),
     endpt
   )

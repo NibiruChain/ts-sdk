@@ -21,13 +21,16 @@ export interface GqlOutMarkPriceCandles {
 
 export const markPriceCandles = async (
   args: QueryMarkPriceCandlesArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<MarkPriceCandle>
 ): Promise<GqlOutMarkPriceCandles> =>
   doGqlQuery(
     gqlQuery(
       "markPriceCandles",
       args,
-      convertObjectToPropertiesString(defaultMarkPriceCandlesObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultMarkPriceCandlesObject)
     ),
     endpt
   )

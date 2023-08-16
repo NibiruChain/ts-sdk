@@ -19,13 +19,16 @@ export interface GqlOutPerpLeaderboard {
 
 export const perpLeaderboard = async (
   args: QueryPerpLeaderboardArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<PerpLeaderboard>
 ): Promise<GqlOutPerpLeaderboard> =>
   doGqlQuery(
     gqlQuery(
       "perpLeaderboard",
       args,
-      convertObjectToPropertiesString(defaultPerpLeaderboardObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultPerpLeaderboardObject)
     ),
     endpt
   )

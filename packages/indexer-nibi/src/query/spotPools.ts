@@ -15,7 +15,8 @@ export interface GqlOutSpotPools {
 
 export const spotPools = async (
   args: QuerySpotPoolsArgs,
-  endpt: string
+  endpt: string,
+  fields?: Partial<SpotPool>
 ): Promise<GqlOutSpotPools> => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -25,7 +26,9 @@ export const spotPools = async (
     gqlQuery(
       "spotPools",
       args,
-      convertObjectToPropertiesString(defaultSpotPoolObject)
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultSpotPoolObject)
     ),
     endpt
   )
