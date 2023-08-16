@@ -119,13 +119,13 @@ export const stats = async (
   args: QueryStatsArgs,
   endpt: string,
   fields?: Partial<{
-    fees?: StatsFees
-    perpOpenInterest?: StatsPerpOpenInterest
-    perpPnl?: StatsPerpPnl
-    totals?: StatsTotals
-    tvl?: StatsTvl
-    users?: StatsUsers
-    volume?: StatsVolume
+    fees?: Partial<StatsFees>
+    perpOpenInterest?: Partial<StatsPerpOpenInterest>
+    perpPnl?: Partial<StatsPerpPnl>
+    totals?: Partial<StatsTotals>
+    tvl?: Partial<StatsTvl>
+    users?: Partial<StatsUsers>
+    volume?: Partial<StatsVolume>
   }>
 ): Promise<GqlOutStats> => {
   const statsQuery: string[] = []
