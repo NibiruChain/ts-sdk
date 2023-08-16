@@ -18,7 +18,7 @@ import { TEST_CHAIN, TEST_MNEMONIC } from "./helpers"
 // and secret tokens. This not only would require a setup to generate
 // a token from the UI, but to also create a fake backend
 // recaptcha check with a test secret.
-// In this case, we can skip the test and check it manually.
+// In this case, this test can be skipped and checked it manually.
 // eslint-disable-next-line jest/no-disabled-tests
 test.skip("faucet utility works", async () => {
   const wallet: WalletHD = await newRandomWallet()
