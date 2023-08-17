@@ -73,7 +73,7 @@ export const governance = async (
       gqlQuery(
         "govDeposits",
         args.govDeposits,
-        convertObjectToPropertiesString(defaultGovernanceObject.govDeposits),
+        convertObjectToPropertiesString(defaultGovernanceObject.govDeposits[0]),
         true
       )
     )
@@ -82,7 +82,9 @@ export const governance = async (
       gqlQuery(
         "govProposals",
         args.govProposals,
-        convertObjectToPropertiesString(defaultGovernanceObject.govProposals),
+        convertObjectToPropertiesString(
+          defaultGovernanceObject.govProposals[0]
+        ),
         true
       )
     )
@@ -91,7 +93,7 @@ export const governance = async (
       gqlQuery(
         "govVotes",
         args.govVotes,
-        convertObjectToPropertiesString(defaultGovernanceObject.govVotes),
+        convertObjectToPropertiesString(defaultGovernanceObject.govVotes[0]),
         true
       )
     )
