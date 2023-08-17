@@ -33,4 +33,4 @@ Error.constructor
 
 #### Defined in
 
-[chain/error.ts:25](https://github.com/NibiruChain/ts-sdk/blob/2842c1e/packages/nibijs/src/chain/error.ts#L25)
+[chain/error.ts:25](https://github.com/NibiruChain/ts-sdk/blob/1aeb2e3/packages/nibijs/src/chain/error.ts#L25)
