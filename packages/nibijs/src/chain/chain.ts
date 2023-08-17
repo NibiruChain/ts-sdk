@@ -78,9 +78,9 @@ export class CustomChain implements Chain {
 }
 
 export const Localnet: Chain = {
-  endptTm: "http://localhost:26657",
-  endptRest: "http://localhost:1317",
-  endptGrpc: "http://localhost:9090",
+  endptTm: "http://127.0.0.1:26657",
+  endptRest: "http://127.0.0.1:1317",
+  endptGrpc: "http://127.0.0.1:9090",
   chainId: "nibiru-localnet-0",
   chainName: "Nibiru Localnet (Default)",
   feeDenom: "unibi",

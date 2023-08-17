@@ -12,11 +12,11 @@ jobs:
   test-nibijs:
     runs-on: ubuntu-latest
     env:
-      LCD_ENDPOINT: "http://localhost:1317"
-      GRPC_ENDPOINT: "localhost:9090"
-      TENDERMINT_RPC_ENDPOINT: "http://localhost:26657"
+      LCD_ENDPOINT: "http://127.0.0.1:1317"
+      GRPC_ENDPOINT: "127.0.0.1:9090"
+      TENDERMINT_RPC_ENDPOINT: "http://127.0.0.1:26657"
       USE_LOCALNET: true
-      WEBSOCKET_ENDPOINT: "ws://localhost:26657/websocket"
+      WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
       CHAIN_ID: "nibiru-localnet-0"
       VALIDATOR_MNEMONIC: "guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host"
     steps:
