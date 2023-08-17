@@ -1,7 +1,7 @@
 import {
   defaultBlock,
   defaultPool,
-  defaultTokenAsString,
+  defaultToken,
   defaultUser,
 } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
@@ -15,7 +15,7 @@ import {
 export const defaultSpotLpPositionObject: SpotLpPosition = {
   created_block: defaultBlock,
   pool: defaultPool,
-  pool_shares: defaultTokenAsString,
+  pool_shares: defaultToken,
   user: defaultUser,
 }
 

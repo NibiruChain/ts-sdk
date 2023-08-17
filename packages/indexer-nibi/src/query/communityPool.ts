@@ -1,8 +1,8 @@
 import { defaultToken } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
-import { QueryCommunityPoolArgs, Query, FloatToken } from "../gql/generated"
+import { QueryCommunityPoolArgs, Query, Token } from "../gql/generated"
 
-export const defaultCommunityPoolObject: FloatToken = defaultToken
+export const defaultCommunityPoolObject: Token = defaultToken
 
 export interface GqlOutCommunityPool {
   communityPool?: Query["communityPool"]
@@ -11,7 +11,7 @@ export interface GqlOutCommunityPool {
 export const communityPool = async (
   args: QueryCommunityPoolArgs,
   endpt: string,
-  fields?: Partial<FloatToken>
+  fields?: Partial<Token>
 ): Promise<GqlOutCommunityPool> =>
   doGqlQuery(
     gqlQuery(

@@ -25,7 +25,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean }
   Int: { input: number; output: number }
   Float: { input: number; output: number }
-  Time: { input: any; output: any }
+  Time: { input: string; output: string }
 }
 
 export type Block = {
@@ -63,7 +63,7 @@ export enum DelegationOrder {
 
 export type DistributionCommission = {
   readonly __typename?: "DistributionCommission"
-  readonly commission?: Maybe<ReadonlyArray<FloatToken>>
+  readonly commission?: Maybe<ReadonlyArray<Token>>
   readonly validator: Validator
 }
 
@@ -75,10 +75,132 @@ export enum DistributionCommissionOrder {
   ValidatorAddress = "validator_address",
 }
 
-export type FloatToken = {
-  readonly __typename?: "FloatToken"
-  readonly amount: Scalars["Float"]["output"]
-  readonly denom: Scalars["String"]["output"]
+export type GovDeposit = {
+  readonly __typename?: "GovDeposit"
+  readonly amount: ReadonlyArray<Token>
+  readonly block: Block
+  readonly proposal: GovProposal
+  readonly sender: User
+}
+
+export type GovDepositsFilter = {
+  readonly block?: InputMaybe<IntFilter>
+  readonly proposalId?: InputMaybe<IntFilter>
+  readonly senderEq?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export enum GovDepositsOrder {
+  Block = "block",
+  ProposalId = "proposal_id",
+  Sender = "sender",
+}
+
+export type GovProposal = {
+  readonly __typename?: "GovProposal"
+  readonly depositEndTime: Scalars["Time"]["output"]
+  readonly finalTallyResultAbstain: Scalars["Int"]["output"]
+  readonly finalTallyResultNo: Scalars["Int"]["output"]
+  readonly finalTallyResultNoWithVeto: Scalars["Int"]["output"]
+  readonly finalTallyResultYes: Scalars["Int"]["output"]
+  readonly id: Scalars["Int"]["output"]
+  readonly metadata: Scalars["String"]["output"]
+  readonly proposer: User
+  readonly status: Scalars["String"]["output"]
+  readonly submitTime: Scalars["Time"]["output"]
+  readonly summary: Scalars["String"]["output"]
+  readonly title: Scalars["String"]["output"]
+  readonly totalDeposit: ReadonlyArray<Token>
+  readonly votingEndTime?: Maybe<Scalars["Time"]["output"]>
+  readonly votingStartTime?: Maybe<Scalars["Time"]["output"]>
+}
+
+export type GovProposalsFilter = {
+  readonly depositEndTime?: InputMaybe<TimeFilter>
+  readonly finalTallyResultAbstain?: InputMaybe<IntFilter>
+  readonly finalTallyResultNo?: InputMaybe<IntFilter>
+  readonly finalTallyResultNoWithVeto?: InputMaybe<IntFilter>
+  readonly finalTallyResultYes?: InputMaybe<IntFilter>
+  readonly id?: InputMaybe<IntFilter>
+  readonly proposerEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly submitTime?: InputMaybe<TimeFilter>
+  readonly summary?: InputMaybe<StringFilter>
+  readonly title?: InputMaybe<StringFilter>
+  readonly votingEndTime?: InputMaybe<TimeFilter>
+  readonly votingStartTime?: InputMaybe<TimeFilter>
+}
+
+export enum GovProposalsOrder {
+  DepositEndTime = "deposit_end_time",
+  FinalTallyResultAbstain = "final_tally_result_abstain",
+  FinalTallyResultNo = "final_tally_result_no",
+  FinalTallyResultNoWithVeto = "final_tally_result_no_with_veto",
+  FinalTallyResultYes = "final_tally_result_yes",
+  Id = "id",
+  Proposer = "proposer",
+  Status = "status",
+  SubmitTime = "submit_time",
+  Summary = "summary",
+  Title = "title",
+  VotingEndTime = "voting_end_time",
+  VotingStartTime = "voting_start_time",
+}
+
+export type GovVote = {
+  readonly __typename?: "GovVote"
+  readonly block: Block
+  readonly option: Scalars["String"]["output"]
+  readonly proposal: GovProposal
+  readonly sender: User
+}
+
+export type GovVotesFilter = {
+  readonly block?: InputMaybe<IntFilter>
+  readonly optionEq?: InputMaybe<Scalars["String"]["input"]>
+  readonly proposalId?: InputMaybe<IntFilter>
+  readonly senderEq?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export enum GovVotesOrder {
+  Block = "block",
+  Option = "option",
+  ProposalId = "proposal_id",
+  Sender = "sender",
+}
+
+export type Governance = {
+  readonly __typename?: "Governance"
+  readonly govDeposits: ReadonlyArray<GovDeposit>
+  readonly govProposals: ReadonlyArray<GovProposal>
+  readonly govVotes: ReadonlyArray<GovVote>
+}
+
+export type GovernanceGovDepositsArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order?: InputMaybe<GovDepositsOrder>
+  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<GovDepositsFilter>
+}
+
+export type GovernanceGovProposalsArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order?: InputMaybe<GovProposalsOrder>
+  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<GovProposalsFilter>
+}
+
+export type GovernanceGovVotesArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order?: InputMaybe<GovVotesOrder>
+  orderDesc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<GovVotesFilter>
+}
+
+export type IntFilter = {
+  readonly eq?: InputMaybe<Scalars["Int"]["input"]>
+  readonly gt?: InputMaybe<Scalars["Int"]["input"]>
+  readonly gte?: InputMaybe<Scalars["Int"]["input"]>
+  readonly lt?: InputMaybe<Scalars["Int"]["input"]>
+  readonly lte?: InputMaybe<Scalars["Int"]["input"]>
 }
 
 export type MarkPriceCandle = {
@@ -215,9 +337,10 @@ export enum PerpPositionOrder {
 
 export type Query = {
   readonly __typename?: "Query"
-  readonly communityPool: ReadonlyArray<FloatToken>
+  readonly communityPool: ReadonlyArray<Token>
   readonly delegations: ReadonlyArray<Delegation>
   readonly distributionCommissions: ReadonlyArray<DistributionCommission>
+  readonly governance: Governance
   readonly markPriceCandles: ReadonlyArray<MarkPriceCandle>
   readonly perpLeaderboard: ReadonlyArray<PerpLeaderboard>
   readonly perpMarket?: Maybe<PerpMarket>
@@ -390,17 +513,11 @@ export enum RedelegationOrder {
   SourceValidatorAddress = "source_validator_address",
 }
 
-export type SharesToken = {
-  readonly __typename?: "SharesToken"
-  readonly amount: Scalars["String"]["output"]
-  readonly denom: Scalars["String"]["output"]
-}
-
 export type SpotLpPosition = {
   readonly __typename?: "SpotLpPosition"
   readonly created_block: Block
   readonly pool: SpotPool
-  readonly pool_shares: SharesToken
+  readonly pool_shares: Token
   readonly user: User
 }
 
@@ -423,7 +540,7 @@ export type SpotPool = {
   readonly pool_type: Scalars["String"]["output"]
   readonly swap_fee: Scalars["Float"]["output"]
   readonly tokens: ReadonlyArray<Token>
-  readonly total_shares: SharesToken
+  readonly total_shares: Token
   readonly total_weight: Scalars["Float"]["output"]
   readonly weights: ReadonlyArray<Token>
 }
@@ -432,7 +549,7 @@ export type SpotPoolCreated = {
   readonly __typename?: "SpotPoolCreated"
   readonly block: Block
   readonly pool: SpotPool
-  readonly pool_shares: SharesToken
+  readonly pool_shares: Token
   readonly user: User
 }
 
@@ -450,7 +567,7 @@ export type SpotPoolExited = {
   readonly __typename?: "SpotPoolExited"
   readonly block: Block
   readonly pool: SpotPool
-  readonly pool_shares: SharesToken
+  readonly pool_shares: Token
   readonly user: User
 }
 
@@ -472,7 +589,7 @@ export type SpotPoolJoined = {
   readonly __typename?: "SpotPoolJoined"
   readonly block: Block
   readonly pool: SpotPool
-  readonly pool_shares: SharesToken
+  readonly pool_shares: Token
   readonly user: User
 }
 
@@ -750,9 +867,22 @@ export enum StatsVolumeOrder {
   VolumeTotalCumulative = "volume_total_cumulative",
 }
 
+export type StringFilter = {
+  readonly eq?: InputMaybe<Scalars["String"]["input"]>
+  readonly like?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export type TimeFilter = {
+  readonly eq?: InputMaybe<Scalars["Time"]["input"]>
+  readonly gt?: InputMaybe<Scalars["Time"]["input"]>
+  readonly gte?: InputMaybe<Scalars["Time"]["input"]>
+  readonly lt?: InputMaybe<Scalars["Time"]["input"]>
+  readonly lte?: InputMaybe<Scalars["Time"]["input"]>
+}
+
 export type Token = {
   readonly __typename?: "Token"
-  readonly amount: Scalars["Int"]["output"]
+  readonly amount: Scalars["String"]["output"]
   readonly denom: Scalars["String"]["output"]
 }
 

@@ -112,6 +112,29 @@ test("distributionCommissions", async () => {
   }
 })
 
+test("governance", async () => {
+  const resp = await heartMonitor.governance({
+    govDeposits: {
+      limit: 1,
+    },
+    govProposals: {
+      limit: 1,
+    },
+    govVotes: {
+      limit: 1,
+    },
+  })
+  expect(resp).toHaveProperty("governance")
+
+  if (resp.governance) {
+    const governance = resp.governance!
+    const fields = ["govDeposits", "govProposals", "govVotes"]
+    fields.forEach((field: string) => {
+      expect(governance).toHaveProperty(field)
+    })
+  }
+})
+
 test("markPriceCandles", async () => {
   const resp = await heartMonitor.markPriceCandles({
     limit: 1,
