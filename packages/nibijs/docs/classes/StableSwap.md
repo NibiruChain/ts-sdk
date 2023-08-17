@@ -54,7 +54,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:25](https://github.com/NibiruChain/ts-sdk/blob/2842c1e/packages/nibijs/src/stableswap/stableswap.ts#L25)
+[stableswap/stableswap.ts:25](https://github.com/NibiruChain/ts-sdk/blob/ed391cf/packages/nibijs/src/stableswap/stableswap.ts#L25)
 
 ## Properties
 
@@ -64,7 +64,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/2842c1e/packages/nibijs/src/stableswap/stableswap.ts#L20)
+[stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/ed391cf/packages/nibijs/src/stableswap/stableswap.ts#L20)
 
 ---
 
@@ -74,7 +74,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/2842c1e/packages/nibijs/src/stableswap/stableswap.ts#L23)
+[stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/ed391cf/packages/nibijs/src/stableswap/stableswap.ts#L23)
 
 ---
 
@@ -84,7 +84,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/2842c1e/packages/nibijs/src/stableswap/stableswap.ts#L21)
+[stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/ed391cf/packages/nibijs/src/stableswap/stableswap.ts#L21)
 
 ---
 
@@ -94,7 +94,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:22](https://github.com/NibiruChain/ts-sdk/blob/2842c1e/packages/nibijs/src/stableswap/stableswap.ts#L22)
+[stableswap/stableswap.ts:22](https://github.com/NibiruChain/ts-sdk/blob/ed391cf/packages/nibijs/src/stableswap/stableswap.ts#L22)
 
 ## Methods
 
@@ -107,17 +107,17 @@ D()
 D invariant calculation in non-overflowing integer operations iteratively
 A _ sum(x_i) _ n**n + D = A _ D _ n**n + D**(n+1) / (n**n \* prod(x_i))
 
-**`Memberof`**
-
-StableSwap
-
 #### Returns
 
 `BigNumber`
 
+**`Memberof`**
+
+StableSwap
+
 #### Defined in
 
-[stableswap/stableswap.ts:54](https://github.com/NibiruChain/ts-sdk/blob/2842c1e/packages/nibijs/src/stableswap/stableswap.ts#L54)
+[stableswap/stableswap.ts:54](https://github.com/NibiruChain/ts-sdk/blob/ed391cf/packages/nibijs/src/stableswap/stableswap.ts#L54)
 
 ---
 
@@ -126,10 +126,6 @@ StableSwap
 ▸ **exchange**(`fromIndex`, `toIndex`, `dx`): `BigNumber`
 
 exchange() runs a theorhetical Curve StableSwap model to determine impact on token price
-
-**`Memberof`**
-
-StableSwap
 
 #### Parameters
 
@@ -143,9 +139,13 @@ StableSwap
 
 `BigNumber`
 
+**`Memberof`**
+
+StableSwap
+
 #### Defined in
 
-[stableswap/stableswap.ts:143](https://github.com/NibiruChain/ts-sdk/blob/2842c1e/packages/nibijs/src/stableswap/stableswap.ts#L143)
+[stableswap/stableswap.ts:143](https://github.com/NibiruChain/ts-sdk/blob/ed391cf/packages/nibijs/src/stableswap/stableswap.ts#L143)
 
 ---
 
@@ -155,17 +155,17 @@ StableSwap
 
 xp() gives an array of total tokens
 
-**`Memberof`**
-
-StableSwap
-
 #### Returns
 
 `BigNumber`[]
 
+**`Memberof`**
+
+StableSwap
+
 #### Defined in
 
-[stableswap/stableswap.ts:41](https://github.com/NibiruChain/ts-sdk/blob/2842c1e/packages/nibijs/src/stableswap/stableswap.ts#L41)
+[stableswap/stableswap.ts:41](https://github.com/NibiruChain/ts-sdk/blob/ed391cf/packages/nibijs/src/stableswap/stableswap.ts#L41)
 
 ---
 
@@ -183,10 +183,6 @@ x_1\*\*2 + b\*x_1 = c
 
 x_1 = (x_1\**2 + c) / (2*x_1 + b)
 
-**`Memberof`**
-
-StableSwap
-
 #### Parameters
 
 | Name        | Type        |
@@ -199,6 +195,10 @@ StableSwap
 
 `BigNumber`
 
+**`Memberof`**
+
+StableSwap
+
 #### Defined in
 
-[stableswap/stableswap.ts:104](https://github.com/NibiruChain/ts-sdk/blob/2842c1e/packages/nibijs/src/stableswap/stableswap.ts#L104)
+[stableswap/stableswap.ts:104](https://github.com/NibiruChain/ts-sdk/blob/ed391cf/packages/nibijs/src/stableswap/stableswap.ts#L104)

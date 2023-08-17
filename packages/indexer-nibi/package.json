@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/indexer-nibi",
   "description": "GraphQL API client for the Nibiru Chain indexer (heart-monitor)",
-  "version": "0.21.11",
+  "version": "0.21.13",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,7 @@
     "ts-jest": "^28.0.0-next.3"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/@nibiruchain/indexer-nibi",
+    "registry": "https://registry.npmjs.org/",
     "tag": "latest",
     "access": "public"
   },
