@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.13](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.12...@nibiruchain/indexer-nibi-v0.21.13) (2023-08-17)
+
+### Code Refactors
+
+- registry update ([ed391cf](https://github.com/NibiruChain/ts-sdk/commit/ed391cf6cd2e097c55d88ce235d0308ac8685d4f))
+
 ## [@nibiruchain/indexer-nibi-v0.21.12](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.11...@nibiruchain/indexer-nibi-v0.21.12) (2023-08-17)
 
 ### Features
