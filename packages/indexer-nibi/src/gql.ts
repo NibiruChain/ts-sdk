@@ -123,9 +123,11 @@ export const gqlQuery = <T>(
 }
 
 export const doGqlQuery = async (gqlQuery: string, gqlEndpt: string) => {
-  const encodedGqlQuery = encodeURI(gqlQuery)
-  const fetchString = `${gqlEndpt}?query=${encodedGqlQuery}`
-  const rawResp = await window.fetch(fetchString)
+  const rawResp = await window.fetch(gqlEndpt, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: gqlQuery }),
+  })
   return cleanResponse(rawResp)
 }
 
