@@ -94,8 +94,16 @@ export const gqlQuery = <T>(
       queryArgList.push(arg("order_by", typedQueryArgs.order_by, true))
     }
 
+    if (typedQueryArgs.order !== undefined) {
+      queryArgList.push(arg("order", typedQueryArgs.order, true))
+    }
+
     if (typedQueryArgs.order_desc !== undefined) {
       queryArgList.push(arg("order_desc", typedQueryArgs.order_desc))
+    }
+
+    if (typedQueryArgs.orderDesc !== undefined) {
+      queryArgList.push(arg("orderDesc", typedQueryArgs.orderDesc))
     }
   } else {
     queryArgList = Object.keys(typedQueryArgs).map((key) =>
