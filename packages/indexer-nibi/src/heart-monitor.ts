@@ -57,6 +57,11 @@ import {
   validators,
 } from "./query"
 import {
+  GqlOutGovernance,
+  QueryGovernanceArgs,
+  governance,
+} from "./query/governance"
+import {
   GqlOutMarkPriceCandles,
   markPriceCandles,
 } from "./query/markPriceCandles"
@@ -77,6 +82,8 @@ export interface IHeartMonitor {
   readonly distributionCommissions: (
     args: QueryDistributionCommissionsArgs
   ) => Promise<GqlOutDistributionCommissions>
+
+  readonly governance: (args: QueryGovernanceArgs) => Promise<GqlOutGovernance>
 
   readonly markPriceCandles: (
     args: QueryMarkPriceCandlesArgs
@@ -164,6 +171,9 @@ export class HeartMonitor implements IHeartMonitor {
 
   distributionCommissions = async (args: QueryDistributionCommissionsArgs) =>
     distributionCommissions(args, this.gqlEndpt)
+
+  governance = async (args: QueryGovernanceArgs) =>
+    governance(args, this.gqlEndpt)
 
   markPriceCandles = async (args: QueryMarkPriceCandlesArgs) =>
     markPriceCandles(args, this.gqlEndpt)

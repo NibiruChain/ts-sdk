@@ -35,7 +35,7 @@ enum DelegationOrder {
 }
 
 type DistributionCommission {
-  commission: [FloatToken!]
+  commission: [Token!]
   validator: Validator!
 }
 
@@ -47,9 +47,122 @@ enum DistributionCommissionOrder {
   validator_address
 }
 
-type FloatToken {
-  amount: Float!
-  denom: String!
+type GovDeposit {
+  amount: [Token!]!
+  block: Block!
+  proposal: GovProposal!
+  sender: User!
+}
+
+input GovDepositsFilter {
+  block: IntFilter
+  proposalId: IntFilter
+  senderEq: String
+}
+
+enum GovDepositsOrder {
+  block
+  proposal_id
+  sender
+}
+
+type GovProposal {
+  depositEndTime: Time!
+  finalTallyResultAbstain: Int!
+  finalTallyResultNo: Int!
+  finalTallyResultNoWithVeto: Int!
+  finalTallyResultYes: Int!
+  id: Int!
+  metadata: String!
+  proposer: User!
+  status: String!
+  submitTime: Time!
+  summary: String!
+  title: String!
+  totalDeposit: [Token!]!
+  votingEndTime: Time
+  votingStartTime: Time
+}
+
+input GovProposalsFilter {
+  depositEndTime: TimeFilter
+  finalTallyResultAbstain: IntFilter
+  finalTallyResultNo: IntFilter
+  finalTallyResultNoWithVeto: IntFilter
+  finalTallyResultYes: IntFilter
+  id: IntFilter
+  proposerEq: String
+  submitTime: TimeFilter
+  summary: StringFilter
+  title: StringFilter
+  votingEndTime: TimeFilter
+  votingStartTime: TimeFilter
+}
+
+enum GovProposalsOrder {
+  deposit_end_time
+  final_tally_result_abstain
+  final_tally_result_no
+  final_tally_result_no_with_veto
+  final_tally_result_yes
+  id
+  proposer
+  status
+  submit_time
+  summary
+  title
+  voting_end_time
+  voting_start_time
+}
+
+type GovVote {
+  block: Block!
+  option: String!
+  proposal: GovProposal!
+  sender: User!
+}
+
+input GovVotesFilter {
+  block: IntFilter
+  optionEq: String
+  proposalId: IntFilter
+  senderEq: String
+}
+
+enum GovVotesOrder {
+  block
+  option
+  proposal_id
+  sender
+}
+
+type Governance {
+  govDeposits(
+    limit: Int
+    order: GovDepositsOrder
+    orderDesc: Boolean
+    where: GovDepositsFilter
+  ): [GovDeposit!]!
+  govProposals(
+    limit: Int
+    order: GovProposalsOrder
+    orderDesc: Boolean
+    where: GovProposalsFilter
+  ): [GovProposal!]!
+  govVotes(
+    limit: Int
+    order: GovVotesOrder
+    orderDesc: Boolean
+    where: GovVotesFilter
+  ): [GovVote!]!
+}
+
+input IntFilter {
+  eq: Int
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
 }
 
 type MarkPriceCandle {
@@ -186,7 +299,7 @@ type Query {
     order_by: CommunityPoolOrder
     order_desc: Boolean
     where: CommunityPoolFilter
-  ): [FloatToken!]!
+  ): [Token!]!
   delegations(
     limit: Int
     order_by: DelegationOrder
@@ -199,6 +312,7 @@ type Query {
     order_desc: Boolean
     where: DistributionCommissionFilter
   ): [DistributionCommission!]!
+  governance: Governance!
   markPriceCandles(
     limit: Int
     order_by: MarkPriceCandlesOrder
@@ -311,15 +425,10 @@ enum RedelegationOrder {
   source_validator_address
 }
 
-type SharesToken {
-  amount: String!
-  denom: String!
-}
-
 type SpotLpPosition {
   created_block: Block!
   pool: SpotPool!
-  pool_shares: SharesToken!
+  pool_shares: Token!
   user: User!
 }
 
@@ -341,7 +450,7 @@ type SpotPool {
   pool_type: String!
   swap_fee: Float!
   tokens: [Token!]!
-  total_shares: SharesToken!
+  total_shares: Token!
   total_weight: Float!
   weights: [Token!]!
 }
@@ -349,7 +458,7 @@ type SpotPool {
 type SpotPoolCreated {
   block: Block!
   pool: SpotPool!
-  pool_shares: SharesToken!
+  pool_shares: Token!
   user: User!
 }
 
@@ -366,7 +475,7 @@ enum SpotPoolCreatedOrder {
 type SpotPoolExited {
   block: Block!
   pool: SpotPool!
-  pool_shares: SharesToken!
+  pool_shares: Token!
   user: User!
 }
 
@@ -387,7 +496,7 @@ input SpotPoolFilter {
 type SpotPoolJoined {
   block: Block!
   pool: SpotPool!
-  pool_shares: SharesToken!
+  pool_shares: Token!
   user: User!
 }
 
@@ -642,10 +751,23 @@ enum StatsVolumeOrder {
   volume_total_cumulative
 }
 
+input StringFilter {
+  eq: String
+  like: String
+}
+
 scalar Time
 
+input TimeFilter {
+  eq: Time
+  gt: Time
+  gte: Time
+  lt: Time
+  lte: Time
+}
+
 type Token {
-  amount: Int!
+  amount: String!
   denom: String!
 }
 

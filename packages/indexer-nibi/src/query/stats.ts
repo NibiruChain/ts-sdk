@@ -39,6 +39,7 @@ export const defaultStatsFeesObject: StatsFees = {
   period: 0,
   periodStartTs: "",
 }
+
 export const defaultPerpOpenInterestObject: StatsPerpOpenInterest = {
   openInterestLong: 0,
   openInterestShort: 0,
@@ -60,7 +61,7 @@ export const defaultPerpPnlObject: StatsPerpPnl = {
 
 export const defaultTotalsObject: StatsTotals = {
   period: 0,
-  periodStartTs: 0,
+  periodStartTs: "",
   totalPerp: 0,
   totalFeesPerp: 0,
   totalFeesLiquidations: 0,
@@ -129,6 +130,7 @@ export const stats = async (
   }>
 ): Promise<GqlOutStats> => {
   const statsQuery: string[] = []
+
   if (fields) {
     if (fields?.fees) {
       statsQuery.push(

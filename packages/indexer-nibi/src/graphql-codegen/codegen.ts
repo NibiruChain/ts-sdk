@@ -17,6 +17,12 @@ const config: CodegenConfig = {
       plugins: ["typescript", "typescript-operations"],
       config: {
         immutableTypes: true,
+        scalars: {
+          Time: {
+            input: "string",
+            output: "string",
+          },
+        },
       },
     },
   },
