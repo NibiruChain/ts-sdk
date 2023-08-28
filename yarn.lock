@@ -2187,7 +2187,7 @@
 
 "@nibiruchain/indexer-nibi@file:/home/runner/work/ts-sdk/ts-sdk/packages/indexer-nibi":
   "resolved" "file:packages/indexer-nibi"
-  "version" "0.21.13"
+  "version" "0.21.14"
 
 "@nibiruchain/nibijs@file:/home/runner/work/ts-sdk/ts-sdk/packages/nibijs":
   "resolved" "file:packages/nibijs"
