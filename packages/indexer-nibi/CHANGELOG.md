@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.18](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.17...@nibiruchain/indexer-nibi-v0.21.18) (2023-08-28)
+
+### Features
+
+- **post:** graphql reqs ([#216](https://github.com/NibiruChain/ts-sdk/issues/216)) ([bccd08e](https://github.com/NibiruChain/ts-sdk/commit/bccd08ecd24b21847ac3adbba234fadcdfd371db))
+
 ## [@nibiruchain/indexer-nibi-v0.21.17](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.16...@nibiruchain/indexer-nibi-v0.21.17) (2023-08-28)
 
 ### Bug Fixes
