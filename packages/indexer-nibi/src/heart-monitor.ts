@@ -1,5 +1,12 @@
 import { gqlEndptFromTmRpc } from "./gql"
 import {
+  Delegation,
+  DistributionCommission,
+  Governance,
+  MarkPriceCandle,
+  PerpLeaderboard,
+  PerpMarket,
+  PerpPosition,
   QueryCommunityPoolArgs,
   QueryDelegationsArgs,
   QueryDistributionCommissionsArgs,
@@ -19,6 +26,17 @@ import {
   QueryUnbondingsArgs,
   QueryUsersArgs,
   QueryValidatorsArgs,
+  Redelegation,
+  SpotLpPosition,
+  SpotPool,
+  SpotPoolCreated,
+  SpotPoolExited,
+  SpotPoolJoined,
+  SpotPoolSwap,
+  Token,
+  Unbonding,
+  User,
+  Validator,
 } from "./gql/generated"
 import {
   GqlOutCommunityPool,
@@ -66,80 +84,115 @@ import {
   markPriceCandles,
 } from "./query/markPriceCandles"
 import { GqlOutPerpLeaderboard, perpLeaderboard } from "./query/perpLeaderboard"
-import { GqlOutStats, QueryStatsArgs, stats } from "./query/stats"
+import { GqlOutStats, QueryStatsArgs, StatsFields, stats } from "./query/stats"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
 export interface IHeartMonitor {
   readonly communityPool: (
-    args: QueryCommunityPoolArgs
+    args: QueryCommunityPoolArgs,
+    fields?: Partial<Token>
   ) => Promise<GqlOutCommunityPool>
 
   readonly delegations: (
-    args: QueryDelegationsArgs
+    args: QueryDelegationsArgs,
+    fields?: Partial<Delegation>
   ) => Promise<GqlOutDelegations>
 
   readonly distributionCommissions: (
-    args: QueryDistributionCommissionsArgs
+    args: QueryDistributionCommissionsArgs,
+    fields?: Partial<DistributionCommission>
   ) => Promise<GqlOutDistributionCommissions>
 
-  readonly governance: (args: QueryGovernanceArgs) => Promise<GqlOutGovernance>
+  readonly governance: (
+    args: QueryGovernanceArgs,
+    fields?: Partial<Governance>
+  ) => Promise<GqlOutGovernance>
 
   readonly markPriceCandles: (
-    args: QueryMarkPriceCandlesArgs
+    args: QueryMarkPriceCandlesArgs,
+    fields?: Partial<MarkPriceCandle>
   ) => Promise<GqlOutMarkPriceCandles>
 
   readonly perpLeaderboard: (
-    args: QueryPerpLeaderboardArgs
+    args: QueryPerpLeaderboardArgs,
+    fields?: Partial<PerpLeaderboard>
   ) => Promise<GqlOutPerpLeaderboard>
 
-  readonly perpMarket: (args: QueryPerpMarketArgs) => Promise<GqlOutPerpMarket>
+  readonly perpMarket: (
+    args: QueryPerpMarketArgs,
+    fields?: Partial<PerpMarket>
+  ) => Promise<GqlOutPerpMarket>
 
   readonly perpMarkets: (
-    args: QueryPerpMarketsArgs
+    args: QueryPerpMarketsArgs,
+    fields?: Partial<PerpMarket>
   ) => Promise<GqlOutPerpMarkets>
 
   readonly perpPosition: (
-    args: QueryPerpPositionArgs
+    args: QueryPerpPositionArgs,
+    fields?: Partial<PerpPosition>
   ) => Promise<GqlOutPerpPosition>
 
   readonly perpPositions: (
-    args: QueryPerpPositionsArgs
+    args: QueryPerpPositionsArgs,
+    fields?: Partial<PerpPosition>
   ) => Promise<GqlOutPerpPositions>
 
   readonly redelegations: (
-    args: QueryRedelegationsArgs
+    args: QueryRedelegationsArgs,
+    fields?: Partial<Redelegation>
   ) => Promise<GqlOutRedelegations>
 
   readonly spotLpPositions: (
-    args: QuerySpotLpPositionsArgs
+    args: QuerySpotLpPositionsArgs,
+    fields?: Partial<SpotLpPosition>
   ) => Promise<GqlOutSpotLpPositions>
 
   readonly spotPoolCreated: (
-    args: QuerySpotPoolCreatedArgs
+    args: QuerySpotPoolCreatedArgs,
+    fields?: Partial<SpotPoolCreated>
   ) => Promise<GqlOutSpotPoolCreated>
 
   readonly spotPoolExited: (
-    args: QuerySpotPoolExitedArgs
+    args: QuerySpotPoolExitedArgs,
+    fields?: Partial<SpotPoolExited>
   ) => Promise<GqlOutSpotPoolExited>
 
   readonly spotPoolJoined: (
-    args: QuerySpotPoolJoinedArgs
+    args: QuerySpotPoolJoinedArgs,
+    fields?: Partial<SpotPoolJoined>
   ) => Promise<GqlOutSpotPoolJoined>
 
-  readonly spotPools: (args: QuerySpotPoolsArgs) => Promise<GqlOutSpotPools>
+  readonly spotPools: (
+    args: QuerySpotPoolsArgs,
+    fields?: Partial<SpotPool>
+  ) => Promise<GqlOutSpotPools>
 
   readonly spotPoolSwap: (
-    args: QuerySpotPoolSwapArgs
+    args: QuerySpotPoolSwapArgs,
+    fields?: Partial<SpotPoolSwap>
   ) => Promise<GqlOutSpotPoolSwap>
 
-  readonly stats: (args: QueryStatsArgs) => Promise<GqlOutStats>
+  readonly stats: (
+    args: QueryStatsArgs,
+    fields?: StatsFields
+  ) => Promise<GqlOutStats>
 
-  readonly unbondings: (args: QueryUnbondingsArgs) => Promise<GqlOutUnbondings>
+  readonly unbondings: (
+    args: QueryUnbondingsArgs,
+    fields?: Partial<Unbonding>
+  ) => Promise<GqlOutUnbondings>
 
-  readonly users: (args: QueryUsersArgs) => Promise<GqlOutUsers>
+  readonly users: (
+    args: QueryUsersArgs,
+    fields?: Partial<User>
+  ) => Promise<GqlOutUsers>
 
-  readonly validators: (args: QueryValidatorsArgs) => Promise<GqlOutValidators>
+  readonly validators: (
+    args: QueryValidatorsArgs,
+    fields?: Partial<Validator>
+  ) => Promise<GqlOutValidators>
 }
 
 /** HeartMonitor is an API for "Heart Monitor" that indexes the Nibiru blockchain
@@ -163,63 +216,98 @@ export class HeartMonitor implements IHeartMonitor {
     }
   }
 
-  communityPool = async (args: QueryCommunityPoolArgs) =>
-    communityPool(args, this.gqlEndpt)
+  communityPool = async (
+    args: QueryCommunityPoolArgs,
+    fields?: Partial<Token>
+  ) => communityPool(args, this.gqlEndpt, fields)
 
-  delegations = async (args: QueryDelegationsArgs) =>
-    delegations(args, this.gqlEndpt)
+  delegations = async (
+    args: QueryDelegationsArgs,
+    fields?: Partial<Delegation>
+  ) => delegations(args, this.gqlEndpt, fields)
 
-  distributionCommissions = async (args: QueryDistributionCommissionsArgs) =>
-    distributionCommissions(args, this.gqlEndpt)
+  distributionCommissions = async (
+    args: QueryDistributionCommissionsArgs,
+    fields?: Partial<DistributionCommission>
+  ) => distributionCommissions(args, this.gqlEndpt, fields)
 
-  governance = async (args: QueryGovernanceArgs) =>
-    governance(args, this.gqlEndpt)
+  governance = async (
+    args: QueryGovernanceArgs,
+    fields?: Partial<Governance>
+  ) => governance(args, this.gqlEndpt, fields)
 
-  markPriceCandles = async (args: QueryMarkPriceCandlesArgs) =>
-    markPriceCandles(args, this.gqlEndpt)
+  markPriceCandles = async (
+    args: QueryMarkPriceCandlesArgs,
+    fields?: Partial<MarkPriceCandle>
+  ) => markPriceCandles(args, this.gqlEndpt, fields)
 
-  perpLeaderboard = async (args: QueryPerpLeaderboardArgs) =>
-    perpLeaderboard(args, this.gqlEndpt)
+  perpLeaderboard = async (
+    args: QueryPerpLeaderboardArgs,
+    fields?: Partial<PerpLeaderboard>
+  ) => perpLeaderboard(args, this.gqlEndpt, fields)
 
-  perpMarket = async (args: QueryPerpMarketArgs) =>
-    perpMarket(args, this.gqlEndpt)
+  perpMarket = async (
+    args: QueryPerpMarketArgs,
+    fields?: Partial<PerpMarket>
+  ) => perpMarket(args, this.gqlEndpt, fields)
 
-  perpMarkets = async (args: QueryPerpMarketsArgs) =>
-    perpMarkets(args, this.gqlEndpt)
+  perpMarkets = async (
+    args: QueryPerpMarketsArgs,
+    fields?: Partial<PerpMarket>
+  ) => perpMarkets(args, this.gqlEndpt, fields)
 
-  perpPosition = async (args: QueryPerpPositionArgs) =>
-    perpPosition(args, this.gqlEndpt)
+  perpPosition = async (
+    args: QueryPerpPositionArgs,
+    fields?: Partial<PerpPosition>
+  ) => perpPosition(args, this.gqlEndpt, fields)
 
-  perpPositions = async (args: QueryPerpPositionsArgs) =>
-    perpPositions(args, this.gqlEndpt)
+  perpPositions = async (
+    args: QueryPerpPositionsArgs,
+    fields?: Partial<PerpPosition>
+  ) => perpPositions(args, this.gqlEndpt, fields)
 
-  redelegations = async (args: QueryRedelegationsArgs) =>
-    redelegations(args, this.gqlEndpt)
+  redelegations = async (
+    args: QueryRedelegationsArgs,
+    fields?: Partial<Redelegation>
+  ) => redelegations(args, this.gqlEndpt, fields)
 
-  spotLpPositions = async (args: QuerySpotLpPositionsArgs) =>
-    spotLpPositions(args, this.gqlEndpt)
+  spotLpPositions = async (
+    args: QuerySpotLpPositionsArgs,
+    fields?: Partial<SpotLpPosition>
+  ) => spotLpPositions(args, this.gqlEndpt, fields)
 
-  spotPoolCreated = async (args: QuerySpotPoolCreatedArgs) =>
-    spotPoolCreated(args, this.gqlEndpt)
+  spotPoolCreated = async (
+    args: QuerySpotPoolCreatedArgs,
+    fields?: Partial<SpotPoolCreated>
+  ) => spotPoolCreated(args, this.gqlEndpt, fields)
 
-  spotPoolExited = async (args: QuerySpotPoolExitedArgs) =>
-    spotPoolExited(args, this.gqlEndpt)
+  spotPoolExited = async (
+    args: QuerySpotPoolExitedArgs,
+    fields?: Partial<SpotPoolExited>
+  ) => spotPoolExited(args, this.gqlEndpt, fields)
 
-  spotPoolJoined = async (args: QuerySpotPoolJoinedArgs) =>
-    spotPoolJoined(args, this.gqlEndpt)
+  spotPoolJoined = async (
+    args: QuerySpotPoolJoinedArgs,
+    fields?: Partial<SpotPoolJoined>
+  ) => spotPoolJoined(args, this.gqlEndpt, fields)
 
-  spotPools = async (args: QuerySpotPoolsArgs) => spotPools(args, this.gqlEndpt)
+  spotPools = async (args: QuerySpotPoolsArgs, fields?: Partial<SpotPool>) =>
+    spotPools(args, this.gqlEndpt, fields)
 
-  spotPoolSwap = async (args: QuerySpotPoolSwapArgs) =>
-    spotPoolSwap(args, this.gqlEndpt)
+  spotPoolSwap = async (
+    args: QuerySpotPoolSwapArgs,
+    fields?: Partial<SpotPoolSwap>
+  ) => spotPoolSwap(args, this.gqlEndpt, fields)
 
-  stats = async (args: QueryStatsArgs) => stats(args, this.gqlEndpt)
+  stats = async (args: QueryStatsArgs, fields?: StatsFields) =>
+    stats(args, this.gqlEndpt, fields)
 
-  unbondings = async (args: QueryUnbondingsArgs) =>
-    unbondings(args, this.gqlEndpt)
+  unbondings = async (args: QueryUnbondingsArgs, fields?: Partial<Unbonding>) =>
+    unbondings(args, this.gqlEndpt, fields)
 
-  users = async (args: QueryUsersArgs) => users(args, this.gqlEndpt)
+  users = async (args: QueryUsersArgs, fields?: Partial<User>) =>
+    users(args, this.gqlEndpt, fields)
 
-  validators = async (args: QueryValidatorsArgs) =>
-    validators(args, this.gqlEndpt)
+  validators = async (args: QueryValidatorsArgs, fields?: Partial<Validator>) =>
+    validators(args, this.gqlEndpt, fields)
 }

@@ -116,18 +116,20 @@ export interface GqlOutStats {
   stats?: Query["stats"]
 }
 
+export type StatsFields = Partial<{
+  fees?: Partial<StatsFees>
+  perpOpenInterest?: Partial<StatsPerpOpenInterest>
+  perpPnl?: Partial<StatsPerpPnl>
+  totals?: Partial<StatsTotals>
+  tvl?: Partial<StatsTvl>
+  users?: Partial<StatsUsers>
+  volume?: Partial<StatsVolume>
+}>
+
 export const stats = async (
   args: QueryStatsArgs,
   endpt: string,
-  fields?: Partial<{
-    fees?: Partial<StatsFees>
-    perpOpenInterest?: Partial<StatsPerpOpenInterest>
-    perpPnl?: Partial<StatsPerpPnl>
-    totals?: Partial<StatsTotals>
-    tvl?: Partial<StatsTvl>
-    users?: Partial<StatsUsers>
-    volume?: Partial<StatsVolume>
-  }>
+  fields?: StatsFields
 ): Promise<GqlOutStats> => {
   const statsQuery: string[] = []
 
