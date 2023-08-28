@@ -18,13 +18,13 @@ import {
 } from "../gql/generated"
 
 export type QueryStatsArgs = {
-  fees: StatsFeesArgs
-  perpOpenInterest: StatsPerpOpenInterestArgs
-  perpPnl: StatsPerpPnlArgs
-  totals: StatsTotalsArgs
-  tvl: StatsTvlArgs
-  users: StatsUsersArgs
-  volume: StatsVolumeArgs
+  fees?: StatsFeesArgs
+  perpOpenInterest?: StatsPerpOpenInterestArgs
+  perpPnl?: StatsPerpPnlArgs
+  totals?: StatsTotalsArgs
+  tvl?: StatsTvlArgs
+  users?: StatsUsersArgs
+  volume?: StatsVolumeArgs
 }
 
 export const defaultStatsFeesObject: StatsFees = {
