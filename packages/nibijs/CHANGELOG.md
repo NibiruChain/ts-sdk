@@ -1,3 +1,13 @@
+## [@nibiruchain/nibijs-v0.21.16](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.15...@nibiruchain/nibijs-v0.21.16) (2023-08-28)
+
+### Bug Fixes
+
+- **fix:** query arg list ([a26eb08](https://github.com/NibiruChain/ts-sdk/commit/a26eb08b6f3705921e4a7695ada91d19015c3530))
+
+### Miscellaneous Chores
+
+- **release:** 0.21.17 ([d3c9cf6](https://github.com/NibiruChain/ts-sdk/commit/d3c9cf62b9f8072c1d1fcebb4b8248cc5f7fe09f))
+
 ## [@nibiruchain/nibijs-v0.21.15](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.14...@nibiruchain/nibijs-v0.21.15) (2023-08-28)
 
 ### Bug Fixes
