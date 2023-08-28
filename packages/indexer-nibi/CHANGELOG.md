@@ -1,3 +1,10 @@
+## [@nibiruchain/indexer-nibi-v0.21.16](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.15...@nibiruchain/indexer-nibi-v0.21.16) (2023-08-28)
+
+### Bug Fixes
+
+- **fix type:** fix type ([ac556ed](https://github.com/NibiruChain/ts-sdk/commit/ac556ed576ad70f4379723883a87bd3960fccfbe))
+- **fix:** type ([df510f8](https://github.com/NibiruChain/ts-sdk/commit/df510f85c37f2639a58941118f247aee2568f249))
+
 ## [@nibiruchain/indexer-nibi-v0.21.15](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.14...@nibiruchain/indexer-nibi-v0.21.15) (2023-08-28)
 
 ### Bug Fixes
