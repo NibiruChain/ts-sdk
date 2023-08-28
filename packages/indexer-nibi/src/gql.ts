@@ -80,7 +80,9 @@ export const gqlQuery = <T>(
     typedQueryArgs.where !== undefined ||
     typedQueryArgs.limit !== undefined ||
     typedQueryArgs.order_by !== undefined ||
-    typedQueryArgs.order_desc !== undefined
+    typedQueryArgs.order_desc !== undefined ||
+    typedQueryArgs.order !== undefined ||
+    typedQueryArgs.orderDesc !== undefined
   ) {
     if (typedQueryArgs.where !== undefined) {
       queryArgList.push(getWhereArgArr(typedQueryArgs.where))
