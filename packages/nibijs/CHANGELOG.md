@@ -1,3 +1,13 @@
+## [@nibiruchain/nibijs-v0.21.17](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.16...@nibiruchain/nibijs-v0.21.17) (2023-08-28)
+
+### Features
+
+- **post:** graphql reqs ([#216](https://github.com/NibiruChain/ts-sdk/issues/216)) ([bccd08e](https://github.com/NibiruChain/ts-sdk/commit/bccd08ecd24b21847ac3adbba234fadcdfd371db))
+
+### Miscellaneous Chores
+
+- **release:** 0.21.18 ([914ebcd](https://github.com/NibiruChain/ts-sdk/commit/914ebcdf01aba7371893996ba3f28dd700b71e0c)), closes [#216](https://github.com/NibiruChain/ts-sdk/issues/216)
+
 ## [@nibiruchain/nibijs-v0.21.16](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.15...@nibiruchain/nibijs-v0.21.16) (2023-08-28)
 
 ### Bug Fixes
