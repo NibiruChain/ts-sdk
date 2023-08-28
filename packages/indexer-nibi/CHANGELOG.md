@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.15](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.14...@nibiruchain/indexer-nibi-v0.21.15) (2023-08-28)
+
+### Bug Fixes
+
+- **fix:** editable fields ([#215](https://github.com/NibiruChain/ts-sdk/issues/215)) ([360fd88](https://github.com/NibiruChain/ts-sdk/commit/360fd88c3f613fe7be17666fbdb1cddb339af487))
+
 ## [@nibiruchain/indexer-nibi-v0.21.14](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.13...@nibiruchain/indexer-nibi-v0.21.14) (2023-08-28)
 
 ### Features
