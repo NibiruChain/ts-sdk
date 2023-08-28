@@ -1,3 +1,10 @@
+## [@nibiruchain/indexer-nibi-v0.21.17](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.16...@nibiruchain/indexer-nibi-v0.21.17) (2023-08-28)
+
+### Bug Fixes
+
+- **fix:** query arg list ([a26eb08](https://github.com/NibiruChain/ts-sdk/commit/a26eb08b6f3705921e4a7695ada91d19015c3530))
+- **fix:** undefined case ([630f9e9](https://github.com/NibiruChain/ts-sdk/commit/630f9e90e558bbcd66897649a5cc1f09dec9d2ad))
+
 ## [@nibiruchain/indexer-nibi-v0.21.16](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.15...@nibiruchain/indexer-nibi-v0.21.16) (2023-08-28)
 
 ### Bug Fixes
