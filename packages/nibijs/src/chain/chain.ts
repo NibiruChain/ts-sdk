@@ -71,6 +71,16 @@ export class CustomChain implements Chain {
     this.endptGrpc = `grpc.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
   }
 
+  public static fromChainId(chainId: string): Chain {
+    const parts = chainId.split("-")
+    const chainIdParts = {
+      prefix: parts[0],
+      shortName: parts[1],
+      number: Number(parts[2]),
+    } as ChainIdParts
+    return new CustomChain(chainIdParts)
+  }
+
   private initChainId = () => {
     const { prefix, shortName, number } = this.chainIdParts
     return [prefix, shortName, number].join("-")
