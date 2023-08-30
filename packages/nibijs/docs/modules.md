@@ -68,7 +68,7 @@
 ### Functions
 
 - [Devnet](modules.md#devnet)
-- [IncentivizedTestent](modules.md#incentivizedtestent)
+- [IncentivizedTestnet](modules.md#IncentivizedTestnet)
 - [assert](modules.md#assert)
 - [chainToParts](modules.md#chaintoparts)
 - [faucetUrlFromChain](modules.md#fauceturlfromchain)
@@ -252,9 +252,9 @@
 
 ---
 
-### IncentivizedTestent
+### IncentivizedTestnet
 
-▸ **IncentivizedTestent**(`chainNumber`): [`CustomChain`](classes/CustomChain.md)
+▸ **IncentivizedTestnet**(`chainNumber`): [`CustomChain`](classes/CustomChain.md)
 
 #### Parameters
 

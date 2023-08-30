@@ -86,7 +86,7 @@ export const Localnet: Chain = {
   feeDenom: "unibi",
 }
 
-export const IncentivizedTestent = (chainNumber: number) =>
+export const IncentivizedTestnet = (chainNumber: number) =>
   new CustomChain({
     prefix: "nibiru",
     shortName: "itn",
