@@ -1,3 +1,9 @@
+## [@nibiruchain/nibijs-v0.21.20](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.19...@nibiruchain/nibijs-v0.21.20) (2023-08-30)
+
+### Bug Fixes
+
+- **fix:** node info ([#219](https://github.com/NibiruChain/ts-sdk/issues/219)) ([9d6af39](https://github.com/NibiruChain/ts-sdk/commit/9d6af39a44e84db0e13cfcb15e11e40d4c7aa470))
+
 ## [@nibiruchain/nibijs-v0.21.19](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.18...@nibiruchain/nibijs-v0.21.19) (2023-08-30)
 
 ### Bug Fixes

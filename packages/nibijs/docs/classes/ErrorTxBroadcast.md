@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.18](../intro.md) / [Exports](../modules.md) / ErrorTxBroadcast
+[NibiJS Documentation - v0.21.19](../intro.md) / [Exports](../modules.md) / ErrorTxBroadcast
 
 # Class: ErrorTxBroadcast
 
@@ -33,4 +33,4 @@ Error.constructor
 
 #### Defined in
 
-[chain/error.ts:33](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/error.ts#L33)
+[chain/error.ts:33](https://github.com/NibiruChain/ts-sdk/blob/9d6af39/packages/nibijs/src/chain/error.ts#L33)
