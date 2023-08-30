@@ -112,9 +112,12 @@ export const Devnet = (chainNumber: number) =>
 
 export const queryChainIdWithRest = async (chain: Chain) => {
   const queryChainId = async (chain: Chain): Promise<string> => {
-    const response = await window.fetch(`${chain.endptRest}/node_info`)
-    const nodeInfo: { node_info: { network: string } } = await response.json()
-    return nodeInfo.node_info.network
+    const response = await window.fetch(
+      `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`
+    )
+    const nodeInfo: { default_node_info: { network: string } } =
+      await response.json()
+    return nodeInfo.default_node_info.network
   }
 
   const { res: chainId, err } = await go(queryChainId(chain))
