@@ -77,12 +77,12 @@ console.log("address: ", address)
 
 ```js
 import {
-  IncentivizedTestent,
+  IncentivizedTestnet,
   NibiruQueryClient,
   NibiruSigningClient,
 } from "@nibiruchain/nibijs"
 
-const TEST_CHAIN = IncentivizedTestent(1)
+const TEST_CHAIN = IncentivizedTestnet(1)
 const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
 
 const perpParamsResp = await queryClient.nibiruExtensions.perp.params()
@@ -122,7 +122,7 @@ const txResp = await signingClient.sendTokens(fromAddr, toAddr, tokens, "auto")
 #### Example: Transaction with arbitrary messages
 
 ```js
-import { IncentivizedTestent, NibiruSigningClient, newCoin } from "@nibiruchain/nibijs"
+import { IncentivizedTestnet, NibiruSigningClient, newCoin } from "@nibiruchain/nibijs"
 import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
 
 const signer = await newSignerFromMnemonic(mnemonic!)

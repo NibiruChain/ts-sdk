@@ -4,7 +4,7 @@ import {
   CustomChain,
   Devnet,
   Event,
-  IncentivizedTestent,
+  IncentivizedTestnet,
   Localnet,
 } from "../chain"
 
