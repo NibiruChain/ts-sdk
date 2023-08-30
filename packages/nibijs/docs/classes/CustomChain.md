@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.17](../intro.md) / [Exports](../modules.md) / CustomChain
+[NibiJS Documentation - v0.21.18](../intro.md) / [Exports](../modules.md) / CustomChain
 
 # Class: CustomChain
 
@@ -54,7 +54,7 @@ export const TEST_CHAIN = new CustomChain({
 
 #### Defined in
 
-[chain/chain.ts:65](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/chain/chain.ts#L65)
+[chain/chain.ts:65](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/chain.ts#L65)
 
 ## Properties
 
@@ -70,7 +70,7 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:56](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/chain/chain.ts#L56)
+[chain/chain.ts:56](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/chain.ts#L56)
 
 ---
 
@@ -80,7 +80,7 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:63](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/chain/chain.ts#L63)
+[chain/chain.ts:63](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/chain.ts#L63)
 
 ---
 
@@ -96,7 +96,7 @@ chainName: the name of the chain to display to the user
 
 #### Defined in
 
-[chain/chain.ts:57](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/chain/chain.ts#L57)
+[chain/chain.ts:57](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/chain.ts#L57)
 
 ---
 
@@ -112,7 +112,7 @@ endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 #### Defined in
 
-[chain/chain.ts:60](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/chain/chain.ts#L60)
+[chain/chain.ts:60](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/chain.ts#L60)
 
 ---
 
@@ -128,7 +128,7 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 #### Defined in
 
-[chain/chain.ts:59](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/chain/chain.ts#L59)
+[chain/chain.ts:59](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/chain.ts#L59)
 
 ---
 
@@ -144,7 +144,7 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 #### Defined in
 
-[chain/chain.ts:58](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/chain/chain.ts#L58)
+[chain/chain.ts:58](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/chain.ts#L58)
 
 ---
 
@@ -160,7 +160,7 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:61](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/chain/chain.ts#L61)
+[chain/chain.ts:61](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/chain.ts#L61)
 
 ## Methods
 
@@ -174,7 +174,7 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:84](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/chain/chain.ts#L84)
+[chain/chain.ts:84](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/chain.ts#L84)
 
 ---
 
@@ -194,4 +194,4 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:74](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/chain/chain.ts#L74)
+[chain/chain.ts:74](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/chain/chain.ts#L74)

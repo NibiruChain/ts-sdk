@@ -1,3 +1,9 @@
+## [@nibiruchain/nibijs-v0.21.19](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.18...@nibiruchain/nibijs-v0.21.19) (2023-08-30)
+
+### Bug Fixes
+
+- **fix:** spelling ([#218](https://github.com/NibiruChain/ts-sdk/issues/218)) ([0e252f8](https://github.com/NibiruChain/ts-sdk/commit/0e252f83f259119c6ba80b8d04a15f1c61d4b7d9))
+
 ## [@nibiruchain/nibijs-v0.21.18](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.17...@nibiruchain/nibijs-v0.21.18) (2023-08-30)
 
 ### Features

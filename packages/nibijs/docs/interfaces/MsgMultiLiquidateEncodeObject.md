@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.17](../intro.md) / [Exports](../modules.md) / MsgMultiLiquidateEncodeObject
+[NibiJS Documentation - v0.21.18](../intro.md) / [Exports](../modules.md) / MsgMultiLiquidateEncodeObject
 
 # Interface: MsgMultiLiquidateEncodeObject
 
@@ -27,7 +27,7 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/perp.ts:52](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/msg/perp.ts#L52)
+[msg/perp.ts:52](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/msg/perp.ts#L52)
 
 ---
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/perp.ts:53](https://github.com/NibiruChain/ts-sdk/blob/0d44203/packages/nibijs/src/msg/perp.ts#L53)
+[msg/perp.ts:53](https://github.com/NibiruChain/ts-sdk/blob/0e252f8/packages/nibijs/src/msg/perp.ts#L53)
