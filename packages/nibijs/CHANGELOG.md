@@ -1,3 +1,9 @@
+## [@nibiruchain/nibijs-v0.21.18](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.17...@nibiruchain/nibijs-v0.21.18) (2023-08-30)
+
+### Features
+
+- **nibijs:** add fromChainId factory method ([#217](https://github.com/NibiruChain/ts-sdk/issues/217)) ([0d44203](https://github.com/NibiruChain/ts-sdk/commit/0d44203255d7ebbf4255b77b082a48fe3fe06b4a))
+
 ## [@nibiruchain/nibijs-v0.21.17](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.16...@nibiruchain/nibijs-v0.21.17) (2023-08-28)
 
 ### Features
