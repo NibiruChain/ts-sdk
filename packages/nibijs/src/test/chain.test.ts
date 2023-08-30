@@ -4,6 +4,7 @@ import {
   Chain,
   Coin,
   CoinMap,
+  CustomChain,
   isRestEndptLive,
   newCoin,
   newCoinMapFromCoins,
@@ -18,6 +19,12 @@ describe("chain connections", () => {
     expect(blockHeight).toBeDefined()
     expect(blockHeight).toBeGreaterThanOrEqual(0)
   })
+
+  test("chain from chain-id", async () => {
+    const chain = CustomChain.fromChainId(TEST_CHAIN.chainId)
+    expect(chain.chainId).toEqual(TEST_CHAIN.chainId)
+  })
+
   test("inactive chain validation cases", async () => {
     const inactiveChain: Chain = {
       endptTm: "",
