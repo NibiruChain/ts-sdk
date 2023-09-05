@@ -5,7 +5,7 @@ import {
   IncentivizedTestnet,
 } from "@nibiruchain/nibijs"
 
-const TEST_CHAIN = IncentivizedTestnet(1)
+const TEST_CHAIN = IncentivizedTestnet(2)
 
 async function runExample() {
   const wallet: WalletHD = await newRandomWallet()

@@ -1,12 +1,4 @@
-import * as cf from "cross-fetch"
-
-declare global {
-  interface Window {
-    fetch: typeof cf.fetch
-  }
-}
-
-window.fetch = cf.fetch
+import { fetch } from "cross-fetch"
 
 const createGqlEndpt = (chain: string) =>
   `https://hm-graphql.${chain}.nibiru.fi/graphql`
@@ -123,7 +115,7 @@ export const gqlQuery = <T>(
 }
 
 export const doGqlQuery = async (gqlQuery: string, gqlEndpt: string) => {
-  const rawResp = await window.fetch(gqlEndpt, {
+  const rawResp = await fetch(gqlEndpt, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query: gqlQuery }),
