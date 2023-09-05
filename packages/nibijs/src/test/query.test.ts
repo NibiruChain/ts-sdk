@@ -1,7 +1,6 @@
 import { Block, coins } from "@cosmjs/stargate"
 import Long from "long"
 import fs from "fs"
-import * as cf from "cross-fetch"
 import { NibiruQueryClient } from "../query"
 import {
   TEST_CHAIN,
