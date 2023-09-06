@@ -2,7 +2,7 @@ import { HeartMonitor } from "./heart-monitor"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
 
 const heartMonitor = new HeartMonitor({
-  endptTm: "https://hm-graphql.devnet-2.nibiru.fi",
+  endptTm: "https://hm-graphql.itn-2.nibiru.fi",
 })
 
 describe("Heart Monitor constructor", () => {
@@ -48,8 +48,8 @@ describe("gqlEndptFromTmRpc", () => {
 
   const tests: TestCase[] = [
     {
-      in: "https://rpc.devnet-2.nibiru.fi",
-      want: "https://hm-graphql.devnet-2.nibiru.fi/graphql",
+      in: "https://rpc.itn-2.nibiru.fi",
+      want: "https://hm-graphql.itn-2.nibiru.fi/graphql",
     },
     {
       in: "----rpc.itn-1.-----",
