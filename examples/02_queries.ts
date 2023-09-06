@@ -4,7 +4,7 @@ import {
   NibiruSigningClient,
 } from "@nibiruchain/nibijs"
 
-const TEST_CHAIN = IncentivizedTestnet(1)
+const TEST_CHAIN = IncentivizedTestnet(2)
 
 async function runExample() {
   const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)

@@ -82,7 +82,7 @@ import {
   NibiruSigningClient,
 } from "@nibiruchain/nibijs"
 
-const TEST_CHAIN = IncentivizedTestnet(1)
+const TEST_CHAIN = IncentivizedTestnet(2)
 const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
 
 const perpParamsResp = await queryClient.nibiruExtensions.perp.params()

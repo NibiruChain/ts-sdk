@@ -1,13 +1,5 @@
-import * as cf from "cross-fetch"
+import { fetch } from "cross-fetch"
 import { go } from "./types"
-
-declare global {
-  interface Window {
-    fetch: typeof cf.fetch
-  }
-}
-
-window.fetch = cf.fetch
 
 /**
  * Specifies chain information for all endpoints a node exposes such as the
@@ -112,7 +104,7 @@ export const Devnet = (chainNumber: number) =>
 
 export const queryChainIdWithRest = async (chain: Chain) => {
   const queryChainId = async (chain: Chain): Promise<string> => {
-    const response = await window.fetch(
+    const response = await fetch(
       `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`
     )
     const nodeInfo: { default_node_info: { network: string } } =
