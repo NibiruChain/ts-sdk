@@ -49,6 +49,7 @@ export const defaultUser = defaultActor
 export const defaultPerpMarket = {
   base_reserve: 0,
   ecosystem_fund_fee_ratio: 0,
+  max_funding_rate: 0,
   enabled: true,
   exchange_fee_ratio: 0,
   funding_rate_epoch_id: "",

@@ -234,6 +234,7 @@ enum PerpLeaderboardOrder {
 type PerpMarket {
   base_reserve: Float!
   ecosystem_fund_fee_ratio: Float!
+  max_funding_rate: Float!
   enabled: Boolean!
   exchange_fee_ratio: Float!
   funding_rate_epoch_id: String!
