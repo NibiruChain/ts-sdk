@@ -191,7 +191,7 @@ input MarkPriceCandlesFilter {
 
 enum MarkPriceCandlesOrder {
   period
-  periodStartTs
+  period_start_ts
 }
 
 input PeriodFilter {
@@ -205,11 +205,6 @@ input PeriodFilter {
   periodStartTsGte: Time
   periodStartTsLt: Time
   periodStartTsLte: Time
-}
-
-enum PeriodOrder {
-  period
-  period_start_ts
 }
 
 type PerpLeaderboard {
@@ -234,7 +229,6 @@ enum PerpLeaderboardOrder {
 type PerpMarket {
   base_reserve: Float!
   ecosystem_fund_fee_ratio: Float!
-  max_funding_rate: Float!
   enabled: Boolean!
   exchange_fee_ratio: Float!
   funding_rate_epoch_id: String!
@@ -245,6 +239,7 @@ type PerpMarket {
   maintenance_margin_ratio: Float!
   mark_price: Float!
   mark_price_twap: Float!
+  max_funding_rate: Float!
   max_leverage: Float!
   pair: String!
   partial_liquidation_ratio: Float!
@@ -755,6 +750,13 @@ enum StatsVolumeOrder {
 input StringFilter {
   eq: String
   like: String
+}
+
+type Subscription {
+  markPriceCandles(
+    limit: Int
+    where: MarkPriceCandlesFilter
+  ): [MarkPriceCandle!]!
 }
 
 scalar Time
