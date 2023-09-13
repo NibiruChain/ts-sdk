@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.20](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.19...@nibiruchain/indexer-nibi-v0.21.20) (2023-09-13)
+
+### Features
+
+- add max funding rate to perp market objects ([#223](https://github.com/NibiruChain/ts-sdk/issues/223)) ([9375f67](https://github.com/NibiruChain/ts-sdk/commit/9375f67c0787f8bb1cfc13aee4ffd5e852cfa1fa))
+
 ## [@nibiruchain/indexer-nibi-v0.21.19](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.18...@nibiruchain/indexer-nibi-v0.21.19) (2023-09-06)
 
 ### Bug Fixes
