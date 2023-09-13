@@ -142,6 +142,12 @@ export interface Market {
   twapLookbackWindow?: Duration
   /** the amount of collateral already credited from the ecosystem fund */
   prepaidBadDebt?: Coin
+  /**
+   * the maximum funding rate payment per epoch, this represents the maximum
+   * amount of funding that can be paid out per epoch as a percentage of the
+   * position size
+   */
+  maxFundingRate: string
 }
 
 export interface AMM {
@@ -202,6 +208,7 @@ function createBaseMarket(): Market {
     fundingRateEpochId: "",
     twapLookbackWindow: undefined,
     prepaidBadDebt: undefined,
+    maxFundingRate: "",
   }
 }
 
@@ -248,6 +255,9 @@ export const Market = {
     }
     if (message.prepaidBadDebt !== undefined) {
       Coin.encode(message.prepaidBadDebt, writer.uint32(98).fork()).ldelim()
+    }
+    if (message.maxFundingRate !== "") {
+      writer.uint32(106).string(message.maxFundingRate)
     }
     return writer
   },
@@ -344,6 +354,13 @@ export const Market = {
 
           message.prepaidBadDebt = Coin.decode(reader, reader.uint32())
           continue
+        case 13:
+          if (tag !== 106) {
+            break
+          }
+
+          message.maxFundingRate = reader.string()
+          continue
       }
       if ((tag & 7) === 4 || tag === 0) {
         break
@@ -387,6 +404,9 @@ export const Market = {
       prepaidBadDebt: isSet(object.prepaidBadDebt)
         ? Coin.fromJSON(object.prepaidBadDebt)
         : undefined,
+      maxFundingRate: isSet(object.maxFundingRate)
+        ? String(object.maxFundingRate)
+        : "",
     }
   },
 
@@ -418,6 +438,8 @@ export const Market = {
       (obj.prepaidBadDebt = message.prepaidBadDebt
         ? Coin.toJSON(message.prepaidBadDebt)
         : undefined)
+    message.maxFundingRate !== undefined &&
+      (obj.maxFundingRate = message.maxFundingRate)
     return obj
   },
 
@@ -447,6 +469,7 @@ export const Market = {
       object.prepaidBadDebt !== undefined && object.prepaidBadDebt !== null
         ? Coin.fromPartial(object.prepaidBadDebt)
         : undefined
+    message.maxFundingRate = object.maxFundingRate ?? ""
     return message
   },
 }

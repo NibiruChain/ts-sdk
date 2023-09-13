@@ -2,11 +2,6 @@ import { ValidatorStatus } from "./gql/generated"
 
 export const defaultToken = {
   denom: "",
-  amount: 0,
-}
-
-export const defaultTokenAsString = {
-  denom: "",
   amount: "",
 }
 
@@ -100,7 +95,7 @@ export const defaultPool = {
   pool_id: 0,
   tokens: [defaultToken],
   pool_type: "",
-  total_shares: defaultTokenAsString,
+  total_shares: defaultToken,
   total_weight: 0,
   weights: [defaultToken],
 }
@@ -108,6 +103,38 @@ export const defaultPool = {
 export const defaultSpotPool = {
   block: defaultBlock,
   pool: defaultPool,
-  pool_shares: defaultTokenAsString,
+  pool_shares: defaultToken,
   user: defaultUser,
+}
+
+export const defaultGovProposal = {
+  depositEndTime: "",
+  finalTallyResultAbstain: 0,
+  finalTallyResultNo: 0,
+  finalTallyResultNoWithVeto: 0,
+  finalTallyResultYes: 0,
+  id: 0,
+  metadata: "",
+  proposer: defaultUser,
+  status: "",
+  submitTime: "",
+  summary: "",
+  title: "",
+  totalDeposit: [defaultToken],
+  votingEndTime: "",
+  votingStartTime: "",
+}
+
+export const defaultGovDeposit = {
+  amount: [defaultToken],
+  block: defaultBlock,
+  proposal: defaultGovProposal,
+  sender: defaultUser,
+}
+
+export const defaultGovVote = {
+  block: defaultBlock,
+  option: "",
+  proposal: defaultGovProposal,
+  sender: defaultUser,
 }

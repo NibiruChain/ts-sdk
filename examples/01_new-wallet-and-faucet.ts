@@ -2,10 +2,10 @@ import {
   useFaucet,
   WalletHD,
   newRandomWallet,
-  IncentivizedTestent,
+  IncentivizedTestnet,
 } from "@nibiruchain/nibijs"
 
-const TEST_CHAIN = IncentivizedTestent(1)
+const TEST_CHAIN = IncentivizedTestnet(2)
 
 async function runExample() {
   const wallet: WalletHD = await newRandomWallet()

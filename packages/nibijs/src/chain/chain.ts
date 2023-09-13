@@ -1,13 +1,5 @@
-import * as cf from "cross-fetch"
+import { fetch } from "cross-fetch"
 import { go } from "./types"
-
-declare global {
-  interface Window {
-    fetch: typeof cf.fetch
-  }
-}
-
-window.fetch = cf.fetch
 
 /**
  * Specifies chain information for all endpoints a node exposes such as the
@@ -71,6 +63,16 @@ export class CustomChain implements Chain {
     this.endptGrpc = `grpc.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
   }
 
+  public static fromChainId(chainId: string): Chain {
+    const parts = chainId.split("-")
+    const chainIdParts = {
+      prefix: parts[0],
+      shortName: parts[1],
+      number: Number(parts[2]),
+    } as ChainIdParts
+    return new CustomChain(chainIdParts)
+  }
+
   private initChainId = () => {
     const { prefix, shortName, number } = this.chainIdParts
     return [prefix, shortName, number].join("-")
@@ -86,7 +88,7 @@ export const Localnet: Chain = {
   feeDenom: "unibi",
 }
 
-export const IncentivizedTestent = (chainNumber: number) =>
+export const IncentivizedTestnet = (chainNumber: number) =>
   new CustomChain({
     prefix: "nibiru",
     shortName: "itn",
@@ -102,9 +104,12 @@ export const Devnet = (chainNumber: number) =>
 
 export const queryChainIdWithRest = async (chain: Chain) => {
   const queryChainId = async (chain: Chain): Promise<string> => {
-    const response = await window.fetch(`${chain.endptRest}/node_info`)
-    const nodeInfo: { node_info: { network: string } } = await response.json()
-    return nodeInfo.node_info.network
+    const response = await fetch(
+      `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`
+    )
+    const nodeInfo: { default_node_info: { network: string } } =
+      await response.json()
+    return nodeInfo.default_node_info.network
   }
 
   const { res: chainId, err } = await go(queryChainId(chain))

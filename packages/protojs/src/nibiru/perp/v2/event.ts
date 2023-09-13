@@ -50,6 +50,20 @@ export interface PositionChangedEvent {
    * - CHANGE_REASON_CLOSE_POSITION: An existing position was closed.
    */
   changeReason: string
+  /**
+   * exchanged_size represent the change in size for an existing position
+   * after the change. A positive value indicates that the position size
+   * increased, while a negative value indicates that the position size
+   * decreased.
+   */
+  exchangedSize: string
+  /**
+   * exchanged_notional represent the change in notional for an existing
+   * position after the change. A positive value indicates that the position
+   * notional increased, while a negative value indicates that the position
+   * notional decreased.
+   */
+  exchangedNotional: string
 }
 
 /**
@@ -202,6 +216,8 @@ function createBasePositionChangedEvent(): PositionChangedEvent {
     blockHeight: Long.ZERO,
     marginToUser: "",
     changeReason: "",
+    exchangedSize: "",
+    exchangedNotional: "",
   }
 }
 
@@ -236,6 +252,12 @@ export const PositionChangedEvent = {
     }
     if (message.changeReason !== "") {
       writer.uint32(74).string(message.changeReason)
+    }
+    if (message.exchangedSize !== "") {
+      writer.uint32(82).string(message.exchangedSize)
+    }
+    if (message.exchangedNotional !== "") {
+      writer.uint32(90).string(message.exchangedNotional)
     }
     return writer
   },
@@ -314,6 +336,20 @@ export const PositionChangedEvent = {
 
           message.changeReason = reader.string()
           continue
+        case 10:
+          if (tag !== 82) {
+            break
+          }
+
+          message.exchangedSize = reader.string()
+          continue
+        case 11:
+          if (tag !== 90) {
+            break
+          }
+
+          message.exchangedNotional = reader.string()
+          continue
       }
       if ((tag & 7) === 4 || tag === 0) {
         break
@@ -350,6 +386,12 @@ export const PositionChangedEvent = {
       changeReason: isSet(object.changeReason)
         ? String(object.changeReason)
         : "",
+      exchangedSize: isSet(object.exchangedSize)
+        ? String(object.exchangedSize)
+        : "",
+      exchangedNotional: isSet(object.exchangedNotional)
+        ? String(object.exchangedNotional)
+        : "",
     }
   },
 
@@ -376,6 +418,10 @@ export const PositionChangedEvent = {
       (obj.marginToUser = message.marginToUser)
     message.changeReason !== undefined &&
       (obj.changeReason = message.changeReason)
+    message.exchangedSize !== undefined &&
+      (obj.exchangedSize = message.exchangedSize)
+    message.exchangedNotional !== undefined &&
+      (obj.exchangedNotional = message.exchangedNotional)
     return obj
   },
 
@@ -410,6 +456,8 @@ export const PositionChangedEvent = {
         : Long.ZERO
     message.marginToUser = object.marginToUser ?? ""
     message.changeReason = object.changeReason ?? ""
+    message.exchangedSize = object.exchangedSize ?? ""
+    message.exchangedNotional = object.exchangedNotional ?? ""
     return message
   },
 }

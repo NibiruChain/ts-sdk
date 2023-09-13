@@ -77,7 +77,6 @@ describe("useFaucet", () => {
         json: () => Promise.resolve({}),
       }) as unknown as Promise<Response>
   )
-  window.fetch = mockedFetch
 
   test("should request funds from faucet with default amounts", async () => {
     await useFaucet({ address, chain, grecaptcha })
@@ -115,7 +114,6 @@ describe("useFaucet", () => {
     const mockedFetchError = jest
       .fn()
       .mockImplementationOnce(() => Promise.reject(new Error(errorMessage)))
-    window.fetch = mockedFetchError
 
     await expect(useFaucet({ address, chain, grecaptcha })).rejects.toThrow(
       errorMessage

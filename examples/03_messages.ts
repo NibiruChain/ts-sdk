@@ -1,12 +1,12 @@
 import {
-  IncentivizedTestent,
+  IncentivizedTestnet,
   NibiruSigningClient,
   newCoin,
 } from "@nibiruchain/nibijs"
 import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
 import { newSignerFromMnemonic } from "@nibiruchain/nibijs/dist/tx"
 
-const TEST_CHAIN = IncentivizedTestent(1)
+const TEST_CHAIN = IncentivizedTestnet(2)
 
 async function runExample() {
   const mnemonic = "..." // fill in the blank

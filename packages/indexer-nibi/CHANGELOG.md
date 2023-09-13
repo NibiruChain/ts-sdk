@@ -1,3 +1,41 @@
+## [@nibiruchain/indexer-nibi-v0.21.19](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.18...@nibiruchain/indexer-nibi-v0.21.19) (2023-09-06)
+
+### Bug Fixes
+
+- **fix:** window ([#221](https://github.com/NibiruChain/ts-sdk/issues/221)) ([6ba46d6](https://github.com/NibiruChain/ts-sdk/commit/6ba46d6fdac7effc00fec364ced60a1f5fdc130b))
+
+## [@nibiruchain/indexer-nibi-v0.21.18](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.17...@nibiruchain/indexer-nibi-v0.21.18) (2023-08-28)
+
+### Features
+
+- **post:** graphql reqs ([#216](https://github.com/NibiruChain/ts-sdk/issues/216)) ([bccd08e](https://github.com/NibiruChain/ts-sdk/commit/bccd08ecd24b21847ac3adbba234fadcdfd371db))
+
+## [@nibiruchain/indexer-nibi-v0.21.17](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.16...@nibiruchain/indexer-nibi-v0.21.17) (2023-08-28)
+
+### Bug Fixes
+
+- **fix:** query arg list ([a26eb08](https://github.com/NibiruChain/ts-sdk/commit/a26eb08b6f3705921e4a7695ada91d19015c3530))
+- **fix:** undefined case ([630f9e9](https://github.com/NibiruChain/ts-sdk/commit/630f9e90e558bbcd66897649a5cc1f09dec9d2ad))
+
+## [@nibiruchain/indexer-nibi-v0.21.16](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.15...@nibiruchain/indexer-nibi-v0.21.16) (2023-08-28)
+
+### Bug Fixes
+
+- **fix type:** fix type ([ac556ed](https://github.com/NibiruChain/ts-sdk/commit/ac556ed576ad70f4379723883a87bd3960fccfbe))
+- **fix:** type ([df510f8](https://github.com/NibiruChain/ts-sdk/commit/df510f85c37f2639a58941118f247aee2568f249))
+
+## [@nibiruchain/indexer-nibi-v0.21.15](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.14...@nibiruchain/indexer-nibi-v0.21.15) (2023-08-28)
+
+### Bug Fixes
+
+- **fix:** editable fields ([#215](https://github.com/NibiruChain/ts-sdk/issues/215)) ([360fd88](https://github.com/NibiruChain/ts-sdk/commit/360fd88c3f613fe7be17666fbdb1cddb339af487))
+
+## [@nibiruchain/indexer-nibi-v0.21.14](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.13...@nibiruchain/indexer-nibi-v0.21.14) (2023-08-28)
+
+### Features
+
+- **latest:** schema and protojs ([#210](https://github.com/NibiruChain/ts-sdk/issues/210)) ([867defa](https://github.com/NibiruChain/ts-sdk/commit/867defa0a68724ca7276ba315e3c118d3f0efc11))
+
 ## [@nibiruchain/indexer-nibi-v0.21.13](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.12...@nibiruchain/indexer-nibi-v0.21.13) (2023-08-17)
 
 ### Code Refactors

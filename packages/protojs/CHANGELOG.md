@@ -1,3 +1,9 @@
+## [@nibiruchain/protojs-v0.21.13](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/protojs-v0.21.12...@nibiruchain/protojs-v0.21.13) (2023-08-28)
+
+### Features
+
+- **latest:** schema and protojs ([#210](https://github.com/NibiruChain/ts-sdk/issues/210)) ([867defa](https://github.com/NibiruChain/ts-sdk/commit/867defa0a68724ca7276ba315e3c118d3f0efc11))
+
 ## [@nibiruchain/protojs-v0.21.12](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/protojs-v0.21.11...@nibiruchain/protojs-v0.21.12) (2023-08-17)
 
 ### Bug Fixes

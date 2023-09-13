@@ -1,12 +1,4 @@
-import * as cf from "cross-fetch"
-
-declare global {
-  interface Window {
-    fetch: typeof cf.fetch
-  }
-}
-
-window.fetch = cf.fetch
+import { fetch } from "cross-fetch"
 
 const createGqlEndpt = (chain: string) =>
   `https://hm-graphql.${chain}.nibiru.fi/graphql`
@@ -80,7 +72,9 @@ export const gqlQuery = <T>(
     typedQueryArgs.where !== undefined ||
     typedQueryArgs.limit !== undefined ||
     typedQueryArgs.order_by !== undefined ||
-    typedQueryArgs.order_desc !== undefined
+    typedQueryArgs.order_desc !== undefined ||
+    typedQueryArgs.order !== undefined ||
+    typedQueryArgs.orderDesc !== undefined
   ) {
     if (typedQueryArgs.where !== undefined) {
       queryArgList.push(getWhereArgArr(typedQueryArgs.where))
@@ -94,8 +88,16 @@ export const gqlQuery = <T>(
       queryArgList.push(arg("order_by", typedQueryArgs.order_by, true))
     }
 
+    if (typedQueryArgs.order !== undefined) {
+      queryArgList.push(arg("order", typedQueryArgs.order, true))
+    }
+
     if (typedQueryArgs.order_desc !== undefined) {
       queryArgList.push(arg("order_desc", typedQueryArgs.order_desc))
+    }
+
+    if (typedQueryArgs.orderDesc !== undefined) {
+      queryArgList.push(arg("orderDesc", typedQueryArgs.orderDesc))
     }
   } else {
     queryArgList = Object.keys(typedQueryArgs).map((key) =>
@@ -113,9 +115,11 @@ export const gqlQuery = <T>(
 }
 
 export const doGqlQuery = async (gqlQuery: string, gqlEndpt: string) => {
-  const encodedGqlQuery = encodeURI(gqlQuery)
-  const fetchString = `${gqlEndpt}?query=${encodedGqlQuery}`
-  const rawResp = await window.fetch(fetchString)
+  const rawResp = await fetch(gqlEndpt, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: gqlQuery }),
+  })
   return cleanResponse(rawResp)
 }
 
