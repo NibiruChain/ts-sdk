@@ -230,7 +230,7 @@ export type MarkPriceCandlesFilter = {
 
 export enum MarkPriceCandlesOrder {
   Period = "period",
-  PeriodStartTs = "periodStartTs",
+  PeriodStartTs = "period_start_ts",
 }
 
 export type PeriodFilter = {
@@ -244,11 +244,6 @@ export type PeriodFilter = {
   readonly periodStartTsGte?: InputMaybe<Scalars["Time"]["input"]>
   readonly periodStartTsLt?: InputMaybe<Scalars["Time"]["input"]>
   readonly periodStartTsLte?: InputMaybe<Scalars["Time"]["input"]>
-}
-
-export enum PeriodOrder {
-  Period = "period",
-  PeriodStartTs = "period_start_ts",
 }
 
 export type PerpLeaderboard = {
@@ -285,6 +280,7 @@ export type PerpMarket = {
   readonly maintenance_margin_ratio: Scalars["Float"]["output"]
   readonly mark_price: Scalars["Float"]["output"]
   readonly mark_price_twap: Scalars["Float"]["output"]
+  readonly max_funding_rate: Scalars["Float"]["output"]
   readonly max_leverage: Scalars["Float"]["output"]
   readonly pair: Scalars["String"]["output"]
   readonly partial_liquidation_ratio: Scalars["Float"]["output"]
@@ -870,6 +866,16 @@ export enum StatsVolumeOrder {
 export type StringFilter = {
   readonly eq?: InputMaybe<Scalars["String"]["input"]>
   readonly like?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export type Subscription = {
+  readonly __typename?: "Subscription"
+  readonly markPriceCandles: ReadonlyArray<MarkPriceCandle>
+}
+
+export type SubscriptionMarkPriceCandlesArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  where?: InputMaybe<MarkPriceCandlesFilter>
 }
 
 export type TimeFilter = {
