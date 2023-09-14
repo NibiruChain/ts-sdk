@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.21](../intro.md) / [Exports](../modules.md) / PerpMsgFactory
+[NibiJS Documentation - v0.21.22](../intro.md) / [Exports](../modules.md) / PerpMsgFactory
 
 # Class: PerpMsgFactory
 
@@ -47,7 +47,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:106](https://github.com/NibiruChain/ts-sdk/blob/9375f67/packages/nibijs/src/msg/perp.ts#L106)
+[msg/perp.ts:118](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L118)
 
 ---
 
@@ -67,7 +67,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:143](https://github.com/NibiruChain/ts-sdk/blob/9375f67/packages/nibijs/src/msg/perp.ts#L143)
+[msg/perp.ts:155](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L155)
 
 ---
 
@@ -87,7 +87,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:150](https://github.com/NibiruChain/ts-sdk/blob/9375f67/packages/nibijs/src/msg/perp.ts#L150)
+[msg/perp.ts:162](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L162)
 
 ---
 
@@ -107,7 +107,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:113](https://github.com/NibiruChain/ts-sdk/blob/9375f67/packages/nibijs/src/msg/perp.ts#L113)
+[msg/perp.ts:125](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L125)
 
 ---
 
@@ -133,7 +133,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:120](https://github.com/NibiruChain/ts-sdk/blob/9375f67/packages/nibijs/src/msg/perp.ts#L120)
+[msg/perp.ts:132](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L132)
 
 ---
 
@@ -153,4 +153,4 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:92](https://github.com/NibiruChain/ts-sdk/blob/9375f67/packages/nibijs/src/msg/perp.ts#L92)
+[msg/perp.ts:104](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L104)

@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.21](../intro.md) / [Exports](../modules.md) / MsgOpenPositionEncodeObject
+[NibiJS Documentation - v0.21.22](../intro.md) / [Exports](../modules.md) / MsgOpenPositionEncodeObject
 
 # Interface: MsgOpenPositionEncodeObject
 
@@ -27,7 +27,7 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/perp.ts:61](https://github.com/NibiruChain/ts-sdk/blob/9375f67/packages/nibijs/src/msg/perp.ts#L61)
+[msg/perp.ts:64](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L64)
 
 ---
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/perp.ts:62](https://github.com/NibiruChain/ts-sdk/blob/9375f67/packages/nibijs/src/msg/perp.ts#L62)
+[msg/perp.ts:65](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L65)

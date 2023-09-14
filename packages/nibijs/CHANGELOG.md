@@ -1,3 +1,9 @@
+## [@nibiruchain/nibijs-v0.21.23](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.22...@nibiruchain/nibijs-v0.21.23) (2023-09-14)
+
+### Miscellaneous Chores
+
+- add partial close position on nibi perp ([#222](https://github.com/NibiruChain/ts-sdk/issues/222)) ([1afbc87](https://github.com/NibiruChain/ts-sdk/commit/1afbc87e40e36ca6772eea79fa2e1102696e2bdc))
+
 ## [@nibiruchain/nibijs-v0.21.22](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.21...@nibiruchain/nibijs-v0.21.22) (2023-09-13)
 
 ### Miscellaneous Chores
