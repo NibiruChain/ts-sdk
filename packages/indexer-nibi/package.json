@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc --build",
     "build:watch": "tsc --build --watch",
-    "gql-generate": "rm -rf gql && graphql-code-generator --config ./src/graphql-codegen/codegen.ts",
+    "gql-generate": "rm -rf src/gql && graphql-code-generator --config ./src/graphql-codegen/codegen.ts",
     "clean": "tsc --clean",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -34,5 +34,9 @@
     "tag": "latest",
     "access": "public"
   },
-  "gitHead": "bac1729be8575a9e75bf9e04447a63c45e227c8c"
+  "gitHead": "bac1729be8575a9e75bf9e04447a63c45e227c8c",
+  "dependencies": {
+    "graphql-ws": "^5.14.0",
+    "ws": "^8.14.1"
+  }
 }

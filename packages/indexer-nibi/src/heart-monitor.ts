@@ -1,3 +1,5 @@
+import WebSocket from "ws"
+import { Client, createClient } from "graphql-ws"
 import { gqlEndptFromTmRpc } from "./gql"
 import {
   Delegation,
@@ -33,6 +35,7 @@ import {
   SpotPoolExited,
   SpotPoolJoined,
   SpotPoolSwap,
+  SubscriptionMarkPriceCandlesArgs,
   Token,
   Unbonding,
   User,
@@ -85,6 +88,7 @@ import {
 } from "./query/markPriceCandles"
 import { GqlOutPerpLeaderboard, perpLeaderboard } from "./query/perpLeaderboard"
 import { GqlOutStats, QueryStatsArgs, StatsFields, stats } from "./query/stats"
+import { markPriceCandlesSubscription } from "./subscription/markPriceCandlesSubscription"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -113,6 +117,11 @@ export interface IHeartMonitor {
     args: QueryMarkPriceCandlesArgs,
     fields?: Partial<MarkPriceCandle>
   ) => Promise<GqlOutMarkPriceCandles>
+
+  readonly markPriceCandlesSubscription: (
+    args: SubscriptionMarkPriceCandlesArgs,
+    fields?: Partial<MarkPriceCandle>
+  ) => void
 
   readonly perpLeaderboard: (
     args: QueryPerpLeaderboardArgs,
@@ -201,6 +210,7 @@ export interface IHeartMonitor {
 export class HeartMonitor implements IHeartMonitor {
   gqlEndpt: string
   defaultGqlEndpt = "https://hm-graphql.itn-2.nibiru.fi/query"
+  subscriptionClient: Client
 
   constructor(gqlEndpt?: string | { endptTm: string }) {
     const chain = gqlEndpt as { endptTm: string }
@@ -214,6 +224,11 @@ export class HeartMonitor implements IHeartMonitor {
     } else {
       this.gqlEndpt = this.defaultGqlEndpt
     }
+
+    this.subscriptionClient = createClient({
+      url: this.defaultGqlEndpt,
+      webSocketImpl: WebSocket,
+    })
   }
 
   communityPool = async (
@@ -240,6 +255,11 @@ export class HeartMonitor implements IHeartMonitor {
     args: QueryMarkPriceCandlesArgs,
     fields?: Partial<MarkPriceCandle>
   ) => markPriceCandles(args, this.gqlEndpt, fields)
+
+  markPriceCandlesSubscription = async (
+    args: SubscriptionMarkPriceCandlesArgs,
+    fields?: Partial<MarkPriceCandle>
+  ) => markPriceCandlesSubscription(args, this.subscriptionClient, fields)
 
   perpLeaderboard = async (
     args: QueryPerpLeaderboardArgs,

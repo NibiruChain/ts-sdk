@@ -868,14 +868,33 @@ export type StringFilter = {
   readonly like?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type SubPerpMarketFilter = {
+  readonly pair: Scalars["String"]["input"]
+}
+
+export type SubPerpPositionFilter = {
+  readonly pair?: InputMaybe<Scalars["String"]["input"]>
+  readonly trader_address: Scalars["String"]["input"]
+}
+
 export type Subscription = {
   readonly __typename?: "Subscription"
   readonly markPriceCandles: ReadonlyArray<MarkPriceCandle>
+  readonly perpMarket: PerpMarket
+  readonly perpPositions: ReadonlyArray<PerpPosition>
 }
 
 export type SubscriptionMarkPriceCandlesArgs = {
   limit?: InputMaybe<Scalars["Int"]["input"]>
   where?: InputMaybe<MarkPriceCandlesFilter>
+}
+
+export type SubscriptionPerpMarketArgs = {
+  where: SubPerpMarketFilter
+}
+
+export type SubscriptionPerpPositionsArgs = {
+  where: SubPerpPositionFilter
 }
 
 export type TimeFilter = {

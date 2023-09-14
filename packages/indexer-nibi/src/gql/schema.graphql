@@ -752,11 +752,22 @@ input StringFilter {
   like: String
 }
 
+input SubPerpMarketFilter {
+  pair: String!
+}
+
+input SubPerpPositionFilter {
+  pair: String
+  trader_address: String!
+}
+
 type Subscription {
   markPriceCandles(
     limit: Int
     where: MarkPriceCandlesFilter
   ): [MarkPriceCandle!]!
+  perpMarket(where: SubPerpMarketFilter!): PerpMarket!
+  perpPositions(where: SubPerpPositionFilter!): [PerpPosition!]!
 }
 
 scalar Time
