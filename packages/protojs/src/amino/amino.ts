@@ -1,3 +1,3 @@
 /* eslint-disable */
 
-export const protobufPackage = "amino";
+export const protobufPackage = "amino"
