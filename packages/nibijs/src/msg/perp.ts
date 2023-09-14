@@ -6,6 +6,7 @@ import {
   MsgMultiLiquidate,
   MsgMarketOrder,
   MsgRemoveMargin,
+  MsgPartialClose,
   protobufPackage,
 } from "@nibiruchain/protojs/dist/nibiru/perp/v2/tx"
 import { Direction } from "@nibiruchain/protojs/dist/nibiru/perp/v2/state"
@@ -19,6 +20,7 @@ export const PERP_MSG_TYPE_URLS = {
   MsgMarketOrder: `/${protobufPackage}.MsgMarketOrder`,
   MsgClosePosition: `/${protobufPackage}.MsgClosePosition`,
   MsgDonateToEcosystemFund: `/${protobufPackage}.MsgDonateToEcosystemFund`,
+  MsgPartialClose: `/${protobufPackage}.MsgPartialClose`,
 }
 
 export const perpTypes: ReadonlyArray<[string, GeneratedType]> = [
@@ -28,6 +30,7 @@ export const perpTypes: ReadonlyArray<[string, GeneratedType]> = [
   [PERP_MSG_TYPE_URLS.MsgMarketOrder, MsgMarketOrder],
   [PERP_MSG_TYPE_URLS.MsgClosePosition, MsgClosePosition],
   [PERP_MSG_TYPE_URLS.MsgDonateToEcosystemFund, MsgDonateToEcosystemFund],
+  [PERP_MSG_TYPE_URLS.MsgPartialClose, MsgPartialClose],
 ]
 
 export interface MsgAddMarginEncodeObject extends EncodeObject {
@@ -85,6 +88,15 @@ export const isMsgDonateToEcosystemFundEncodeObject = (
 ) =>
   (encodeObject as MsgDonateToEcosystemFundEncodeObject).typeUrl ===
   PERP_MSG_TYPE_URLS.MsgDonateToEcosystemFund
+
+export interface MsgPartialClosEncodeObject extends EncodeObject {
+  readonly typeUrl: string
+  readonly value: Partial<MsgDonateToEcosystemFund>
+}
+
+export const isMsgPartialClosEncodeObject = (encodeObject: EncodeObject) =>
+  (encodeObject as MsgPartialClosEncodeObject).typeUrl ===
+  PERP_MSG_TYPE_URLS.MsgPartialClose
 
 // ----------------------------------------------------------------------------
 
