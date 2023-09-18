@@ -1,3 +1,9 @@
+## [@nibiruchain/nibijs-v0.21.25](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.24...@nibiruchain/nibijs-v0.21.25) (2023-09-18)
+
+### Code Refactors
+
+- adding correct msg partial close parameters ([3ca59b8](https://github.com/NibiruChain/ts-sdk/commit/3ca59b8b38058cc60f8a80248a60acbc8bf08b23))
+
 ## [@nibiruchain/nibijs-v0.21.24](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.23...@nibiruchain/nibijs-v0.21.24) (2023-09-18)
 
 ### Code Refactors
