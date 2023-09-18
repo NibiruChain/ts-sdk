@@ -89,13 +89,13 @@ export const isMsgDonateToEcosystemFundEncodeObject = (
   (encodeObject as MsgDonateToEcosystemFundEncodeObject).typeUrl ===
   PERP_MSG_TYPE_URLS.MsgDonateToEcosystemFund
 
-export interface MsgPartialClosEncodeObject extends EncodeObject {
+export interface MsgPartialCloseEncodeObject extends EncodeObject {
   readonly typeUrl: string
   readonly value: Partial<MsgDonateToEcosystemFund>
 }
 
-export const isMsgPartialClosEncodeObject = (encodeObject: EncodeObject) =>
-  (encodeObject as MsgPartialClosEncodeObject).typeUrl ===
+export const isMsgPartialCloseEncodeObject = (encodeObject: EncodeObject) =>
+  (encodeObject as MsgPartialCloseEncodeObject).typeUrl ===
   PERP_MSG_TYPE_URLS.MsgPartialClose
 
 // ----------------------------------------------------------------------------
@@ -156,6 +156,13 @@ export class PerpMsgFactory {
     return {
       typeUrl: PERP_MSG_TYPE_URLS.MsgClosePosition,
       value: MsgClosePosition.fromPartial(msg),
+    }
+  }
+
+  static partialClosePosition(msg: MsgPartialClose): TxMessage {
+    return {
+      typeUrl: PERP_MSG_TYPE_URLS.MsgPartialClose,
+      value: MsgPartialClose.fromPartial(msg),
     }
   }
 
