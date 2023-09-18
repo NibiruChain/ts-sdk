@@ -91,7 +91,7 @@ export const isMsgDonateToEcosystemFundEncodeObject = (
 
 export interface MsgPartialCloseEncodeObject extends EncodeObject {
   readonly typeUrl: string
-  readonly value: Partial<MsgDonateToEcosystemFund>
+  readonly value: Partial<MsgPartialClose>
 }
 
 export const isMsgPartialCloseEncodeObject = (encodeObject: EncodeObject) =>
