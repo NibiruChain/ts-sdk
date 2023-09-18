@@ -103,7 +103,7 @@ const notesTypes = commitVariants.map((variant) => ({
 }))
 
 module.exports = {
-  branches: [{ name: "releases/v0.21.x" }],
+  branches: [{ name: "main" }],
   plugins: [
     [
       "@semantic-release/commit-analyzer",
