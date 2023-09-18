@@ -1,3 +1,9 @@
+## [@nibiruchain/nibijs-v0.21.24](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.23...@nibiruchain/nibijs-v0.21.24) (2023-09-18)
+
+### Code Refactors
+
+- latest nibijs ([7e958cb](https://github.com/NibiruChain/ts-sdk/commit/7e958cb75bb194f0b7180d7561e4c0af9f281877))
+
 ## [@nibiruchain/nibijs-v0.21.23](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.22...@nibiruchain/nibijs-v0.21.23) (2023-09-14)
 
 ### Miscellaneous Chores

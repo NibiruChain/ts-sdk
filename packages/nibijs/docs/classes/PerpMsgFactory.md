@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.22](../intro.md) / [Exports](../modules.md) / PerpMsgFactory
+[NibiJS Documentation - v0.21.23](../intro.md) / [Exports](../modules.md) / PerpMsgFactory
 
 # Class: PerpMsgFactory
 
@@ -15,6 +15,7 @@
 - [donateToPerpEF](PerpMsgFactory.md#donatetoperpef)
 - [liquidate](PerpMsgFactory.md#liquidate)
 - [openPosition](PerpMsgFactory.md#openposition)
+- [partialClosePosition](PerpMsgFactory.md#partialcloseposition)
 - [removeMargin](PerpMsgFactory.md#removemargin)
 
 ## Constructors
@@ -47,7 +48,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:118](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L118)
+[msg/perp.ts:118](https://github.com/NibiruChain/ts-sdk/blob/7e958cb/packages/nibijs/src/msg/perp.ts#L118)
 
 ---
 
@@ -67,7 +68,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:155](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L155)
+[msg/perp.ts:155](https://github.com/NibiruChain/ts-sdk/blob/7e958cb/packages/nibijs/src/msg/perp.ts#L155)
 
 ---
 
@@ -87,7 +88,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:162](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L162)
+[msg/perp.ts:169](https://github.com/NibiruChain/ts-sdk/blob/7e958cb/packages/nibijs/src/msg/perp.ts#L169)
 
 ---
 
@@ -107,7 +108,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:125](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L125)
+[msg/perp.ts:125](https://github.com/NibiruChain/ts-sdk/blob/7e958cb/packages/nibijs/src/msg/perp.ts#L125)
 
 ---
 
@@ -133,7 +134,27 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:132](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L132)
+[msg/perp.ts:132](https://github.com/NibiruChain/ts-sdk/blob/7e958cb/packages/nibijs/src/msg/perp.ts#L132)
+
+---
+
+### partialClosePosition
+
+▸ `Static` **partialClosePosition**(`msg`): [`TxMessage`](../interfaces/TxMessage.md)
+
+#### Parameters
+
+| Name  | Type              |
+| :---- | :---------------- |
+| `msg` | `MsgPartialClose` |
+
+#### Returns
+
+[`TxMessage`](../interfaces/TxMessage.md)
+
+#### Defined in
+
+[msg/perp.ts:162](https://github.com/NibiruChain/ts-sdk/blob/7e958cb/packages/nibijs/src/msg/perp.ts#L162)
 
 ---
 
@@ -153,4 +174,4 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:104](https://github.com/NibiruChain/ts-sdk/blob/1afbc87/packages/nibijs/src/msg/perp.ts#L104)
+[msg/perp.ts:104](https://github.com/NibiruChain/ts-sdk/blob/7e958cb/packages/nibijs/src/msg/perp.ts#L104)
