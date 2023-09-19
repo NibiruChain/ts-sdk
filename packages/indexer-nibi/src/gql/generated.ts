@@ -249,6 +249,7 @@ export type PeriodFilter = {
 export type PerpLeaderboard = {
   readonly __typename?: "PerpLeaderboard"
   readonly avg_pct_pnl: Scalars["Float"]["output"]
+  readonly avg_pct_pnl_rank: Scalars["Int"]["output"]
   readonly input_margin: Scalars["Float"]["output"]
   readonly raw_pnl: Scalars["Float"]["output"]
   readonly raw_pnl_with_unrealized: Scalars["Float"]["output"]
@@ -261,6 +262,7 @@ export type PerpLeaderboardFilter = {
 
 export enum PerpLeaderboardOrder {
   AvgPctPnl = "avg_pct_pnl",
+  AvgPctPnlRank = "avg_pct_pnl_rank",
   RawPnl = "raw_pnl",
   RawPnlWithUnrealized = "raw_pnl_with_unrealized",
   TraderAddress = "trader_address",
@@ -868,14 +870,33 @@ export type StringFilter = {
   readonly like?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type SubPerpMarketFilter = {
+  readonly pair: Scalars["String"]["input"]
+}
+
+export type SubPerpPositionFilter = {
+  readonly pair?: InputMaybe<Scalars["String"]["input"]>
+  readonly trader_address: Scalars["String"]["input"]
+}
+
 export type Subscription = {
   readonly __typename?: "Subscription"
   readonly markPriceCandles: ReadonlyArray<MarkPriceCandle>
+  readonly perpMarket: PerpMarket
+  readonly perpPositions: ReadonlyArray<PerpPosition>
 }
 
 export type SubscriptionMarkPriceCandlesArgs = {
   limit?: InputMaybe<Scalars["Int"]["input"]>
   where?: InputMaybe<MarkPriceCandlesFilter>
+}
+
+export type SubscriptionPerpMarketArgs = {
+  where: SubPerpMarketFilter
+}
+
+export type SubscriptionPerpPositionsArgs = {
+  where: SubPerpPositionFilter
 }
 
 export type TimeFilter = {
