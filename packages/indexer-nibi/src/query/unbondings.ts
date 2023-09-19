@@ -1,8 +1,4 @@
-import {
-  defaultBlock,
-  defaultDelegator,
-  defaultValidator,
-} from "../defaultObjects"
+import { defaultBlock, defaultUser, defaultValidator } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
@@ -15,7 +11,7 @@ export const defaultUnbondingsObject: Unbonding = {
   amount: 0,
   completion_time: "",
   creation_block: defaultBlock,
-  delegator: defaultDelegator,
+  delegator: defaultUser,
   validator: defaultValidator,
 }
 
@@ -23,23 +19,28 @@ export interface GqlOutUnbondings {
   unbondings?: Query["unbondings"]
 }
 
-export const unbondings = async (
+export const unbondingsQueryString = (
   args: QueryUnbondingsArgs,
-  endpt: string,
+  excludeParentObject: boolean,
   fields?: Partial<Unbonding>
-): Promise<GqlOutUnbondings> => {
+) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
   if (!args.order_by) args.order_by = UnbondingOrder.CreationHeight
 
-  return doGqlQuery(
-    gqlQuery(
-      "unbondings",
-      args,
-      fields
-        ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultUnbondingsObject)
-    ),
-    endpt
+  return gqlQuery(
+    "unbondings",
+    args,
+    fields
+      ? convertObjectToPropertiesString(fields)
+      : convertObjectToPropertiesString(defaultUnbondingsObject),
+    excludeParentObject
   )
 }
+
+export const unbondings = async (
+  args: QueryUnbondingsArgs,
+  endpt: string,
+  fields?: Partial<Unbonding>
+): Promise<GqlOutUnbondings> =>
+  doGqlQuery(unbondingsQueryString(args, false, fields), endpt)

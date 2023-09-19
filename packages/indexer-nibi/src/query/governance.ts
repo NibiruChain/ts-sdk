@@ -28,11 +28,10 @@ export interface GqlOutGovernance {
   governance?: Query["governance"]
 }
 
-export const governance = async (
+export const governanceQueryString = (
   args: QueryGovernanceArgs,
-  endpt: string,
   fields?: Partial<Governance>
-): Promise<GqlOutGovernance> => {
+) => {
   const goveranceQuery: string[] = []
 
   if (fields) {
@@ -99,12 +98,21 @@ export const governance = async (
     )
   }
 
-  return doGqlQuery(
-    `{
+  return `
       governance {
           ${goveranceQuery.join("\n")}
       }
+    `
+}
+
+export const governance = async (
+  args: QueryGovernanceArgs,
+  endpt: string,
+  fields?: Partial<Governance>
+): Promise<GqlOutGovernance> =>
+  doGqlQuery(
+    `{
+      ${governanceQueryString(args, fields)}
     }`,
     endpt
   )
-}

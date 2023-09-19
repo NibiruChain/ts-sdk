@@ -126,11 +126,10 @@ export type StatsFields = Partial<{
   volume?: Partial<StatsVolume>
 }>
 
-export const stats = async (
+export const statsQueryString = (
   args: QueryStatsArgs,
-  endpt: string,
   fields?: StatsFields
-): Promise<GqlOutStats> => {
+) => {
   const statsQuery: string[] = []
 
   if (fields) {
@@ -275,12 +274,21 @@ export const stats = async (
     )
   }
 
-  return doGqlQuery(
-    `{
+  return `
       stats {
         ${statsQuery.join("\n")}
       }
+    `
+}
+
+export const stats = async (
+  args: QueryStatsArgs,
+  endpt: string,
+  fields?: StatsFields
+): Promise<GqlOutStats> =>
+  doGqlQuery(
+    `{
+      ${statsQueryString(args, fields)}
     }`,
     endpt
   )
-}

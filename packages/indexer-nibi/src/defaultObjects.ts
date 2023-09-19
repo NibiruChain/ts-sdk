@@ -1,18 +1,34 @@
-import { ValidatorStatus } from "./gql/generated"
+import {
+  Block,
+  GovDeposit,
+  GovProposal,
+  GovVote,
+  MarkPriceCandle,
+  PerpMarket,
+  PerpPosition,
+  SpotPool,
+  SpotPoolCreated,
+  SpotPoolExited,
+  SpotPoolJoined,
+  Token,
+  User,
+  Validator,
+  ValidatorStatus,
+} from "./gql/generated"
 
-export const defaultToken = {
+export const defaultToken: Token = {
   denom: "",
   amount: "",
 }
 
-export const defaultBlock = {
+export const defaultBlock: Block = {
   block: 0,
   block_duration: 0,
   block_ts: 0,
   num_txs: 0,
 }
 
-export const defaultValidator = {
+export const defaultValidator: Validator = {
   commission_update_time: "",
   commission_rates: {
     max_change_rate: 0,
@@ -36,17 +52,15 @@ export const defaultValidator = {
   unbonding_time: "",
 }
 
-export const defaultActor = {
+export const defaultActor: User = {
   address: "",
   balances: [defaultToken],
   created_block: defaultBlock,
 }
 
-export const defaultDelegator = defaultActor
-
 export const defaultUser = defaultActor
 
-export const defaultPerpMarket = {
+export const defaultPerpMarket: PerpMarket = {
   base_reserve: 0,
   ecosystem_fund_fee_ratio: 0,
   max_funding_rate: 0,
@@ -72,7 +86,7 @@ export const defaultPerpMarket = {
   twap_lookback_window: "",
 }
 
-export const defaultPerpPosition = {
+export const defaultPerpPosition: PerpPosition = {
   bad_debt: 0,
   last_updated_block: defaultBlock,
   latest_cumulative_premium_fraction: 0,
@@ -88,7 +102,7 @@ export const defaultPerpPosition = {
   unrealized_pnl: 0,
 }
 
-export const defaultPool = {
+export const defaultPool: SpotPool = {
   amplification: 0,
   created_block: defaultBlock,
   exit_fee: 0,
@@ -108,7 +122,7 @@ export const defaultSpotPool = {
   user: defaultUser,
 }
 
-export const defaultGovProposal = {
+export const defaultGovProposal: GovProposal = {
   depositEndTime: "",
   finalTallyResultAbstain: 0,
   finalTallyResultNo: 0,
@@ -126,16 +140,26 @@ export const defaultGovProposal = {
   votingStartTime: "",
 }
 
-export const defaultGovDeposit = {
+export const defaultGovDeposit: GovDeposit = {
   amount: [defaultToken],
   block: defaultBlock,
   proposal: defaultGovProposal,
   sender: defaultUser,
 }
 
-export const defaultGovVote = {
+export const defaultGovVote: GovVote = {
   block: defaultBlock,
   option: "",
   proposal: defaultGovProposal,
   sender: defaultUser,
+}
+
+export const defaultMarkPriceCandlesObject: MarkPriceCandle = {
+  close: 0,
+  high: 0,
+  low: 0,
+  open: 0,
+  pair: "",
+  period: 0,
+  periodStartTs: "",
 }

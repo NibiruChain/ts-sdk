@@ -1,8 +1,4 @@
-import {
-  defaultBlock,
-  defaultDelegator,
-  defaultValidator,
-} from "../defaultObjects"
+import { defaultBlock, defaultUser, defaultValidator } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
@@ -13,7 +9,7 @@ import {
 
 export const defaultRedelegationsObject: Redelegation = {
   amount: 0,
-  delegator: defaultDelegator,
+  delegator: defaultUser,
   source_validator: defaultValidator,
   destination_validator: defaultValidator,
   completion_time: "",
@@ -24,23 +20,28 @@ export interface GqlOutRedelegations {
   redelegations?: Query["redelegations"]
 }
 
-export const redelegations = async (
+export const redelegationsQueryString = (
   args: QueryRedelegationsArgs,
-  endpt: string,
+  excludeParentObject: boolean,
   fields?: Partial<Redelegation>
-): Promise<GqlOutRedelegations> => {
+) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
   if (!args.order_by) args.order_by = RedelegationOrder.CreationHeight
 
-  return doGqlQuery(
-    gqlQuery(
-      "redelegations",
-      args,
-      fields
-        ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultRedelegationsObject)
-    ),
-    endpt
+  return gqlQuery(
+    "redelegations",
+    args,
+    fields
+      ? convertObjectToPropertiesString(fields)
+      : convertObjectToPropertiesString(defaultRedelegationsObject),
+    excludeParentObject
   )
 }
+
+export const redelegations = async (
+  args: QueryRedelegationsArgs,
+  endpt: string,
+  fields?: Partial<Redelegation>
+): Promise<GqlOutRedelegations> =>
+  doGqlQuery(redelegationsQueryString(args, false, fields), endpt)

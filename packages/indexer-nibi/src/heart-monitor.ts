@@ -1,5 +1,5 @@
 import WebSocket from "ws"
-import { Client, createClient } from "graphql-ws"
+import { Client, ExecutionResult, createClient } from "graphql-ws"
 import { gqlEndptFromTmRpc } from "./gql"
 import {
   Delegation,
@@ -36,6 +36,8 @@ import {
   SpotPoolJoined,
   SpotPoolSwap,
   SubscriptionMarkPriceCandlesArgs,
+  SubscriptionPerpMarketArgs,
+  SubscriptionPerpPositionsArgs,
   Token,
   Unbonding,
   User,
@@ -89,6 +91,10 @@ import {
 import { GqlOutPerpLeaderboard, perpLeaderboard } from "./query/perpLeaderboard"
 import { GqlOutStats, QueryStatsArgs, StatsFields, stats } from "./query/stats"
 import { markPriceCandlesSubscription } from "./subscription/markPriceCandlesSubscription"
+import { perpMarketSubscription } from "./subscription/perpMarketSubscription"
+import { perpPositionsSubscription } from "./subscription/perpPositionsSubscription"
+import { subscriptionBatchHandler } from "./batchHandlers/subscriptionBatchHandler"
+import { queryBatchHandler } from "./batchHandlers/queryBatchHandler"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -121,7 +127,9 @@ export interface IHeartMonitor {
   readonly markPriceCandlesSubscription: (
     args: SubscriptionMarkPriceCandlesArgs,
     fields?: Partial<MarkPriceCandle>
-  ) => void
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<Record<string, unknown>, unknown>>
+  >
 
   readonly perpLeaderboard: (
     args: QueryPerpLeaderboardArgs,
@@ -132,6 +140,13 @@ export interface IHeartMonitor {
     args: QueryPerpMarketArgs,
     fields?: Partial<PerpMarket>
   ) => Promise<GqlOutPerpMarket>
+
+  readonly perpMarketSubscription: (
+    args: SubscriptionPerpMarketArgs,
+    fields?: Partial<PerpMarket>
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<Record<string, unknown>, unknown>>
+  >
 
   readonly perpMarkets: (
     args: QueryPerpMarketsArgs,
@@ -147,6 +162,18 @@ export interface IHeartMonitor {
     args: QueryPerpPositionsArgs,
     fields?: Partial<PerpPosition>
   ) => Promise<GqlOutPerpPositions>
+
+  readonly perpPositionsSubscription: (
+    args: SubscriptionPerpPositionsArgs,
+    fields?: Partial<PerpPosition>
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<Record<string, unknown>, unknown>>
+  >
+
+  readonly queryBatchHandler: (
+    queryQueryString: string[],
+    endpt: string
+  ) => Promise<any>
 
   readonly redelegations: (
     args: QueryRedelegationsArgs,
@@ -187,6 +214,13 @@ export interface IHeartMonitor {
     args: QueryStatsArgs,
     fields?: StatsFields
   ) => Promise<GqlOutStats>
+
+  readonly subscriptionBatchHandler: (
+    client: Client,
+    subscriptions: string[]
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<Record<string, unknown>, unknown>>
+  >
 
   readonly unbondings: (
     args: QueryUnbondingsArgs,
@@ -271,6 +305,11 @@ export class HeartMonitor implements IHeartMonitor {
     fields?: Partial<PerpMarket>
   ) => perpMarket(args, this.gqlEndpt, fields)
 
+  perpMarketSubscription = async (
+    args: SubscriptionPerpMarketArgs,
+    fields?: Partial<PerpMarket>
+  ) => perpMarketSubscription(args, this.subscriptionClient, fields)
+
   perpMarkets = async (
     args: QueryPerpMarketsArgs,
     fields?: Partial<PerpMarket>
@@ -285,6 +324,14 @@ export class HeartMonitor implements IHeartMonitor {
     args: QueryPerpPositionsArgs,
     fields?: Partial<PerpPosition>
   ) => perpPositions(args, this.gqlEndpt, fields)
+
+  perpPositionsSubscription = async (
+    args: SubscriptionPerpPositionsArgs,
+    fields?: Partial<PerpPosition>
+  ) => perpPositionsSubscription(args, this.subscriptionClient, fields)
+
+  queryBatchHandler = async (queryQueryString: string[], endpt: string) =>
+    queryBatchHandler(queryQueryString, endpt)
 
   redelegations = async (
     args: QueryRedelegationsArgs,
@@ -321,6 +368,9 @@ export class HeartMonitor implements IHeartMonitor {
 
   stats = async (args: QueryStatsArgs, fields?: StatsFields) =>
     stats(args, this.gqlEndpt, fields)
+
+  subscriptionBatchHandler = async (client: Client, subscriptions: string[]) =>
+    subscriptionBatchHandler(client, subscriptions)
 
   unbondings = async (args: QueryUnbondingsArgs, fields?: Partial<Unbonding>) =>
     unbondings(args, this.gqlEndpt, fields)
