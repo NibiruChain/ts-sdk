@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.23](../intro.md) / [Exports](../modules.md) / Event
+[NibiJS Documentation - v0.21.24](../intro.md) / [Exports](../modules.md) / Event
 
 # Interface: Event
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[chain/types.ts:48](https://github.com/NibiruChain/ts-sdk/blob/7e958cb/packages/nibijs/src/chain/types.ts#L48)
+[chain/types.ts:48](https://github.com/NibiruChain/ts-sdk/blob/3ca59b8/packages/nibijs/src/chain/types.ts#L48)
 
 ---
 
@@ -27,4 +27,4 @@
 
 #### Defined in
 
-[chain/types.ts:47](https://github.com/NibiruChain/ts-sdk/blob/7e958cb/packages/nibijs/src/chain/types.ts#L47)
+[chain/types.ts:47](https://github.com/NibiruChain/ts-sdk/blob/3ca59b8/packages/nibijs/src/chain/types.ts#L47)
