@@ -20,14 +20,16 @@ export const markPriceCandlesSubscriptionQueryString = (
   args: SubscriptionMarkPriceCandlesArgs,
   fields?: Partial<MarkPriceCandle>
 ) =>
-  gqlQuery(
-    "markPriceCandles",
-    args,
-    fields
-      ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultMarkPriceCandlesObject),
-    true
-  )
+  `subscription {
+    ${gqlQuery(
+      "markPriceCandles",
+      args,
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultMarkPriceCandlesObject),
+      true
+    )}
+  }`
 
 export const markPriceCandlesSubscription = async (
   args: SubscriptionMarkPriceCandlesArgs,
@@ -35,7 +37,5 @@ export const markPriceCandlesSubscription = async (
   fields?: Partial<MarkPriceCandle>
 ): Promise<AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>>> =>
   client.iterate({
-    query: `subscription {
-      ${markPriceCandlesSubscriptionQueryString(args, fields)}
-    }`,
+    query: markPriceCandlesSubscriptionQueryString(args, fields),
   })

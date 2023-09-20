@@ -23,7 +23,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
       - name: Install nibid
-        run: curl -s https://get.nibiru.fi/@v0.21.5! | bash
+        run: curl -s https://get.nibiru.fi/@v0.21.9! | bash
         # Use https://get.nibiru.fi/ to get the most recent release.
       - name: Run localnet.sh in the background
         run: |

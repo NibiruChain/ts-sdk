@@ -10,14 +10,16 @@ export const perpMarketSubscriptionQueryString = (
   args: SubscriptionPerpMarketArgs,
   fields?: Partial<PerpMarket>
 ) =>
-  gqlQuery(
-    "perpMarket",
-    args,
-    fields
-      ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultPerpMarketObject),
-    true
-  )
+  `subscription {
+    ${gqlQuery(
+      "perpMarket",
+      args,
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultPerpMarketObject),
+      true
+    )}
+  }`
 
 export const perpMarketSubscription = async (
   args: SubscriptionPerpMarketArgs,
@@ -25,7 +27,5 @@ export const perpMarketSubscription = async (
   fields?: Partial<PerpMarket>
 ): Promise<AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>>> =>
   client.iterate({
-    query: `subscription {
-      ${perpMarketSubscriptionQueryString(args, fields)}
-    }`,
+    query: perpMarketSubscriptionQueryString(args, fields),
   })

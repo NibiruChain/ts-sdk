@@ -52,7 +52,7 @@ export const cleanResponse = async (rawResp: Response) => {
   // console.debug("DEBUG respJson: %o", respJson)
 
   if (!rawResp.ok || !respJson) {
-    throw new Error(`${respJson}`)
+    throw new Error(`${JSON.stringify(respJson)}`)
   } else if (respJson.data) {
     return respJson.data
   } else {

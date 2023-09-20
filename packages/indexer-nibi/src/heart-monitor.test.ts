@@ -1,5 +1,8 @@
 import { HeartMonitor } from "./heart-monitor"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
+import { communityPoolQueryString, delegationsQueryString } from "./query"
+import { markPriceCandlesSubscriptionQueryString } from "./subscription/markPriceCandlesSubscription"
+import { perpMarketSubscriptionQueryString } from "./subscription/perpMarketSubscription"
 
 const heartMonitor = new HeartMonitor({
   endptTm: "https://hm-graphql.itn-2.nibiru.fi",
@@ -414,6 +417,37 @@ test("perpPositionsSubscription", async () => {
   }
 })
 
+test("queryBatchHandler", async () => {
+  const resp = await heartMonitor.queryBatchHandler([
+    communityPoolQueryString({}, true),
+    delegationsQueryString(
+      {
+        limit: 1,
+      },
+      true
+    ),
+  ])
+
+  expect(resp).toHaveProperty("communityPool")
+  expect(resp).toHaveProperty("delegations")
+
+  if ((resp.communityPool?.length ?? 0) > 0) {
+    const [communityPool] = resp.communityPool ?? []
+    const fields = ["amount", "denom"]
+    fields.forEach((field: string) => {
+      expect(communityPool).toHaveProperty(field)
+    })
+  }
+
+  if ((resp.delegations?.length ?? 0) > 0) {
+    const [delegation] = resp.delegations ?? []
+    const fields = ["amount", "delegator", "validator"]
+    fields.forEach((field: string) => {
+      expect(delegation).toHaveProperty(field)
+    })
+  }
+})
+
 test("redelegations", async () => {
   const resp = await heartMonitor.redelegations({
     limit: 1,
@@ -668,7 +702,9 @@ describe("gql cleanResponse", () => {
       ok: false,
       json: () => Promise.resolve(error),
     } as Response
-    await expect(cleanResponse(rawResp)).rejects.toThrowError(`${error}`)
+    await expect(cleanResponse(rawResp)).rejects.toThrowError(
+      `${JSON.stringify(error)}`
+    )
   })
 
   test("should throw an error if unable to parse JSON", async () => {
