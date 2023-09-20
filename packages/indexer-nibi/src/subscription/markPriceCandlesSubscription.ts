@@ -1,9 +1,10 @@
-import { Client } from "graphql-ws"
+import { Client, ExecutionResult } from "graphql-ws"
 import {
   MarkPriceCandle,
   SubscriptionMarkPriceCandlesArgs,
 } from "../gql/generated"
 import { gqlQuery, convertObjectToPropertiesString } from "../gql"
+import { GqlOutMarkPriceCandles } from "../query/markPriceCandles"
 
 export const defaultMarkPriceCandlesObject: MarkPriceCandle = {
   close: 0,
@@ -15,7 +16,7 @@ export const defaultMarkPriceCandlesObject: MarkPriceCandle = {
   periodStartTs: "",
 }
 
-export const markPriceCandlesSubscriptionQueryString = async (
+export const markPriceCandlesSubscriptionQueryString = (
   args: SubscriptionMarkPriceCandlesArgs,
   fields?: Partial<MarkPriceCandle>
 ) =>
@@ -24,14 +25,15 @@ export const markPriceCandlesSubscriptionQueryString = async (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultMarkPriceCandlesObject)
+      : convertObjectToPropertiesString(defaultMarkPriceCandlesObject),
+    true
   )
 
 export const markPriceCandlesSubscription = async (
   args: SubscriptionMarkPriceCandlesArgs,
   client: Client,
   fields?: Partial<MarkPriceCandle>
-) =>
+): Promise<AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>>> =>
   client.iterate({
     query: `subscription {
       ${markPriceCandlesSubscriptionQueryString(args, fields)}

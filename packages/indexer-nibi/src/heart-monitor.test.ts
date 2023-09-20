@@ -158,6 +158,34 @@ test("markPriceCandles", async () => {
   }
 })
 
+test("markPriceCandlesSubscription", async () => {
+  const resp = await heartMonitor.markPriceCandlesSubscription({
+    limit: 1,
+  })
+
+  for await (const event of resp) {
+    expect(event.data).toHaveProperty("markPriceCandles")
+
+    if ((event.data?.markPriceCandles!.length ?? 0) > 0) {
+      const [markPriceCandle] = event.data?.markPriceCandles! ?? []
+      const fields = [
+        "close",
+        "high",
+        "low",
+        "open",
+        "pair",
+        "period",
+        "periodStartTs",
+      ]
+      fields.forEach((field: string) => {
+        expect(markPriceCandle).toHaveProperty(field)
+      })
+    }
+
+    break
+  }
+})
+
 test("perpLeaderboard", async () => {
   const resp = await heartMonitor.perpLeaderboard({
     limit: 1,
@@ -213,6 +241,49 @@ test("perpMarket", async () => {
     fields.forEach((field: string) => {
       expect(perpMarket).toHaveProperty(field)
     })
+  }
+})
+
+test("perpMarketSubscription", async () => {
+  const resp = await heartMonitor.perpMarketSubscription({
+    where: { pair: "" },
+  })
+
+  for await (const event of resp) {
+    expect(event.data).toHaveProperty("perpMarket")
+    if (event.data?.perpMarket) {
+      const perpMarket = event.data?.perpMarket!
+      const fields = [
+        "pair",
+        "enabled",
+        "maintenance_margin_ratio",
+        "max_leverage",
+        "latest_cumulative_premium_fraction",
+        "exchange_fee_ratio",
+        "ecosystem_fund_fee_ratio",
+        "max_funding_rate",
+        "liquidation_fee_ratio",
+        "partial_liquidation_ratio",
+        "funding_rate_epoch_id",
+        "twap_lookback_window",
+        "prepaid_bad_debt",
+        "base_reserve",
+        "quote_reserve",
+        "sqrt_depth",
+        "price_multiplier",
+        "total_long",
+        "total_short",
+        "mark_price",
+        "mark_price_twap",
+        "index_price_twap",
+        "is_deleted",
+      ]
+      fields.forEach((field: string) => {
+        expect(perpMarket).toHaveProperty(field)
+      })
+    }
+
+    break
   }
 })
 
@@ -308,6 +379,38 @@ test("perpPositions", async () => {
     fields.forEach((field: string) => {
       expect(perpPositions).toHaveProperty(field)
     })
+  }
+})
+
+test("perpPositionsSubscription", async () => {
+  const resp = await heartMonitor.perpPositionsSubscription({
+    where: { pair: "", trader_address: "" },
+  })
+
+  for await (const event of resp) {
+    expect(event.data).toHaveProperty("perpPositions")
+    if ((event.data?.perpPositions!.length ?? 0) > 0) {
+      const [perpPositions] = event.data?.perpPositions! ?? []
+      const fields = [
+        "pair",
+        "trader_address",
+        "size",
+        "margin",
+        "open_notional",
+        "position_notional",
+        "latest_cumulative_premium_fraction",
+        "unrealized_pnl",
+        "unrealized_funding_payment",
+        "margin_ratio",
+        "bad_debt",
+        "last_updated_block",
+      ]
+      fields.forEach((field: string) => {
+        expect(perpPositions).toHaveProperty(field)
+      })
+    }
+
+    break
   }
 })
 

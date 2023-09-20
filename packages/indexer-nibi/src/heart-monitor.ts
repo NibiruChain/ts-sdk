@@ -127,9 +127,7 @@ export interface IHeartMonitor {
   readonly markPriceCandlesSubscription: (
     args: SubscriptionMarkPriceCandlesArgs,
     fields?: Partial<MarkPriceCandle>
-  ) => Promise<
-    AsyncIterableIterator<ExecutionResult<Record<string, unknown>, unknown>>
-  >
+  ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>>>
 
   readonly perpLeaderboard: (
     args: QueryPerpLeaderboardArgs,
@@ -144,9 +142,7 @@ export interface IHeartMonitor {
   readonly perpMarketSubscription: (
     args: SubscriptionPerpMarketArgs,
     fields?: Partial<PerpMarket>
-  ) => Promise<
-    AsyncIterableIterator<ExecutionResult<Record<string, unknown>, unknown>>
-  >
+  ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>>>
 
   readonly perpMarkets: (
     args: QueryPerpMarketsArgs,
@@ -166,9 +162,7 @@ export interface IHeartMonitor {
   readonly perpPositionsSubscription: (
     args: SubscriptionPerpPositionsArgs,
     fields?: Partial<PerpPosition>
-  ) => Promise<
-    AsyncIterableIterator<ExecutionResult<Record<string, unknown>, unknown>>
-  >
+  ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>>>
 
   readonly queryBatchHandler: (
     queryQueryString: string[],
