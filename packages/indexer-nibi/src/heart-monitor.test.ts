@@ -1,8 +1,6 @@
 import { HeartMonitor } from "./heart-monitor"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
 import { communityPoolQueryString, delegationsQueryString } from "./query"
-import { markPriceCandlesSubscriptionQueryString } from "./subscription/markPriceCandlesSubscription"
-import { perpMarketSubscriptionQueryString } from "./subscription/perpMarketSubscription"
 
 const heartMonitor = new HeartMonitor({
   endptTm: "https://hm-graphql.itn-2.nibiru.fi",
