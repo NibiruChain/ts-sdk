@@ -249,6 +249,7 @@ export type PeriodFilter = {
 export type PerpLeaderboard = {
   readonly __typename?: "PerpLeaderboard"
   readonly avg_pct_pnl: Scalars["Float"]["output"]
+  readonly avg_pct_pnl_rank: Scalars["Int"]["output"]
   readonly input_margin: Scalars["Float"]["output"]
   readonly raw_pnl: Scalars["Float"]["output"]
   readonly raw_pnl_with_unrealized: Scalars["Float"]["output"]
@@ -261,6 +262,7 @@ export type PerpLeaderboardFilter = {
 
 export enum PerpLeaderboardOrder {
   AvgPctPnl = "avg_pct_pnl",
+  AvgPctPnlRank = "avg_pct_pnl_rank",
   RawPnl = "raw_pnl",
   RawPnlWithUnrealized = "raw_pnl_with_unrealized",
   TraderAddress = "trader_address",

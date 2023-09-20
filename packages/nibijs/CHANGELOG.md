@@ -1,3 +1,13 @@
+## [@nibiruchain/nibijs-v0.21.26](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.25...@nibiruchain/nibijs-v0.21.26) (2023-09-20)
+
+### Code Refactors
+
+- including avg_pct_pnl_rank into leaderboard schema ([#228](https://github.com/NibiruChain/ts-sdk/issues/228)) ([317eea5](https://github.com/NibiruChain/ts-sdk/commit/317eea51ae68ce322f6c2dc9ab487442ee3c2539))
+
+### Miscellaneous Chores
+
+- **release:** 0.21.21 ([8f851e5](https://github.com/NibiruChain/ts-sdk/commit/8f851e59523e4a4668dea82ce27e1c9537648a6a)), closes [#228](https://github.com/NibiruChain/ts-sdk/issues/228)
+
 ## [@nibiruchain/nibijs-v0.21.25](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.24...@nibiruchain/nibijs-v0.21.25) (2023-09-18)
 
 ### Code Refactors
