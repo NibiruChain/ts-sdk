@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.22](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.21...@nibiruchain/indexer-nibi-v0.21.22) (2023-09-21)
+
+### Features
+
+- **subscription:** subscriptions ([#224](https://github.com/NibiruChain/ts-sdk/issues/224)) ([43c20f4](https://github.com/NibiruChain/ts-sdk/commit/43c20f45f112661e0740833e9fc059670aa0e6f6))
+
 ## [@nibiruchain/indexer-nibi-v0.21.21](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.20...@nibiruchain/indexer-nibi-v0.21.21) (2023-09-20)
 
 ### Code Refactors

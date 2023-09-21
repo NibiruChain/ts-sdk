@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.25](../intro.md) / [Exports](../modules.md) / OracleExtension
+[NibiJS Documentation - v0.21.26](../intro.md) / [Exports](../modules.md) / OracleExtension
 
 # Interface: OracleExtension
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/oracle.ts:37](https://github.com/NibiruChain/ts-sdk/blob/317eea5/packages/nibijs/src/query/oracle.ts#L37)
+[query/oracle.ts:37](https://github.com/NibiruChain/ts-sdk/blob/43c20f4/packages/nibijs/src/query/oracle.ts#L37)

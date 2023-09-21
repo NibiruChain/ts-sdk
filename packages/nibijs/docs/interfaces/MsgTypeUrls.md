@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.25](../intro.md) / [Exports](../modules.md) / MsgTypeUrls
+[NibiJS Documentation - v0.21.26](../intro.md) / [Exports](../modules.md) / MsgTypeUrls
 
 # Interface: MsgTypeUrls
 
