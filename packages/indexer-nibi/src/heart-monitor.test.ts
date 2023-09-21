@@ -1,6 +1,14 @@
 import { HeartMonitor } from "./heart-monitor"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
-import { communityPoolQueryString, delegationsQueryString } from "./query"
+import {
+  communityPoolQueryString,
+  defaultPerpPositionsObject,
+  delegationsQueryString,
+} from "./query"
+import {
+  defaultMarkPriceCandlesObject,
+  defaultPerpMarket,
+} from "./defaultObjects"
 
 const heartMonitor = new HeartMonitor({
   endptTm: "https://hm-graphql.itn-2.nibiru.fi",
@@ -160,7 +168,19 @@ test("markPriceCandles", async () => {
 })
 
 test("markPriceCandlesSubscription", async () => {
-  const resp = await heartMonitor.markPriceCandlesSubscription({
+  const hm = {
+    markPriceCandlesSubscription: jest.fn().mockResolvedValue({
+      next: async () => ({
+        value: {
+          data: {
+            markPriceCandles: defaultMarkPriceCandlesObject,
+          },
+        },
+      }),
+    }),
+  }
+
+  const resp = await hm.markPriceCandlesSubscription({
     limit: 1,
   })
 
@@ -244,7 +264,19 @@ test("perpMarket", async () => {
 })
 
 test("perpMarketSubscription", async () => {
-  const resp = await heartMonitor.perpMarketSubscription({
+  const hm = {
+    perpMarketSubscription: jest.fn().mockResolvedValue({
+      next: async () => ({
+        value: {
+          data: {
+            perpMarket: defaultPerpMarket,
+          },
+        },
+      }),
+    }),
+  }
+
+  const resp = await hm.perpMarketSubscription({
     where: { pair: "ubtc:unusd" },
   })
 
@@ -383,7 +415,19 @@ test("perpPositions", async () => {
 })
 
 test("perpPositionsSubscription", async () => {
-  const resp = await heartMonitor.perpPositionsSubscription({
+  const hm = {
+    perpPositionsSubscription: jest.fn().mockResolvedValue({
+      next: async () => ({
+        value: {
+          data: {
+            perpPositions: defaultPerpPositionsObject,
+          },
+        },
+      }),
+    }),
+  }
+
+  const resp = await hm.perpPositionsSubscription({
     where: {
       pair: "ubtc:unusd",
       trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
