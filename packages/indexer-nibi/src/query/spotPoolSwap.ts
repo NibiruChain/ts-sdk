@@ -24,23 +24,28 @@ export interface GqlOutSpotPoolSwap {
   spotPoolSwap?: Query["spotPoolSwap"]
 }
 
-export const spotPoolSwap = async (
+export const spotPoolSwapQueryString = (
   args: QuerySpotPoolSwapArgs,
-  endpt: string,
+  excludeParentObject: boolean,
   fields?: Partial<SpotPoolSwap>
-): Promise<GqlOutSpotPoolSwap> => {
+) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
   if (!args.order_by) args.order_by = SpotPoolSwapOrder.Block
 
-  return doGqlQuery(
-    gqlQuery(
-      "spotPoolSwap",
-      args,
-      fields
-        ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultSpotPoolSwapObject)
-    ),
-    endpt
+  return gqlQuery(
+    "spotPoolSwap",
+    args,
+    fields
+      ? convertObjectToPropertiesString(fields)
+      : convertObjectToPropertiesString(defaultSpotPoolSwapObject),
+    excludeParentObject
   )
 }
+
+export const spotPoolSwap = async (
+  args: QuerySpotPoolSwapArgs,
+  endpt: string,
+  fields?: Partial<SpotPoolSwap>
+): Promise<GqlOutSpotPoolSwap> =>
+  doGqlQuery(spotPoolSwapQueryString(args, false, fields), endpt)

@@ -13,23 +13,28 @@ export interface GqlOutSpotPools {
   spotPools?: Query["spotPools"]
 }
 
-export const spotPools = async (
+export const spotPoolsQueryString = (
   args: QuerySpotPoolsArgs,
-  endpt: string,
+  excludeParentObject: boolean,
   fields?: Partial<SpotPool>
-): Promise<GqlOutSpotPools> => {
+) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
   if (!args.order_by) args.order_by = SpotPoolOrder.PoolId
 
-  return doGqlQuery(
-    gqlQuery(
-      "spotPools",
-      args,
-      fields
-        ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultSpotPoolObject)
-    ),
-    endpt
+  return gqlQuery(
+    "spotPools",
+    args,
+    fields
+      ? convertObjectToPropertiesString(fields)
+      : convertObjectToPropertiesString(defaultSpotPoolObject),
+    excludeParentObject
   )
 }
+
+export const spotPools = async (
+  args: QuerySpotPoolsArgs,
+  endpt: string,
+  fields?: Partial<SpotPool>
+): Promise<GqlOutSpotPools> =>
+  doGqlQuery(spotPoolsQueryString(args, false, fields), endpt)

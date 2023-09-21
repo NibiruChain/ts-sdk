@@ -13,23 +13,28 @@ export interface GqlOutPerpPositions {
   perpPositions?: Query["perpPositions"]
 }
 
-export const perpPositions = async (
+export const perpPositionsQueryString = (
   args: QueryPerpPositionsArgs,
-  endpt: string,
+  excludeParentObject: boolean,
   fields?: Partial<PerpPosition>
-): Promise<GqlOutPerpPositions> => {
+) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
   if (!args.order_by) args.order_by = PerpPositionOrder.CreatedBlock
 
-  return doGqlQuery(
-    gqlQuery(
-      "perpPositions",
-      args,
-      fields
-        ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultPerpPositionsObject)
-    ),
-    endpt
+  return gqlQuery(
+    "perpPositions",
+    args,
+    fields
+      ? convertObjectToPropertiesString(fields)
+      : convertObjectToPropertiesString(defaultPerpPositionsObject),
+    excludeParentObject
   )
 }
+
+export const perpPositions = async (
+  args: QueryPerpPositionsArgs,
+  endpt: string,
+  fields?: Partial<PerpPosition>
+): Promise<GqlOutPerpPositions> =>
+  doGqlQuery(perpPositionsQueryString(args, false, fields), endpt)

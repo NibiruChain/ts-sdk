@@ -1,5 +1,14 @@
 import { HeartMonitor } from "./heart-monitor"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
+import {
+  communityPoolQueryString,
+  defaultPerpPositionsObject,
+  delegationsQueryString,
+} from "./query"
+import {
+  defaultMarkPriceCandlesObject,
+  defaultPerpMarket,
+} from "./defaultObjects"
 
 const heartMonitor = new HeartMonitor({
   endptTm: "https://hm-graphql.itn-2.nibiru.fi",
@@ -73,8 +82,8 @@ test("communityPool", async () => {
   const resp = await heartMonitor.communityPool({})
   expect(resp).toHaveProperty("communityPool")
 
-  if (resp.communityPool!.length > 0) {
-    const [communityPool] = resp.communityPool!
+  if ((resp.communityPool?.length ?? 0) > 0) {
+    const [communityPool] = resp.communityPool ?? []
     const fields = ["amount", "denom"]
     fields.forEach((field: string) => {
       expect(communityPool).toHaveProperty(field)
@@ -88,8 +97,8 @@ test("delegations", async () => {
   })
   expect(resp).toHaveProperty("delegations")
 
-  if (resp.delegations!.length > 0) {
-    const [delegation] = resp.delegations!
+  if ((resp.delegations?.length ?? 0) > 0) {
+    const [delegation] = resp.delegations ?? []
     const fields = ["amount", "delegator", "validator"]
     fields.forEach((field: string) => {
       expect(delegation).toHaveProperty(field)
@@ -103,8 +112,8 @@ test("distributionCommissions", async () => {
   })
   expect(resp).toHaveProperty("distributionCommissions")
 
-  if (resp.distributionCommissions!.length > 0) {
-    const [distributionCommissions] = resp.distributionCommissions!
+  if ((resp.distributionCommissions?.length ?? 0) > 0) {
+    const [distributionCommissions] = resp.distributionCommissions ?? []
     const fields = ["commission", "validator"]
     fields.forEach((field: string) => {
       expect(distributionCommissions).toHaveProperty(field)
@@ -127,7 +136,7 @@ test("governance", async () => {
   expect(resp).toHaveProperty("governance")
 
   if (resp.governance) {
-    const governance = resp.governance!
+    const { governance } = resp
     const fields = ["govDeposits", "govProposals", "govVotes"]
     fields.forEach((field: string) => {
       expect(governance).toHaveProperty(field)
@@ -141,8 +150,46 @@ test("markPriceCandles", async () => {
   })
   expect(resp).toHaveProperty("markPriceCandles")
 
-  if (resp.markPriceCandles!.length > 0) {
-    const [markPriceCandle] = resp.markPriceCandles!
+  if ((resp.markPriceCandles?.length ?? 0) > 0) {
+    const [markPriceCandle] = resp.markPriceCandles ?? []
+    const fields = [
+      "close",
+      "high",
+      "low",
+      "open",
+      "pair",
+      "period",
+      "periodStartTs",
+    ]
+    fields.forEach((field: string) => {
+      expect(markPriceCandle).toHaveProperty(field)
+    })
+  }
+})
+
+test("markPriceCandlesSubscription", async () => {
+  const hm = {
+    markPriceCandlesSubscription: jest.fn().mockResolvedValue({
+      next: async () => ({
+        value: {
+          data: {
+            markPriceCandles: defaultMarkPriceCandlesObject,
+          },
+        },
+      }),
+    }),
+  }
+
+  const resp = await hm.markPriceCandlesSubscription({
+    limit: 1,
+  })
+
+  const event = await resp.next()
+
+  expect(event.value.data).toHaveProperty("markPriceCandles")
+
+  if ((event.value.data.markPriceCandles.length ?? 0) > 0) {
+    const [markPriceCandle] = event.value.data.markPriceCandles ?? []
     const fields = [
       "close",
       "high",
@@ -164,8 +211,8 @@ test("perpLeaderboard", async () => {
   })
   expect(resp).toHaveProperty("perpLeaderboard")
 
-  if (resp.perpLeaderboard!.length > 0) {
-    const [perpLeaderboard] = resp.perpLeaderboard!
+  if ((resp.perpLeaderboard?.length ?? 0) > 0) {
+    const [perpLeaderboard] = resp.perpLeaderboard ?? []
     const fields = [
       "avg_pct_pnl",
       "input_margin",
@@ -184,7 +231,60 @@ test("perpMarket", async () => {
   expect(resp).toHaveProperty("perpMarket")
 
   if (resp.perpMarket) {
-    const perpMarket = resp.perpMarket!
+    const { perpMarket } = resp
+    const fields = [
+      "pair",
+      "enabled",
+      "maintenance_margin_ratio",
+      "max_leverage",
+      "latest_cumulative_premium_fraction",
+      "exchange_fee_ratio",
+      "ecosystem_fund_fee_ratio",
+      "max_funding_rate",
+      "liquidation_fee_ratio",
+      "partial_liquidation_ratio",
+      "funding_rate_epoch_id",
+      "twap_lookback_window",
+      "prepaid_bad_debt",
+      "base_reserve",
+      "quote_reserve",
+      "sqrt_depth",
+      "price_multiplier",
+      "total_long",
+      "total_short",
+      "mark_price",
+      "mark_price_twap",
+      "index_price_twap",
+      "is_deleted",
+    ]
+    fields.forEach((field: string) => {
+      expect(perpMarket).toHaveProperty(field)
+    })
+  }
+})
+
+test("perpMarketSubscription", async () => {
+  const hm = {
+    perpMarketSubscription: jest.fn().mockResolvedValue({
+      next: async () => ({
+        value: {
+          data: {
+            perpMarket: defaultPerpMarket,
+          },
+        },
+      }),
+    }),
+  }
+
+  const resp = await hm.perpMarketSubscription({
+    where: { pair: "ubtc:unusd" },
+  })
+
+  const event = await resp.next()
+
+  expect(event.value.data).toHaveProperty("perpMarket")
+  if (event.value.data.perpMarket) {
+    const { perpMarket } = event.value.data
     const fields = [
       "pair",
       "enabled",
@@ -223,7 +323,7 @@ test("perpMarkets", async () => {
   expect(resp).toHaveProperty("perpMarkets")
 
   if (resp.perpMarkets) {
-    const [perpMarkets] = resp.perpMarkets!
+    const [perpMarkets] = resp.perpMarkets
     const fields = [
       "pair",
       "enabled",
@@ -257,12 +357,15 @@ test("perpMarkets", async () => {
 
 test("perpPosition", async () => {
   const resp = await heartMonitor.perpPosition({
-    where: { pair: "", trader_address: "" },
+    where: {
+      pair: "ubtc:unusd",
+      trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
+    },
   })
   expect(resp).toHaveProperty("perpPosition")
 
   if (resp.perpPosition) {
-    const perpPosition = resp.perpPosition!
+    const { perpPosition } = resp
     const fields = [
       "pair",
       "trader_address",
@@ -289,8 +392,8 @@ test("perpPositions", async () => {
   })
   expect(resp).toHaveProperty("perpPositions")
 
-  if (resp.perpPositions!.length > 0) {
-    const [perpPositions] = resp.perpPositions!
+  if ((resp.perpPositions?.length ?? 0) > 0) {
+    const [perpPositions] = resp.perpPositions ?? []
     const fields = [
       "pair",
       "trader_address",
@@ -311,14 +414,90 @@ test("perpPositions", async () => {
   }
 })
 
+test("perpPositionsSubscription", async () => {
+  const hm = {
+    perpPositionsSubscription: jest.fn().mockResolvedValue({
+      next: async () => ({
+        value: {
+          data: {
+            perpPositions: defaultPerpPositionsObject,
+          },
+        },
+      }),
+    }),
+  }
+
+  const resp = await hm.perpPositionsSubscription({
+    where: {
+      pair: "ubtc:unusd",
+      trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
+    },
+  })
+
+  const event = await resp.next()
+
+  expect(event.value.data).toHaveProperty("perpPositions")
+  if ((event.value.data.perpPositions.length ?? 0) > 0) {
+    const [perpPositions] = event.value.data.perpPositions ?? []
+    const fields = [
+      "pair",
+      "trader_address",
+      "size",
+      "margin",
+      "open_notional",
+      "position_notional",
+      "latest_cumulative_premium_fraction",
+      "unrealized_pnl",
+      "unrealized_funding_payment",
+      "margin_ratio",
+      "bad_debt",
+      "last_updated_block",
+    ]
+    fields.forEach((field: string) => {
+      expect(perpPositions).toHaveProperty(field)
+    })
+  }
+})
+
+test("queryBatchHandler", async () => {
+  const resp = await heartMonitor.queryBatchHandler([
+    communityPoolQueryString({}, true),
+    delegationsQueryString(
+      {
+        limit: 1,
+      },
+      true
+    ),
+  ])
+
+  expect(resp).toHaveProperty("communityPool")
+  expect(resp).toHaveProperty("delegations")
+
+  if ((resp.communityPool?.length ?? 0) > 0) {
+    const [communityPool] = resp.communityPool ?? []
+    const fields = ["amount", "denom"]
+    fields.forEach((field: string) => {
+      expect(communityPool).toHaveProperty(field)
+    })
+  }
+
+  if ((resp.delegations?.length ?? 0) > 0) {
+    const [delegation] = resp.delegations ?? []
+    const fields = ["amount", "delegator", "validator"]
+    fields.forEach((field: string) => {
+      expect(delegation).toHaveProperty(field)
+    })
+  }
+})
+
 test("redelegations", async () => {
   const resp = await heartMonitor.redelegations({
     limit: 1,
   })
   expect(resp).toHaveProperty("redelegations")
 
-  if (resp.redelegations!.length > 0) {
-    const [redelegations] = resp.redelegations!
+  if ((resp.redelegations?.length ?? 0) > 0) {
+    const [redelegations] = resp.redelegations ?? []
     const fields = [
       "delegator",
       "source_validator",
@@ -339,8 +518,8 @@ test("spotLpPositions", async () => {
   })
   expect(resp).toHaveProperty("spotLpPositions")
 
-  if (resp.spotLpPositions!.length > 0) {
-    const [spotLpPositions] = resp.spotLpPositions!
+  if ((resp.spotLpPositions?.length ?? 0) > 0) {
+    const [spotLpPositions] = resp.spotLpPositions ?? []
     const fields = ["pool", "user", "pool_shares", "created_block"]
     fields.forEach((field: string) => {
       expect(spotLpPositions).toHaveProperty(field)
@@ -354,8 +533,8 @@ test("spotPoolCreated", async () => {
   })
   expect(resp).toHaveProperty("spotPoolCreated")
 
-  if (resp.spotPoolCreated!.length > 0) {
-    const [spotPoolCreated] = resp.spotPoolCreated!
+  if ((resp.spotPoolCreated?.length ?? 0) > 0) {
+    const [spotPoolCreated] = resp.spotPoolCreated ?? []
     const fields = ["user", "block", "pool", "pool_shares"]
     fields.forEach((field: string) => {
       expect(spotPoolCreated).toHaveProperty(field)
@@ -369,8 +548,8 @@ test("spotPoolExited", async () => {
   })
   expect(resp).toHaveProperty("spotPoolExited")
 
-  if (resp.spotPoolExited!.length > 0) {
-    const [spotPoolExited] = resp.spotPoolExited!
+  if ((resp.spotPoolExited?.length ?? 0) > 0) {
+    const [spotPoolExited] = resp.spotPoolExited ?? []
     const fields = ["user", "block", "pool", "pool_shares"]
     fields.forEach((field: string) => {
       expect(spotPoolExited).toHaveProperty(field)
@@ -384,8 +563,8 @@ test("spotPoolJoined", async () => {
   })
   expect(resp).toHaveProperty("spotPoolJoined")
 
-  if (resp.spotPoolJoined!.length > 0) {
-    const [spotPoolJoined] = resp.spotPoolJoined!
+  if ((resp.spotPoolJoined?.length ?? 0) > 0) {
+    const [spotPoolJoined] = resp.spotPoolJoined ?? []
     const fields = ["user", "block", "pool", "pool_shares"]
     fields.forEach((field: string) => {
       expect(spotPoolJoined).toHaveProperty(field)
@@ -399,8 +578,8 @@ test("spotPools", async () => {
   })
   expect(resp).toHaveProperty("spotPools")
 
-  if (resp.spotPools!.length > 0) {
-    const [spotPools] = resp.spotPools!
+  if ((resp.spotPools?.length ?? 0) > 0) {
+    const [spotPools] = resp.spotPools ?? []
     const fields = [
       "pool_id",
       "pool_type",
@@ -425,8 +604,8 @@ test("spotPoolSwap", async () => {
   })
   expect(resp).toHaveProperty("spotPoolSwap")
 
-  if (resp.spotPoolSwap!.length > 0) {
-    const [spotPoolSwap] = resp.spotPoolSwap!
+  if ((resp.spotPoolSwap?.length ?? 0) > 0) {
+    const [spotPoolSwap] = resp.spotPoolSwap ?? []
     const fields = ["user", "block", "token_in", "token_out", "pool"]
     fields.forEach((field: string) => {
       expect(spotPoolSwap).toHaveProperty(field)
@@ -461,7 +640,7 @@ test("stats", async () => {
   expect(resp).toHaveProperty("stats")
 
   if (resp.stats) {
-    const stats = resp.stats!
+    const { stats } = resp
     const fields = [
       "totals",
       "fees",
@@ -483,8 +662,8 @@ test("unbondings", async () => {
   })
   expect(resp).toHaveProperty("unbondings")
 
-  if (resp.unbondings!.length > 0) {
-    const [unbonding] = resp.unbondings!
+  if ((resp.unbondings?.length ?? 0) > 0) {
+    const [unbonding] = resp.unbondings ?? []
     const fields = [
       "delegator",
       "validator",
@@ -504,8 +683,8 @@ test("users", async () => {
   })
   expect(resp).toHaveProperty("users")
 
-  if (resp.users!.length > 0) {
-    const [users] = resp.users!
+  if ((resp.users?.length ?? 0) > 0) {
+    const [users] = resp.users ?? []
     const fields = ["address", "balances", "created_block"]
     fields.forEach((field: string) => {
       expect(users).toHaveProperty(field)
@@ -519,8 +698,8 @@ test("validators", async () => {
   })
   expect(resp).toHaveProperty("validators")
 
-  if (resp.validators!.length > 0) {
-    const [validator] = resp.validators!
+  if ((resp.validators?.length ?? 0) > 0) {
+    const [validator] = resp.validators ?? []
     const fields = [
       "commission_rates",
       "commission_update_time",
@@ -565,7 +744,9 @@ describe("gql cleanResponse", () => {
       ok: false,
       json: () => Promise.resolve(error),
     } as Response
-    await expect(cleanResponse(rawResp)).rejects.toThrowError(`${error}`)
+    await expect(cleanResponse(rawResp)).rejects.toThrowError(
+      `${JSON.stringify(error)}`
+    )
   })
 
   test("should throw an error if unable to parse JSON", async () => {

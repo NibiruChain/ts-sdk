@@ -8,23 +8,28 @@ export interface GqlOutUsers {
   users?: Query["users"]
 }
 
-export const users = async (
+export const usersQueryString = (
   args: QueryUsersArgs,
-  endpt: string,
+  excludeParentObject: boolean,
   fields?: Partial<User>
-): Promise<GqlOutUsers> => {
+) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
   if (!args.order_by) args.order_by = UserOrder.CreatedBlock
 
-  return doGqlQuery(
-    gqlQuery(
-      "users",
-      args,
-      fields
-        ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultUserObject)
-    ),
-    endpt
+  return gqlQuery(
+    "users",
+    args,
+    fields
+      ? convertObjectToPropertiesString(fields)
+      : convertObjectToPropertiesString(defaultUserObject),
+    excludeParentObject
   )
 }
+
+export const users = async (
+  args: QueryUsersArgs,
+  endpt: string,
+  fields?: Partial<User>
+): Promise<GqlOutUsers> =>
+  doGqlQuery(usersQueryString(args, false, fields), endpt)

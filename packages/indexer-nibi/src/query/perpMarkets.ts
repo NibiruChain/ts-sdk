@@ -13,23 +13,28 @@ export interface GqlOutPerpMarkets {
   perpMarkets?: Query["perpMarkets"]
 }
 
-export const perpMarkets = async (
+export const perpMarketsQueryString = (
   args: QueryPerpMarketsArgs,
-  endpt: string,
+  excludeParentObject: boolean,
   fields?: Partial<PerpMarket>
-): Promise<GqlOutPerpMarkets> => {
+) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
   if (!args.order_by) args.order_by = PerpMarketOrder.Pair
 
-  return doGqlQuery(
-    gqlQuery(
-      "perpMarkets",
-      args,
-      fields
-        ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultPerpMarketsObject)
-    ),
-    endpt
+  return gqlQuery(
+    "perpMarkets",
+    args,
+    fields
+      ? convertObjectToPropertiesString(fields)
+      : convertObjectToPropertiesString(defaultPerpMarketsObject),
+    excludeParentObject
   )
 }
+
+export const perpMarkets = async (
+  args: QueryPerpMarketsArgs,
+  endpt: string,
+  fields?: Partial<PerpMarket>
+): Promise<GqlOutPerpMarkets> =>
+  doGqlQuery(perpMarketsQueryString(args, false, fields), endpt)

@@ -13,23 +13,28 @@ export interface GqlOutSpotPoolExited {
   spotPoolExited?: Query["spotPoolExited"]
 }
 
-export const spotPoolExited = async (
+export const spotPoolExitedQueryString = (
   args: QuerySpotPoolExitedArgs,
-  endpt: string,
+  excludeParentObject: boolean,
   fields?: Partial<SpotPoolExited>
-): Promise<GqlOutSpotPoolExited> => {
+) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
   if (!args.order_by) args.order_by = SpotPoolExitedOrder.PoolId
 
-  return doGqlQuery(
-    gqlQuery(
-      "spotPoolExited",
-      args,
-      fields
-        ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultSpotPoolExitedObject)
-    ),
-    endpt
+  return gqlQuery(
+    "spotPoolExited",
+    args,
+    fields
+      ? convertObjectToPropertiesString(fields)
+      : convertObjectToPropertiesString(defaultSpotPoolExitedObject),
+    excludeParentObject
   )
 }
+
+export const spotPoolExited = async (
+  args: QuerySpotPoolExitedArgs,
+  endpt: string,
+  fields?: Partial<SpotPoolExited>
+): Promise<GqlOutSpotPoolExited> =>
+  doGqlQuery(spotPoolExitedQueryString(args, false, fields), endpt)

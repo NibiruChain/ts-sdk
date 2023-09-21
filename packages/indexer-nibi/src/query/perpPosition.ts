@@ -8,18 +8,23 @@ export interface GqlOutPerpPosition {
   perpPosition?: Query["perpPosition"]
 }
 
+export const perpPositionQueryString = (
+  args: QueryPerpPositionArgs,
+  excludeParentObject: boolean,
+  fields?: Partial<PerpPosition>
+) =>
+  gqlQuery(
+    "perpPosition",
+    args,
+    fields
+      ? convertObjectToPropertiesString(fields)
+      : convertObjectToPropertiesString(defaultPerpPositionObject),
+    excludeParentObject
+  )
+
 export const perpPosition = async (
   args: QueryPerpPositionArgs,
   endpt: string,
   fields?: Partial<PerpPosition>
 ): Promise<GqlOutPerpPosition> =>
-  doGqlQuery(
-    gqlQuery(
-      "perpPosition",
-      args,
-      fields
-        ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultPerpPositionObject)
-    ),
-    endpt
-  )
+  doGqlQuery(perpPositionQueryString(args, false, fields), endpt)
