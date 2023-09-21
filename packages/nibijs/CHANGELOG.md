@@ -1,3 +1,13 @@
+## [@nibiruchain/nibijs-v0.21.27](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.26...@nibiruchain/nibijs-v0.21.27) (2023-09-21)
+
+### Features
+
+- **subscription:** subscriptions ([#224](https://github.com/NibiruChain/ts-sdk/issues/224)) ([43c20f4](https://github.com/NibiruChain/ts-sdk/commit/43c20f45f112661e0740833e9fc059670aa0e6f6))
+
+### Miscellaneous Chores
+
+- **release:** 0.21.22 ([e72b3f9](https://github.com/NibiruChain/ts-sdk/commit/e72b3f9d65cf3c41fa994622639edc9d52b989b1)), closes [#224](https://github.com/NibiruChain/ts-sdk/issues/224)
+
 ## [@nibiruchain/nibijs-v0.21.26](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.25...@nibiruchain/nibijs-v0.21.26) (2023-09-20)
 
 ### Code Refactors
