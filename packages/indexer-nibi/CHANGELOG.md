@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.21](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.20...@nibiruchain/indexer-nibi-v0.21.21) (2023-09-20)
+
+### Code Refactors
+
+- including avg_pct_pnl_rank into leaderboard schema ([#228](https://github.com/NibiruChain/ts-sdk/issues/228)) ([317eea5](https://github.com/NibiruChain/ts-sdk/commit/317eea51ae68ce322f6c2dc9ab487442ee3c2539))
+
 ## [@nibiruchain/indexer-nibi-v0.21.20](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.19...@nibiruchain/indexer-nibi-v0.21.20) (2023-09-13)
 
 ### Features

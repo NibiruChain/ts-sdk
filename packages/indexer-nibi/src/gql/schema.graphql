@@ -209,6 +209,7 @@ input PeriodFilter {
 
 type PerpLeaderboard {
   avg_pct_pnl: Float!
+  avg_pct_pnl_rank: Int!
   input_margin: Float!
   raw_pnl: Float!
   raw_pnl_with_unrealized: Float!
@@ -221,6 +222,7 @@ input PerpLeaderboardFilter {
 
 enum PerpLeaderboardOrder {
   avg_pct_pnl
+  avg_pct_pnl_rank
   raw_pnl
   raw_pnl_with_unrealized
   trader_address

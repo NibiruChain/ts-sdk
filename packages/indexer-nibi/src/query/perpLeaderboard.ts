@@ -6,6 +6,7 @@ import {
 } from "../gql/generated"
 
 export const defaultPerpLeaderboardObject: PerpLeaderboard = {
+  avg_pct_pnl_rank: 0,
   avg_pct_pnl: 0,
   input_margin: 0,
   raw_pnl: 0,
