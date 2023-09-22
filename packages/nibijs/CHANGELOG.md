@@ -1,3 +1,9 @@
+## [@nibiruchain/nibijs-v0.21.28](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.27...@nibiruchain/nibijs-v0.21.28) (2023-09-22)
+
+### CI/CD
+
+- check nibid in nibijs tests workflow ([#231](https://github.com/NibiruChain/ts-sdk/issues/231)) ([0715849](https://github.com/NibiruChain/ts-sdk/commit/0715849bae7d09bda2f135c8fd0eb4da0a7a9881))
+
 ## [@nibiruchain/nibijs-v0.21.27](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.26...@nibiruchain/nibijs-v0.21.27) (2023-09-21)
 
 ### Features
