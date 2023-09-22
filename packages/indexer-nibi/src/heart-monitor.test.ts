@@ -14,8 +14,6 @@ const heartMonitor = new HeartMonitor({
   endptTm: "https://hm-graphql.itn-2.nibiru.fi",
 })
 
-// forcing a change
-
 describe("Heart Monitor constructor", () => {
   interface TestCase {
     name: string
