@@ -25,6 +25,8 @@ jobs:
       - name: Install nibid
         run: curl -s https://get.nibiru.fi/@v0.21.9! | bash
         # Use https://get.nibiru.fi/ to get the most recent release.
+      - name: Check nibid version
+        run: nibid version
       - name: Run localnet.sh in the background
         run: |
           sh scripts/localnet.sh &
