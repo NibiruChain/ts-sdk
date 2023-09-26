@@ -4,7 +4,7 @@ import {
   SubscriptionMarkPriceCandlesArgs,
 } from "../gql/generated"
 import { gqlQuery, convertObjectToPropertiesString } from "../gql"
-import { GqlOutMarkPriceCandles } from "../query/markPriceCandles"
+import { GqlOutMarkPriceCandles } from "../query"
 import { defaultMarkPriceCandles } from "../defaultObjects"
 
 export const markPriceCandlesSubscriptionQueryString = (

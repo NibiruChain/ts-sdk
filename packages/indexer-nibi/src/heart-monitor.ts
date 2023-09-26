@@ -6,18 +6,12 @@ import {
   DistributionCommission,
   Governance,
   MarkPriceCandle,
-  PerpLeaderboard,
   PerpMarket,
   PerpPosition,
   QueryCommunityPoolArgs,
   QueryDelegationsArgs,
   QueryDistributionCommissionsArgs,
   QueryMarkPriceCandlesArgs,
-  QueryPerpLeaderboardArgs,
-  QueryPerpMarketArgs,
-  QueryPerpMarketsArgs,
-  QueryPerpPositionArgs,
-  QueryPerpPositionsArgs,
   QueryRedelegationsArgs,
   QuerySpotLpPositionsArgs,
   QuerySpotPoolCreatedArgs,
@@ -70,25 +64,27 @@ import {
   unbondings,
   users,
   validators,
-} from "./query"
-import {
+  GqlOutPerp,
+  PerpFields,
+  QueryPerpArgs,
+  perp,
+  GqlOutStats,
+  QueryStatsArgs,
+  StatsFields,
+  stats,
   GqlOutGovernance,
   QueryGovernanceArgs,
   governance,
-} from "./query/governance"
-import {
   GqlOutMarkPriceCandles,
   markPriceCandles,
-} from "./query/markPriceCandles"
-import { GqlOutStats, QueryStatsArgs, StatsFields, stats } from "./query/stats"
-import { markPriceCandlesSubscription } from "./subscription/markPriceCandlesSubscription"
+} from "./query"
 import {
+  markPriceCandlesSubscription,
   GqlOutPerpMarket,
   perpMarketSubscription,
-} from "./subscription/perpMarketSubscription"
-import { perpPositionsSubscription } from "./subscription/perpPositionsSubscription"
+  perpPositionsSubscription,
+} from "./subscription"
 import { queryBatchHandler } from "./batchHandlers/queryBatchHandler"
-import { GqlOutPerp, PerpFields, QueryPerpArgs, perp } from "./query/perp"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
