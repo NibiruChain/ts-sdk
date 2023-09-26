@@ -47,6 +47,14 @@ enum DistributionCommissionOrder {
   validator_address
 }
 
+input FloatFilter {
+  eq: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+}
+
 type GovDeposit {
   amount: [Token!]!
   block: Block!
@@ -207,6 +215,36 @@ input PeriodFilter {
   periodStartTsLte: Time
 }
 
+type Perp {
+  leaderboard(
+    limit: Int
+    order_by: PerpLeaderboardOrder
+    order_desc: Boolean
+    where: PerpLeaderboardFilter
+  ): [PerpLeaderboard!]!
+  market(where: PerpMarketFilter!): PerpMarket
+  markets(
+    limit: Int
+    order_by: PerpMarketOrder
+    order_desc: Boolean
+    where: PerpMarketsFilter
+  ): [PerpMarket!]!
+  position(where: PerpPositionFilter!): PerpPosition
+  positionChanges(
+    limit: Int
+    offset: Int
+    order_by: PerpPositionChangeOrder
+    order_desc: Boolean
+    where: PerpPositionChangeFilter!
+  ): [PerpPositionChange!]!
+  positions(
+    limit: Int
+    order_by: PerpPositionOrder
+    order_desc: Boolean
+    where: PerpPositionsFilter
+  ): [PerpPosition!]!
+}
+
 type PerpLeaderboard {
   avg_pct_pnl: Float!
   avg_pct_pnl_rank: Int!
@@ -255,12 +293,16 @@ type PerpMarket {
 }
 
 input PerpMarketFilter {
-  is_deleted: Boolean
-  pair: String
+  pair: String!
 }
 
 enum PerpMarketOrder {
   pair
+}
+
+input PerpMarketsFilter {
+  is_deleted: Boolean
+  pair: String
 }
 
 type PerpPosition {
@@ -279,16 +321,60 @@ type PerpPosition {
   unrealized_pnl: Float!
 }
 
+type PerpPositionChange {
+  badDebt: Token
+  block: Block!
+  changeReason: String!
+  eventSeqNo: Int!
+  exchangedNotional: Float!
+  exchangedSize: Float!
+  fundingPayment: Float
+  latestCumulativePremiumFraction: Float
+  margin: Float!
+  marginToUser: Int
+  openNotional: Float!
+  pair: String!
+  positionNotional: Float!
+  realizedPnl: Float
+  size: Float!
+  traderAddress: String!
+  transactionFee: Token
+  txSeqNo: Int!
+}
+
+input PerpPositionChangeFilter {
+  block: IntFilter
+  blockTs: TimeFilter
+  pair: StringFilter
+  traderAddressEq: String!
+}
+
+enum PerpPositionChangeOrder {
+  exchanged_notional
+  exchanged_size
+  margin
+  open_notional
+  pair
+  position_notional
+  sequence
+  size
+}
+
 input PerpPositionFilter {
-  include_closed: Boolean
-  pair: String
-  trader_address: String
+  pair: String!
+  trader_address: String!
 }
 
 enum PerpPositionOrder {
   created_block
   pair
   trader_address
+}
+
+input PerpPositionsFilter {
+  include_closed: Boolean
+  pair: String
+  trader_address: String
 }
 
 type Query {
@@ -317,26 +403,29 @@ type Query {
     order_desc: Boolean
     where: MarkPriceCandlesFilter
   ): [MarkPriceCandle!]!
+  perp: Perp!
   perpLeaderboard(
     limit: Int
     order_by: PerpLeaderboardOrder
     order_desc: Boolean
     where: PerpLeaderboardFilter
-  ): [PerpLeaderboard!]!
-  perpMarket(where: PerpMarketFilter): PerpMarket
+  ): [PerpLeaderboard!]! @deprecated(reason: "Moved to perp sub schema")
+  perpMarket(where: PerpMarketFilter!): PerpMarket
+    @deprecated(reason: "Moved to perp sub schema")
   perpMarkets(
     limit: Int
     order_by: PerpMarketOrder
     order_desc: Boolean
-    where: PerpMarketFilter
-  ): [PerpMarket!]!
-  perpPosition(where: PerpPositionFilter): PerpPosition
+    where: PerpMarketsFilter
+  ): [PerpMarket!]! @deprecated(reason: "Moved to perp sub schema")
+  perpPosition(where: PerpPositionFilter!): PerpPosition
+    @deprecated(reason: "Moved to perp sub schema")
   perpPositions(
     limit: Int
     order_by: PerpPositionOrder
     order_desc: Boolean
-    where: PerpPositionFilter
-  ): [PerpPosition!]!
+    where: PerpPositionsFilter
+  ): [PerpPosition!]! @deprecated(reason: "Moved to perp sub schema")
   redelegations(
     limit: Int
     order_by: RedelegationOrder

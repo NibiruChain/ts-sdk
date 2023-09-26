@@ -7,8 +7,6 @@ import {
   SpotPoolJoinedOrder,
 } from "../gql/generated"
 
-export const defaultSpotPoolJoinedObject: SpotPoolJoined = defaultSpotPool
-
 export interface GqlOutSpotPoolJoined {
   spotPoolJoined?: Query["spotPoolJoined"]
 }
@@ -27,7 +25,7 @@ export const spotPoolJoinedQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultSpotPoolJoinedObject),
+      : convertObjectToPropertiesString(defaultSpotPool),
     excludeParentObject
   )
 }

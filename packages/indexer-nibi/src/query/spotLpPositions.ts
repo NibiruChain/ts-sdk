@@ -1,9 +1,4 @@
-import {
-  defaultBlock,
-  defaultPool,
-  defaultToken,
-  defaultUser,
-} from "../defaultObjects"
+import { defaultSpotLpPosition } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
@@ -11,13 +6,6 @@ import {
   SpotLpPosition,
   SpotLpPositionOrder,
 } from "../gql/generated"
-
-export const defaultSpotLpPositionObject: SpotLpPosition = {
-  created_block: defaultBlock,
-  pool: defaultPool,
-  pool_shares: defaultToken,
-  user: defaultUser,
-}
 
 export interface GqlOutSpotLpPositions {
   spotLpPositions?: Query["spotLpPositions"]
@@ -37,7 +25,7 @@ export const spotLpPositionsQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultSpotLpPositionObject),
+      : convertObjectToPropertiesString(defaultSpotLpPosition),
     excludeParentObject
   )
 }

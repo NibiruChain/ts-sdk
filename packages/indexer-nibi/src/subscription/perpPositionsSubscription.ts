@@ -1,10 +1,15 @@
 import { Client, ExecutionResult } from "graphql-ws"
 import { defaultPerpPosition } from "../defaultObjects"
-import { SubscriptionPerpPositionsArgs, PerpPosition } from "../gql/generated"
+import {
+  SubscriptionPerpPositionsArgs,
+  PerpPosition,
+  Subscription,
+} from "../gql/generated"
 import { gqlQuery, convertObjectToPropertiesString } from "../gql"
-import { GqlOutPerpPositions } from "../query"
 
-export const defaultPerpPositionsObject: PerpPosition = defaultPerpPosition
+export interface GqlOutPerpPositions {
+  perpPositions?: Subscription["perpPositions"]
+}
 
 export const perpPositionsSubscriptionQueryString = (
   args: SubscriptionPerpPositionsArgs,
@@ -15,7 +20,7 @@ export const perpPositionsSubscriptionQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultPerpPositionsObject),
+      : convertObjectToPropertiesString(defaultPerpPosition),
     true
   )
 

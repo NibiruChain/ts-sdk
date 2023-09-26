@@ -1,4 +1,4 @@
-import { defaultMarkPriceCandlesObject } from "../defaultObjects"
+import { defaultMarkPriceCandles } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   QueryMarkPriceCandlesArgs,
@@ -20,7 +20,7 @@ export const markPriceCandlesQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultMarkPriceCandlesObject),
+      : convertObjectToPropertiesString(defaultMarkPriceCandles),
     excludeParentObject
   )
 

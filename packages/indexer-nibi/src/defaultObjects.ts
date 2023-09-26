@@ -1,16 +1,29 @@
 import {
   Block,
+  Delegation,
+  DistributionCommission,
   GovDeposit,
   GovProposal,
   GovVote,
+  Governance,
   MarkPriceCandle,
+  PerpLeaderboard,
   PerpMarket,
   PerpPosition,
+  PerpPositionChange,
+  Redelegation,
+  SpotLpPosition,
   SpotPool,
-  SpotPoolCreated,
-  SpotPoolExited,
-  SpotPoolJoined,
+  SpotPoolSwap,
+  StatsFees,
+  StatsPerpOpenInterest,
+  StatsPerpPnl,
+  StatsTotals,
+  StatsTvl,
+  StatsUsers,
+  StatsVolume,
   Token,
+  Unbonding,
   User,
   Validator,
   ValidatorStatus,
@@ -154,7 +167,7 @@ export const defaultGovVote: GovVote = {
   sender: defaultUser,
 }
 
-export const defaultMarkPriceCandlesObject: MarkPriceCandle = {
+export const defaultMarkPriceCandles: MarkPriceCandle = {
   close: 0,
   high: 0,
   low: 0,
@@ -162,4 +175,168 @@ export const defaultMarkPriceCandlesObject: MarkPriceCandle = {
   pair: "",
   period: 0,
   periodStartTs: "",
+}
+
+export const defaultPerpPositionChanges: PerpPositionChange = {
+  badDebt: defaultToken,
+  block: defaultBlock,
+  changeReason: "",
+  eventSeqNo: 0,
+  exchangedNotional: 0,
+  exchangedSize: 0,
+  fundingPayment: 0,
+  latestCumulativePremiumFraction: 0,
+  margin: 0,
+  marginToUser: 0,
+  openNotional: 0,
+  pair: "",
+  positionNotional: 0,
+  realizedPnl: 0,
+  size: 0,
+  traderAddress: "",
+  transactionFee: defaultToken,
+  txSeqNo: 0,
+}
+
+export const defaultPerpLeaderboard: PerpLeaderboard = {
+  avg_pct_pnl_rank: 0,
+  avg_pct_pnl: 0,
+  input_margin: 0,
+  raw_pnl: 0,
+  raw_pnl_with_unrealized: 0,
+  trader_address: "",
+}
+
+export const defaultGovernance: Governance = {
+  govDeposits: [defaultGovDeposit],
+  govProposals: [defaultGovProposal],
+  govVotes: [defaultGovVote],
+}
+
+export const defaultDistributionCommission: DistributionCommission = {
+  commission: [defaultToken],
+  validator: defaultValidator,
+}
+
+export const defaultDelegations: Delegation = {
+  amount: 0,
+  delegator: defaultUser,
+  validator: defaultValidator,
+}
+
+export const defaultRedelegations: Redelegation = {
+  amount: 0,
+  delegator: defaultUser,
+  source_validator: defaultValidator,
+  destination_validator: defaultValidator,
+  completion_time: "",
+  creation_block: defaultBlock,
+}
+
+export const defaultSpotLpPosition: SpotLpPosition = {
+  created_block: defaultBlock,
+  pool: defaultPool,
+  pool_shares: defaultToken,
+  user: defaultUser,
+}
+
+export const defaultSpotPoolSwap: SpotPoolSwap = {
+  block: defaultBlock,
+  pool: defaultPool,
+  token_in: defaultToken,
+  token_out: defaultToken,
+  user: defaultUser,
+}
+
+export const defaultStatsFees: StatsFees = {
+  feesLiquidations: 0,
+  feesLiquidationsCumulative: 0,
+  feesPerp: 0,
+  feesPerpCumulative: 0,
+  feesSwap: 0,
+  feesSwapCumulative: 0,
+  feesTotal: 0,
+  feesTotalCumulative: 0,
+  period: 0,
+  periodStartTs: "",
+}
+
+export const defaultPerpOpenInterest: StatsPerpOpenInterest = {
+  openInterestLong: 0,
+  openInterestShort: 0,
+  openInterestTotal: 0,
+  period: 0,
+  periodStartTs: "",
+}
+
+export const defaultPerpPnl: StatsPerpPnl = {
+  loss: 0,
+  lossCumulative: 0,
+  netPnl: 0,
+  netPnlCumulative: 0,
+  period: 0,
+  periodStartTs: "",
+  profit: 0,
+  profitCumulative: 0,
+}
+
+export const defaultTotals: StatsTotals = {
+  period: 0,
+  periodStartTs: "",
+  totalPerp: 0,
+  totalFeesPerp: 0,
+  totalFeesLiquidations: 0,
+  totalOpenInterest: 0,
+  totalSwap: 0,
+  totalTvl: 0,
+}
+
+export const defaultTvl: StatsTvl = {
+  period: 0,
+  periodStartTs: "",
+  tvlPerp: 0,
+  tvlStablecoin: 0,
+  tvlStaking: 0,
+  tvlSwap: 0,
+  tvlTotal: 0,
+}
+
+export const defaultUsers: StatsUsers = {
+  newUsersLp: 0,
+  newUsersLpCumulative: 0,
+  newUsersPerp: 0,
+  newUsersPerpCumulative: 0,
+  newUsersSwap: 0,
+  newUsersSwapCumulative: 0,
+  newUsersTotal: 0,
+  newUsersTotalCumulative: 0,
+  period: 0,
+  periodStartTs: "",
+  userActionsPerp: 0,
+  uniqueUsersLp: 0,
+  uniqueUsersPerp: 0,
+  uniqueUsersSwap: 0,
+  uniqueUsersTotal: 0,
+  userActionsLp: 0,
+  userActionsSwap: 0,
+  userActionsTotal: 0,
+}
+
+export const defaultVolume: StatsVolume = {
+  volumePerp: 0,
+  volumePerpCumulative: 0,
+  volumeSwap: 0,
+  volumeSwapCumulative: 0,
+  volumeTotal: 0,
+  volumeTotalCumulative: 0,
+  period: 0,
+  periodStartTs: "",
+}
+
+export const defaultUnbondings: Unbonding = {
+  amount: 0,
+  completion_time: "",
+  creation_block: defaultBlock,
+  delegator: defaultUser,
+  validator: defaultValidator,
 }

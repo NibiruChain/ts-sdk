@@ -7,8 +7,6 @@ import {
   ValidatorOrder,
 } from "../gql/generated"
 
-export const defaultValidatorsObject: Validator = defaultValidator
-
 export interface GqlOutValidators {
   validators?: Query["validators"]
 }
@@ -27,7 +25,7 @@ export const validatorsQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultValidatorsObject),
+      : convertObjectToPropertiesString(defaultValidator),
     excludeParentObject
   )
 }

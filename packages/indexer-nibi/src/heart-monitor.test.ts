@@ -1,13 +1,10 @@
 import { HeartMonitor } from "./heart-monitor"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
+import { communityPoolQueryString, delegationsQueryString } from "./query"
 import {
-  communityPoolQueryString,
-  defaultPerpPositionsObject,
-  delegationsQueryString,
-} from "./query"
-import {
-  defaultMarkPriceCandlesObject,
+  defaultMarkPriceCandles,
   defaultPerpMarket,
+  defaultPerpPosition,
 } from "./defaultObjects"
 
 const heartMonitor = new HeartMonitor({
@@ -173,7 +170,7 @@ test("markPriceCandlesSubscription", async () => {
       next: async () => ({
         value: {
           data: {
-            markPriceCandles: defaultMarkPriceCandlesObject,
+            markPriceCandles: defaultMarkPriceCandles,
           },
         },
       }),
@@ -205,60 +202,48 @@ test("markPriceCandlesSubscription", async () => {
   }
 })
 
-test("perpLeaderboard", async () => {
-  const resp = await heartMonitor.perpLeaderboard({
-    limit: 1,
+test("perp", async () => {
+  const resp = await heartMonitor.perp({
+    leaderboard: {
+      limit: 1,
+    },
+    market: {
+      where: {
+        pair: "",
+      },
+    },
+    markets: {
+      limit: 1,
+    },
+    position: {
+      where: {
+        pair: "",
+        trader_address: "",
+      },
+    },
+    positionChanges: {
+      limit: 1,
+      where: { traderAddressEq: "" },
+    },
+    positions: {
+      limit: 1,
+    },
   })
-  expect(resp).toHaveProperty("perpLeaderboard")
+  expect(resp).toHaveProperty("perp")
 
-  if ((resp.perpLeaderboard?.length ?? 0) > 0) {
-    const [perpLeaderboard] = resp.perpLeaderboard ?? []
+  if (resp.perp) {
+    const { perp } = resp
     const fields = [
-      "avg_pct_pnl",
-      "input_margin",
-      "raw_pnl",
-      "raw_pnl_with_unrealized",
-      "trader_address",
+      "leaderboard",
+      "market",
+      "markets",
+      "position",
+      "positionChanges",
+      "users",
+      "positions",
     ]
     fields.forEach((field: string) => {
-      expect(perpLeaderboard).toHaveProperty(field)
-    })
-  }
-})
-
-test("perpMarket", async () => {
-  const resp = await heartMonitor.perpMarket({ where: { pair: "" } })
-  expect(resp).toHaveProperty("perpMarket")
-
-  if (resp.perpMarket) {
-    const { perpMarket } = resp
-    const fields = [
-      "pair",
-      "enabled",
-      "maintenance_margin_ratio",
-      "max_leverage",
-      "latest_cumulative_premium_fraction",
-      "exchange_fee_ratio",
-      "ecosystem_fund_fee_ratio",
-      "max_funding_rate",
-      "liquidation_fee_ratio",
-      "partial_liquidation_ratio",
-      "funding_rate_epoch_id",
-      "twap_lookback_window",
-      "prepaid_bad_debt",
-      "base_reserve",
-      "quote_reserve",
-      "sqrt_depth",
-      "price_multiplier",
-      "total_long",
-      "total_short",
-      "mark_price",
-      "mark_price_twap",
-      "index_price_twap",
-      "is_deleted",
-    ]
-    fields.forEach((field: string) => {
-      expect(perpMarket).toHaveProperty(field)
+      expect(perp).toHaveProperty(field)
     })
   }
 })
@@ -316,111 +301,13 @@ test("perpMarketSubscription", async () => {
   }
 })
 
-test("perpMarkets", async () => {
-  const resp = await heartMonitor.perpMarkets({
-    limit: 1,
-  })
-  expect(resp).toHaveProperty("perpMarkets")
-
-  if (resp.perpMarkets) {
-    const [perpMarkets] = resp.perpMarkets
-    const fields = [
-      "pair",
-      "enabled",
-      "maintenance_margin_ratio",
-      "max_leverage",
-      "latest_cumulative_premium_fraction",
-      "exchange_fee_ratio",
-      "ecosystem_fund_fee_ratio",
-      "max_funding_rate",
-      "liquidation_fee_ratio",
-      "partial_liquidation_ratio",
-      "funding_rate_epoch_id",
-      "twap_lookback_window",
-      "prepaid_bad_debt",
-      "base_reserve",
-      "quote_reserve",
-      "sqrt_depth",
-      "price_multiplier",
-      "total_long",
-      "total_short",
-      "mark_price",
-      "mark_price_twap",
-      "index_price_twap",
-      "is_deleted",
-    ]
-    fields.forEach((field: string) => {
-      expect(perpMarkets).toHaveProperty(field)
-    })
-  }
-})
-
-test("perpPosition", async () => {
-  const resp = await heartMonitor.perpPosition({
-    where: {
-      pair: "ubtc:unusd",
-      trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
-    },
-  })
-  expect(resp).toHaveProperty("perpPosition")
-
-  if (resp.perpPosition) {
-    const { perpPosition } = resp
-    const fields = [
-      "pair",
-      "trader_address",
-      "size",
-      "margin",
-      "open_notional",
-      "position_notional",
-      "latest_cumulative_premium_fraction",
-      "unrealized_pnl",
-      "unrealized_funding_payment",
-      "margin_ratio",
-      "bad_debt",
-      "last_updated_block",
-    ]
-    fields.forEach((field: string) => {
-      expect(perpPosition).toHaveProperty(field)
-    })
-  }
-})
-
-test("perpPositions", async () => {
-  const resp = await heartMonitor.perpPositions({
-    limit: 1,
-  })
-  expect(resp).toHaveProperty("perpPositions")
-
-  if ((resp.perpPositions?.length ?? 0) > 0) {
-    const [perpPositions] = resp.perpPositions ?? []
-    const fields = [
-      "pair",
-      "trader_address",
-      "size",
-      "margin",
-      "open_notional",
-      "position_notional",
-      "latest_cumulative_premium_fraction",
-      "unrealized_pnl",
-      "unrealized_funding_payment",
-      "margin_ratio",
-      "bad_debt",
-      "last_updated_block",
-    ]
-    fields.forEach((field: string) => {
-      expect(perpPositions).toHaveProperty(field)
-    })
-  }
-})
-
 test("perpPositionsSubscription", async () => {
   const hm = {
     perpPositionsSubscription: jest.fn().mockResolvedValue({
       next: async () => ({
         value: {
           data: {
-            perpPositions: defaultPerpPositionsObject,
+            perpPositions: defaultPerpPosition,
           },
         },
       }),

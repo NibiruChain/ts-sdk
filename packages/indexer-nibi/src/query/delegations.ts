@@ -1,4 +1,4 @@
-import { defaultUser, defaultValidator } from "../defaultObjects"
+import { defaultDelegations } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
@@ -6,12 +6,6 @@ import {
   DelegationOrder,
   Delegation,
 } from "../gql/generated"
-
-export const defaultDelegationsObject: Delegation = {
-  amount: 0,
-  delegator: defaultUser,
-  validator: defaultValidator,
-}
 
 export interface GqlOutDelegations {
   delegations?: Query["delegations"]
@@ -31,7 +25,7 @@ export const delegationsQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultDelegationsObject),
+      : convertObjectToPropertiesString(defaultDelegations),
     excludeParentObject
   )
 }

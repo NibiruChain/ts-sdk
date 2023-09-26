@@ -1,10 +1,15 @@
 import { Client, ExecutionResult } from "graphql-ws"
-import { SubscriptionPerpMarketArgs, PerpMarket } from "../gql/generated"
+import {
+  SubscriptionPerpMarketArgs,
+  PerpMarket,
+  Subscription,
+} from "../gql/generated"
 import { defaultPerpMarket } from "../defaultObjects"
 import { gqlQuery, convertObjectToPropertiesString } from "../gql"
-import { GqlOutPerpMarket } from "../query"
 
-export const defaultPerpMarketObject: PerpMarket = defaultPerpMarket
+export interface GqlOutPerpMarket {
+  perpMarket?: Subscription["perpMarket"]
+}
 
 export const perpMarketSubscriptionQueryString = (
   args: SubscriptionPerpMarketArgs,
@@ -16,7 +21,7 @@ export const perpMarketSubscriptionQueryString = (
       args,
       fields
         ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultPerpMarketObject),
+        : convertObjectToPropertiesString(defaultPerpMarket),
       true
     )}
   }`

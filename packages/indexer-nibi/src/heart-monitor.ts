@@ -47,10 +47,6 @@ import {
   GqlOutCommunityPool,
   GqlOutDelegations,
   GqlOutDistributionCommissions,
-  GqlOutPerpMarket,
-  GqlOutPerpMarkets,
-  GqlOutPerpPosition,
-  GqlOutPerpPositions,
   GqlOutRedelegations,
   GqlOutSpotLpPositions,
   GqlOutSpotPoolCreated,
@@ -64,10 +60,6 @@ import {
   communityPool,
   delegations,
   distributionCommissions,
-  perpMarket,
-  perpMarkets,
-  perpPosition,
-  perpPositions,
   redelegations,
   spotLpPositions,
   spotPoolCreated,
@@ -88,12 +80,15 @@ import {
   GqlOutMarkPriceCandles,
   markPriceCandles,
 } from "./query/markPriceCandles"
-import { GqlOutPerpLeaderboard, perpLeaderboard } from "./query/perpLeaderboard"
 import { GqlOutStats, QueryStatsArgs, StatsFields, stats } from "./query/stats"
 import { markPriceCandlesSubscription } from "./subscription/markPriceCandlesSubscription"
-import { perpMarketSubscription } from "./subscription/perpMarketSubscription"
+import {
+  GqlOutPerpMarket,
+  perpMarketSubscription,
+} from "./subscription/perpMarketSubscription"
 import { perpPositionsSubscription } from "./subscription/perpPositionsSubscription"
 import { queryBatchHandler } from "./batchHandlers/queryBatchHandler"
+import { GqlOutPerp, PerpFields, QueryPerpArgs, perp } from "./query/perp"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
@@ -128,40 +123,15 @@ export interface IHeartMonitor {
     fields?: Partial<MarkPriceCandle>
   ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>>>
 
-  readonly perpLeaderboard: (
-    args: QueryPerpLeaderboardArgs,
-    fields?: Partial<PerpLeaderboard>
-  ) => Promise<GqlOutPerpLeaderboard>
-
-  readonly perpMarket: (
-    args: QueryPerpMarketArgs,
-    fields?: Partial<PerpMarket>
-  ) => Promise<GqlOutPerpMarket>
+  readonly perp: (
+    args: QueryPerpArgs,
+    fields?: PerpFields
+  ) => Promise<GqlOutPerp>
 
   readonly perpMarketSubscription: (
     args: SubscriptionPerpMarketArgs,
     fields?: Partial<PerpMarket>
   ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>>>
-
-  readonly perpMarkets: (
-    args: QueryPerpMarketsArgs,
-    fields?: Partial<PerpMarket>
-  ) => Promise<GqlOutPerpMarkets>
-
-  readonly perpPosition: (
-    args: QueryPerpPositionArgs,
-    fields?: Partial<PerpPosition>
-  ) => Promise<GqlOutPerpPosition>
-
-  readonly perpPositions: (
-    args: QueryPerpPositionsArgs,
-    fields?: Partial<PerpPosition>
-  ) => Promise<GqlOutPerpPositions>
-
-  readonly perpPositionsSubscription: (
-    args: SubscriptionPerpPositionsArgs,
-    fields?: Partial<PerpPosition>
-  ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>>>
 
   readonly queryBatchHandler: (queryQueryString: string[]) => Promise<any>
 
@@ -278,35 +248,13 @@ export class HeartMonitor implements IHeartMonitor {
     fields?: Partial<MarkPriceCandle>
   ) => markPriceCandlesSubscription(args, this.subscriptionClient, fields)
 
-  perpLeaderboard = async (
-    args: QueryPerpLeaderboardArgs,
-    fields?: Partial<PerpLeaderboard>
-  ) => perpLeaderboard(args, this.gqlEndpt, fields)
-
-  perpMarket = async (
-    args: QueryPerpMarketArgs,
-    fields?: Partial<PerpMarket>
-  ) => perpMarket(args, this.gqlEndpt, fields)
+  perp = async (args: QueryPerpArgs, fields?: PerpFields) =>
+    perp(args, this.gqlEndpt, fields)
 
   perpMarketSubscription = async (
     args: SubscriptionPerpMarketArgs,
     fields?: Partial<PerpMarket>
   ) => perpMarketSubscription(args, this.subscriptionClient, fields)
-
-  perpMarkets = async (
-    args: QueryPerpMarketsArgs,
-    fields?: Partial<PerpMarket>
-  ) => perpMarkets(args, this.gqlEndpt, fields)
-
-  perpPosition = async (
-    args: QueryPerpPositionArgs,
-    fields?: Partial<PerpPosition>
-  ) => perpPosition(args, this.gqlEndpt, fields)
-
-  perpPositions = async (
-    args: QueryPerpPositionsArgs,
-    fields?: Partial<PerpPosition>
-  ) => perpPositions(args, this.gqlEndpt, fields)
 
   perpPositionsSubscription = async (
     args: SubscriptionPerpPositionsArgs,
