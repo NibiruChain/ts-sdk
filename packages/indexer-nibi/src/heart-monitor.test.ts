@@ -25,8 +25,8 @@ describe("Heart Monitor constructor", () => {
     { name: "valid string", in: "abc123", expected: "abc123" },
     {
       name: "chain",
-      in: { endptTm: "https://rpc.itn-1.nibiru.fi" },
-      expected: "https://hm-graphql.itn-1.nibiru.fi/graphql",
+      in: { endptTm: "https://rpc.itn-2.nibiru.fi" },
+      expected: "https://hm-graphql.itn-2.nibiru.fi/graphql",
     },
     {
       name: "empty chain string",
@@ -58,8 +58,8 @@ describe("gqlEndptFromTmRpc", () => {
       want: "https://hm-graphql.itn-2.nibiru.fi/graphql",
     },
     {
-      in: "----rpc.itn-1.-----",
-      want: "https://hm-graphql.itn-1.nibiru.fi/graphql",
+      in: "----rpc.itn-2.-----",
+      want: "https://hm-graphql.itn-2.nibiru.fi/graphql",
     },
     { in: "", want: null },
     { in: "rpctestnet-nodots", want: null },
