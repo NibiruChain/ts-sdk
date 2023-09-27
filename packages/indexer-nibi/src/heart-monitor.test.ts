@@ -218,12 +218,12 @@ test("perp", async () => {
     position: {
       where: {
         pair: "ubtc:unusd",
-        trader_address: "",
+        trader_address: "nibi1judn9xtel563nmq0ghpvmkqvyd5wnkm30mvkk3",
       },
     },
     positionChanges: {
       limit: 1,
-      where: { traderAddressEq: "" },
+      where: { traderAddressEq: "nibi1judn9xtel563nmq0ghpvmkqvyd5wnkm30mvkk3" },
     },
     positions: {
       limit: 1,
