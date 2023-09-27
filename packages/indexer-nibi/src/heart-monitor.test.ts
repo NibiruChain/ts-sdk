@@ -209,7 +209,7 @@ test("perp", async () => {
     },
     market: {
       where: {
-        pair: "",
+        pair: "ubtc:unusd",
       },
     },
     markets: {
@@ -217,7 +217,7 @@ test("perp", async () => {
     },
     position: {
       where: {
-        pair: "",
+        pair: "ubtc:unusd",
         trader_address: "",
       },
     },
