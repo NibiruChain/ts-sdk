@@ -241,6 +241,64 @@ export enum MarkPriceCandlesOrder {
   PeriodStartTs = "period_start_ts",
 }
 
+export type Oracle = {
+  readonly __typename?: "Oracle"
+  readonly oraclePrices: ReadonlyArray<OraclePrice>
+  readonly oracles: ReadonlyArray<OracleEntry>
+}
+
+export type OracleOraclePricesArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  offset?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<OraclePricesOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<OraclePricesFilter>
+}
+
+export type OracleOraclesArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<OraclesOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<OraclesFilter>
+}
+
+export type OracleEntry = {
+  readonly __typename?: "OracleEntry"
+  readonly numVotes: Scalars["Int"]["output"]
+  readonly validator: Validator
+}
+
+export type OraclePrice = {
+  readonly __typename?: "OraclePrice"
+  readonly block: Block
+  readonly eventSeqNo: Scalars["Int"]["output"]
+  readonly pair: Scalars["String"]["output"]
+  readonly price: Scalars["Float"]["output"]
+  readonly txSeqNo: Scalars["Int"]["output"]
+}
+
+export type OraclePricesFilter = {
+  readonly block?: InputMaybe<IntFilter>
+  readonly blockTs?: InputMaybe<TimeFilter>
+  readonly pair?: InputMaybe<StringFilter>
+}
+
+export enum OraclePricesOrder {
+  Pair = "pair",
+  Price = "price",
+  Sequence = "sequence",
+}
+
+export type OraclesFilter = {
+  readonly numVotes?: InputMaybe<IntFilter>
+  readonly validatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export enum OraclesOrder {
+  NumVotes = "num_votes",
+  ValidatorAddress = "validator_address",
+}
+
 export type PeriodFilter = {
   readonly periodEq?: InputMaybe<Scalars["Int"]["input"]>
   readonly periodGt?: InputMaybe<Scalars["Int"]["input"]>
@@ -337,7 +395,7 @@ export type PerpMarket = {
   readonly maintenance_margin_ratio: Scalars["Float"]["output"]
   readonly mark_price: Scalars["Float"]["output"]
   readonly mark_price_twap: Scalars["Float"]["output"]
-  readonly max_funding_rate: Scalars["Float"]["output"]
+  readonly max_funding_rate?: Maybe<Scalars["Float"]["output"]>
   readonly max_leverage: Scalars["Float"]["output"]
   readonly pair: Scalars["String"]["output"]
   readonly partial_liquidation_ratio: Scalars["Float"]["output"]
@@ -444,6 +502,7 @@ export type Query = {
   readonly distributionCommissions: ReadonlyArray<DistributionCommission>
   readonly governance: Governance
   readonly markPriceCandles: ReadonlyArray<MarkPriceCandle>
+  readonly oracle: Oracle
   readonly perp: Perp
   /** @deprecated Moved to perp sub schema */
   readonly perpLeaderboard: ReadonlyArray<PerpLeaderboard>
@@ -980,6 +1039,10 @@ export type StringFilter = {
   readonly like?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type SubOraclePricesFilter = {
+  readonly pair: Scalars["String"]["input"]
+}
+
 export type SubPerpMarketFilter = {
   readonly pair: Scalars["String"]["input"]
 }
@@ -992,6 +1055,7 @@ export type SubPerpPositionFilter = {
 export type Subscription = {
   readonly __typename?: "Subscription"
   readonly markPriceCandles: ReadonlyArray<MarkPriceCandle>
+  readonly oraclePrices: ReadonlyArray<OraclePrice>
   readonly perpMarket: PerpMarket
   readonly perpPositions: ReadonlyArray<PerpPosition>
 }
@@ -999,6 +1063,10 @@ export type Subscription = {
 export type SubscriptionMarkPriceCandlesArgs = {
   limit?: InputMaybe<Scalars["Int"]["input"]>
   where?: InputMaybe<MarkPriceCandlesFilter>
+}
+
+export type SubscriptionOraclePricesArgs = {
+  where?: InputMaybe<SubOraclePricesFilter>
 }
 
 export type SubscriptionPerpMarketArgs = {

@@ -7,6 +7,8 @@ import {
   GovVote,
   Governance,
   MarkPriceCandle,
+  OracleEntry,
+  OraclePrice,
   PerpLeaderboard,
   PerpMarket,
   PerpPosition,
@@ -338,5 +340,18 @@ export const defaultUnbondings: Unbonding = {
   completion_time: "",
   creation_block: defaultBlock,
   delegator: defaultUser,
+  validator: defaultValidator,
+}
+
+export const defaultOraclePrice: OraclePrice = {
+  block: defaultBlock,
+  eventSeqNo: 0,
+  pair: "",
+  price: 0,
+  txSeqNo: 0,
+}
+
+export const defaultOracleEntry: OracleEntry = {
+  numVotes: 0,
   validator: defaultValidator,
 }

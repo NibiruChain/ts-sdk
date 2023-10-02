@@ -6,6 +6,7 @@ import {
   DistributionCommission,
   Governance,
   MarkPriceCandle,
+  OraclePrice,
   PerpMarket,
   PerpPosition,
   QueryCommunityPoolArgs,
@@ -30,6 +31,7 @@ import {
   SpotPoolJoined,
   SpotPoolSwap,
   SubscriptionMarkPriceCandlesArgs,
+  SubscriptionOraclePricesArgs,
   SubscriptionPerpMarketArgs,
   SubscriptionPerpPositionsArgs,
   Token,
@@ -77,12 +79,18 @@ import {
   governance,
   GqlOutMarkPriceCandles,
   markPriceCandles,
+  QueryOracleArgs,
+  OracleFields,
+  GqlOutOracle,
+  oracle,
 } from "./query"
 import {
   markPriceCandlesSubscription,
   GqlOutPerpMarket,
   perpMarketSubscription,
   perpPositionsSubscription,
+  oraclePricesSubscription,
+  GqlOutOraclePrices,
 } from "./subscription"
 import { queryBatchHandler } from "./batchHandlers/queryBatchHandler"
 
@@ -118,6 +126,16 @@ export interface IHeartMonitor {
     args: SubscriptionMarkPriceCandlesArgs,
     fields?: Partial<MarkPriceCandle>
   ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>>>
+
+  readonly oracle: (
+    args: QueryOracleArgs,
+    fields?: OracleFields
+  ) => Promise<GqlOutOracle>
+
+  readonly oraclePricesSubscription: (
+    args: SubscriptionOraclePricesArgs,
+    fields?: Partial<OraclePrice>
+  ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutOraclePrices>>>
 
   readonly perp: (
     args: QueryPerpArgs,
@@ -243,6 +261,14 @@ export class HeartMonitor implements IHeartMonitor {
     args: SubscriptionMarkPriceCandlesArgs,
     fields?: Partial<MarkPriceCandle>
   ) => markPriceCandlesSubscription(args, this.subscriptionClient, fields)
+
+  oracle = async (args: QueryOracleArgs, fields?: OracleFields) =>
+    oracle(args, this.gqlEndpt, fields)
+
+  oraclePricesSubscription = async (
+    args: SubscriptionOraclePricesArgs,
+    fields?: Partial<OraclePrice>
+  ) => oraclePricesSubscription(args, this.subscriptionClient, fields)
 
   perp = async (args: QueryPerpArgs, fields?: PerpFields) =>
     perp(args, this.gqlEndpt, fields)

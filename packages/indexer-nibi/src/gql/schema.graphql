@@ -202,6 +202,57 @@ enum MarkPriceCandlesOrder {
   period_start_ts
 }
 
+type Oracle {
+  oraclePrices(
+    limit: Int
+    offset: Int
+    order_by: OraclePricesOrder
+    order_desc: Boolean
+    where: OraclePricesFilter
+  ): [OraclePrice!]!
+  oracles(
+    limit: Int
+    order_by: OraclesOrder
+    order_desc: Boolean
+    where: OraclesFilter
+  ): [OracleEntry!]!
+}
+
+type OracleEntry {
+  numVotes: Int!
+  validator: Validator!
+}
+
+type OraclePrice {
+  block: Block!
+  eventSeqNo: Int!
+  pair: String!
+  price: Float!
+  txSeqNo: Int!
+}
+
+input OraclePricesFilter {
+  block: IntFilter
+  blockTs: TimeFilter
+  pair: StringFilter
+}
+
+enum OraclePricesOrder {
+  pair
+  price
+  sequence
+}
+
+input OraclesFilter {
+  numVotes: IntFilter
+  validatorAddressEq: String
+}
+
+enum OraclesOrder {
+  num_votes
+  validator_address
+}
+
 input PeriodFilter {
   periodEq: Int
   periodGt: Int
@@ -279,7 +330,7 @@ type PerpMarket {
   maintenance_margin_ratio: Float!
   mark_price: Float!
   mark_price_twap: Float!
-  max_funding_rate: Float!
+  max_funding_rate: Float
   max_leverage: Float!
   pair: String!
   partial_liquidation_ratio: Float!
@@ -403,6 +454,7 @@ type Query {
     order_desc: Boolean
     where: MarkPriceCandlesFilter
   ): [MarkPriceCandle!]!
+  oracle: Oracle!
   perp: Perp!
   perpLeaderboard(
     limit: Int
@@ -843,6 +895,10 @@ input StringFilter {
   like: String
 }
 
+input SubOraclePricesFilter {
+  pair: String!
+}
+
 input SubPerpMarketFilter {
   pair: String!
 }
@@ -857,6 +913,7 @@ type Subscription {
     limit: Int
     where: MarkPriceCandlesFilter
   ): [MarkPriceCandle!]!
+  oraclePrices(where: SubOraclePricesFilter): [OraclePrice!]!
   perpMarket(where: SubPerpMarketFilter!): PerpMarket!
   perpPositions(where: SubPerpPositionFilter!): [PerpPosition!]!
 }

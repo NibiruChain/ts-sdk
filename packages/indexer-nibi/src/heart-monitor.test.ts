@@ -3,6 +3,7 @@ import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
 import { communityPoolQueryString, delegationsQueryString } from "./query"
 import {
   defaultMarkPriceCandles,
+  defaultOraclePrice,
   defaultPerpMarket,
   defaultPerpPosition,
 } from "./defaultObjects"
@@ -200,6 +201,56 @@ test("markPriceCandlesSubscription", async () => {
     ]
     fields.forEach((field: string) => {
       expect(markPriceCandle).toHaveProperty(field)
+    })
+  }
+})
+
+test("oracle", async () => {
+  const resp = await heartMonitor.oracle({
+    oraclePrices: {
+      limit: 1,
+    },
+    oracles: {
+      limit: 1,
+    },
+  })
+  expect(resp).toHaveProperty("oracle")
+
+  if (resp.oracle) {
+    const { oracle } = resp
+    const fields = ["oraclePrices", "oracles"]
+    fields.forEach((field: string) => {
+      expect(oracle).toHaveProperty(field)
+    })
+  }
+})
+
+test("oraclePricesSubscription", async () => {
+  const hm = {
+    oraclePricesSubscription: jest.fn().mockResolvedValue({
+      next: async () => ({
+        value: {
+          data: {
+            oraclePrices: [defaultOraclePrice],
+          },
+        },
+      }),
+    }),
+  }
+
+  const resp = await hm.oraclePricesSubscription({
+    where: { pair: "ubtc:unusd" },
+  })
+
+  const event = await resp.next()
+
+  expect(event.value.data).toHaveProperty("oraclePrices")
+
+  if ((event.value.data.oraclePrices.length ?? 0) > 0) {
+    const [oraclePrices] = event.value.data.oraclePrices ?? []
+    const fields = ["block", "eventSeqNo", "pair", "price", "txSeqNo"]
+    fields.forEach((field: string) => {
+      expect(oraclePrices).toHaveProperty(field)
     })
   }
 })
