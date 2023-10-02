@@ -4,17 +4,8 @@ import {
   SubscriptionMarkPriceCandlesArgs,
 } from "../gql/generated"
 import { gqlQuery, convertObjectToPropertiesString } from "../gql"
-import { GqlOutMarkPriceCandles } from "../query/markPriceCandles"
-
-export const defaultMarkPriceCandlesObject: MarkPriceCandle = {
-  close: 0,
-  high: 0,
-  low: 0,
-  open: 0,
-  pair: "",
-  period: 0,
-  periodStartTs: "",
-}
+import { GqlOutMarkPriceCandles } from "../query"
+import { defaultMarkPriceCandles } from "../defaultObjects"
 
 export const markPriceCandlesSubscriptionQueryString = (
   args: SubscriptionMarkPriceCandlesArgs,
@@ -26,7 +17,7 @@ export const markPriceCandlesSubscriptionQueryString = (
       args,
       fields
         ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultMarkPriceCandlesObject),
+        : convertObjectToPropertiesString(defaultMarkPriceCandles),
       true
     )}
   }`

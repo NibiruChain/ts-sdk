@@ -7,8 +7,6 @@ import {
   SpotPoolOrder,
 } from "../gql/generated"
 
-export const defaultSpotPoolObject: SpotPool = defaultPool
-
 export interface GqlOutSpotPools {
   spotPools?: Query["spotPools"]
 }
@@ -27,7 +25,7 @@ export const spotPoolsQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultSpotPoolObject),
+      : convertObjectToPropertiesString(defaultPool),
     excludeParentObject
   )
 }

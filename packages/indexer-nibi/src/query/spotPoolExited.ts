@@ -7,8 +7,6 @@ import {
   SpotPoolExitedOrder,
 } from "../gql/generated"
 
-export const defaultSpotPoolExitedObject: SpotPoolExited = defaultSpotPool
-
 export interface GqlOutSpotPoolExited {
   spotPoolExited?: Query["spotPoolExited"]
 }
@@ -27,7 +25,7 @@ export const spotPoolExitedQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultSpotPoolExitedObject),
+      : convertObjectToPropertiesString(defaultSpotPool),
     excludeParentObject
   )
 }

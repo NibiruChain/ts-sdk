@@ -1,9 +1,4 @@
-import {
-  defaultBlock,
-  defaultPool,
-  defaultToken,
-  defaultUser,
-} from "../defaultObjects"
+import { defaultSpotPoolSwap } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
@@ -11,14 +6,6 @@ import {
   SpotPoolSwap,
   SpotPoolSwapOrder,
 } from "../gql/generated"
-
-export const defaultSpotPoolSwapObject: SpotPoolSwap = {
-  block: defaultBlock,
-  pool: defaultPool,
-  token_in: defaultToken,
-  token_out: defaultToken,
-  user: defaultUser,
-}
 
 export interface GqlOutSpotPoolSwap {
   spotPoolSwap?: Query["spotPoolSwap"]
@@ -38,7 +25,7 @@ export const spotPoolSwapQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultSpotPoolSwapObject),
+      : convertObjectToPropertiesString(defaultSpotPoolSwap),
     excludeParentObject
   )
 }

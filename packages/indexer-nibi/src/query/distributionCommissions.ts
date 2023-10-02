@@ -1,4 +1,4 @@
-import { defaultToken, defaultValidator } from "../defaultObjects"
+import { defaultDistributionCommission } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
@@ -6,11 +6,6 @@ import {
   DistributionCommissionOrder,
   DistributionCommission,
 } from "../gql/generated"
-
-export const defaultDistributionCommissionObject: DistributionCommission = {
-  commission: [defaultToken],
-  validator: defaultValidator,
-}
 
 export interface GqlOutDistributionCommissions {
   distributionCommissions?: Query["distributionCommissions"]
@@ -31,7 +26,7 @@ export const distributionCommissionsQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultDistributionCommissionObject),
+      : convertObjectToPropertiesString(defaultDistributionCommission),
     excludeParentObject
   )
 }

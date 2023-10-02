@@ -1,8 +1,4 @@
-import {
-  defaultGovDeposit,
-  defaultGovProposal,
-  defaultGovVote,
-} from "../defaultObjects"
+import { defaultGovernance } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
@@ -16,12 +12,6 @@ export type QueryGovernanceArgs = {
   govDeposits: GovernanceGovDepositsArgs
   govProposals: GovernanceGovProposalsArgs
   govVotes: GovernanceGovVotesArgs
-}
-
-export const defaultGovernanceObject: Governance = {
-  govDeposits: [defaultGovDeposit],
-  govProposals: [defaultGovProposal],
-  govVotes: [defaultGovVote],
 }
 
 export interface GqlOutGovernance {
@@ -72,7 +62,7 @@ export const governanceQueryString = (
       gqlQuery(
         "govDeposits",
         args.govDeposits,
-        convertObjectToPropertiesString(defaultGovernanceObject.govDeposits[0]),
+        convertObjectToPropertiesString(defaultGovernance.govDeposits[0]),
         true
       )
     )
@@ -81,9 +71,7 @@ export const governanceQueryString = (
       gqlQuery(
         "govProposals",
         args.govProposals,
-        convertObjectToPropertiesString(
-          defaultGovernanceObject.govProposals[0]
-        ),
+        convertObjectToPropertiesString(defaultGovernance.govProposals[0]),
         true
       )
     )
@@ -92,7 +80,7 @@ export const governanceQueryString = (
       gqlQuery(
         "govVotes",
         args.govVotes,
-        convertObjectToPropertiesString(defaultGovernanceObject.govVotes[0]),
+        convertObjectToPropertiesString(defaultGovernance.govVotes[0]),
         true
       )
     )

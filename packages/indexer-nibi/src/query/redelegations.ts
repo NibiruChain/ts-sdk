@@ -1,4 +1,4 @@
-import { defaultBlock, defaultUser, defaultValidator } from "../defaultObjects"
+import { defaultRedelegations } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
@@ -6,15 +6,6 @@ import {
   Redelegation,
   RedelegationOrder,
 } from "../gql/generated"
-
-export const defaultRedelegationsObject: Redelegation = {
-  amount: 0,
-  delegator: defaultUser,
-  source_validator: defaultValidator,
-  destination_validator: defaultValidator,
-  completion_time: "",
-  creation_block: defaultBlock,
-}
 
 export interface GqlOutRedelegations {
   redelegations?: Query["redelegations"]
@@ -34,7 +25,7 @@ export const redelegationsQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultRedelegationsObject),
+      : convertObjectToPropertiesString(defaultRedelegations),
     excludeParentObject
   )
 }

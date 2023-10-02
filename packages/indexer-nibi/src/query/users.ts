@@ -2,8 +2,6 @@ import { defaultUser } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import { Query, QueryUsersArgs, User, UserOrder } from "../gql/generated"
 
-export const defaultUserObject: User = defaultUser
-
 export interface GqlOutUsers {
   users?: Query["users"]
 }
@@ -22,7 +20,7 @@ export const usersQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultUserObject),
+      : convertObjectToPropertiesString(defaultUser),
     excludeParentObject
   )
 }

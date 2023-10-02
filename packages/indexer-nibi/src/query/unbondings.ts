@@ -1,4 +1,4 @@
-import { defaultBlock, defaultUser, defaultValidator } from "../defaultObjects"
+import { defaultUnbondings } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
@@ -6,14 +6,6 @@ import {
   Unbonding,
   UnbondingOrder,
 } from "../gql/generated"
-
-export const defaultUnbondingsObject: Unbonding = {
-  amount: 0,
-  completion_time: "",
-  creation_block: defaultBlock,
-  delegator: defaultUser,
-  validator: defaultValidator,
-}
 
 export interface GqlOutUnbondings {
   unbondings?: Query["unbondings"]
@@ -33,7 +25,7 @@ export const unbondingsQueryString = (
     args,
     fields
       ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultUnbondingsObject),
+      : convertObjectToPropertiesString(defaultUnbondings),
     excludeParentObject
   )
 }
