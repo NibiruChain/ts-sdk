@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.27](../intro.md) / [Exports](../modules.md) / MsgSwapAssetsEncodeObject
+[NibiJS Documentation - v0.21.28](../intro.md) / [Exports](../modules.md) / MsgSwapAssetsEncodeObject
 
 # Interface: MsgSwapAssetsEncodeObject
 
@@ -27,7 +27,7 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/spot.ts:51](https://github.com/NibiruChain/ts-sdk/blob/0715849/packages/nibijs/src/msg/spot.ts#L51)
+[msg/spot.ts:51](https://github.com/NibiruChain/ts-sdk/blob/83f95d4/packages/nibijs/src/msg/spot.ts#L51)
 
 ---
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/spot.ts:52](https://github.com/NibiruChain/ts-sdk/blob/0715849/packages/nibijs/src/msg/spot.ts#L52)
+[msg/spot.ts:52](https://github.com/NibiruChain/ts-sdk/blob/83f95d4/packages/nibijs/src/msg/spot.ts#L52)

@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.27](../intro.md) / [Exports](../modules.md) / MsgFactory
+[NibiJS Documentation - v0.21.28](../intro.md) / [Exports](../modules.md) / MsgFactory
 
 # Class: MsgFactory
 
@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[msg/index.ts:7](https://github.com/NibiruChain/ts-sdk/blob/0715849/packages/nibijs/src/msg/index.ts#L7)
+[msg/index.ts:7](https://github.com/NibiruChain/ts-sdk/blob/83f95d4/packages/nibijs/src/msg/index.ts#L7)
 
 ---
 
@@ -37,4 +37,4 @@
 
 #### Defined in
 
-[msg/index.ts:5](https://github.com/NibiruChain/ts-sdk/blob/0715849/packages/nibijs/src/msg/index.ts#L5)
+[msg/index.ts:5](https://github.com/NibiruChain/ts-sdk/blob/83f95d4/packages/nibijs/src/msg/index.ts#L5)

@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.27](../intro.md) / [Exports](../modules.md) / MsgExitPoolEncodeObject
+[NibiJS Documentation - v0.21.28](../intro.md) / [Exports](../modules.md) / MsgExitPoolEncodeObject
 
 # Interface: MsgExitPoolEncodeObject
 
@@ -27,7 +27,7 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/spot.ts:43](https://github.com/NibiruChain/ts-sdk/blob/0715849/packages/nibijs/src/msg/spot.ts#L43)
+[msg/spot.ts:43](https://github.com/NibiruChain/ts-sdk/blob/83f95d4/packages/nibijs/src/msg/spot.ts#L43)
 
 ---
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/spot.ts:44](https://github.com/NibiruChain/ts-sdk/blob/0715849/packages/nibijs/src/msg/spot.ts#L44)
+[msg/spot.ts:44](https://github.com/NibiruChain/ts-sdk/blob/83f95d4/packages/nibijs/src/msg/spot.ts#L44)
