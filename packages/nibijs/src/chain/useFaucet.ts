@@ -59,6 +59,6 @@ export async function useFaucet({
  */
 export const faucetUrlFromChain = (chain: Chain) => {
   const parts = chainToParts(chain)
-  // e.g. https://faucet.itn-2.nibiru.fi/
+  // e.g. https://faucet.itn-X.nibiru.fi/ where X is the number
   return `https://faucet.${parts.shortName}-${parts.number}.nibiru.fi/`
 }
