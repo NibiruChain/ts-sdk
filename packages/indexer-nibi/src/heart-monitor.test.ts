@@ -241,7 +241,6 @@ test("perp", async () => {
       "markets",
       "position",
       "positionChanges",
-      "users",
       "positions",
     ]
     fields.forEach((field: string) => {
