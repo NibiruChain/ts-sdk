@@ -1,5 +1,4 @@
 import { HeartMonitor } from "./heart-monitor"
-
 ;(async () => {
   const hm = new HeartMonitor()
   const test = await hm.markPriceCandlesSubscription({})

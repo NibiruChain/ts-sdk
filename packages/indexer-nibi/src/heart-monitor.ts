@@ -91,6 +91,7 @@ import {
   perpPositionsSubscription,
   oraclePricesSubscription,
   GqlOutOraclePrices,
+  GqlOutPerpPositions,
 } from "./subscription"
 import { queryBatchHandler } from "./batchHandlers/queryBatchHandler"
 
@@ -151,6 +152,13 @@ export interface IHeartMonitor {
     fields?: Partial<PerpMarket>
   ) => Promise<
     AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>> | undefined
+  >
+
+  readonly perpPositionsSubscription: (
+    args: SubscriptionPerpPositionsArgs,
+    fields?: Partial<PerpPosition>
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>> | undefined
   >
 
   readonly queryBatchHandler: (queryQueryString: string[]) => Promise<any>
@@ -219,10 +227,7 @@ export class HeartMonitor implements IHeartMonitor {
   defaultGqlEndpt = "https://hm-graphql.devnet-2.nibiru.fi/query"
   subscriptionClient: Client | undefined
 
-  constructor(
-    gqlEndpt?: string | { endptTm: string },
-    webSocketImpl?: WebSocket
-  ) {
+  constructor(gqlEndpt?: string | { endptTm: string }, webSocketUrl?: string) {
     const chain = gqlEndpt as { endptTm: string }
     if (!gqlEndpt) {
       this.gqlEndpt = this.defaultGqlEndpt
@@ -235,10 +240,10 @@ export class HeartMonitor implements IHeartMonitor {
       this.gqlEndpt = this.defaultGqlEndpt
     }
 
-    if (webSocketImpl) {
+    if (webSocketUrl) {
       this.subscriptionClient = createClient({
-        url: this.gqlEndpt,
-        webSocketImpl,
+        url: webSocketUrl,
+        ...(WebSocket ? { webSocketImpl: WebSocket } : {}),
       })
     }
   }
