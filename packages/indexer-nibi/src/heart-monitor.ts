@@ -125,7 +125,9 @@ export interface IHeartMonitor {
   readonly markPriceCandlesSubscription: (
     args: SubscriptionMarkPriceCandlesArgs,
     fields?: Partial<MarkPriceCandle>
-  ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>>>
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>> | undefined
+  >
 
   readonly oracle: (
     args: QueryOracleArgs,
@@ -135,7 +137,9 @@ export interface IHeartMonitor {
   readonly oraclePricesSubscription: (
     args: SubscriptionOraclePricesArgs,
     fields?: Partial<OraclePrice>
-  ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutOraclePrices>>>
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<GqlOutOraclePrices>> | undefined
+  >
 
   readonly perp: (
     args: QueryPerpArgs,
@@ -145,7 +149,9 @@ export interface IHeartMonitor {
   readonly perpMarketSubscription: (
     args: SubscriptionPerpMarketArgs,
     fields?: Partial<PerpMarket>
-  ) => Promise<AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>>>
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>> | undefined
+  >
 
   readonly queryBatchHandler: (queryQueryString: string[]) => Promise<any>
 
@@ -211,9 +217,12 @@ export interface IHeartMonitor {
 export class HeartMonitor implements IHeartMonitor {
   gqlEndpt: string
   defaultGqlEndpt = "https://hm-graphql.devnet-2.nibiru.fi/query"
-  subscriptionClient: Client
+  subscriptionClient: Client | undefined
 
-  constructor(gqlEndpt?: string | { endptTm: string }) {
+  constructor(
+    gqlEndpt?: string | { endptTm: string },
+    webSocketImpl?: WebSocket
+  ) {
     const chain = gqlEndpt as { endptTm: string }
     if (!gqlEndpt) {
       this.gqlEndpt = this.defaultGqlEndpt
@@ -226,10 +235,12 @@ export class HeartMonitor implements IHeartMonitor {
       this.gqlEndpt = this.defaultGqlEndpt
     }
 
-    this.subscriptionClient = createClient({
-      url: this.defaultGqlEndpt,
-      webSocketImpl: WebSocket,
-    })
+    if (webSocketImpl) {
+      this.subscriptionClient = createClient({
+        url: this.gqlEndpt,
+        webSocketImpl,
+      })
+    }
   }
 
   communityPool = async (

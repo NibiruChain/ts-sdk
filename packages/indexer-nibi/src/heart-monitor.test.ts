@@ -1,3 +1,4 @@
+import { WebSocket } from "ws"
 import { HeartMonitor } from "./heart-monitor"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
 import { communityPoolQueryString, delegationsQueryString } from "./query"
@@ -10,9 +11,12 @@ import {
 
 const nibiruUrl = "itn-3"
 
-const heartMonitor = new HeartMonitor({
-  endptTm: `https://hm-graphql.${nibiruUrl}.nibiru.fi`,
-})
+const heartMonitor = new HeartMonitor(
+  {
+    endptTm: `https://hm-graphql.${nibiruUrl}.nibiru.fi`,
+  },
+  new WebSocket(`ws://hm-graphql.${nibiruUrl}.nibiru.fi`)
+)
 
 describe("Heart Monitor constructor", () => {
   interface TestCase {
