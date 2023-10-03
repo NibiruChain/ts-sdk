@@ -26,10 +26,12 @@ export const perpPositionsSubscriptionQueryString = (
 
 export const perpPositionsSubscription = async (
   args: SubscriptionPerpPositionsArgs,
-  client: Client,
+  client: Client | undefined,
   fields?: Partial<PerpPosition>
-): Promise<AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>>> =>
-  client.iterate({
+): Promise<
+  AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>> | undefined
+> =>
+  client?.iterate({
     query: `subscription {
         ${perpPositionsSubscriptionQueryString(args, fields)}
       }`,

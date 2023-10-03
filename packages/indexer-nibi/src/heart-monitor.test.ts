@@ -10,9 +10,12 @@ import {
 
 const nibiruUrl = "itn-3"
 
-const heartMonitor = new HeartMonitor({
-  endptTm: `https://hm-graphql.${nibiruUrl}.nibiru.fi`,
-})
+const heartMonitor = new HeartMonitor(
+  {
+    endptTm: `https://hm-graphql.${nibiruUrl}.nibiru.fi`,
+  },
+  `ws://hm-graphql.${nibiruUrl}.nibiru.fi`
+)
 
 describe("Heart Monitor constructor", () => {
   interface TestCase {

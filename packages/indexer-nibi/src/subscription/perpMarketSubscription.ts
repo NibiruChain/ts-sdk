@@ -28,9 +28,11 @@ export const perpMarketSubscriptionQueryString = (
 
 export const perpMarketSubscription = async (
   args: SubscriptionPerpMarketArgs,
-  client: Client,
+  client: Client | undefined,
   fields?: Partial<PerpMarket>
-): Promise<AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>>> =>
-  client.iterate({
+): Promise<
+  AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>> | undefined
+> =>
+  client?.iterate({
     query: perpMarketSubscriptionQueryString(args, fields),
   })

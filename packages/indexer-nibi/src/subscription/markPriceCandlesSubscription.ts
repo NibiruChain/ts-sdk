@@ -24,9 +24,11 @@ export const markPriceCandlesSubscriptionQueryString = (
 
 export const markPriceCandlesSubscription = async (
   args: SubscriptionMarkPriceCandlesArgs,
-  client: Client,
+  client: Client | undefined,
   fields?: Partial<MarkPriceCandle>
-): Promise<AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>>> =>
-  client.iterate({
+): Promise<
+  AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>> | undefined
+> =>
+  client?.iterate({
     query: markPriceCandlesSubscriptionQueryString(args, fields),
   })
