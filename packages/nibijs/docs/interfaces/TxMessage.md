@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.28](../intro.md) / [Exports](../modules.md) / TxMessage
+[NibiJS Documentation - v0.21.29](../intro.md) / [Exports](../modules.md) / TxMessage
 
 # Interface: TxMessage
 
