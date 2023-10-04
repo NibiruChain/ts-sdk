@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.25](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.24...@nibiruchain/indexer-nibi-v0.21.25) (2023-10-04)
+
+### Bug Fixes
+
+- **fix:** multi-schema ([#237](https://github.com/NibiruChain/ts-sdk/issues/237)) ([3914891](https://github.com/NibiruChain/ts-sdk/commit/391489184bd1704442a03c6c6220df0c679caedf))
+
 ## [@nibiruchain/indexer-nibi-v0.21.24](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.23...@nibiruchain/indexer-nibi-v0.21.24) (2023-10-03)
 
 ### Bug Fixes
