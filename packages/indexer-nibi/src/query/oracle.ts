@@ -28,42 +28,46 @@ export const oracleQueryString = (
 ) => {
   const oracleQuery: string[] = []
 
-  if (fields) {
-    if (fields?.oraclePrices) {
-      oracleQuery.push(
-        gqlQuery(
-          "oraclePrices",
-          args?.oraclePrices ?? {},
-          convertObjectToPropertiesString(fields.oraclePrices),
-          true
-        )
-      )
-    }
-
-    if (fields?.oracles) {
-      oracleQuery.push(
-        gqlQuery(
-          "oracles",
-          args?.oracles ?? {},
-          convertObjectToPropertiesString(fields.oracles),
-          true
-        )
-      )
-    }
-  } else {
+  if (fields?.oraclePrices) {
     oracleQuery.push(
       gqlQuery(
         "oraclePrices",
-        args?.oraclePrices ?? {},
+        args.oraclePrices ?? {},
+        convertObjectToPropertiesString(fields.oraclePrices),
+        true
+      )
+    )
+  }
+
+  if (fields?.oracles) {
+    oracleQuery.push(
+      gqlQuery(
+        "oracles",
+        args.oracles ?? {},
+        convertObjectToPropertiesString(fields.oracles),
+        true
+      )
+    )
+  }
+
+  // Default Objects
+
+  if (args.oraclePrices && !fields?.oraclePrices) {
+    oracleQuery.push(
+      gqlQuery(
+        "oraclePrices",
+        args.oraclePrices ?? {},
         convertObjectToPropertiesString(defaultOraclePrice),
         true
       )
     )
+  }
 
+  if (args.oracles && !fields?.oracles) {
     oracleQuery.push(
       gqlQuery(
         "oracles",
-        args?.oracles ?? {},
+        args.oracles ?? {},
         convertObjectToPropertiesString(defaultOracleEntry),
         true
       )

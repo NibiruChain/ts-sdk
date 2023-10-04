@@ -110,56 +110,70 @@ export const perpQueryString = (args: QueryPerpArgs, fields?: PerpFields) => {
         )
       )
     }
-  } else {
+  }
+
+  // Default Objects
+
+  if (args.leaderboard && !fields?.leaderboard) {
     perpQuery.push(
       gqlQuery(
         "leaderboard",
-        args?.leaderboard ?? {},
+        args.leaderboard ?? {},
         convertObjectToPropertiesString(defaultPerpLeaderboard),
         true
       )
     )
+  }
 
+  if (args.market && !fields?.market) {
     perpQuery.push(
       gqlQuery(
         "market",
-        args?.market ?? {},
+        args.market ?? {},
         convertObjectToPropertiesString(defaultPerpMarket),
         true
       )
     )
+  }
 
+  if (args.markets && !fields?.markets) {
     perpQuery.push(
       gqlQuery(
         "markets",
-        args?.markets ?? {},
+        args.markets ?? {},
         convertObjectToPropertiesString(defaultPerpMarket),
         true
       )
     )
+  }
 
+  if (args.position && !fields?.position) {
     perpQuery.push(
       gqlQuery(
         "position",
-        args?.position ?? {},
+        args.position ?? {},
         convertObjectToPropertiesString(defaultPerpPosition),
         true
       )
     )
+  }
 
+  if (args.positionChanges && !fields?.positionChanges) {
     perpQuery.push(
       gqlQuery(
         "positionChanges",
-        args?.positionChanges ?? {},
+        args.positionChanges ?? {},
         convertObjectToPropertiesString(defaultPerpPositionChanges),
         true
       )
     )
+  }
 
+  if (args.position && !fields?.positionChanges) {
     perpQuery.push(
       gqlQuery(
         "positions",
-        args?.positions ?? {},
+        args.positions ?? {},
         convertObjectToPropertiesString(defaultPerpPosition),
         true
       )
