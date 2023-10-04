@@ -56,138 +56,152 @@ export const statsQueryString = (
 ) => {
   const statsQuery: string[] = []
 
-  if (fields) {
-    if (fields?.fees) {
-      statsQuery.push(
-        gqlQuery(
-          "fees",
-          args?.fees ?? {},
-          convertObjectToPropertiesString(fields.fees),
-          true
-        )
-      )
-    }
-
-    if (fields?.perpOpenInterest) {
-      statsQuery.push(
-        gqlQuery(
-          "perpOpenInterest",
-          args?.perpOpenInterest ?? {},
-          convertObjectToPropertiesString(fields.perpOpenInterest),
-          true
-        )
-      )
-    }
-
-    if (fields?.perpPnl) {
-      statsQuery.push(
-        gqlQuery(
-          "perpPnl",
-          args?.perpPnl ?? {},
-          convertObjectToPropertiesString(fields.perpPnl),
-          true
-        )
-      )
-    }
-
-    if (fields?.totals) {
-      statsQuery.push(
-        gqlQuery(
-          "totals",
-          args?.totals ?? {},
-          convertObjectToPropertiesString(fields.totals),
-          true
-        )
-      )
-    }
-
-    if (fields?.tvl) {
-      statsQuery.push(
-        gqlQuery(
-          "tvl",
-          args?.tvl ?? {},
-          convertObjectToPropertiesString(fields.tvl),
-          true
-        )
-      )
-    }
-
-    if (fields?.users) {
-      statsQuery.push(
-        gqlQuery(
-          "users",
-          args?.users ?? {},
-          convertObjectToPropertiesString(fields.users),
-          true
-        )
-      )
-    }
-
-    if (fields?.volume) {
-      statsQuery.push(
-        gqlQuery(
-          "volume",
-          args?.volume ?? {},
-          convertObjectToPropertiesString(fields.volume),
-          true
-        )
-      )
-    }
-  } else {
+  if (fields?.fees) {
     statsQuery.push(
       gqlQuery(
         "fees",
         args?.fees ?? {},
-        convertObjectToPropertiesString(defaultStatsFees),
+        convertObjectToPropertiesString(fields.fees),
         true
       )
     )
+  }
 
+  if (fields?.perpOpenInterest) {
     statsQuery.push(
       gqlQuery(
         "perpOpenInterest",
         args?.perpOpenInterest ?? {},
-        convertObjectToPropertiesString(defaultPerpOpenInterest),
+        convertObjectToPropertiesString(fields.perpOpenInterest),
         true
       )
     )
+  }
 
+  if (fields?.perpPnl) {
     statsQuery.push(
       gqlQuery(
         "perpPnl",
         args?.perpPnl ?? {},
-        convertObjectToPropertiesString(defaultPerpPnl),
+        convertObjectToPropertiesString(fields.perpPnl),
         true
       )
     )
+  }
 
+  if (fields?.totals) {
     statsQuery.push(
       gqlQuery(
         "totals",
         args?.totals ?? {},
-        convertObjectToPropertiesString(defaultTotals),
+        convertObjectToPropertiesString(fields.totals),
         true
       )
     )
+  }
 
+  if (fields?.tvl) {
     statsQuery.push(
       gqlQuery(
         "tvl",
         args?.tvl ?? {},
-        convertObjectToPropertiesString(defaultTvl),
+        convertObjectToPropertiesString(fields.tvl),
         true
       )
     )
+  }
 
+  if (fields?.users) {
     statsQuery.push(
       gqlQuery(
         "users",
         args?.users ?? {},
+        convertObjectToPropertiesString(fields.users),
+        true
+      )
+    )
+  }
+
+  if (fields?.volume) {
+    statsQuery.push(
+      gqlQuery(
+        "volume",
+        args?.volume ?? {},
+        convertObjectToPropertiesString(fields.volume),
+        true
+      )
+    )
+  }
+
+  // Default Objects
+
+  if (args.fees && !fields?.fees) {
+    statsQuery.push(
+      gqlQuery(
+        "fees",
+        args.fees ?? {},
+        convertObjectToPropertiesString(defaultStatsFees),
+        true
+      )
+    )
+  }
+
+  if (args.perpOpenInterest && !fields?.perpOpenInterest) {
+    statsQuery.push(
+      gqlQuery(
+        "perpOpenInterest",
+        args.perpOpenInterest ?? {},
+        convertObjectToPropertiesString(defaultPerpOpenInterest),
+        true
+      )
+    )
+  }
+
+  if (args.perpPnl && !fields?.perpPnl) {
+    statsQuery.push(
+      gqlQuery(
+        "perpPnl",
+        args.perpPnl ?? {},
+        convertObjectToPropertiesString(defaultPerpPnl),
+        true
+      )
+    )
+  }
+
+  if (args.totals && !fields?.totals) {
+    statsQuery.push(
+      gqlQuery(
+        "totals",
+        args.totals ?? {},
+        convertObjectToPropertiesString(defaultTotals),
+        true
+      )
+    )
+  }
+
+  if (args.tvl && !fields?.tvl) {
+    statsQuery.push(
+      gqlQuery(
+        "tvl",
+        args.tvl ?? {},
+        convertObjectToPropertiesString(defaultTvl),
+        true
+      )
+    )
+  }
+
+  if (args.users && !fields?.users) {
+    statsQuery.push(
+      gqlQuery(
+        "users",
+        args.users ?? {},
         convertObjectToPropertiesString(defaultUsers),
         true
       )
     )
+  }
 
+  if (args.volume && !fields?.volume) {
     statsQuery.push(
       gqlQuery(
         "volume",
