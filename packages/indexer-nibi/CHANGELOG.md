@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.27](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.26...@nibiruchain/indexer-nibi-v0.21.27) (2023-10-06)
+
+### Features
+
+- add volume notional to candle chart ([#239](https://github.com/NibiruChain/ts-sdk/issues/239)) ([d147d43](https://github.com/NibiruChain/ts-sdk/commit/d147d43a5d7b569197b9ae944c83b0dd58bc77e2))
+
 ## [@nibiruchain/indexer-nibi-v0.21.26](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.25...@nibiruchain/indexer-nibi-v0.21.26) (2023-10-06)
 
 ### Features
