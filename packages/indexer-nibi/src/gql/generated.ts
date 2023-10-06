@@ -217,10 +217,11 @@ export type MarkPriceCandle = {
   readonly high: Scalars["Float"]["output"]
   readonly low: Scalars["Float"]["output"]
   readonly open: Scalars["Float"]["output"]
-  readonly volume: Scalars["Float"]["output"]
   readonly pair: Scalars["String"]["output"]
   readonly period: Scalars["Int"]["output"]
   readonly periodStartTs: Scalars["Time"]["output"]
+  readonly volume: Scalars["Float"]["output"]
+  readonly volumeNotional: Scalars["Float"]["output"]
 }
 
 export type MarkPriceCandlesFilter = {
@@ -1175,6 +1176,7 @@ export enum ValidatorOrder {
   Moniker = "moniker",
   OperatorAddress = "operator_address",
   Status = "status",
+  Tokens = "tokens",
 }
 
 export enum ValidatorStatus {

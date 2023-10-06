@@ -178,10 +178,11 @@ type MarkPriceCandle {
   high: Float!
   low: Float!
   open: Float!
-  volume: Float!
   pair: String!
   period: Int!
   periodStartTs: Time!
+  volume: Float!
+  volumeNotional: Float!
 }
 
 input MarkPriceCandlesFilter {
@@ -1012,6 +1013,7 @@ enum ValidatorOrder {
   moniker
   operator_address
   status
+  tokens
 }
 
 enum ValidatorStatus {
