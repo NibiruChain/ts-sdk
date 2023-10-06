@@ -178,7 +178,6 @@ type MarkPriceCandle {
   high: Float!
   low: Float!
   open: Float!
-  volume: Float!
   pair: String!
   period: Int!
   periodStartTs: Time!
