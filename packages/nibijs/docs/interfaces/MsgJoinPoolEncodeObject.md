@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.30](../intro.md) / [Exports](../modules.md) / MsgJoinPoolEncodeObject
+[NibiJS Documentation - v0.21.31](../intro.md) / [Exports](../modules.md) / MsgJoinPoolEncodeObject
 
 # Interface: MsgJoinPoolEncodeObject
 
@@ -27,7 +27,7 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/spot.ts:35](https://github.com/NibiruChain/ts-sdk/blob/3914891/packages/nibijs/src/msg/spot.ts#L35)
+[msg/spot.ts:35](https://github.com/NibiruChain/ts-sdk/blob/aaee27f/packages/nibijs/src/msg/spot.ts#L35)
 
 ---
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/spot.ts:36](https://github.com/NibiruChain/ts-sdk/blob/3914891/packages/nibijs/src/msg/spot.ts#L36)
+[msg/spot.ts:36](https://github.com/NibiruChain/ts-sdk/blob/aaee27f/packages/nibijs/src/msg/spot.ts#L36)

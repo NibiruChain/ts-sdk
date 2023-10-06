@@ -217,6 +217,7 @@ export type MarkPriceCandle = {
   readonly high: Scalars["Float"]["output"]
   readonly low: Scalars["Float"]["output"]
   readonly open: Scalars["Float"]["output"]
+  readonly volume: Scalars["Float"]["output"]
   readonly pair: Scalars["String"]["output"]
   readonly period: Scalars["Int"]["output"]
   readonly periodStartTs: Scalars["Time"]["output"]

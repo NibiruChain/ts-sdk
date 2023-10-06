@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.30](../intro.md) / [Exports](../modules.md) / MsgClosePositionEncodeObject
+[NibiJS Documentation - v0.21.31](../intro.md) / [Exports](../modules.md) / MsgClosePositionEncodeObject
 
 # Interface: MsgClosePositionEncodeObject
 
@@ -27,7 +27,7 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/perp.ts:73](https://github.com/NibiruChain/ts-sdk/blob/3914891/packages/nibijs/src/msg/perp.ts#L73)
+[msg/perp.ts:73](https://github.com/NibiruChain/ts-sdk/blob/aaee27f/packages/nibijs/src/msg/perp.ts#L73)
 
 ---
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/perp.ts:74](https://github.com/NibiruChain/ts-sdk/blob/3914891/packages/nibijs/src/msg/perp.ts#L74)
+[msg/perp.ts:74](https://github.com/NibiruChain/ts-sdk/blob/aaee27f/packages/nibijs/src/msg/perp.ts#L74)

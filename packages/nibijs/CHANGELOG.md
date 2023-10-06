@@ -1,3 +1,13 @@
+## [@nibiruchain/nibijs-v0.21.32](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.31...@nibiruchain/nibijs-v0.21.32) (2023-10-06)
+
+### Features
+
+- add volume to mark price candles ([#238](https://github.com/NibiruChain/ts-sdk/issues/238)) ([aaee27f](https://github.com/NibiruChain/ts-sdk/commit/aaee27f655ad1bb88d4121a691211dd0335f96a5))
+
+### Miscellaneous Chores
+
+- **release:** 0.21.26 ([2d3c0b4](https://github.com/NibiruChain/ts-sdk/commit/2d3c0b4d98b003265697f57831eee63b4b16f95d)), closes [#238](https://github.com/NibiruChain/ts-sdk/issues/238)
+
 ## [@nibiruchain/nibijs-v0.21.31](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.30...@nibiruchain/nibijs-v0.21.31) (2023-10-04)
 
 ### Bug Fixes

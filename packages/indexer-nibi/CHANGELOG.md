@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.26](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.25...@nibiruchain/indexer-nibi-v0.21.26) (2023-10-06)
+
+### Features
+
+- add volume to mark price candles ([#238](https://github.com/NibiruChain/ts-sdk/issues/238)) ([aaee27f](https://github.com/NibiruChain/ts-sdk/commit/aaee27f655ad1bb88d4121a691211dd0335f96a5))
+
 ## [@nibiruchain/indexer-nibi-v0.21.25](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.24...@nibiruchain/indexer-nibi-v0.21.25) (2023-10-04)
 
 ### Bug Fixes
