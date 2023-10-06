@@ -174,6 +174,7 @@ export const defaultMarkPriceCandles: MarkPriceCandle = {
   high: 0,
   low: 0,
   open: 0,
+  volume: 0,
   pair: "",
   period: 0,
   periodStartTs: "",
