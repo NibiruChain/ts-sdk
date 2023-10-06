@@ -1,3 +1,13 @@
+## [@nibiruchain/nibijs-v0.21.33](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.32...@nibiruchain/nibijs-v0.21.33) (2023-10-06)
+
+### Features
+
+- add volume notional to candle chart ([#239](https://github.com/NibiruChain/ts-sdk/issues/239)) ([d147d43](https://github.com/NibiruChain/ts-sdk/commit/d147d43a5d7b569197b9ae944c83b0dd58bc77e2))
+
+### Miscellaneous Chores
+
+- **release:** 0.21.27 ([053d2a8](https://github.com/NibiruChain/ts-sdk/commit/053d2a81cdd2fa397039440aaf1ed7c1fe465ac7)), closes [#239](https://github.com/NibiruChain/ts-sdk/issues/239)
+
 ## [@nibiruchain/nibijs-v0.21.32](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.31...@nibiruchain/nibijs-v0.21.32) (2023-10-06)
 
 ### Features
