@@ -161,7 +161,7 @@ export interface IHeartMonitor {
     AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>> | undefined
   >
 
-  readonly queryBatchHandler: (queryQueryString: string[]) => Promise<any>
+  readonly queryBatchHandler: (queryQueryStrings: string[]) => Promise<any>
 
   readonly redelegations: (
     args: QueryRedelegationsArgs,
@@ -227,7 +227,11 @@ export class HeartMonitor implements IHeartMonitor {
   defaultGqlEndpt = "https://hm-graphql.devnet-2.nibiru.fi/query"
   subscriptionClient: Client | undefined
 
-  constructor(gqlEndpt?: string | { endptTm: string }, webSocketUrl?: string) {
+  constructor(
+    gqlEndpt?: string | { endptTm: string },
+    webSocketUrl?: string,
+    webSocketImpl?: WebSocket
+  ) {
     const chain = gqlEndpt as { endptTm: string }
     if (!gqlEndpt) {
       this.gqlEndpt = this.defaultGqlEndpt
@@ -243,7 +247,7 @@ export class HeartMonitor implements IHeartMonitor {
     if (webSocketUrl) {
       this.subscriptionClient = createClient({
         url: webSocketUrl,
-        ...(WebSocket ? { webSocketImpl: WebSocket } : {}),
+        webSocketImpl: webSocketImpl ?? WebSocket,
       })
     }
   }
@@ -299,8 +303,8 @@ export class HeartMonitor implements IHeartMonitor {
     fields?: Partial<PerpPosition>
   ) => perpPositionsSubscription(args, this.subscriptionClient, fields)
 
-  queryBatchHandler = async (queryQueryString: string[]) =>
-    queryBatchHandler(queryQueryString, this.gqlEndpt)
+  queryBatchHandler = async (queryQueryStrings: string[]) =>
+    queryBatchHandler(queryQueryStrings, this.gqlEndpt)
 
   redelegations = async (
     args: QueryRedelegationsArgs,
