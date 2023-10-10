@@ -205,7 +205,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "volume",
-        args?.volume ?? {},
+        args.volume ?? {},
         convertObjectToPropertiesString(defaultVolume),
         true
       )

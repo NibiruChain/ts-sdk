@@ -1,6 +1,6 @@
 import { doGqlQuery } from "../gql"
 
 export const queryBatchHandler = async (
-  queryQueryString: string[],
+  queryQueryStrings: string[],
   endpt: string
-) => doGqlQuery(`{ ${queryQueryString.join("\n")} }`, endpt)
+) => doGqlQuery(`{ ${queryQueryStrings.join("\n")} }`, endpt)
