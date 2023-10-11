@@ -54,3 +54,6 @@ jobs:
 
       - name: Run tests
         run: yarn test
+
+      - name: Jest Coverage Comment
+        uses: MishaKav/jest-coverage-comment@main
