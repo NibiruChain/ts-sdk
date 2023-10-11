@@ -22,24 +22,25 @@ module.exports = function (root = __dirname) {
     // clearMocks: false,
 
     // Indicates whether the coverage information should be collected while executing the test
-    // collectCoverage: true,
+    collectCoverage: true,
 
     // An array of glob patterns indicating a set of files for which coverage information should be collected
-    // collectCoverageFrom: null,
+    collectCoverageFrom: [
+      "packages/indexer-nibi/src/**/*.{js,jsx,ts,tsx}",
+      "packages/nibijs/src/**/*.{js,jsx,ts,tsx}",
+      "!**/node_modules/**",
+      "!**/dist/**",
+    ],
 
     // The directory where Jest should output its coverage files
     // coverageDirectory: null,
 
     // An array of regexp pattern strings used to skip coverage collection
-    coveragePathIgnorePatterns: [
-      "/node_modules/",
-      "<rootDir>/dist/",
-      "protojs/dist/",
-    ],
+    coveragePathIgnorePatterns: ["/node_modules/", "/dist/"],
 
     // A list of reporter names that Jest uses when writing coverage reports
     // coverageReporters: ['json', 'html', 'lcov', 'text'],
-    coverageReporters: ["json", "text"],
+    coverageReporters: ["json", "text", "html"],
 
     // An object that configures minimum threshold enforcement for coverage results
     // coverageThreshold: null,
