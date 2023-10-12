@@ -43,7 +43,14 @@ module.exports = function (root = __dirname) {
     coverageReporters: ["json-summary", "text", "html"],
 
     // An object that configures minimum threshold enforcement for coverage results
-    // coverageThreshold: null,
+    coverageThreshold: {
+      global: {
+        branches: 10,
+        functions: 10,
+        lines: 10,
+        statements: 10,
+      },
+    },
 
     // A path to a custom dependency extractor
     // dependencyExtractor: null,
