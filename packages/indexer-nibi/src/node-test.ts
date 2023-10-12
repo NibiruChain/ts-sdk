@@ -1,5 +1,4 @@
 import { HeartMonitor } from "./heart-monitor"
-
 ;(async () => {
   const nibiruUrl = "itn-3"
   const hm = new HeartMonitor(

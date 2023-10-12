@@ -12,9 +12,9 @@ const nibiruUrl = "itn-3"
 
 const heartMonitor = new HeartMonitor(
   {
-    endptTm: `https://hm-graphql.${nibiruUrl}.nibiru.fi`,
+    endptTm: `https://hm-graphql.${nibiruUrl}.nibiru.fi/query`,
   },
-  `ws://hm-graphql.${nibiruUrl}.nibiru.fi`
+  `ws://hm-graphql.${nibiruUrl}.nibiru.fi/query`
 )
 
 describe("Heart Monitor constructor", () => {
