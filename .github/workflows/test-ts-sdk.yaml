@@ -2,10 +2,10 @@ name: ⛓️ Tests @nibiruchain/ts-sdk
 
 on:
   pull_request:
-    branches: ["main", "releases/*"]
+    branches: ["releases/*"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
   push:
-    branches: ["main", "releases/*"]
+    branches: ["releases/*"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
 
 jobs:
@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: Install nibid
         run: curl -s https://get.nibiru.fi/@v0.21.9! | bash
@@ -56,3 +58,9 @@ jobs:
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
