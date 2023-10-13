@@ -21,7 +21,6 @@ jobs:
       USE_LOCALNET: true
       WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
       CHAIN_ID: "nibiru-localnet-0"
-      # VALIDATOR_MNEMONIC: "guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host"
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3

@@ -14,7 +14,7 @@ const heartMonitor = new HeartMonitor(
   {
     endptTm: `https://hm-graphql.${nibiruUrl}.nibiru.fi/query`,
   },
-  `ws://hm-graphql.${nibiruUrl}.nibiru.fi/query`
+  `wss://hm-graphql.${nibiruUrl}.nibiru.fi/query`
 )
 
 describe("Heart Monitor constructor", () => {
