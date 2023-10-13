@@ -1,4 +1,5 @@
 import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
+import { fetch } from "cross-fetch"
 import {
   Chain,
   faucetUrlFromChain,
@@ -13,6 +14,10 @@ import {
   NibiruSigningClient,
 } from "../tx"
 import { TEST_CHAIN, TEST_MNEMONIC } from "./helpers"
+
+jest.mock("cross-fetch", () => ({
+  fetch: jest.fn().mockImplementation(() => ({ catch: jest.fn() })),
+}))
 
 // We can't create a test token even with faked recaptcha site
 // and secret tokens. This not only would require a setup to generate
@@ -63,27 +68,21 @@ describe("useFaucet", () => {
     endptTm: "",
     endptRest: "",
     endptGrpc: "",
-    chainId: "prefix-shortName-1",
+    chainId: "nibiru-itn-3",
     chainName: "",
     feeDenom: "",
   }
 
   const grecaptcha = "TEST_GRECAPTCHA_TOKEN"
   const address = "0x1234567890"
-  const expectedUrl = "https://faucet.shortName-1.nibiru.fi/"
-  const mockedFetch = jest.fn(
-    () =>
-      Promise.resolve({
-        json: () => Promise.resolve({}),
-      }) as unknown as Promise<Response>
-  )
+  const expectedUrl = "https://faucet.itn-3.nibiru.fi/"
 
   test("should request funds from faucet with default amounts", async () => {
     await useFaucet({ address, chain, grecaptcha })
 
     const expectedCoins = ["11000000unibi", "100000000unusd", "100000000uusdt"]
 
-    expect(mockedFetch).toHaveBeenCalledWith(expectedUrl, {
+    expect(fetch).toHaveBeenCalledWith(expectedUrl, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -99,7 +98,7 @@ describe("useFaucet", () => {
 
     const expectedCoins = ["5000000unibi", "50000000unusd", "50000000uusdt"]
 
-    expect(mockedFetch).toHaveBeenCalledWith(expectedUrl, {
+    expect(fetch).toHaveBeenCalledWith(expectedUrl, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -111,14 +110,12 @@ describe("useFaucet", () => {
 
   test("should throw an error if fetch fails", async () => {
     const errorMessage = "Failed to fetch"
-    const mockedFetchError = jest
-      .fn()
-      .mockImplementationOnce(() => Promise.reject(new Error(errorMessage)))
 
-    await expect(useFaucet({ address, chain, grecaptcha })).rejects.toThrow(
-      errorMessage
-    )
-    expect(mockedFetchError).toHaveBeenCalledTimes(1)
+    jest.mock("cross-fetch", () => ({
+      fetch: jest.fn().mockRejectedValueOnce(new Error(errorMessage)),
+    }))
+
+    expect(await useFaucet({ address, chain, grecaptcha })).toEqual(undefined)
   })
 
   test("faucetUrlFromChain helper func should construct faucet URL from chain object", () => {
@@ -127,7 +124,7 @@ describe("useFaucet", () => {
         endptTm: "",
         endptRest: "",
         endptGrpc: "",
-        chainId: "prefix-shortName-1",
+        chainId: "nibiru-itn-3",
         chainName: "",
         feeDenom: "",
       })

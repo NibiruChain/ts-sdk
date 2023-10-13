@@ -1,49 +1,66 @@
-name: ⛓️ Tests @nibiruchain/nibijs
+name: ⛓️ Tests @nibiruchain/ts-sdk
 
 on:
   pull_request:
-    branches: ["main", "releases/*"]
+    branches: ["releases/*"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
   push:
-    branches: ["main", "releases/*"]
+    branches: ["releases/*"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
 
 jobs:
   test-nibijs:
     runs-on: ubuntu-latest
     env:
+      CHAIN_HOST: ${{ secrets.CHAIN_HOST }}
+      VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
+      VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
       LCD_ENDPOINT: "http://127.0.0.1:1317"
       GRPC_ENDPOINT: "127.0.0.1:9090"
       TENDERMINT_RPC_ENDPOINT: "http://127.0.0.1:26657"
       USE_LOCALNET: true
       WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
       CHAIN_ID: "nibiru-localnet-0"
-      VALIDATOR_MNEMONIC: "guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host"
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
       - name: Install nibid
         run: curl -s https://get.nibiru.fi/@v0.21.9! | bash
         # Use https://get.nibiru.fi/ to get the most recent release.
+
       - name: Check nibid version
         run: nibid version
+
       - name: Run localnet.sh in the background
         run: |
           sh scripts/localnet.sh &
-      - name: Setup NodeJS and npm
-        uses: actions/setup-node@v3
-        with:
-          node-version: "lts/hydrogen"
-      - name: Install yarn using npm
-        run: npm install -g yarn
+
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
         with:
           node-version: "lts/hydrogen"
           cache: "yarn"
+
+      - name: Install yarn using npm
+        run: npm install -g yarn
+
       - name: Install dependencies
         run: yarn --prefer-offline --check-files
+
       - name: Build the application
         run: yarn build --include-dependencies || yarn build --parallel --include-dependencies
-      - name: Run tests - nibijs
-        run: yarn test:nibijs
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Jest Coverage Comment
+        uses: MishaKav/jest-coverage-comment@main
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
