@@ -42,6 +42,10 @@ const heartMonitor = new HeartMonitor(
   WebSocket
 )
 
+afterAll(async () => {
+  await heartMonitor.closeWebSocket()
+})
+
 describe("Heart Monitor constructor", () => {
   interface TestCase {
     name: string

@@ -98,6 +98,8 @@ import { queryBatchHandler } from "./batchHandlers/queryBatchHandler"
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
 export interface IHeartMonitor {
+  closeWebSocket: () => Promise<void | undefined>
+
   readonly communityPool: (
     args: QueryCommunityPoolArgs,
     fields?: Partial<Token>
@@ -245,6 +247,8 @@ export class HeartMonitor implements IHeartMonitor {
       })
     }
   }
+
+  closeWebSocket = async () => this.subscriptionClient?.dispose()
 
   communityPool = async (
     args: QueryCommunityPoolArgs,
