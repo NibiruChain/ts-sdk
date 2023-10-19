@@ -2,7 +2,6 @@ import { defaultGovernance } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
-  Governance,
   GovernanceGovDepositsArgs,
   GovernanceGovProposalsArgs,
   GovernanceGovVotesArgs,

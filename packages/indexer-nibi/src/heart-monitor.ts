@@ -1,6 +1,5 @@
 import { WebSocket } from "ws"
 import { Client, ExecutionResult, createClient } from "graphql-ws"
-import { gqlEndptFromTmRpc } from "./gql"
 import {
   Delegation,
   DistributionCommission,

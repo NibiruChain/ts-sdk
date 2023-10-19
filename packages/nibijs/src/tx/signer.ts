@@ -1,6 +1,5 @@
 import { DirectSecp256k1HdWallet, Registry } from "@cosmjs/proto-signing"
 import { defaultRegistryTypes as defaultStargateTypes } from "@cosmjs/stargate"
-import { Keplr } from "@keplr-wallet/types"
 
 export enum BECH32_PREFIX {
   /** ADDR defines the Bech32 prefix of an account address */

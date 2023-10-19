@@ -74,7 +74,7 @@ export const gqlQuery = <T>(
 
   delete typedQueryArgs.where
 
-  Object.keys(typedQueryArgs).map((key) =>
+  Object.keys(typedQueryArgs).forEach((key) =>
     queryArgList.push(arg(key, typedQueryArgs[key], true))
   )
 

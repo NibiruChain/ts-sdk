@@ -70,11 +70,7 @@ describe("chain/types", () => {
 
   test("go", async () => {
     const error = Error("Failure")
-    const result = await go(
-      new Promise((_resolve, reject) => {
-        reject(error)
-      })
-    )
+    const result = await go(Promise.reject(error))
     expect(result.err).toEqual(error.message)
     expect(result.res).toBeUndefined()
   })
