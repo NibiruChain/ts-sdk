@@ -1,6 +1,6 @@
 import { DirectSecp256k1HdWallet, Registry } from "@cosmjs/proto-signing"
 import { defaultRegistryTypes as defaultStargateTypes } from "@cosmjs/stargate"
-import { Keplr } from "../wallet"
+import { Keplr } from "@keplr-wallet/types"
 
 export enum BECH32_PREFIX {
   /** ADDR defines the Bech32 prefix of an account address */
@@ -31,9 +31,6 @@ export const newSignerFromMnemonic = async (
   mnemonic: string,
   prefix = BECH32_PREFIX.ADDR
 ) => DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix })
-
-export const newSignerFromKeplr = (keplr: Keplr, chainId: string) =>
-  keplr.getOfflineSigner(chainId)
 
 /**
  * Generates a new wallet with a BIP39 mnemonic of length 24.

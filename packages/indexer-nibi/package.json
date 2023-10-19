@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc --build",
     "build:watch": "tsc --build --watch",
-    "gql-generate": "rm -rf src/gql && graphql-code-generator --config ./src/graphql-codegen/codegen.ts",
+    "gql-generate": "rm -rf src/gql && graphql-code-generator --config codegen.ts",
     "clean": "tsc --clean",
     "test": "jest",
     "test:watch": "jest --watch",

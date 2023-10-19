@@ -1,4 +1,4 @@
-import { WalletHD } from "../chain/types"
+import { DirectSecp256k1HdWallet as WalletHD } from "@cosmjs/proto-signing"
 import { newRandomWallet, newSignerFromMnemonic } from "../tx/signer"
 
 test("newRandomWallet", async () => {

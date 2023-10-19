@@ -1,10 +1,9 @@
-import WebSocket from "ws"
+import { WebSocket } from "ws"
 import { Client, ExecutionResult, createClient } from "graphql-ws"
 import { gqlEndptFromTmRpc } from "./gql"
 import {
   Delegation,
   DistributionCommission,
-  Governance,
   MarkPriceCandle,
   OraclePrice,
   PerpMarket,
@@ -83,6 +82,7 @@ import {
   OracleFields,
   GqlOutOracle,
   oracle,
+  GovernanceFields,
 } from "./query"
 import {
   markPriceCandlesSubscription,
@@ -115,7 +115,7 @@ export interface IHeartMonitor {
 
   readonly governance: (
     args: QueryGovernanceArgs,
-    fields?: Partial<Governance>
+    fields?: GovernanceFields
   ) => Promise<GqlOutGovernance>
 
   readonly markPriceCandles: (
@@ -228,18 +228,12 @@ export class HeartMonitor implements IHeartMonitor {
   subscriptionClient: Client | undefined
 
   constructor(
-    gqlEndpt?: string | { endptTm: string },
+    gqlEndpt?: string,
     webSocketUrl?: string,
-    webSocketImpl?: WebSocket
+    webSocketImpl?: typeof WebSocket
   ) {
-    const chain = gqlEndpt as { endptTm: string }
-    if (!gqlEndpt) {
-      this.gqlEndpt = this.defaultGqlEndpt
-    } else if (typeof gqlEndpt === "string") {
+    if (typeof gqlEndpt === "string") {
       this.gqlEndpt = gqlEndpt
-    } else if (chain?.endptTm) {
-      const endptFromRpc = gqlEndptFromTmRpc(chain?.endptTm)
-      this.gqlEndpt = endptFromRpc ?? this.defaultGqlEndpt
     } else {
       this.gqlEndpt = this.defaultGqlEndpt
     }
@@ -267,10 +261,8 @@ export class HeartMonitor implements IHeartMonitor {
     fields?: Partial<DistributionCommission>
   ) => distributionCommissions(args, this.gqlEndpt, fields)
 
-  governance = async (
-    args: QueryGovernanceArgs,
-    fields?: Partial<Governance>
-  ) => governance(args, this.gqlEndpt, fields)
+  governance = async (args: QueryGovernanceArgs, fields?: GovernanceFields) =>
+    governance(args, this.gqlEndpt, fields)
 
   markPriceCandles = async (
     args: QueryMarkPriceCandlesArgs,

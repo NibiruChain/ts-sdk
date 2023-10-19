@@ -76,7 +76,6 @@
 - [fromSdkDec](modules.md#fromsdkdec)
 - [fromSdkDecSafe](modules.md#fromsdkdecsafe)
 - [fromSdkInt](modules.md#fromsdkint)
-- [getKeplr](modules.md#getkeplr)
 - [getRegistry](modules.md#getregistry)
 - [go](modules.md#go)
 - [instanceOfError](modules.md#instanceoferror)
@@ -399,26 +398,6 @@ Constructs a faucet URL from a Chain object.
 #### Defined in
 
 [chain/parse.ts:150](https://github.com/NibiruChain/ts-sdk/blob/f9e55f7/packages/nibijs/src/chain/parse.ts#L150)
-
----
-
-### getKeplr
-
-▸ **getKeplr**(`chain`): `Promise`<`Keplr`\>
-
-#### Parameters
-
-| Name    | Type                           |
-| :------ | :----------------------------- |
-| `chain` | [`Chain`](interfaces/Chain.md) |
-
-#### Returns
-
-`Promise`<`Keplr`\>
-
-#### Defined in
-
-[wallet/keplr.ts:8](https://github.com/NibiruChain/ts-sdk/blob/f9e55f7/packages/nibijs/src/wallet/keplr.ts#L8)
 
 ---
 

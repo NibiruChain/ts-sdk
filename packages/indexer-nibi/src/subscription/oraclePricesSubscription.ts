@@ -28,7 +28,7 @@ export const oraclePricesSubscriptionQueryString = (
 
 export const oraclePricesSubscription = async (
   args: SubscriptionOraclePricesArgs,
-  client: Client | undefined,
+  client?: Client,
   fields?: Partial<OraclePrice>
 ): Promise<
   AsyncIterableIterator<ExecutionResult<GqlOutOraclePrices>> | undefined

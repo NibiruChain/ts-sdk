@@ -19,6 +19,6 @@ module.exports = async () => {
     return buildClientSchema(data)
   } catch (error) {
     console.error(error)
-    throw error
+    return undefined
   }
 }

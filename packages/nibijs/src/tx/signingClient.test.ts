@@ -13,7 +13,7 @@ import {
   MsgRemoveMargin,
 } from "@nibiruchain/protojs/dist/nibiru/perp/v2/tx"
 import { Direction } from "@nibiruchain/protojs/dist/nibiru/perp/v2/state"
-import { TxLog } from "../chain/types"
+import { TxLog } from "../chain"
 import { Msg, TxMessage } from "../msg"
 import { PERP_MSG_TYPE_URLS } from "../msg/perp"
 import { NibiruQueryClient } from "../query/query"

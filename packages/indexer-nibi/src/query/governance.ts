@@ -6,59 +6,70 @@ import {
   GovernanceGovDepositsArgs,
   GovernanceGovProposalsArgs,
   GovernanceGovVotesArgs,
+  GovDeposit,
+  GovProposal,
+  GovVote,
 } from "../gql/generated"
 
 export type QueryGovernanceArgs = {
-  govDeposits: GovernanceGovDepositsArgs
-  govProposals: GovernanceGovProposalsArgs
-  govVotes: GovernanceGovVotesArgs
+  govDeposits?: GovernanceGovDepositsArgs
+  govProposals?: GovernanceGovProposalsArgs
+  govVotes?: GovernanceGovVotesArgs
 }
 
 export interface GqlOutGovernance {
   governance?: Query["governance"]
 }
 
+export type GovernanceFields = Partial<{
+  govDeposits?: Partial<GovDeposit>
+  govProposals?: Partial<GovProposal>
+  govVotes?: Partial<GovVote>
+}>
+
 export const governanceQueryString = (
   args: QueryGovernanceArgs,
-  fields?: Partial<Governance>
+  fields?: GovernanceFields
 ) => {
-  const goveranceQuery: string[] = []
+  const governanceQuery: string[] = []
 
-  if (fields) {
-    if (fields?.govDeposits) {
-      goveranceQuery.push(
-        gqlQuery(
-          "govDeposits",
-          args.govDeposits,
-          convertObjectToPropertiesString(fields.govDeposits),
-          true
-        )
+  if (fields?.govDeposits) {
+    governanceQuery.push(
+      gqlQuery(
+        "govDeposits",
+        args.govDeposits ?? {},
+        convertObjectToPropertiesString(fields.govDeposits),
+        true
       )
-    }
+    )
+  }
 
-    if (fields?.govProposals) {
-      goveranceQuery.push(
-        gqlQuery(
-          "govProposals",
-          args.govProposals,
-          convertObjectToPropertiesString(fields.govProposals),
-          true
-        )
+  if (fields?.govProposals) {
+    governanceQuery.push(
+      gqlQuery(
+        "govProposals",
+        args.govProposals ?? {},
+        convertObjectToPropertiesString(fields.govProposals),
+        true
       )
-    }
+    )
+  }
 
-    if (fields?.govVotes) {
-      goveranceQuery.push(
-        gqlQuery(
-          "govVotes",
-          args.govVotes,
-          convertObjectToPropertiesString(fields.govVotes),
-          true
-        )
+  if (fields?.govVotes) {
+    governanceQuery.push(
+      gqlQuery(
+        "govVotes",
+        args.govVotes ?? {},
+        convertObjectToPropertiesString(fields.govVotes),
+        true
       )
-    }
-  } else {
-    goveranceQuery.push(
+    )
+  }
+
+  // Default Objects
+
+  if (args.govDeposits && !fields?.govDeposits) {
+    governanceQuery.push(
       gqlQuery(
         "govDeposits",
         args.govDeposits,
@@ -66,8 +77,10 @@ export const governanceQueryString = (
         true
       )
     )
+  }
 
-    goveranceQuery.push(
+  if (args.govProposals && !fields?.govProposals) {
+    governanceQuery.push(
       gqlQuery(
         "govProposals",
         args.govProposals,
@@ -75,8 +88,10 @@ export const governanceQueryString = (
         true
       )
     )
+  }
 
-    goveranceQuery.push(
+  if (args.govVotes && !fields?.govVotes) {
+    governanceQuery.push(
       gqlQuery(
         "govVotes",
         args.govVotes,
@@ -88,7 +103,7 @@ export const governanceQueryString = (
 
   return `
       governance {
-          ${goveranceQuery.join("\n")}
+          ${governanceQuery.join("\n")}
       }
     `
 }
@@ -96,7 +111,7 @@ export const governanceQueryString = (
 export const governance = async (
   args: QueryGovernanceArgs,
   endpt: string,
-  fields?: Partial<Governance>
+  fields?: GovernanceFields
 ): Promise<GqlOutGovernance> =>
   doGqlQuery(
     `{

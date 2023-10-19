@@ -1,25 +1,11 @@
-import {
-  AccountData,
-  Coin,
-  coin as newCoin,
-  coins as newCoins,
-  DirectSecp256k1HdWallet as WalletHD,
-  parseCoins,
-} from "@cosmjs/proto-signing"
+import { Coin } from "@cosmjs/proto-signing"
 import BigNumber from "bignumber.js"
-import { instanceOfError } from "./error"
-
-export { AccountData, newCoin, newCoins, Coin, parseCoins, WalletHD }
 
 export const go = async <T>(promise: Promise<T>) => {
   try {
     return { res: await promise, err: undefined }
   } catch (err) {
-    if (instanceOfError(err)) {
-      return { res: undefined, err }
-    } else {
-      return { res: undefined, err: new Error(`${err}`) }
-    }
+    return { res: undefined, err: (err as Error).message }
   }
 }
 

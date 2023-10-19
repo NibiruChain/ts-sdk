@@ -26,7 +26,7 @@ export const perpPositionsSubscriptionQueryString = (
 
 export const perpPositionsSubscription = async (
   args: SubscriptionPerpPositionsArgs,
-  client: Client | undefined,
+  client?: Client,
   fields?: Partial<PerpPosition>
 ): Promise<
   AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>> | undefined

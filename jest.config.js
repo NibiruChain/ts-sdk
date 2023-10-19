@@ -30,6 +30,8 @@ module.exports = function (root = __dirname) {
       "packages/nibijs/src/**/*.{js,jsx,ts,tsx}",
       "!**/node_modules/**",
       "!**/dist/**",
+      "!**/index.ts",
+      "!**/nibijs/src/test/helpers.ts",
     ],
 
     // The directory where Jest should output its coverage files

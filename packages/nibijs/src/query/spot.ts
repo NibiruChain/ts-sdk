@@ -1,4 +1,5 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
+import { Coin } from "@cosmjs/proto-signing"
 import { Pool, PoolParams } from "@nibiruchain/protojs/dist/nibiru/spot/v1/pool"
 import {
   QueryClientImpl as SpotQueryClientImpl,
@@ -35,7 +36,7 @@ import {
   QueryTotalSharesRequest,
   QueryTotalSharesResponse,
 } from "@nibiruchain/protojs/dist/nibiru/spot/v1/query"
-import { Coin, fromSdkDec } from "../chain"
+import { fromSdkDec } from "../chain"
 
 function transformPoolParams(pp?: PoolParams): PoolParams | undefined {
   if (pp) {

@@ -1,12 +1,11 @@
 import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
+import { coins, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
 import { fetch } from "cross-fetch"
 import {
   Chain,
   faucetUrlFromChain,
   newCoinMapFromCoins,
-  newCoins,
   useFaucet,
-  WalletHD,
 } from "../chain"
 import {
   newRandomWallet,
@@ -26,7 +25,7 @@ jest.mock("cross-fetch", () => ({
 // In this case, this test can be skipped and checked it manually.
 // eslint-disable-next-line jest/no-disabled-tests
 test.skip("faucet utility works", async () => {
-  const wallet: WalletHD = await newRandomWallet()
+  const wallet: DirectSecp256k1HdWallet = await newRandomWallet()
   const [{ address: toAddr }] = await wallet.getAccounts()
 
   const validator = await newSignerFromMnemonic(TEST_MNEMONIC)
@@ -39,7 +38,7 @@ test.skip("faucet utility works", async () => {
   const txResp: DeliverTxResponse = await signingClient.sendTokens(
     fromAddr,
     toAddr,
-    newCoins(100, "unibi"),
+    coins(100, "unibi"),
     "auto"
   )
   assertIsDeliverTxSuccess(txResp)
