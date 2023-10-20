@@ -28,7 +28,7 @@ export const perpMarketSubscriptionQueryString = (
 
 export const perpMarketSubscription = async (
   args: SubscriptionPerpMarketArgs,
-  client: Client | undefined,
+  client?: Client,
   fields?: Partial<PerpMarket>
 ): Promise<
   AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>> | undefined

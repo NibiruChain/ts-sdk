@@ -60,7 +60,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "fees",
-        args?.fees ?? {},
+        args.fees ?? {},
         convertObjectToPropertiesString(fields.fees),
         true
       )
@@ -71,7 +71,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "perpOpenInterest",
-        args?.perpOpenInterest ?? {},
+        args.perpOpenInterest ?? {},
         convertObjectToPropertiesString(fields.perpOpenInterest),
         true
       )
@@ -82,7 +82,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "perpPnl",
-        args?.perpPnl ?? {},
+        args.perpPnl ?? {},
         convertObjectToPropertiesString(fields.perpPnl),
         true
       )
@@ -93,7 +93,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "totals",
-        args?.totals ?? {},
+        args.totals ?? {},
         convertObjectToPropertiesString(fields.totals),
         true
       )
@@ -104,7 +104,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "tvl",
-        args?.tvl ?? {},
+        args.tvl ?? {},
         convertObjectToPropertiesString(fields.tvl),
         true
       )
@@ -115,7 +115,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "users",
-        args?.users ?? {},
+        args.users ?? {},
         convertObjectToPropertiesString(fields.users),
         true
       )
@@ -126,7 +126,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "volume",
-        args?.volume ?? {},
+        args.volume ?? {},
         convertObjectToPropertiesString(fields.volume),
         true
       )
@@ -139,7 +139,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "fees",
-        args.fees ?? {},
+        args.fees,
         convertObjectToPropertiesString(defaultStatsFees),
         true
       )
@@ -150,7 +150,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "perpOpenInterest",
-        args.perpOpenInterest ?? {},
+        args.perpOpenInterest,
         convertObjectToPropertiesString(defaultPerpOpenInterest),
         true
       )
@@ -161,7 +161,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "perpPnl",
-        args.perpPnl ?? {},
+        args.perpPnl,
         convertObjectToPropertiesString(defaultPerpPnl),
         true
       )
@@ -172,7 +172,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "totals",
-        args.totals ?? {},
+        args.totals,
         convertObjectToPropertiesString(defaultTotals),
         true
       )
@@ -183,7 +183,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "tvl",
-        args.tvl ?? {},
+        args.tvl,
         convertObjectToPropertiesString(defaultTvl),
         true
       )
@@ -194,7 +194,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "users",
-        args.users ?? {},
+        args.users,
         convertObjectToPropertiesString(defaultUsers),
         true
       )
@@ -205,7 +205,7 @@ export const statsQueryString = (
     statsQuery.push(
       gqlQuery(
         "volume",
-        args.volume ?? {},
+        args.volume,
         convertObjectToPropertiesString(defaultVolume),
         true
       )

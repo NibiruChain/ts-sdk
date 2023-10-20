@@ -56,7 +56,7 @@ export const oracleQueryString = (
     oracleQuery.push(
       gqlQuery(
         "oraclePrices",
-        args.oraclePrices ?? {},
+        args.oraclePrices,
         convertObjectToPropertiesString(defaultOraclePrice),
         true
       )
@@ -67,7 +67,7 @@ export const oracleQueryString = (
     oracleQuery.push(
       gqlQuery(
         "oracles",
-        args.oracles ?? {},
+        args.oracles,
         convertObjectToPropertiesString(defaultOracleEntry),
         true
       )

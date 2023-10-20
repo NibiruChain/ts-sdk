@@ -44,72 +44,73 @@ export type PerpFields = Partial<{
 export const perpQueryString = (args: QueryPerpArgs, fields?: PerpFields) => {
   const perpQuery: string[] = []
 
-  if (fields) {
-    if (fields?.leaderboard) {
-      perpQuery.push(
-        gqlQuery(
-          "leaderboard",
-          args?.leaderboard ?? {},
-          convertObjectToPropertiesString(fields.leaderboard),
-          true
-        )
+  if (fields?.leaderboard) {
+    perpQuery.push(
+      gqlQuery(
+        "leaderboard",
+        args.leaderboard ?? {},
+        convertObjectToPropertiesString(fields.leaderboard),
+        true
       )
-    }
+    )
+  }
 
-    if (fields?.market) {
-      perpQuery.push(
-        gqlQuery(
-          "market",
-          args?.market ?? {},
-          convertObjectToPropertiesString(fields.market),
-          true
-        )
+  // Note: args.market must be defined
+  if (args.market && fields?.market) {
+    perpQuery.push(
+      gqlQuery(
+        "market",
+        args.market,
+        convertObjectToPropertiesString(fields.market),
+        true
       )
-    }
+    )
+  }
 
-    if (fields?.markets) {
-      perpQuery.push(
-        gqlQuery(
-          "markets",
-          args?.markets ?? {},
-          convertObjectToPropertiesString(fields.markets),
-          true
-        )
+  if (fields?.markets) {
+    perpQuery.push(
+      gqlQuery(
+        "markets",
+        args.markets ?? {},
+        convertObjectToPropertiesString(fields.markets),
+        true
       )
-    }
+    )
+  }
 
-    if (fields?.position) {
-      perpQuery.push(
-        gqlQuery(
-          "position",
-          args?.position ?? {},
-          convertObjectToPropertiesString(fields.position),
-          true
-        )
+  // Note: args.position must be defined
+  if (args.position && fields?.position) {
+    perpQuery.push(
+      gqlQuery(
+        "position",
+        args.position,
+        convertObjectToPropertiesString(fields.position),
+        true
       )
-    }
+    )
+  }
 
-    if (fields?.positionChanges) {
-      perpQuery.push(
-        gqlQuery(
-          "positionChanges",
-          args?.positionChanges ?? {},
-          convertObjectToPropertiesString(fields.positionChanges),
-          true
-        )
+  // Note: args.positionChanges must be defined
+  if (args.positionChanges && fields?.positionChanges) {
+    perpQuery.push(
+      gqlQuery(
+        "positionChanges",
+        args.positionChanges,
+        convertObjectToPropertiesString(fields.positionChanges),
+        true
       )
-    }
+    )
+  }
 
-    if (fields?.positions) {
-      perpQuery.push(
-        gqlQuery(
-          "positions",
-          args?.positions ?? {},
-          convertObjectToPropertiesString(fields.positions),
-          true
-        )
+  if (fields?.positions) {
+    perpQuery.push(
+      gqlQuery(
+        "positions",
+        args.positions ?? {},
+        convertObjectToPropertiesString(fields.positions),
+        true
       )
-    }
+    )
   }
 
   // Default Objects
@@ -118,7 +119,7 @@ export const perpQueryString = (args: QueryPerpArgs, fields?: PerpFields) => {
     perpQuery.push(
       gqlQuery(
         "leaderboard",
-        args.leaderboard ?? {},
+        args.leaderboard,
         convertObjectToPropertiesString(defaultPerpLeaderboard),
         true
       )
@@ -129,7 +130,7 @@ export const perpQueryString = (args: QueryPerpArgs, fields?: PerpFields) => {
     perpQuery.push(
       gqlQuery(
         "market",
-        args.market ?? {},
+        args.market,
         convertObjectToPropertiesString(defaultPerpMarket),
         true
       )
@@ -140,7 +141,7 @@ export const perpQueryString = (args: QueryPerpArgs, fields?: PerpFields) => {
     perpQuery.push(
       gqlQuery(
         "markets",
-        args.markets ?? {},
+        args.markets,
         convertObjectToPropertiesString(defaultPerpMarket),
         true
       )
@@ -151,7 +152,7 @@ export const perpQueryString = (args: QueryPerpArgs, fields?: PerpFields) => {
     perpQuery.push(
       gqlQuery(
         "position",
-        args.position ?? {},
+        args.position,
         convertObjectToPropertiesString(defaultPerpPosition),
         true
       )
@@ -162,18 +163,18 @@ export const perpQueryString = (args: QueryPerpArgs, fields?: PerpFields) => {
     perpQuery.push(
       gqlQuery(
         "positionChanges",
-        args.positionChanges ?? {},
+        args.positionChanges,
         convertObjectToPropertiesString(defaultPerpPositionChanges),
         true
       )
     )
   }
 
-  if (args.position && !fields?.positionChanges) {
+  if (args.positions && !fields?.positions) {
     perpQuery.push(
       gqlQuery(
         "positions",
-        args.positions ?? {},
+        args.positions,
         convertObjectToPropertiesString(defaultPerpPosition),
         true
       )

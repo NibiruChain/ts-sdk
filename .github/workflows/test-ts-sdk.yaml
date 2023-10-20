@@ -9,7 +9,7 @@ on:
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
 
 jobs:
-  test-nibijs:
+  test-ts-sdk:
     runs-on: ubuntu-latest
     env:
       CHAIN_HOST: ${{ secrets.CHAIN_HOST }}

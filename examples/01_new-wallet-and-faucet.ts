@@ -1,6 +1,5 @@
 import {
   useFaucet,
-  WalletHD,
   newRandomWallet,
   IncentivizedTestnet,
 } from "@nibiruchain/nibijs"
@@ -8,7 +7,7 @@ import {
 const TEST_CHAIN = IncentivizedTestnet(2)
 
 async function runExample() {
-  const wallet: WalletHD = await newRandomWallet()
+  const wallet = await newRandomWallet()
   const [{ address }] = await wallet.getAccounts()
 
   // Save the mnemonic somewhere to re-use the account

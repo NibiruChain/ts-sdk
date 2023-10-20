@@ -1,26 +1,111 @@
+import { WebSocket } from "ws"
 import { HeartMonitor } from "./heart-monitor"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
-import { communityPoolQueryString, delegationsQueryString } from "./query"
 import {
+  GovernanceFields,
+  OracleFields,
+  PerpFields,
+  QueryGovernanceArgs,
+  QueryOracleArgs,
+  QueryPerpArgs,
+  QueryStatsArgs,
+  StatsFields,
+  communityPoolQueryString,
+  delegationsQueryString,
+} from "./query"
+import {
+  defaultDelegations,
+  defaultDistributionCommission,
+  defaultGovDeposit,
+  defaultGovProposal,
+  defaultGovVote,
   defaultMarkPriceCandles,
+  defaultOracleEntry,
   defaultOraclePrice,
+  defaultPerpLeaderboard,
   defaultPerpMarket,
+  defaultPerpOpenInterest,
+  defaultPerpPnl,
   defaultPerpPosition,
+  defaultPerpPositionChanges,
+  defaultPool,
+  defaultRedelegations,
+  defaultSpotLpPosition,
+  defaultSpotPool,
+  defaultSpotPoolSwap,
+  defaultStatsFees,
+  defaultToken,
+  defaultTotals,
+  defaultTvl,
+  defaultUnbondings,
+  defaultUser,
+  defaultUsers,
+  defaultValidator,
+  defaultVolume,
 } from "./defaultObjects"
+import {
+  Delegation,
+  DistributionCommission,
+  GovDepositsOrder,
+  MarkPriceCandle,
+  OraclePrice,
+  PerpMarket,
+  PerpPosition,
+  QueryCommunityPoolArgs,
+  QueryDelegationsArgs,
+  QueryDistributionCommissionsArgs,
+  QueryMarkPriceCandlesArgs,
+  QueryRedelegationsArgs,
+  QuerySpotLpPositionsArgs,
+  QuerySpotPoolCreatedArgs,
+  QuerySpotPoolExitedArgs,
+  QuerySpotPoolJoinedArgs,
+  QuerySpotPoolSwapArgs,
+  QuerySpotPoolsArgs,
+  QueryUnbondingsArgs,
+  QueryUsersArgs,
+  QueryValidatorsArgs,
+  Redelegation,
+  SpotLpPosition,
+  SpotPool,
+  SpotPoolCreated,
+  SpotPoolExited,
+  SpotPoolJoined,
+  SpotPoolSwap,
+  SubscriptionMarkPriceCandlesArgs,
+  SubscriptionOraclePricesArgs,
+  SubscriptionPerpMarketArgs,
+  SubscriptionPerpPositionsArgs,
+  Token,
+  Unbonding,
+  User,
+  Validator,
+} from "./gql/generated"
+
+const checkFields = (objects: any[], fields: any[]) => {
+  objects.forEach((obj: any) => {
+    fields.forEach((field: string | any[]) => {
+      expect(obj).toHaveProperty(field)
+    })
+  })
+}
 
 const nibiruUrl = "itn-3"
 
 const heartMonitor = new HeartMonitor(
-  {
-    endptTm: `https://hm-graphql.${nibiruUrl}.nibiru.fi/query`,
-  },
-  `wss://hm-graphql.${nibiruUrl}.nibiru.fi/query`
+  `https://hm-graphql.${nibiruUrl}.nibiru.fi/query`,
+  `wss://hm-graphql.${nibiruUrl}.nibiru.fi/query`,
+  WebSocket
 )
+
+afterAll(async () => {
+  await heartMonitor.closeWebSocket()
+})
 
 describe("Heart Monitor constructor", () => {
   interface TestCase {
     name: string
-    in?: string | { endptTm: string } | undefined
+    in?: string
     expected: string
   }
 
@@ -29,25 +114,13 @@ describe("Heart Monitor constructor", () => {
   const tests: TestCase[] = [
     { name: "undefined", in: undefined, expected: defaultGqlEndpt },
     { name: "valid string", in: "abc123", expected: "abc123" },
-    {
-      name: "chain",
-      in: { endptTm: `https://rpc.${nibiruUrl}.nibiru.fi` },
-      expected: `https://hm-graphql.${nibiruUrl}.nibiru.fi/graphql`,
-    },
-    {
-      name: "empty chain string",
-      in: { endptTm: "" },
-      expected: defaultGqlEndpt,
-    },
-    {
-      name: "undefined as string",
-      in: { endptTm: undefined as unknown as string },
-      expected: defaultGqlEndpt,
-    },
   ]
 
   test.each(tests)("$name", (tc) => {
-    const hm = new HeartMonitor(tc.in)
+    const hm = new HeartMonitor(
+      tc.in,
+      `wss://hm-graphql.${nibiruUrl}.nibiru.fi/query`
+    )
     expect(hm.gqlEndpt).toBe(tc.expected)
   })
 })
@@ -81,53 +154,84 @@ describe("gqlEndptFromTmRpc", () => {
   })
 })
 
-test("communityPool", async () => {
-  const resp = await heartMonitor.communityPool({})
+const testCommunityPool = async (
+  args: QueryCommunityPoolArgs,
+  fields?: Token
+) => {
+  const resp = await heartMonitor.communityPool(args, fields)
   expect(resp).toHaveProperty("communityPool")
 
   if ((resp.communityPool?.length ?? 0) > 0) {
     const [communityPool] = resp.communityPool ?? []
-    const fields = ["amount", "denom"]
-    fields.forEach((field: string) => {
-      expect(communityPool).toHaveProperty(field)
-    })
+
+    checkFields([communityPool], ["amount", "denom"])
   }
+}
+
+test("communityPool", async () => {
+  await testCommunityPool({ limit: 1 })
+  await testCommunityPool({}, defaultToken)
 })
 
-test("delegations", async () => {
-  const resp = await heartMonitor.delegations({
-    limit: 1,
-  })
+const testDelegations = async (
+  args: QueryDelegationsArgs,
+  fields?: Delegation
+) => {
+  const resp = await heartMonitor.delegations(args, fields)
   expect(resp).toHaveProperty("delegations")
 
   if ((resp.delegations?.length ?? 0) > 0) {
     const [delegation] = resp.delegations ?? []
-    const fields = ["amount", "delegator", "validator"]
-    fields.forEach((field: string) => {
-      expect(delegation).toHaveProperty(field)
-    })
+
+    checkFields([delegation], ["amount", "delegator", "validator"])
   }
+}
+
+test("delegations", async () => {
+  await testDelegations({ limit: 1 })
+  await testDelegations({}, defaultDelegations)
 })
 
-test("distributionCommissions", async () => {
-  const resp = await heartMonitor.distributionCommissions({
-    limit: 1,
-  })
+const testDistributionCommissions = async (
+  args: QueryDistributionCommissionsArgs,
+  fields?: DistributionCommission
+) => {
+  const resp = await heartMonitor.distributionCommissions(args, fields)
   expect(resp).toHaveProperty("distributionCommissions")
 
   if ((resp.distributionCommissions?.length ?? 0) > 0) {
     const [distributionCommissions] = resp.distributionCommissions ?? []
-    const fields = ["commission", "validator"]
-    fields.forEach((field: string) => {
-      expect(distributionCommissions).toHaveProperty(field)
-    })
+
+    checkFields([distributionCommissions], ["commission", "validator"])
   }
+}
+
+test("distributionCommissions", async () => {
+  await testDistributionCommissions({ limit: 1 })
+  await testDistributionCommissions({}, defaultDistributionCommission)
 })
 
+const testGovernance = async (
+  args: QueryGovernanceArgs,
+  fields?: GovernanceFields
+) => {
+  const resp = await heartMonitor.governance(args, fields)
+  expect(resp).toHaveProperty("governance")
+
+  if (resp.governance) {
+    const { governance } = resp
+
+    checkFields([governance], ["govDeposits", "govProposals", "govVotes"])
+  }
+}
+
 test("governance", async () => {
-  const resp = await heartMonitor.governance({
+  await testGovernance({
     govDeposits: {
       limit: 1,
+      // Covers order and orderDesc, replaced by order_by and order_desc
+      order: GovDepositsOrder.Block,
+      orderDesc: true,
     },
     govProposals: {
       limit: 1,
@@ -136,130 +240,204 @@ test("governance", async () => {
       limit: 1,
     },
   })
-  expect(resp).toHaveProperty("governance")
-
-  if (resp.governance) {
-    const { governance } = resp
-    const fields = ["govDeposits", "govProposals", "govVotes"]
-    fields.forEach((field: string) => {
-      expect(governance).toHaveProperty(field)
-    })
-  }
+  await testGovernance(
+    {
+      govDeposits: {
+        limit: 1,
+      },
+      govProposals: {
+        limit: 1,
+      },
+      govVotes: {
+        limit: 1,
+      },
+    },
+    {
+      govDeposits: defaultGovDeposit,
+      govProposals: defaultGovProposal,
+      govVotes: defaultGovVote,
+    }
+  )
+  await testGovernance(
+    {},
+    {
+      govDeposits: defaultGovDeposit,
+      govProposals: defaultGovProposal,
+      govVotes: defaultGovVote,
+    }
+  )
 })
 
-test("markPriceCandles", async () => {
-  const resp = await heartMonitor.markPriceCandles({
-    limit: 1,
-  })
+const testMarkPriceCandles = async (
+  args: QueryMarkPriceCandlesArgs,
+  fields?: MarkPriceCandle
+) => {
+  const resp = await heartMonitor.markPriceCandles(args, fields)
   expect(resp).toHaveProperty("markPriceCandles")
 
   if ((resp.markPriceCandles?.length ?? 0) > 0) {
     const [markPriceCandle] = resp.markPriceCandles ?? []
-    const fields = [
-      "close",
-      "high",
-      "low",
-      "open",
-      "pair",
-      "period",
-      "periodStartTs",
-    ]
-    fields.forEach((field: string) => {
-      expect(markPriceCandle).toHaveProperty(field)
-    })
+
+    checkFields(
+      [markPriceCandle],
+      ["close", "high", "low", "open", "pair", "period", "periodStartTs"]
+    )
   }
+}
+
+test("markPriceCandles", async () => {
+  await testMarkPriceCandles({ limit: 1 })
+  await testMarkPriceCandles({}, defaultMarkPriceCandles)
 })
 
-test("markPriceCandlesSubscription", async () => {
-  const hm = {
-    markPriceCandlesSubscription: jest.fn().mockResolvedValue({
-      next: async () => ({
-        value: {
-          data: {
-            markPriceCandles: defaultMarkPriceCandles,
-          },
-        },
-      }),
-    }),
-  }
-
+test("markPriceCandlesSubscription undefined client", async () => {
+  const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
   const resp = await hm.markPriceCandlesSubscription({
     limit: 1,
   })
 
-  const event = await resp.next()
-
-  expect(event.value.data).toHaveProperty("markPriceCandles")
-
-  if ((event.value.data.markPriceCandles.length ?? 0) > 0) {
-    const [markPriceCandle] = event.value.data.markPriceCandles ?? []
-    const fields = [
-      "close",
-      "high",
-      "low",
-      "open",
-      "pair",
-      "period",
-      "periodStartTs",
-    ]
-    fields.forEach((field: string) => {
-      expect(markPriceCandle).toHaveProperty(field)
-    })
-  }
+  expect(resp).toBeUndefined()
 })
 
+const testMarkPriceCandlesSubscription = async (
+  args: SubscriptionMarkPriceCandlesArgs,
+  fields?: MarkPriceCandle
+) => {
+  const resp = await heartMonitor.markPriceCandlesSubscription(args, fields)
+
+  const event = await resp?.next()
+
+  expect(event?.value.data).toHaveProperty("markPriceCandles")
+
+  if ((event?.value.data.markPriceCandles.length ?? 0) > 0) {
+    const [markPriceCandle] = event?.value.data.markPriceCandles ?? []
+
+    checkFields(
+      [markPriceCandle],
+      ["close", "high", "low", "open", "pair", "period", "periodStartTs"]
+    )
+  }
+}
+
+test("markPriceCandlesSubscription", async () => {
+  await testMarkPriceCandlesSubscription({ limit: 1 })
+  await testMarkPriceCandlesSubscription(
+    {
+      limit: 1,
+    },
+    defaultMarkPriceCandles
+  )
+})
+
+const testOracle = async (args: QueryOracleArgs, fields?: OracleFields) => {
+  const resp = await heartMonitor.oracle(args, fields)
+  expect(resp).toHaveProperty("oracle")
+
+  if (resp.oracle) {
+    const { oracle } = resp
+
+    checkFields([oracle], ["oraclePrices", "oracles"])
+  }
+}
+
 test("oracle", async () => {
-  const resp = await heartMonitor.oracle({
+  await testOracle({
     oraclePrices: {
       limit: 1,
+      // Covers non-(limit, where, order, orderDesc)
+      offset: 1,
     },
     oracles: {
       limit: 1,
     },
   })
-  expect(resp).toHaveProperty("oracle")
-
-  if (resp.oracle) {
-    const { oracle } = resp
-    const fields = ["oraclePrices", "oracles"]
-    fields.forEach((field: string) => {
-      expect(oracle).toHaveProperty(field)
-    })
-  }
+  await testOracle(
+    {
+      oraclePrices: {
+        limit: 1,
+      },
+      oracles: {
+        limit: 1,
+      },
+    },
+    {
+      oraclePrices: defaultOraclePrice,
+      oracles: defaultOracleEntry,
+    }
+  )
+  await testOracle(
+    {},
+    {
+      oraclePrices: defaultOraclePrice,
+      oracles: defaultOracleEntry,
+    }
+  )
 })
 
-test("oraclePricesSubscription", async () => {
-  const hm = {
-    oraclePricesSubscription: jest.fn().mockResolvedValue({
-      next: async () => ({
-        value: {
-          data: {
-            oraclePrices: [defaultOraclePrice],
-          },
-        },
-      }),
-    }),
-  }
-
+test("oraclePricesSubscription undefined client", async () => {
+  const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
   const resp = await hm.oraclePricesSubscription({
     where: { pair: "ubtc:unusd" },
   })
 
-  const event = await resp.next()
-
-  expect(event.value.data).toHaveProperty("oraclePrices")
-
-  if ((event.value.data.oraclePrices.length ?? 0) > 0) {
-    const [oraclePrices] = event.value.data.oraclePrices ?? []
-    const fields = ["block", "eventSeqNo", "pair", "price", "txSeqNo"]
-    fields.forEach((field: string) => {
-      expect(oraclePrices).toHaveProperty(field)
-    })
-  }
+  expect(resp).toBeUndefined()
 })
 
+const testOraclePricesSubscription = async (
+  args: SubscriptionOraclePricesArgs,
+  fields?: OraclePrice
+) => {
+  const resp = await heartMonitor.oraclePricesSubscription(args, fields)
+
+  const event = await resp?.next()
+
+  expect(event?.value.data).toHaveProperty("oraclePrices")
+
+  if ((event?.value.data.oraclePrices.length ?? 0) > 0) {
+    const [oraclePrices] = event?.value.data.oraclePrices ?? []
+
+    checkFields(
+      [oraclePrices],
+      ["block", "eventSeqNo", "pair", "price", "txSeqNo"]
+    )
+  }
+}
+
+test("oraclePricesSubscription", async () => {
+  await testOraclePricesSubscription({
+    where: { pair: "ubtc:unusd" },
+  })
+  await testOraclePricesSubscription(
+    {
+      where: { pair: "ubtc:unusd" },
+    },
+    defaultOraclePrice
+  )
+})
+
+const testPerp = async (args: QueryPerpArgs, fields?: PerpFields) => {
+  const resp = await heartMonitor.perp(args, fields)
+  expect(resp).toHaveProperty("perp")
+
+  if (resp.perp) {
+    const { perp } = resp
+
+    checkFields(
+      [perp],
+      [
+        "leaderboard",
+        "market",
+        "markets",
+        "position",
+        "positionChanges",
+        "positions",
+      ]
+    )
+  }
+}
+
 test("perp", async () => {
-  const resp = await heartMonitor.perp({
+  await testPerp({
     leaderboard: {
       limit: 1,
     },
@@ -277,98 +455,139 @@ test("perp", async () => {
         trader_address: "nibi1judn9xtel563nmq0ghpvmkqvyd5wnkm30mvkk3",
       },
     },
+    positions: {
+      limit: 1,
+    },
     positionChanges: {
       limit: 1,
       where: { traderAddressEq: "nibi1judn9xtel563nmq0ghpvmkqvyd5wnkm30mvkk3" },
     },
-    positions: {
-      limit: 1,
-    },
   })
+
+  await testPerp(
+    {
+      leaderboard: {
+        limit: 1,
+      },
+      market: {
+        where: {
+          pair: "ubtc:unusd",
+        },
+      },
+      markets: {
+        limit: 1,
+      },
+      position: {
+        where: {
+          pair: "ubtc:unusd",
+          trader_address: "nibi1judn9xtel563nmq0ghpvmkqvyd5wnkm30mvkk3",
+        },
+      },
+      positions: {
+        limit: 1,
+      },
+      positionChanges: {
+        limit: 1,
+        where: {
+          traderAddressEq: "nibi1judn9xtel563nmq0ghpvmkqvyd5wnkm30mvkk3",
+        },
+      },
+    },
+    {
+      leaderboard: defaultPerpLeaderboard,
+      market: defaultPerpMarket,
+      markets: defaultPerpMarket,
+      position: defaultPerpPosition,
+      positions: defaultPerpPosition,
+      positionChanges: defaultPerpPositionChanges,
+    }
+  )
+
+  // Note: This is because market and position do not exist
+  const resp = await heartMonitor.perp(
+    {},
+    {
+      leaderboard: defaultPerpLeaderboard,
+      markets: defaultPerpMarket,
+      positions: defaultPerpPosition,
+    }
+  )
   expect(resp).toHaveProperty("perp")
 
   if (resp.perp) {
     const { perp } = resp
-    const fields = [
-      "leaderboard",
-      "market",
-      "markets",
-      "position",
-      "positionChanges",
-      "positions",
-    ]
-    fields.forEach((field: string) => {
-      expect(perp).toHaveProperty(field)
-    })
+
+    checkFields([perp], ["leaderboard", "markets", "positions"])
   }
 })
 
-test("perpMarketSubscription", async () => {
-  const hm = {
-    perpMarketSubscription: jest.fn().mockResolvedValue({
-      next: async () => ({
-        value: {
-          data: {
-            perpMarket: defaultPerpMarket,
-          },
-        },
-      }),
-    }),
-  }
-
+test("perpMarketSubscription undefined client", async () => {
+  const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
   const resp = await hm.perpMarketSubscription({
     where: { pair: "ubtc:unusd" },
   })
 
-  const event = await resp.next()
-
-  expect(event.value.data).toHaveProperty("perpMarket")
-  if (event.value.data.perpMarket) {
-    const { perpMarket } = event.value.data
-    const fields = [
-      "pair",
-      "enabled",
-      "maintenance_margin_ratio",
-      "max_leverage",
-      "latest_cumulative_premium_fraction",
-      "exchange_fee_ratio",
-      "ecosystem_fund_fee_ratio",
-      "max_funding_rate",
-      "liquidation_fee_ratio",
-      "partial_liquidation_ratio",
-      "funding_rate_epoch_id",
-      "twap_lookback_window",
-      "prepaid_bad_debt",
-      "base_reserve",
-      "quote_reserve",
-      "sqrt_depth",
-      "price_multiplier",
-      "total_long",
-      "total_short",
-      "mark_price",
-      "mark_price_twap",
-      "index_price_twap",
-      "is_deleted",
-    ]
-    fields.forEach((field: string) => {
-      expect(perpMarket).toHaveProperty(field)
-    })
-  }
+  expect(resp).toBeUndefined()
 })
 
-test("perpPositionsSubscription", async () => {
-  const hm = {
-    perpPositionsSubscription: jest.fn().mockResolvedValue({
-      next: async () => ({
-        value: {
-          data: {
-            perpPositions: defaultPerpPosition,
-          },
-        },
-      }),
-    }),
-  }
+const testPerpMarketSubscription = async (
+  args: SubscriptionPerpMarketArgs,
+  fields?: PerpMarket
+) => {
+  const resp = await heartMonitor.perpMarketSubscription(args, fields)
 
+  const event = await resp?.next()
+
+  expect(event?.value.data).toHaveProperty("perpMarket")
+  if (event?.value.data.perpMarket) {
+    const { perpMarket } = event.value.data
+
+    checkFields(
+      [perpMarket],
+      [
+        "pair",
+        "enabled",
+        "maintenance_margin_ratio",
+        "max_leverage",
+        "latest_cumulative_premium_fraction",
+        "exchange_fee_ratio",
+        "ecosystem_fund_fee_ratio",
+        "max_funding_rate",
+        "liquidation_fee_ratio",
+        "partial_liquidation_ratio",
+        "funding_rate_epoch_id",
+        "twap_lookback_window",
+        "prepaid_bad_debt",
+        "base_reserve",
+        "quote_reserve",
+        "sqrt_depth",
+        "price_multiplier",
+        "total_long",
+        "total_short",
+        "mark_price",
+        "mark_price_twap",
+        "index_price_twap",
+        "is_deleted",
+      ]
+    )
+  }
+}
+
+test("perpMarketSubscription", async () => {
+  await testPerpMarketSubscription({
+    where: { pair: "ubtc:unusd" },
+  })
+
+  await testPerpMarketSubscription(
+    {
+      where: { pair: "ubtc:unusd" },
+    },
+    defaultPerpMarket
+  )
+})
+
+test("perpPositionsSubscription undefined client", async () => {
+  const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
   const resp = await hm.perpPositionsSubscription({
     where: {
       pair: "ubtc:unusd",
@@ -376,29 +595,58 @@ test("perpPositionsSubscription", async () => {
     },
   })
 
-  const event = await resp.next()
+  expect(resp).toBeUndefined()
+})
 
-  expect(event.value.data).toHaveProperty("perpPositions")
-  if ((event.value.data.perpPositions.length ?? 0) > 0) {
-    const [perpPositions] = event.value.data.perpPositions ?? []
-    const fields = [
-      "pair",
-      "trader_address",
-      "size",
-      "margin",
-      "open_notional",
-      "position_notional",
-      "latest_cumulative_premium_fraction",
-      "unrealized_pnl",
-      "unrealized_funding_payment",
-      "margin_ratio",
-      "bad_debt",
-      "last_updated_block",
-    ]
-    fields.forEach((field: string) => {
-      expect(perpPositions).toHaveProperty(field)
-    })
+const testPerpPositionsSubscription = async (
+  args: SubscriptionPerpPositionsArgs,
+  fields?: PerpPosition
+) => {
+  const resp = await heartMonitor.perpPositionsSubscription(args, fields)
+
+  const event = await resp?.next()
+
+  expect(event?.value.data).toHaveProperty("perpPositions")
+  if ((event?.value.data.perpPositions.length ?? 0) > 0) {
+    const [perpPositions] = event?.value.data.perpPositions ?? []
+
+    checkFields(
+      [perpPositions],
+      [
+        "pair",
+        "trader_address",
+        "size",
+        "margin",
+        "open_notional",
+        "position_notional",
+        "latest_cumulative_premium_fraction",
+        "unrealized_pnl",
+        "unrealized_funding_payment",
+        "margin_ratio",
+        "bad_debt",
+        "last_updated_block",
+      ]
+    )
   }
+}
+
+test("perpPositionsSubscription", async () => {
+  await testPerpPositionsSubscription({
+    where: {
+      pair: "ubtc:unusd",
+      trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
+    },
+  })
+
+  await testPerpPositionsSubscription(
+    {
+      where: {
+        pair: "ubtc:unusd",
+        trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
+      },
+    },
+    defaultPerpPosition
+  )
 })
 
 test("queryBatchHandler", async () => {
@@ -417,146 +665,213 @@ test("queryBatchHandler", async () => {
 
   if ((resp.communityPool?.length ?? 0) > 0) {
     const [communityPool] = resp.communityPool ?? []
-    const fields = ["amount", "denom"]
-    fields.forEach((field: string) => {
-      expect(communityPool).toHaveProperty(field)
-    })
+
+    checkFields([communityPool], ["amount", "denom"])
   }
 
   if ((resp.delegations?.length ?? 0) > 0) {
     const [delegation] = resp.delegations ?? []
-    const fields = ["amount", "delegator", "validator"]
-    fields.forEach((field: string) => {
-      expect(delegation).toHaveProperty(field)
-    })
+
+    checkFields([delegation], ["amount", "delegator", "validator"])
   }
 })
 
-test("redelegations", async () => {
-  const resp = await heartMonitor.redelegations({
-    limit: 1,
-  })
+const testRedelegations = async (
+  args: QueryRedelegationsArgs,
+  fields?: Redelegation
+) => {
+  const resp = await heartMonitor.redelegations(args, fields)
   expect(resp).toHaveProperty("redelegations")
 
   if ((resp.redelegations?.length ?? 0) > 0) {
     const [redelegations] = resp.redelegations ?? []
-    const fields = [
-      "delegator",
-      "source_validator",
-      "destination_validator",
-      "amount",
-      "creation_block",
-      "completion_time",
-    ]
-    fields.forEach((field: string) => {
-      expect(redelegations).toHaveProperty(field)
-    })
-  }
-})
 
-test("spotLpPositions", async () => {
-  const resp = await heartMonitor.spotLpPositions({
+    checkFields(
+      [redelegations],
+      [
+        "delegator",
+        "source_validator",
+        "destination_validator",
+        "amount",
+        "creation_block",
+        "completion_time",
+      ]
+    )
+  }
+}
+
+test("redelegations", async () => {
+  await testRedelegations({
     limit: 1,
   })
+  await testRedelegations({}, defaultRedelegations)
+})
+
+const testSpotLpPositions = async (
+  args: QuerySpotLpPositionsArgs,
+  fields?: SpotLpPosition
+) => {
+  const resp = await heartMonitor.spotLpPositions(args, fields)
   expect(resp).toHaveProperty("spotLpPositions")
 
   if ((resp.spotLpPositions?.length ?? 0) > 0) {
     const [spotLpPositions] = resp.spotLpPositions ?? []
-    const fields = ["pool", "user", "pool_shares", "created_block"]
-    fields.forEach((field: string) => {
-      expect(spotLpPositions).toHaveProperty(field)
-    })
-  }
-})
 
-test("spotPoolCreated", async () => {
-  const resp = await heartMonitor.spotPoolCreated({
+    checkFields(
+      [spotLpPositions],
+      ["pool", "user", "pool_shares", "created_block"]
+    )
+  }
+}
+
+test("spotLpPositions", async () => {
+  await testSpotLpPositions({
     limit: 1,
   })
+  await testSpotLpPositions({}, defaultSpotLpPosition)
+})
+
+const testSpotPoolCreated = async (
+  args: QuerySpotPoolCreatedArgs,
+  fields?: SpotPoolCreated
+) => {
+  const resp = await heartMonitor.spotPoolCreated(args, fields)
   expect(resp).toHaveProperty("spotPoolCreated")
 
   if ((resp.spotPoolCreated?.length ?? 0) > 0) {
     const [spotPoolCreated] = resp.spotPoolCreated ?? []
-    const fields = ["user", "block", "pool", "pool_shares"]
-    fields.forEach((field: string) => {
-      expect(spotPoolCreated).toHaveProperty(field)
-    })
-  }
-})
 
-test("spotPoolExited", async () => {
-  const resp = await heartMonitor.spotPoolExited({
+    checkFields([spotPoolCreated], ["user", "block", "pool", "pool_shares"])
+  }
+}
+
+test("spotPoolCreated", async () => {
+  await testSpotPoolCreated({
     limit: 1,
   })
+  await testSpotPoolCreated({}, defaultSpotPool)
+})
+
+const testSpotPoolExited = async (
+  args: QuerySpotPoolExitedArgs,
+  fields?: SpotPoolExited
+) => {
+  const resp = await heartMonitor.spotPoolExited(args, fields)
   expect(resp).toHaveProperty("spotPoolExited")
 
   if ((resp.spotPoolExited?.length ?? 0) > 0) {
     const [spotPoolExited] = resp.spotPoolExited ?? []
-    const fields = ["user", "block", "pool", "pool_shares"]
-    fields.forEach((field: string) => {
-      expect(spotPoolExited).toHaveProperty(field)
-    })
-  }
-})
 
-test("spotPoolJoined", async () => {
-  const resp = await heartMonitor.spotPoolJoined({
+    checkFields([spotPoolExited], ["user", "block", "pool", "pool_shares"])
+  }
+}
+
+test("spotPoolExited", async () => {
+  await testSpotPoolExited({
     limit: 1,
   })
+  await testSpotPoolExited({}, defaultSpotPool)
+})
+
+const testSpotPoolJoined = async (
+  args: QuerySpotPoolJoinedArgs,
+  fields?: SpotPoolJoined
+) => {
+  const resp = await heartMonitor.spotPoolJoined(args, fields)
   expect(resp).toHaveProperty("spotPoolJoined")
 
   if ((resp.spotPoolJoined?.length ?? 0) > 0) {
     const [spotPoolJoined] = resp.spotPoolJoined ?? []
-    const fields = ["user", "block", "pool", "pool_shares"]
-    fields.forEach((field: string) => {
-      expect(spotPoolJoined).toHaveProperty(field)
-    })
-  }
-})
 
-test("spotPools", async () => {
-  const resp = await heartMonitor.spotPools({
+    checkFields([spotPoolJoined], ["user", "block", "pool", "pool_shares"])
+  }
+}
+
+test("spotPoolJoined", async () => {
+  await testSpotPoolJoined({
     limit: 1,
   })
+  await testSpotPoolJoined({}, defaultSpotPool)
+})
+
+const testSpotPools = async (args: QuerySpotPoolsArgs, fields?: SpotPool) => {
+  const resp = await heartMonitor.spotPools(args, fields)
   expect(resp).toHaveProperty("spotPools")
 
   if ((resp.spotPools?.length ?? 0) > 0) {
     const [spotPools] = resp.spotPools ?? []
-    const fields = [
-      "pool_id",
-      "pool_type",
-      "swap_fee",
-      "exit_fee",
-      "amplification",
-      "tokens",
-      "weights",
-      "total_weight",
-      "total_shares",
-      "created_block",
-    ]
-    fields.forEach((field: string) => {
-      expect(spotPools).toHaveProperty(field)
-    })
-  }
-})
 
-test("spotPoolSwap", async () => {
-  const resp = await heartMonitor.spotPoolSwap({
+    checkFields(
+      [spotPools],
+      [
+        "pool_id",
+        "pool_type",
+        "swap_fee",
+        "exit_fee",
+        "amplification",
+        "tokens",
+        "weights",
+        "total_weight",
+        "total_shares",
+        "created_block",
+      ]
+    )
+  }
+}
+
+test("spotPools", async () => {
+  await testSpotPools({
     limit: 1,
   })
+  await testSpotPools({}, defaultPool)
+})
+
+const testSpotPoolSwap = async (
+  args: QuerySpotPoolSwapArgs,
+  fields?: SpotPoolSwap
+) => {
+  const resp = await heartMonitor.spotPoolSwap(args, fields)
   expect(resp).toHaveProperty("spotPoolSwap")
 
   if ((resp.spotPoolSwap?.length ?? 0) > 0) {
     const [spotPoolSwap] = resp.spotPoolSwap ?? []
-    const fields = ["user", "block", "token_in", "token_out", "pool"]
-    fields.forEach((field: string) => {
-      expect(spotPoolSwap).toHaveProperty(field)
-    })
+
+    checkFields(
+      [spotPoolSwap],
+      ["user", "block", "token_in", "token_out", "pool"]
+    )
   }
+}
+
+test("spotPoolSwap", async () => {
+  await testSpotPoolSwap({ limit: 1 })
+  await testSpotPoolSwap({}, defaultSpotPoolSwap)
 })
 
+const testStats = async (args: QueryStatsArgs, fields?: StatsFields) => {
+  const resp = await heartMonitor.stats(args, fields)
+  expect(resp).toHaveProperty("stats")
+
+  if (resp.stats) {
+    const { stats } = resp
+
+    checkFields(
+      [stats],
+      [
+        "totals",
+        "fees",
+        "perpOpenInterest",
+        "tvl",
+        "perpPnl",
+        "users",
+        "volume",
+      ]
+    )
+  }
+}
+
 test("stats", async () => {
-  const resp = await heartMonitor.stats({
+  await testStats({
     totals: {
       limit: 1,
     },
@@ -579,86 +894,126 @@ test("stats", async () => {
       limit: 1,
     },
   })
-  expect(resp).toHaveProperty("stats")
-
-  if (resp.stats) {
-    const { stats } = resp
-    const fields = [
-      "totals",
-      "fees",
-      "perpOpenInterest",
-      "tvl",
-      "perpPnl",
-      "users",
-      "volume",
-    ]
-    fields.forEach((field: string) => {
-      expect(stats).toHaveProperty(field)
-    })
-  }
+  await testStats(
+    {
+      totals: {
+        limit: 1,
+      },
+      fees: {
+        limit: 1,
+      },
+      perpOpenInterest: {
+        limit: 1,
+      },
+      tvl: {
+        limit: 1,
+      },
+      perpPnl: {
+        limit: 1,
+      },
+      users: {
+        limit: 1,
+      },
+      volume: {
+        limit: 1,
+      },
+    },
+    {
+      totals: defaultTotals,
+      fees: defaultStatsFees,
+      perpOpenInterest: defaultPerpOpenInterest,
+      tvl: defaultTvl,
+      perpPnl: defaultPerpPnl,
+      users: defaultUsers,
+      volume: defaultVolume,
+    }
+  )
+  await testStats(
+    {},
+    {
+      totals: defaultTotals,
+      fees: defaultStatsFees,
+      perpOpenInterest: defaultPerpOpenInterest,
+      tvl: defaultTvl,
+      perpPnl: defaultPerpPnl,
+      users: defaultUsers,
+      volume: defaultVolume,
+    }
+  )
 })
 
-test("unbondings", async () => {
-  const resp = await heartMonitor.unbondings({
-    limit: 1,
-  })
+const testUnbondings = async (
+  args: QueryUnbondingsArgs,
+  fields?: Unbonding
+) => {
+  const resp = await heartMonitor.unbondings(args, fields)
   expect(resp).toHaveProperty("unbondings")
 
   if ((resp.unbondings?.length ?? 0) > 0) {
     const [unbonding] = resp.unbondings ?? []
-    const fields = [
-      "delegator",
-      "validator",
-      "amount",
-      "creation_block",
-      "completion_time",
-    ]
-    fields.forEach((field: string) => {
-      expect(unbonding).toHaveProperty(field)
-    })
+
+    checkFields(
+      [unbonding],
+      ["delegator", "validator", "amount", "creation_block", "completion_time"]
+    )
   }
+}
+
+test("unbondings", async () => {
+  await testUnbondings({ limit: 1 })
+  await testUnbondings({}, defaultUnbondings)
 })
 
-test("users", async () => {
-  const resp = await heartMonitor.users({
-    limit: 1,
-  })
+const testUsers = async (args: QueryUsersArgs, fields?: User) => {
+  const resp = await heartMonitor.users(args, fields)
+
   expect(resp).toHaveProperty("users")
 
   if ((resp.users?.length ?? 0) > 0) {
     const [users] = resp.users ?? []
-    const fields = ["address", "balances", "created_block"]
-    fields.forEach((field: string) => {
-      expect(users).toHaveProperty(field)
-    })
+
+    checkFields([users], ["address", "balances", "created_block"])
   }
+}
+
+test("users", async () => {
+  await testUsers({ limit: 1 })
+  await testUsers({}, defaultUser)
 })
 
-test("validators", async () => {
-  const resp = await heartMonitor.validators({
-    limit: 1,
-  })
+const testValidators = async (
+  args: QueryValidatorsArgs,
+  fields?: Validator
+) => {
+  const resp = await heartMonitor.validators(args, fields)
   expect(resp).toHaveProperty("validators")
 
   if ((resp.validators?.length ?? 0) > 0) {
     const [validator] = resp.validators ?? []
-    const fields = [
-      "commission_rates",
-      "commission_update_time",
-      "delegator_shares",
-      "description",
-      "jailed",
-      "min_self_delegation",
-      "operator_address",
-      "status",
-      "tokens",
-      "unbonding_block",
-      "unbonding_time",
-    ]
-    fields.forEach((field: string) => {
-      expect(validator).toHaveProperty(field)
-    })
+
+    checkFields(
+      [validator],
+      [
+        "commission_rates",
+        "commission_update_time",
+        "delegator_shares",
+        "description",
+        "jailed",
+        "min_self_delegation",
+        "operator_address",
+        "status",
+        "tokens",
+        "unbonding_block",
+        "unbonding_time",
+      ]
+    )
   }
+}
+test("validators", async () => {
+  await testValidators({
+    limit: 1,
+  })
+  await testValidators({}, defaultValidator)
 })
 
 describe("gql cleanResponse", () => {

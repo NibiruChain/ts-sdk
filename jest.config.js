@@ -30,6 +30,8 @@ module.exports = function (root = __dirname) {
       "packages/nibijs/src/**/*.{js,jsx,ts,tsx}",
       "!**/node_modules/**",
       "!**/dist/**",
+      "!**/index.ts",
+      "!**/nibijs/src/test/helpers.ts",
     ],
 
     // The directory where Jest should output its coverage files
@@ -45,10 +47,10 @@ module.exports = function (root = __dirname) {
     // An object that configures minimum threshold enforcement for coverage results
     coverageThreshold: {
       global: {
-        branches: 50,
-        functions: 50,
-        lines: 50,
-        statements: 50,
+        branches: 75,
+        functions: 75,
+        lines: 75,
+        statements: 75,
       },
     },
 

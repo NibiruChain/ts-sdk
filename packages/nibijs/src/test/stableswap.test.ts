@@ -34,4 +34,14 @@ describe("stableswap tests", () => {
       ).toEqual(true)
     })
   })
+
+  test("Stableswap failure", () => {
+    const balances = [BigNumber(0), BigNumber(0)]
+    const amplification = BigNumber(0)
+    const curveModel = new StableSwap(amplification, balances, BigNumber(0))
+
+    expect(() => curveModel.exchange(0, 1, BigNumber(0))).toThrow(
+      "Invalid exchange operation"
+    )
+  })
 })

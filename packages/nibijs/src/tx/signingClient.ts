@@ -38,6 +38,31 @@ export class NibiruSigningClient extends SigningStargateClient {
   public readonly nibiruExtensions: NibiruExtensions
   public readonly wasmClient: SigningCosmWasmClient
 
+  protected constructor(
+    tmClient: Tendermint37Client,
+    signer: OfflineSigner,
+    options: SigningStargateClientOptions,
+    wasm: SigningCosmWasmClient
+  ) {
+    super(tmClient, signer, options)
+    this.wasmClient = wasm
+    this.nibiruExtensions = QueryClient.withExtensions(
+      tmClient,
+      setupEpochsExtension,
+      setupOracleExtension,
+      setupPerpExtension,
+      setupSpotExtension,
+      setupSudoExtension,
+      setupInflationExtension,
+      setupDistributionExtension,
+      setupGovExtension,
+      setupStakingExtension,
+      setupIbcExtension,
+      setupWasmExtension,
+      setupAuthExtension
+    )
+  }
+
   public static async connectWithSigner(
     endpoint: string,
     signer: OfflineSigner,
@@ -63,31 +88,6 @@ export class NibiruSigningClient extends SigningStargateClient {
         ...options,
       },
       wasmClient
-    )
-  }
-
-  protected constructor(
-    tmClient: Tendermint37Client,
-    signer: OfflineSigner,
-    options: SigningStargateClientOptions,
-    wasm: SigningCosmWasmClient
-  ) {
-    super(tmClient, signer, options)
-    this.wasmClient = wasm
-    this.nibiruExtensions = QueryClient.withExtensions(
-      tmClient,
-      setupEpochsExtension,
-      setupOracleExtension,
-      setupPerpExtension,
-      setupSpotExtension,
-      setupSudoExtension,
-      setupInflationExtension,
-      setupDistributionExtension,
-      setupGovExtension,
-      setupStakingExtension,
-      setupIbcExtension,
-      setupWasmExtension,
-      setupAuthExtension
     )
   }
 
