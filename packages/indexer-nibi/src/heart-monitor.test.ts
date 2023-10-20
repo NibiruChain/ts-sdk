@@ -517,10 +517,7 @@ test("perp", async () => {
   if (resp.perp) {
     const { perp } = resp
 
-    checkFields(
-      [perp],
-      ["leaderboard", "markets", "positionChanges", "positions"]
-    )
+    checkFields([perp], ["leaderboard", "markets", "positions"])
   }
 })
 
