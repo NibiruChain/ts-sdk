@@ -48,7 +48,7 @@ describe("nibid tx bank send", () => {
       signer
     )
 
-    const toWallet: DirectSecp256k1HdWallet = await newRandomWallet()
+    const toWallet = await newRandomWallet()
     const [{ address: toAddr }] = await toWallet.getAccounts()
 
     const resp = await signingClient.sendTokens(

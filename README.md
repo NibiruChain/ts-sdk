@@ -65,7 +65,7 @@ The entrypoint for `nibijs` is the `Sdk` object, which is meant to mimic the roo
 ```js
 import { newRandomWallet, WalletHD } from "@nibiruchain/nibijs"
 
-const wallet: WalletHD = await newRandomWallet()
+const wallet = await newRandomWallet()
 const [{ address }] = await wallet.getAccounts()
 
 // Save the mnemonic somewhere to re-use the account
