@@ -502,7 +502,9 @@ test("perp", async () => {
       positionChanges: defaultPerpPositionChanges,
     }
   )
-  await testPerp(
+
+  // Note: This is because market and position do not exist
+  const resp = await heartMonitor.perp(
     {},
     {
       leaderboard: defaultPerpLeaderboard,
@@ -510,6 +512,16 @@ test("perp", async () => {
       positions: defaultPerpPosition,
     }
   )
+  expect(resp).toHaveProperty("perp")
+
+  if (resp.perp) {
+    const { perp } = resp
+
+    checkFields(
+      [perp],
+      ["leaderboard", "markets", "positionChanges", "positions"]
+    )
+  }
 })
 
 test("perpMarketSubscription undefined client", async () => {
