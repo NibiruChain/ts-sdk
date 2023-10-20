@@ -1,3 +1,13 @@
+## [@nibiruchain/nibijs-v0.21.36](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.35...@nibiruchain/nibijs-v0.21.36) (2023-10-20)
+
+### Features
+
+- **indexer-nibi 99% coverage:** coverage ([#243](https://github.com/NibiruChain/ts-sdk/issues/243)) ([1da2942](https://github.com/NibiruChain/ts-sdk/commit/1da29427d62801d47c46901e5275e92f60fc6971))
+
+### Miscellaneous Chores
+
+- **release:** 0.21.30 ([4bc7dd4](https://github.com/NibiruChain/ts-sdk/commit/4bc7dd44e886057dc6e940167c2364d3fb6fe0d2)), closes [#243](https://github.com/NibiruChain/ts-sdk/issues/243)
+
 ## [@nibiruchain/nibijs-v0.21.35](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.34...@nibiruchain/nibijs-v0.21.35) (2023-10-13)
 
 ### Features
