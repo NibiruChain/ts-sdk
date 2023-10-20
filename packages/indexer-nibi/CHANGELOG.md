@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.30](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.29...@nibiruchain/indexer-nibi-v0.21.30) (2023-10-20)
+
+### Features
+
+- **indexer-nibi 99% coverage:** coverage ([#243](https://github.com/NibiruChain/ts-sdk/issues/243)) ([1da2942](https://github.com/NibiruChain/ts-sdk/commit/1da29427d62801d47c46901e5275e92f60fc6971))
+
 ## [@nibiruchain/indexer-nibi-v0.21.29](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.28...@nibiruchain/indexer-nibi-v0.21.29) (2023-10-13)
 
 ### Features
