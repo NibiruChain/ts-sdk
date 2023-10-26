@@ -105,4 +105,44 @@ describe("balancer tests", () => {
       priceImpact: BigNumber("-0.83333333333333333334"),
     } as Swap)
   })
+
+  test("swapX returns undefined if not positive", () => {
+    const balancerPool = new BalancerPool(
+      BigNumber(-100),
+      BigNumber(100),
+      BigNumber(0.5) // 50% fee
+    )
+
+    expect(balancerPool.swapX(BigNumber(-1))).toBeUndefined()
+  })
+
+  test("swapX returns undefined if poolEnd x and y are zero", () => {
+    const balancerPool = new BalancerPool(
+      BigNumber(0),
+      BigNumber(0),
+      BigNumber(0.5) // 50% fee
+    )
+
+    expect(balancerPool.swapX(BigNumber(0))).toBeUndefined()
+  })
+
+  test("swapY returns undefined if not positive", () => {
+    const balancerPool = new BalancerPool(
+      BigNumber(100),
+      BigNumber(-100),
+      BigNumber(0.5) // 50% fee
+    )
+
+    expect(balancerPool.swapY(BigNumber(-1))).toBeUndefined()
+  })
+
+  test("swapY returns undefined if poolEnd x and y are zero", () => {
+    const balancerPool = new BalancerPool(
+      BigNumber(0),
+      BigNumber(0),
+      BigNumber(0.5) // 50% fee
+    )
+
+    expect(balancerPool.swapY(BigNumber(0))).toBeUndefined()
+  })
 })

@@ -1,13 +1,6 @@
 const PRECISION = 18 // number of decimal places
 export const INT_MULT = 1_000_000
 
-class ErrorParseNumber extends Error {
-  constructor(message: string) {
-    super(message)
-    this.name = "ErrorParseNumber"
-  }
-}
-
 /**
  * toSdkDec converts the input float string to an sdk.Dec.
  * The maximum number of decimal places for an sdk.Dec is 18.
@@ -39,7 +32,8 @@ export const toSdkDec = (dec: string) => {
   let decStr = dec.toString()
 
   if (decStr.length === 0) {
-    throw new ErrorParseNumber(`Expected decimal string but got: ${decStr}`)
+    console.log(`Expected decimal string but got: ${decStr}`)
+    return "0"
   }
 
   // first extract any negative symbol
@@ -50,7 +44,8 @@ export const toSdkDec = (dec: string) => {
   }
 
   if (decStr.length === 0) {
-    throw new ErrorParseNumber(`Expected decimal string but got: ${decStr}`)
+    console.log(`Expected decimal string but got: ${decStr}`)
+    return "0"
   }
 
   const digitBlocks = decStr.split(".")
@@ -61,21 +56,22 @@ export const toSdkDec = (dec: string) => {
     // has a decimal place
     lenDigitBlock = digitBlocks[1].length
     if (lenDigitBlock === 0 || sdkDec.length === 0) {
-      throw new ErrorParseNumber(`Expected decimal string but got: ${decStr}`)
+      console.log(`Expected decimal string but got: ${decStr}`)
+      return "0"
     }
     sdkDec += digitBlocks[1]
   } else if (digitBlocks.length > 2) {
-    throw new ErrorParseNumber(
-      `Invalid input has more than one decimal point: ${decStr}`
-    )
+    console.log(`Invalid input has more than one decimal point: ${decStr}`)
+    return "0"
   }
 
   if (lenDigitBlock > PRECISION) {
-    throw new ErrorParseNumber(
+    console.log(
       `value \${decStr}' exceeds max precision by ${
         PRECISION - lenDigitBlock
       } decimal places: max precision ${PRECISION}`
     )
+    return "0"
   }
 
   // An sdk.Dec must take up 18 (PRECISION) digits.
@@ -85,9 +81,8 @@ export const toSdkDec = (dec: string) => {
   sdkDec += zeros
 
   if (Number.isNaN(parseInt(sdkDec, 10))) {
-    throw new ErrorParseNumber(
-      `failed to set decimal string with base 10: ${sdkDec}`
-    )
+    console.log(`failed to set decimal string with base 10: ${sdkDec}`)
+    return "0"
   }
 
   if (neg) {
@@ -102,13 +97,13 @@ export const fromSdkDec = (sdkDec: string) => {
   }
 
   if (sdkDec.indexOf(".") !== -1) {
-    throw new ErrorParseNumber(
-      `expected a decimal string but got ${sdkDec} containing '.'`
-    )
+    console.log(`expected a decimal string but got ${sdkDec} containing '.'`)
+    return 0
   }
 
   if (Number.isNaN(parseInt(sdkDec, 10))) {
-    throw new ErrorParseNumber(`failed to convert ${sdkDec} to a number`)
+    console.log(`failed to convert ${sdkDec} to a number`)
+    return 0
   }
 
   // Check if the sdkDec is negative.
@@ -148,23 +143,3 @@ export const fromSdkDec = (sdkDec: string) => {
 export const toSdkInt = (i: number) => Math.round(i).toString()
 
 export const fromSdkInt = (intStr: string) => parseInt(intStr)
-
-// TODO docs
-// TODO test
-export const fromSdkDecSafe = (inStr: string) => {
-  let sdkDec: number
-  try {
-    sdkDec = fromSdkDec(inStr)
-    return sdkDec
-  } catch (err: any) {
-    if (!(err instanceof ErrorParseNumber)) {
-      if (err.message) {
-        throw new Error(err.message)
-      } else {
-        throw err
-      }
-    }
-  }
-  sdkDec = parseFloat(inStr)
-  return sdkDec
-}

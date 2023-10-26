@@ -3,17 +3,22 @@ import { Coin, coin } from "@cosmjs/proto-signing"
 import {
   assert,
   Chain,
+  chainToParts,
   CoinMap,
   CustomChain,
+  Devnet,
+  fromSdkDec,
   fromSdkInt,
   go,
+  IncentivizedTestnet,
   isRestEndptLive,
   newCoinMapFromCoins,
   queryChainIdWithRest,
+  toSdkDec,
 } from "../chain"
 import { TEST_CHAIN } from "./helpers"
 
-describe("chain connections", () => {
+describe("chain/chain", () => {
   test("testnet rpc", async () => {
     const sgClient = await SigningStargateClient.connect(TEST_CHAIN.endptTm)
     const blockHeight = await sgClient.getHeight()
@@ -24,6 +29,32 @@ describe("chain connections", () => {
   test("chain from chain-id", async () => {
     const chain = CustomChain.fromChainId(TEST_CHAIN.chainId)
     expect(chain.chainId).toEqual(TEST_CHAIN.chainId)
+  })
+
+  test("IncentivizedTestnet", async () => {
+    const result = IncentivizedTestnet(1)
+    expect(result.chainId).toEqual("nibiru-itn-1")
+    expect(result.chainName).toEqual("nibiru-itn-1")
+    expect(result.endptGrpc).toEqual("grpc.itn-1.nibiru.fi")
+    expect(result.endptRest).toEqual("https://lcd.itn-1.nibiru.fi")
+    expect(result.endptTm).toEqual("https://rpc.itn-1.nibiru.fi")
+    expect(result.feeDenom).toEqual("unibi")
+  })
+
+  test("Devnet", async () => {
+    const result = Devnet(1)
+    expect(result.chainId).toEqual("nibiru-devnet-1")
+    expect(result.chainName).toEqual("nibiru-devnet-1")
+    expect(result.endptGrpc).toEqual("grpc.devnet-1.nibiru.fi")
+    expect(result.endptRest).toEqual("https://lcd.devnet-1.nibiru.fi")
+    expect(result.endptTm).toEqual("https://rpc.devnet-1.nibiru.fi")
+    expect(result.feeDenom).toEqual("unibi")
+  })
+
+  test("queryChainIdWithRest", async () => {
+    const chain = Devnet(2)
+    const result = await queryChainIdWithRest(chain)
+    expect(result).toEqual(["nibiru-devnet-2", undefined])
   })
 
   test("inactive chain validation cases", async () => {
@@ -40,6 +71,12 @@ describe("chain connections", () => {
     expect(chainId).toEqual("")
     await expect(isRestEndptLive(inactiveChain)).resolves.toBeFalsy()
   })
+
+  test("chainToParts", () => {
+    const chain = Devnet(2)
+    const result = chainToParts(chain)
+    expect(result).toEqual({ prefix: "nibiru", shortName: "devnet", number: 2 })
+  })
 })
 
 describe("chain/parse", () => {
@@ -47,6 +84,46 @@ describe("chain/parse", () => {
     const result = fromSdkInt("123456789.987654321")
 
     expect(result).toEqual(123456789)
+  })
+
+  test("fromSdkDec number with decimal", () => {
+    expect(fromSdkDec("12345678.9987654321")).toEqual(0)
+  })
+
+  test("fromSdkDec NaN", () => {
+    expect(fromSdkDec("$$$")).toEqual(0)
+  })
+
+  test("toSdkDec empty string", () => {
+    expect(toSdkDec("")).toEqual("0")
+  })
+
+  test("toSdkDec negative zero", () => {
+    expect(toSdkDec("-0")).toEqual("-0000000000000000000")
+  })
+
+  test("toSdkDec negative", () => {
+    expect(toSdkDec("-")).toEqual("0")
+  })
+
+  test("toSdkDec NaN", () => {
+    expect(toSdkDec("$$$")).toEqual("0")
+  })
+
+  test("toSdkDec multi-decimal", () => {
+    expect(toSdkDec("1.1.1")).toEqual("0")
+  })
+
+  test("toSdkDec no leading zero", () => {
+    expect(toSdkDec(".1")).toEqual("0")
+  })
+
+  test("toSdkDec why handling with bignumber is better", () => {
+    expect(
+      toSdkDec(
+        "0.232423423423423423434234234234234234234234234234234234234234231"
+      )
+    ).toEqual("0")
   })
 })
 

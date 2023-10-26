@@ -320,10 +320,20 @@ const testMarkPriceCandlesSubscription = async (
 }
 
 test("markPriceCandlesSubscription", async () => {
-  await testMarkPriceCandlesSubscription({ limit: 1 })
+  await testMarkPriceCandlesSubscription({
+    limit: 1,
+    where: {
+      pairEq: "ubtc:unusd",
+      periodEq: 100000000,
+    },
+  })
   await testMarkPriceCandlesSubscription(
     {
       limit: 1,
+      where: {
+        pairEq: "ubtc:unusd",
+        periodEq: 100000000,
+      },
     },
     defaultMarkPriceCandles
   )
