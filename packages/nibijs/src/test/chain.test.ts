@@ -85,7 +85,7 @@ describe("chain/parse", () => {
     expect(result).toEqual(123456789)
   })
 
-  test("fromSdkDec", () => {
+  const fromSdkDecTests = () => {
     interface TestCase {
       name: string
       in: string
@@ -109,9 +109,9 @@ describe("chain/parse", () => {
       const res = fromSdkDec(tt.in)
       expect(res).toBe(tt.expected)
     })
-  })
+  }
 
-  test("toSdkDec", () => {
+  const toSdkDecTests = () => {
     interface TestCase {
       name: string
       in: string
@@ -165,7 +165,10 @@ describe("chain/parse", () => {
       const res = toSdkDec(tt.in)
       expect(res).toBe(tt.expected)
     })
-  })
+  }
+
+  toSdkDecTests()
+  fromSdkDecTests()
 })
 
 describe("chain/types", () => {
