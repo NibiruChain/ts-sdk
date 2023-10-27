@@ -31,24 +31,23 @@ describe("chain/chain", () => {
     expect(chain.chainId).toEqual(TEST_CHAIN.chainId)
   })
 
+  const expectCreatedChain = (result: CustomChain, prefix: string) => {
+    expect(result.chainId).toEqual(`nibiru-${prefix}-1`)
+    expect(result.chainName).toEqual(`nibiru-${prefix}-1`)
+    expect(result.endptGrpc).toEqual(`grpc.${prefix}-1.nibiru.fi`)
+    expect(result.endptRest).toEqual(`https://lcd.${prefix}-1.nibiru.fi`)
+    expect(result.endptTm).toEqual(`https://rpc.${prefix}-1.nibiru.fi`)
+    expect(result.feeDenom).toEqual(`unibi`)
+  }
+
   test("IncentivizedTestnet", async () => {
     const result = IncentivizedTestnet(1)
-    expect(result.chainId).toEqual("nibiru-itn-1")
-    expect(result.chainName).toEqual("nibiru-itn-1")
-    expect(result.endptGrpc).toEqual("grpc.itn-1.nibiru.fi")
-    expect(result.endptRest).toEqual("https://lcd.itn-1.nibiru.fi")
-    expect(result.endptTm).toEqual("https://rpc.itn-1.nibiru.fi")
-    expect(result.feeDenom).toEqual("unibi")
+    expectCreatedChain(result, "itn")
   })
 
   test("Devnet", async () => {
     const result = Devnet(1)
-    expect(result.chainId).toEqual("nibiru-devnet-1")
-    expect(result.chainName).toEqual("nibiru-devnet-1")
-    expect(result.endptGrpc).toEqual("grpc.devnet-1.nibiru.fi")
-    expect(result.endptRest).toEqual("https://lcd.devnet-1.nibiru.fi")
-    expect(result.endptTm).toEqual("https://rpc.devnet-1.nibiru.fi")
-    expect(result.feeDenom).toEqual("unibi")
+    expectCreatedChain(result, "devnet")
   })
 
   test("queryChainIdWithRest", async () => {
@@ -86,44 +85,86 @@ describe("chain/parse", () => {
     expect(result).toEqual(123456789)
   })
 
-  test("fromSdkDec number with decimal", () => {
-    expect(fromSdkDec("12345678.9987654321")).toEqual(0)
+  test("fromSdkDec", () => {
+    interface TestCase {
+      name: string
+      in: string
+      expected: number
+    }
+
+    const tests: TestCase[] = [
+      {
+        name: "fromSdkDec number with decimal",
+        in: "12345678.9987654321",
+        expected: 0,
+      },
+      {
+        name: "fromSdkDec NaN",
+        in: "$$$",
+        expected: 0,
+      },
+    ]
+
+    test.each(tests)("%o", (tt) => {
+      const res = fromSdkDec(tt.in)
+      expect(res).toBe(tt.expected)
+    })
   })
 
-  test("fromSdkDec NaN", () => {
-    expect(fromSdkDec("$$$")).toEqual(0)
-  })
+  test("toSdkDec", () => {
+    interface TestCase {
+      name: string
+      in: string
+      expected: string
+    }
 
-  test("toSdkDec empty string", () => {
-    expect(toSdkDec("")).toEqual("0")
-  })
+    const tests: TestCase[] = [
+      {
+        name: "toSdkDec empty string",
+        in: "",
+        expected: "0",
+      },
+      {
+        name: "toSdkDec empty string",
+        in: "",
+        expected: "0",
+      },
+      {
+        name: "toSdkDec negative zero",
+        in: "-0",
+        expected: "-0000000000000000000",
+      },
+      {
+        name: "toSdkDec negative",
+        in: "-",
+        expected: "0",
+      },
+      {
+        name: "toSdkDec NaN",
+        in: "$$$",
+        expected: "0",
+      },
+      {
+        name: "toSdkDec multi-decimal",
+        in: "1.1.1",
+        expected: "0",
+      },
+      {
+        name: "toSdkDec no leading zero",
+        in: ".1",
+        expected: "0",
+      },
+      {
+        name: "toSdkDec why handling with bignumber is better",
+        in: "0.232423423423423423434234234234234234234234234234234234234234231",
+        expected: "0",
+      },
+    ]
 
-  test("toSdkDec negative zero", () => {
-    expect(toSdkDec("-0")).toEqual("-0000000000000000000")
-  })
-
-  test("toSdkDec negative", () => {
-    expect(toSdkDec("-")).toEqual("0")
-  })
-
-  test("toSdkDec NaN", () => {
-    expect(toSdkDec("$$$")).toEqual("0")
-  })
-
-  test("toSdkDec multi-decimal", () => {
-    expect(toSdkDec("1.1.1")).toEqual("0")
-  })
-
-  test("toSdkDec no leading zero", () => {
-    expect(toSdkDec(".1")).toEqual("0")
-  })
-
-  test("toSdkDec why handling with bignumber is better", () => {
-    expect(
-      toSdkDec(
-        "0.232423423423423423434234234234234234234234234234234234234234231"
-      )
-    ).toEqual("0")
+    test.each(tests)("%o", (tt) => {
+      const res = toSdkDec(tt.in)
+      expect(res).toBe(tt.expected)
+    })
   })
 })
 
