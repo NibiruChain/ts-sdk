@@ -89,25 +89,22 @@ describe("chain/parse", () => {
     interface TestCase {
       name: string
       in: string
-      expected: number
     }
 
     const tests: TestCase[] = [
       {
         name: "fromSdkDec number with decimal",
         in: "12345678.9987654321",
-        expected: 0,
       },
       {
         name: "fromSdkDec NaN",
         in: "$$$",
-        expected: 0,
       },
     ]
 
     test.each(tests)("%o", (tt) => {
       const res = fromSdkDec(tt.in)
-      expect(res).toBe(tt.expected)
+      expect(res).toBe(0)
     })
   }
 
@@ -119,11 +116,6 @@ describe("chain/parse", () => {
     }
 
     const tests: TestCase[] = [
-      {
-        name: "toSdkDec empty string",
-        in: "",
-        expected: "0",
-      },
       {
         name: "toSdkDec empty string",
         in: "",
