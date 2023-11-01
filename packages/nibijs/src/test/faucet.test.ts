@@ -51,7 +51,7 @@ test.skip("faucet utility works", async () => {
     chain: TEST_CHAIN,
     grecaptcha: "",
   })
-  expect(faucetResp.ok).toBeTruthy()
+  expect(faucetResp?.ok).toBeTruthy()
 
   const balancesEnd = newCoinMapFromCoins(
     await signingClient.getAllBalances(toAddr)
@@ -107,7 +107,7 @@ describe("useFaucet", () => {
     })
   })
 
-  test("should throw an error if fetch fails", async () => {
+  test("should return undefined if fetch fails", async () => {
     const errorMessage = "Failed to fetch"
 
     jest.mock("cross-fetch", () => ({

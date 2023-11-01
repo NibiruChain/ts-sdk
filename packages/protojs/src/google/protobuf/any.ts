@@ -219,7 +219,8 @@ var tsProtoGlobalThis: any = (() => {
   if (typeof global !== "undefined") {
     return global
   }
-  throw "Unable to locate global object"
+  console.error("Unable to locate global object")
+  return undefined
 })()
 
 function bytesFromBase64(b64: string): Uint8Array {

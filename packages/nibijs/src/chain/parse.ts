@@ -4,7 +4,7 @@ export const INT_MULT = 1_000_000
 /**
  * toSdkDec converts the input float string to an sdk.Dec.
  * The maximum number of decimal places for an sdk.Dec is 18.
- * NOTE: An error is thrown if more decimal digits are provided than the
+ * NOTE: An error is console'd if more decimal digits are provided than the
  * precision, 18.
  *
  * ref: Reimplementation of cosmos-sdk/types/decimal.go
