@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.35](../intro.md) / [Exports](../modules.md) / ChainIdParts
+[NibiJS Documentation - v0.21.36](../intro.md) / [Exports](../modules.md) / ChainIdParts
 
 # Interface: ChainIdParts
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[chain/chain.ts:32](https://github.com/NibiruChain/ts-sdk/blob/1da2942/packages/nibijs/src/chain/chain.ts#L32)
+[chain/chain.ts:32](https://github.com/NibiruChain/ts-sdk/blob/1045d4d/packages/nibijs/src/chain/chain.ts#L32)
 
 ---
 
@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[chain/chain.ts:30](https://github.com/NibiruChain/ts-sdk/blob/1da2942/packages/nibijs/src/chain/chain.ts#L30)
+[chain/chain.ts:30](https://github.com/NibiruChain/ts-sdk/blob/1045d4d/packages/nibijs/src/chain/chain.ts#L30)
 
 ---
 
@@ -38,4 +38,4 @@
 
 #### Defined in
 
-[chain/chain.ts:31](https://github.com/NibiruChain/ts-sdk/blob/1da2942/packages/nibijs/src/chain/chain.ts#L31)
+[chain/chain.ts:31](https://github.com/NibiruChain/ts-sdk/blob/1045d4d/packages/nibijs/src/chain/chain.ts#L31)
