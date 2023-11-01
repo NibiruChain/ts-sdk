@@ -1,3 +1,9 @@
+## [@nibiruchain/protojs-v0.21.14](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/protojs-v0.21.13...@nibiruchain/protojs-v0.21.14) (2023-11-01)
+
+### Bug Fixes
+
+- **rem:** throws ([#245](https://github.com/NibiruChain/ts-sdk/issues/245)) ([6e5ea8f](https://github.com/NibiruChain/ts-sdk/commit/6e5ea8f76a454686afe221e13f9402b0118fe91c))
+
 ## [@nibiruchain/protojs-v0.21.13](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/protojs-v0.21.12...@nibiruchain/protojs-v0.21.13) (2023-08-28)
 
 ### Features

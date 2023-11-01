@@ -2214,7 +2214,7 @@
 
 "@nibiruchain/protojs@^0.21.13", "@nibiruchain/protojs@file:/home/runner/work/ts-sdk/ts-sdk/packages/protojs":
   "resolved" "file:packages/protojs"
-  "version" "0.21.13"
+  "version" "0.21.14"
 
 "@noble/hashes@^1", "@noble/hashes@^1.0.0":
   "integrity" "sha512-EbqwksQwz9xDRGfDST86whPBgM65E0OH/pCgqW0GBVzO22bNE+NuIbeTb714+IfSjU3aRk47EUvXIb5bTsenKA=="
