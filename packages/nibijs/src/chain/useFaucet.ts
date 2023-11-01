@@ -14,7 +14,7 @@ export async function useFaucet({
   chain: Chain
   amts?: { nibi: number; nusd: number; usdt: number }
   grecaptcha: string
-}): Promise<Response> {
+}): Promise<Response | undefined> {
   if (!amts) {
     // default values
     amts = {
@@ -48,7 +48,7 @@ export async function useFaucet({
     body: JSON.stringify({ address, coins, grecaptcha }),
   }).catch((err) => {
     console.error(err)
-    throw err
+    return undefined
   })
 }
 

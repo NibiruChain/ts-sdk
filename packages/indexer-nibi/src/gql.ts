@@ -48,16 +48,15 @@ export const convertObjectToPropertiesString = (obj: any) => {
 export const cleanResponse = async (rawResp: Response) => {
   const respJson = await rawResp.json().catch((err) => {
     console.error(err)
+    return undefined
   })
   // console.debug("DEBUG respJson: %o", respJson)
 
-  if (!rawResp.ok || !respJson) {
-    throw new Error(`${JSON.stringify(respJson)}`)
-  } else if (respJson.data) {
+  if (respJson?.data) {
     return respJson.data
-  } else {
-    return respJson
   }
+
+  return respJson
 }
 
 export const gqlQuery = <T>(

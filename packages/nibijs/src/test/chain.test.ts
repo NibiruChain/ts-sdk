@@ -190,7 +190,7 @@ describe("chain/types", () => {
 })
 
 test("custom assert fn", () => {
-  expect(() => assert(false)).toThrow()
+  expect(assert(false)).toEqual("AssertionError")
   const err = "useful error message"
-  expect(() => assert(false, err)).toThrow(err)
+  expect(assert(false, err)).toEqual(`AssertionError: ${err}`)
 })

@@ -1045,15 +1045,13 @@ describe("gql cleanResponse", () => {
     expect(result).toEqual({ key: "value" })
   })
 
-  test("should throw an error if rawResp is not ok", async () => {
+  test("should return an error if rawResp is not ok", async () => {
     const error = { error: "Error message" }
     const rawResp = {
       ok: false,
       json: () => Promise.resolve(error),
     } as Response
-    await expect(cleanResponse(rawResp)).rejects.toThrowError(
-      `${JSON.stringify(error)}`
-    )
+    expect(await cleanResponse(rawResp)).toEqual(error)
   })
 
   test("should throw an error if unable to parse JSON", async () => {
@@ -1061,6 +1059,6 @@ describe("gql cleanResponse", () => {
       ok: true,
       json: () => Promise.reject(new Error("invalid json")),
     } as Response
-    await expect(cleanResponse(rawResp)).rejects.toThrowError(``)
+    expect(await cleanResponse(rawResp)).toEqual(undefined)
   })
 })

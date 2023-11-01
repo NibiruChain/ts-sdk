@@ -12,8 +12,10 @@ export const go = async <T>(promise: Promise<T>) => {
 export const assert = (condition: boolean, message?: string) => {
   if (!condition) {
     const errMsg = message ? `AssertionError: ${message}` : "AssertionError"
-    throw new Error(errMsg)
+    console.error(Error(errMsg))
+    return errMsg
   }
+  return true
 }
 
 export interface CoinMap {

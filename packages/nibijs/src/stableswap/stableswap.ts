@@ -150,7 +150,8 @@ export class StableSwap {
       .dividedBy(BigNumber(10).exponentiatedBy(BigNumber(10)))
 
     if (dy.isLessThanOrEqualTo(BigNumber(0))) {
-      throw new Error("Invalid exchange operation")
+      console.error(Error("Invalid exchange operation"))
+      return BigNumber(0)
     }
 
     return dy.minus(fee)
