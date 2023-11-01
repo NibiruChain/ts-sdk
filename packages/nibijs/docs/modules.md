@@ -12,8 +12,6 @@
 ### Classes
 
 - [CustomChain](classes/CustomChain.md)
-- [ErrorTxBroadcast](classes/ErrorTxBroadcast.md)
-- [ErrorTxSimulation](classes/ErrorTxSimulation.md)
 - [MsgFactory](classes/MsgFactory.md)
 - [NibiruQueryClient](classes/NibiruQueryClient.md)
 - [NibiruSigningClient](classes/NibiruSigningClient.md)
@@ -60,7 +58,6 @@
 - [Localnet](modules.md#localnet)
 - [Msg](modules.md#msg)
 - [PERP_MSG_TYPE_URLS](modules.md#perp_msg_type_urls)
-- [PerpErrors](modules.md#perperrors)
 - [SPOT_MSG_TYPE_URLS](modules.md#spot_msg_type_urls)
 - [nibiruRegistryTypes](modules.md#nibiruregistrytypes)
 - [perpTypes](modules.md#perptypes)
@@ -74,11 +71,9 @@
 - [chainToParts](modules.md#chaintoparts)
 - [faucetUrlFromChain](modules.md#fauceturlfromchain)
 - [fromSdkDec](modules.md#fromsdkdec)
-- [fromSdkDecSafe](modules.md#fromsdkdecsafe)
 - [fromSdkInt](modules.md#fromsdkint)
 - [getRegistry](modules.md#getregistry)
 - [go](modules.md#go)
-- [instanceOfError](modules.md#instanceoferror)
 - [isMsgAddMarginEncodeObject](modules.md#ismsgaddmarginencodeobject)
 - [isMsgClosePositionEncodeObject](modules.md#ismsgclosepositionencodeobject)
 - [isMsgCreatePoolEncodeObject](modules.md#ismsgcreatepoolencodeobject)
@@ -95,7 +90,6 @@
 - [newRandomWallet](modules.md#newrandomwallet)
 - [newSignerFromMnemonic](modules.md#newsignerfrommnemonic)
 - [queryChainIdWithRest](modules.md#querychainidwithrest)
-- [raises](modules.md#raises)
 - [setupEpochsExtension](modules.md#setupepochsextension)
 - [setupInflationExtension](modules.md#setupinflationextension)
 - [setupOracleExtension](modules.md#setuporacleextension)
@@ -167,20 +161,6 @@
 #### Defined in
 
 [msg/perp.ts:16](https://github.com/NibiruChain/ts-sdk/blob/1da2942/packages/nibijs/src/msg/perp.ts#L16)
-
----
-
-### PerpErrors
-
-• `Const` **PerpErrors**: `Object`
-
-#### Index signature
-
-▪ [key: `string`]: `string`
-
-#### Defined in
-
-[chain/error.ts:40](https://github.com/NibiruChain/ts-sdk/blob/1da2942/packages/nibijs/src/chain/error.ts#L40)
 
 ---
 
@@ -360,26 +340,6 @@ Constructs a faucet URL from a Chain object.
 
 ---
 
-### fromSdkDecSafe
-
-▸ **fromSdkDecSafe**(`inStr`): `number`
-
-#### Parameters
-
-| Name    | Type     |
-| :------ | :------- |
-| `inStr` | `string` |
-
-#### Returns
-
-`number`
-
-#### Defined in
-
-[chain/parse.ts:154](https://github.com/NibiruChain/ts-sdk/blob/1da2942/packages/nibijs/src/chain/parse.ts#L154)
-
----
-
 ### fromSdkInt
 
 ▸ **fromSdkInt**(`intStr`): `number`
@@ -437,45 +397,6 @@ Constructs a faucet URL from a Chain object.
 #### Defined in
 
 [chain/types.ts:4](https://github.com/NibiruChain/ts-sdk/blob/1da2942/packages/nibijs/src/chain/types.ts#L4)
-
----
-
-### instanceOfError
-
-▸ **instanceOfError**(`obj`): obj is Error
-
-A function for strongly typing errors. The errors given in
-catch blocks are not typed by default. This means they may not
-have the message and name attributes.
-
-#### Parameters
-
-| Name  | Type  |
-| :---- | :---- |
-| `obj` | `any` |
-
-#### Returns
-
-obj is Error
-
-**`Example`**
-
-```js
-try {
-  functionThatThrowsError()
-} catch (err) {
-  if (!instanceOfError(err)) {
-    throw err
-  }
-  alert(err.message)
-}
-```
-
-**`Export`**
-
-#### Defined in
-
-[chain/error.ts:21](https://github.com/NibiruChain/ts-sdk/blob/1da2942/packages/nibijs/src/chain/error.ts#L21)
 
 ---
 
@@ -810,30 +731,6 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT
 #### Defined in
 
 [chain/chain.ts:105](https://github.com/NibiruChain/ts-sdk/blob/1da2942/packages/nibijs/src/chain/chain.ts#L105)
-
----
-
-### raises
-
-▸ **raises**(`errs`, `err`): `boolean`
-
-Makes sure one of the errors in 'errs' is contained in 'err'. If none of the
-given exceptions are raised, it returns false.
-
-#### Parameters
-
-| Name   | Type       |
-| :----- | :--------- |
-| `errs` | `string`[] |
-| `err`  | `Error`    |
-
-#### Returns
-
-`boolean`
-
-#### Defined in
-
-[chain/error.ts:53](https://github.com/NibiruChain/ts-sdk/blob/1da2942/packages/nibijs/src/chain/error.ts#L53)
 
 ---
 
