@@ -32,7 +32,7 @@ export const toSdkDec = (dec: string) => {
   let decStr = dec.toString()
 
   if (decStr.length === 0) {
-    console.log(`Expected decimal string but got: ${decStr}`)
+    console.error(`Expected decimal string but got: ${decStr}`)
     return "0"
   }
 
@@ -44,7 +44,7 @@ export const toSdkDec = (dec: string) => {
   }
 
   if (decStr.length === 0) {
-    console.log(`Expected decimal string but got: ${decStr}`)
+    console.error(`Expected decimal string but got: ${decStr}`)
     return "0"
   }
 
@@ -56,17 +56,17 @@ export const toSdkDec = (dec: string) => {
     // has a decimal place
     lenDigitBlock = digitBlocks[1].length
     if (lenDigitBlock === 0 || sdkDec.length === 0) {
-      console.log(`Expected decimal string but got: ${decStr}`)
+      console.error(`Expected decimal string but got: ${decStr}`)
       return "0"
     }
     sdkDec += digitBlocks[1]
   } else if (digitBlocks.length > 2) {
-    console.log(`Invalid input has more than one decimal point: ${decStr}`)
+    console.error(`Invalid input has more than one decimal point: ${decStr}`)
     return "0"
   }
 
   if (lenDigitBlock > PRECISION) {
-    console.log(
+    console.error(
       `value \${decStr}' exceeds max precision by ${
         PRECISION - lenDigitBlock
       } decimal places: max precision ${PRECISION}`
@@ -81,7 +81,7 @@ export const toSdkDec = (dec: string) => {
   sdkDec += zeros
 
   if (Number.isNaN(parseInt(sdkDec, 10))) {
-    console.log(`failed to set decimal string with base 10: ${sdkDec}`)
+    console.error(`failed to set decimal string with base 10: ${sdkDec}`)
     return "0"
   }
 
@@ -97,12 +97,12 @@ export const fromSdkDec = (sdkDec: string) => {
   }
 
   if (sdkDec.indexOf(".") !== -1) {
-    console.log(`expected a decimal string but got ${sdkDec} containing '.'`)
+    console.error(`expected a decimal string but got ${sdkDec} containing '.'`)
     return 0
   }
 
   if (Number.isNaN(parseInt(sdkDec, 10))) {
-    console.log(`failed to convert ${sdkDec} to a number`)
+    console.error(`failed to convert ${sdkDec} to a number`)
     return 0
   }
 
