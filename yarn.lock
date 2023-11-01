@@ -2194,7 +2194,7 @@
 
 "@nibiruchain/indexer-nibi@file:/home/runner/work/ts-sdk/ts-sdk/packages/indexer-nibi":
   "resolved" "file:packages/indexer-nibi"
-  "version" "0.21.31"
+  "version" "0.21.32"
   dependencies:
     "cross-fetch" "4.0.0"
     "graphql-ws" "^5.14.0"

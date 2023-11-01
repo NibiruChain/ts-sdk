@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.36](../intro.md) / [Exports](../modules.md) / MsgPartialCloseEncodeObject
+[NibiJS Documentation - v0.21.37](../intro.md) / [Exports](../modules.md) / MsgPartialCloseEncodeObject
 
 # Interface: MsgPartialCloseEncodeObject
 
@@ -27,7 +27,7 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/perp.ts:93](https://github.com/NibiruChain/ts-sdk/blob/1045d4d/packages/nibijs/src/msg/perp.ts#L93)
+[msg/perp.ts:93](https://github.com/NibiruChain/ts-sdk/blob/6e5ea8f/packages/nibijs/src/msg/perp.ts#L93)
 
 ---
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/perp.ts:94](https://github.com/NibiruChain/ts-sdk/blob/1045d4d/packages/nibijs/src/msg/perp.ts#L94)
+[msg/perp.ts:94](https://github.com/NibiruChain/ts-sdk/blob/6e5ea8f/packages/nibijs/src/msg/perp.ts#L94)
