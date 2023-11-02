@@ -1,0 +1,6 @@
+{
+  "sonarlint.connectedMode.project": {
+    "connectionId": "https-sonarqube-nibiru-fi-",
+    "projectKey": "NibiruChain_ts-sdk_AYuRILBdmUr0onRz5AJl"
+  }
+}
