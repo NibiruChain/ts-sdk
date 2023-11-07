@@ -42,8 +42,8 @@ describe("setupEpochsExtension", () => {
   describe("epochs.epochsInfo", () => {
     test("should call QueryEpochsInfoRequest and return the response", async () => {
       const queryEpochsInfoRequest = jest
-        .spyOn(query.QueryEpochsInfoRequest, "fromPartial")
-        .mockReturnValue({} as query.QueryEpochsInfoRequest)
+        .spyOn(query.QueryEpochInfosRequest, "fromPartial")
+        .mockReturnValue({} as query.QueryEpochInfosRequest)
 
       const extension = setupEpochsExtension(mockBaseQueryClient)
       const result = await extension.epochs.epochsInfo()
