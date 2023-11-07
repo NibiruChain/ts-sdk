@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.37](../intro.md) / [Exports](../modules.md) / EpochsExtension
+[NibiJS Documentation - v0.21.38](../intro.md) / [Exports](../modules.md) / EpochsExtension
 
 # Interface: EpochsExtension
 
@@ -12,8 +12,8 @@
 
 ### epochs
 
-• `Readonly` **epochs**: `Readonly`<{ `currentEpoch`: (`args`: { `identifier`: `string` }) => `Promise`<`QueryCurrentEpochResponse`\> ; `epochsInfo`: () => `Promise`<`QueryEpochsInfoResponse`\> }\>
+• `Readonly` **epochs**: `Readonly`<{ `currentEpoch`: (`args`: { `identifier`: `string` }) => `Promise`<`QueryCurrentEpochResponse`\> ; `epochsInfo`: () => `Promise`<`QueryEpochInfosResponse`\> }\>
 
 #### Defined in
 
-[query/epochs.ts:11](https://github.com/NibiruChain/ts-sdk/blob/6e5ea8f/packages/nibijs/src/query/epochs.ts#L11)
+[query/epochs.ts:11](https://github.com/NibiruChain/ts-sdk/blob/c499aa9/packages/nibijs/src/query/epochs.ts#L11)
