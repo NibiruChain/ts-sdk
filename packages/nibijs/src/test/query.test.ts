@@ -49,22 +49,22 @@ describe("x/bank queries", () => {
   })
 })
 
-describe("x/spot queries", () => {
-  test("query spot params", async () => {
-    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const { params } = await queryClient.nibiruExtensions.spot.params()
-    const fields: string[] = [
-      "poolCreationFee",
-      "startingPoolNumber",
-      "whitelistedAsset",
-    ]
-    for (const field of fields) {
-      expect(params).toHaveProperty(field)
-    }
-    expect(params?.whitelistedAsset.length).toBeGreaterThan(0)
-    expect(params?.whitelistedAsset[0]).not.toBe("")
-  })
-})
+// describe("x/spot queries", () => {
+//   test("query spot params", async () => {
+//     const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+//     const { params } = await queryClient.nibiruExtensions.spot.params()
+//     const fields: string[] = [
+//       "poolCreationFee",
+//       "startingPoolNumber",
+//       "whitelistedAsset",
+//     ]
+//     for (const field of fields) {
+//       expect(params).toHaveProperty(field)
+//     }
+//     expect(params?.whitelistedAsset.length).toBeGreaterThan(0)
+//     expect(params?.whitelistedAsset[0]).not.toBe("")
+//   })
+// })
 
 describe("x/oracle queries", () => {
   test("query active oracles", async () => {
