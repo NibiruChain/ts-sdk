@@ -2201,7 +2201,7 @@
 
 "@nibiruchain/nibijs@file:/home/runner/work/ts-sdk/ts-sdk/packages/nibijs":
   "resolved" "file:packages/nibijs"
-  "version" "0.21.38"
+  "version" "0.21.39"
   dependencies:
     "@cosmjs/cosmwasm-stargate" "^0.31.0"
     "@cosmjs/proto-signing" "^0.31.0"
