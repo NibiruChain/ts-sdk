@@ -1,3 +1,9 @@
+## [@nibiruchain/protojs-v0.21.15](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/protojs-v0.21.14...@nibiruchain/protojs-v0.21.15) (2023-11-08)
+
+### Features
+
+- **hide:** perp and Spot protojs ([#247](https://github.com/NibiruChain/ts-sdk/issues/247)) ([7a9e071](https://github.com/NibiruChain/ts-sdk/commit/7a9e07193d5fe9d624cdd16a4c028063765f3eaa))
+
 ## [@nibiruchain/protojs-v0.21.14](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/protojs-v0.21.13...@nibiruchain/protojs-v0.21.14) (2023-11-01)
 
 ### Bug Fixes
