@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.37](../intro.md) / [Exports](../modules.md) / NibiruSigningClient
+[NibiJS Documentation - v0.21.38](../intro.md) / [Exports](../modules.md) / NibiruSigningClient
 
 # Class: NibiruSigningClient
 
@@ -46,7 +46,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:41](https://github.com/NibiruChain/ts-sdk/blob/6e5ea8f/packages/nibijs/src/tx/signingClient.ts#L41)
+[tx/signingClient.ts:41](https://github.com/NibiruChain/ts-sdk/blob/c499aa9/packages/nibijs/src/tx/signingClient.ts#L41)
 
 ## Properties
 
@@ -56,7 +56,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:38](https://github.com/NibiruChain/ts-sdk/blob/6e5ea8f/packages/nibijs/src/tx/signingClient.ts#L38)
+[tx/signingClient.ts:38](https://github.com/NibiruChain/ts-sdk/blob/c499aa9/packages/nibijs/src/tx/signingClient.ts#L38)
 
 ---
 
@@ -66,7 +66,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:39](https://github.com/NibiruChain/ts-sdk/blob/6e5ea8f/packages/nibijs/src/tx/signingClient.ts#L39)
+[tx/signingClient.ts:39](https://github.com/NibiruChain/ts-sdk/blob/c499aa9/packages/nibijs/src/tx/signingClient.ts#L39)
 
 ## Methods
 
@@ -86,7 +86,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:94](https://github.com/NibiruChain/ts-sdk/blob/6e5ea8f/packages/nibijs/src/tx/signingClient.ts#L94)
+[tx/signingClient.ts:94](https://github.com/NibiruChain/ts-sdk/blob/c499aa9/packages/nibijs/src/tx/signingClient.ts#L94)
 
 ---
 
@@ -100,7 +100,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:102](https://github.com/NibiruChain/ts-sdk/blob/6e5ea8f/packages/nibijs/src/tx/signingClient.ts#L102)
+[tx/signingClient.ts:102](https://github.com/NibiruChain/ts-sdk/blob/c499aa9/packages/nibijs/src/tx/signingClient.ts#L102)
 
 ---
 
@@ -127,4 +127,4 @@ SigningStargateClient.connectWithSigner
 
 #### Defined in
 
-[tx/signingClient.ts:66](https://github.com/NibiruChain/ts-sdk/blob/6e5ea8f/packages/nibijs/src/tx/signingClient.ts#L66)
+[tx/signingClient.ts:66](https://github.com/NibiruChain/ts-sdk/blob/c499aa9/packages/nibijs/src/tx/signingClient.ts#L66)

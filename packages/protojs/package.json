@@ -9,9 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc --build",
-    "build:watch": "tsc --build --watch",
-    "clean": "tsc --clean"
+    "build": "tsc --build"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

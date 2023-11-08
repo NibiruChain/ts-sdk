@@ -5,9 +5,9 @@ import { EpochInfo } from "./state"
 
 export const protobufPackage = "nibiru.epochs.v1"
 
-export interface QueryEpochsInfoRequest {}
+export interface QueryEpochInfosRequest {}
 
-export interface QueryEpochsInfoResponse {
+export interface QueryEpochInfosResponse {
   epochs: EpochInfo[]
 }
 
@@ -19,13 +19,13 @@ export interface QueryCurrentEpochResponse {
   currentEpoch: Long
 }
 
-function createBaseQueryEpochsInfoRequest(): QueryEpochsInfoRequest {
+function createBaseQueryEpochInfosRequest(): QueryEpochInfosRequest {
   return {}
 }
 
-export const QueryEpochsInfoRequest = {
+export const QueryEpochInfosRequest = {
   encode(
-    _: QueryEpochsInfoRequest,
+    _: QueryEpochInfosRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer
@@ -34,11 +34,11 @@ export const QueryEpochsInfoRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryEpochsInfoRequest {
+  ): QueryEpochInfosRequest {
     const reader =
       input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
-    const message = createBaseQueryEpochsInfoRequest()
+    const message = createBaseQueryEpochInfosRequest()
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
@@ -51,36 +51,36 @@ export const QueryEpochsInfoRequest = {
     return message
   },
 
-  fromJSON(_: any): QueryEpochsInfoRequest {
+  fromJSON(_: any): QueryEpochInfosRequest {
     return {}
   },
 
-  toJSON(_: QueryEpochsInfoRequest): unknown {
+  toJSON(_: QueryEpochInfosRequest): unknown {
     const obj: any = {}
     return obj
   },
 
-  create<I extends Exact<DeepPartial<QueryEpochsInfoRequest>, I>>(
+  create<I extends Exact<DeepPartial<QueryEpochInfosRequest>, I>>(
     base?: I
-  ): QueryEpochsInfoRequest {
-    return QueryEpochsInfoRequest.fromPartial(base ?? {})
+  ): QueryEpochInfosRequest {
+    return QueryEpochInfosRequest.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryEpochsInfoRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryEpochInfosRequest>, I>>(
     _: I
-  ): QueryEpochsInfoRequest {
-    const message = createBaseQueryEpochsInfoRequest()
+  ): QueryEpochInfosRequest {
+    const message = createBaseQueryEpochInfosRequest()
     return message
   },
 }
 
-function createBaseQueryEpochsInfoResponse(): QueryEpochsInfoResponse {
+function createBaseQueryEpochInfosResponse(): QueryEpochInfosResponse {
   return { epochs: [] }
 }
 
-export const QueryEpochsInfoResponse = {
+export const QueryEpochInfosResponse = {
   encode(
-    message: QueryEpochsInfoResponse,
+    message: QueryEpochInfosResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.epochs) {
@@ -92,11 +92,11 @@ export const QueryEpochsInfoResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryEpochsInfoResponse {
+  ): QueryEpochInfosResponse {
     const reader =
       input instanceof _m0.Reader ? input : _m0.Reader.create(input)
     let end = length === undefined ? reader.len : reader.pos + length
-    const message = createBaseQueryEpochsInfoResponse()
+    const message = createBaseQueryEpochInfosResponse()
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
@@ -116,7 +116,7 @@ export const QueryEpochsInfoResponse = {
     return message
   },
 
-  fromJSON(object: any): QueryEpochsInfoResponse {
+  fromJSON(object: any): QueryEpochInfosResponse {
     return {
       epochs: Array.isArray(object?.epochs)
         ? object.epochs.map((e: any) => EpochInfo.fromJSON(e))
@@ -124,7 +124,7 @@ export const QueryEpochsInfoResponse = {
     }
   },
 
-  toJSON(message: QueryEpochsInfoResponse): unknown {
+  toJSON(message: QueryEpochInfosResponse): unknown {
     const obj: any = {}
     if (message.epochs) {
       obj.epochs = message.epochs.map((e) =>
@@ -136,16 +136,16 @@ export const QueryEpochsInfoResponse = {
     return obj
   },
 
-  create<I extends Exact<DeepPartial<QueryEpochsInfoResponse>, I>>(
+  create<I extends Exact<DeepPartial<QueryEpochInfosResponse>, I>>(
     base?: I
-  ): QueryEpochsInfoResponse {
-    return QueryEpochsInfoResponse.fromPartial(base ?? {})
+  ): QueryEpochInfosResponse {
+    return QueryEpochInfosResponse.fromPartial(base ?? {})
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryEpochsInfoResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryEpochInfosResponse>, I>>(
     object: I
-  ): QueryEpochsInfoResponse {
-    const message = createBaseQueryEpochsInfoResponse()
+  ): QueryEpochInfosResponse {
+    const message = createBaseQueryEpochInfosResponse()
     message.epochs = object.epochs?.map((e) => EpochInfo.fromPartial(e)) || []
     return message
   },
@@ -298,7 +298,7 @@ export const QueryCurrentEpochResponse = {
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** EpochInfos provide running epochInfos */
-  EpochInfos(request: QueryEpochsInfoRequest): Promise<QueryEpochsInfoResponse>
+  EpochInfos(request: QueryEpochInfosRequest): Promise<QueryEpochInfosResponse>
   /** CurrentEpoch provide current epoch of specified identifier */
   CurrentEpoch(
     request: QueryCurrentEpochRequest
@@ -316,12 +316,12 @@ export class QueryClientImpl implements Query {
     this.CurrentEpoch = this.CurrentEpoch.bind(this)
   }
   EpochInfos(
-    request: QueryEpochsInfoRequest
-  ): Promise<QueryEpochsInfoResponse> {
-    const data = QueryEpochsInfoRequest.encode(request).finish()
+    request: QueryEpochInfosRequest
+  ): Promise<QueryEpochInfosResponse> {
+    const data = QueryEpochInfosRequest.encode(request).finish()
     const promise = this.rpc.request(this.service, "EpochInfos", data)
     return promise.then((data) =>
-      QueryEpochsInfoResponse.decode(_m0.Reader.create(data))
+      QueryEpochInfosResponse.decode(_m0.Reader.create(data))
     )
   }
 

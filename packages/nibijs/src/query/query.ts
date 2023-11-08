@@ -21,14 +21,14 @@ import {
 } from "@cosmjs/cosmwasm-stargate"
 import { EpochsExtension, setupEpochsExtension } from "./epochs"
 import { OracleExtension, setupOracleExtension } from "./oracle"
-import { PerpExtension, setupPerpExtension } from "./perp"
-import { setupSpotExtension, SpotExtension } from "./spot"
+// import { PerpExtension, setupPerpExtension } from "./perp"
+// import { setupSpotExtension, SpotExtension } from "./spot"
 import { setupSudoExtension, SudoExtension } from "./sudo"
 import { InflationExtension, setupInflationExtension } from "./inflation"
 
 export type NibiruExtensions = QueryClient &
-  SpotExtension &
-  PerpExtension &
+  // SpotExtension &
+  // PerpExtension &
   SudoExtension &
   InflationExtension &
   OracleExtension &
@@ -64,10 +64,10 @@ export class NibiruQueryClient extends StargateClient {
       tmClient,
       setupEpochsExtension,
       setupOracleExtension,
-      setupPerpExtension,
+      // setupPerpExtension,
       setupSudoExtension,
       setupInflationExtension,
-      setupSpotExtension,
+      // setupSpotExtension,
       setupDistributionExtension,
       setupGovExtension,
       setupStakingExtension,
