@@ -203,6 +203,57 @@ export type GovernanceGovVotesArgs = {
   where?: InputMaybe<GovVotesFilter>
 }
 
+export type Ibc = {
+  readonly __typename?: "IBC"
+  readonly ibcChannels: IbcChannelsResponse
+  readonly ibcTransfers: ReadonlyArray<IbcTransfer>
+}
+
+export type IbcIbcTransfersArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  offset?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<IbcTranferOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<IbcTranferFilter>
+}
+
+export type IbcChannel = {
+  readonly __typename?: "IBCChannel"
+  readonly chain_id: Scalars["String"]["output"]
+  readonly chain_logo: Scalars["String"]["output"]
+  readonly chain_name: Scalars["String"]["output"]
+  readonly channel_id: Scalars["String"]["output"]
+  readonly counterparty_channel_id: Scalars["String"]["output"]
+  readonly revision_height: Scalars["Int"]["output"]
+}
+
+export type IbcChannelsResponse = {
+  readonly __typename?: "IBCChannelsResponse"
+  readonly channels: ReadonlyArray<IbcChannel>
+  readonly revision_height: Scalars["Int"]["output"]
+}
+
+export type IbcTranferFilter = {
+  readonly receiver?: InputMaybe<Scalars["String"]["input"]>
+  readonly sender?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export enum IbcTranferOrder {
+  Block = "block",
+  Receiver = "receiver",
+  Sender = "sender",
+}
+
+export type IbcTransfer = {
+  readonly __typename?: "IBCTransfer"
+  readonly amount: Scalars["Float"]["output"]
+  readonly block: Block
+  readonly denom: Scalars["String"]["output"]
+  readonly memo: Scalars["String"]["output"]
+  readonly receiver: Scalars["String"]["output"]
+  readonly sender: Scalars["String"]["output"]
+}
+
 export type IntFilter = {
   readonly eq?: InputMaybe<Scalars["Int"]["input"]>
   readonly gt?: InputMaybe<Scalars["Int"]["input"]>
@@ -215,6 +266,7 @@ export type MarkPriceCandle = {
   readonly __typename?: "MarkPriceCandle"
   readonly close: Scalars["Float"]["output"]
   readonly high: Scalars["Float"]["output"]
+  readonly indexPriceTwapClose: Scalars["Float"]["output"]
   readonly low: Scalars["Float"]["output"]
   readonly open: Scalars["Float"]["output"]
   readonly pair: Scalars["String"]["output"]
@@ -273,15 +325,16 @@ export type OracleEntry = {
 export type OraclePrice = {
   readonly __typename?: "OraclePrice"
   readonly block: Block
-  readonly eventSeqNo: Scalars["Int"]["output"]
+  /** @deprecated Not applicable for oracle prices */
+  readonly eventSeqNo?: Scalars["Int"]["output"]
   readonly pair: Scalars["String"]["output"]
   readonly price: Scalars["Float"]["output"]
-  readonly txSeqNo: Scalars["Int"]["output"]
+  /** @deprecated Not applicable for oracle prices */
+  readonly txSeqNo?: Scalars["Int"]["output"]
 }
 
 export type OraclePricesFilter = {
   readonly block?: InputMaybe<IntFilter>
-  readonly blockTs?: InputMaybe<TimeFilter>
   readonly pair?: InputMaybe<StringFilter>
 }
 
@@ -503,6 +556,7 @@ export type Query = {
   readonly delegations: ReadonlyArray<Delegation>
   readonly distributionCommissions: ReadonlyArray<DistributionCommission>
   readonly governance: Governance
+  readonly ibc: Ibc
   readonly markPriceCandles: ReadonlyArray<MarkPriceCandle>
   readonly oracle: Oracle
   readonly perp: Perp
@@ -1041,6 +1095,11 @@ export type StringFilter = {
   readonly like?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type SubMarkPriceCandlesFilter = {
+  readonly pairEq: Scalars["String"]["input"]
+  readonly periodEq: Scalars["Int"]["input"]
+}
+
 export type SubOraclePricesFilter = {
   readonly pair: Scalars["String"]["input"]
 }
@@ -1064,7 +1123,7 @@ export type Subscription = {
 
 export type SubscriptionMarkPriceCandlesArgs = {
   limit?: InputMaybe<Scalars["Int"]["input"]>
-  where?: InputMaybe<MarkPriceCandlesFilter>
+  where: SubMarkPriceCandlesFilter
 }
 
 export type SubscriptionOraclePricesArgs = {

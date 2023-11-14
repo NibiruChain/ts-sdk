@@ -3,9 +3,11 @@ import { HeartMonitor } from "./heart-monitor"
 import { cleanResponse, gqlEndptFromTmRpc } from "./gql"
 import {
   GovernanceFields,
+  IbcFields,
   OracleFields,
   PerpFields,
   QueryGovernanceArgs,
+  QueryIbcArgs,
   QueryOracleArgs,
   QueryPerpArgs,
   QueryStatsArgs,
@@ -19,6 +21,9 @@ import {
   defaultGovDeposit,
   defaultGovProposal,
   defaultGovVote,
+  defaultIbcChannel,
+  defaultIbcChannelsResponse,
+  defaultIbcTransfer,
   defaultMarkPriceCandles,
   defaultOracleEntry,
   defaultOraclePrice,
@@ -211,6 +216,45 @@ test("distributionCommissions", async () => {
   await testDistributionCommissions({}, defaultDistributionCommission)
 })
 
+const testIbc = async (args: QueryIbcArgs, fields?: IbcFields) => {
+  const resp = await heartMonitor.ibc(args, fields)
+  expect(resp).toHaveProperty("ibc")
+
+  if (resp.ibc) {
+    const { ibc } = resp
+
+    checkFields([ibc], ["ibcChannels", "ibcTransfers"])
+  }
+}
+
+test("ibc", async () => {
+  await testIbc({
+    ibcChannels: {},
+    ibcTransfers: {
+      limit: 1,
+    },
+  })
+  await testIbc(
+    {
+      ibcChannels: {},
+      ibcTransfers: {
+        limit: 1,
+      },
+    },
+    {
+      ibcChannels: defaultIbcChannelsResponse,
+      ibcTransfers: defaultIbcTransfer,
+    }
+  )
+  await testIbc(
+    {},
+    {
+      ibcChannels: defaultIbcChannelsResponse,
+      ibcTransfers: defaultIbcTransfer,
+    }
+  )
+})
+
 const testGovernance = async (
   args: QueryGovernanceArgs,
   fields?: GovernanceFields
@@ -293,6 +337,10 @@ test("markPriceCandles", async () => {
 test("markPriceCandlesSubscription undefined client", async () => {
   const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
   const resp = await hm.markPriceCandlesSubscription({
+    where: {
+      pairEq: "ubtc:unusd",
+      periodEq: 100000000,
+    },
     limit: 1,
   })
 

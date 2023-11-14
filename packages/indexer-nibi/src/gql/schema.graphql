@@ -165,6 +165,51 @@ type Governance {
   ): [GovVote!]!
 }
 
+type IBC {
+  ibcChannels: IBCChannelsResponse!
+  ibcTransfers(
+    limit: Int
+    offset: Int
+    order_by: IBCTranferOrder
+    order_desc: Boolean
+    where: IBCTranferFilter
+  ): [IBCTransfer!]!
+}
+
+type IBCChannel {
+  chain_id: String!
+  chain_logo: String!
+  chain_name: String!
+  channel_id: String!
+  counterparty_channel_id: String!
+  revision_height: Int!
+}
+
+type IBCChannelsResponse {
+  channels: [IBCChannel!]!
+  revision_height: Int!
+}
+
+input IBCTranferFilter {
+  receiver: String
+  sender: String
+}
+
+enum IBCTranferOrder {
+  block
+  receiver
+  sender
+}
+
+type IBCTransfer {
+  amount: Float!
+  block: Block!
+  denom: String!
+  memo: String!
+  receiver: String!
+  sender: String!
+}
+
 input IntFilter {
   eq: Int
   gt: Int
@@ -176,6 +221,7 @@ input IntFilter {
 type MarkPriceCandle {
   close: Float!
   high: Float!
+  indexPriceTwapClose: Float!
   low: Float!
   open: Float!
   pair: String!
@@ -227,15 +273,14 @@ type OracleEntry {
 
 type OraclePrice {
   block: Block!
-  eventSeqNo: Int!
+  eventSeqNo: Int @deprecated(reason: "Not applicable for oracle prices")
   pair: String!
   price: Float!
-  txSeqNo: Int!
+  txSeqNo: Int @deprecated(reason: "Not applicable for oracle prices")
 }
 
 input OraclePricesFilter {
   block: IntFilter
-  blockTs: TimeFilter
   pair: StringFilter
 }
 
@@ -450,6 +495,7 @@ type Query {
     where: DistributionCommissionFilter
   ): [DistributionCommission!]!
   governance: Governance!
+  ibc: IBC!
   markPriceCandles(
     limit: Int
     order_by: MarkPriceCandlesOrder
@@ -897,6 +943,11 @@ input StringFilter {
   like: String
 }
 
+input SubMarkPriceCandlesFilter {
+  pairEq: String!
+  periodEq: Int!
+}
+
 input SubOraclePricesFilter {
   pair: String!
 }
@@ -913,7 +964,7 @@ input SubPerpPositionFilter {
 type Subscription {
   markPriceCandles(
     limit: Int
-    where: MarkPriceCandlesFilter
+    where: SubMarkPriceCandlesFilter!
   ): [MarkPriceCandle!]!
   oraclePrices(where: SubOraclePricesFilter): [OraclePrice!]!
   perpMarket(where: SubPerpMarketFilter!): PerpMarket!
