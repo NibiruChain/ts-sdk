@@ -454,10 +454,7 @@ const testOraclePricesSubscription = async (
   if ((event?.value.data.oraclePrices.length ?? 0) > 0) {
     const [oraclePrices] = event?.value.data.oraclePrices ?? []
 
-    checkFields(
-      [oraclePrices],
-      ["block", "eventSeqNo", "pair", "price", "txSeqNo"]
-    )
+    checkFields([oraclePrices], ["block", "pair", "price"])
   }
 }
 

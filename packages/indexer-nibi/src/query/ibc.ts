@@ -1,4 +1,7 @@
-import { defaultIbcChannel, defaultIbcTransfer } from "../defaultObjects"
+import {
+  defaultIbcChannelsResponse,
+  defaultIbcTransfer,
+} from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
@@ -53,7 +56,7 @@ export const ibcQueryString = (args: QueryIbcArgs, fields?: IbcFields) => {
       gqlQuery(
         "ibcChannels",
         args.ibcChannels ?? {},
-        convertObjectToPropertiesString(defaultIbcChannel),
+        convertObjectToPropertiesString(defaultIbcChannelsResponse),
         true
       )
     )
