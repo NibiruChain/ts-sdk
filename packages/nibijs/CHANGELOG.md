@@ -1,3 +1,13 @@
+## [@nibiruchain/nibijs-v0.21.40](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.39...@nibiruchain/nibijs-v0.21.40) (2023-11-15)
+
+### Features
+
+- **ibc:** transfers and channels ([#248](https://github.com/NibiruChain/ts-sdk/issues/248)) ([26d148a](https://github.com/NibiruChain/ts-sdk/commit/26d148a179bfa837c5c1b6b8894a1ce167f8717d))
+
+### Miscellaneous Chores
+
+- **release:** 0.21.33 ([1c7114e](https://github.com/NibiruChain/ts-sdk/commit/1c7114e8777a24a73a6ed7f3e355071cb7f25358)), closes [#248](https://github.com/NibiruChain/ts-sdk/issues/248)
+
 ## [@nibiruchain/nibijs-v0.21.39](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.38...@nibiruchain/nibijs-v0.21.39) (2023-11-08)
 
 ### Features
