@@ -6,6 +6,10 @@ import {
   GovProposal,
   GovVote,
   Governance,
+  Ibc,
+  IbcChannel,
+  IbcChannelsResponse,
+  IbcTransfer,
   MarkPriceCandle,
   OracleEntry,
   OraclePrice,
@@ -179,6 +183,7 @@ export const defaultMarkPriceCandles: MarkPriceCandle = {
   pair: "",
   period: 0,
   periodStartTs: "",
+  indexPriceTwapClose: 0,
 }
 
 export const defaultPerpPositionChanges: PerpPositionChange = {
@@ -347,13 +352,42 @@ export const defaultUnbondings: Unbonding = {
 
 export const defaultOraclePrice: OraclePrice = {
   block: defaultBlock,
-  eventSeqNo: 0,
   pair: "",
   price: 0,
-  txSeqNo: 0,
 }
 
 export const defaultOracleEntry: OracleEntry = {
   numVotes: 0,
   validator: defaultValidator,
+}
+
+export const defaultIbcChannel: IbcChannel = {
+  chain_id: "",
+  chain_logo: "",
+  chain_name: "",
+  channel_id: "",
+  counterparty_channel_id: "",
+  revision_height: 0,
+}
+
+export const defaultIbcTransfer: IbcTransfer = {
+  amount: 0,
+  memo: "",
+  block: defaultBlock,
+  denom: "",
+  sender: "",
+  receiver: "",
+}
+
+export const defaultIbc: Ibc = {
+  ibcChannels: {
+    channels: [defaultIbcChannel],
+    revision_height: 0,
+  },
+  ibcTransfers: [defaultIbcTransfer],
+}
+
+export const defaultIbcChannelsResponse: IbcChannelsResponse = {
+  channels: [defaultIbcChannel],
+  revision_height: 0,
 }

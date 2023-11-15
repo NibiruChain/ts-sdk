@@ -82,6 +82,10 @@ import {
   GqlOutOracle,
   oracle,
   GovernanceFields,
+  QueryIbcArgs,
+  IbcFields,
+  GqlOutIbc,
+  ibc,
 } from "./query"
 import {
   markPriceCandlesSubscription,
@@ -118,6 +122,8 @@ export interface IHeartMonitor {
     args: QueryGovernanceArgs,
     fields?: GovernanceFields
   ) => Promise<GqlOutGovernance>
+
+  readonly ibc: (args: QueryIbcArgs, fields?: IbcFields) => Promise<GqlOutIbc>
 
   readonly markPriceCandles: (
     args: QueryMarkPriceCandlesArgs,
@@ -266,6 +272,9 @@ export class HeartMonitor implements IHeartMonitor {
 
   governance = async (args: QueryGovernanceArgs, fields?: GovernanceFields) =>
     governance(args, this.gqlEndpt, fields)
+
+  ibc = async (args: QueryIbcArgs, fields?: IbcFields) =>
+    ibc(args, this.gqlEndpt, fields)
 
   markPriceCandles = async (
     args: QueryMarkPriceCandlesArgs,
