@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.33](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.32...@nibiruchain/indexer-nibi-v0.21.33) (2023-11-15)
+
+### Features
+
+- **ibc:** transfers and channels ([#248](https://github.com/NibiruChain/ts-sdk/issues/248)) ([26d148a](https://github.com/NibiruChain/ts-sdk/commit/26d148a179bfa837c5c1b6b8894a1ce167f8717d))
+
 ## [@nibiruchain/indexer-nibi-v0.21.32](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.31...@nibiruchain/indexer-nibi-v0.21.32) (2023-11-01)
 
 ### Bug Fixes
