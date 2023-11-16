@@ -1,3 +1,9 @@
+## [@nibiruchain/nibijs-v0.21.41](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.40...@nibiruchain/nibijs-v0.21.41) (2023-11-16)
+
+### Code Refactors
+
+- join only non undefined strings ([#249](https://github.com/NibiruChain/ts-sdk/issues/249)) ([6ab8616](https://github.com/NibiruChain/ts-sdk/commit/6ab8616647f85e20e9de39d5dd4f0eb354d3c682))
+
 ## [@nibiruchain/nibijs-v0.21.40](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.39...@nibiruchain/nibijs-v0.21.40) (2023-11-15)
 
 ### Features
