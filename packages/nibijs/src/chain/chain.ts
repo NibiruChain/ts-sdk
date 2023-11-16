@@ -75,7 +75,7 @@ export class CustomChain implements Chain {
 
   private initChainId = () => {
     const { prefix, shortName, number } = this.chainIdParts
-    return [prefix, shortName, number].join("-")
+    return [prefix, shortName, number].filter(Boolean).join("-")
   }
 }
 
