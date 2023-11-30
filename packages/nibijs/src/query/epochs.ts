@@ -3,8 +3,8 @@ import {
   QueryClientImpl,
   QueryCurrentEpochRequest,
   QueryCurrentEpochResponse,
-  QueryEpochInfosRequest,
-  QueryEpochInfosResponse,
+  QueryEpochsInfoRequest,
+  QueryEpochsInfoResponse,
 } from "@nibiruchain/protojs/dist/nibiru/epochs/v1/query"
 
 export interface EpochsExtension {
@@ -12,7 +12,7 @@ export interface EpochsExtension {
     currentEpoch: (args: {
       identifier: string
     }) => Promise<QueryCurrentEpochResponse>
-    epochsInfo: () => Promise<QueryEpochInfosResponse>
+    epochsInfo: () => Promise<QueryEpochsInfoResponse>
   }>
 }
 
@@ -28,7 +28,7 @@ export const setupEpochsExtension = (base: QueryClient): EpochsExtension => {
         return resp
       },
       epochsInfo: async () => {
-        const req = QueryEpochInfosRequest.fromPartial({})
+        const req = QueryEpochsInfoRequest.fromPartial({})
         const resp = await queryService.EpochInfos(req)
         return resp
       },
