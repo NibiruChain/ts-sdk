@@ -1,3 +1,13 @@
+## [@nibiruchain/nibijs-v0.21.42](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.41...@nibiruchain/nibijs-v0.21.42) (2023-11-30)
+
+### Bug Fixes
+
+- **fix:** unhide spot/perp protojs ([#250](https://github.com/NibiruChain/ts-sdk/issues/250)) ([1723d2b](https://github.com/NibiruChain/ts-sdk/commit/1723d2b41187009dbda1efe997109cb74b6ac953))
+
+### Miscellaneous Chores
+
+- **release:** 0.21.16 ([619965e](https://github.com/NibiruChain/ts-sdk/commit/619965ef1a3950fc5816ff98ad61c88458a3b8a8)), closes [#250](https://github.com/NibiruChain/ts-sdk/issues/250)
+
 ## [@nibiruchain/nibijs-v0.21.41](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.40...@nibiruchain/nibijs-v0.21.41) (2023-11-16)
 
 ### Code Refactors
