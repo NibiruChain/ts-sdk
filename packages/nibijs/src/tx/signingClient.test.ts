@@ -208,7 +208,7 @@ describe("nibid tx perp", () => {
       expect(txLogs).toHaveLength(1)
 
       // perp tx close-position events
-      assertHasMsgType("MsgClosePosition", txLogs[0].events)
+      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgClosePosition, txLogs[0].events)
       assertHasEventType(
         "nibiru.perp.v1.PositionChangedEvent",
         txLogs[0].events
