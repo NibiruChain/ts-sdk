@@ -17,21 +17,21 @@ import {
   SigningCosmWasmClientOptions,
   setupWasmExtension,
 } from "@cosmjs/cosmwasm-stargate"
-// import { perpTypes, spotTypes } from "../msg"
+import { perpTypes, spotTypes } from "../msg"
 import {
   setupInflationExtension,
   setupSudoExtension,
-  // setupSpotExtension,
+  setupSpotExtension,
   NibiruExtensions,
-  // setupPerpExtension,
+  setupPerpExtension,
   setupOracleExtension,
   setupEpochsExtension,
 } from "../query"
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
   ...defaultRegistryTypes,
-  // ...perpTypes,
-  // ...spotTypes,
+  ...perpTypes,
+  ...spotTypes,
 ]
 
 export class NibiruSigningClient extends SigningStargateClient {
@@ -50,8 +50,8 @@ export class NibiruSigningClient extends SigningStargateClient {
       tmClient,
       setupEpochsExtension,
       setupOracleExtension,
-      // setupPerpExtension,
-      // setupSpotExtension,
+      setupPerpExtension,
+      setupSpotExtension,
       setupSudoExtension,
       setupInflationExtension,
       setupDistributionExtension,
