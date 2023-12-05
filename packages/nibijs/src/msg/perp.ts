@@ -84,7 +84,7 @@ export interface MsgDonateToEcosystemFundEncodeObject extends EncodeObject {
 }
 
 export const isMsgDonateToEcosystemFundEncodeObject = (
-  encodeObject: EncodeObject
+  encodeObject: EncodeObject,
 ) =>
   (encodeObject as MsgDonateToEcosystemFundEncodeObject).typeUrl ===
   PERP_MSG_TYPE_URLS.MsgDonateToEcosystemFund
@@ -100,6 +100,12 @@ export const isMsgPartialCloseEncodeObject = (encodeObject: EncodeObject) =>
 
 // ----------------------------------------------------------------------------
 
+/**
+ * PerpMsgFactory: Convenience methods for broadcasting transaction messages
+ * (TxMessage) from Nibiru's x/perp module.
+ *
+ * @see https://nibiru.fi/docs/ecosystem/nibi-perps/
+ * */
 export class PerpMsgFactory {
   static removeMargin(msg: MsgRemoveMargin): TxMessage {
     return {

@@ -2,10 +2,10 @@ name: ⛓️ Tests @nibiruchain/ts-sdk
 
 on:
   pull_request:
-    branches: ["releases/*"]
+    branches: ["releases/*", "main"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
   push:
-    branches: ["releases/*"]
+    branches: ["releases/*", "main"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
 
 jobs:
@@ -27,16 +27,15 @@ jobs:
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Install nibid
-        run: curl -s https://get.nibiru.fi/@v0.21.9! | bash
-        # Use https://get.nibiru.fi/ to get the most recent release.
-
-      - name: Check nibid version
-        run: nibid version
-
-      - name: Run localnet.sh in the background
+      - name: Run Nibiru network in the background (scripts/localnet.sh)
         run: |
-          sh scripts/localnet.sh &
+          # Install nibid CLI
+          # Use https://get.nibiru.fi/ to get the most recent release.
+          curl -s https://get.nibiru.fi/@v0.21.9! | bash
+          # Sanity check nibid CLI
+          nibid version
+          # Start local network
+          bash scripts/localnet.sh &
 
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
@@ -56,6 +55,13 @@ jobs:
       - name: Run tests
         run: yarn test
 
+      - name: "Run examples (packages/examples-nibijs)"
+        run: |
+          yarn run ts-node examples/01_new-wallet.ts
+          yarn run ts-node examples/02_queries.ts
+          yarn run ts-node examples/03_messages.ts
+          yarn run ts-node examples/04_sending_funds.ts
+
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
 
@@ -65,7 +71,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      - name: SonarQube Quality Gate
+      - name: "SonarQube Quality Gate"
         uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
         env:

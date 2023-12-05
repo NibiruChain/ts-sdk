@@ -1,4 +1,6 @@
-import { Coin } from "@cosmjs/proto-signing"
+import { Coin, coin as newCoin, coins as newCoins } from "@cosmjs/proto-signing"
+export { newCoin, newCoins }
+import { ABCIEvent } from "../tx/event"
 import BigNumber from "bignumber.js"
 
 export const go = async <T>(promise: Promise<T>) => {
@@ -31,16 +33,6 @@ export const newCoinMapFromCoins = (coins: readonly Coin[]) => {
   return coinMap
 }
 
-export interface Event {
-  type: string
-  attributes: Attribute[]
-}
-
-export interface Attribute {
-  key: string
-  value: string
-}
-
 export interface TxLog {
-  events: Event[]
+  events: ABCIEvent[]
 }

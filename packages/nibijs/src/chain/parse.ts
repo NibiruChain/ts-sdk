@@ -4,31 +4,33 @@ export const INT_MULT = 1_000_000
 /**
  * toSdkDec converts the input float string to an sdk.Dec.
  * The maximum number of decimal places for an sdk.Dec is 18.
- * NOTE: An error is console'd if more decimal digits are provided than the
- * precision, 18.
+ * NOTE: An error is console loggedd if more decimal digits are
+ * provided than the precision, 18.
  *
  * ref: Reimplementation of cosmos-sdk/types/decimal.go
  *
+ * Valid inputs must come in the form:
+ *   (-) integer digits (.) fractional digits
+ * Examples of acceptable input include:
+ *   -123.456
+ *   456.7890
+ *   345
+ *   -456789
+ *
+ * CONTRACT - This function does not mutate the input str.
+ *
+ * @see fromSdkDec - The inverse of this function that converts an
+ * sdk.Dec protobuf string into a number.
+ *
  * @export
  * @param {string} dec
- * @returns {string}
+ * @returns {string} - Protobuf string for an sdk.Dec, which is
+ * represented by its underlying "big.Int".
  */
-export const toSdkDec = (dec: string) => {
+export const toSdkDec = (dec: string): string => {
   /*
-  create a decimal from an input decimal.
-  valid must come in the form:
-      (-) integer digits (.) fractional digits
-  examples of acceptable input include:
-      -123.456
-      456.7890
-      345
-      -456789
-
-  NOTE - An error will return if more decimal places
-  are provided in the string than the constant Precision.
-
-  CONTRACT - This function does not mutate the input str.
-  */
+   * create a decimal from an input decimal.
+   */
   let decStr = dec.toString()
 
   if (decStr.length === 0) {
@@ -69,7 +71,7 @@ export const toSdkDec = (dec: string) => {
     console.error(
       `value \${decStr}' exceeds max precision by ${
         PRECISION - lenDigitBlock
-      } decimal places: max precision ${PRECISION}`
+      } decimal places: max precision ${PRECISION}`,
     )
     return "0"
   }
@@ -91,7 +93,24 @@ export const toSdkDec = (dec: string) => {
   return sdkDec
 }
 
-export const fromSdkDec = (sdkDec: string) => {
+/** fromSdkDec: Converts a string representation of the "sdk.Dec", a shorthand
+ * name for the "cosmossdk.io/math".LegacyDec type in Golang. An Sdk Dec is a
+ * decimal/float implemented by "big.Int" with 18 decimals of precision
+ * an abstraction for 18 decimals of precision big.Int.
+ *
+ * Sdk Dec is a custom protobuf type encoded as a string.
+ * NOTE: The string for the raw protobuf value is not the human-readable one
+ * that can include decimal points and negative signs. It's actually a string
+ * holding the underlying "big.Int" value from which the concrete Dec type is
+ * created.
+ *
+ * This is why we implement the functions `fromSdkDec` and `toSdkDec`. When
+ * 'TxMessages' include SdkDec types, they need the protobuf string form, not
+ * the human-readbale Dec.
+ * @see TxMessage // from nibijs/src/tx
+ * @see toSdkDec
+ * */
+export const fromSdkDec = (sdkDec: string): number => {
   if (!sdkDec) {
     return 0
   }
