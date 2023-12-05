@@ -1,21 +1,16 @@
-import { gqlEndptFromTmRpc } from "./gql"
+import { WebSocket } from "ws"
+import { Client, ExecutionResult, createClient } from "graphql-ws"
 import {
   Delegation,
   DistributionCommission,
-  Governance,
   MarkPriceCandle,
-  PerpLeaderboard,
+  OraclePrice,
   PerpMarket,
   PerpPosition,
   QueryCommunityPoolArgs,
   QueryDelegationsArgs,
   QueryDistributionCommissionsArgs,
   QueryMarkPriceCandlesArgs,
-  QueryPerpLeaderboardArgs,
-  QueryPerpMarketArgs,
-  QueryPerpMarketsArgs,
-  QueryPerpPositionArgs,
-  QueryPerpPositionsArgs,
   QueryRedelegationsArgs,
   QuerySpotLpPositionsArgs,
   QuerySpotPoolCreatedArgs,
@@ -33,6 +28,10 @@ import {
   SpotPoolExited,
   SpotPoolJoined,
   SpotPoolSwap,
+  SubscriptionMarkPriceCandlesArgs,
+  SubscriptionOraclePricesArgs,
+  SubscriptionPerpMarketArgs,
+  SubscriptionPerpPositionsArgs,
   Token,
   Unbonding,
   User,
@@ -42,10 +41,6 @@ import {
   GqlOutCommunityPool,
   GqlOutDelegations,
   GqlOutDistributionCommissions,
-  GqlOutPerpMarket,
-  GqlOutPerpMarkets,
-  GqlOutPerpPosition,
-  GqlOutPerpPositions,
   GqlOutRedelegations,
   GqlOutSpotLpPositions,
   GqlOutSpotPoolCreated,
@@ -59,10 +54,6 @@ import {
   communityPool,
   delegations,
   distributionCommissions,
-  perpMarket,
-  perpMarkets,
-  perpPosition,
-  perpPositions,
   redelegations,
   spotLpPositions,
   spotPoolCreated,
@@ -73,22 +64,45 @@ import {
   unbondings,
   users,
   validators,
-} from "./query"
-import {
+  GqlOutPerp,
+  PerpFields,
+  QueryPerpArgs,
+  perp,
+  GqlOutStats,
+  QueryStatsArgs,
+  StatsFields,
+  stats,
   GqlOutGovernance,
   QueryGovernanceArgs,
   governance,
-} from "./query/governance"
-import {
   GqlOutMarkPriceCandles,
   markPriceCandles,
-} from "./query/markPriceCandles"
-import { GqlOutPerpLeaderboard, perpLeaderboard } from "./query/perpLeaderboard"
-import { GqlOutStats, QueryStatsArgs, StatsFields, stats } from "./query/stats"
+  QueryOracleArgs,
+  OracleFields,
+  GqlOutOracle,
+  oracle,
+  GovernanceFields,
+  QueryIbcArgs,
+  IbcFields,
+  GqlOutIbc,
+  ibc,
+} from "./query"
+import {
+  markPriceCandlesSubscription,
+  GqlOutPerpMarket,
+  perpMarketSubscription,
+  perpPositionsSubscription,
+  oraclePricesSubscription,
+  GqlOutOraclePrices,
+  GqlOutPerpPositions,
+} from "./subscription"
+import { queryBatchHandler } from "./batchHandlers/queryBatchHandler"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a query function. */
 export interface IHeartMonitor {
+  closeWebSocket: () => Promise<void | undefined>
+
   readonly communityPool: (
     args: QueryCommunityPoolArgs,
     fields?: Partial<Token>
@@ -106,38 +120,55 @@ export interface IHeartMonitor {
 
   readonly governance: (
     args: QueryGovernanceArgs,
-    fields?: Partial<Governance>
+    fields?: GovernanceFields
   ) => Promise<GqlOutGovernance>
+
+  readonly ibc: (args: QueryIbcArgs, fields?: IbcFields) => Promise<GqlOutIbc>
 
   readonly markPriceCandles: (
     args: QueryMarkPriceCandlesArgs,
     fields?: Partial<MarkPriceCandle>
   ) => Promise<GqlOutMarkPriceCandles>
 
-  readonly perpLeaderboard: (
-    args: QueryPerpLeaderboardArgs,
-    fields?: Partial<PerpLeaderboard>
-  ) => Promise<GqlOutPerpLeaderboard>
+  readonly markPriceCandlesSubscription: (
+    args: SubscriptionMarkPriceCandlesArgs,
+    fields?: Partial<MarkPriceCandle>
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>> | undefined
+  >
 
-  readonly perpMarket: (
-    args: QueryPerpMarketArgs,
+  readonly oracle: (
+    args: QueryOracleArgs,
+    fields?: OracleFields
+  ) => Promise<GqlOutOracle>
+
+  readonly oraclePricesSubscription: (
+    args: SubscriptionOraclePricesArgs,
+    fields?: Partial<OraclePrice>
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<GqlOutOraclePrices>> | undefined
+  >
+
+  readonly perp: (
+    args: QueryPerpArgs,
+    fields?: PerpFields
+  ) => Promise<GqlOutPerp>
+
+  readonly perpMarketSubscription: (
+    args: SubscriptionPerpMarketArgs,
     fields?: Partial<PerpMarket>
-  ) => Promise<GqlOutPerpMarket>
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>> | undefined
+  >
 
-  readonly perpMarkets: (
-    args: QueryPerpMarketsArgs,
-    fields?: Partial<PerpMarket>
-  ) => Promise<GqlOutPerpMarkets>
-
-  readonly perpPosition: (
-    args: QueryPerpPositionArgs,
+  readonly perpPositionsSubscription: (
+    args: SubscriptionPerpPositionsArgs,
     fields?: Partial<PerpPosition>
-  ) => Promise<GqlOutPerpPosition>
+  ) => Promise<
+    AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>> | undefined
+  >
 
-  readonly perpPositions: (
-    args: QueryPerpPositionsArgs,
-    fields?: Partial<PerpPosition>
-  ) => Promise<GqlOutPerpPositions>
+  readonly queryBatchHandler: (queryQueryStrings: string[]) => Promise<any>
 
   readonly redelegations: (
     args: QueryRedelegationsArgs,
@@ -200,21 +231,29 @@ export interface IHeartMonitor {
  * corresponds to a query function. */
 export class HeartMonitor implements IHeartMonitor {
   gqlEndpt: string
-  defaultGqlEndpt = "https://hm-graphql.itn-2.nibiru.fi/query"
+  defaultGqlEndpt = "https://hm-graphql.devnet-2.nibiru.fi/query"
+  subscriptionClient: Client | undefined
 
-  constructor(gqlEndpt?: string | { endptTm: string }) {
-    const chain = gqlEndpt as { endptTm: string }
-    if (!gqlEndpt) {
-      this.gqlEndpt = this.defaultGqlEndpt
-    } else if (typeof gqlEndpt === "string") {
+  constructor(
+    gqlEndpt?: string,
+    webSocketUrl?: string,
+    webSocketImpl?: typeof WebSocket
+  ) {
+    if (typeof gqlEndpt === "string") {
       this.gqlEndpt = gqlEndpt
-    } else if (chain?.endptTm) {
-      const endptFromRpc = gqlEndptFromTmRpc(chain?.endptTm)
-      this.gqlEndpt = endptFromRpc ?? this.defaultGqlEndpt
     } else {
       this.gqlEndpt = this.defaultGqlEndpt
     }
+
+    if (webSocketUrl) {
+      this.subscriptionClient = createClient({
+        url: webSocketUrl,
+        webSocketImpl: webSocketImpl ?? WebSocket,
+      })
+    }
   }
+
+  closeWebSocket = async () => this.subscriptionClient?.dispose()
 
   communityPool = async (
     args: QueryCommunityPoolArgs,
@@ -231,40 +270,45 @@ export class HeartMonitor implements IHeartMonitor {
     fields?: Partial<DistributionCommission>
   ) => distributionCommissions(args, this.gqlEndpt, fields)
 
-  governance = async (
-    args: QueryGovernanceArgs,
-    fields?: Partial<Governance>
-  ) => governance(args, this.gqlEndpt, fields)
+  governance = async (args: QueryGovernanceArgs, fields?: GovernanceFields) =>
+    governance(args, this.gqlEndpt, fields)
+
+  ibc = async (args: QueryIbcArgs, fields?: IbcFields) =>
+    ibc(args, this.gqlEndpt, fields)
 
   markPriceCandles = async (
     args: QueryMarkPriceCandlesArgs,
     fields?: Partial<MarkPriceCandle>
   ) => markPriceCandles(args, this.gqlEndpt, fields)
 
-  perpLeaderboard = async (
-    args: QueryPerpLeaderboardArgs,
-    fields?: Partial<PerpLeaderboard>
-  ) => perpLeaderboard(args, this.gqlEndpt, fields)
+  markPriceCandlesSubscription = async (
+    args: SubscriptionMarkPriceCandlesArgs,
+    fields?: Partial<MarkPriceCandle>
+  ) => markPriceCandlesSubscription(args, this.subscriptionClient, fields)
 
-  perpMarket = async (
-    args: QueryPerpMarketArgs,
+  oracle = async (args: QueryOracleArgs, fields?: OracleFields) =>
+    oracle(args, this.gqlEndpt, fields)
+
+  oraclePricesSubscription = async (
+    args: SubscriptionOraclePricesArgs,
+    fields?: Partial<OraclePrice>
+  ) => oraclePricesSubscription(args, this.subscriptionClient, fields)
+
+  perp = async (args: QueryPerpArgs, fields?: PerpFields) =>
+    perp(args, this.gqlEndpt, fields)
+
+  perpMarketSubscription = async (
+    args: SubscriptionPerpMarketArgs,
     fields?: Partial<PerpMarket>
-  ) => perpMarket(args, this.gqlEndpt, fields)
+  ) => perpMarketSubscription(args, this.subscriptionClient, fields)
 
-  perpMarkets = async (
-    args: QueryPerpMarketsArgs,
-    fields?: Partial<PerpMarket>
-  ) => perpMarkets(args, this.gqlEndpt, fields)
-
-  perpPosition = async (
-    args: QueryPerpPositionArgs,
+  perpPositionsSubscription = async (
+    args: SubscriptionPerpPositionsArgs,
     fields?: Partial<PerpPosition>
-  ) => perpPosition(args, this.gqlEndpt, fields)
+  ) => perpPositionsSubscription(args, this.subscriptionClient, fields)
 
-  perpPositions = async (
-    args: QueryPerpPositionsArgs,
-    fields?: Partial<PerpPosition>
-  ) => perpPositions(args, this.gqlEndpt, fields)
+  queryBatchHandler = async (queryQueryStrings: string[]) =>
+    queryBatchHandler(queryQueryStrings, this.gqlEndpt)
 
   redelegations = async (
     args: QueryRedelegationsArgs,

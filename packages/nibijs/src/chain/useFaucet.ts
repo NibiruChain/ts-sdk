@@ -1,4 +1,5 @@
-import { Chain, ChainIdParts, chainToParts } from "./chain"
+import { fetch } from "cross-fetch"
+import { Chain, chainToParts } from "./chain"
 
 /**
  * Sends 11 NIBI, 100 NUSD, and 100 USDT to the given address from the testnet faucet.
@@ -13,7 +14,7 @@ export async function useFaucet({
   chain: Chain
   amts?: { nibi: number; nusd: number; usdt: number }
   grecaptcha: string
-}): Promise<Response> {
+}): Promise<Response | undefined> {
   if (!amts) {
     // default values
     amts = {
@@ -38,19 +39,17 @@ export async function useFaucet({
     `
   )
 
-  return window
-    .fetch(faucetUrl, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ address, coins, grecaptcha }),
-    })
-    .catch((err) => {
-      console.error(err)
-      throw err
-    })
+  return fetch(faucetUrl, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ address, coins, grecaptcha }),
+  }).catch((err) => {
+    console.error(err)
+    return undefined
+  })
 }
 
 /**
@@ -59,6 +58,6 @@ export async function useFaucet({
  */
 export const faucetUrlFromChain = (chain: Chain) => {
   const parts = chainToParts(chain)
-  // e.g. https://faucet.itn-1.nibiru.fi/
+  // e.g. https://faucet.itn-X.nibiru.fi/ where X is the number
   return `https://faucet.${parts.shortName}-${parts.number}.nibiru.fi/`
 }

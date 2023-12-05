@@ -74,9 +74,9 @@ describe("setupPerpExtension", () => {
         trader: "Test Trader",
       })
       expect(result).toEqual({
+        marginRatio: "5e-18",
         positionNotional: "1e-16",
         unrealizedPnl: "5e-17",
-        marginRatio: "5e-18",
       })
     })
   })

@@ -1,6 +1,6 @@
 import type { CodegenConfig } from "@graphql-codegen/cli"
 
-const config: CodegenConfig = {
+export default {
   schema: {
     "indexer-nibi": {
       loader: "./src/graphql-codegen/codegen-loader.js",
@@ -26,6 +26,4 @@ const config: CodegenConfig = {
       },
     },
   },
-}
-
-export default config
+} as CodegenConfig

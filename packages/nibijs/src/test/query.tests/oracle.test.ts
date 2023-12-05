@@ -14,6 +14,20 @@ describe("setupOracleExtension", () => {
       submitBlock: Long.fromNumber(100000),
     },
   }
+  const mockAggregateVoteResponse: query.QueryAggregateVoteResponse = {
+    aggregateVote: {
+      exchangeRateTuples: [{ pair: "USD", exchangeRate: "132" }],
+      voter: "VOTER",
+    },
+  }
+  const mockAggregateVotesResponse: query.QueryAggregateVotesResponse = {
+    aggregateVotes: [
+      {
+        exchangeRateTuples: [{ pair: "USD", exchangeRate: "132" }],
+        voter: "VOTER",
+      },
+    ],
+  }
   const mockAggregatePrevotesResponse: query.QueryAggregatePrevotesResponse = {
     aggregatePrevotes: [
       {
@@ -64,6 +78,8 @@ describe("setupOracleExtension", () => {
     AggregatePrevotes: jest
       .fn()
       .mockResolvedValue(mockAggregatePrevotesResponse),
+    AggregateVote: jest.fn().mockResolvedValue(mockAggregateVoteResponse),
+    AggregateVotes: jest.fn().mockResolvedValue(mockAggregateVotesResponse),
     ExchangeRate: jest.fn().mockResolvedValue(mockExchangeRateResponse),
     ExchangeRates: jest.fn().mockResolvedValue(mockExchangeRatesResponse),
     FeederDelegation: jest.fn().mockResolvedValue(mockFeederDelegationResponse),
@@ -113,6 +129,36 @@ describe("setupOracleExtension", () => {
 
       expect(queryAggregatePrevotesRequest).toHaveBeenCalledWith({})
       expect(result).toEqual(mockAggregatePrevotesResponse.aggregatePrevotes)
+    })
+  })
+
+  describe("oracle.aggregateVote", () => {
+    test("should call QueryAggregatePrevoteRequest and return the response", async () => {
+      const queryAggregateVoteRequest = jest
+        .spyOn(query.QueryAggregateVoteRequest, "fromPartial")
+        .mockReturnValue({} as query.QueryAggregateVoteRequest)
+
+      const extension = setupOracleExtension(mockBaseQueryClient)
+      const result = await extension.oracle.aggregateVote("1234567")
+
+      expect(queryAggregateVoteRequest).toHaveBeenCalledWith({
+        validatorAddr: "1234567",
+      })
+      expect(result).toEqual(mockAggregateVoteResponse.aggregateVote)
+    })
+  })
+
+  describe("oracle.aggregateVotes", () => {
+    test("should call QueryAggregatePrevoteRequest and return the response", async () => {
+      const queryAggregateVotesRequest = jest
+        .spyOn(query.QueryAggregateVotesRequest, "fromPartial")
+        .mockReturnValue({} as query.QueryAggregateVotesRequest)
+
+      const extension = setupOracleExtension(mockBaseQueryClient)
+      const result = await extension.oracle.aggregateVotes()
+
+      expect(queryAggregateVotesRequest).toHaveBeenCalledWith({})
+      expect(result).toEqual(mockAggregateVotesResponse.aggregateVotes)
     })
   })
 

@@ -48,16 +48,15 @@ export const convertObjectToPropertiesString = (obj: any) => {
 export const cleanResponse = async (rawResp: Response) => {
   const respJson = await rawResp.json().catch((err) => {
     console.error(err)
+    return undefined
   })
   // console.debug("DEBUG respJson: %o", respJson)
 
-  if (!rawResp.ok || !respJson) {
-    throw new Error(`${respJson}`)
-  } else if (respJson.data) {
+  if (respJson?.data) {
     return respJson.data
-  } else {
-    return respJson
   }
+
+  return respJson
 }
 
 export const gqlQuery = <T>(
@@ -66,44 +65,17 @@ export const gqlQuery = <T>(
   properties: string,
   excludeParentObject?: boolean
 ) => {
-  let queryArgList = []
+  const queryArgList = []
 
-  if (
-    typedQueryArgs.where !== undefined ||
-    typedQueryArgs.limit !== undefined ||
-    typedQueryArgs.order_by !== undefined ||
-    typedQueryArgs.order_desc !== undefined ||
-    typedQueryArgs.order !== undefined ||
-    typedQueryArgs.orderDesc !== undefined
-  ) {
-    if (typedQueryArgs.where !== undefined) {
-      queryArgList.push(getWhereArgArr(typedQueryArgs.where))
-    }
-
-    if (typedQueryArgs.limit !== undefined) {
-      queryArgList.push(arg("limit", typedQueryArgs.limit))
-    }
-
-    if (typedQueryArgs.order_by !== undefined) {
-      queryArgList.push(arg("order_by", typedQueryArgs.order_by, true))
-    }
-
-    if (typedQueryArgs.order !== undefined) {
-      queryArgList.push(arg("order", typedQueryArgs.order, true))
-    }
-
-    if (typedQueryArgs.order_desc !== undefined) {
-      queryArgList.push(arg("order_desc", typedQueryArgs.order_desc))
-    }
-
-    if (typedQueryArgs.orderDesc !== undefined) {
-      queryArgList.push(arg("orderDesc", typedQueryArgs.orderDesc))
-    }
-  } else {
-    queryArgList = Object.keys(typedQueryArgs).map((key) =>
-      arg(key, typedQueryArgs[key])
-    )
+  if (typedQueryArgs.where !== undefined) {
+    queryArgList.push(getWhereArgArr(typedQueryArgs.where))
   }
+
+  delete typedQueryArgs.where
+
+  Object.keys(typedQueryArgs).forEach((key) =>
+    queryArgList.push(arg(key, typedQueryArgs[key], true))
+  )
 
   const hasQueryList = (char: string) => (queryArgList.length > 0 ? char : "")
 

@@ -1,0 +1,78 @@
+name: ⛓️ Tests @nibiruchain/ts-sdk
+
+on:
+  pull_request:
+    branches: ["releases/*", "main"]
+    paths: ["**.js", "**.ts", "**.tsx", "**.json"]
+  push:
+    branches: ["releases/*", "main"]
+    paths: ["**.js", "**.ts", "**.tsx", "**.json"]
+
+jobs:
+  test-ts-sdk:
+    runs-on: ubuntu-latest
+    env:
+      CHAIN_HOST: ${{ secrets.CHAIN_HOST }}
+      VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
+      VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
+      LCD_ENDPOINT: "http://127.0.0.1:1317"
+      GRPC_ENDPOINT: "127.0.0.1:9090"
+      TENDERMINT_RPC_ENDPOINT: "http://127.0.0.1:26657"
+      USE_LOCALNET: true
+      WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
+      CHAIN_ID: "nibiru-localnet-0"
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Run Nibiru network in the background (scripts/localnet.sh)
+        run: |
+          # Install nibid CLI
+          # Use https://get.nibiru.fi/ to get the most recent release.
+          curl -s https://get.nibiru.fi/@v0.21.9! | bash
+          # Sanity check nibid CLI
+          nibid version
+          # Start local network
+          bash scripts/localnet.sh &
+
+      - name: Setup NodeJS with yarn caching
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/hydrogen"
+          cache: "yarn"
+
+      - name: Install yarn using npm
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn --prefer-offline --check-files
+
+      - name: Build the application
+        run: yarn build --include-dependencies || yarn build --parallel --include-dependencies
+
+      - name: Run tests
+        run: yarn test
+
+      - name: "Run examples (packages/examples-nibijs)"
+        run: |
+          yarn run ts-node examples/01_new-wallet.ts
+          yarn run ts-node examples/02_queries.ts
+          yarn run ts-node examples/03_messages.ts
+          yarn run ts-node examples/04_sending_funds.ts
+
+      - name: Jest Coverage Comment
+        uses: MishaKav/jest-coverage-comment@main
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - name: "SonarQube Quality Gate"
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

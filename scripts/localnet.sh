@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # Console log text colour
@@ -194,7 +194,7 @@ add_genesis_perp_markets_with_coingecko_prices() {
     else
       echo_error "Command \"$*\" failed."
       exit 1
-    fi 
+    fi
   }
 
   nibid genesis add-genesis-perp-market --pair=ubtc:unusd --sqrt-depth=$reserve_amt --price-multiplier=$price_btc

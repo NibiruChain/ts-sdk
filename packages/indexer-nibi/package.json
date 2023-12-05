@@ -1,7 +1,7 @@
 {
   "name": "@nibiruchain/indexer-nibi",
   "description": "GraphQL API client for the Nibiru Chain indexer (heart-monitor)",
-  "version": "0.21.20",
+  "version": "0.21.33",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc --build",
     "build:watch": "tsc --build --watch",
-    "gql-generate": "rm -rf gql && graphql-code-generator --config ./src/graphql-codegen/codegen.ts",
+    "gql-generate": "rm -rf src/gql && graphql-code-generator --config codegen.ts",
     "clean": "tsc --clean",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -24,10 +24,14 @@
     "@graphql-codegen/typescript": "^4.0.1",
     "@types/jest": "^29.1.2",
     "@types/node-fetch": "^2.6.2",
-    "cross-fetch": "4.0.0",
     "graphql": "^16.7.1",
     "jest": "^28.1.3",
-    "ts-jest": "^28.0.0-next.3"
+    "ts-jest": "^28.0.0-next.3",
+    "ws": "^8.14.1"
+  },
+  "dependencies": {
+    "cross-fetch": "4.0.0",
+    "graphql-ws": "^5.14.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

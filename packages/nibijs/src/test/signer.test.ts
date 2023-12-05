@@ -1,8 +1,7 @@
-import { WalletHD } from "../chain/types"
 import { newRandomWallet, newSignerFromMnemonic } from "../tx/signer"
 
 test("newRandomWallet", async () => {
-  const wallet: WalletHD = await newRandomWallet(24)
+  const wallet = await newRandomWallet(24)
   const [{ address }] = await wallet.getAccounts()
   expect(address).toHaveLength(43)
   expect(wallet.mnemonic.split(" ")).toHaveLength(24)
@@ -15,7 +14,7 @@ test("newSignerFromMnemonic", async () => {
   const mnemonic =
     "honey club license water device crew gap hidden prize debate enhance true absent vibrant image pitch audit beef ability shadow dog label fetch cup"
   const addressForMnemonic = "nibi1qdk4jkwghcq7lz9uf28tf3qcy3appa42k8wxzg"
-  const wallet: WalletHD = await newSignerFromMnemonic(mnemonic)
+  const wallet = await newSignerFromMnemonic(mnemonic)
   const [{ address }] = await wallet.getAccounts()
   expect(address).toEqual(addressForMnemonic)
 })

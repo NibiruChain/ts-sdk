@@ -3,7 +3,6 @@ import { SpotMsgFactory } from "./spot"
 
 export class MsgFactory {
   spot = SpotMsgFactory
-
   perp = PerpMsgFactory
 }
 

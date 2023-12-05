@@ -75,6 +75,14 @@ export enum DistributionCommissionOrder {
   ValidatorAddress = "validator_address",
 }
 
+export type FloatFilter = {
+  readonly eq?: InputMaybe<Scalars["Float"]["input"]>
+  readonly gt?: InputMaybe<Scalars["Float"]["input"]>
+  readonly gte?: InputMaybe<Scalars["Float"]["input"]>
+  readonly lt?: InputMaybe<Scalars["Float"]["input"]>
+  readonly lte?: InputMaybe<Scalars["Float"]["input"]>
+}
+
 export type GovDeposit = {
   readonly __typename?: "GovDeposit"
   readonly amount: ReadonlyArray<Token>
@@ -195,6 +203,57 @@ export type GovernanceGovVotesArgs = {
   where?: InputMaybe<GovVotesFilter>
 }
 
+export type Ibc = {
+  readonly __typename?: "IBC"
+  readonly ibcChannels: IbcChannelsResponse
+  readonly ibcTransfers: ReadonlyArray<IbcTransfer>
+}
+
+export type IbcIbcTransfersArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  offset?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<IbcTranferOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<IbcTranferFilter>
+}
+
+export type IbcChannel = {
+  readonly __typename?: "IBCChannel"
+  readonly chain_id: Scalars["String"]["output"]
+  readonly chain_logo: Scalars["String"]["output"]
+  readonly chain_name: Scalars["String"]["output"]
+  readonly channel_id: Scalars["String"]["output"]
+  readonly counterparty_channel_id: Scalars["String"]["output"]
+  readonly revision_height: Scalars["Int"]["output"]
+}
+
+export type IbcChannelsResponse = {
+  readonly __typename?: "IBCChannelsResponse"
+  readonly channels: ReadonlyArray<IbcChannel>
+  readonly revision_height: Scalars["Int"]["output"]
+}
+
+export type IbcTranferFilter = {
+  readonly receiver?: InputMaybe<Scalars["String"]["input"]>
+  readonly sender?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export enum IbcTranferOrder {
+  Block = "block",
+  Receiver = "receiver",
+  Sender = "sender",
+}
+
+export type IbcTransfer = {
+  readonly __typename?: "IBCTransfer"
+  readonly amount: Scalars["Float"]["output"]
+  readonly block: Block
+  readonly denom: Scalars["String"]["output"]
+  readonly memo: Scalars["String"]["output"]
+  readonly receiver: Scalars["String"]["output"]
+  readonly sender: Scalars["String"]["output"]
+}
+
 export type IntFilter = {
   readonly eq?: InputMaybe<Scalars["Int"]["input"]>
   readonly gt?: InputMaybe<Scalars["Int"]["input"]>
@@ -207,11 +266,14 @@ export type MarkPriceCandle = {
   readonly __typename?: "MarkPriceCandle"
   readonly close: Scalars["Float"]["output"]
   readonly high: Scalars["Float"]["output"]
+  readonly indexPriceTwapClose: Scalars["Float"]["output"]
   readonly low: Scalars["Float"]["output"]
   readonly open: Scalars["Float"]["output"]
   readonly pair: Scalars["String"]["output"]
   readonly period: Scalars["Int"]["output"]
   readonly periodStartTs: Scalars["Time"]["output"]
+  readonly volume: Scalars["Float"]["output"]
+  readonly volumeNotional: Scalars["Float"]["output"]
 }
 
 export type MarkPriceCandlesFilter = {
@@ -233,6 +295,65 @@ export enum MarkPriceCandlesOrder {
   PeriodStartTs = "period_start_ts",
 }
 
+export type Oracle = {
+  readonly __typename?: "Oracle"
+  readonly oraclePrices: ReadonlyArray<OraclePrice>
+  readonly oracles: ReadonlyArray<OracleEntry>
+}
+
+export type OracleOraclePricesArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  offset?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<OraclePricesOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<OraclePricesFilter>
+}
+
+export type OracleOraclesArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<OraclesOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<OraclesFilter>
+}
+
+export type OracleEntry = {
+  readonly __typename?: "OracleEntry"
+  readonly numVotes: Scalars["Int"]["output"]
+  readonly validator: Validator
+}
+
+export type OraclePrice = {
+  readonly __typename?: "OraclePrice"
+  readonly block: Block
+  /** @deprecated Not applicable for oracle prices */
+  readonly eventSeqNo?: Scalars["Int"]["output"]
+  readonly pair: Scalars["String"]["output"]
+  readonly price: Scalars["Float"]["output"]
+  /** @deprecated Not applicable for oracle prices */
+  readonly txSeqNo?: Scalars["Int"]["output"]
+}
+
+export type OraclePricesFilter = {
+  readonly block?: InputMaybe<IntFilter>
+  readonly pair?: InputMaybe<StringFilter>
+}
+
+export enum OraclePricesOrder {
+  Pair = "pair",
+  Price = "price",
+  Sequence = "sequence",
+}
+
+export type OraclesFilter = {
+  readonly numVotes?: InputMaybe<IntFilter>
+  readonly validatorAddressEq?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export enum OraclesOrder {
+  NumVotes = "num_votes",
+  ValidatorAddress = "validator_address",
+}
+
 export type PeriodFilter = {
   readonly periodEq?: InputMaybe<Scalars["Int"]["input"]>
   readonly periodGt?: InputMaybe<Scalars["Int"]["input"]>
@@ -246,9 +367,57 @@ export type PeriodFilter = {
   readonly periodStartTsLte?: InputMaybe<Scalars["Time"]["input"]>
 }
 
+export type Perp = {
+  readonly __typename?: "Perp"
+  readonly leaderboard: ReadonlyArray<PerpLeaderboard>
+  readonly market?: Maybe<PerpMarket>
+  readonly markets: ReadonlyArray<PerpMarket>
+  readonly position?: Maybe<PerpPosition>
+  readonly positionChanges: ReadonlyArray<PerpPositionChange>
+  readonly positions: ReadonlyArray<PerpPosition>
+}
+
+export type PerpLeaderboardArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<PerpLeaderboardOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PerpLeaderboardFilter>
+}
+
+export type PerpMarketArgs = {
+  where: PerpMarketFilter
+}
+
+export type PerpMarketsArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<PerpMarketOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PerpMarketsFilter>
+}
+
+export type PerpPositionArgs = {
+  where: PerpPositionFilter
+}
+
+export type PerpPositionChangesArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  offset?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<PerpPositionChangeOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where: PerpPositionChangeFilter
+}
+
+export type PerpPositionsArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>
+  order_by?: InputMaybe<PerpPositionOrder>
+  order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
+  where?: InputMaybe<PerpPositionsFilter>
+}
+
 export type PerpLeaderboard = {
   readonly __typename?: "PerpLeaderboard"
   readonly avg_pct_pnl: Scalars["Float"]["output"]
+  readonly avg_pct_pnl_rank: Scalars["Int"]["output"]
   readonly input_margin: Scalars["Float"]["output"]
   readonly raw_pnl: Scalars["Float"]["output"]
   readonly raw_pnl_with_unrealized: Scalars["Float"]["output"]
@@ -261,6 +430,7 @@ export type PerpLeaderboardFilter = {
 
 export enum PerpLeaderboardOrder {
   AvgPctPnl = "avg_pct_pnl",
+  AvgPctPnlRank = "avg_pct_pnl_rank",
   RawPnl = "raw_pnl",
   RawPnlWithUnrealized = "raw_pnl_with_unrealized",
   TraderAddress = "trader_address",
@@ -280,7 +450,7 @@ export type PerpMarket = {
   readonly maintenance_margin_ratio: Scalars["Float"]["output"]
   readonly mark_price: Scalars["Float"]["output"]
   readonly mark_price_twap: Scalars["Float"]["output"]
-  readonly max_funding_rate: Scalars["Float"]["output"]
+  readonly max_funding_rate?: Maybe<Scalars["Float"]["output"]>
   readonly max_leverage: Scalars["Float"]["output"]
   readonly pair: Scalars["String"]["output"]
   readonly partial_liquidation_ratio: Scalars["Float"]["output"]
@@ -294,12 +464,16 @@ export type PerpMarket = {
 }
 
 export type PerpMarketFilter = {
-  readonly is_deleted?: InputMaybe<Scalars["Boolean"]["input"]>
-  readonly pair?: InputMaybe<Scalars["String"]["input"]>
+  readonly pair: Scalars["String"]["input"]
 }
 
 export enum PerpMarketOrder {
   Pair = "pair",
+}
+
+export type PerpMarketsFilter = {
+  readonly is_deleted?: InputMaybe<Scalars["Boolean"]["input"]>
+  readonly pair?: InputMaybe<Scalars["String"]["input"]>
 }
 
 export type PerpPosition = {
@@ -319,10 +493,49 @@ export type PerpPosition = {
   readonly unrealized_pnl: Scalars["Float"]["output"]
 }
 
+export type PerpPositionChange = {
+  readonly __typename?: "PerpPositionChange"
+  readonly badDebt?: Maybe<Token>
+  readonly block: Block
+  readonly changeReason: Scalars["String"]["output"]
+  readonly eventSeqNo: Scalars["Int"]["output"]
+  readonly exchangedNotional: Scalars["Float"]["output"]
+  readonly exchangedSize: Scalars["Float"]["output"]
+  readonly fundingPayment?: Maybe<Scalars["Float"]["output"]>
+  readonly latestCumulativePremiumFraction?: Maybe<Scalars["Float"]["output"]>
+  readonly margin: Scalars["Float"]["output"]
+  readonly marginToUser?: Maybe<Scalars["Int"]["output"]>
+  readonly openNotional: Scalars["Float"]["output"]
+  readonly pair: Scalars["String"]["output"]
+  readonly positionNotional: Scalars["Float"]["output"]
+  readonly realizedPnl?: Maybe<Scalars["Float"]["output"]>
+  readonly size: Scalars["Float"]["output"]
+  readonly traderAddress: Scalars["String"]["output"]
+  readonly transactionFee?: Maybe<Token>
+  readonly txSeqNo: Scalars["Int"]["output"]
+}
+
+export type PerpPositionChangeFilter = {
+  readonly block?: InputMaybe<IntFilter>
+  readonly blockTs?: InputMaybe<TimeFilter>
+  readonly pair?: InputMaybe<StringFilter>
+  readonly traderAddressEq: Scalars["String"]["input"]
+}
+
+export enum PerpPositionChangeOrder {
+  ExchangedNotional = "exchanged_notional",
+  ExchangedSize = "exchanged_size",
+  Margin = "margin",
+  OpenNotional = "open_notional",
+  Pair = "pair",
+  PositionNotional = "position_notional",
+  Sequence = "sequence",
+  Size = "size",
+}
+
 export type PerpPositionFilter = {
-  readonly include_closed?: InputMaybe<Scalars["Boolean"]["input"]>
-  readonly pair?: InputMaybe<Scalars["String"]["input"]>
-  readonly trader_address?: InputMaybe<Scalars["String"]["input"]>
+  readonly pair: Scalars["String"]["input"]
+  readonly trader_address: Scalars["String"]["input"]
 }
 
 export enum PerpPositionOrder {
@@ -331,17 +544,31 @@ export enum PerpPositionOrder {
   TraderAddress = "trader_address",
 }
 
+export type PerpPositionsFilter = {
+  readonly include_closed?: InputMaybe<Scalars["Boolean"]["input"]>
+  readonly pair?: InputMaybe<Scalars["String"]["input"]>
+  readonly trader_address?: InputMaybe<Scalars["String"]["input"]>
+}
+
 export type Query = {
   readonly __typename?: "Query"
   readonly communityPool: ReadonlyArray<Token>
   readonly delegations: ReadonlyArray<Delegation>
   readonly distributionCommissions: ReadonlyArray<DistributionCommission>
   readonly governance: Governance
+  readonly ibc: Ibc
   readonly markPriceCandles: ReadonlyArray<MarkPriceCandle>
+  readonly oracle: Oracle
+  readonly perp: Perp
+  /** @deprecated Moved to perp sub schema */
   readonly perpLeaderboard: ReadonlyArray<PerpLeaderboard>
+  /** @deprecated Moved to perp sub schema */
   readonly perpMarket?: Maybe<PerpMarket>
+  /** @deprecated Moved to perp sub schema */
   readonly perpMarkets: ReadonlyArray<PerpMarket>
+  /** @deprecated Moved to perp sub schema */
   readonly perpPosition?: Maybe<PerpPosition>
+  /** @deprecated Moved to perp sub schema */
   readonly perpPositions: ReadonlyArray<PerpPosition>
   readonly redelegations: ReadonlyArray<Redelegation>
   readonly spotLpPositions: ReadonlyArray<SpotLpPosition>
@@ -392,25 +619,25 @@ export type QueryPerpLeaderboardArgs = {
 }
 
 export type QueryPerpMarketArgs = {
-  where?: InputMaybe<PerpMarketFilter>
+  where: PerpMarketFilter
 }
 
 export type QueryPerpMarketsArgs = {
   limit?: InputMaybe<Scalars["Int"]["input"]>
   order_by?: InputMaybe<PerpMarketOrder>
   order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
-  where?: InputMaybe<PerpMarketFilter>
+  where?: InputMaybe<PerpMarketsFilter>
 }
 
 export type QueryPerpPositionArgs = {
-  where?: InputMaybe<PerpPositionFilter>
+  where: PerpPositionFilter
 }
 
 export type QueryPerpPositionsArgs = {
   limit?: InputMaybe<Scalars["Int"]["input"]>
   order_by?: InputMaybe<PerpPositionOrder>
   order_desc?: InputMaybe<Scalars["Boolean"]["input"]>
-  where?: InputMaybe<PerpPositionFilter>
+  where?: InputMaybe<PerpPositionsFilter>
 }
 
 export type QueryRedelegationsArgs = {
@@ -868,14 +1095,47 @@ export type StringFilter = {
   readonly like?: InputMaybe<Scalars["String"]["input"]>
 }
 
+export type SubMarkPriceCandlesFilter = {
+  readonly pairEq: Scalars["String"]["input"]
+  readonly periodEq: Scalars["Int"]["input"]
+}
+
+export type SubOraclePricesFilter = {
+  readonly pair: Scalars["String"]["input"]
+}
+
+export type SubPerpMarketFilter = {
+  readonly pair: Scalars["String"]["input"]
+}
+
+export type SubPerpPositionFilter = {
+  readonly pair?: InputMaybe<Scalars["String"]["input"]>
+  readonly trader_address: Scalars["String"]["input"]
+}
+
 export type Subscription = {
   readonly __typename?: "Subscription"
   readonly markPriceCandles: ReadonlyArray<MarkPriceCandle>
+  readonly oraclePrices: ReadonlyArray<OraclePrice>
+  readonly perpMarket: PerpMarket
+  readonly perpPositions: ReadonlyArray<PerpPosition>
 }
 
 export type SubscriptionMarkPriceCandlesArgs = {
   limit?: InputMaybe<Scalars["Int"]["input"]>
-  where?: InputMaybe<MarkPriceCandlesFilter>
+  where: SubMarkPriceCandlesFilter
+}
+
+export type SubscriptionOraclePricesArgs = {
+  where?: InputMaybe<SubOraclePricesFilter>
+}
+
+export type SubscriptionPerpMarketArgs = {
+  where: SubPerpMarketFilter
+}
+
+export type SubscriptionPerpPositionsArgs = {
+  where: SubPerpPositionFilter
 }
 
 export type TimeFilter = {
@@ -975,6 +1235,7 @@ export enum ValidatorOrder {
   Moniker = "moniker",
   OperatorAddress = "operator_address",
   Status = "status",
+  Tokens = "tokens",
 }
 
 export enum ValidatorStatus {

@@ -47,6 +47,14 @@ enum DistributionCommissionOrder {
   validator_address
 }
 
+input FloatFilter {
+  eq: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+}
+
 type GovDeposit {
   amount: [Token!]!
   block: Block!
@@ -157,6 +165,51 @@ type Governance {
   ): [GovVote!]!
 }
 
+type IBC {
+  ibcChannels: IBCChannelsResponse!
+  ibcTransfers(
+    limit: Int
+    offset: Int
+    order_by: IBCTranferOrder
+    order_desc: Boolean
+    where: IBCTranferFilter
+  ): [IBCTransfer!]!
+}
+
+type IBCChannel {
+  chain_id: String!
+  chain_logo: String!
+  chain_name: String!
+  channel_id: String!
+  counterparty_channel_id: String!
+  revision_height: Int!
+}
+
+type IBCChannelsResponse {
+  channels: [IBCChannel!]!
+  revision_height: Int!
+}
+
+input IBCTranferFilter {
+  receiver: String
+  sender: String
+}
+
+enum IBCTranferOrder {
+  block
+  receiver
+  sender
+}
+
+type IBCTransfer {
+  amount: Float!
+  block: Block!
+  denom: String!
+  memo: String!
+  receiver: String!
+  sender: String!
+}
+
 input IntFilter {
   eq: Int
   gt: Int
@@ -168,11 +221,14 @@ input IntFilter {
 type MarkPriceCandle {
   close: Float!
   high: Float!
+  indexPriceTwapClose: Float!
   low: Float!
   open: Float!
   pair: String!
   period: Int!
   periodStartTs: Time!
+  volume: Float!
+  volumeNotional: Float!
 }
 
 input MarkPriceCandlesFilter {
@@ -194,6 +250,56 @@ enum MarkPriceCandlesOrder {
   period_start_ts
 }
 
+type Oracle {
+  oraclePrices(
+    limit: Int
+    offset: Int
+    order_by: OraclePricesOrder
+    order_desc: Boolean
+    where: OraclePricesFilter
+  ): [OraclePrice!]!
+  oracles(
+    limit: Int
+    order_by: OraclesOrder
+    order_desc: Boolean
+    where: OraclesFilter
+  ): [OracleEntry!]!
+}
+
+type OracleEntry {
+  numVotes: Int!
+  validator: Validator!
+}
+
+type OraclePrice {
+  block: Block!
+  eventSeqNo: Int @deprecated(reason: "Not applicable for oracle prices")
+  pair: String!
+  price: Float!
+  txSeqNo: Int @deprecated(reason: "Not applicable for oracle prices")
+}
+
+input OraclePricesFilter {
+  block: IntFilter
+  pair: StringFilter
+}
+
+enum OraclePricesOrder {
+  pair
+  price
+  sequence
+}
+
+input OraclesFilter {
+  numVotes: IntFilter
+  validatorAddressEq: String
+}
+
+enum OraclesOrder {
+  num_votes
+  validator_address
+}
+
 input PeriodFilter {
   periodEq: Int
   periodGt: Int
@@ -207,8 +313,39 @@ input PeriodFilter {
   periodStartTsLte: Time
 }
 
+type Perp {
+  leaderboard(
+    limit: Int
+    order_by: PerpLeaderboardOrder
+    order_desc: Boolean
+    where: PerpLeaderboardFilter
+  ): [PerpLeaderboard!]!
+  market(where: PerpMarketFilter!): PerpMarket
+  markets(
+    limit: Int
+    order_by: PerpMarketOrder
+    order_desc: Boolean
+    where: PerpMarketsFilter
+  ): [PerpMarket!]!
+  position(where: PerpPositionFilter!): PerpPosition
+  positionChanges(
+    limit: Int
+    offset: Int
+    order_by: PerpPositionChangeOrder
+    order_desc: Boolean
+    where: PerpPositionChangeFilter!
+  ): [PerpPositionChange!]!
+  positions(
+    limit: Int
+    order_by: PerpPositionOrder
+    order_desc: Boolean
+    where: PerpPositionsFilter
+  ): [PerpPosition!]!
+}
+
 type PerpLeaderboard {
   avg_pct_pnl: Float!
+  avg_pct_pnl_rank: Int!
   input_margin: Float!
   raw_pnl: Float!
   raw_pnl_with_unrealized: Float!
@@ -221,6 +358,7 @@ input PerpLeaderboardFilter {
 
 enum PerpLeaderboardOrder {
   avg_pct_pnl
+  avg_pct_pnl_rank
   raw_pnl
   raw_pnl_with_unrealized
   trader_address
@@ -239,7 +377,7 @@ type PerpMarket {
   maintenance_margin_ratio: Float!
   mark_price: Float!
   mark_price_twap: Float!
-  max_funding_rate: Float!
+  max_funding_rate: Float
   max_leverage: Float!
   pair: String!
   partial_liquidation_ratio: Float!
@@ -253,12 +391,16 @@ type PerpMarket {
 }
 
 input PerpMarketFilter {
-  is_deleted: Boolean
-  pair: String
+  pair: String!
 }
 
 enum PerpMarketOrder {
   pair
+}
+
+input PerpMarketsFilter {
+  is_deleted: Boolean
+  pair: String
 }
 
 type PerpPosition {
@@ -277,16 +419,60 @@ type PerpPosition {
   unrealized_pnl: Float!
 }
 
+type PerpPositionChange {
+  badDebt: Token
+  block: Block!
+  changeReason: String!
+  eventSeqNo: Int!
+  exchangedNotional: Float!
+  exchangedSize: Float!
+  fundingPayment: Float
+  latestCumulativePremiumFraction: Float
+  margin: Float!
+  marginToUser: Int
+  openNotional: Float!
+  pair: String!
+  positionNotional: Float!
+  realizedPnl: Float
+  size: Float!
+  traderAddress: String!
+  transactionFee: Token
+  txSeqNo: Int!
+}
+
+input PerpPositionChangeFilter {
+  block: IntFilter
+  blockTs: TimeFilter
+  pair: StringFilter
+  traderAddressEq: String!
+}
+
+enum PerpPositionChangeOrder {
+  exchanged_notional
+  exchanged_size
+  margin
+  open_notional
+  pair
+  position_notional
+  sequence
+  size
+}
+
 input PerpPositionFilter {
-  include_closed: Boolean
-  pair: String
-  trader_address: String
+  pair: String!
+  trader_address: String!
 }
 
 enum PerpPositionOrder {
   created_block
   pair
   trader_address
+}
+
+input PerpPositionsFilter {
+  include_closed: Boolean
+  pair: String
+  trader_address: String
 }
 
 type Query {
@@ -309,32 +495,37 @@ type Query {
     where: DistributionCommissionFilter
   ): [DistributionCommission!]!
   governance: Governance!
+  ibc: IBC!
   markPriceCandles(
     limit: Int
     order_by: MarkPriceCandlesOrder
     order_desc: Boolean
     where: MarkPriceCandlesFilter
   ): [MarkPriceCandle!]!
+  oracle: Oracle!
+  perp: Perp!
   perpLeaderboard(
     limit: Int
     order_by: PerpLeaderboardOrder
     order_desc: Boolean
     where: PerpLeaderboardFilter
-  ): [PerpLeaderboard!]!
-  perpMarket(where: PerpMarketFilter): PerpMarket
+  ): [PerpLeaderboard!]! @deprecated(reason: "Moved to perp sub schema")
+  perpMarket(where: PerpMarketFilter!): PerpMarket
+    @deprecated(reason: "Moved to perp sub schema")
   perpMarkets(
     limit: Int
     order_by: PerpMarketOrder
     order_desc: Boolean
-    where: PerpMarketFilter
-  ): [PerpMarket!]!
-  perpPosition(where: PerpPositionFilter): PerpPosition
+    where: PerpMarketsFilter
+  ): [PerpMarket!]! @deprecated(reason: "Moved to perp sub schema")
+  perpPosition(where: PerpPositionFilter!): PerpPosition
+    @deprecated(reason: "Moved to perp sub schema")
   perpPositions(
     limit: Int
     order_by: PerpPositionOrder
     order_desc: Boolean
-    where: PerpPositionFilter
-  ): [PerpPosition!]!
+    where: PerpPositionsFilter
+  ): [PerpPosition!]! @deprecated(reason: "Moved to perp sub schema")
   redelegations(
     limit: Int
     order_by: RedelegationOrder
@@ -752,11 +943,32 @@ input StringFilter {
   like: String
 }
 
+input SubMarkPriceCandlesFilter {
+  pairEq: String!
+  periodEq: Int!
+}
+
+input SubOraclePricesFilter {
+  pair: String!
+}
+
+input SubPerpMarketFilter {
+  pair: String!
+}
+
+input SubPerpPositionFilter {
+  pair: String
+  trader_address: String!
+}
+
 type Subscription {
   markPriceCandles(
     limit: Int
-    where: MarkPriceCandlesFilter
+    where: SubMarkPriceCandlesFilter!
   ): [MarkPriceCandle!]!
+  oraclePrices(where: SubOraclePricesFilter): [OraclePrice!]!
+  perpMarket(where: SubPerpMarketFilter!): PerpMarket!
+  perpPositions(where: SubPerpPositionFilter!): [PerpPosition!]!
 }
 
 scalar Time
@@ -852,6 +1064,7 @@ enum ValidatorOrder {
   moniker
   operator_address
   status
+  tokens
 }
 
 enum ValidatorStatus {

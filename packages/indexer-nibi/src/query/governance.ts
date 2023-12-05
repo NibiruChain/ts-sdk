@@ -1,110 +1,120 @@
-import {
-  defaultGovDeposit,
-  defaultGovProposal,
-  defaultGovVote,
-} from "../defaultObjects"
+import { defaultGovernance } from "../defaultObjects"
 import { convertObjectToPropertiesString, doGqlQuery, gqlQuery } from "../gql"
 import {
   Query,
-  Governance,
   GovernanceGovDepositsArgs,
   GovernanceGovProposalsArgs,
   GovernanceGovVotesArgs,
+  GovDeposit,
+  GovProposal,
+  GovVote,
 } from "../gql/generated"
 
 export type QueryGovernanceArgs = {
-  govDeposits: GovernanceGovDepositsArgs
-  govProposals: GovernanceGovProposalsArgs
-  govVotes: GovernanceGovVotesArgs
-}
-
-export const defaultGovernanceObject: Governance = {
-  govDeposits: [defaultGovDeposit],
-  govProposals: [defaultGovProposal],
-  govVotes: [defaultGovVote],
+  govDeposits?: GovernanceGovDepositsArgs
+  govProposals?: GovernanceGovProposalsArgs
+  govVotes?: GovernanceGovVotesArgs
 }
 
 export interface GqlOutGovernance {
   governance?: Query["governance"]
 }
 
-export const governance = async (
+export type GovernanceFields = Partial<{
+  govDeposits?: Partial<GovDeposit>
+  govProposals?: Partial<GovProposal>
+  govVotes?: Partial<GovVote>
+}>
+
+export const governanceQueryString = (
   args: QueryGovernanceArgs,
-  endpt: string,
-  fields?: Partial<Governance>
-): Promise<GqlOutGovernance> => {
-  const goveranceQuery: string[] = []
+  fields?: GovernanceFields
+) => {
+  const governanceQuery: string[] = []
 
-  if (fields) {
-    if (fields?.govDeposits) {
-      goveranceQuery.push(
-        gqlQuery(
-          "govDeposits",
-          args.govDeposits,
-          convertObjectToPropertiesString(fields.govDeposits),
-          true
-        )
-      )
-    }
-
-    if (fields?.govProposals) {
-      goveranceQuery.push(
-        gqlQuery(
-          "govProposals",
-          args.govProposals,
-          convertObjectToPropertiesString(fields.govProposals),
-          true
-        )
-      )
-    }
-
-    if (fields?.govVotes) {
-      goveranceQuery.push(
-        gqlQuery(
-          "govVotes",
-          args.govVotes,
-          convertObjectToPropertiesString(fields.govVotes),
-          true
-        )
-      )
-    }
-  } else {
-    goveranceQuery.push(
+  if (fields?.govDeposits) {
+    governanceQuery.push(
       gqlQuery(
         "govDeposits",
-        args.govDeposits,
-        convertObjectToPropertiesString(defaultGovernanceObject.govDeposits[0]),
-        true
-      )
-    )
-
-    goveranceQuery.push(
-      gqlQuery(
-        "govProposals",
-        args.govProposals,
-        convertObjectToPropertiesString(
-          defaultGovernanceObject.govProposals[0]
-        ),
-        true
-      )
-    )
-
-    goveranceQuery.push(
-      gqlQuery(
-        "govVotes",
-        args.govVotes,
-        convertObjectToPropertiesString(defaultGovernanceObject.govVotes[0]),
+        args.govDeposits ?? {},
+        convertObjectToPropertiesString(fields.govDeposits),
         true
       )
     )
   }
 
-  return doGqlQuery(
-    `{
+  if (fields?.govProposals) {
+    governanceQuery.push(
+      gqlQuery(
+        "govProposals",
+        args.govProposals ?? {},
+        convertObjectToPropertiesString(fields.govProposals),
+        true
+      )
+    )
+  }
+
+  if (fields?.govVotes) {
+    governanceQuery.push(
+      gqlQuery(
+        "govVotes",
+        args.govVotes ?? {},
+        convertObjectToPropertiesString(fields.govVotes),
+        true
+      )
+    )
+  }
+
+  // Default Objects
+
+  if (args.govDeposits && !fields?.govDeposits) {
+    governanceQuery.push(
+      gqlQuery(
+        "govDeposits",
+        args.govDeposits,
+        convertObjectToPropertiesString(defaultGovernance.govDeposits[0]),
+        true
+      )
+    )
+  }
+
+  if (args.govProposals && !fields?.govProposals) {
+    governanceQuery.push(
+      gqlQuery(
+        "govProposals",
+        args.govProposals,
+        convertObjectToPropertiesString(defaultGovernance.govProposals[0]),
+        true
+      )
+    )
+  }
+
+  if (args.govVotes && !fields?.govVotes) {
+    governanceQuery.push(
+      gqlQuery(
+        "govVotes",
+        args.govVotes,
+        convertObjectToPropertiesString(defaultGovernance.govVotes[0]),
+        true
+      )
+    )
+  }
+
+  return `
       governance {
-          ${goveranceQuery.join("\n")}
+          ${governanceQuery.join("\n")}
       }
+    `
+}
+
+export const governance = async (
+  args: QueryGovernanceArgs,
+  endpt: string,
+  fields?: GovernanceFields
+): Promise<GqlOutGovernance> =>
+  doGqlQuery(
+    `{
+      ${governanceQueryString(args, fields)}
     }`,
     endpt
   )
-}

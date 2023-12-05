@@ -1,3 +1,21 @@
+## [@nibiruchain/protojs-v0.21.16](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/protojs-v0.21.15...@nibiruchain/protojs-v0.21.16) (2023-11-30)
+
+### Bug Fixes
+
+- **fix:** unhide spot/perp protojs ([#250](https://github.com/NibiruChain/ts-sdk/issues/250)) ([1723d2b](https://github.com/NibiruChain/ts-sdk/commit/1723d2b41187009dbda1efe997109cb74b6ac953))
+
+## [@nibiruchain/protojs-v0.21.15](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/protojs-v0.21.14...@nibiruchain/protojs-v0.21.15) (2023-11-08)
+
+### Features
+
+- **hide:** perp and Spot protojs ([#247](https://github.com/NibiruChain/ts-sdk/issues/247)) ([7a9e071](https://github.com/NibiruChain/ts-sdk/commit/7a9e07193d5fe9d624cdd16a4c028063765f3eaa))
+
+## [@nibiruchain/protojs-v0.21.14](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/protojs-v0.21.13...@nibiruchain/protojs-v0.21.14) (2023-11-01)
+
+### Bug Fixes
+
+- **rem:** throws ([#245](https://github.com/NibiruChain/ts-sdk/issues/245)) ([6e5ea8f](https://github.com/NibiruChain/ts-sdk/commit/6e5ea8f76a454686afe221e13f9402b0118fe91c))
+
 ## [@nibiruchain/protojs-v0.21.13](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/protojs-v0.21.12...@nibiruchain/protojs-v0.21.13) (2023-08-28)
 
 ### Features

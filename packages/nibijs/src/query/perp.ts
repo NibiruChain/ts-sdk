@@ -32,6 +32,16 @@ export interface PerpExtension {
   }>
 }
 
+const transformPositions = (
+  resp: QueryPositionsResponse
+): QueryPositionsResponse => {
+  const { positions } = resp
+  resp.positions = positions.map((position: QueryPositionResponse) =>
+    transformPosition(position)
+  )
+  return resp
+}
+
 export function setupPerpExtension(base: QueryClient): PerpExtension {
   const rpcClient = createProtobufRpcClient(base)
   const queryService = new QueryClientImpl(rpcClient)
@@ -52,22 +62,11 @@ export function setupPerpExtension(base: QueryClient): PerpExtension {
         const req = QueryPositionsRequest.fromPartial(args)
         const resp = await queryService.QueryPositions(req)
 
-        function transformPositions(
-          resp: QueryPositionsResponse
-        ): QueryPositionsResponse {
-          const { positions } = resp
-          resp.positions = positions.map((position: QueryPositionResponse) =>
-            transformPosition(position)
-          )
-          return resp
-        }
-
         return transformPositions(resp)
       },
       markets: async () => {
         const req = QueryMarketsRequest.fromPartial({})
-        const resp = queryService.QueryMarkets(req)
-        return resp
+        return queryService.QueryMarkets(req)
       },
     },
   }

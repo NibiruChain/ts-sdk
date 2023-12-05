@@ -1,10 +1,4 @@
-import {
-  AccountData,
-  coin,
-  coins,
-  DirectSecp256k1HdWallet,
-  parseCoins,
-} from "@cosmjs/proto-signing"
+import { AccountData, coin, coins, parseCoins } from "@cosmjs/proto-signing"
 import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import {
   MsgAddMargin,
@@ -13,7 +7,7 @@ import {
   MsgRemoveMargin,
 } from "@nibiruchain/protojs/dist/nibiru/perp/v2/tx"
 import { Direction } from "@nibiruchain/protojs/dist/nibiru/perp/v2/state"
-import { TxLog } from "../chain/types"
+import { TxLog } from "../chain"
 import { Msg, TxMessage } from "../msg"
 import { PERP_MSG_TYPE_URLS } from "../msg/perp"
 import { NibiruQueryClient } from "../query/query"
@@ -48,7 +42,7 @@ describe("nibid tx bank send", () => {
       signer
     )
 
-    const toWallet: DirectSecp256k1HdWallet = await newRandomWallet()
+    const toWallet = await newRandomWallet()
     const [{ address: toAddr }] = await toWallet.getAccounts()
 
     const resp = await signingClient.sendTokens(
@@ -157,7 +151,7 @@ describe("nibid tx perp", () => {
 
     try {
       const result = await signingClient.signAndBroadcast(sender, msgs, fee)
-      console.log(result)
+
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {
@@ -214,7 +208,7 @@ describe("nibid tx perp", () => {
       expect(txLogs).toHaveLength(1)
 
       // perp tx close-position events
-      assertHasMsgType("MsgClosePosition", txLogs[0].events)
+      assertHasMsgType(PERP_MSG_TYPE_URLS.MsgClosePosition, txLogs[0].events)
       assertHasEventType(
         "nibiru.perp.v1.PositionChangedEvent",
         txLogs[0].events

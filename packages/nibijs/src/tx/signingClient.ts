@@ -38,39 +38,11 @@ export class NibiruSigningClient extends SigningStargateClient {
   public readonly nibiruExtensions: NibiruExtensions
   public readonly wasmClient: SigningCosmWasmClient
 
-  public static async connectWithSigner(
-    endpoint: string,
-    signer: OfflineSigner,
-    options: SigningStargateClientOptions = {},
-    wasmOptions: SigningCosmWasmClientOptions = {}
-  ): Promise<NibiruSigningClient> {
-    const tmClient = await Tendermint37Client.connect(endpoint)
-    const wasmClient = await SigningCosmWasmClient.connectWithSigner(
-      endpoint,
-      signer,
-      {
-        gasPrice: GasPrice.fromString("0.025unibi"),
-        ...wasmOptions,
-      }
-    )
-    return new NibiruSigningClient(
-      tmClient,
-      signer,
-      {
-        registry: new Registry(nibiruRegistryTypes),
-        gasPrice: GasPrice.fromString("0.025unibi"),
-        broadcastPollIntervalMs: 1_000, // 1 second poll times
-        ...options,
-      },
-      wasmClient
-    )
-  }
-
   protected constructor(
     tmClient: Tendermint37Client,
     signer: OfflineSigner,
     options: SigningStargateClientOptions,
-    wasm: SigningCosmWasmClient
+    wasm: SigningCosmWasmClient,
   ) {
     super(tmClient, signer, options)
     this.wasmClient = wasm
@@ -87,7 +59,35 @@ export class NibiruSigningClient extends SigningStargateClient {
       setupStakingExtension,
       setupIbcExtension,
       setupWasmExtension,
-      setupAuthExtension
+      setupAuthExtension,
+    )
+  }
+
+  public static async connectWithSigner(
+    endpoint: string,
+    signer: OfflineSigner,
+    options: SigningStargateClientOptions = {},
+    wasmOptions: SigningCosmWasmClientOptions = {},
+  ): Promise<NibiruSigningClient> {
+    const tmClient = await Tendermint37Client.connect(endpoint)
+    const wasmClient = await SigningCosmWasmClient.connectWithSigner(
+      endpoint,
+      signer,
+      {
+        gasPrice: GasPrice.fromString("0.025unibi"),
+        ...wasmOptions,
+      },
+    )
+    return new NibiruSigningClient(
+      tmClient,
+      signer,
+      {
+        registry: new Registry(nibiruRegistryTypes),
+        gasPrice: GasPrice.fromString("0.025unibi"),
+        broadcastPollIntervalMs: 1_000, // 1 second poll times
+        ...options,
+      },
+      wasmClient,
     )
   }
 
@@ -108,3 +108,5 @@ export class NibiruSigningClient extends SigningStargateClient {
     }
   }
 }
+
+export { StdFee } from "@cosmjs/amino/build"

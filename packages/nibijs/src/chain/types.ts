@@ -1,33 +1,23 @@
-import {
-  AccountData,
-  Coin,
-  coin as newCoin,
-  coins as newCoins,
-  DirectSecp256k1HdWallet as WalletHD,
-  parseCoins,
-} from "@cosmjs/proto-signing"
+import { Coin, coin as newCoin, coins as newCoins } from "@cosmjs/proto-signing"
+export { newCoin, newCoins }
+import { ABCIEvent } from "../tx/event"
 import BigNumber from "bignumber.js"
-import { instanceOfError } from "./error"
-
-export { AccountData, newCoin, newCoins, Coin, parseCoins, WalletHD }
 
 export const go = async <T>(promise: Promise<T>) => {
   try {
     return { res: await promise, err: undefined }
   } catch (err) {
-    if (instanceOfError(err)) {
-      return { res: undefined, err }
-    } else {
-      return { res: undefined, err: new Error(`${err}`) }
-    }
+    return { res: undefined, err: (err as Error).message }
   }
 }
 
 export const assert = (condition: boolean, message?: string) => {
   if (!condition) {
     const errMsg = message ? `AssertionError: ${message}` : "AssertionError"
-    throw new Error(errMsg)
+    console.error(Error(errMsg))
+    return errMsg
   }
+  return true
 }
 
 export interface CoinMap {
@@ -43,16 +33,6 @@ export const newCoinMapFromCoins = (coins: readonly Coin[]) => {
   return coinMap
 }
 
-export interface Event {
-  type: string
-  attributes: Attribute[]
-}
-
-export interface Attribute {
-  key: string
-  value: string
-}
-
 export interface TxLog {
-  events: Event[]
+  events: ABCIEvent[]
 }

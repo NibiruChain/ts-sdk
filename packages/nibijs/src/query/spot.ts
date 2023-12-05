@@ -1,4 +1,5 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
+import { Coin } from "@cosmjs/proto-signing"
 import { Pool, PoolParams } from "@nibiruchain/protojs/dist/nibiru/spot/v1/pool"
 import {
   QueryClientImpl as SpotQueryClientImpl,
@@ -35,17 +36,17 @@ import {
   QueryTotalSharesRequest,
   QueryTotalSharesResponse,
 } from "@nibiruchain/protojs/dist/nibiru/spot/v1/query"
-import { Coin, fromSdkDec } from "../chain"
+import { fromSdkDec } from "../chain"
 
-function transformPoolParams(pp?: PoolParams): PoolParams | undefined {
+export const transformPoolParams = (pp?: PoolParams) => {
   if (pp) {
-    pp.swapFee = fromSdkDec(pp?.swapFee).toString()
-    pp.exitFee = fromSdkDec(pp?.exitFee).toString()
+    pp.swapFee = fromSdkDec(pp.swapFee).toString()
+    pp.exitFee = fromSdkDec(pp.exitFee).toString()
   }
   return pp
 }
 
-function transformPool(p?: Pool): Pool | undefined {
+export const transformPool = (p?: Pool) => {
   if (!p) {
     return p
   }
@@ -73,7 +74,7 @@ export interface SpotExtension {
     ) => Promise<QuerySpotPriceResponse>
     estimateSwapExactAmountIn: (
       poolId: number,
-      tokeOutDenom: string,
+      tokenOutDenom: string,
       tokenIn?: Coin
     ) => Promise<QuerySwapExactAmountInResponse>
     estimateSwapExactAmountOut: (
