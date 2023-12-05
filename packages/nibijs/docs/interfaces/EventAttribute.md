@@ -19,9 +19,9 @@ EventAttribute: A single key-value pair of event data for an ABCI event.
 
 #### Defined in
 
-[tx/event.ts:5](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/tx/event.ts#L5)
+[tx/event.ts:5](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/tx/event.ts#L5)
 
----
+___
 
 ### value
 
@@ -29,4 +29,4 @@ EventAttribute: A single key-value pair of event data for an ABCI event.
 
 #### Defined in
 
-[tx/event.ts:6](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/tx/event.ts#L6)
+[tx/event.ts:6](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/tx/event.ts#L6)

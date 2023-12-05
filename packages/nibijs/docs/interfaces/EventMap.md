@@ -41,4 +41,4 @@ export interface EventTransfer extends EventMap {
 
 #### Defined in
 
-[tx/event.ts:41](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/tx/event.ts#L41)
+[tx/event.ts:41](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/tx/event.ts#L41)

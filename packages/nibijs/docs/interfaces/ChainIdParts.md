@@ -18,9 +18,9 @@
 
 #### Defined in
 
-[chain/chain.ts:32](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L32)
+[chain/chain.ts:32](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L32)
 
----
+___
 
 ### prefix
 
@@ -28,9 +28,9 @@
 
 #### Defined in
 
-[chain/chain.ts:30](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L30)
+[chain/chain.ts:30](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L30)
 
----
+___
 
 ### shortName
 
@@ -38,4 +38,4 @@
 
 #### Defined in
 
-[chain/chain.ts:31](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L31)
+[chain/chain.ts:31](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L31)

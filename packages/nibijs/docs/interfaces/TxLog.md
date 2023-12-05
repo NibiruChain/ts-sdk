@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[chain/types.ts:37](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/types.ts#L37)
+[chain/types.ts:37](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/types.ts#L37)

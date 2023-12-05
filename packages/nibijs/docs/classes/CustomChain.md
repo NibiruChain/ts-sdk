@@ -48,13 +48,13 @@ export const TEST_CHAIN = new CustomChain({
 
 #### Parameters
 
-| Name           | Type                                            |
-| :------------- | :---------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `chainIdParts` | [`ChainIdParts`](../interfaces/ChainIdParts.md) |
 
 #### Defined in
 
-[chain/chain.ts:57](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L57)
+[chain/chain.ts:57](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L57)
 
 ## Properties
 
@@ -70,9 +70,9 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:48](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L48)
+[chain/chain.ts:48](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L48)
 
----
+___
 
 ### chainIdParts
 
@@ -80,9 +80,9 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:55](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L55)
+[chain/chain.ts:55](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L55)
 
----
+___
 
 ### chainName
 
@@ -96,9 +96,9 @@ chainName: the name of the chain to display to the user
 
 #### Defined in
 
-[chain/chain.ts:49](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L49)
+[chain/chain.ts:49](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L49)
 
----
+___
 
 ### endptGrpc
 
@@ -112,9 +112,9 @@ endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 #### Defined in
 
-[chain/chain.ts:52](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L52)
+[chain/chain.ts:52](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L52)
 
----
+___
 
 ### endptRest
 
@@ -128,9 +128,9 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 #### Defined in
 
-[chain/chain.ts:51](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L51)
+[chain/chain.ts:51](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L51)
 
----
+___
 
 ### endptTm
 
@@ -144,13 +144,13 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 #### Defined in
 
-[chain/chain.ts:50](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L50)
+[chain/chain.ts:50](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L50)
 
----
+___
 
 ### feeDenom
 
-• `Readonly` **feeDenom**: `"unibi"`
+• `Readonly` **feeDenom**: ``"unibi"``
 
 feeDenom: the denomination of the fee to be paid for transactions.
 
@@ -160,7 +160,7 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:53](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L53)
+[chain/chain.ts:53](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L53)
 
 ## Methods
 
@@ -174,9 +174,9 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:76](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L76)
+[chain/chain.ts:76](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L76)
 
----
+___
 
 ### fromChainId
 
@@ -184,8 +184,8 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Parameters
 
-| Name      | Type     |
-| :-------- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `chainId` | `string` |
 
 #### Returns
@@ -194,4 +194,4 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:66](https://github.com/NibiruChain/ts-sdk/blob/3e4aac2/packages/nibijs/src/chain/chain.ts#L66)
+[chain/chain.ts:66](https://github.com/NibiruChain/ts-sdk/blob/fe5a329/packages/nibijs/src/chain/chain.ts#L66)
