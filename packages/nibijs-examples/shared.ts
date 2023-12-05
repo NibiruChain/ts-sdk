@@ -1,5 +1,5 @@
-import { Localnet, Chain } from "@nibiruchain/nibijs/src/chain"
 import path from "path"
+import { Localnet, Chain } from "@nibiruchain/nibijs"
 
 /** CHAIN: Nibiru Network for all usage examples */
 export const CHAIN: Chain = Localnet
@@ -19,7 +19,7 @@ export function hereDoc(text: string): string {
       // Split the string into lines
       .split("\n")
       // Remove leading whitespace from each line
-      .map((line) => line.replace(/^\s+/g, ""))
+      .map((line) => line.replace(/^\s+/, ""))
       // Join the lines back together
       .join("\n")
   )
