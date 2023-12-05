@@ -1,4 +1,5 @@
 import { NibiruQueryClient, NibiruSigningClient } from "@nibiruchain/nibijs"
+import { TEST_ADDRESS } from "@nibiruchain/nibijs/src/test/helpers"
 import { CHAIN, logSuccess } from "./shared"
 
 async function runExample() {
@@ -13,8 +14,8 @@ async function runExample() {
   const allMarkets = await queryClient.nibiruExtensions.perp.markets()
   console.log("allMarkets: %o", allMarkets)
 
-  // Use your address instead here.
-  const address = "nibi1fm80fe48g0tp2aztltr6q9g987ejtnllt75qsm"
+  // You can use your address instead here.
+  const address = TEST_ADDRESS
   const signingClient = await NibiruSigningClient.connect(CHAIN.endptTm)
   const allBalances = await signingClient.getAllBalances(address)
   console.log("allBalances: %o", allBalances)

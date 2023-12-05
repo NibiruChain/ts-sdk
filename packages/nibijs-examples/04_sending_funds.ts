@@ -12,7 +12,7 @@ async function runExample() {
   console.log(
     hereDoc(`Running example: ${__filename}...
     This example broadcasts a transaction to send 5 unibi from the test account
-    (${TEST_ADDRESS}). The funds are sent to a random address.`),
+    (${TEST_ADDRESS}). The funds are sent to a random address.`)
   )
 
   // mnemonic: For the account that will sign the transaction
@@ -24,7 +24,7 @@ async function runExample() {
   const signer = await newSignerFromMnemonic(mnemonic)
   const signingClient = await NibiruSigningClient.connectWithSigner(
     CHAIN.endptTm,
-    signer,
+    signer
   )
   const [{ address: fromAddr }] = await signer.getAccounts()
 
@@ -32,7 +32,7 @@ async function runExample() {
     fromAddr,
     toAddr,
     [{ denom: "unibi", amount: toSdkInt(5) }],
-    "auto",
+    "auto"
   )
   const { transactionHash, gasUsed, gasWanted, code } = txResp
   const events = parseEventLogs(txResp)

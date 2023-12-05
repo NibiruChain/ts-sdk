@@ -71,7 +71,7 @@ export const toSdkDec = (dec: string): string => {
     console.error(
       `value \${decStr}' exceeds max precision by ${
         PRECISION - lenDigitBlock
-      } decimal places: max precision ${PRECISION}`,
+      } decimal places: max precision ${PRECISION}`
     )
     return "0"
   }

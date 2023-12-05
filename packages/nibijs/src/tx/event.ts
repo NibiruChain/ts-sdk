@@ -53,7 +53,7 @@ export const eventToMap = (event: ABCIEvent): EventMap => {
  * events of known type are present. */
 export const findEvent = (
   events: ABCIEvent[],
-  eventType: string,
+  eventType: string
 ): ABCIEvent | undefined => events.find((e) => e.type === eventType)
 
 /** parseEventLogs: Returns a mutable and typed version of the events payload

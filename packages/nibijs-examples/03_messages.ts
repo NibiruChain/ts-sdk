@@ -18,7 +18,7 @@ async function runExample() {
   signer.getAccounts()
   const signingClient = await NibiruSigningClient.connectWithSigner(
     CHAIN.endptTm,
-    signer,
+    signer
   )
   const [{ address: fromAddr }] = await signer.getAccounts()
 

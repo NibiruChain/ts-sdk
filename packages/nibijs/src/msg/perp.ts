@@ -84,7 +84,7 @@ export interface MsgDonateToEcosystemFundEncodeObject extends EncodeObject {
 }
 
 export const isMsgDonateToEcosystemFundEncodeObject = (
-  encodeObject: EncodeObject,
+  encodeObject: EncodeObject
 ) =>
   (encodeObject as MsgDonateToEcosystemFundEncodeObject).typeUrl ===
   PERP_MSG_TYPE_URLS.MsgDonateToEcosystemFund

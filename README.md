@@ -89,7 +89,7 @@ console.log("address: ", address)
 import {
   NibiruQueryClient,
   NibiruSigningClient,
-  Localnet
+  Localnet,
 } from "@nibiruchain/nibijs"
 
 export const CHAIN: Chain = Localnet

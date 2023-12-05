@@ -1,0 +1,1918 @@
+-----------
+JsonRPCRequest: { jsonrpc: '2.0', id: 427943755582, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 427943755582,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'FB80F4F6EAEC535C890C5D5BC501C44725E136979613858DE4C6A7FBB65CB38B',
+      latest_app_hash: '83272A8C3FB2CD26C63F89CA6135B0FB2875EC164530A58E703BC8407851AF16',
+      latest_block_height: '512',
+      latest_block_time: '2023-07-07T23:50:11.582838405Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 864337498445, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 864337498445,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'FB80F4F6EAEC535C890C5D5BC501C44725E136979613858DE4C6A7FBB65CB38B',
+      latest_app_hash: '83272A8C3FB2CD26C63F89CA6135B0FB2875EC164530A58E703BC8407851AF16',
+      latest_block_height: '512',
+      latest_block_time: '2023-07-07T23:50:11.582838405Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 558153885335, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 558153885335,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+
+  at Tendermint37Client.doCall (../../node_modules/@cosmjs/tendermint-rpc/src/tendermint37/tendermint37client.ts:345:4)
+
+-----------
+JsonRPCRequest: { jsonrpc: '2.0', id: 866145538919, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 866145538919,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 213727678282,
+  method: 'block',
+  params: { height: undefined }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 213727678282,
+  result: {
+    block_id: {
+      hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      parts: {
+        total: 1,
+        hash: 'E08B5E8453E848E56D02BD8D1DF8E992838D3D44FC0950A25E0CA736D7507FFB'
+      }
+    },
+    block: {
+      header: {
+        version: { block: '11' },
+        chain_id: 'nibiru-localnet-0',
+        height: '514',
+        time: '2023-07-07T23:50:13.767057872Z',
+        last_block_id: {
+          hash: '95FEABBD047A74462B234AD98887306B82A64F76C2D65E873FFECEE574B98072',
+          parts: [Object]
+        },
+        last_commit_hash: '9B66CAE18CF0C1BB7EF7A3E2DFF7E965D30E940D077E66468321AFB6C92A50FD',
+        data_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+        validators_hash: 'C29DA9669AC83974A144F1B6ACF252D50D1D4658DBA92342EBAF60E6B61C7E45',
+        next_validators_hash: 'C29DA9669AC83974A144F1B6ACF252D50D1D4658DBA92342EBAF60E6B61C7E45',
+        consensus_hash: '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
+        app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+        last_results_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+        evidence_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+        proposer_address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5'
+      },
+      data: { txs: [ [length]: 0 ] },
+      evidence: { evidence: [ [length]: 0 ] },
+      last_commit: {
+        height: '513',
+        round: 0,
+        block_id: {
+          hash: '95FEABBD047A74462B234AD98887306B82A64F76C2D65E873FFECEE574B98072',
+          parts: [Object]
+        },
+        signatures: [ [Object], [length]: 1 ]
+      }
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 416157298632, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 416157298632,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 318971141657,
+  method: 'abci_query',
+  params: {
+    path: '/cosmos.bank.v1beta1.Query/AllBalances',
+    data: '0a2b6e696269317a616176767a78657a30656c756e64746e3332716e6b396c6b6d386b6d63737a34346737786c',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 318971141657,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'ChYKBXVuaWJpEg05OTk4NTMxMjI3NDk5ChcKBXVudXNkEg4xMDAwMDAwMDAwMDAwMAoXCgV1dXNkYxIOMTAwMDAwMDAwMDAwMDAKFwoFdXVzZHQSDjEwMDAwMDAwMDAwMDAwEgIQBA==',
+      proofOps: null,
+      height: '514',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 991631124948, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 991631124948,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 741938354246,
+  method: 'abci_query',
+  params: {
+    path: '/nibiru.spot.v1.Query/Params',
+    data: '',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 741938354246,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CjMIARITCgV1bmliaRIKMTAwMDAwMDAwMBoFdW5pYmkaBXV1c2RjGgV1bnVzZBoFdXVzZHQ=',
+      proofOps: null,
+      height: '514',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 332861988129, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 332861988129,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 522294755553,
+  method: 'abci_query',
+  params: {
+    path: '/nibiru.oracle.v1.Query/Actives',
+    data: '',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 522294755553,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'Cgp1YnRjOnVudXNkCgp1ZXRoOnVudXNk',
+      proofOps: null,
+      height: '514',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 393543562419, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 393543562419,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 118856861873,
+  method: 'abci_query',
+  params: {
+    path: '/nibiru.oracle.v1.Query/Params',
+    data: '',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 118856861873,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CpgCCB4SEjMzMzMzMzMzMzMzMzMzMzMzMxoRMjAwMDAwMDAwMDAwMDAwMDAiC3VuaWJpOnVudXNkIgp1YnRjOnVudXNkIgp1ZXRoOnVudXNkIgt1YXRvbTp1bnVzZCIKdWJuYjp1bnVzZCILdXVzZGM6dW51c2QiC3V1c2R0OnVudXNkIgp1bmliaTp1dXNkIgl1YnRjOnV1c2QiCXVldGg6dXVzZCIKdWF0b206dXVzZCIJdWJuYjp1dXNkIgp1dXNkYzp1dXNkIgp1dXNkdDp1dXNkKhA1MDAwMDAwMDAwMDAwMDAwMJAcOhI2OTAwMDAwMDAwMDAwMDAwMDBCAwiEB0gEUhE1MDAwMDAwMDAwMDAwMDAwMFiEBw==',
+      proofOps: null,
+      height: '514',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 554485717453, method: 'status', params: {} }
+
+  at Tendermint37Client.doCall (../../node_modules/@cosmjs/tendermint-rpc/src/tendermint37/tendermint37client.ts:343:11)
+
+-----------
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 554485717453,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 549851955915,
+  method: 'abci_query',
+  params: {
+    path: '/nibiru.oracle.v1.Query/ExchangeRates',
+    data: '',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 549851955915,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CiUKCnVidGM6dW51c2QSFzIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwCiQKCnVldGg6dW51c2QSFjIwMDAwMDAwMDAwMDAwMDAwMDAwMDA=',
+      proofOps: null,
+      height: '514',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 165769651747, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 165769651747,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 179957591668,
+  method: 'abci_query',
+  params: {
+    path: '/nibiru.epochs.v1.Query/EpochInfos',
+    data: '',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 179957591668,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'Ci8KBjE1IG1pbhIMCJDFoqUGEOSD+4sBGgMIhAcgASoMCJDFoqUGEOSD+4sBMAE4AQovCgYzMCBtaW4SDAiQxaKlBhDkg/uLARoDCIgOIAEqDAiQxaKlBhDkg/uLATABOAEKLgoEd2VlaxIMCJDFoqUGEOSD+4sBGgQIgPUkIAEqDAiQxaKlBhDkg/uLATABOAE=',
+      proofOps: null,
+      height: '514',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 977227343945,
+  method: 'abci_query',
+  params: {
+    path: '/nibiru.epochs.v1.Query/CurrentEpoch',
+    data: '0a063135206d696e',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 977227343945,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CAE=',
+      proofOps: null,
+      height: '514',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 253471119458, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 253471119458,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 113667539828,
+  method: 'abci_query',
+  params: {
+    path: '/cosmos.staking.v1beta1.Query/Validators',
+    data: '0a12424f4e445f5354415455535f424f4e444544',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 335538343424, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 113667539828,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CooCCjJuaWJpdmFsb3BlcjF6YWF2dnp4ZXowZWx1bmR0bjMycW5rOWxrbThrbWNzenV3eDlqehJDCh0vY29zbW9zLmNyeXB0by5lZDI1NTE5LlB1YktleRIiCiCru4pJnEihKbcinue45DJbhuxYRG2MmJdrUMv/WPS87iADKgk5MDAwMDAwMDAyGzkwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDoTChFuaWJpcnUtbG9jYWxuZXQtMEoAUksKOwoSMTAwMDAwMDAwMDAwMDAwMDAwEhIyMDAwMDAwMDAwMDAwMDAwMDAaETEwMDAwMDAwMDAwMDAwMDAwEgwIkMWipQYQ5IP7iwFaATESAhAB',
+      proofOps: null,
+      height: '514',
+      codespace: ''
+    }
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 335538343424,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 155326628264, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 155326628264,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 998479544163,
+  method: 'abci_query',
+  params: {
+    path: '/cosmos.distribution.v1beta1.Query/Params',
+    data: '',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 998479544163,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'ChsKETIwMDAwMDAwMDAwMDAwMDAwEgEwGgEwIAE=',
+      proofOps: null,
+      height: '514',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 487298485487, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 487298485487,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'A3A56D341B82138F9245BDB06C95A5BB346853F512825CBA4DF4C76F10D6EA0B',
+      latest_app_hash: '6528FDEF58A1D6DEE4E717F98FA31DB50B4077EDFA28E6EC696D9CECEE7BC6F1',
+      latest_block_height: '514',
+      latest_block_time: '2023-07-07T23:50:13.767057872Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 739642718212,
+  method: 'abci_query',
+  params: {
+    path: '/cosmos.gov.v1beta1.Query/Params',
+    data: '0a06766f74696e67',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 739642718212,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CgYKBAiAxgoSAhIAGgkKATASATAaATA=',
+      proofOps: null,
+      height: '514',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 769514896326, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 769514896326,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'F123A27102FD46CAB638654ABD4622C77FE873341E1950FE738A74B7590A4649',
+      latest_app_hash: 'DE146AEBEA048DFD4100A51613D41CC7B7E703725C45116738FF9A72B0B1FC3D',
+      latest_block_height: '515',
+      latest_block_time: '2023-07-07T23:50:14.830676874Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 817782126569,
+  method: 'abci_query',
+  params: {
+    path: '/ibc.core.channel.v1.Query/Channels',
+    data: '',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 817782126569,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'EgAaAxCDBA==',
+      proofOps: null,
+      height: '515',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 963554643818, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 963554643818,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'F123A27102FD46CAB638654ABD4622C77FE873341E1950FE738A74B7590A4649',
+      latest_app_hash: 'DE146AEBEA048DFD4100A51613D41CC7B7E703725C45116738FF9A72B0B1FC3D',
+      latest_block_height: '515',
+      latest_block_time: '2023-07-07T23:50:14.830676874Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 437952973438,
+  method: 'abci_query',
+  params: {
+    path: '/ibc.core.connection.v1.Query/Connections',
+    data: '',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 437952973438,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CngKFGNvbm5lY3Rpb24tbG9jYWxob3N0EgwwOS1sb2NhbGhvc3QaIwoBMRINT1JERVJfT1JERVJFRBIPT1JERVJfVU5PUkRFUkVEIAMqKwoMMDktbG9jYWxob3N0EhRjb25uZWN0aW9uLWxvY2FsaG9zdBoFCgNpYmMSAhABGgMQgwQ=',
+      proofOps: null,
+      height: '515',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 641387981726, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 641387981726,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'F123A27102FD46CAB638654ABD4622C77FE873341E1950FE738A74B7590A4649',
+      latest_app_hash: 'DE146AEBEA048DFD4100A51613D41CC7B7E703725C45116738FF9A72B0B1FC3D',
+      latest_block_height: '515',
+      latest_block_time: '2023-07-07T23:50:14.830676874Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 757472596894,
+  method: 'abci_query',
+  params: {
+    path: '/ibc.core.client.v1.Query/ClientParams',
+    data: '',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 757472596894,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'Ci0KDjA2LXNvbG9tYWNoaW5lCg0wNy10ZW5kZXJtaW50CgwwOS1sb2NhbGhvc3Q=',
+      proofOps: null,
+      height: '515',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 664357456363, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 664357456363,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'F123A27102FD46CAB638654ABD4622C77FE873341E1950FE738A74B7590A4649',
+      latest_app_hash: 'DE146AEBEA048DFD4100A51613D41CC7B7E703725C45116738FF9A72B0B1FC3D',
+      latest_block_height: '515',
+      latest_block_time: '2023-07-07T23:50:14.830676874Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 785454235196,
+  method: 'abci_query',
+  params: {
+    path: '/ibc.applications.transfer.v1.Query/Params',
+    data: '',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 785454235196,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CgQIARAB',
+      proofOps: null,
+      height: '515',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 113449468119, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 113449468119,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'F123A27102FD46CAB638654ABD4622C77FE873341E1950FE738A74B7590A4649',
+      latest_app_hash: 'DE146AEBEA048DFD4100A51613D41CC7B7E703725C45116738FF9A72B0B1FC3D',
+      latest_block_height: '515',
+      latest_block_time: '2023-07-07T23:50:14.830676874Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 847585379299,
+  method: 'abci_query',
+  params: {
+    path: '/store/ibc/key',
+    data: '6368616e6e656c456e64732f706f7274732f7472616e736665722f6368616e6e656c732f6368616e6e656c2d30',
+    height: undefined,
+    prove: true
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 847585379299,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: 'Y2hhbm5lbEVuZHMvcG9ydHMvdHJhbnNmZXIvY2hhbm5lbHMvY2hhbm5lbC0w',
+      value: null,
+      proofOps: { ops: [ [Object], [Object], [length]: 2 ] },
+      height: '515',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 482629977572,
+  method: 'blockchain',
+  params: { minHeight: '515', maxHeight: '516' }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 482629977572,
+  result: {
+    last_height: '515',
+    block_metas: [
+      {
+        block_id: {
+          hash: 'F123A27102FD46CAB638654ABD4622C77FE873341E1950FE738A74B7590A4649',
+          parts: [Object]
+        },
+        block_size: '601',
+        header: {
+          version: [Object],
+          chain_id: 'nibiru-localnet-0',
+          height: '515',
+          time: '2023-07-07T23:50:14.830676874Z',
+          last_block_id: [Object],
+          last_commit_hash: '669EFFF133038C5760CE3EF826EF8D14337B1D5C350A9FCC48011FD2B2E91236',
+          data_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+          validators_hash: 'C29DA9669AC83974A144F1B6ACF252D50D1D4658DBA92342EBAF60E6B61C7E45',
+          next_validators_hash: 'C29DA9669AC83974A144F1B6ACF252D50D1D4658DBA92342EBAF60E6B61C7E45',
+          consensus_hash: '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
+          app_hash: 'DE146AEBEA048DFD4100A51613D41CC7B7E703725C45116738FF9A72B0B1FC3D',
+          last_results_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+          evidence_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+          proposer_address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5'
+        },
+        num_txs: '0'
+      },
+      [length]: 1
+    ]
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 786744323899,
+  method: 'abci_query',
+  params: {
+    path: '/cosmos.auth.v1beta1.Query/Account',
+    data: '0a2b6e696269317a616176767a78657a30656c756e64746e3332716e6b396c6b6d386b6d63737a34346737786c',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 786744323899,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CpsBCiAvY29zbW9zLmF1dGgudjFiZXRhMS5CYXNlQWNjb3VudBJ3CituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEkYKHy9jb3Ntb3MuY3J5cHRvLnNlY3AyNTZrMS5QdWJLZXkSIwohAvzwBOriY8sVwEXrXf1gXanhT9imlfWeUWLQ8pMxrRsgIAQ=',
+      proofOps: null,
+      height: '515',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 812573487166,
+  method: 'abci_query',
+  params: {
+    path: '/cosmos.tx.v1beta1.Service/Simulate',
+    data: '12e2010a89010a86010a1c2f636f736d6f732e62616e6b2e763162657461312e4d736753656e6412660a2b6e696269317a616176767a78657a30656c756e64746e3332716e6b396c6b6d386b6d63737a34346737786c122b6e69626931613472367867347067366b6475667a713532746b3535766a737866616863726175736a6461671a0a0a05756e69626912013112520a4e0a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2102fcf004eae263cb15c045eb5dfd605da9e14fd8a695f59e5162d0f29331ad1b2012020a00180412001a00',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 812573487166,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'Cg8I////////////ARCrvAMSrQwKKBImCiQvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kUmVzcG9uc2USvgZbeyJtc2dfaW5kZXgiOjAsImV2ZW50cyI6W3sidHlwZSI6Im1lc3NhZ2UiLCJhdHRyaWJ1dGVzIjpbeyJrZXkiOiJhY3Rpb24iLCJ2YWx1ZSI6Ii9jb3Ntb3MuYmFuay52MWJldGExLk1zZ1NlbmQifSx7ImtleSI6InNlbmRlciIsInZhbHVlIjoibmliaTF6YWF2dnp4ZXowZWx1bmR0bjMycW5rOWxrbThrbWNzejQ0Zzd4bCJ9LHsia2V5IjoibW9kdWxlIiwidmFsdWUiOiJiYW5rIn1dfSx7InR5cGUiOiJjb2luX3NwZW50IiwiYXR0cmlidXRlcyI6W3sia2V5Ijoic3BlbmRlciIsInZhbHVlIjoibmliaTF6YWF2dnp4ZXowZWx1bmR0bjMycW5rOWxrbThrbWNzejQ0Zzd4bCJ9LHsia2V5IjoiYW1vdW50IiwidmFsdWUiOiIxdW5pYmkifV19LHsidHlwZSI6ImNvaW5fcmVjZWl2ZWQiLCJhdHRyaWJ1dGVzIjpbeyJrZXkiOiJyZWNlaXZlciIsInZhbHVlIjoibmliaTFhNHI2eGc0cGc2a2R1ZnpxNTJ0azU1dmpzeGZhaGNyYXVzamRhZyJ9LHsia2V5IjoiYW1vdW50IiwidmFsdWUiOiIxdW5pYmkifV19LHsidHlwZSI6InRyYW5zZmVyIiwiYXR0cmlidXRlcyI6W3sia2V5IjoicmVjaXBpZW50IiwidmFsdWUiOiJuaWJpMWE0cjZ4ZzRwZzZrZHVmenE1MnRrNTV2anN4ZmFoY3JhdXNqZGFnIn0seyJrZXkiOiJzZW5kZXIiLCJ2YWx1ZSI6Im5pYmkxemFhdnZ6eGV6MGVsdW5kdG4zMnFuazlsa204a21jc3o0NGc3eGwifSx7ImtleSI6ImFtb3VudCIsInZhbHVlIjoiMXVuaWJpIn1dfSx7InR5cGUiOiJtZXNzYWdlIiwiYXR0cmlidXRlcyI6W3sia2V5Ijoic2VuZGVyIiwidmFsdWUiOiJuaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsIn1dfV19XRpFCgJ0eBIFCgNmZWUSOAoJZmVlX3BheWVyEituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsGj4KAnR4EjgKB2FjY19zZXESLW5pYmkxemFhdnZ6eGV6MGVsdW5kdG4zMnFuazlsa204a21jc3o0NGc3eGwvNBoRCgJ0eBILCglzaWduYXR1cmUaeAoHbWVzc2FnZRImCgZhY3Rpb24SHC9jb3Ntb3MuYmFuay52MWJldGExLk1zZ1NlbmQSNQoGc2VuZGVyEituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEg4KBm1vZHVsZRIEYmFuaxpWCgpjb2luX3NwZW50EjYKB3NwZW5kZXISK25pYmkxemFhdnZ6eGV6MGVsdW5kdG4zMnFuazlsa204a21jc3o0NGc3eGwSEAoGYW1vdW50EgYxdW5pYmkaWgoNY29pbl9yZWNlaXZlZBI3CghyZWNlaXZlchIrbmliaTFhNHI2eGc0cGc2a2R1ZnpxNTJ0azU1dmpzeGZhaGNyYXVzamRhZxIQCgZhbW91bnQSBjF1bmliaRqNAQoIdHJhbnNmZXISOAoJcmVjaXBpZW50EituaWJpMWE0cjZ4ZzRwZzZrZHVmenE1MnRrNTV2anN4ZmFoY3JhdXNqZGFnEjUKBnNlbmRlchIrbmliaTF6YWF2dnp4ZXowZWx1bmR0bjMycW5rOWxrbThrbWNzejQ0Zzd4bBIQCgZhbW91bnQSBjF1bmliaRpACgdtZXNzYWdlEjUKBnNlbmRlchIrbmliaTF6YWF2dnp4ZXowZWx1bmR0bjMycW5rOWxrbThrbWNzejQ0Zzd4bCImCiQvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kUmVzcG9uc2U=',
+      proofOps: null,
+      height: '515',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 448334816319,
+  method: 'abci_query',
+  params: {
+    path: '/cosmos.auth.v1beta1.Query/Account',
+    data: '0a2b6e696269317a616176767a78657a30656c756e64746e3332716e6b396c6b6d386b6d63737a34346737786c',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 448334816319,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CpsBCiAvY29zbW9zLmF1dGgudjFiZXRhMS5CYXNlQWNjb3VudBJ3CituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEkYKHy9jb3Ntb3MuY3J5cHRvLnNlY3AyNTZrMS5QdWJLZXkSIwohAvzwBOriY8sVwEXrXf1gXanhT9imlfWeUWLQ8pMxrRsgIAQ=',
+      proofOps: null,
+      height: '515',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 934677133744, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 934677133744,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: 'F123A27102FD46CAB638654ABD4622C77FE873341E1950FE738A74B7590A4649',
+      latest_app_hash: 'DE146AEBEA048DFD4100A51613D41CC7B7E703725C45116738FF9A72B0B1FC3D',
+      latest_block_height: '515',
+      latest_block_time: '2023-07-07T23:50:14.830676874Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 339113361487,
+  method: 'blockchain',
+  params: { minHeight: '515', maxHeight: '516' }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 339113361487,
+  result: {
+    last_height: '516',
+    block_metas: [
+      {
+        block_id: {
+          hash: '17363B3C7AB851D540F2541A518F42836A835A4230BA50DAC5F2D3B38F1F48F0',
+          parts: [Object]
+        },
+        block_size: '601',
+        header: {
+          version: [Object],
+          chain_id: 'nibiru-localnet-0',
+          height: '516',
+          time: '2023-07-07T23:50:15.899586111Z',
+          last_block_id: [Object],
+          last_commit_hash: '994AE92F8AB9895B8E2CDCE91EDD4494C89C8AD7E53FD8433EA3F310255BF7E9',
+          data_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+          validators_hash: 'C29DA9669AC83974A144F1B6ACF252D50D1D4658DBA92342EBAF60E6B61C7E45',
+          next_validators_hash: 'C29DA9669AC83974A144F1B6ACF252D50D1D4658DBA92342EBAF60E6B61C7E45',
+          consensus_hash: '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
+          app_hash: '2484457E5A6177CC0DA78EE6561AE71B1A86C6A3B85DB404AE255E3FA68D52FB',
+          last_results_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+          evidence_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+          proposer_address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5'
+        },
+        num_txs: '0'
+      },
+      {
+        block_id: {
+          hash: 'F123A27102FD46CAB638654ABD4622C77FE873341E1950FE738A74B7590A4649',
+          parts: [Object]
+        },
+        block_size: '601',
+        header: {
+          version: [Object],
+          chain_id: 'nibiru-localnet-0',
+          height: '515',
+          time: '2023-07-07T23:50:14.830676874Z',
+          last_block_id: [Object],
+          last_commit_hash: '669EFFF133038C5760CE3EF826EF8D14337B1D5C350A9FCC48011FD2B2E91236',
+          data_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+          validators_hash: 'C29DA9669AC83974A144F1B6ACF252D50D1D4658DBA92342EBAF60E6B61C7E45',
+          next_validators_hash: 'C29DA9669AC83974A144F1B6ACF252D50D1D4658DBA92342EBAF60E6B61C7E45',
+          consensus_hash: '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
+          app_hash: 'DE146AEBEA048DFD4100A51613D41CC7B7E703725C45116738FF9A72B0B1FC3D',
+          last_results_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+          evidence_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+          proposer_address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5'
+        },
+        num_txs: '0'
+      },
+      [length]: 2
+    ]
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 921588497729, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 921588497729,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: '17363B3C7AB851D540F2541A518F42836A835A4230BA50DAC5F2D3B38F1F48F0',
+      latest_app_hash: '2484457E5A6177CC0DA78EE6561AE71B1A86C6A3B85DB404AE255E3FA68D52FB',
+      latest_block_height: '516',
+      latest_block_time: '2023-07-07T23:50:15.899586111Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 119558719986,
+  method: 'abci_query',
+  params: {
+    path: '/cosmos.auth.v1beta1.Query/Account',
+    data: '0a2b6e696269317a616176767a78657a30656c756e64746e3332716e6b396c6b6d386b6d63737a34346737786c',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 119558719986,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CpsBCiAvY29zbW9zLmF1dGgudjFiZXRhMS5CYXNlQWNjb3VudBJ3CituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEkYKHy9jb3Ntb3MuY3J5cHRvLnNlY3AyNTZrMS5QdWJLZXkSIwohAvzwBOriY8sVwEXrXf1gXanhT9imlfWeUWLQ8pMxrRsgIAQ=',
+      proofOps: null,
+      height: '516',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 216135382217,
+  method: 'broadcast_tx_sync',
+  params: {
+    tx: 'CokBCoYBChwvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kEmYKK25pYmkxemFhdnZ6eGV6MGVsdW5kdG4zMnFuazlsa204a21jc3o0NGc3eGwSK25pYmkxYTRyNnhnNHBnNmtkdWZ6cTUydGs1NXZqc3hmYWhjcmF1c2pkYWcaCgoFdW5pYmkSATESbgpQCkYKHy9jb3Ntb3MuY3J5cHRvLnNlY3AyNTZrMS5QdWJLZXkSIwohAvzwBOriY8sVwEXrXf1gXanhT9imlfWeUWLQ8pMxrRsgEgQKAggBGAQSGgoSCgV1bmliaRIJNTY4NzUwMDAwEIDnheBUGkA88j0Oylm+2KqdT/RcxRm28Xe4G8inlGWYRyUbYz+6PQKdQXy3/2UDJ73zCSSBSxNVIUZ5xjufM6oC+6kfWsd3'
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 216135382217,
+  result: {
+    code: 0,
+    data: '',
+    log: '[]',
+    codespace: '',
+    hash: '68ABE76C774BE8C6D80871BBDC33C08E30D9BD4945229D91E42245DBDD0CE5F3'
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 248138329527,
+  method: 'tx_search',
+  params: {
+    query: "tx.hash='68ABE76C774BE8C6D80871BBDC33C08E30D9BD4945229D91E42245DBDD0CE5F3'",
+    prove: undefined,
+    page: '1',
+    per_page: undefined,
+    order_by: undefined
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 248138329527,
+  result: {
+    txs: [
+      {
+        hash: '68ABE76C774BE8C6D80871BBDC33C08E30D9BD4945229D91E42245DBDD0CE5F3',
+        height: '517',
+        index: 0,
+        tx_result: {
+          code: 0,
+          data: 'EiYKJC9jb3Ntb3MuYmFuay52MWJldGExLk1zZ1NlbmRSZXNwb25zZQ==',
+          log: '[{"msg_index":0,"events":[{"type":"message","attributes":[{"key":"action","value":"/cosmos.bank.v1beta1.MsgSend"},{"key":"sender","value":"nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl"},{"key":"module","value":"bank"}]},{"type":"coin_spent","attributes":[{"key":"spender","value":"nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl"},{"key":"amount","value":"1unibi"}]},{"type":"coin_received","attributes":[{"key":"receiver","value":"nibi1a4r6xg4pg6kdufzq52tk55vjsxfahcrausjdag"},{"key":"amount","value":"1unibi"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"nibi1a4r6xg4pg6kdufzq52tk55vjsxfahcrausjdag"},{"key":"sender","value":"nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl"},{"key":"amount","value":"1unibi"}]},{"type":"message","attributes":[{"key":"sender","value":"nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl"}]}]}]',
+          info: '',
+          gas_wanted: '22750000000',
+          gas_used: '75824',
+          events: [Array],
+          codespace: ''
+        },
+        tx: 'CokBCoYBChwvY29zbW9zLmJhbmsudjFiZXRhMS5Nc2dTZW5kEmYKK25pYmkxemFhdnZ6eGV6MGVsdW5kdG4zMnFuazlsa204a21jc3o0NGc3eGwSK25pYmkxYTRyNnhnNHBnNmtkdWZ6cTUydGs1NXZqc3hmYWhjcmF1c2pkYWcaCgoFdW5pYmkSATESbgpQCkYKHy9jb3Ntb3MuY3J5cHRvLnNlY3AyNTZrMS5QdWJLZXkSIwohAvzwBOriY8sVwEXrXf1gXanhT9imlfWeUWLQ8pMxrRsgEgQKAggBGAQSGgoSCgV1bmliaRIJNTY4NzUwMDAwEIDnheBUGkA88j0Oylm+2KqdT/RcxRm28Xe4G8inlGWYRyUbYz+6PQKdQXy3/2UDJ73zCSSBSxNVIUZ5xjufM6oC+6kfWsd3'
+      },
+      [length]: 1
+    ],
+    total_count: '1'
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 936343921424, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 936343921424,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: '9C0989DD897699C87D39298377C87129D22C450E1ABBCDC4A226FE6015DB81C5',
+      latest_app_hash: '261230161F2FEC6A3206765B6E3BFF760D770B93A79F41F3C6039C2C8B995E74',
+      latest_block_height: '517',
+      latest_block_time: '2023-07-07T23:50:16.946274661Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 696354754111,
+  method: 'abci_query',
+  params: {
+    path: '/cosmos.auth.v1beta1.Query/Account',
+    data: '0a2b6e696269317a616176767a78657a30656c756e64746e3332716e6b396c6b6d386b6d63737a34346737786c',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 696354754111,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CpsBCiAvY29zbW9zLmF1dGgudjFiZXRhMS5CYXNlQWNjb3VudBJ3CituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEkYKHy9jb3Ntb3MuY3J5cHRvLnNlY3AyNTZrMS5QdWJLZXkSIwohAvzwBOriY8sVwEXrXf1gXanhT9imlfWeUWLQ8pMxrRsgIAU=',
+      proofOps: null,
+      height: '517',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 878325948162, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 878325948162,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: '8FB77B040BF2800D71B526766206088032058B9B54E47D18D0FE0D54DF37F947',
+      latest_app_hash: '821C3A39EB063730E5792A181BB3C782F39A76649692EEBD421C36D09EACEFCD',
+      latest_block_height: '518',
+      latest_block_time: '2023-07-07T23:50:17.992714054Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 381619358564,
+  method: 'broadcast_tx_sync',
+  params: {
+    tx: 'CroDCmoKHi9uaWJpcnUucGVycC52Mi5Nc2dNYXJrZXRPcmRlchJICituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEgp1YnRjOnVudXNkGAEiBDEwMDAqAjEwMgEwCmYKHC9uaWJpcnUucGVycC52Mi5Nc2dBZGRNYXJnaW4SRgorbmliaTF6YWF2dnp4ZXowZWx1bmR0bjMycW5rOWxrbThrbWNzejQ0Zzd4bBIKdWJ0Yzp1bnVzZBoLCgV1bnVzZBICMjAKaAofL25pYmlydS5wZXJwLnYyLk1zZ1JlbW92ZU1hcmdpbhJFCituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEgp1YnRjOnVudXNkGgoKBXVudXNkEgE1CnoKHi9uaWJpcnUucGVycC52Mi5Nc2dNYXJrZXRPcmRlchJYCituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEgp1YnRjOnVudXNkGAIiAzIwMCoTNDAwMDAwMDAwMDAwMDAwMDAwMDIBMBJoClAKRgofL2Nvc21vcy5jcnlwdG8uc2VjcDI1NmsxLlB1YktleRIjCiEC/PAE6uJjyxXARetd/WBdqeFP2KaV9Z5RYtDykzGtGyASBAoCCAEYBRIUCg4KBXVuaWJpEgUxMDAwMBCAtRgaQIjSH+wlldDIfH4XjLPbTq8YIibaRSujNIba5UlpcpkZfQz7feVjtc8OxK+4PW3jGG75ZjJzDQ5ptQ//JbvpINM='
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 381619358564,
+  result: {
+    code: 0,
+    data: '',
+    log: '[]',
+    codespace: '',
+    hash: 'ACFBCC87721C88C72A469A924BF03E55480A2CA4EA132B656175FF5DF4E067FC'
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 261916687696,
+  method: 'tx_search',
+  params: {
+    query: "tx.hash='ACFBCC87721C88C72A469A924BF03E55480A2CA4EA132B656175FF5DF4E067FC'",
+    prove: undefined,
+    page: '1',
+    per_page: undefined,
+    order_by: undefined
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 261916687696,
+  result: {
+    txs: [
+      {
+        hash: 'ACFBCC87721C88C72A469A924BF03E55480A2CA4EA132B656175FF5DF4E067FC',
+        height: '519',
+        index: 0,
+        tx_result: {
+          code: 1,
+          data: null,
+          log: `failed to execute message; message index: 1: collections: not found: '' with key ("ubtc:unusd", "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl")`,
+          info: '',
+          gas_wanted: '400000',
+          gas_used: '82598',
+          events: [Array],
+          codespace: 'undefined'
+        },
+        tx: 'CroDCmoKHi9uaWJpcnUucGVycC52Mi5Nc2dNYXJrZXRPcmRlchJICituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEgp1YnRjOnVudXNkGAEiBDEwMDAqAjEwMgEwCmYKHC9uaWJpcnUucGVycC52Mi5Nc2dBZGRNYXJnaW4SRgorbmliaTF6YWF2dnp4ZXowZWx1bmR0bjMycW5rOWxrbThrbWNzejQ0Zzd4bBIKdWJ0Yzp1bnVzZBoLCgV1bnVzZBICMjAKaAofL25pYmlydS5wZXJwLnYyLk1zZ1JlbW92ZU1hcmdpbhJFCituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEgp1YnRjOnVudXNkGgoKBXVudXNkEgE1CnoKHi9uaWJpcnUucGVycC52Mi5Nc2dNYXJrZXRPcmRlchJYCituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEgp1YnRjOnVudXNkGAIiAzIwMCoTNDAwMDAwMDAwMDAwMDAwMDAwMDIBMBJoClAKRgofL2Nvc21vcy5jcnlwdG8uc2VjcDI1NmsxLlB1YktleRIjCiEC/PAE6uJjyxXARetd/WBdqeFP2KaV9Z5RYtDykzGtGyASBAoCCAEYBRIUCg4KBXVuaWJpEgUxMDAwMBCAtRgaQIjSH+wlldDIfH4XjLPbTq8YIibaRSujNIba5UlpcpkZfQz7feVjtc8OxK+4PW3jGG75ZjJzDQ5ptQ//JbvpINM='
+      },
+      [length]: 1
+    ],
+    total_count: '1'
+  }
+}
+{
+  code: 1,
+  height: 519,
+  txIndex: 0,
+  events: [
+    { type: 'coin_spent', attributes: [Array] },
+    { type: 'coin_received', attributes: [Array] },
+    { type: 'transfer', attributes: [Array] },
+    { type: 'message', attributes: [Array] },
+    { type: 'tx', attributes: [Array] },
+    { type: 'tx', attributes: [Array] },
+    { type: 'tx', attributes: [Array] }
+  ],
+  rawLog: `failed to execute message; message index: 1: collections: not found: '' with key ("ubtc:unusd", "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl")`,
+  transactionHash: 'ACFBCC87721C88C72A469A924BF03E55480A2CA4EA132B656175FF5DF4E067FC',
+  msgResponses: [],
+  gasUsed: 82598,
+  gasWanted: 400000
+}
+
+  at src/tx/signingClient.test.ts:160:15
+
+-----------
+JsonRPCRequest: { jsonrpc: '2.0', id: 494423819876, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 494423819876,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: '38652ED3047510F85E4FCFDB065F62774F20957D3861BDEBB080713F37B94317',
+      latest_app_hash: '6C8A6FAD6EF86D576FB33502A23C5047553DE7B1C99806BD4EE92BA75A460611',
+      latest_block_height: '519',
+      latest_block_time: '2023-07-07T23:50:19.032446539Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 154121996679,
+  method: 'abci_query',
+  params: {
+    path: '/nibiru.perp.v2.Query/QueryPositions',
+    data: '0a2b6e696269317a616176767a78657a30656c756e64746e3332716e6b396c6b6d386b6d63737a34346737786c',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 154121996679,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: '',
+      proofOps: null,
+      height: '519',
+      codespace: ''
+    }
+  }
+}
+JsonRPCRequest: { jsonrpc: '2.0', id: 175675616963, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 175675616963,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: '38652ED3047510F85E4FCFDB065F62774F20957D3861BDEBB080713F37B94317',
+      latest_app_hash: '6C8A6FAD6EF86D576FB33502A23C5047553DE7B1C99806BD4EE92BA75A460611',
+      latest_block_height: '519',
+      latest_block_time: '2023-07-07T23:50:19.032446539Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 785592916172,
+  method: 'abci_query',
+  params: {
+    path: '/cosmos.auth.v1beta1.Query/Account',
+    data: '0a2b6e696269317a616176767a78657a30656c756e64746e3332716e6b396c6b6d386b6d63737a34346737786c',
+    height: undefined,
+    prove: false
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 785592916172,
+  result: {
+    response: {
+      code: 0,
+      log: '',
+      info: '',
+      index: '0',
+      key: null,
+      value: 'CpsBCiAvY29zbW9zLmF1dGgudjFiZXRhMS5CYXNlQWNjb3VudBJ3CituaWJpMXphYXZ2enhlejBlbHVuZHRuMzJxbms5bGttOGttY3N6NDRnN3hsEkYKHy9jb3Ntb3MuY3J5cHRvLnNlY3AyNTZrMS5QdWJLZXkSIwohAvzwBOriY8sVwEXrXf1gXanhT9imlfWeUWLQ8pMxrRsgIAY=',
+      proofOps: null,
+      height: '519',
+      codespace: ''
+    }
+  }
+}
+
+  at Tendermint37Client.doCall (../../node_modules/@cosmjs/tendermint-rpc/src/tendermint37/tendermint37client.ts:345:4)
+
+-----------
+JsonRPCRequest: { jsonrpc: '2.0', id: 423876466215, method: 'status', params: {} }
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 423876466215,
+  result: {
+    node_info: {
+      protocol_version: { p2p: '8', block: '11', app: '0' },
+      id: 'd09878ce7e7aa414e6b5ddb33ec4ab6ff4033e2a',
+      listen_addr: 'tcp://0.0.0.0:26656',
+      network: 'nibiru-localnet-0',
+      version: '0.37.2',
+      channels: '40202122233038606100',
+      moniker: 'nibiru-localnet-0',
+      other: { tx_index: 'on', rpc_address: 'tcp://127.0.0.1:26657' }
+    },
+    sync_info: {
+      latest_block_hash: '6C9CB4CC5C733B12E384AEE82659C38CBE54872C5DB8D6B7C188F38395D8B8A7',
+      latest_app_hash: 'AFEC4365A828E24C3BB59F3E0EFDC361CDAA8CBE5D41478A93576FD95BD8E2CB',
+      latest_block_height: '520',
+      latest_block_time: '2023-07-07T23:50:20.106784734Z',
+      earliest_block_hash: '5E00AAFD858FB13923A793FE38F965C6B7BEE7FB44EBDE45A3AADFBE692335E4',
+      earliest_app_hash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+      earliest_block_height: '1',
+      earliest_block_time: '2023-07-07T23:41:04.293519844Z',
+      catching_up: false
+    },
+    validator_info: {
+      address: 'EEBA46319FFF2CFE80F2DE54EC9A796EA80CEED5',
+      pub_key: {
+        type: 'tendermint/PubKeyEd25519',
+        value: 'q7uKSZxIoSm3Ip7nuOQyW4bsWERtjJiXa1DL/1j0vO4='
+      },
+      voting_power: '900'
+    }
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 974816772126,
+  method: 'broadcast_tx_sync',
+  params: {
+    tx: 'Cl8KXQogL25pYmlydS5wZXJwLnYyLk1zZ0Nsb3NlUG9zaXRpb24SOQorbmliaTF6YWF2dnp4ZXowZWx1bmR0bjMycW5rOWxrbThrbWNzejQ0Zzd4bBIKdWJ0Yzp1bnVzZBJoClAKRgofL2Nvc21vcy5jcnlwdG8uc2VjcDI1NmsxLlB1YktleRIjCiEC/PAE6uJjyxXARetd/WBdqeFP2KaV9Z5RYtDykzGtGyASBAoCCAEYBhIUCg4KBXVuaWJpEgUxMjUwMBCgwh4aQAk3axvR384SupSZABfYSnVXkNmYeLK+tTLECYXmhdU3KOLenS7e5v8YaJdNPtr9kHyAZs3ORwhEGjiJE/lSRD0='
+  }
+}
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 974816772126,
+  result: {
+    code: 0,
+    data: '',
+    log: '[]',
+    codespace: '',
+    hash: '4BA2D21C546BA20615CF257DADB37402AC0613A9CE29151214A7CF008CC5426A'
+  }
+}
+JsonRPCRequest: {
+  jsonrpc: '2.0',
+  id: 627625143157,
+  method: 'tx_search',
+  params: {
+    query: "tx.hash='4BA2D21C546BA20615CF257DADB37402AC0613A9CE29151214A7CF008CC5426A'",
+    prove: undefined,
+    page: '1',
+    per_page: undefined,
+    order_by: undefined
+  }
+}
+
+  at Tendermint37Client.doCall (../../node_modules/@cosmjs/tendermint-rpc/src/tendermint37/tendermint37client.ts:343:11)
+
+-----------
+JsonRPCResp: {
+  jsonrpc: '2.0',
+  id: 627625143157,
+  result: {
+    txs: [
+      {
+        hash: '4BA2D21C546BA20615CF257DADB37402AC0613A9CE29151214A7CF008CC5426A',
+        height: '521',
+        index: 0,
+        tx_result: {
+          code: 1,
+          data: null,
+          log: `failed to execute message; message index: 0: collections: not found: '' with key ("ubtc:unusd", "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl")`,
+          info: '',
+          gas_wanted: '500000',
+          gas_used: '46691',
+          events: [Array],
+          codespace: 'undefined'
+        },
+        tx: 'Cl8KXQogL25pYmlydS5wZXJwLnYyLk1zZ0Nsb3NlUG9zaXRpb24SOQorbmliaTF6YWF2dnp4ZXowZWx1bmR0bjMycW5rOWxrbThrbWNzejQ0Zzd4bBIKdWJ0Yzp1bnVzZBJoClAKRgofL2Nvc21vcy5jcnlwdG8uc2VjcDI1NmsxLlB1YktleRIjCiEC/PAE6uJjyxXARetd/WBdqeFP2KaV9Z5RYtDykzGtGyASBAoCCAEYBhIUCg4KBXVuaWJpEgUxMjUwMBCgwh4aQAk3axvR384SupSZABfYSnVXkNmYeLK+tTLECYXmhdU3KOLenS7e5v8YaJdNPtr9kHyAZs3ORwhEGjiJE/lSRD0='
+      },
+      [length]: 1
+    ],
+    total_count: '1'
+  }
+}
