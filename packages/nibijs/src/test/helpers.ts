@@ -1,23 +1,15 @@
 import { Block } from "@cosmjs/stargate"
-import {
-  Chain,
-  CustomChain,
-  Devnet,
-  Event,
-  IncentivizedTestnet,
-  Localnet,
-} from "../chain"
+import { Chain, Localnet } from "../chain"
+import { ABCIEvent } from "../tx"
 
 export const TEST_CHAIN = Localnet
-// export const TEST_CHAIN = new CustomChain({
-//   prefix: "nibiru",
-//   shortName: "itn",
-//   number: 1,
-// }) // v0.19.2
 
+/** Mnemonic for the wallet of the default validator on localnet" */
 export const TEST_MNEMONIC =
   process.env.VALIDATOR_MNEMONIC ??
   "guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host"
+
+/** Address for the wallet of the default validator on localnet" */
 export const TEST_ADDRESS =
   process.env.VALIDATOR_ADDRESS ?? "nibi1zaavvzxez0elundtn32qnk9lkm8kmcsz44g7xl"
 
@@ -30,14 +22,9 @@ export const ERR = {
 export function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
     header: ["version", "chain_id", "height", "last_block_id"].concat(
-      [
-        "last_commit_hash",
-        "data_hash",
-        "validators_hash",
-        "next_validators_hash",
-      ],
+      ["last_commit_hash", "data_hash", "validators_hash"],
       ["consensus_hash", "app_hash", "last_results_hash", "evidence_hash"],
-      ["proposer_address"]
+      ["proposer_address", "next_validators_hash"],
     ),
     data: ["txs"],
     evidence: ["evidence"],
@@ -61,7 +48,7 @@ export function validateBlock(block: Block, chain: Chain) {
   expect(block).toHaveProperty("txs")
 }
 
-export function assertHasMsgType(msgType: string, events: Event[]): void {
+export function assertHasMsgType(msgType: string, events: ABCIEvent[]): void {
   events.forEach((event) => {
     if (event.type === "message") {
       expect(event.attributes).toContainEqual({
@@ -72,7 +59,10 @@ export function assertHasMsgType(msgType: string, events: Event[]): void {
   })
 }
 
-export function assertHasEventType(eventType: string, events: Event[]): void {
+export function assertHasEventType(
+  eventType: string,
+  events: ABCIEvent[],
+): void {
   const eventTypes = events.map((event) => event.type)
   expect(eventTypes).toContain(eventType)
 }

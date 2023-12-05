@@ -42,7 +42,7 @@ export class NibiruSigningClient extends SigningStargateClient {
     tmClient: Tendermint37Client,
     signer: OfflineSigner,
     options: SigningStargateClientOptions,
-    wasm: SigningCosmWasmClient
+    wasm: SigningCosmWasmClient,
   ) {
     super(tmClient, signer, options)
     this.wasmClient = wasm
@@ -59,7 +59,7 @@ export class NibiruSigningClient extends SigningStargateClient {
       setupStakingExtension,
       setupIbcExtension,
       setupWasmExtension,
-      setupAuthExtension
+      setupAuthExtension,
     )
   }
 
@@ -67,7 +67,7 @@ export class NibiruSigningClient extends SigningStargateClient {
     endpoint: string,
     signer: OfflineSigner,
     options: SigningStargateClientOptions = {},
-    wasmOptions: SigningCosmWasmClientOptions = {}
+    wasmOptions: SigningCosmWasmClientOptions = {},
   ): Promise<NibiruSigningClient> {
     const tmClient = await Tendermint37Client.connect(endpoint)
     const wasmClient = await SigningCosmWasmClient.connectWithSigner(
@@ -76,7 +76,7 @@ export class NibiruSigningClient extends SigningStargateClient {
       {
         gasPrice: GasPrice.fromString("0.025unibi"),
         ...wasmOptions,
-      }
+      },
     )
     return new NibiruSigningClient(
       tmClient,
@@ -87,7 +87,7 @@ export class NibiruSigningClient extends SigningStargateClient {
         broadcastPollIntervalMs: 1_000, // 1 second poll times
         ...options,
       },
-      wasmClient
+      wasmClient,
     )
   }
 
@@ -108,3 +108,5 @@ export class NibiruSigningClient extends SigningStargateClient {
     }
   }
 }
+
+export { StdFee } from "@cosmjs/amino/build"
