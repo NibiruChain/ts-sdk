@@ -1,3 +1,4 @@
+/* eslint-disable no-promise-executor-return */
 import {
   // mnemonic: For the account that will sign the transaction
   NibiruSigningClient,
@@ -66,14 +67,13 @@ const hereDoc = (text: string): string =>
 
 /** Logs an example-specific success message.
  * @example
- * logSuccess("example 03")
+ * logExampleName("example 03")
  * */
-const logSuccess = (exampleName: string): void => {
+const logExampleName = (exampleName: string): void => {
   console.log(`✅ Successfully completed "${exampleName}"`)
 }
 
 /** sleep: Time out for a given number of milliseconds. */
-// eslint-disable-next-line no-promise-executor-return
 const sleep = async (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -223,13 +223,13 @@ if ((module && require.main === module) || esMain(import.meta)) {
   examples.forEach((exampleFunc) =>
     exampleFunc()
       .then(() => {
-        logSuccess(exampleFunc.name)
+        logExampleName(exampleFunc.name)
       })
       .catch((err) => {
         if (!`${err}`.includes("account sequence mismatch")) {
           throw err
         }
-        logSuccess(exampleFunc.name)
+        logExampleName(exampleFunc.name)
       })
   )
 }
