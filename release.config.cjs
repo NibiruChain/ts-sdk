@@ -7,12 +7,6 @@ const commitVariants = [
     hidden: false,
   },
   {
-    type: "breaking",
-    release: "minor",
-    section: "BREAKING CHANGES",
-    hidden: false,
-  },
-  {
     type: "feat",
     release: "patch",
     section: "Features",
