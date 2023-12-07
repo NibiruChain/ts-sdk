@@ -10,13 +10,13 @@ import {
   fromSdkDec,
   fromSdkInt,
   go,
-  IncentivizedTestnet,
+  Testnet,
   isRestEndptLive,
   newCoinMapFromCoins,
   queryChainIdWithRest,
   toSdkDec,
 } from "../chain"
-import { TEST_CHAIN } from "./helpers"
+import { TEST_CHAIN } from "../testutil"
 
 describe("chain/chain", () => {
   test("testnet rpc", async () => {
@@ -41,7 +41,7 @@ describe("chain/chain", () => {
   }
 
   test("IncentivizedTestnet", async () => {
-    const result = IncentivizedTestnet(1)
+    const result = Testnet(1)
     expectCreatedChain(result, "itn")
   })
 

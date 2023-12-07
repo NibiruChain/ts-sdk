@@ -10,7 +10,7 @@ import {
   validateBlockFromJsonRpc,
   TEST_MNEMONIC,
   assertExpectedError,
-} from "./helpers"
+} from "../testutil"
 import { newSignerFromMnemonic } from "../tx/signer"
 import { NibiruSigningClient } from "../tx/signingClient"
 

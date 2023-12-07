@@ -19,7 +19,7 @@ import {
   TEST_ADDRESS,
   TEST_MNEMONIC,
   ERR,
-} from "../test/helpers"
+} from "../testutil"
 import { newRandomWallet, newSignerFromMnemonic } from "./signer"
 import { NibiruSigningClient } from "./signingClient"
 

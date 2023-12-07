@@ -94,7 +94,7 @@ module.exports = function (root = __dirname) {
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-    // modulePathIgnorePatterns: [],
+    modulePathIgnorePatterns: ["packages/examples"],
 
     // Activates notifications for test results
     // notify: false,

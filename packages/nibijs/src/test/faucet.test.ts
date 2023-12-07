@@ -12,7 +12,7 @@ import {
   newSignerFromMnemonic,
   NibiruSigningClient,
 } from "../tx"
-import { TEST_CHAIN, TEST_MNEMONIC } from "./helpers"
+import { TEST_CHAIN, TEST_MNEMONIC } from "../testutil"
 
 jest.mock("cross-fetch", () => ({
   fetch: jest.fn().mockImplementation(() => ({ catch: jest.fn() })),
