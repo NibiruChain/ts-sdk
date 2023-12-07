@@ -29,8 +29,8 @@
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type            |
+| :---- | :-------------- |
 | `msg` | `MsgCreatePool` |
 
 #### Returns
@@ -41,7 +41,7 @@
 
 [msg/spot.ts:61](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/spot.ts#L61)
 
-___
+---
 
 ### exitPool
 
@@ -49,8 +49,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name             | Type          |
+| :--------------- | :------------ |
 | `«destructured»` | `MsgExitPool` |
 
 #### Returns
@@ -61,7 +61,7 @@ ___
 
 [msg/spot.ts:91](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/spot.ts#L91)
 
-___
+---
 
 ### joinPool
 
@@ -69,8 +69,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name             | Type          |
+| :--------------- | :------------ |
 | `«destructured»` | `MsgJoinPool` |
 
 #### Returns
@@ -81,7 +81,7 @@ ___
 
 [msg/spot.ts:74](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/spot.ts#L74)
 
-___
+---
 
 ### swapAssets
 
@@ -89,8 +89,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name             | Type            |
+| :--------------- | :-------------- |
 | `«destructured»` | `MsgSwapAssets` |
 
 #### Returns

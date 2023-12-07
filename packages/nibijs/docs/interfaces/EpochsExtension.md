@@ -12,7 +12,7 @@
 
 ### epochs
 
-• `Readonly` **epochs**: `Readonly`<{ `currentEpoch`: (`args`: { `identifier`: `string`  }) => `Promise`<`QueryCurrentEpochResponse`\> ; `epochsInfo`: () => `Promise`<`QueryEpochsInfoResponse`\>  }\>
+• `Readonly` **epochs**: `Readonly`<{ `currentEpoch`: (`args`: { `identifier`: `string` }) => `Promise`<`QueryCurrentEpochResponse`\> ; `epochsInfo`: () => `Promise`<`QueryEpochsInfoResponse`\> }\>
 
 #### Defined in
 

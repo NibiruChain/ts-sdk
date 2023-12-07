@@ -46,11 +46,11 @@ Constructor:
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `Amplification` | `BigNumber` |
+| Name               | Type          |
+| :----------------- | :------------ |
+| `Amplification`    | `BigNumber`   |
 | `totalTokenSupply` | `BigNumber`[] |
-| `fee` | `BigNumber` |
+| `fee`              | `BigNumber`   |
 
 #### Defined in
 
@@ -66,7 +66,7 @@ Constructor:
 
 [stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/stableswap/stableswap.ts#L20)
 
-___
+---
 
 ### fee
 
@@ -76,7 +76,7 @@ ___
 
 [stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/stableswap/stableswap.ts#L23)
 
-___
+---
 
 ### totalTokenSupply
 
@@ -86,7 +86,7 @@ ___
 
 [stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/stableswap/stableswap.ts#L21)
 
-___
+---
 
 ### totalTokensInPool
 
@@ -105,7 +105,7 @@ ___
 D()
 
 D invariant calculation in non-overflowing integer operations iteratively
-A * sum(x_i) * n**n + D = A * D * n**n + D**(n+1) / (n**n * prod(x_i))
+A _ sum(x_i) _ n**n + D = A _ D _ n**n + D**(n+1) / (n**n \* prod(x_i))
 
 #### Returns
 
@@ -119,7 +119,7 @@ StableSwap
 
 [stableswap/stableswap.ts:54](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/stableswap/stableswap.ts#L54)
 
-___
+---
 
 ### exchange
 
@@ -129,11 +129,11 @@ exchange() runs a theorhetical Curve StableSwap model to determine impact on tok
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fromIndex` | `number` |
-| `toIndex` | `number` |
-| `dx` | `BigNumber` |
+| Name        | Type        |
+| :---------- | :---------- |
+| `fromIndex` | `number`    |
+| `toIndex`   | `number`    |
+| `dx`        | `BigNumber` |
 
 #### Returns
 
@@ -147,7 +147,7 @@ StableSwap
 
 [stableswap/stableswap.ts:143](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/stableswap/stableswap.ts#L143)
 
-___
+---
 
 ### xp
 
@@ -167,7 +167,7 @@ StableSwap
 
 [stableswap/stableswap.ts:41](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/stableswap/stableswap.ts#L41)
 
-___
+---
 
 ### y
 
@@ -178,18 +178,18 @@ y()
 Calculate x[j] if one makes x[i] = x
 
 Done by solving quadratic equation iteratively.
- x_1**2 + x1 * (sum' - (A*n**n - 1) * D / (A * n**n)) = D ** (n+1)/(n ** (2 * n) * prod' * A)
- x_1**2 + b*x_1 = c
+x_1**2 + x1 * (sum' - (A*n**n - 1) _ D / (A _ n**n)) = D ** (n+1)/(n ** (2 _ n) _ prod' \* A)
+x_1**2 + b\*x_1 = c
 
- x_1 = (x_1**2 + c) / (2*x_1 + b)
+x_1 = (x_1\**2 + c) / (2*x_1 + b)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fromIndex` | `number` |
-| `toIndex` | `number` |
-| `x` | `BigNumber` |
+| Name        | Type        |
+| :---------- | :---------- |
+| `fromIndex` | `number`    |
+| `toIndex`   | `number`    |
+| `x`         | `BigNumber` |
 
 #### Returns
 

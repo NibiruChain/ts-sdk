@@ -40,7 +40,7 @@ const getSigningClient = async (): Promise<NibiruSigningClient> => {
     const signer = await getSigner()
     _SIGNING_CLIENT = await NibiruSigningClient.connectWithSigner(
       CHAIN.endptTm,
-      signer,
+      signer
     )
   }
   return _SIGNING_CLIENT
@@ -123,7 +123,7 @@ const exampleTxMsgs = async () => {
   signer.getAccounts()
   const signingClient = await NibiruSigningClient.connectWithSigner(
     CHAIN.endptTm,
-    signer,
+    signer
   )
   const [{ address: fromAddr }] = await signer.getAccounts()
 
@@ -176,7 +176,7 @@ const exampleSendFunds = async () => {
   console.log(
     hereDoc(`Running example: ${exampleSendFunds.name}...
     This example broadcasts a transaction to send 5 unibi from the test account
-    (${TEST_ADDRESS}). The funds are sent to a random address.`),
+    (${TEST_ADDRESS}). The funds are sent to a random address.`)
   )
   await sleep(420) // For account sequence issues
 
@@ -192,7 +192,7 @@ const exampleSendFunds = async () => {
     fromAddr,
     toAddr,
     [{ denom: "unibi", amount: toSdkInt(5) }],
-    "auto",
+    "auto"
   )
   const { transactionHash, gasUsed, gasWanted, code } = txResp
   const events = parseEventLogs(txResp)
@@ -232,6 +232,6 @@ if ((module && require.main === module) || esMain(import.meta)) {
           throw err
         }
         logSuccess(exampleFunc.name)
-      }),
+      })
   )
 }

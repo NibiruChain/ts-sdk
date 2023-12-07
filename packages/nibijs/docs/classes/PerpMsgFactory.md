@@ -41,8 +41,8 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name  | Type           | Description           |
+| :---- | :------------- | :-------------------- |
 | `msg` | `MsgAddMargin` | Message to add margin |
 
 #### Returns
@@ -57,7 +57,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 [msg/perp.ts:124](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L124)
 
-___
+---
 
 ### closePosition
 
@@ -65,8 +65,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type               |
+| :---- | :----------------- |
 | `msg` | `MsgClosePosition` |
 
 #### Returns
@@ -77,7 +77,7 @@ ___
 
 [msg/perp.ts:161](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L161)
 
-___
+---
 
 ### donateToPerpEF
 
@@ -85,8 +85,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type                       |
+| :---- | :------------------------- |
 | `msg` | `MsgDonateToEcosystemFund` |
 
 #### Returns
@@ -97,7 +97,7 @@ ___
 
 [msg/perp.ts:175](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L175)
 
-___
+---
 
 ### liquidate
 
@@ -105,8 +105,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type                |
+| :---- | :------------------ |
 | `msg` | `MsgMultiLiquidate` |
 
 #### Returns
@@ -117,7 +117,7 @@ ___
 
 [msg/perp.ts:131](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L131)
 
-___
+---
 
 ### openPosition
 
@@ -125,15 +125,15 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `msg` | `Object` |
-| `msg.baseAssetAmountLimit?` | `number` |
-| `msg.goLong` | `boolean` |
-| `msg.leverage` | `number` |
-| `msg.pair` | `string` |
-| `msg.quoteAssetAmount` | `number` |
-| `msg.sender` | `string` |
+| Name                        | Type      |
+| :-------------------------- | :-------- |
+| `msg`                       | `Object`  |
+| `msg.baseAssetAmountLimit?` | `number`  |
+| `msg.goLong`                | `boolean` |
+| `msg.leverage`              | `number`  |
+| `msg.pair`                  | `string`  |
+| `msg.quoteAssetAmount`      | `number`  |
+| `msg.sender`                | `string`  |
 
 #### Returns
 
@@ -143,7 +143,7 @@ ___
 
 [msg/perp.ts:138](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L138)
 
-___
+---
 
 ### partialClosePosition
 
@@ -151,8 +151,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type              |
+| :---- | :---------------- |
 | `msg` | `MsgPartialClose` |
 
 #### Returns
@@ -163,7 +163,7 @@ ___
 
 [msg/perp.ts:168](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L168)
 
-___
+---
 
 ### removeMargin
 
@@ -171,8 +171,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type              |
+| :---- | :---------------- |
 | `msg` | `MsgRemoveMargin` |
 
 #### Returns

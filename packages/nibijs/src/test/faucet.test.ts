@@ -31,7 +31,7 @@ test.skip("faucet utility works", async () => {
   const validator = await newSignerFromMnemonic(TEST_MNEMONIC)
   const signingClient = await NibiruSigningClient.connectWithSigner(
     TEST_CHAIN.endptTm,
-    validator,
+    validator
   )
   const [{ address: fromAddr }] = await validator.getAccounts()
   await signingClient.waitForNextBlock()
@@ -39,12 +39,12 @@ test.skip("faucet utility works", async () => {
     fromAddr,
     toAddr,
     coins(100, "unibi"),
-    "auto",
+    "auto"
   )
   assertIsDeliverTxSuccess(txResp)
 
   const balancesStart = newCoinMapFromCoins(
-    await signingClient.getAllBalances(toAddr),
+    await signingClient.getAllBalances(toAddr)
   )
   const faucetResp = await useFaucet({
     address: toAddr,
@@ -54,10 +54,10 @@ test.skip("faucet utility works", async () => {
   expect(faucetResp?.ok).toBeTruthy()
 
   const balancesEnd = newCoinMapFromCoins(
-    await signingClient.getAllBalances(toAddr),
+    await signingClient.getAllBalances(toAddr)
   )
   expect(
-    balancesEnd.unusd.minus(balancesStart.unusd).eq(100 * 1e6),
+    balancesEnd.unusd.minus(balancesStart.unusd).eq(100 * 1e6)
   ).toBeTruthy()
   expect(balancesEnd.unibi.minus(balancesStart.unibi).eq(11 * 1e6)).toBeTruthy()
 }, 60_000) // 60 seconds
@@ -126,7 +126,7 @@ describe("useFaucet", () => {
         chainId: "nibiru-itn-3",
         chainName: "",
         feeDenom: "",
-      }),
+      })
     ).toBe(expectedUrl)
   })
 })

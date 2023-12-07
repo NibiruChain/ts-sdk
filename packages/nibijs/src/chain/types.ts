@@ -12,7 +12,7 @@ import BigNumber from "bignumber.js"
  * GoError: A wrapped error type resulting from a "throw" inside a Promise.
  * */
 export const go = async <T>(
-  promise: Promise<T>,
+  promise: Promise<T>
 ): Promise<GoSuccess<T> | GoError> => {
   try {
     return { res: await promise, err: undefined }

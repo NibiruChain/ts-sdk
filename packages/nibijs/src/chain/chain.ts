@@ -131,7 +131,7 @@ export const Devnet = (chainNumber: number) =>
 export const queryChainIdWithRest = async (chain: Chain) => {
   const queryChainId = async (chain: Chain): Promise<string> => {
     const response = await fetch(
-      `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`,
+      `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`
     )
     const nodeInfo: { default_node_info: { network: string } } =
       await response.json()

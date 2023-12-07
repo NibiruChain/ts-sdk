@@ -20,7 +20,7 @@
 
 [chain/chain.ts:31](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L31)
 
-___
+---
 
 ### prefix
 
@@ -30,7 +30,7 @@ ___
 
 [chain/chain.ts:29](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L29)
 
-___
+---
 
 ### shortName
 

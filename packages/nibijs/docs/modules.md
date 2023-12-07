@@ -6,7 +6,7 @@
 
 ### Enumerations
 
-- [BECH32\_PREFIX](enums/BECH32_PREFIX.md)
+- [BECH32_PREFIX](enums/BECH32_PREFIX.md)
 - [Signer](enums/Signer.md)
 
 ### Classes
@@ -56,11 +56,11 @@
 
 ### Variables
 
-- [INT\_MULT](modules.md#int_mult)
+- [INT_MULT](modules.md#int_mult)
 - [Localnet](modules.md#localnet)
 - [Msg](modules.md#msg)
-- [PERP\_MSG\_TYPE\_URLS](modules.md#perp_msg_type_urls)
-- [SPOT\_MSG\_TYPE\_URLS](modules.md#spot_msg_type_urls)
+- [PERP_MSG_TYPE_URLS](modules.md#perp_msg_type_urls)
+- [SPOT_MSG_TYPE_URLS](modules.md#spot_msg_type_urls)
 - [nibiruRegistryTypes](modules.md#nibiruregistrytypes)
 - [perpTypes](modules.md#perptypes)
 - [spotTypes](modules.md#spottypes)
@@ -120,15 +120,15 @@
 
 ## Variables
 
-### INT\_MULT
+### INT_MULT
 
-• `Const` **INT\_MULT**: ``1000000``
+• `Const` **INT_MULT**: `1000000`
 
 #### Defined in
 
 [chain/parse.ts:2](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/parse.ts#L2)
 
-___
+---
 
 ### Localnet
 
@@ -143,7 +143,7 @@ controllable, isolated development environment for testing purposes.
 
 [chain/chain.ts:85](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L85)
 
-___
+---
 
 ### Msg
 
@@ -153,48 +153,48 @@ ___
 
 [msg/index.ts:9](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/index.ts#L9)
 
-___
+---
 
-### PERP\_MSG\_TYPE\_URLS
+### PERP_MSG_TYPE_URLS
 
-• `Const` **PERP\_MSG\_TYPE\_URLS**: `Object`
+• `Const` **PERP_MSG_TYPE_URLS**: `Object`
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `MsgAddMargin` | `string` |
-| `MsgClosePosition` | `string` |
+| Name                       | Type     |
+| :------------------------- | :------- |
+| `MsgAddMargin`             | `string` |
+| `MsgClosePosition`         | `string` |
 | `MsgDonateToEcosystemFund` | `string` |
-| `MsgMarketOrder` | `string` |
-| `MsgMultiLiquidate` | `string` |
-| `MsgPartialClose` | `string` |
-| `MsgRemoveMargin` | `string` |
+| `MsgMarketOrder`           | `string` |
+| `MsgMultiLiquidate`        | `string` |
+| `MsgPartialClose`          | `string` |
+| `MsgRemoveMargin`          | `string` |
 
 #### Defined in
 
 [msg/perp.ts:16](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L16)
 
-___
+---
 
-### SPOT\_MSG\_TYPE\_URLS
+### SPOT_MSG_TYPE_URLS
 
-• `Const` **SPOT\_MSG\_TYPE\_URLS**: `Object`
+• `Const` **SPOT_MSG_TYPE_URLS**: `Object`
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
+| Name            | Type     |
+| :-------------- | :------- |
 | `MsgCreatePool` | `string` |
-| `MsgExitPool` | `string` |
-| `MsgJoinPool` | `string` |
+| `MsgExitPool`   | `string` |
+| `MsgJoinPool`   | `string` |
 | `MsgSwapAssets` | `string` |
 
 #### Defined in
 
 [msg/spot.ts:12](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/spot.ts#L12)
 
-___
+---
 
 ### nibiruRegistryTypes
 
@@ -204,7 +204,7 @@ ___
 
 [tx/signingClient.ts:31](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/tx/signingClient.ts#L31)
 
-___
+---
 
 ### perpTypes
 
@@ -214,7 +214,7 @@ ___
 
 [msg/perp.ts:26](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L26)
 
-___
+---
 
 ### spotTypes
 
@@ -236,8 +236,8 @@ dev team to live-test new features before official public release.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name          | Type     |
+| :------------ | :------- |
 | `chainNumber` | `number` |
 
 #### Returns
@@ -248,7 +248,7 @@ dev team to live-test new features before official public release.
 
 [chain/chain.ts:124](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L124)
 
-___
+---
 
 ### IncentivizedTestnet
 
@@ -256,9 +256,9 @@ ___
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `chainNumber` | `number` | `1` |
+| Name          | Type     | Default value |
+| :------------ | :------- | :------------ |
+| `chainNumber` | `number` | `1`           |
 
 #### Returns
 
@@ -277,7 +277,7 @@ Testnet - Permanent Nibiru public test network.
 
 [chain/chain.ts:106](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L106)
 
-___
+---
 
 ### Testnet
 
@@ -289,6 +289,7 @@ beta-testing environments.
 
 For an updated list of active networks, see:
 TODO: Add networks link
+
 - <a href="https://nibiru.fi/docs/">Networks | Nibiru Docs (Recommended)</a>
 - <a href="https://github.com/NibiruChain/Networks/tree/main">NibiruChain/Networks (GitHub)</a>
 
@@ -297,9 +298,9 @@ arguments are passed.
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `chainNumber` | `number` | `1` |
+| Name          | Type     | Default value |
+| :------------ | :------- | :------------ |
+| `chainNumber` | `number` | `1`           |
 
 #### Returns
 
@@ -309,28 +310,28 @@ arguments are passed.
 
 [chain/chain.ts:106](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L106)
 
-___
+---
 
 ### assert
 
-▸ **assert**(`condition`, `message?`): `string` \| ``true``
+▸ **assert**(`condition`, `message?`): `string` \| `true`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name        | Type      |
+| :---------- | :-------- |
 | `condition` | `boolean` |
-| `message?` | `string` |
+| `message?`  | `string`  |
 
 #### Returns
 
-`string` \| ``true``
+`string` \| `true`
 
 #### Defined in
 
 [chain/types.ts:29](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/types.ts#L29)
 
-___
+---
 
 ### chainToParts
 
@@ -340,8 +341,8 @@ Converts a Chain object to its constituent parts.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name    | Type                           | Description    |
+| :------ | :----------------------------- | :------------- |
 | `chain` | [`Chain`](interfaces/Chain.md) | a Chain object |
 
 #### Returns
@@ -354,7 +355,7 @@ a ChainIdParts object
 
 [chain/chain.ts:157](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L157)
 
-___
+---
 
 ### eventToMap
 
@@ -364,8 +365,8 @@ eventToMap: Converts an ABCIEvent into an EventMap.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                                   |
+| :------ | :------------------------------------- |
 | `event` | [`ABCIEvent`](interfaces/ABCIEvent.md) |
 
 #### Returns
@@ -376,7 +377,7 @@ eventToMap: Converts an ABCIEvent into an EventMap.
 
 [tx/event.ts:44](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/tx/event.ts#L44)
 
-___
+---
 
 ### faucetUrlFromChain
 
@@ -386,8 +387,8 @@ Constructs a faucet URL from a Chain object.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name    | Type                           | Description    |
+| :------ | :----------------------------- | :------------- |
 | `chain` | [`Chain`](interfaces/Chain.md) | a Chain object |
 
 #### Returns
@@ -398,7 +399,7 @@ Constructs a faucet URL from a Chain object.
 
 [chain/useFaucet.ts:59](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/useFaucet.ts#L59)
 
-___
+---
 
 ### findEvent
 
@@ -409,10 +410,10 @@ events of known type are present.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `events` | [`ABCIEvent`](interfaces/ABCIEvent.md)[] |
-| `eventType` | `string` |
+| Name        | Type                                     |
+| :---------- | :--------------------------------------- |
+| `events`    | [`ABCIEvent`](interfaces/ABCIEvent.md)[] |
+| `eventType` | `string`                                 |
 
 #### Returns
 
@@ -422,7 +423,7 @@ events of known type are present.
 
 [tx/event.ts:54](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/tx/event.ts#L54)
 
-___
+---
 
 ### fromSdkDec
 
@@ -445,8 +446,8 @@ the human-readbale Dec.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type     |
+| :------- | :------- |
 | `sdkDec` | `string` |
 
 #### Returns
@@ -455,14 +456,14 @@ the human-readbale Dec.
 
 **`See`**
 
- - TxMessage // from nibijs/src/tx
- - toSdkDec
+- TxMessage // from nibijs/src/tx
+- toSdkDec
 
 #### Defined in
 
 [chain/parse.ts:113](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/parse.ts#L113)
 
-___
+---
 
 ### fromSdkInt
 
@@ -470,8 +471,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type     |
+| :------- | :------- |
 | `intStr` | `string` |
 
 #### Returns
@@ -482,7 +483,7 @@ ___
 
 [chain/parse.ts:164](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/parse.ts#L164)
 
-___
+---
 
 ### getRegistry
 
@@ -496,7 +497,7 @@ ___
 
 [tx/signer.ts:19](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/tx/signer.ts#L19)
 
-___
+---
 
 ### go
 
@@ -514,13 +515,13 @@ GoError: A wrapped error type resulting from a "throw" inside a Promise.
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type            |
+| :-------- | :-------------- |
 | `promise` | `Promise`<`T`\> |
 
 #### Returns
@@ -531,7 +532,7 @@ GoError: A wrapped error type resulting from a "throw" inside a Promise.
 
 [chain/types.ts:14](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/types.ts#L14)
 
-___
+---
 
 ### isMsgAddMarginEncodeObject
 
@@ -539,8 +540,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -551,7 +552,7 @@ ___
 
 [msg/perp.ts:41](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L41)
 
-___
+---
 
 ### isMsgClosePositionEncodeObject
 
@@ -559,8 +560,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -571,7 +572,7 @@ ___
 
 [msg/perp.ts:77](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L77)
 
-___
+---
 
 ### isMsgCreatePoolEncodeObject
 
@@ -579,8 +580,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -591,7 +592,7 @@ ___
 
 [msg/spot.ts:31](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/spot.ts#L31)
 
-___
+---
 
 ### isMsgDonateToEcosystemFundEncodeObject
 
@@ -599,8 +600,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -611,7 +612,7 @@ ___
 
 [msg/perp.ts:86](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L86)
 
-___
+---
 
 ### isMsgExitPoolEncodeObject
 
@@ -619,8 +620,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -631,7 +632,7 @@ ___
 
 [msg/spot.ts:47](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/spot.ts#L47)
 
-___
+---
 
 ### isMsgJoinPoolEncodeObject
 
@@ -639,8 +640,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -651,7 +652,7 @@ ___
 
 [msg/spot.ts:39](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/spot.ts#L39)
 
-___
+---
 
 ### isMsgMultiLiquidateEncodeObject
 
@@ -659,8 +660,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -671,7 +672,7 @@ ___
 
 [msg/perp.ts:59](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L59)
 
-___
+---
 
 ### isMsgOpenPositionEncodeObject
 
@@ -679,8 +680,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -691,7 +692,7 @@ ___
 
 [msg/perp.ts:68](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L68)
 
-___
+---
 
 ### isMsgPartialCloseEncodeObject
 
@@ -699,8 +700,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -711,7 +712,7 @@ ___
 
 [msg/perp.ts:97](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L97)
 
-___
+---
 
 ### isMsgRemoveMarginEncodeObject
 
@@ -719,8 +720,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -731,7 +732,7 @@ ___
 
 [msg/perp.ts:50](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/perp.ts#L50)
 
-___
+---
 
 ### isMsgSwapAssetsEncodeObject
 
@@ -739,8 +740,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type           |
+| :------------- | :------------- |
 | `encodeObject` | `EncodeObject` |
 
 #### Returns
@@ -751,7 +752,7 @@ ___
 
 [msg/spot.ts:55](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/spot.ts#L55)
 
-___
+---
 
 ### isRestEndptLive
 
@@ -762,8 +763,8 @@ the network and endpoint are active.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                           |
+| :------ | :----------------------------- |
 | `chain` | [`Chain`](interfaces/Chain.md) |
 
 #### Returns
@@ -774,7 +775,7 @@ the network and endpoint are active.
 
 [chain/chain.ts:147](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L147)
 
-___
+---
 
 ### newCoinMapFromCoins
 
@@ -782,8 +783,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type              |
+| :------ | :---------------- |
 | `coins` | readonly `Coin`[] |
 
 #### Returns
@@ -794,7 +795,7 @@ ___
 
 [chain/types.ts:44](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/types.ts#L44)
 
-___
+---
 
 ### newRandomWallet
 
@@ -804,10 +805,10 @@ Generates a new wallet with a BIP39 mnemonic of length 24.
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `length?` | ``12`` \| ``15`` \| ``18`` \| ``21`` \| ``24`` | `undefined` | (optional) The number of words in the mnemonic (12, 15, 18, 21 or 24). |
-| `prefix` | [`BECH32_PREFIX`](enums/BECH32_PREFIX.md) | `BECH32_PREFIX.ADDR` | (optional) Bech32 address prefix. Defaults to "nibi". |
+| Name      | Type                                      | Default value        | Description                                                            |
+| :-------- | :---------------------------------------- | :------------------- | :--------------------------------------------------------------------- |
+| `length?` | `12` \| `15` \| `18` \| `21` \| `24`      | `undefined`          | (optional) The number of words in the mnemonic (12, 15, 18, 21 or 24). |
+| `prefix`  | [`BECH32_PREFIX`](enums/BECH32_PREFIX.md) | `BECH32_PREFIX.ADDR` | (optional) Bech32 address prefix. Defaults to "nibi".                  |
 
 #### Returns
 
@@ -821,7 +822,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT.
 
 [tx/signer.ts:45](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/tx/signer.ts#L45)
 
-___
+---
 
 ### newSignerFromMnemonic
 
@@ -831,10 +832,10 @@ Creates a wallet from the given BIP39 mnemonic.
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `mnemonic` | `string` | `undefined` |  |
-| `prefix` | [`BECH32_PREFIX`](enums/BECH32_PREFIX.md) | `BECH32_PREFIX.ADDR` | (optional) Bech32 address prefix. Defaults to "nibi". |
+| Name       | Type                                      | Default value        | Description                                           |
+| :--------- | :---------------------------------------- | :------------------- | :---------------------------------------------------- |
+| `mnemonic` | `string`                                  | `undefined`          |                                                       |
+| `prefix`   | [`BECH32_PREFIX`](enums/BECH32_PREFIX.md) | `BECH32_PREFIX.ADDR` | (optional) Bech32 address prefix. Defaults to "nibi". |
 
 #### Returns
 
@@ -848,7 +849,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT
 
 [tx/signer.ts:29](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/tx/signer.ts#L29)
 
-___
+---
 
 ### parseEventLogs
 
@@ -859,8 +860,8 @@ from a tx response.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type                |
+| :------- | :------------------ |
 | `txResp` | `DeliverTxResponse` |
 
 #### Returns
@@ -878,7 +879,7 @@ const eventLogs = parseEventLogs(txResp)
 
 [tx/event.ts:67](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/tx/event.ts#L67)
 
-___
+---
 
 ### queryChainIdWithRest
 
@@ -886,8 +887,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                           |
+| :------ | :----------------------------- |
 | `chain` | [`Chain`](interfaces/Chain.md) |
 
 #### Returns
@@ -898,7 +899,7 @@ ___
 
 [chain/chain.ts:131](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L131)
 
-___
+---
 
 ### setupEpochsExtension
 
@@ -906,8 +907,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type          |
+| :----- | :------------ |
 | `base` | `QueryClient` |
 
 #### Returns
@@ -918,7 +919,7 @@ ___
 
 [query/epochs.ts:19](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/query/epochs.ts#L19)
 
-___
+---
 
 ### setupInflationExtension
 
@@ -926,8 +927,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type          |
+| :----- | :------------ |
 | `base` | `QueryClient` |
 
 #### Returns
@@ -938,7 +939,7 @@ ___
 
 [query/inflation.ts:29](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/query/inflation.ts#L29)
 
-___
+---
 
 ### setupOracleExtension
 
@@ -946,8 +947,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type          |
+| :----- | :------------ |
 | `base` | `QueryClient` |
 
 #### Returns
@@ -958,7 +959,7 @@ ___
 
 [query/oracle.ts:91](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/query/oracle.ts#L91)
 
-___
+---
 
 ### setupPerpExtension
 
@@ -966,8 +967,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type          |
+| :----- | :------------ |
 | `base` | `QueryClient` |
 
 #### Returns
@@ -978,7 +979,7 @@ ___
 
 [query/perp.ts:45](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/query/perp.ts#L45)
 
-___
+---
 
 ### setupSpotExtension
 
@@ -986,8 +987,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type          |
+| :----- | :------------ |
 | `base` | `QueryClient` |
 
 #### Returns
@@ -998,7 +999,7 @@ ___
 
 [query/spot.ts:102](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/query/spot.ts#L102)
 
-___
+---
 
 ### setupSudoExtension
 
@@ -1006,8 +1007,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type          |
+| :----- | :------------ |
 | `base` | `QueryClient` |
 
 #### Returns
@@ -1018,7 +1019,7 @@ ___
 
 [query/sudo.ts:14](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/query/sudo.ts#L14)
 
-___
+---
 
 ### toSdkDec
 
@@ -1032,19 +1033,19 @@ provided than the precision, 18.
 ref: Reimplementation of cosmos-sdk/types/decimal.go
 
 Valid inputs must come in the form:
-  (-) integer digits (.) fractional digits
+(-) integer digits (.) fractional digits
 Examples of acceptable input include:
-  -123.456
-  456.7890
-  345
-  -456789
+-123.456
+456.7890
+345
+-456789
 
 CONTRACT - This function does not mutate the input str.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type     |
+| :---- | :------- |
 | `dec` | `string` |
 
 #### Returns
@@ -1052,7 +1053,7 @@ CONTRACT - This function does not mutate the input str.
 `string`
 
 - Protobuf string for an sdk.Dec, which is
-represented by its underlying "big.Int".
+  represented by its underlying "big.Int".
 
 **`See`**
 
@@ -1065,7 +1066,7 @@ sdk.Dec protobuf string into a number.
 
 [chain/parse.ts:30](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/parse.ts#L30)
 
-___
+---
 
 ### toSdkInt
 
@@ -1073,9 +1074,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `i` | `number` |
+| Name | Type     |
+| :--- | :------- |
+| `i`  | `number` |
 
 #### Returns
 
@@ -1085,7 +1086,7 @@ ___
 
 [chain/parse.ts:162](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/parse.ts#L162)
 
-___
+---
 
 ### transformPool
 
@@ -1093,8 +1094,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name | Type   |
+| :--- | :----- |
 | `p?` | `Pool` |
 
 #### Returns
@@ -1105,7 +1106,7 @@ ___
 
 [query/spot.ts:49](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/query/spot.ts#L49)
 
-___
+---
 
 ### transformPoolParams
 
@@ -1113,8 +1114,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type         |
+| :---- | :----------- |
 | `pp?` | `PoolParams` |
 
 #### Returns
@@ -1125,7 +1126,7 @@ ___
 
 [query/spot.ts:41](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/query/spot.ts#L41)
 
-___
+---
 
 ### useFaucet
 
@@ -1135,16 +1136,16 @@ Sends 11 NIBI, 100 NUSD, and 100 USDT to the given address from the testnet fauc
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `«destructured»` | `Object` |
-| › `address` | `string` |
-| › `amts?` | `Object` |
-| › `amts.nibi` | `number` |
-| › `amts.nusd` | `number` |
-| › `amts.usdt` | `number` |
-| › `chain` | [`Chain`](interfaces/Chain.md) |
-| › `grecaptcha` | `string` |
+| Name             | Type                           |
+| :--------------- | :----------------------------- |
+| `«destructured»` | `Object`                       |
+| › `address`      | `string`                       |
+| › `amts?`        | `Object`                       |
+| › `amts.nibi`    | `number`                       |
+| › `amts.nusd`    | `number`                       |
+| › `amts.usdt`    | `number`                       |
+| › `chain`        | [`Chain`](interfaces/Chain.md) |
+| › `grecaptcha`   | `string`                       |
 
 #### Returns
 

@@ -12,7 +12,7 @@
 
 ### inflation
 
-• `Readonly` **inflation**: `Readonly`<{ `circulatingSupply`: () => `Promise`<`QueryCirculatingSupplyResponse`\> ; `epochMintProvision`: () => `Promise`<`QueryEpochMintProvisionResponse`\> ; `inflationRate`: () => `Promise`<`QueryInflationRateResponse`\> ; `params`: () => `Promise`<`QueryParamsResponse`\> ; `period`: () => `Promise`<`QueryPeriodResponse`\> ; `skippedEpochs`: () => `Promise`<`QuerySkippedEpochsResponse`\>  }\>
+• `Readonly` **inflation**: `Readonly`<{ `circulatingSupply`: () => `Promise`<`QueryCirculatingSupplyResponse`\> ; `epochMintProvision`: () => `Promise`<`QueryEpochMintProvisionResponse`\> ; `inflationRate`: () => `Promise`<`QueryInflationRateResponse`\> ; `params`: () => `Promise`<`QueryParamsResponse`\> ; `period`: () => `Promise`<`QueryPeriodResponse`\> ; `skippedEpochs`: () => `Promise`<`QuerySkippedEpochsResponse`\> }\>
 
 #### Defined in
 

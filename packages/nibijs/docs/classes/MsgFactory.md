@@ -29,7 +29,7 @@
 
 [msg/index.ts:6](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/msg/index.ts#L6)
 
-___
+---
 
 ### spot
 
