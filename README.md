@@ -113,10 +113,10 @@ const block = await queryClient.getBlock(blockHeight)
 import {
   Coin,
   NibiruSigningClient,
-  newCoins,
   newSignerFromMnemonic,
   Localnet
 } from "@nibiruchain/nibijs"
+import { coins } from "@cosmjs/proto-signing"
 
 export const CHAIN: Chain = Localnet
 const signer = await newSignerFromMnemonic(mnemonic!)
@@ -126,7 +126,7 @@ const signingClient = await NibiruSigningClient.connectWithSigner(
 )
 const [{ address: fromAddr }] = await signer.getAccounts()
 
-const tokens: Coin[] = newCoins(5, "unibi")
+const tokens: Coin[] = coins(5, "unibi")
 const toAddr: string = "..." // bech32 address of the receiving party
 const txResp = await signingClient.sendTokens(fromAddr, toAddr, tokens, "auto")
 ```
@@ -136,7 +136,6 @@ const txResp = await signingClient.sendTokens(fromAddr, toAddr, tokens, "auto")
 ```js
 import {
   NibiruSigningClient,
-  newCoin,
   newSignerFromMnemonic,
   Msg,
   TxMessage,
@@ -146,6 +145,7 @@ import {
   Localnet
 } from "@nibiruchain/nibijs"
 import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
+import { coin } from "@cosmjs/proto-signing"
 
 // const mnemonic = "..." <--
 export const CHAIN: Chain = Localnet
@@ -173,12 +173,12 @@ const msgs: TxMessage[] = [
   Msg.perp.addMargin({
     sender: fromAddr,
     pair: pair,
-    margin: newCoin("20", "unusd"),
+    margin: coin("20", "unusd"),
   }),
   Msg.perp.removeMargin({
     sender: fromAddr,
     pair: pair,
-    margin: newCoin("5", "unusd"),
+    margin: coin("5", "unusd"),
   }),
   // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
 ]

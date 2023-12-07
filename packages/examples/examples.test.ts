@@ -228,11 +228,10 @@ if ((module && require.main === module) || esMain(import.meta)) {
         logSuccess(exampleFunc.name)
       })
       .catch((err) => {
-        if (`${err}`.includes("account sequence mismatch")) {
-          logSuccess(exampleFunc.name)
-        } else {
+        if (!`${err}`.includes("account sequence mismatch")) {
           throw err
         }
+        logSuccess(exampleFunc.name)
       }),
   )
 }

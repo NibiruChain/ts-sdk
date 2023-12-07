@@ -1,5 +1,4 @@
-import { Coin, coin as newCoin, coins as newCoins } from "@cosmjs/proto-signing"
-export { newCoin, newCoins }
+import { Coin } from "@cosmjs/proto-signing"
 import { ABCIEvent } from "../tx/event"
 import BigNumber from "bignumber.js"
 
