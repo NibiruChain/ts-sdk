@@ -55,17 +55,14 @@ const getSigningClient = async (): Promise<NibiruSigningClient> => {
  * Here documents are a concept from bash scripting.
  * @see https://tldp.org/LDP/abs/html/here-docs.html
  * */
-const hereDoc = (text: string): string => {
-  return (
-    text
-      // Split the string into lines
-      .split("\n")
-      // Remove leading whitespace from each line
-      .map((line) => line.replace(/^\s+/, ""))
-      // Join the lines back together
-      .join("\n")
-  )
-}
+const hereDoc = (text: string): string =>
+  text
+    // Split the string into lines
+    .split("\n")
+    // Remove leading whitespace from each line
+    .map((line) => line.replace(/^\s+/, ""))
+    // Join the lines back together
+    .join("\n")
 
 /** Logs an example-specific success message.
  * @example
@@ -76,16 +73,16 @@ const logSuccess = (exampleName: string): void => {
 }
 
 /** sleep: Time out for a given number of milliseconds. */
-const sleep = (ms: number): Promise<void> => {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
+// eslint-disable-next-line no-promise-executor-return
+const sleep = async (ms: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, ms))
 
 // -----------------------------------------------
 // ------------------- EXAMPLES ------------------
 // -----------------------------------------------
 
 /** Example: Creating a new wallet */
-export async function exampleNewWallet() {
+export const exampleNewWallet = async () => {
   // Create a new Nibiru wallet
   const wallet = await newRandomWallet()
   const [{ address }] = await wallet.getAccounts()
@@ -96,7 +93,7 @@ export async function exampleNewWallet() {
 }
 
 /** Example: Query client */
-export async function exampleQueries() {
+export const exampleQueries = async () => {
   const queryClient = await NibiruQueryClient.connect(CHAIN.endptTm)
 
   // Query a block
@@ -134,7 +131,7 @@ const exampleTxMsgs = async () => {
   const msgs: TxMessage[] = [
     Msg.perp.openPosition({
       sender: fromAddr,
-      pair: pair,
+      pair,
       quoteAssetAmount: 10,
       leverage: 1,
       goLong: true,
@@ -142,12 +139,12 @@ const exampleTxMsgs = async () => {
     }),
     Msg.perp.addMargin({
       sender: fromAddr,
-      pair: pair,
+      pair,
       margin: coin("20", "unusd"),
     }),
     Msg.perp.removeMargin({
       sender: fromAddr,
-      pair: pair,
+      pair,
       margin: coin("5", "unusd"),
     }),
     // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
@@ -210,6 +207,7 @@ const exampleSendFunds = async () => {
 // -----------------------------------------------
 
 // Runs as a script if the file is called directly.
+// eslint-disable-next-line no-undef
 let module: NodeModule | undefined
 console.info("INFO %o", {
   "esMain(import.meta)": esMain(import.meta),
