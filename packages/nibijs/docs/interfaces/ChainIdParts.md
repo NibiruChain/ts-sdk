@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[chain/chain.ts:31](https://github.com/NibiruChain/ts-sdk/blob/3e2dcd7/packages/nibijs/src/chain/chain.ts#L31)
+[chain/chain.ts:31](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L31)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:29](https://github.com/NibiruChain/ts-sdk/blob/3e2dcd7/packages/nibijs/src/chain/chain.ts#L29)
+[chain/chain.ts:29](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L29)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[chain/chain.ts:30](https://github.com/NibiruChain/ts-sdk/blob/3e2dcd7/packages/nibijs/src/chain/chain.ts#L30)
+[chain/chain.ts:30](https://github.com/NibiruChain/ts-sdk/blob/8fe02e0/packages/nibijs/src/chain/chain.ts#L30)
