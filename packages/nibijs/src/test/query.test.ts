@@ -10,7 +10,7 @@ import {
   validateBlockFromJsonRpc,
   TEST_MNEMONIC,
   assertExpectedError,
-} from "./helpers"
+} from "../testutil"
 import { newSignerFromMnemonic } from "../tx/signer"
 import { NibiruSigningClient } from "../tx/signingClient"
 
@@ -117,16 +117,17 @@ describe("x/epochs queries", () => {
         })
       expect(Long.isLong(currentEpochResp.currentEpoch)).toBeTruthy()
     },
-    timeoutMs
+    timeoutMs,
   )
 })
 
 describe("x/staking module queries", () => {
   test("query bonded validators", async () => {
     const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const infoResp = await queryClient.nibiruExtensions.staking.validators(
-      "BOND_STATUS_BONDED"
-    )
+    const infoResp =
+      await queryClient.nibiruExtensions.staking.validators(
+        "BOND_STATUS_BONDED",
+      )
     expect(infoResp).toHaveProperty("validators")
     expect(infoResp.validators.length).toBeGreaterThan(0)
   })
@@ -229,7 +230,7 @@ describe("ibc module queries", () => {
     const channel =
       await queryClient.nibiruExtensions.ibc.verified.channel.channel(
         "transfer",
-        "channel-0"
+        "channel-0",
       )
     const properties: string[] = [
       "state",
@@ -257,7 +258,7 @@ describe("wasm", () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const signingClient = await NibiruSigningClient.connectWithSigner(
       TEST_CHAIN.endptTm,
-      signer
+      signer,
     )
     const [{ address: sender }] = await signer.getAccounts()
     const fee = {
@@ -269,7 +270,7 @@ describe("wasm", () => {
       const uploadRes = await signingClient.wasmClient.upload(
         sender,
         wasmBinary,
-        fee
+        fee,
       )
       codeId = uploadRes.codeId
 
@@ -283,7 +284,7 @@ describe("wasm", () => {
           initial_balances: [],
         },
         "CW20",
-        "auto"
+        "auto",
       )
       contractAddress = initRes.contractAddress
 
@@ -309,11 +310,11 @@ describe("wasm", () => {
 
   const testGetAllContractState = async (
     queryClient: NibiruQueryClient,
-    contractAddress: string
+    contractAddress: string,
   ) => {
     const respContractState =
       await queryClient.nibiruExtensions.wasm.getAllContractState(
-        contractAddress
+        contractAddress,
       )
     const { models } = respContractState
     expect(models).toBeDefined()

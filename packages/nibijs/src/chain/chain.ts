@@ -2,7 +2,7 @@ import { fetch } from "cross-fetch"
 import { go } from "./types"
 
 /**
- * Specifies chain information for all endpoints a node exposes such as the
+ * Specifies chain information for all endpoints a Nibiru node exposes such as the
  * gRPC server, Tendermint RPC endpoint, and REST server.
  *
  * @see https://docs.cosmos.network/master/core/grpc_rest.html
@@ -10,7 +10,6 @@ import { go } from "./types"
  * @interface Chain
  * @typedef {Chain}
  */
-
 export interface Chain {
   /** endptTm: endpoint for the Tendermint RPC server. Usually on port 26657. */
   endptTm: string
@@ -79,6 +78,10 @@ export class CustomChain implements Chain {
   }
 }
 
+/** Localnet: "Chain" configuration for a local Nibiru network. A local
+ * environment is no different from a real one, except that it has a single
+ * validator running on your host machine. Localnet is primarily used as a
+ * controllable, isolated development environment for testing purposes. */
 export const Localnet: Chain = {
   endptTm: "http://127.0.0.1:26657",
   endptRest: "http://127.0.0.1:1317",
@@ -88,13 +91,36 @@ export const Localnet: Chain = {
   feeDenom: "unibi",
 }
 
-export const IncentivizedTestnet = (chainNumber: number) =>
+/** Testnet: "Chain" configuration for a Nibiru testnet. These are public
+ * networks that are upgraded in advance of Nibiru's mainnet network as a
+ * beta-testing environments.
+ *
+ * For an updated list of active networks, see:
+ * TODO: Add networks link
+ * - <a href="https://nibiru.fi/docs/">Networks | Nibiru Docs (Recommended)</a>
+ * - <a href="https://github.com/NibiruChain/Networks/tree/main">NibiruChain/Networks (GitHub)</a>
+ *
+ * By default, the "Testnet" function returns the permanent testnet if no
+ * arguments are passed.
+ * */
+export const Testnet = (chainNumber: number = 1) =>
   new CustomChain({
     prefix: "nibiru",
     shortName: "itn",
     number: chainNumber,
   })
 
+/** @deprecated Incentivized testnet is no longer active. This variable exists
+ * for backwards compatibility, but "Testnet" should be used instead.
+ *
+ * @see Testnet - Permanent Nibiru public test network.
+ */
+export const IncentivizedTestnet = Testnet
+
+/** Devnet: "Chain" configuration for a Nibiru "devnet". These networks
+ * are more ephemeral than "Testnet" and used internally by the core Nibiru
+ * dev team to live-test new features before official public release.
+ * */
 export const Devnet = (chainNumber: number) =>
   new CustomChain({
     prefix: "nibiru",
@@ -105,7 +131,7 @@ export const Devnet = (chainNumber: number) =>
 export const queryChainIdWithRest = async (chain: Chain) => {
   const queryChainId = async (chain: Chain): Promise<string> => {
     const response = await fetch(
-      `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`
+      `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`,
     )
     const nodeInfo: { default_node_info: { network: string } } =
       await response.json()
@@ -116,7 +142,9 @@ export const queryChainIdWithRest = async (chain: Chain) => {
   return [chainId ?? "", err]
 }
 
-export const isRestEndptLive = async (chain: Chain) => {
+/** isRestEndptLive: Makes a request using the chain's REST endpoint to see if
+ * the network and endpoint are active. */
+export const isRestEndptLive = async (chain: Chain): Promise<boolean> => {
   const [_chainId, err] = await queryChainIdWithRest(chain)
   return err === undefined
 }

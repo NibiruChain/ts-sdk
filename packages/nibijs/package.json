@@ -9,10 +9,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -f tsconfig.tsbuildinfo && tsc --build && yarn docgen",
+    "build": "rm -f tsconfig.tsbuildinfo && tsc --build && yarn docgen:changes",
     "build:watch": "tsc --build --watch",
     "clean": "tsc --clean",
     "docgen": "yarn run typedoc --tsconfig tsconfig.json --plugin typedoc-plugin-markdown",
+    "docgen:changes": "git diff-index --name-only HEAD -- | grep -q \"packages/nibijs/src\" && yarn docgen",
     "test": "jest",
     "test:watch": "jest --watch",
     "coverage": "jest --coverage"

@@ -1,7 +1,9 @@
 import { Block } from "@cosmjs/stargate"
-import { Chain, Localnet } from "../chain"
-import { ABCIEvent } from "../tx"
+import { Chain, Localnet } from "./chain"
+import { ABCIEvent } from "./tx"
 
+/** TEST_CHAIN: Alias for Localnet.
+ * @see Localnet */
 export const TEST_CHAIN = Localnet
 
 /** Mnemonic for the wallet of the default validator on localnet" */
@@ -19,12 +21,13 @@ export const ERR = {
   noPrices: "no valid prices available",
 }
 
+/** Validates that block queried via the JSON RPC client has the expected fields. */
 export function validateBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
     header: ["version", "chain_id", "height", "last_block_id"].concat(
       ["last_commit_hash", "data_hash", "validators_hash"],
       ["consensus_hash", "app_hash", "last_results_hash", "evidence_hash"],
-      ["proposer_address", "next_validators_hash"]
+      ["proposer_address", "next_validators_hash"],
     ),
     data: ["txs"],
     evidence: ["evidence"],
@@ -41,6 +44,7 @@ export function validateBlockFromJsonRpc(blockJson: any) {
   }
 }
 
+/** valideBlock: Performs runtime type validation on a CometBFT "Block". */
 export function validateBlock(block: Block, chain: Chain) {
   expect(block.header.chainId).toEqual(chain.chainId)
   expect(block.header.time).toBeDefined()
@@ -61,7 +65,7 @@ export function assertHasMsgType(msgType: string, events: ABCIEvent[]): void {
 
 export function assertHasEventType(
   eventType: string,
-  events: ABCIEvent[]
+  events: ABCIEvent[],
 ): void {
   const eventTypes = events.map((event) => event.type)
   expect(eventTypes).toContain(eventType)
