@@ -1,7 +1,7 @@
 name: Semantic Release 🚀
 on:
   push:
-    branches: ["releases/*"]
+    branches: ["main"]
 
 permissions:
   contents: read
