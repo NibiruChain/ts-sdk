@@ -2,7 +2,7 @@ name: ⛓️ Tests @nibiruchain/ts-sdk
 
 on:
   pull_request:
-    branches: ["develop"]
+    branches: ["develop", "main"]
     paths: ["**.js", "**.ts", "**.tsx", "**.json"]
   push:
     branches: ["main"]
