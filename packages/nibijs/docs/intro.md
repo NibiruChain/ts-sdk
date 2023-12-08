@@ -18,7 +18,7 @@ The official TypeScript SDK for the Nibiru blockchain
 
 <!-- Badge | Test workflows -->
 <a target="_blank" href="https://github.com/NibiruChain/ts-sdk/actions/workflows/test-ts-sdk.yaml" alt="⛓️ Tests @nibiruchain/nibijs">
-  <img src="https://github.com/NibiruChain/ts-sdk/actions/workflows/test-ts-sdk.yaml/badge.svg?branch=releases%2Fv0.21.x" style="height: 20px">
+  <img src="https://github.com/NibiruChain/ts-sdk/actions/workflows/test-ts-sdk.yaml/badge.svg?branch=main" style="height: 20px">
 </a>
 
 <!-- Badge | NPM downloads -->
