@@ -3,7 +3,7 @@ import {
   DistributionExtension,
   GovExtension,
   IbcExtension,
-  QueryClient,
+  QueryClient as StargateQueryClient,
   setupAuthExtension,
   setupDistributionExtension,
   setupGovExtension,
@@ -26,7 +26,7 @@ import { setupSpotExtension, SpotExtension } from "./spot"
 import { setupSudoExtension, SudoExtension } from "./sudo"
 import { InflationExtension, setupInflationExtension } from "./inflation"
 
-export type NibiruExtensions = QueryClient &
+export type NibiruExtensions = StargateQueryClient &
   SpotExtension &
   PerpExtension &
   SudoExtension &
@@ -40,9 +40,16 @@ export type NibiruExtensions = QueryClient &
   WasmExtension &
   AuthExtension
 
+/** Querier for a Nibiru network.
+ * @example
+ * import { NibiruQueryClient, Tesnet } from "@nibiruchain/nibijs"
+ * const chain = Testnet()
+ * const querier = await NibiruQueryClient.connect(chain.endptTm)
+ * */
 export class NibiruQueryClient extends StargateClient {
   public readonly nibiruExtensions: NibiruExtensions
   public readonly wasmClient: CosmWasmClient
+  public readonly tm: Tendermint37Client
 
   public static async connect(
     endpoint: string,
@@ -60,7 +67,9 @@ export class NibiruQueryClient extends StargateClient {
   ) {
     super(tmClient, options)
     this.wasmClient = wasmClient
-    this.nibiruExtensions = QueryClient.withExtensions(
+    // Because the StargateQueryClient doesn't include methods from the TM client
+    this.tm = tmClient
+    this.nibiruExtensions = StargateQueryClient.withExtensions(
       tmClient,
       setupEpochsExtension,
       setupOracleExtension,
