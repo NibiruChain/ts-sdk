@@ -52,7 +52,7 @@ export const hexToBytes = (hex: string): Result<Uint8Array> => {
   if (hex.length % 2 !== 0)
     return new Result({
       err: new Error(
-        `HexError: hex string must have even length to decode into bytes: hex ${hex}`,
+        `HexError: hex string must have even length to decode into bytes: hex ${hex}`
       ),
     })
 
@@ -62,11 +62,11 @@ export const hexToBytes = (hex: string): Result<Uint8Array> => {
         const byte = parseInt(hexTuple, 16)
         if (isNaN(byte)) {
           throw new Error(
-            `HexError: non-hex characters detected in hex: ${hex}`,
+            `HexError: non-hex characters detected in hex: ${hex}`
           )
         }
         return byte
-      }),
-    ),
+      })
+    )
   )
 }

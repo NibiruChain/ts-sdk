@@ -56,7 +56,7 @@ export class NibiruQueryClient extends StargateClient {
 
   public static async connect(
     endpoint: string,
-    options: StargateClientOptions = {},
+    options: StargateClientOptions = {}
   ): Promise<NibiruQueryClient> {
     const tmClient = await Tendermint37Client.connect(endpoint)
     const wasmClient = await CosmWasmClient.connect(endpoint)
@@ -66,7 +66,7 @@ export class NibiruQueryClient extends StargateClient {
   protected constructor(
     tmClient: Tendermint37Client,
     options: StargateClientOptions,
-    wasmClient: CosmWasmClient,
+    wasmClient: CosmWasmClient
   ) {
     super(tmClient, options)
     this.wasmClient = wasmClient
@@ -85,7 +85,7 @@ export class NibiruQueryClient extends StargateClient {
       setupStakingExtension,
       setupIbcExtension,
       setupWasmExtension,
-      setupAuthExtension,
+      setupAuthExtension
     )
   }
 

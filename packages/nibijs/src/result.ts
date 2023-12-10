@@ -36,7 +36,7 @@ export class Result<T> {
       +(this.ok !== undefined) + +(this.err !== undefined)
     if (undefinedArgsCount === 0) {
       throw new Error(
-        "ResultError: ok and error states cannot be defined simultaneously",
+        "ResultError: ok and error states cannot be defined simultaneously"
       )
     }
   }
@@ -54,7 +54,7 @@ export class Result<T> {
   }
 
   static ofSafeExecAsync = async <Y>(
-    fn: () => Promise<Y>,
+    fn: () => Promise<Y>
   ): Promise<Result<Y>> => {
     try {
       return new Result({ ok: await fn() })

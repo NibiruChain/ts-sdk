@@ -28,7 +28,7 @@ export function assertValidBlockFromJsonRpc(blockJson: any) {
     header: ["version", "chain_id", "height", "last_block_id"].concat(
       ["last_commit_hash", "data_hash", "validators_hash"],
       ["consensus_hash", "app_hash", "last_results_hash", "evidence_hash"],
-      ["proposer_address", "next_validators_hash"],
+      ["proposer_address", "next_validators_hash"]
     ),
     data: ["txs"],
     evidence: ["evidence"],
@@ -81,7 +81,7 @@ export function assertHasMsgType(msgType: string, events: ABCIEvent[]): void {
  */
 export function assertHasEventType(
   eventType: string,
-  events: ABCIEvent[],
+  events: ABCIEvent[]
 ): void {
   const eventTypes = events.map((event) => event.type)
   expect(eventTypes).toContain(eventType)
