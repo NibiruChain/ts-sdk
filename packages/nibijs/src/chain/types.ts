@@ -1,6 +1,6 @@
 import { Coin } from "@cosmjs/proto-signing"
-import { ABCIEvent } from "../tx/event"
 import BigNumber from "bignumber.js"
+import { ABCIEvent } from "../tx/event"
 
 /** go: Generic function for executing asynchronous code safely inside a
  * try-catch by default. If the promise succeeds, it's result is returned and the
@@ -26,10 +26,22 @@ type GoSuccess<T> = { res: T; err: undefined }
 /** GoError: A wrapped error type resulting from a "throw" inside a Promise. */
 type GoError = { res: undefined; err: string }
 
-export const assert = (condition: boolean, message?: string) => {
+/**
+ * Asserts that a given condition is true. If the condition evaluates to false,
+ * an "AssertionError" is thrown with an optional custom message.
+ *
+ * @param {boolean} condition - The condition to test.
+ * @param {string} message - Optional. A custom error message to display if the
+ * assertion fails.
+ * @returns {boolean} - Returns true if the assertion is successful.
+ */
+export const assert = (
+  condition: boolean,
+  message?: string
+): boolean | string => {
   if (!condition) {
     const errMsg = message ? `AssertionError: ${message}` : "AssertionError"
-    console.error(Error(errMsg))
+    console.error(errMsg)
     return errMsg
   }
   return true
