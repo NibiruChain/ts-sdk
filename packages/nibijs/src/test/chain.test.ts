@@ -52,7 +52,7 @@ describe("chain/chain", () => {
   test("queryChainIdWithRest", async () => {
     const chain = Devnet(2)
     const result = await queryChainIdWithRest(chain)
-    expect(result).toEqual(["nibiru-devnet-2", undefined])
+    expect(result.ok).toEqual("nibiru-devnet-2")
   })
 
   test("inactive chain validation cases", async () => {
