@@ -4,6 +4,8 @@
  * errors to propagate up the call stack implicitly. Handling potential errors
  * explicitly leads to more robust and reliable code.
  *
+ * Ref: <a href="https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html#propagating-errors">Propagating Errors - Rust Book</a>.
+ *
  * @example
  * // ---------------------------------------
  * // Most common use-case: Result.ofSafeExec
@@ -44,7 +46,7 @@ export class Result<T> {
   isErr = (): boolean => this.err !== undefined
   isOk = (): boolean => !this.isErr()
 
-  /** Result.ofSafeExec  */
+  /** Constructor for "Result" using the return value of the input function. */
   static ofSafeExec = <Y>(fn: () => Y): Result<Y> => {
     try {
       return new Result({ ok: fn() })
@@ -53,6 +55,10 @@ export class Result<T> {
     }
   }
 
+  /** Constructor for "Result" using the return value of the input async function.
+   * @example
+   * const result = Result.ofSafeExecAsync(async () => someAsyncFunc(args))
+   * */
   static ofSafeExecAsync = async <Y>(
     fn: () => Promise<Y>
   ): Promise<Result<Y>> => {

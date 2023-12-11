@@ -27,7 +27,7 @@ EncodeObject.typeUrl
 
 #### Defined in
 
-[msg/perp.ts:37](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/msg/perp.ts#L37)
+[msg/perp.ts:37](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/msg/perp.ts#L37)
 
 ---
 
@@ -41,4 +41,4 @@ EncodeObject.value
 
 #### Defined in
 
-[msg/perp.ts:38](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/msg/perp.ts#L38)
+[msg/perp.ts:38](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/msg/perp.ts#L38)

@@ -8,6 +8,8 @@ The Result type forces you to explicitly handle erros in contrast to allowing
 errors to propagate up the call stack implicitly. Handling potential errors
 explicitly leads to more robust and reliable code.
 
+Ref: <a href="https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html#propagating-errors">Propagating Errors - Rust Book</a>.
+
 **`Example`**
 
 ```ts
@@ -80,7 +82,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:31](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L31)
+[result.ts:33](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L33)
 
 ## Properties
 
@@ -90,7 +92,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:30](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L30)
+[result.ts:32](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L32)
 
 ---
 
@@ -100,7 +102,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:29](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L29)
+[result.ts:31](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L31)
 
 ## Methods
 
@@ -114,7 +116,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:44](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L44)
+[result.ts:46](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L46)
 
 ---
 
@@ -128,7 +130,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:45](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L45)
+[result.ts:47](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L47)
 
 ---
 
@@ -136,7 +138,7 @@ if (res.isOk()) {
 
 ▸ `Static` **ofSafeExec**<`Y`\>(`fn`): [`Result`](Result.md)<`Y`\>
 
-Result.ofSafeExec
+Constructor for "Result" using the return value of the input function.
 
 #### Type parameters
 
@@ -156,13 +158,15 @@ Result.ofSafeExec
 
 #### Defined in
 
-[result.ts:48](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L48)
+[result.ts:50](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L50)
 
 ---
 
 ### ofSafeExecAsync
 
 ▸ `Static` **ofSafeExecAsync**<`Y`\>(`fn`): `Promise`<[`Result`](Result.md)<`Y`\>\>
+
+Constructor for "Result" using the return value of the input async function.
 
 #### Type parameters
 
@@ -180,6 +184,12 @@ Result.ofSafeExec
 
 `Promise`<[`Result`](Result.md)<`Y`\>\>
 
+**`Example`**
+
+```ts
+const result = Result.ofSafeExecAsync(async () => someAsyncFunc(args))
+```
+
 #### Defined in
 
-[result.ts:56](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L56)
+[result.ts:62](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L62)
