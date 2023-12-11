@@ -80,7 +80,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:31](https://github.com/NibiruChain/ts-sdk/blob/2993dce/packages/nibijs/src/result.ts#L31)
+[result.ts:31](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L31)
 
 ## Properties
 
@@ -90,7 +90,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:30](https://github.com/NibiruChain/ts-sdk/blob/2993dce/packages/nibijs/src/result.ts#L30)
+[result.ts:30](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L30)
 
 ---
 
@@ -100,7 +100,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:29](https://github.com/NibiruChain/ts-sdk/blob/2993dce/packages/nibijs/src/result.ts#L29)
+[result.ts:29](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L29)
 
 ## Methods
 
@@ -114,7 +114,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:44](https://github.com/NibiruChain/ts-sdk/blob/2993dce/packages/nibijs/src/result.ts#L44)
+[result.ts:44](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L44)
 
 ---
 
@@ -128,7 +128,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:45](https://github.com/NibiruChain/ts-sdk/blob/2993dce/packages/nibijs/src/result.ts#L45)
+[result.ts:45](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L45)
 
 ---
 
@@ -156,7 +156,7 @@ Result.ofSafeExec
 
 #### Defined in
 
-[result.ts:48](https://github.com/NibiruChain/ts-sdk/blob/2993dce/packages/nibijs/src/result.ts#L48)
+[result.ts:48](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L48)
 
 ---
 
@@ -182,4 +182,4 @@ Result.ofSafeExec
 
 #### Defined in
 
-[result.ts:56](https://github.com/NibiruChain/ts-sdk/blob/2993dce/packages/nibijs/src/result.ts#L56)
+[result.ts:56](https://github.com/NibiruChain/ts-sdk/blob/c5e1ad7/packages/nibijs/src/result.ts#L56)
