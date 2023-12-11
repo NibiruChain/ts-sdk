@@ -39,8 +39,8 @@ if (res.isOk()) {
 ## Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 ## Table of contents
 
@@ -69,20 +69,20 @@ if (res.isOk()) {
 #### Type parameters
 
 | Name |
-| :--- |
-| `T`  |
+| :------ |
+| `T` |
 
 #### Parameters
 
-| Name             | Type      |
-| :--------------- | :-------- |
-| `«destructured»` | `Object`  |
-| › `err?`         | `unknown` |
-| › `ok?`          | `T`       |
+| Name | Type |
+| :------ | :------ |
+| `«destructured»` | `Object` |
+| › `err?` | `unknown` |
+| › `ok?` | `T` |
 
 #### Defined in
 
-[result.ts:33](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L33)
+[result.ts:33](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/result.ts#L33)
 
 ## Properties
 
@@ -92,9 +92,9 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:32](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L32)
+[result.ts:32](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/result.ts#L32)
 
----
+___
 
 ### ok
 
@@ -102,7 +102,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:31](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L31)
+[result.ts:31](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/result.ts#L31)
 
 ## Methods
 
@@ -116,9 +116,9 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:46](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L46)
+[result.ts:44](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/result.ts#L44)
 
----
+___
 
 ### isOk
 
@@ -130,9 +130,9 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:47](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L47)
+[result.ts:45](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/result.ts#L45)
 
----
+___
 
 ### ofSafeExec
 
@@ -143,14 +143,14 @@ Constructor for "Result" using the return value of the input function.
 #### Type parameters
 
 | Name |
-| :--- |
-| `Y`  |
+| :------ |
+| `Y` |
 
 #### Parameters
 
-| Name | Type      |
-| :--- | :-------- |
-| `fn` | () => `Y` |
+| Name | Type |
+| :------ | :------ |
+| `fn` | (...`args`: `any`[]) => `Y` |
 
 #### Returns
 
@@ -158,9 +158,9 @@ Constructor for "Result" using the return value of the input function.
 
 #### Defined in
 
-[result.ts:50](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L50)
+[result.ts:48](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/result.ts#L48)
 
----
+___
 
 ### ofSafeExecAsync
 
@@ -171,13 +171,13 @@ Constructor for "Result" using the return value of the input async function.
 #### Type parameters
 
 | Name |
-| :--- |
-| `Y`  |
+| :------ |
+| `Y` |
 
 #### Parameters
 
-| Name | Type                  |
-| :--- | :-------------------- |
+| Name | Type |
+| :------ | :------ |
 | `fn` | () => `Promise`<`Y`\> |
 
 #### Returns
@@ -192,4 +192,4 @@ const result = Result.ofSafeExecAsync(async () => someAsyncFunc(args))
 
 #### Defined in
 
-[result.ts:62](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/result.ts#L62)
+[result.ts:60](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/result.ts#L60)

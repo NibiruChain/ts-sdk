@@ -41,8 +41,8 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Parameters
 
-| Name  | Type           | Description           |
-| :---- | :------------- | :-------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `msg` | `MsgAddMargin` | Message to add margin |
 
 #### Returns
@@ -55,9 +55,9 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:124](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/msg/perp.ts#L124)
+[msg/perp.ts:124](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/msg/perp.ts#L124)
 
----
+___
 
 ### closePosition
 
@@ -65,8 +65,8 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Parameters
 
-| Name  | Type               |
-| :---- | :----------------- |
+| Name | Type |
+| :------ | :------ |
 | `msg` | `MsgClosePosition` |
 
 #### Returns
@@ -75,9 +75,9 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:161](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/msg/perp.ts#L161)
+[msg/perp.ts:161](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/msg/perp.ts#L161)
 
----
+___
 
 ### donateToPerpEF
 
@@ -85,8 +85,8 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Parameters
 
-| Name  | Type                       |
-| :---- | :------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `msg` | `MsgDonateToEcosystemFund` |
 
 #### Returns
@@ -95,9 +95,9 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:175](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/msg/perp.ts#L175)
+[msg/perp.ts:175](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/msg/perp.ts#L175)
 
----
+___
 
 ### liquidate
 
@@ -105,8 +105,8 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Parameters
 
-| Name  | Type                |
-| :---- | :------------------ |
+| Name | Type |
+| :------ | :------ |
 | `msg` | `MsgMultiLiquidate` |
 
 #### Returns
@@ -115,9 +115,9 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:131](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/msg/perp.ts#L131)
+[msg/perp.ts:131](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/msg/perp.ts#L131)
 
----
+___
 
 ### openPosition
 
@@ -125,15 +125,15 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Parameters
 
-| Name                        | Type      |
-| :-------------------------- | :-------- |
-| `msg`                       | `Object`  |
-| `msg.baseAssetAmountLimit?` | `number`  |
-| `msg.goLong`                | `boolean` |
-| `msg.leverage`              | `number`  |
-| `msg.pair`                  | `string`  |
-| `msg.quoteAssetAmount`      | `number`  |
-| `msg.sender`                | `string`  |
+| Name | Type |
+| :------ | :------ |
+| `msg` | `Object` |
+| `msg.baseAssetAmountLimit?` | `number` |
+| `msg.goLong` | `boolean` |
+| `msg.leverage` | `number` |
+| `msg.pair` | `string` |
+| `msg.quoteAssetAmount` | `number` |
+| `msg.sender` | `string` |
 
 #### Returns
 
@@ -141,9 +141,9 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:138](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/msg/perp.ts#L138)
+[msg/perp.ts:138](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/msg/perp.ts#L138)
 
----
+___
 
 ### partialClosePosition
 
@@ -151,8 +151,8 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Parameters
 
-| Name  | Type              |
-| :---- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `msg` | `MsgPartialClose` |
 
 #### Returns
@@ -161,9 +161,9 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:168](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/msg/perp.ts#L168)
+[msg/perp.ts:168](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/msg/perp.ts#L168)
 
----
+___
 
 ### removeMargin
 
@@ -171,8 +171,8 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Parameters
 
-| Name  | Type              |
-| :---- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `msg` | `MsgRemoveMargin` |
 
 #### Returns
@@ -181,4 +181,4 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:110](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/msg/perp.ts#L110)
+[msg/perp.ts:110](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/msg/perp.ts#L110)

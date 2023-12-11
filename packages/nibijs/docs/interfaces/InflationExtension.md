@@ -12,8 +12,8 @@
 
 ### inflation
 
-• `Readonly` **inflation**: `Readonly`<{ `circulatingSupply`: () => `Promise`<`QueryCirculatingSupplyResponse`\> ; `epochMintProvision`: () => `Promise`<`QueryEpochMintProvisionResponse`\> ; `inflationRate`: () => `Promise`<`QueryInflationRateResponse`\> ; `params`: () => `Promise`<`QueryParamsResponse`\> ; `period`: () => `Promise`<`QueryPeriodResponse`\> ; `skippedEpochs`: () => `Promise`<`QuerySkippedEpochsResponse`\> }\>
+• `Readonly` **inflation**: `Readonly`<{ `circulatingSupply`: () => `Promise`<`QueryCirculatingSupplyResponse`\> ; `epochMintProvision`: () => `Promise`<`QueryEpochMintProvisionResponse`\> ; `inflationRate`: () => `Promise`<`QueryInflationRateResponse`\> ; `params`: () => `Promise`<`QueryParamsResponse`\> ; `period`: () => `Promise`<`QueryPeriodResponse`\> ; `skippedEpochs`: () => `Promise`<`QuerySkippedEpochsResponse`\>  }\>
 
 #### Defined in
 
-[query/inflation.ts:19](https://github.com/NibiruChain/ts-sdk/blob/77efda7/packages/nibijs/src/query/inflation.ts#L19)
+[query/inflation.ts:19](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/query/inflation.ts#L19)
