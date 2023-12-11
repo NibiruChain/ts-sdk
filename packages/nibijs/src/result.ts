@@ -1,6 +1,6 @@
 /** Poor-man's Result type from Rust.
  *
- * The Result type forces you to explicitly handle erros in contrast to allowing
+ * The Result type forces you to explicitly handle errors in contrast to allowing
  * errors to propagate up the call stack implicitly. Handling potential errors
  * explicitly leads to more robust and reliable code.
  *
