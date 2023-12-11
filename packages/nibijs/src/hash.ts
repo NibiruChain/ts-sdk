@@ -49,18 +49,19 @@ export const bytesToHex = (bz: Uint8Array): string =>
  * }
  */
 export const hexToBytes = (hex: string): Result<Uint8Array> => {
-  if (hex.length % 2 !== 0)
+  if (hex.length % 2 !== 0) {
     return new Result({
       err: new Error(
         `HexError: hex string must have even length to decode into bytes: hex ${hex}`
       ),
     })
+  }
 
   return Result.ofSafeExec(() =>
     Uint8Array.from(
       hex.match(/.{1,2}/g)!.map((hexTuple: string) => {
         const byte = parseInt(hexTuple, 16)
-        if (isNaN(byte)) {
+        if (Number.isNaN(byte)) {
           throw new Error(
             `HexError: non-hex characters detected in hex: ${hex}`
           )

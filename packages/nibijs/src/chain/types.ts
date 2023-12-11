@@ -17,7 +17,7 @@ export const assert = (
 ): boolean | string => {
   if (!condition) {
     const errMsg = message ? `AssertionError: ${message}` : "AssertionError"
-    console.error(errMsg)
+    console.error(Error(errMsg))
     return errMsg
   }
   return true

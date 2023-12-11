@@ -19,13 +19,13 @@ import {
   setupWasmExtension,
   WasmExtension,
 } from "@cosmjs/cosmwasm-stargate"
+import { TxResponse } from "@cosmjs/tendermint-rpc/build/tendermint37"
 import { EpochsExtension, setupEpochsExtension } from "./epochs"
 import { OracleExtension, setupOracleExtension } from "./oracle"
 import { PerpExtension, setupPerpExtension } from "./perp"
 import { setupSpotExtension, SpotExtension } from "./spot"
 import { setupSudoExtension, SudoExtension } from "./sudo"
 import { InflationExtension, setupInflationExtension } from "./inflation"
-import { TxResponse } from "@cosmjs/tendermint-rpc/build/tendermint37"
 import { Result } from "../result"
 import { bytesToHex, hexToBytes } from "../hash"
 
@@ -119,11 +119,11 @@ export class NibiruQueryClient extends StargateClient {
    * const txHash = "7A919F2CC9A51B139444F7D8E84A46EEF307E839C6CA914C1A1C594FEF5C1562"
    * const txRespResult = await getTxByHash(txHash)
    * */
-  getTxByHash = (txHashHex: string): Promise<Result<TxResponse>> =>
+  public getTxByHash = (txHashHex: string): Promise<Result<TxResponse>> =>
     Result.ofSafeExecAsync(async () => {
       const resBz = hexToBytes(txHashHex)
       if (resBz.ok) {
-        return await this.tm.tx({ hash: resBz.ok })
+        return this.tm.tx({ hash: resBz.ok })
       }
       throw resBz.err
     })
@@ -133,10 +133,10 @@ export class NibiruQueryClient extends StargateClient {
    *
    * @see getTxByHash - Equivalent query using the hex-encoded tx hash string.
    * */
-  getTxByHashBytes = (txHash: Uint8Array): Promise<Result<TxResponse>> =>
+  public getTxByHashBytes = (txHash: Uint8Array): Promise<Result<TxResponse>> =>
     Result.ofSafeExecAsync(async () => {
       bytesToHex(txHash) // To validate the format up-front before making an
       // unnecessary request
-      return await this.tm.tx({ hash: txHash })
+      return this.tm.tx({ hash: txHash })
     })
 }

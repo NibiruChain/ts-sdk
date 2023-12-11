@@ -34,11 +34,9 @@ export class Result<T> {
     this.ok = ok
     this.err = err ? parseError(err) : undefined
 
-    const undefinedArgsCount =
-      +(this.ok !== undefined) + +(this.err !== undefined)
-    if (undefinedArgsCount === 0) {
+    if (Boolean(this.ok) && Boolean(this.err)) {
       throw new Error(
-        "ResultError: ok and error states cannot be defined simultaneously"
+        "ResultError: ok and error states must not be defined simultaneously"
       )
     }
   }
@@ -47,7 +45,7 @@ export class Result<T> {
   isOk = (): boolean => !this.isErr()
 
   /** Constructor for "Result" using the return value of the input function. */
-  static ofSafeExec = <Y>(fn: () => Y): Result<Y> => {
+  static ofSafeExec = <Y>(fn: (...args: any[]) => Y): Result<Y> => {
     try {
       return new Result({ ok: fn() })
     } catch (err) {
@@ -74,13 +72,5 @@ export class Result<T> {
  * guaranteed in JS by default. The error that comes out of a try-catch may not
  * have type "Error" since it's perfectly valid to throw strings or `undefined`.
  * */
-export const parseError = (err: unknown): Error => {
-  let outErr: Error
-  if (err instanceof Error) {
-    outErr = err
-  } else {
-    const errMsg: string = `${err}`
-    outErr = new Error(errMsg)
-  }
-  return outErr
-}
+export const parseError = (err: any): Error =>
+  err instanceof Error ? err : new Error(`${err}`)
