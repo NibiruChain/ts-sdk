@@ -9,7 +9,6 @@ import {
   Devnet,
   fromSdkDec,
   fromSdkInt,
-  go,
   Testnet,
   isRestEndptLive,
   newCoinMapFromCoins,
@@ -179,13 +178,6 @@ describe("chain/types", () => {
     expect(coins.uatom.toString()).toBe("42.42")
     expect(coins.unibi2.toString()).toBe("21519262")
     expect(coins["nibiru/pool/2"].toString()).toBe("16800456610195729831")
-  })
-
-  test("go", async () => {
-    const error = Error("Failure")
-    const result = await go(Promise.reject(error))
-    expect(result.err).toEqual(error.message)
-    expect(result.res).toBeUndefined()
   })
 })
 
