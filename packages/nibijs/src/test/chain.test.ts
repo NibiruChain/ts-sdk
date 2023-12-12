@@ -42,11 +42,11 @@ describe("chain/chain", () => {
 
   test("IncentivizedTestnet", async () => {
     const result = Testnet(1)
-    expectCreatedChain(result, "itn")
+    expectCreatedChain(result, "testnet")
   })
 
   test("Devnet", async () => {
-    const result = Devnet(1)
+    const result = Devnet(2)
     expectCreatedChain(result, "devnet")
   })
 

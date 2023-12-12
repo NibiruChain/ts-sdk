@@ -10,7 +10,7 @@ based on its chain ID.
 ```ts
 export const TEST_CHAIN = new CustomChain({
   prefix: "nibiru",
-  shortName: "itn",
+  shortName: "testnet",
   number: 1,
 }) // v0.19.2
 ```
