@@ -34,7 +34,7 @@ export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
   ...spotTypes,
 ]
 
-export class NibiruSigningClient extends SigningStargateClient {
+export class NibiruTxClient extends SigningStargateClient {
   public readonly nibiruExtensions: NibiruExtensions
   public readonly wasmClient: SigningCosmWasmClient
 
@@ -68,7 +68,7 @@ export class NibiruSigningClient extends SigningStargateClient {
     signer: OfflineSigner,
     options: SigningStargateClientOptions = {},
     wasmOptions: SigningCosmWasmClientOptions = {}
-  ): Promise<NibiruSigningClient> {
+  ): Promise<NibiruTxClient> {
     const tmClient = await Tendermint37Client.connect(endpoint)
     const wasmClient = await SigningCosmWasmClient.connectWithSigner(
       endpoint,
@@ -78,7 +78,7 @@ export class NibiruSigningClient extends SigningStargateClient {
         ...wasmOptions,
       }
     )
-    return new NibiruSigningClient(
+    return new NibiruTxClient(
       tmClient,
       signer,
       {

@@ -7,11 +7,7 @@ import {
   newCoinMapFromCoins,
   useFaucet,
 } from "../chain"
-import {
-  newRandomWallet,
-  newSignerFromMnemonic,
-  NibiruSigningClient,
-} from "../tx"
+import { newRandomWallet, newSignerFromMnemonic, NibiruTxClient } from "../tx"
 import { TEST_CHAIN, TEST_MNEMONIC } from "../testutil"
 
 jest.mock("cross-fetch", () => ({
@@ -29,7 +25,7 @@ test.skip("faucet utility works", async () => {
   const [{ address: toAddr }] = await wallet.getAccounts()
 
   const validator = await newSignerFromMnemonic(TEST_MNEMONIC)
-  const signingClient = await NibiruSigningClient.connectWithSigner(
+  const signingClient = await NibiruTxClient.connectWithSigner(
     TEST_CHAIN.endptTm,
     validator
   )

@@ -10,7 +10,7 @@ import { Direction } from "@nibiruchain/protojs/dist/nibiru/perp/v2/state"
 import { TxLog } from "../chain"
 import { Msg, TxMessage } from "../msg"
 import { PERP_MSG_TYPE_URLS } from "../msg/perp"
-import { NibiruQueryClient } from "../query/query"
+import { NibiruQuerier } from "../query/query"
 import {
   assertHasEventType,
   assertHasMsgType,
@@ -21,11 +21,11 @@ import {
   ERR,
 } from "../testutil"
 import { newRandomWallet, newSignerFromMnemonic } from "./signer"
-import { NibiruSigningClient } from "./signingClient"
+import { NibiruTxClient } from "./signingClient"
 
 describe("signingClient", () => {
   test("connects", async () => {
-    const client = await NibiruSigningClient.connect(TEST_CHAIN.endptTm)
+    const client = await NibiruTxClient.connect(TEST_CHAIN.endptTm)
     expect(client).toBeTruthy()
   })
 })
@@ -37,7 +37,7 @@ describe("nibid tx bank send", () => {
       await signer.getAccounts()
     expect(fromAddr).toBeDefined()
 
-    const signingClient = await NibiruSigningClient.connectWithSigner(
+    const signingClient = await NibiruTxClient.connectWithSigner(
       TEST_CHAIN.endptTm,
       signer
     )
@@ -53,7 +53,7 @@ describe("nibid tx bank send", () => {
     )
     assertIsDeliverTxSuccess(resp)
 
-    const querier = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
     const txQuery = await querier.getTxByHash(resp.transactionHash)
     expect(txQuery.isOk()).toBeTruthy()
   })
@@ -64,7 +64,7 @@ describe("nibid tx perp", () => {
 
   test("open-position, add-margin, remove-margin", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
-    const signingClient = await NibiruSigningClient.connectWithSigner(
+    const signingClient = await NibiruTxClient.connectWithSigner(
       TEST_CHAIN.endptTm,
       signer
     )
@@ -170,8 +170,8 @@ describe("nibid tx perp", () => {
   }, 40_000 /* default timeout is not sufficient. */)
 
   test("nibid query perp positions", async () => {
-    const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
-    const resp = await queryClient.nibiruExtensions.perp.positions({
+    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const resp = await querier.nibiruExtensions.perp.positions({
       trader: TEST_ADDRESS,
     })
     resp.positions.forEach((position) => {
@@ -186,7 +186,7 @@ describe("nibid tx perp", () => {
 
   test("nibid tx perp close-position", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
-    const signingClient = await NibiruSigningClient.connectWithSigner(
+    const signingClient = await NibiruTxClient.connectWithSigner(
       TEST_CHAIN.endptTm,
       signer
     )
