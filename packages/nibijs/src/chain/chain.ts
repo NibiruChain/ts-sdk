@@ -27,7 +27,7 @@ export interface Chain {
 
 export interface ChainIdParts {
   prefix?: string // e.g. `nibiru`
-  shortName: string // e.g. `itn`
+  shortName: string // e.g. `testnet`
   number: number // e.g. `1`
   mainnet?: boolean
 }
@@ -39,7 +39,7 @@ export interface ChainIdParts {
  * ```ts
  * export const TEST_CHAIN = new CustomChain({
  *   prefix: "nibiru",
- *   shortName: "itn",
+ *   shortName: "testnet",
  *   number: 1,
  * }) // v0.19.2
  * ```
@@ -114,7 +114,7 @@ export const Localnet: Chain = {
 export const Testnet = (chainNumber: number = 1) =>
   new CustomChain({
     prefix: "nibiru",
-    shortName: "itn",
+    shortName: "testnet",
     number: chainNumber,
   })
 

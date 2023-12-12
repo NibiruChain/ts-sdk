@@ -22,7 +22,7 @@ describe("queryBatchHandler tests", () => {
           true
         ),
       ],
-      "https://hm-graphql.itn-3.nibiru.fi/query"
+      "https://hm-graphql.testnet-1.nibiru.fi/query"
     )
 
     expect(resp).toHaveProperty("communityPool")

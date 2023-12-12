@@ -95,7 +95,7 @@ const checkFields = (objects: any[], fields: any[]) => {
   })
 }
 
-const nibiruUrl = "itn-3"
+const nibiruUrl = "devnet-2"
 
 const heartMonitor = new HeartMonitor(
   `https://hm-graphql.${nibiruUrl}.nibiru.fi/query`,
