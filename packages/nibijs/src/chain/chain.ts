@@ -26,9 +26,10 @@ export interface Chain {
 }
 
 export interface ChainIdParts {
-  prefix: string // e.g. `nibiru`
+  prefix?: string // e.g. `nibiru`
   shortName: string // e.g. `itn`
   number: number // e.g. `1`
+  mainnet?: boolean
 }
 
 /** CustomChain is a convenience class for intializing the endpoints of a chain
@@ -57,9 +58,14 @@ export class CustomChain implements Chain {
     this.chainIdParts = chainIdParts
     this.chainId = this.initChainId()
     this.chainName = this.chainId
-    this.endptTm = `https://rpc.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
-    this.endptRest = `https://lcd.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
-    this.endptGrpc = `grpc.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
+
+    const chainEndpt = chainIdParts.mainnet
+      ? ""
+      : `.${chainIdParts.shortName}-${chainIdParts.number}`
+
+    this.endptTm = `https://rpc${chainEndpt}.nibiru.fi`
+    this.endptRest = `https://lcd${chainEndpt}.nibiru.fi`
+    this.endptGrpc = `grpc${chainEndpt}.nibiru.fi`
   }
 
   public static fromChainId(chainId: string): Chain {
@@ -74,7 +80,7 @@ export class CustomChain implements Chain {
 
   private initChainId = () => {
     const { prefix, shortName, number } = this.chainIdParts
-    return [prefix, shortName, number].join("-")
+    return [prefix, shortName, number].filter(Boolean).join("-")
   }
 }
 

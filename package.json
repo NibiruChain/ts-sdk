@@ -18,7 +18,7 @@
     "clean": "lerna run --parallel clean",
     "commit": "cz",
     "publish:all": "lerna publish from-package",
-    "test": "jest --verbose --detectOpenHandles",
+    "test": "jest --verbose --detectOpenHandles --watchAll --no-cache",
     "lint": "eslint -c './.eslintrc.js' './packages/**/*.{ts,js}'",
     "lint:ci": "yarn lint . --format junit",
     "lint:md": "markdownlint --ignore node_modules --ignore .git",

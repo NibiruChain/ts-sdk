@@ -50,6 +50,22 @@ describe("chain/chain", () => {
     expectCreatedChain(result, "devnet")
   })
 
+  test("Mainnet", () => {
+    const shortName = "cataclysm"
+    const number = 1
+    const result = new CustomChain({
+      shortName,
+      number,
+      mainnet: true,
+    })
+    expect(result.chainId).toEqual(`${shortName}-${number}`)
+    expect(result.chainName).toEqual(`${shortName}-${number}`)
+    expect(result.endptGrpc).toEqual(`grpc.nibiru.fi`)
+    expect(result.endptRest).toEqual(`https://lcd.nibiru.fi`)
+    expect(result.endptTm).toEqual(`https://rpc.nibiru.fi`)
+    expect(result.feeDenom).toEqual(`unibi`)
+  })
+
   test("queryChainIdWithRest", async () => {
     const chain = Devnet(2)
     const result = await queryChainIdWithRest(chain)
