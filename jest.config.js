@@ -194,5 +194,6 @@ module.exports = function (root = __dirname) {
     // Whether to use watchman for file crawling
     // watchman: true,
     testTimeout: 120000,
+    openHandlesTimeout: 2000,
   }
 }
