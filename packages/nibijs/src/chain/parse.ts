@@ -69,9 +69,9 @@ export const toSdkDec = (dec: string): string => {
 
   if (lenDigitBlock > PRECISION) {
     console.error(
-      `value \${decStr}' exceeds max precision by ${
+      `value "${decStr}" exceeds max precision by ${
         PRECISION - lenDigitBlock
-      } decimal places: max precision ${PRECISION}`
+      } decimal places: max precision is ${PRECISION}`
     )
     return "0"
   }
@@ -116,12 +116,14 @@ export const fromSdkDec = (sdkDec: string): number => {
   }
 
   if (sdkDec.indexOf(".") !== -1) {
-    console.error(`expected a decimal string but got ${sdkDec} containing '.'`)
+    console.error(
+      `expected a decimal string but got "${sdkDec}" containing '.'`
+    )
     return 0
   }
 
   if (Number.isNaN(parseInt(sdkDec, 10))) {
-    console.error(`failed to convert ${sdkDec} to a number`)
+    console.error(`failed to convert "${sdkDec}" to a number`)
     return 0
   }
 

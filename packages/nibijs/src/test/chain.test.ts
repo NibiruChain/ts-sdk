@@ -1,4 +1,3 @@
-import { SigningStargateClient } from "@cosmjs/stargate"
 import { Coin, coin } from "@cosmjs/proto-signing"
 import {
   assert,
@@ -9,7 +8,6 @@ import {
   Devnet,
   fromSdkDec,
   fromSdkInt,
-  go,
   Testnet,
   isRestEndptLive,
   newCoinMapFromCoins,
@@ -17,10 +15,11 @@ import {
   toSdkDec,
 } from "../chain"
 import { TEST_CHAIN } from "../testutil"
+import { NibiruSigningClient } from "../tx/signingClient"
 
 describe("chain/chain", () => {
   test("testnet rpc", async () => {
-    const sgClient = await SigningStargateClient.connect(TEST_CHAIN.endptTm)
+    const sgClient = await NibiruSigningClient.connect(TEST_CHAIN.endptTm)
     const blockHeight = await sgClient.getHeight()
     expect(blockHeight).toBeDefined()
     expect(blockHeight).toBeGreaterThanOrEqual(0)
@@ -69,7 +68,7 @@ describe("chain/chain", () => {
   test("queryChainIdWithRest", async () => {
     const chain = Devnet(2)
     const result = await queryChainIdWithRest(chain)
-    expect(result).toEqual(["nibiru-devnet-2", undefined])
+    expect(result.ok).toEqual("nibiru-devnet-2")
   })
 
   test("inactive chain validation cases", async () => {
@@ -81,9 +80,8 @@ describe("chain/chain", () => {
       chainName: "inactive-chain",
       feeDenom: "unibi",
     }
-    const [chainId, err] = await queryChainIdWithRest(inactiveChain)
-    expect(err).toBeDefined()
-    expect(chainId).toEqual("")
+    const res = await queryChainIdWithRest(inactiveChain)
+    expect(res.isErr()).toBeDefined()
     await expect(isRestEndptLive(inactiveChain)).resolves.toBeFalsy()
   })
 
@@ -195,13 +193,6 @@ describe("chain/types", () => {
     expect(coins.uatom.toString()).toBe("42.42")
     expect(coins.unibi2.toString()).toBe("21519262")
     expect(coins["nibiru/pool/2"].toString()).toBe("16800456610195729831")
-  })
-
-  test("go", async () => {
-    const error = Error("Failure")
-    const result = await go(Promise.reject(error))
-    expect(result.err).toEqual(error.message)
-    expect(result.res).toBeUndefined()
   })
 })
 

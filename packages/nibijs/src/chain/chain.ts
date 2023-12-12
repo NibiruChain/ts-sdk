@@ -1,5 +1,5 @@
 import { fetch } from "cross-fetch"
-import { go } from "./types"
+import { Result } from "../result"
 
 /**
  * Specifies chain information for all endpoints a Nibiru node exposes such as the
@@ -70,17 +70,19 @@ export class CustomChain implements Chain {
 
   public static fromChainId(chainId: string): Chain {
     const parts = chainId.split("-")
-    const chainIdParts = {
+    const chainIdParts: ChainIdParts = {
       prefix: parts[0],
       shortName: parts[1],
-      number: Number(parts[2]),
-    } as ChainIdParts
+      number: parseInt(parts[2]),
+    }
     return new CustomChain(chainIdParts)
   }
 
   private initChainId = () => {
     const { prefix, shortName, number } = this.chainIdParts
-    return [prefix, shortName, number].filter(Boolean).join("-")
+    return [prefix, shortName, number]
+      .filter((v) => Boolean(v) || Number(v) === 0)
+      .join("-")
   }
 }
 
@@ -134,7 +136,9 @@ export const Devnet = (chainNumber: number) =>
     number: chainNumber,
   })
 
-export const queryChainIdWithRest = async (chain: Chain) => {
+export const queryChainIdWithRest = async (
+  chain: Chain
+): Promise<Result<string>> => {
   const queryChainId = async (chain: Chain): Promise<string> => {
     const response = await fetch(
       `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`
@@ -144,15 +148,14 @@ export const queryChainIdWithRest = async (chain: Chain) => {
     return nodeInfo.default_node_info.network
   }
 
-  const { res: chainId, err } = await go(queryChainId(chain))
-  return [chainId ?? "", err]
+  return Result.ofSafeExecAsync(async () => queryChainId(chain))
 }
 
 /** isRestEndptLive: Makes a request using the chain's REST endpoint to see if
  * the network and endpoint are active. */
 export const isRestEndptLive = async (chain: Chain): Promise<boolean> => {
-  const [_chainId, err] = await queryChainIdWithRest(chain)
-  return err === undefined
+  const res = await queryChainIdWithRest(chain)
+  return res.isOk()
 }
 
 /**

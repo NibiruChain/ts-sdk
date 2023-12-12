@@ -52,6 +52,10 @@ describe("nibid tx bank send", () => {
       400000
     )
     assertIsDeliverTxSuccess(resp)
+
+    const querier = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+    const txQuery = await querier.getTxByHash(resp.transactionHash)
+    expect(txQuery.isOk()).toBeTruthy()
   })
 })
 

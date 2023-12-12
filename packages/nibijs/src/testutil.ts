@@ -1,5 +1,6 @@
 import { Block } from "@cosmjs/stargate"
 import { Chain, Localnet } from "./chain"
+import { parseError } from "./result"
 import { ABCIEvent } from "./tx"
 
 /** TEST_CHAIN: Alias for Localnet.
@@ -22,7 +23,7 @@ export const ERR = {
 }
 
 /** Validates that block queried via the JSON RPC client has the expected fields. */
-export function validateBlockFromJsonRpc(blockJson: any) {
+export function assertValidBlockFromJsonRpc(blockJson: any) {
   const blockSchema = {
     header: ["version", "chain_id", "height", "last_block_id"].concat(
       ["last_commit_hash", "data_hash", "validators_hash"],
@@ -44,14 +45,21 @@ export function validateBlockFromJsonRpc(blockJson: any) {
   }
 }
 
-/** valideBlock: Performs runtime type validation on a CometBFT "Block". */
-export function validateBlock(block: Block, chain: Chain) {
+/** assertValidBlock: Performs runtime type validation on a CometBFT "Block". */
+export function assertValidBlock(block: Block, chain: Chain) {
   expect(block.header.chainId).toEqual(chain.chainId)
   expect(block.header.time).toBeDefined()
   expect(block.header.height).toBeGreaterThanOrEqual(1)
   expect(block).toHaveProperty("txs")
 }
 
+/**
+ * Asserts that a list of ABCIEvents contains a specific type of `TxMsg`. This
+ * `TxMsg` type is read from a "message" event's "action" attribute.
+ *
+ * @param {string} msgType - TxMsg type to look for within the event attributes.
+ * @param {ABCIEvent[]} events - set of events over which we're searching.
+ */
 export function assertHasMsgType(msgType: string, events: ABCIEvent[]): void {
   events.forEach((event) => {
     if (event.type === "message") {
@@ -63,6 +71,14 @@ export function assertHasMsgType(msgType: string, events: ABCIEvent[]): void {
   })
 }
 
+/**
+ * Asserts that an array of ABCIEvent objects contains an event with a specified
+ * type. This runs a test expectation that the specified `eventType` is
+ * contained in `events`.
+ *
+ * @param {string} eventType - The event type to look for in the array of events.
+ * @param {ABCIEvent[]} events - An array of ABCIEvent objects to be tested.
+ */
 export function assertHasEventType(
   eventType: string,
   events: ABCIEvent[]
@@ -71,15 +87,19 @@ export function assertHasEventType(
   expect(eventTypes).toContain(eventType)
 }
 
+/**
+ * Asserts that the given error matches one of the expected error messages.
+ *
+ * This function parses the error object to extract its message and checks if
+ * it includes any of the specified acceptable error messages. It sets a test
+ * expectation that the error message is contained within the list of acceptable errors.
+ *
+ * @param {unknown} err - The error object to be tested.
+ * @param {string[]} okErrors - An array of acceptable error message strings.
+ */
 export const assertExpectedError = (err: unknown, okErrors: string[]) => {
-  let errMsg: string
-  if (err instanceof Error) {
-    errMsg = err.message
-  } else {
-    errMsg = `${err}`
-  }
-  console.log(errMsg)
   let isContained = false
+  const errMsg = parseError(err).message
   okErrors.forEach((e) => {
     if (errMsg.includes(e)) {
       isContained = true
