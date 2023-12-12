@@ -70,17 +70,19 @@ export class CustomChain implements Chain {
 
   public static fromChainId(chainId: string): Chain {
     const parts = chainId.split("-")
-    const chainIdParts = {
+    const chainIdParts: ChainIdParts = {
       prefix: parts[0],
       shortName: parts[1],
-      number: Number(parts[2]),
-    } as ChainIdParts
+      number: parseInt(parts[2]),
+    }
     return new CustomChain(chainIdParts)
   }
 
   private initChainId = () => {
     const { prefix, shortName, number } = this.chainIdParts
-    return [prefix, shortName, number].filter(Boolean).join("-")
+    return [prefix, shortName, number]
+      .filter((v) => Boolean(v) || Number(v) === 0)
+      .join("-")
   }
 }
 
