@@ -12,8 +12,8 @@
 
 ### sudo
 
-• `Readonly` **sudo**: `Readonly`<{ `querySudoers`: () => `Promise`<`QuerySudoersResponse`\>  }\>
+• `Readonly` **sudo**: `Readonly`<{ `querySudoers`: () => `Promise`<`QuerySudoersResponse`\> }\>
 
 #### Defined in
 
-[query/sudo.ts:9](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/query/sudo.ts#L9)
+[query/sudo.ts:9](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/sudo.ts#L9)

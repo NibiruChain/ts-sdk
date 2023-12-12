@@ -1,4 +1,3 @@
-import { SigningStargateClient } from "@cosmjs/stargate"
 import { Coin, coin } from "@cosmjs/proto-signing"
 import {
   assert,
@@ -16,10 +15,11 @@ import {
   toSdkDec,
 } from "../chain"
 import { TEST_CHAIN } from "../testutil"
+import { NibiruSigningClient } from "../tx/signingClient"
 
 describe("chain/chain", () => {
   test("testnet rpc", async () => {
-    const sgClient = await SigningStargateClient.connect(TEST_CHAIN.endptTm)
+    const sgClient = await NibiruSigningClient.connect(TEST_CHAIN.endptTm)
     const blockHeight = await sgClient.getHeight()
     expect(blockHeight).toBeDefined()
     expect(blockHeight).toBeGreaterThanOrEqual(0)
@@ -47,6 +47,22 @@ describe("chain/chain", () => {
   test("Devnet", async () => {
     const result = Devnet(1)
     expectCreatedChain(result, "devnet")
+  })
+
+  test("Mainnet", () => {
+    const shortName = "cataclysm"
+    const number = 1
+    const result = new CustomChain({
+      shortName,
+      number,
+      mainnet: true,
+    })
+    expect(result.chainId).toEqual(`${shortName}-${number}`)
+    expect(result.chainName).toEqual(`${shortName}-${number}`)
+    expect(result.endptGrpc).toEqual(`grpc.nibiru.fi`)
+    expect(result.endptRest).toEqual(`https://lcd.nibiru.fi`)
+    expect(result.endptTm).toEqual(`https://rpc.nibiru.fi`)
+    expect(result.feeDenom).toEqual(`unibi`)
   })
 
   test("queryChainIdWithRest", async () => {

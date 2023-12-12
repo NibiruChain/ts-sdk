@@ -12,8 +12,8 @@
 
 ### oracle
 
-• **oracle**: `Readonly`<{ `actives`: () => `Promise`<`QueryActivesResponse`\> ; `aggregatePrevote`: (`oracle`: `string`) => `Promise`<`undefined` \| `AggregateExchangeRatePrevote`\> ; `aggregatePrevotes`: () => `Promise`<`AggregateExchangeRatePrevote`[]\> ; `aggregateVote`: (`oracle`: `string`) => `Promise`<`undefined` \| `AggregateExchangeRateVote`\> ; `aggregateVotes`: () => `Promise`<`AggregateExchangeRateVote`[]\> ; `exchangeRate`: (`pair`: `string`) => `Promise`<`number`\> ; `exchangeRates`: () => `Promise`<`ExchangeRatesMap`\> ; `feeder`: (`oracle`: `string`) => `Promise`<`string`\> ; `missCount`: (`oracle`: `string`) => `Promise`<`number`\> ; `params`: () => `Promise`<`QueryParamsResponse`\> ; `voteTargets`: () => `Promise`<`string`[]\>  }\>
+• **oracle**: `Readonly`<{ `actives`: () => `Promise`<`QueryActivesResponse`\> ; `aggregatePrevote`: (`oracle`: `string`) => `Promise`<`undefined` \| `AggregateExchangeRatePrevote`\> ; `aggregatePrevotes`: () => `Promise`<`AggregateExchangeRatePrevote`[]\> ; `aggregateVote`: (`oracle`: `string`) => `Promise`<`undefined` \| `AggregateExchangeRateVote`\> ; `aggregateVotes`: () => `Promise`<`AggregateExchangeRateVote`[]\> ; `exchangeRate`: (`pair`: `string`) => `Promise`<`number`\> ; `exchangeRates`: () => `Promise`<`ExchangeRatesMap`\> ; `feeder`: (`oracle`: `string`) => `Promise`<`string`\> ; `missCount`: (`oracle`: `string`) => `Promise`<`number`\> ; `params`: () => `Promise`<`QueryParamsResponse`\> ; `voteTargets`: () => `Promise`<`string`[]\> }\>
 
 #### Defined in
 
-[query/oracle.ts:37](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/query/oracle.ts#L37)
+[query/oracle.ts:37](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/oracle.ts#L37)

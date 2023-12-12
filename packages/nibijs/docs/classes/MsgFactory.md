@@ -27,9 +27,9 @@
 
 #### Defined in
 
-[msg/index.ts:6](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/msg/index.ts#L6)
+[msg/index.ts:6](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/msg/index.ts#L6)
 
-___
+---
 
 ### spot
 
@@ -37,4 +37,4 @@ ___
 
 #### Defined in
 
-[msg/index.ts:5](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/msg/index.ts#L5)
+[msg/index.ts:5](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/msg/index.ts#L5)

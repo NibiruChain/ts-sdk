@@ -33,12 +33,12 @@
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `tmClient` | `Tendermint37Client` |
-| `signer` | `OfflineSigner` |
-| `options` | `SigningStargateClientOptions` |
-| `wasm` | `SigningCosmWasmClient` |
+| Name       | Type                           |
+| :--------- | :----------------------------- |
+| `tmClient` | `Tendermint37Client`           |
+| `signer`   | `OfflineSigner`                |
+| `options`  | `SigningStargateClientOptions` |
+| `wasm`     | `SigningCosmWasmClient`        |
 
 #### Overrides
 
@@ -46,7 +46,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:41](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/tx/signingClient.ts#L41)
+[tx/signingClient.ts:41](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L41)
 
 ## Properties
 
@@ -56,9 +56,9 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:38](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/tx/signingClient.ts#L38)
+[tx/signingClient.ts:38](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L38)
 
-___
+---
 
 ### wasmClient
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[tx/signingClient.ts:39](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/tx/signingClient.ts#L39)
+[tx/signingClient.ts:39](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L39)
 
 ## Methods
 
@@ -76,8 +76,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type     |
+| :------- | :------- |
 | `height` | `number` |
 
 #### Returns
@@ -86,9 +86,9 @@ ___
 
 #### Defined in
 
-[tx/signingClient.ts:94](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/tx/signingClient.ts#L94)
+[tx/signingClient.ts:94](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L94)
 
-___
+---
 
 ### waitForNextBlock
 
@@ -100,9 +100,9 @@ ___
 
 #### Defined in
 
-[tx/signingClient.ts:102](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/tx/signingClient.ts#L102)
+[tx/signingClient.ts:102](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L102)
 
-___
+---
 
 ### connectWithSigner
 
@@ -110,11 +110,11 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `endpoint` | `string` |
-| `signer` | `OfflineSigner` |
-| `options` | `SigningStargateClientOptions` |
+| Name          | Type                           |
+| :------------ | :----------------------------- |
+| `endpoint`    | `string`                       |
+| `signer`      | `OfflineSigner`                |
+| `options`     | `SigningStargateClientOptions` |
 | `wasmOptions` | `SigningCosmWasmClientOptions` |
 
 #### Returns
@@ -127,4 +127,4 @@ SigningStargateClient.connectWithSigner
 
 #### Defined in
 
-[tx/signingClient.ts:66](https://github.com/NibiruChain/ts-sdk/blob/c08edb6/packages/nibijs/src/tx/signingClient.ts#L66)
+[tx/signingClient.ts:66](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L66)
