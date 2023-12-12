@@ -6,8 +6,8 @@ import { NibiruQueryClient } from "../query"
 import {
   TEST_CHAIN,
   TEST_ADDRESS,
-  validateBlock,
-  validateBlockFromJsonRpc,
+  assertValidBlock,
+  assertValidBlockFromJsonRpc,
   TEST_MNEMONIC,
   assertExpectedError,
 } from "../testutil"
@@ -22,7 +22,7 @@ describe("connections", () => {
   test("query command is able to fetch latest block", async () => {
     const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
     const blockResp: Block = await queryClient.getBlock()
-    validateBlock(blockResp, TEST_CHAIN)
+    assertValidBlock(blockResp, TEST_CHAIN)
   })
 
   test("tendermint rpc url returns block with GET", async () => {
@@ -30,7 +30,7 @@ describe("connections", () => {
     const respJson = (await resp.json()) as BlockResp
     expect(respJson.result, `respJson: ${respJson}`).toHaveProperty("block")
     const blockJson = respJson.result.block
-    validateBlockFromJsonRpc(blockJson)
+    assertValidBlockFromJsonRpc(blockJson)
   })
 })
 

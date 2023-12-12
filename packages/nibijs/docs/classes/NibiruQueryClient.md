@@ -32,6 +32,8 @@ const querier = await NibiruQueryClient.connect(chain.endptTm)
 
 ### Methods
 
+- [getTxByHash](NibiruQueryClient.md#gettxbyhash)
+- [getTxByHashBytes](NibiruQueryClient.md#gettxbyhashbytes)
 - [waitForHeight](NibiruQueryClient.md#waitforheight)
 - [waitForNextBlock](NibiruQueryClient.md#waitfornextblock)
 - [connect](NibiruQueryClient.md#connect)
@@ -56,7 +58,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:63](https://github.com/NibiruChain/ts-sdk/blob/d2a4311/packages/nibijs/src/query/query.ts#L63)
+[query/query.ts:66](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/query.ts#L66)
 
 ## Properties
 
@@ -66,7 +68,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:50](https://github.com/NibiruChain/ts-sdk/blob/d2a4311/packages/nibijs/src/query/query.ts#L50)
+[query/query.ts:53](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/query.ts#L53)
 
 ---
 
@@ -76,7 +78,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:52](https://github.com/NibiruChain/ts-sdk/blob/d2a4311/packages/nibijs/src/query/query.ts#L52)
+[query/query.ts:55](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/query.ts#L55)
 
 ---
 
@@ -86,9 +88,74 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:51](https://github.com/NibiruChain/ts-sdk/blob/d2a4311/packages/nibijs/src/query/query.ts#L51)
+[query/query.ts:54](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/query.ts#L54)
 
 ## Methods
+
+### getTxByHash
+
+▸ **getTxByHash**(`txHashHex`): `Promise`<[`Result`](Result.md)<`TxResponse`\>\>
+
+getTxByHash: Query a transaction (tx) using its hexadecial encoded tx hash.
+A tx hash uniquely identifies a tx on the blockchain.
+
+The hex-encoded tx hash is:
+
+- An unambiguous representation of the SHA-256 cryptographic hash in the
+  consensus layer.
+- Well-suited for human-facing applications, as it is easier to work with
+  than bytes.
+
+#### Parameters
+
+| Name        | Type     |
+| :---------- | :------- |
+| `txHashHex` | `string` |
+
+#### Returns
+
+`Promise`<[`Result`](Result.md)<`TxResponse`\>\>
+
+**`Example`**
+
+```ts
+const txHash =
+  "7A919F2CC9A51B139444F7D8E84A46EEF307E839C6CA914C1A1C594FEF5C1562"
+const txRespResult = await getTxByHash(txHash)
+```
+
+#### Defined in
+
+[query/query.ts:122](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/query.ts#L122)
+
+---
+
+### getTxByHashBytes
+
+▸ **getTxByHashBytes**(`txHash`): `Promise`<[`Result`](Result.md)<`TxResponse`\>\>
+
+getTxByHashBytes: Query a transaction (tx) using its SHA-256 tx hash (bytes).
+A tx hash uniquely identifies a tx on the blockchain.
+
+#### Parameters
+
+| Name     | Type         |
+| :------- | :----------- |
+| `txHash` | `Uint8Array` |
+
+#### Returns
+
+`Promise`<[`Result`](Result.md)<`TxResponse`\>\>
+
+**`See`**
+
+getTxByHash - Equivalent query using the hex-encoded tx hash string.
+
+#### Defined in
+
+[query/query.ts:136](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/query.ts#L136)
+
+---
 
 ### waitForHeight
 
@@ -106,7 +173,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:89](https://github.com/NibiruChain/ts-sdk/blob/d2a4311/packages/nibijs/src/query/query.ts#L89)
+[query/query.ts:92](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/query.ts#L92)
 
 ---
 
@@ -120,7 +187,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[query/query.ts:97](https://github.com/NibiruChain/ts-sdk/blob/d2a4311/packages/nibijs/src/query/query.ts#L97)
+[query/query.ts:100](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/query.ts#L100)
 
 ---
 
@@ -145,4 +212,4 @@ StargateClient.connect
 
 #### Defined in
 
-[query/query.ts:54](https://github.com/NibiruChain/ts-sdk/blob/d2a4311/packages/nibijs/src/query/query.ts#L54)
+[query/query.ts:57](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/query/query.ts#L57)
