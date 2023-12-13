@@ -356,7 +356,7 @@ ___
 
 Mainnet: "Chain" configuration for the Nibiru "mainnet".
 ❗ Mainnet uses real funds. For more info, see
-<a href="https://nibiru.fi/docs/dev/networks/">Nibiru Netwokrs</a>.
+<a href="https://nibiru.fi/docs/dev/networks/">Nibiru Networks</a>.
 
 #### Parameters
 
