@@ -46,15 +46,15 @@ Constructor:
 
 #### Parameters
 
-| Name               | Type          |
-| :----------------- | :------------ |
-| `Amplification`    | `BigNumber`   |
+| Name | Type |
+| :------ | :------ |
+| `Amplification` | `BigNumber` |
 | `totalTokenSupply` | `BigNumber`[] |
-| `fee`              | `BigNumber`   |
+| `fee` | `BigNumber` |
 
 #### Defined in
 
-[stableswap/stableswap.ts:25](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/stableswap/stableswap.ts#L25)
+[stableswap/stableswap.ts:25](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/stableswap/stableswap.ts#L25)
 
 ## Properties
 
@@ -64,9 +64,9 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/stableswap/stableswap.ts#L20)
+[stableswap/stableswap.ts:20](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/stableswap/stableswap.ts#L20)
 
----
+___
 
 ### fee
 
@@ -74,9 +74,9 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/stableswap/stableswap.ts#L23)
+[stableswap/stableswap.ts:23](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/stableswap/stableswap.ts#L23)
 
----
+___
 
 ### totalTokenSupply
 
@@ -84,9 +84,9 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/stableswap/stableswap.ts#L21)
+[stableswap/stableswap.ts:21](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/stableswap/stableswap.ts#L21)
 
----
+___
 
 ### totalTokensInPool
 
@@ -94,7 +94,7 @@ Constructor:
 
 #### Defined in
 
-[stableswap/stableswap.ts:22](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/stableswap/stableswap.ts#L22)
+[stableswap/stableswap.ts:22](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/stableswap/stableswap.ts#L22)
 
 ## Methods
 
@@ -105,7 +105,7 @@ Constructor:
 D()
 
 D invariant calculation in non-overflowing integer operations iteratively
-A _ sum(x_i) _ n**n + D = A _ D _ n**n + D**(n+1) / (n**n \* prod(x_i))
+A * sum(x_i) * n**n + D = A * D * n**n + D**(n+1) / (n**n * prod(x_i))
 
 #### Returns
 
@@ -117,9 +117,9 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:54](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/stableswap/stableswap.ts#L54)
+[stableswap/stableswap.ts:54](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/stableswap/stableswap.ts#L54)
 
----
+___
 
 ### exchange
 
@@ -129,11 +129,11 @@ exchange() runs a theorhetical Curve StableSwap model to determine impact on tok
 
 #### Parameters
 
-| Name        | Type        |
-| :---------- | :---------- |
-| `fromIndex` | `number`    |
-| `toIndex`   | `number`    |
-| `dx`        | `BigNumber` |
+| Name | Type |
+| :------ | :------ |
+| `fromIndex` | `number` |
+| `toIndex` | `number` |
+| `dx` | `BigNumber` |
 
 #### Returns
 
@@ -145,9 +145,9 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:143](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/stableswap/stableswap.ts#L143)
+[stableswap/stableswap.ts:143](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/stableswap/stableswap.ts#L143)
 
----
+___
 
 ### xp
 
@@ -165,9 +165,9 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:41](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/stableswap/stableswap.ts#L41)
+[stableswap/stableswap.ts:41](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/stableswap/stableswap.ts#L41)
 
----
+___
 
 ### y
 
@@ -178,18 +178,18 @@ y()
 Calculate x[j] if one makes x[i] = x
 
 Done by solving quadratic equation iteratively.
-x_1**2 + x1 * (sum' - (A*n**n - 1) _ D / (A _ n**n)) = D ** (n+1)/(n ** (2 _ n) _ prod' \* A)
-x_1**2 + b\*x_1 = c
+ x_1**2 + x1 * (sum' - (A*n**n - 1) * D / (A * n**n)) = D ** (n+1)/(n ** (2 * n) * prod' * A)
+ x_1**2 + b*x_1 = c
 
-x_1 = (x_1\**2 + c) / (2*x_1 + b)
+ x_1 = (x_1**2 + c) / (2*x_1 + b)
 
 #### Parameters
 
-| Name        | Type        |
-| :---------- | :---------- |
-| `fromIndex` | `number`    |
-| `toIndex`   | `number`    |
-| `x`         | `BigNumber` |
+| Name | Type |
+| :------ | :------ |
+| `fromIndex` | `number` |
+| `toIndex` | `number` |
+| `x` | `BigNumber` |
 
 #### Returns
 
@@ -201,4 +201,4 @@ StableSwap
 
 #### Defined in
 
-[stableswap/stableswap.ts:104](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/stableswap/stableswap.ts#L104)
+[stableswap/stableswap.ts:104](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/stableswap/stableswap.ts#L104)

@@ -13,18 +13,18 @@
 
 ### Direct
 
-• **Direct** = `"direct"`
+• **Direct** = ``"direct"``
 
 #### Defined in
 
-[tx/signer.ts:53](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L53)
+[tx/signer.ts:53](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/tx/signer.ts#L53)
 
----
+___
 
 ### Keplr
 
-• **Keplr** = `"keplr"`
+• **Keplr** = ``"keplr"``
 
 #### Defined in
 
-[tx/signer.ts:52](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L52)
+[tx/signer.ts:52](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/tx/signer.ts#L52)

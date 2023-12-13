@@ -10,9 +10,7 @@ deduced from `ChainIdParts`.
 
 ```ts
 let chain: ChainIdParts = {
-  shortName: "cataclysm",
-  number: 1,
-  mainnet: true,
+  shortName: "cataclysm", number: 1, mainnet: true,
 }
 chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
 ```
@@ -34,9 +32,9 @@ chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
 
 #### Defined in
 
-[chain/chain.ts:41](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L41)
+[chain/chain.ts:41](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L41)
 
----
+___
 
 ### number
 
@@ -44,9 +42,9 @@ chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
 
 #### Defined in
 
-[chain/chain.ts:40](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L40)
+[chain/chain.ts:40](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L40)
 
----
+___
 
 ### prefix
 
@@ -54,9 +52,9 @@ chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
 
 #### Defined in
 
-[chain/chain.ts:38](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L38)
+[chain/chain.ts:38](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L38)
 
----
+___
 
 ### shortName
 
@@ -64,4 +62,4 @@ chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
 
 #### Defined in
 
-[chain/chain.ts:39](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L39)
+[chain/chain.ts:39](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L39)

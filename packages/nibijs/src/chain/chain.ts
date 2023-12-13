@@ -50,7 +50,7 @@ export interface ChainIdParts {
  *   prefix: "nibiru",
  *   shortName: "testnet",
  *   number: 1,
- * }) // v0.21.43
+ * })
  * ```
  */
 export class CustomChain implements Chain {
@@ -147,7 +147,7 @@ export const Devnet = (chainNumber: number) =>
 
 /** Mainnet: "Chain" configuration for the Nibiru "mainnet".
  * ❗ Mainnet uses real funds. For more info, see
- * <ahref="https://nibiru.fi/docs/dev/networks/">Nibiru Netwokrs</a>.
+ * <a href="https://nibiru.fi/docs/dev/networks/">Nibiru Netwokrs</a>.
  * */
 export const Mainnet = (chainNumber: number = 1) =>
   new CustomChain({
@@ -157,11 +157,11 @@ export const Mainnet = (chainNumber: number = 1) =>
   })
 
 export const queryChainIdWithRest = async (
-  chain: Chain
+  chain: Chain,
 ): Promise<Result<string>> => {
   const queryChainId = async (chain: Chain): Promise<string> => {
     const response = await fetch(
-      `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`
+      `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`,
     )
     const nodeInfo: { default_node_info: { network: string } } =
       await response.json()

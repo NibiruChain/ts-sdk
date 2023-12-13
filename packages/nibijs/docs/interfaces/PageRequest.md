@@ -27,16 +27,16 @@ PageRequest
 
 • **countTotal**: `boolean`
 
-count_total is set to true to indicate that the result set should include
+count_total is set to true  to indicate that the result set should include
 a count of the total number of items available for pagination in UIs.
 count_total is only respected when offset is used. It is ignored when key
 is set.
 
 #### Defined in
 
-[query/spot.ts:252](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/spot.ts#L252)
+[query/spot.ts:252](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/query/spot.ts#L252)
 
----
+___
 
 ### key
 
@@ -48,9 +48,9 @@ should be set.
 
 #### Defined in
 
-[query/spot.ts:234](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/spot.ts#L234)
+[query/spot.ts:234](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/query/spot.ts#L234)
 
----
+___
 
 ### limit
 
@@ -61,9 +61,9 @@ If left empty it will default to a value to be set by each app.
 
 #### Defined in
 
-[query/spot.ts:245](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/spot.ts#L245)
+[query/spot.ts:245](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/query/spot.ts#L245)
 
----
+___
 
 ### offset
 
@@ -75,9 +75,9 @@ be set.
 
 #### Defined in
 
-[query/spot.ts:240](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/spot.ts#L240)
+[query/spot.ts:240](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/query/spot.ts#L240)
 
----
+___
 
 ### reverse
 
@@ -89,4 +89,4 @@ Since: cosmos-sdk 0.43
 
 #### Defined in
 
-[query/spot.ts:258](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/spot.ts#L258)
+[query/spot.ts:258](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/query/spot.ts#L258)

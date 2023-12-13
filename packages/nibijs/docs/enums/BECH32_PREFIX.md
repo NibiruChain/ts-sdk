@@ -1,86 +1,86 @@
-[NibiJS Documentation - v0.21.43](../intro.md) / [Exports](../modules.md) / BECH32_PREFIX
+[NibiJS Documentation - v0.21.43](../intro.md) / [Exports](../modules.md) / BECH32\_PREFIX
 
-# Enumeration: BECH32_PREFIX
+# Enumeration: BECH32\_PREFIX
 
 ## Table of contents
 
 ### Enumeration Members
 
 - [ADDR](BECH32_PREFIX.md#addr)
-- [ADDR_VAL](BECH32_PREFIX.md#addr_val)
-- [ADDR_VALCONS](BECH32_PREFIX.md#addr_valcons)
+- [ADDR\_VAL](BECH32_PREFIX.md#addr_val)
+- [ADDR\_VALCONS](BECH32_PREFIX.md#addr_valcons)
 - [PUB](BECH32_PREFIX.md#pub)
-- [PUB_VAL](BECH32_PREFIX.md#pub_val)
-- [PUB_VALCONS](BECH32_PREFIX.md#pub_valcons)
+- [PUB\_VAL](BECH32_PREFIX.md#pub_val)
+- [PUB\_VALCONS](BECH32_PREFIX.md#pub_valcons)
 
 ## Enumeration Members
 
 ### ADDR
 
-• **ADDR** = `"nibi"`
+• **ADDR** = ``"nibi"``
 
 ADDR defines the Bech32 prefix of an account address
 
 #### Defined in
 
-[tx/signer.ts:6](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L6)
+[tx/signer.ts:6](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/tx/signer.ts#L6)
 
----
+___
 
-### ADDR_VAL
+### ADDR\_VAL
 
-• **ADDR_VAL** = `"nibivaloper"`
+• **ADDR\_VAL** = ``"nibivaloper"``
 
 ADDR_VAL defines the Bech32 prefix of an validator's operator address
 
 #### Defined in
 
-[tx/signer.ts:8](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L8)
+[tx/signer.ts:8](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/tx/signer.ts#L8)
 
----
+___
 
-### ADDR_VALCONS
+### ADDR\_VALCONS
 
-• **ADDR_VALCONS** = `"nibivalcons"`
+• **ADDR\_VALCONS** = ``"nibivalcons"``
 
 ADDR_VALCONS defines the Bech32 prefix of a consensus node address
 
 #### Defined in
 
-[tx/signer.ts:10](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L10)
+[tx/signer.ts:10](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/tx/signer.ts#L10)
 
----
+___
 
 ### PUB
 
-• **PUB** = `"nibipub"`
+• **PUB** = ``"nibipub"``
 
 PUB defines the Bech32 prefix of an account's public key
 
 #### Defined in
 
-[tx/signer.ts:12](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L12)
+[tx/signer.ts:12](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/tx/signer.ts#L12)
 
----
+___
 
-### PUB_VAL
+### PUB\_VAL
 
-• **PUB_VAL** = `"nibivaloperpub"`
+• **PUB\_VAL** = ``"nibivaloperpub"``
 
 PUB_VAL defines the Bech32 prefix of an validator's operator public key
 
 #### Defined in
 
-[tx/signer.ts:14](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L14)
+[tx/signer.ts:14](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/tx/signer.ts#L14)
 
----
+___
 
-### PUB_VALCONS
+### PUB\_VALCONS
 
-• **PUB_VALCONS** = `"nibivalconspub"`
+• **PUB\_VALCONS** = ``"nibivalconspub"``
 
 PUB_VALCONS defines the Bech32 prefix of a consensus node public key
 
 #### Defined in
 
-[tx/signer.ts:16](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L16)
+[tx/signer.ts:16](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/tx/signer.ts#L16)
