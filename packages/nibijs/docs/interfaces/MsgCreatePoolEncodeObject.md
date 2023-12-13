@@ -29,7 +29,7 @@ EncodeObject.typeUrl
 
 [msg/spot.ts:27](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/msg/spot.ts#L27)
 
-___
+---
 
 ### value
 

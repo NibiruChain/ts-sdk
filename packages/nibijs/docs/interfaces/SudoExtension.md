@@ -12,7 +12,7 @@
 
 ### sudo
 
-• `Readonly` **sudo**: `Readonly`<{ `querySudoers`: () => `Promise`<`QuerySudoersResponse`\>  }\>
+• `Readonly` **sudo**: `Readonly`<{ `querySudoers`: () => `Promise`<`QuerySudoersResponse`\> }\>
 
 #### Defined in
 
