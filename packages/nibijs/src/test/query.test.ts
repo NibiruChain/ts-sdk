@@ -12,7 +12,7 @@ import {
   assertExpectedError,
 } from "../testutil"
 import { newSignerFromMnemonic } from "../tx/signer"
-import { NibiruTxClient } from "../tx/signingClient"
+import { NibiruTxClient } from "../tx/txClient"
 
 interface BlockResp {
   result: { block: any }
@@ -252,7 +252,7 @@ describe("wasm", () => {
     const wasmBinary = fs.readFileSync("./packages/nibijs/wasm/cw20_base.wasm")
     // Deploy cw20 contract
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
-    const signingClient = await NibiruTxClient.connectWithSigner(
+    const txClient = await NibiruTxClient.connectWithSigner(
       TEST_CHAIN.endptTm,
       signer
     )
@@ -263,14 +263,14 @@ describe("wasm", () => {
     }
 
     const assertHappyPath = async () => {
-      const uploadRes = await signingClient.wasmClient.upload(
+      const uploadRes = await txClient.wasmClient.upload(
         sender,
         wasmBinary,
         fee
       )
       codeId = uploadRes.codeId
 
-      const initRes = await signingClient.wasmClient.instantiate(
+      const initRes = await txClient.wasmClient.instantiate(
         sender,
         codeId,
         {

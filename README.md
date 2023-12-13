@@ -116,7 +116,7 @@ import { coins } from "@cosmjs/proto-signing"
 
 export const CHAIN: Chain = Localnet
 const signer = await newSignerFromMnemonic(mnemonic!)
-const signingClient = await NibiruTxClient.connectWithSigner(
+const txClient = await NibiruTxClient.connectWithSigner(
   CHAIN.endptTm,
   signer,
 )
@@ -124,7 +124,7 @@ const [{ address: fromAddr }] = await signer.getAccounts()
 
 const tokens: Coin[] = coins(5, "unibi")
 const toAddr: string = "..." // bech32 address of the receiving party
-const txResp = await signingClient.sendTokens(fromAddr, toAddr, tokens, "auto")
+const txResp = await txClient.sendTokens(fromAddr, toAddr, tokens, "auto")
 ```
 
 ### Example: Transaction with arbitrary messages
@@ -147,7 +147,7 @@ import { coin } from "@cosmjs/proto-signing"
 export const CHAIN: Chain = Localnet
 const signer = await newSignerFromMnemonic(mnemonic!)
 signer.getAccounts()
-const signingClient = await NibiruTxClient.connectWithSigner(
+const txClient = await NibiruTxClient.connectWithSigner(
   CHAIN.endptTm,
   signer,
 )
@@ -182,7 +182,7 @@ const msgs: TxMessage[] = [
 // ------------------------------------
 // Broadcast tx
 // ------------------------------------
-const txResp = await signingClient.signAndBroadcast(fromAddr, msgs, "auto")
+const txResp = await txClient.signAndBroadcast(fromAddr, msgs, "auto")
 ```
 
 ## Codebase structure

@@ -118,10 +118,7 @@ const exampleTxMsgs = async () => {
   const mnemonic: string = TEST_MNEMONIC
   const signer = await newSignerFromMnemonic(mnemonic!)
   signer.getAccounts()
-  const signingClient = await NibiruTxClient.connectWithSigner(
-    CHAIN.endptTm,
-    signer
-  )
+  const txClient = await NibiruTxClient.connectWithSigner(CHAIN.endptTm, signer)
   const [{ address: fromAddr }] = await signer.getAccounts()
 
   // ------------------------------------
@@ -161,7 +158,7 @@ const exampleTxMsgs = async () => {
     // tx signature to still be considered valid.
     gas: toSdkInt(1_000_000),
   }
-  const txResp = await signingClient.signAndBroadcast(fromAddr, msgs, txFee)
+  const txResp = await txClient.signAndBroadcast(fromAddr, msgs, txFee)
   const { transactionHash, gasUsed, gasWanted } = txResp
   const events = parseEventLogs(txResp)
   console.log("txResp (partial): %o", { transactionHash, gasUsed, gasWanted })
@@ -182,10 +179,10 @@ const exampleSendFunds = async () => {
   const toAddr: string = process.argv[2] ?? randAddr
 
   const signer = await getSigner()
-  const signingClient = await getSigningClient()
+  const txClient = await getSigningClient()
   const [{ address: fromAddr }] = await signer.getAccounts()
 
-  const txResp = await signingClient.sendTokens(
+  const txResp = await txClient.sendTokens(
     fromAddr,
     toAddr,
     [{ denom: "unibi", amount: toSdkInt(5) }],

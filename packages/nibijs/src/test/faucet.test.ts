@@ -25,13 +25,13 @@ test.skip("faucet utility works", async () => {
   const [{ address: toAddr }] = await wallet.getAccounts()
 
   const validator = await newSignerFromMnemonic(TEST_MNEMONIC)
-  const signingClient = await NibiruTxClient.connectWithSigner(
+  const txClient = await NibiruTxClient.connectWithSigner(
     TEST_CHAIN.endptTm,
     validator
   )
   const [{ address: fromAddr }] = await validator.getAccounts()
-  await signingClient.waitForNextBlock()
-  const txResp: DeliverTxResponse = await signingClient.sendTokens(
+  await txClient.waitForNextBlock()
+  const txResp: DeliverTxResponse = await txClient.sendTokens(
     fromAddr,
     toAddr,
     coins(100, "unibi"),
@@ -40,7 +40,7 @@ test.skip("faucet utility works", async () => {
   assertIsDeliverTxSuccess(txResp)
 
   const balancesStart = newCoinMapFromCoins(
-    await signingClient.getAllBalances(toAddr)
+    await txClient.getAllBalances(toAddr)
   )
   const faucetResp = await useFaucet({
     address: toAddr,
@@ -49,9 +49,7 @@ test.skip("faucet utility works", async () => {
   })
   expect(faucetResp?.ok).toBeTruthy()
 
-  const balancesEnd = newCoinMapFromCoins(
-    await signingClient.getAllBalances(toAddr)
-  )
+  const balancesEnd = newCoinMapFromCoins(await txClient.getAllBalances(toAddr))
   expect(
     balancesEnd.unusd.minus(balancesStart.unusd).eq(100 * 1e6)
   ).toBeTruthy()

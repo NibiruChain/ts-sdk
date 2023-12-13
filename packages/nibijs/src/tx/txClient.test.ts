@@ -21,12 +21,12 @@ import {
   ERR,
 } from "../testutil"
 import { newRandomWallet, newSignerFromMnemonic } from "./signer"
-import { NibiruTxClient } from "./signingClient"
+import { NibiruTxClient } from "./txClient"
 
-describe("signingClient", () => {
+describe("txClient", () => {
   test("connects", async () => {
-    const client = await NibiruTxClient.connect(TEST_CHAIN.endptTm)
-    expect(client).toBeTruthy()
+    const txClient = await NibiruTxClient.connect(TEST_CHAIN.endptTm)
+    expect(txClient).toBeTruthy()
   })
 })
 
@@ -37,7 +37,7 @@ describe("nibid tx bank send", () => {
       await signer.getAccounts()
     expect(fromAddr).toBeDefined()
 
-    const signingClient = await NibiruTxClient.connectWithSigner(
+    const txClient = await NibiruTxClient.connectWithSigner(
       TEST_CHAIN.endptTm,
       signer
     )
@@ -45,7 +45,7 @@ describe("nibid tx bank send", () => {
     const toWallet = await newRandomWallet()
     const [{ address: toAddr }] = await toWallet.getAccounts()
 
-    const resp = await signingClient.sendTokens(
+    const resp = await txClient.sendTokens(
       fromAddr,
       toAddr,
       parseCoins("1unibi"),
@@ -64,7 +64,7 @@ describe("nibid tx perp", () => {
 
   test("open-position, add-margin, remove-margin", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
-    const signingClient = await NibiruTxClient.connectWithSigner(
+    const txClient = await NibiruTxClient.connectWithSigner(
       TEST_CHAIN.endptTm,
       signer
     )
@@ -154,7 +154,7 @@ describe("nibid tx perp", () => {
     }
 
     try {
-      const result = await signingClient.signAndBroadcast(sender, msgs, fee)
+      const result = await txClient.signAndBroadcast(sender, msgs, fee)
 
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
@@ -186,7 +186,7 @@ describe("nibid tx perp", () => {
 
   test("nibid tx perp close-position", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
-    const signingClient = await NibiruTxClient.connectWithSigner(
+    const txClient = await NibiruTxClient.connectWithSigner(
       TEST_CHAIN.endptTm,
       signer
     )
@@ -221,7 +221,7 @@ describe("nibid tx perp", () => {
     }
 
     try {
-      const result = await signingClient.signAndBroadcast(sender, msgs, fee)
+      const result = await txClient.signAndBroadcast(sender, msgs, fee)
       assertIsDeliverTxSuccess(result)
       assertHappyPath(result)
     } catch (error) {

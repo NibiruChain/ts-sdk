@@ -15,7 +15,7 @@ import {
   toSdkDec,
 } from "../chain"
 import { TEST_CHAIN } from "../testutil"
-import { NibiruTxClient } from "../tx/signingClient"
+import { NibiruTxClient } from "../tx/txClient"
 
 describe("chain/chain", () => {
   test("testnet rpc", async () => {
