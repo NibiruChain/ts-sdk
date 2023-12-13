@@ -61,6 +61,8 @@ describe("useFaucet", () => {
     endptTm: "",
     endptRest: "",
     endptGrpc: "",
+    endptHm: "",
+    endptWs: "",
     chainId: "nibiru-testnet-1",
     chainName: "",
     feeDenom: "",
