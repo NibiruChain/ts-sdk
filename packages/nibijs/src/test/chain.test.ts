@@ -15,11 +15,11 @@ import {
   toSdkDec,
 } from "../chain"
 import { TEST_CHAIN } from "../testutil"
-import { NibiruSigningClient } from "../tx/signingClient"
+import { NibiruTxClient } from "../tx/txClient"
 
 describe("chain/chain", () => {
   test("testnet rpc", async () => {
-    const sgClient = await NibiruSigningClient.connect(TEST_CHAIN.endptTm)
+    const sgClient = await NibiruTxClient.connect(TEST_CHAIN.endptTm)
     const blockHeight = await sgClient.getHeight()
     expect(blockHeight).toBeDefined()
     expect(blockHeight).toBeGreaterThanOrEqual(0)

@@ -1,35 +1,35 @@
-[NibiJS Documentation - v0.21.42](../intro.md) / [Exports](../modules.md) / NibiruSigningClient
+[NibiJS Documentation - v0.21.42](../intro.md) / [Exports](../modules.md) / NibiruTxClient
 
-# Class: NibiruSigningClient
+# Class: NibiruTxClient
 
 ## Hierarchy
 
 - `SigningStargateClient`
 
-  ↳ **`NibiruSigningClient`**
+  ↳ **`NibiruTxClient`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](NibiruSigningClient.md#constructor)
+- [constructor](NibiruTxClient.md#constructor)
 
 ### Properties
 
-- [nibiruExtensions](NibiruSigningClient.md#nibiruextensions)
-- [wasmClient](NibiruSigningClient.md#wasmclient)
+- [nibiruExtensions](NibiruTxClient.md#nibiruextensions)
+- [wasmClient](NibiruTxClient.md#wasmclient)
 
 ### Methods
 
-- [waitForHeight](NibiruSigningClient.md#waitforheight)
-- [waitForNextBlock](NibiruSigningClient.md#waitfornextblock)
-- [connectWithSigner](NibiruSigningClient.md#connectwithsigner)
+- [waitForHeight](NibiruTxClient.md#waitforheight)
+- [waitForNextBlock](NibiruTxClient.md#waitfornextblock)
+- [connectWithSigner](NibiruTxClient.md#connectwithsigner)
 
 ## Constructors
 
 ### constructor
 
-• `Protected` **new NibiruSigningClient**(`tmClient`, `signer`, `options`, `wasm`)
+• `Protected` **new NibiruTxClient**(`tmClient`, `signer`, `options`, `wasm`)
 
 #### Parameters
 
@@ -46,7 +46,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:41](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L41)
+[tx/txClient.ts:41](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/tx/txClient.ts#L41)
 
 ## Properties
 
@@ -56,7 +56,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:38](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L38)
+[tx/txClient.ts:38](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/tx/txClient.ts#L38)
 
 ---
 
@@ -66,7 +66,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:39](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L39)
+[tx/txClient.ts:39](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/tx/txClient.ts#L39)
 
 ## Methods
 
@@ -86,7 +86,7 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:94](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L94)
+[tx/txClient.ts:94](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/tx/txClient.ts#L94)
 
 ---
 
@@ -100,13 +100,13 @@ SigningStargateClient.constructor
 
 #### Defined in
 
-[tx/signingClient.ts:102](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L102)
+[tx/txClient.ts:102](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/tx/txClient.ts#L102)
 
 ---
 
 ### connectWithSigner
 
-▸ `Static` **connectWithSigner**(`endpoint`, `signer`, `options?`, `wasmOptions?`): `Promise`<[`NibiruSigningClient`](NibiruSigningClient.md)\>
+▸ `Static` **connectWithSigner**(`endpoint`, `signer`, `options?`, `wasmOptions?`): `Promise`<[`NibiruTxClient`](NibiruTxClient.md)\>
 
 #### Parameters
 
@@ -119,7 +119,7 @@ SigningStargateClient.constructor
 
 #### Returns
 
-`Promise`<[`NibiruSigningClient`](NibiruSigningClient.md)\>
+`Promise`<[`NibiruTxClient`](NibiruTxClient.md)\>
 
 #### Overrides
 
@@ -127,4 +127,4 @@ SigningStargateClient.connectWithSigner
 
 #### Defined in
 
-[tx/signingClient.ts:66](https://github.com/NibiruChain/ts-sdk/blob/f607ea4/packages/nibijs/src/tx/signingClient.ts#L66)
+[tx/txClient.ts:66](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/tx/txClient.ts#L66)

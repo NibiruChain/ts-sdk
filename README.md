@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibijs.png" width="100%">
+<img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/develop/img/nibijs.png" width="100%">
 </p>
 
 <!-- NOTE: Use direct links for external sites that copy these files. -->
@@ -86,25 +86,21 @@ console.log("address: ", address)
 ### Example: Querying
 
 ```js
-import {
-  NibiruQueryClient,
-  NibiruSigningClient,
-  Localnet,
-} from "@nibiruchain/nibijs"
+import { NibiruQuerier, NibiruTxClient, Localnet } from "@nibiruchain/nibijs"
 
 export const CHAIN: Chain = Localnet
-const queryClient = await NibiruQueryClient.connect(CHAIN.endptTm)
+const querier = await NibiruQuerier.connect(CHAIN.endptTm)
 
-const perpParamsResp = await queryClient.nibiruExtensions.perp.params()
+const perpParamsResp = await querier.nibiruExtensions.perp.params()
 console.log("perpParams: %o", perpParamsResp)
 
-const allMarkets = await queryClient.nibiruExtensions.perp.markets({
+const allMarkets = await querier.nibiruExtensions.perp.markets({
   pair: "ueth:unusd",
 })
 console.log("allMarkets: %o", allMarkets)
 
 const blockHeight = 1
-const block = await queryClient.getBlock(blockHeight)
+const block = await querier.getBlock(blockHeight)
 ```
 
 ### Example: Sending funds
@@ -112,7 +108,7 @@ const block = await queryClient.getBlock(blockHeight)
 ```js
 import {
   Coin,
-  NibiruSigningClient,
+  NibiruTxClient,
   newSignerFromMnemonic,
   Localnet
 } from "@nibiruchain/nibijs"
@@ -120,7 +116,7 @@ import { coins } from "@cosmjs/proto-signing"
 
 export const CHAIN: Chain = Localnet
 const signer = await newSignerFromMnemonic(mnemonic!)
-const signingClient = await NibiruSigningClient.connectWithSigner(
+const txClient = await NibiruTxClient.connectWithSigner(
   CHAIN.endptTm,
   signer,
 )
@@ -128,14 +124,14 @@ const [{ address: fromAddr }] = await signer.getAccounts()
 
 const tokens: Coin[] = coins(5, "unibi")
 const toAddr: string = "..." // bech32 address of the receiving party
-const txResp = await signingClient.sendTokens(fromAddr, toAddr, tokens, "auto")
+const txResp = await txClient.sendTokens(fromAddr, toAddr, tokens, "auto")
 ```
 
 ### Example: Transaction with arbitrary messages
 
 ```js
 import {
-  NibiruSigningClient,
+  NibiruTxClient,
   newSignerFromMnemonic,
   Msg,
   TxMessage,
@@ -151,7 +147,7 @@ import { coin } from "@cosmjs/proto-signing"
 export const CHAIN: Chain = Localnet
 const signer = await newSignerFromMnemonic(mnemonic!)
 signer.getAccounts()
-const signingClient = await NibiruSigningClient.connectWithSigner(
+const txClient = await NibiruTxClient.connectWithSigner(
   CHAIN.endptTm,
   signer,
 )
@@ -186,7 +182,7 @@ const msgs: TxMessage[] = [
 // ------------------------------------
 // Broadcast tx
 // ------------------------------------
-const txResp = await signingClient.signAndBroadcast(fromAddr, msgs, "auto")
+const txResp = await txClient.signAndBroadcast(fromAddr, msgs, "auto")
 ```
 
 ## Codebase structure

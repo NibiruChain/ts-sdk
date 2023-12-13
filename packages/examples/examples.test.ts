@@ -1,8 +1,8 @@
 /* eslint-disable no-promise-executor-return */
 import {
   // mnemonic: For the account that will sign the transaction
-  NibiruSigningClient,
-  NibiruQueryClient,
+  NibiruTxClient,
+  NibiruQuerier,
   newSignerFromMnemonic,
   Msg,
   TxMessage,
@@ -26,7 +26,7 @@ const CHAIN: Chain = Localnet
 
 // Using singletons for more consisency on runs with the live network.
 let _SIGNER: DirectSecp256k1HdWallet | null
-let _SIGNING_CLIENT: NibiruSigningClient | null
+let _SIGNING_CLIENT: NibiruTxClient | null
 
 const getSigner = async (): Promise<DirectSecp256k1HdWallet> => {
   if (!_SIGNER) {
@@ -36,10 +36,10 @@ const getSigner = async (): Promise<DirectSecp256k1HdWallet> => {
   return _SIGNER
 }
 
-const getSigningClient = async (): Promise<NibiruSigningClient> => {
+const getSigningClient = async (): Promise<NibiruTxClient> => {
   if (!_SIGNING_CLIENT) {
     const signer = await getSigner()
-    _SIGNING_CLIENT = await NibiruSigningClient.connectWithSigner(
+    _SIGNING_CLIENT = await NibiruTxClient.connectWithSigner(
       CHAIN.endptTm,
       signer
     )
@@ -94,20 +94,20 @@ export const exampleNewWallet = async () => {
 
 /** Example: Query client */
 export const exampleQueries = async () => {
-  const queryClient = await NibiruQueryClient.connect(CHAIN.endptTm)
+  const querier = await NibiruQuerier.connect(CHAIN.endptTm)
 
   // Query a block
   const blockHeight = 1
-  const block = await queryClient.getBlock(blockHeight)
+  const block = await querier.getBlock(blockHeight)
   console.log("block: %o", block)
 
   // Query all markets
-  const allMarkets = await queryClient.nibiruExtensions.perp.markets()
+  const allMarkets = await querier.nibiruExtensions.perp.markets()
   console.log("allMarkets: %o", allMarkets)
 
   // You can use your address instead here.
   const address = TEST_ADDRESS
-  const allBalances = await queryClient.getAllBalances(address)
+  const allBalances = await querier.getAllBalances(address)
   console.log("allBalances: %o", allBalances)
 }
 
@@ -118,10 +118,7 @@ const exampleTxMsgs = async () => {
   const mnemonic: string = TEST_MNEMONIC
   const signer = await newSignerFromMnemonic(mnemonic!)
   signer.getAccounts()
-  const signingClient = await NibiruSigningClient.connectWithSigner(
-    CHAIN.endptTm,
-    signer
-  )
+  const txClient = await NibiruTxClient.connectWithSigner(CHAIN.endptTm, signer)
   const [{ address: fromAddr }] = await signer.getAccounts()
 
   // ------------------------------------
@@ -161,7 +158,7 @@ const exampleTxMsgs = async () => {
     // tx signature to still be considered valid.
     gas: toSdkInt(1_000_000),
   }
-  const txResp = await signingClient.signAndBroadcast(fromAddr, msgs, txFee)
+  const txResp = await txClient.signAndBroadcast(fromAddr, msgs, txFee)
   const { transactionHash, gasUsed, gasWanted } = txResp
   const events = parseEventLogs(txResp)
   console.log("txResp (partial): %o", { transactionHash, gasUsed, gasWanted })
@@ -182,10 +179,10 @@ const exampleSendFunds = async () => {
   const toAddr: string = process.argv[2] ?? randAddr
 
   const signer = await getSigner()
-  const signingClient = await getSigningClient()
+  const txClient = await getSigningClient()
   const [{ address: fromAddr }] = await signer.getAccounts()
 
-  const txResp = await signingClient.sendTokens(
+  const txResp = await txClient.sendTokens(
     fromAddr,
     toAddr,
     [{ denom: "unibi", amount: toSdkInt(5) }],

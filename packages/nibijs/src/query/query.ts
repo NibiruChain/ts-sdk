@@ -45,11 +45,11 @@ export type NibiruExtensions = StargateQueryClient &
 
 /** Querier for a Nibiru network.
  * @example
- * import { NibiruQueryClient, Tesnet } from "@nibiruchain/nibijs"
+ * import { NibiruQuerier, Tesnet } from "@nibiruchain/nibijs"
  * const chain = Testnet()
- * const querier = await NibiruQueryClient.connect(chain.endptTm)
+ * const querier = await NibiruQuerier.connect(chain.endptTm)
  * */
-export class NibiruQueryClient extends StargateClient {
+export class NibiruQuerier extends StargateClient {
   public readonly nibiruExtensions: NibiruExtensions
   public readonly wasmClient: CosmWasmClient
   public readonly tm: Tendermint37Client
@@ -57,10 +57,10 @@ export class NibiruQueryClient extends StargateClient {
   public static async connect(
     endpoint: string,
     options: StargateClientOptions = {}
-  ): Promise<NibiruQueryClient> {
+  ): Promise<NibiruQuerier> {
     const tmClient = await Tendermint37Client.connect(endpoint)
     const wasmClient = await CosmWasmClient.connect(endpoint)
-    return new NibiruQueryClient(tmClient, options, wasmClient)
+    return new NibiruQuerier(tmClient, options, wasmClient)
   }
 
   protected constructor(
