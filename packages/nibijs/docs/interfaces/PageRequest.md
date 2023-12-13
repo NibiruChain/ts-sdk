@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.42](../intro.md) / [Exports](../modules.md) / PageRequest
+[NibiJS Documentation - v0.21.43](../intro.md) / [Exports](../modules.md) / PageRequest
 
 # Interface: PageRequest
 
@@ -34,7 +34,7 @@ is set.
 
 #### Defined in
 
-[query/spot.ts:252](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/query/spot.ts#L252)
+[query/spot.ts:252](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/spot.ts#L252)
 
 ---
 
@@ -48,7 +48,7 @@ should be set.
 
 #### Defined in
 
-[query/spot.ts:234](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/query/spot.ts#L234)
+[query/spot.ts:234](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/spot.ts#L234)
 
 ---
 
@@ -61,7 +61,7 @@ If left empty it will default to a value to be set by each app.
 
 #### Defined in
 
-[query/spot.ts:245](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/query/spot.ts#L245)
+[query/spot.ts:245](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/spot.ts#L245)
 
 ---
 
@@ -75,7 +75,7 @@ be set.
 
 #### Defined in
 
-[query/spot.ts:240](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/query/spot.ts#L240)
+[query/spot.ts:240](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/spot.ts#L240)
 
 ---
 
@@ -89,4 +89,4 @@ Since: cosmos-sdk 0.43
 
 #### Defined in
 
-[query/spot.ts:258](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/query/spot.ts#L258)
+[query/spot.ts:258](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/spot.ts#L258)

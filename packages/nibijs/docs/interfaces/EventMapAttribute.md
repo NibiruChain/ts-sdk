@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.42](../intro.md) / [Exports](../modules.md) / EventMapAttribute
+[NibiJS Documentation - v0.21.43](../intro.md) / [Exports](../modules.md) / EventMapAttribute
 
 # Interface: EventMapAttribute
 

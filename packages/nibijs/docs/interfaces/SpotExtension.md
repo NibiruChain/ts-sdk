@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.42](../intro.md) / [Exports](../modules.md) / SpotExtension
+[NibiJS Documentation - v0.21.43](../intro.md) / [Exports](../modules.md) / SpotExtension
 
 # Interface: SpotExtension
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/spot.ts:58](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/query/spot.ts#L58)
+[query/spot.ts:58](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/spot.ts#L58)

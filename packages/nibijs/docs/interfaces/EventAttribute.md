@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.42](../intro.md) / [Exports](../modules.md) / EventAttribute
+[NibiJS Documentation - v0.21.43](../intro.md) / [Exports](../modules.md) / EventAttribute
 
 # Interface: EventAttribute
 
@@ -19,7 +19,7 @@ EventAttribute: A single key-value pair of event data for an ABCI event.
 
 #### Defined in
 
-[tx/event.ts:5](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/tx/event.ts#L5)
+[tx/event.ts:5](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/tx/event.ts#L5)
 
 ---
 
@@ -29,4 +29,4 @@ EventAttribute: A single key-value pair of event data for an ABCI event.
 
 #### Defined in
 
-[tx/event.ts:6](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/tx/event.ts#L6)
+[tx/event.ts:6](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/tx/event.ts#L6)
