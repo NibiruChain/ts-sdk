@@ -81,8 +81,8 @@ export class CustomChain implements Chain {
     this.endptTm = `https://rpc${chainEndpt}.nibiru.fi`
     this.endptRest = `https://lcd${chainEndpt}.nibiru.fi`
     this.endptGrpc = `grpc${chainEndpt}.nibiru.fi`
-    this.endptHm = `https://hm-graphql${chainEndpt}/query`
-    this.endptWs = `wss://hm-graphql${chainEndpt}/query`
+    this.endptHm = `https://hm-graphql${chainEndpt}.nibiru.fi/query`
+    this.endptWs = `wss://hm-graphql${chainEndpt}.nibiru.fi/query`
   }
 
   public static fromChainId(chainId: string): Chain {
