@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.41](../intro.md) / [Exports](../modules.md) / TxLog
+[NibiJS Documentation - v0.21.42](../intro.md) / [Exports](../modules.md) / TxLog
 
 # Interface: TxLog
 
@@ -12,8 +12,8 @@
 
 ### events
 
-• **events**: [`Event`](Event.md)[]
+• **events**: [`ABCIEvent`](ABCIEvent.md)[]
 
 #### Defined in
 
-[chain/types.ts:45](https://github.com/NibiruChain/ts-sdk/blob/1723d2b/packages/nibijs/src/chain/types.ts#L45)
+[chain/types.ts:41](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/chain/types.ts#L41)

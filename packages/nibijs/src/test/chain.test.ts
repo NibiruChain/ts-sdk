@@ -1,4 +1,3 @@
-import { SigningStargateClient } from "@cosmjs/stargate"
 import { Coin, coin } from "@cosmjs/proto-signing"
 import {
   assert,
@@ -9,18 +8,18 @@ import {
   Devnet,
   fromSdkDec,
   fromSdkInt,
-  go,
-  IncentivizedTestnet,
+  Testnet,
   isRestEndptLive,
   newCoinMapFromCoins,
   queryChainIdWithRest,
   toSdkDec,
 } from "../chain"
-import { TEST_CHAIN } from "./helpers"
+import { TEST_CHAIN } from "../testutil"
+import { NibiruTxClient } from "../tx/txClient"
 
 describe("chain/chain", () => {
   test("testnet rpc", async () => {
-    const sgClient = await SigningStargateClient.connect(TEST_CHAIN.endptTm)
+    const sgClient = await NibiruTxClient.connect(TEST_CHAIN.endptTm)
     const blockHeight = await sgClient.getHeight()
     expect(blockHeight).toBeDefined()
     expect(blockHeight).toBeGreaterThanOrEqual(0)
@@ -31,29 +30,51 @@ describe("chain/chain", () => {
     expect(chain.chainId).toEqual(TEST_CHAIN.chainId)
   })
 
-  const expectCreatedChain = (result: CustomChain, prefix: string) => {
-    expect(result.chainId).toEqual(`nibiru-${prefix}-1`)
-    expect(result.chainName).toEqual(`nibiru-${prefix}-1`)
-    expect(result.endptGrpc).toEqual(`grpc.${prefix}-1.nibiru.fi`)
-    expect(result.endptRest).toEqual(`https://lcd.${prefix}-1.nibiru.fi`)
-    expect(result.endptTm).toEqual(`https://rpc.${prefix}-1.nibiru.fi`)
+  const expectCreatedChain = (
+    result: CustomChain,
+    prefix: string,
+    num: number
+  ) => {
+    expect(result.chainId).toEqual(`nibiru-${prefix}-${num}`)
+    expect(result.chainName).toEqual(`nibiru-${prefix}-${num}`)
+    expect(result.endptGrpc).toEqual(`grpc.${prefix}-${num}.nibiru.fi`)
+    expect(result.endptRest).toEqual(`https://lcd.${prefix}-${num}.nibiru.fi`)
+    expect(result.endptTm).toEqual(`https://rpc.${prefix}-${num}.nibiru.fi`)
     expect(result.feeDenom).toEqual(`unibi`)
   }
 
   test("IncentivizedTestnet", async () => {
-    const result = IncentivizedTestnet(1)
-    expectCreatedChain(result, "itn")
+    const num = 1
+    const result = Testnet(num)
+    expectCreatedChain(result, "testnet", num)
   })
 
   test("Devnet", async () => {
-    const result = Devnet(1)
-    expectCreatedChain(result, "devnet")
+    const num = 2
+    const result = Devnet(num)
+    expectCreatedChain(result, "devnet", num)
+  })
+
+  test("Mainnet", () => {
+    const shortName = "cataclysm"
+    const number = 1
+    const result = new CustomChain({
+      shortName,
+      number,
+      mainnet: true,
+    })
+    expect(result.chainId).toEqual(`${shortName}-${number}`)
+    expect(result.chainName).toEqual(`${shortName}-${number}`)
+    expect(result.endptGrpc).toEqual(`grpc.nibiru.fi`)
+    expect(result.endptRest).toEqual(`https://lcd.nibiru.fi`)
+    expect(result.endptTm).toEqual(`https://rpc.nibiru.fi`)
+    expect(result.feeDenom).toEqual(`unibi`)
   })
 
   test("queryChainIdWithRest", async () => {
     const chain = Devnet(2)
     const result = await queryChainIdWithRest(chain)
-    expect(result).toEqual(["nibiru-devnet-2", undefined])
+    expect(result.ok).toEqual("nibiru-devnet-2")
   })
 
   test("inactive chain validation cases", async () => {
@@ -65,9 +86,8 @@ describe("chain/chain", () => {
       chainName: "inactive-chain",
       feeDenom: "unibi",
     }
-    const [chainId, err] = await queryChainIdWithRest(inactiveChain)
-    expect(err).toBeDefined()
-    expect(chainId).toEqual("")
+    const res = await queryChainIdWithRest(inactiveChain)
+    expect(res.isErr()).toBeDefined()
     await expect(isRestEndptLive(inactiveChain)).resolves.toBeFalsy()
   })
 
@@ -179,13 +199,6 @@ describe("chain/types", () => {
     expect(coins.uatom.toString()).toBe("42.42")
     expect(coins.unibi2.toString()).toBe("21519262")
     expect(coins["nibiru/pool/2"].toString()).toBe("16800456610195729831")
-  })
-
-  test("go", async () => {
-    const error = Error("Failure")
-    const result = await go(Promise.reject(error))
-    expect(result.err).toEqual(error.message)
-    expect(result.res).toBeUndefined()
   })
 })
 

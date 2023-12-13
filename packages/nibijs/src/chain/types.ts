@@ -1,15 +1,20 @@
 import { Coin } from "@cosmjs/proto-signing"
 import BigNumber from "bignumber.js"
+import { ABCIEvent } from "../tx/event"
 
-export const go = async <T>(promise: Promise<T>) => {
-  try {
-    return { res: await promise, err: undefined }
-  } catch (err) {
-    return { res: undefined, err: (err as Error).message }
-  }
-}
-
-export const assert = (condition: boolean, message?: string) => {
+/**
+ * Asserts that a given condition is true. If the condition evaluates to false,
+ * an "AssertionError" is thrown with an optional custom message.
+ *
+ * @param {boolean} condition - The condition to test.
+ * @param {string} message - Optional. A custom error message to display if the
+ * assertion fails.
+ * @returns {boolean} - Returns true if the assertion is successful.
+ */
+export const assert = (
+  condition: boolean,
+  message?: string
+): boolean | string => {
   if (!condition) {
     const errMsg = message ? `AssertionError: ${message}` : "AssertionError"
     console.error(Error(errMsg))
@@ -18,11 +23,12 @@ export const assert = (condition: boolean, message?: string) => {
   return true
 }
 
+/** Fungible token type, "Coin", expressed as a map. */
 export interface CoinMap {
   [denom: string]: BigNumber
 }
 
-// TODO test
+// TODO: test
 export const newCoinMapFromCoins = (coins: readonly Coin[]) => {
   const coinMap: CoinMap = {}
   for (const coin of coins) {
@@ -31,16 +37,6 @@ export const newCoinMapFromCoins = (coins: readonly Coin[]) => {
   return coinMap
 }
 
-export interface Event {
-  type: string
-  attributes: Attribute[]
-}
-
-export interface Attribute {
-  key: string
-  value: string
-}
-
 export interface TxLog {
-  events: Event[]
+  events: ABCIEvent[]
 }

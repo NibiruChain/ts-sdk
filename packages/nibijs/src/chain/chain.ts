@@ -1,8 +1,8 @@
 import { fetch } from "cross-fetch"
-import { go } from "./types"
+import { Result } from "../result"
 
 /**
- * Specifies chain information for all endpoints a node exposes such as the
+ * Specifies chain information for all endpoints a Nibiru node exposes such as the
  * gRPC server, Tendermint RPC endpoint, and REST server.
  *
  * @see https://docs.cosmos.network/master/core/grpc_rest.html
@@ -10,7 +10,6 @@ import { go } from "./types"
  * @interface Chain
  * @typedef {Chain}
  */
-
 export interface Chain {
   /** endptTm: endpoint for the Tendermint RPC server. Usually on port 26657. */
   endptTm: string
@@ -27,9 +26,10 @@ export interface Chain {
 }
 
 export interface ChainIdParts {
-  prefix: string // e.g. `nibiru`
-  shortName: string // e.g. `itn`
+  prefix?: string // e.g. `nibiru`
+  shortName: string // e.g. `testnet`
   number: number // e.g. `1`
+  mainnet?: boolean
 }
 
 /** CustomChain is a convenience class for intializing the endpoints of a chain
@@ -39,7 +39,7 @@ export interface ChainIdParts {
  * ```ts
  * export const TEST_CHAIN = new CustomChain({
  *   prefix: "nibiru",
- *   shortName: "itn",
+ *   shortName: "testnet",
  *   number: 1,
  * }) // v0.19.2
  * ```
@@ -58,27 +58,38 @@ export class CustomChain implements Chain {
     this.chainIdParts = chainIdParts
     this.chainId = this.initChainId()
     this.chainName = this.chainId
-    this.endptTm = `https://rpc.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
-    this.endptRest = `https://lcd.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
-    this.endptGrpc = `grpc.${chainIdParts.shortName}-${chainIdParts.number}.nibiru.fi`
+
+    const chainEndpt = chainIdParts.mainnet
+      ? ""
+      : `.${chainIdParts.shortName}-${chainIdParts.number}`
+
+    this.endptTm = `https://rpc${chainEndpt}.nibiru.fi`
+    this.endptRest = `https://lcd${chainEndpt}.nibiru.fi`
+    this.endptGrpc = `grpc${chainEndpt}.nibiru.fi`
   }
 
   public static fromChainId(chainId: string): Chain {
     const parts = chainId.split("-")
-    const chainIdParts = {
+    const chainIdParts: ChainIdParts = {
       prefix: parts[0],
       shortName: parts[1],
-      number: Number(parts[2]),
-    } as ChainIdParts
+      number: parseInt(parts[2]),
+    }
     return new CustomChain(chainIdParts)
   }
 
   private initChainId = () => {
     const { prefix, shortName, number } = this.chainIdParts
-    return [prefix, shortName, number].join("-")
+    return [prefix, shortName, number]
+      .filter((v) => Boolean(v) || Number(v) === 0)
+      .join("-")
   }
 }
 
+/** Localnet: "Chain" configuration for a local Nibiru network. A local
+ * environment is no different from a real one, except that it has a single
+ * validator running on your host machine. Localnet is primarily used as a
+ * controllable, isolated development environment for testing purposes. */
 export const Localnet: Chain = {
   endptTm: "http://127.0.0.1:26657",
   endptRest: "http://127.0.0.1:1317",
@@ -88,13 +99,36 @@ export const Localnet: Chain = {
   feeDenom: "unibi",
 }
 
-export const IncentivizedTestnet = (chainNumber: number) =>
+/** Testnet: "Chain" configuration for a Nibiru testnet. These are public
+ * networks that are upgraded in advance of Nibiru's mainnet network as a
+ * beta-testing environments.
+ *
+ * For an updated list of active networks, see:
+ * TODO: Add networks link
+ * - <a href="https://nibiru.fi/docs/">Networks | Nibiru Docs (Recommended)</a>
+ * - <a href="https://github.com/NibiruChain/Networks/tree/main">NibiruChain/Networks (GitHub)</a>
+ *
+ * By default, the "Testnet" function returns the permanent testnet if no
+ * arguments are passed.
+ * */
+export const Testnet = (chainNumber: number = 1) =>
   new CustomChain({
     prefix: "nibiru",
-    shortName: "itn",
+    shortName: "testnet",
     number: chainNumber,
   })
 
+/** @deprecated Incentivized testnet is no longer active. This variable exists
+ * for backwards compatibility, but "Testnet" should be used instead.
+ *
+ * @see Testnet - Permanent Nibiru public test network.
+ */
+export const IncentivizedTestnet = Testnet
+
+/** Devnet: "Chain" configuration for a Nibiru "devnet". These networks
+ * are more ephemeral than "Testnet" and used internally by the core Nibiru
+ * dev team to live-test new features before official public release.
+ * */
 export const Devnet = (chainNumber: number) =>
   new CustomChain({
     prefix: "nibiru",
@@ -102,7 +136,9 @@ export const Devnet = (chainNumber: number) =>
     number: chainNumber,
   })
 
-export const queryChainIdWithRest = async (chain: Chain) => {
+export const queryChainIdWithRest = async (
+  chain: Chain
+): Promise<Result<string>> => {
   const queryChainId = async (chain: Chain): Promise<string> => {
     const response = await fetch(
       `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`
@@ -112,13 +148,14 @@ export const queryChainIdWithRest = async (chain: Chain) => {
     return nodeInfo.default_node_info.network
   }
 
-  const { res: chainId, err } = await go(queryChainId(chain))
-  return [chainId ?? "", err]
+  return Result.ofSafeExecAsync(async () => queryChainId(chain))
 }
 
-export const isRestEndptLive = async (chain: Chain) => {
-  const [_chainId, err] = await queryChainIdWithRest(chain)
-  return err === undefined
+/** isRestEndptLive: Makes a request using the chain's REST endpoint to see if
+ * the network and endpoint are active. */
+export const isRestEndptLive = async (chain: Chain): Promise<boolean> => {
+  const res = await queryChainIdWithRest(chain)
+  return res.isOk()
 }
 
 /**

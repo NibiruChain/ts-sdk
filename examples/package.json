@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@nibiruchain/nibijs": "^0.19.14"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.1"
-  }
-}

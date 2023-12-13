@@ -7,12 +7,8 @@ import {
   newCoinMapFromCoins,
   useFaucet,
 } from "../chain"
-import {
-  newRandomWallet,
-  newSignerFromMnemonic,
-  NibiruSigningClient,
-} from "../tx"
-import { TEST_CHAIN, TEST_MNEMONIC } from "./helpers"
+import { newRandomWallet, newSignerFromMnemonic, NibiruTxClient } from "../tx"
+import { TEST_CHAIN, TEST_MNEMONIC } from "../testutil"
 
 jest.mock("cross-fetch", () => ({
   fetch: jest.fn().mockImplementation(() => ({ catch: jest.fn() })),
@@ -29,13 +25,13 @@ test.skip("faucet utility works", async () => {
   const [{ address: toAddr }] = await wallet.getAccounts()
 
   const validator = await newSignerFromMnemonic(TEST_MNEMONIC)
-  const signingClient = await NibiruSigningClient.connectWithSigner(
+  const txClient = await NibiruTxClient.connectWithSigner(
     TEST_CHAIN.endptTm,
     validator
   )
   const [{ address: fromAddr }] = await validator.getAccounts()
-  await signingClient.waitForNextBlock()
-  const txResp: DeliverTxResponse = await signingClient.sendTokens(
+  await txClient.waitForNextBlock()
+  const txResp: DeliverTxResponse = await txClient.sendTokens(
     fromAddr,
     toAddr,
     coins(100, "unibi"),
@@ -44,7 +40,7 @@ test.skip("faucet utility works", async () => {
   assertIsDeliverTxSuccess(txResp)
 
   const balancesStart = newCoinMapFromCoins(
-    await signingClient.getAllBalances(toAddr)
+    await txClient.getAllBalances(toAddr)
   )
   const faucetResp = await useFaucet({
     address: toAddr,
@@ -53,9 +49,7 @@ test.skip("faucet utility works", async () => {
   })
   expect(faucetResp?.ok).toBeTruthy()
 
-  const balancesEnd = newCoinMapFromCoins(
-    await signingClient.getAllBalances(toAddr)
-  )
+  const balancesEnd = newCoinMapFromCoins(await txClient.getAllBalances(toAddr))
   expect(
     balancesEnd.unusd.minus(balancesStart.unusd).eq(100 * 1e6)
   ).toBeTruthy()
@@ -67,14 +61,14 @@ describe("useFaucet", () => {
     endptTm: "",
     endptRest: "",
     endptGrpc: "",
-    chainId: "nibiru-itn-3",
+    chainId: "nibiru-testnet-1",
     chainName: "",
     feeDenom: "",
   }
 
   const grecaptcha = "TEST_GRECAPTCHA_TOKEN"
   const address = "0x1234567890"
-  const expectedUrl = "https://faucet.itn-3.nibiru.fi/"
+  const expectedUrl = "https://faucet.testnet-1.nibiru.fi/"
 
   test("should request funds from faucet with default amounts", async () => {
     await useFaucet({ address, chain, grecaptcha })
@@ -123,7 +117,7 @@ describe("useFaucet", () => {
         endptTm: "",
         endptRest: "",
         endptGrpc: "",
-        chainId: "nibiru-itn-3",
+        chainId: "nibiru-testnet-1",
         chainName: "",
         feeDenom: "",
       })

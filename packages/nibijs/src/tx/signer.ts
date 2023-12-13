@@ -29,7 +29,10 @@ export const getRegistry = () => new Registry(defaultStargateTypes)
 export const newSignerFromMnemonic = async (
   mnemonic: string,
   prefix = BECH32_PREFIX.ADDR
-) => DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix })
+): Promise<DirectSecp256k1HdWallet> =>
+  DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix })
+
+export { DirectSecp256k1HdWallet }
 
 /**
  * Generates a new wallet with a BIP39 mnemonic of length 24.
@@ -42,7 +45,8 @@ export const newSignerFromMnemonic = async (
 export const newRandomWallet = (
   length?: 12 | 15 | 18 | 21 | 24,
   prefix = BECH32_PREFIX.ADDR
-) => DirectSecp256k1HdWallet.generate(length ?? 24, { prefix })
+): Promise<DirectSecp256k1HdWallet> =>
+  DirectSecp256k1HdWallet.generate(length ?? 24, { prefix })
 
 export enum Signer {
   Keplr = "keplr",

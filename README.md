@@ -1,26 +1,35 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibijs.png" width="100%">
+<img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/develop/img/nibijs.png" width="100%">
 </p>
+
+<!-- NOTE: Use direct links for external sites that copy these files. -->
 
 <p align="center">
 The official TypeScript SDK for the Nibiru blockchain
 </p>
 
 <div style="display: flex; flex-direction: row; gap: 4px;">
-
+<!-- Badge | NPM version -->
 <a target="_blank" href="https://www.npmjs.com/package/@nibiruchain/nibijs">
   <img src="https://img.shields.io/npm/v/@nibiruchain/nibijs.svg?color=AE8CCD" style="height: 20px">
 </a>
 
-[![⛓️ Tests @nibiruchain/nibijs](https://github.com/NibiruChain/ts-sdk/actions/workflows/test-nibijs.yaml/badge.svg?branch=main)](https://github.com/NibiruChain/ts-sdk/actions/workflows/test-nibijs.yaml)
-[![⛓️ Tests @nibiruchain/indexer-nibi](https://github.com/NibiruChain/ts-sdk/actions/workflows/test-indexer-nibi.yaml/badge.svg?branch=main)](https://github.com/NibiruChain/ts-sdk/actions/workflows/test-indexer-nibi.yaml)
+<!-- Badge | Test workflows -->
+<a target="_blank" href="https://github.com/NibiruChain/ts-sdk/actions/workflows/test-ts-sdk.yaml" alt="⛓️ Tests @nibiruchain/nibijs">
+  <img src="https://github.com/NibiruChain/ts-sdk/actions/workflows/test-ts-sdk.yaml/badge.svg?branch=main" style="height: 20px">
+</a>
 
+<!-- Badge | NPM downloads -->
 <a target="_blank" href="https://www.npmjs.com/package/@nibiruchain/nibijs">
   <img src="https://img.shields.io/npm/dm/@nibiruchain/nibijs.svg?color=FFF3CD" style="height: 20px">
 </a>
+
+<!-- Badge | NPM license -->
 <a target="_blank" href="https://github.com/NibiruChain/ts-sdk/blob/main/LICENSE">
   <img src="https://img.shields.io/npm/l/express.svg?color=050505" style="height: 20px">
 </a>
+
+<!-- Badge | Discord members -->
 <a target="_blank" href="https://discord.gg/nibirufi">
   <img src="https://dcbadge.vercel.app/api/server/nibirufi?style=flat" style="height: 20px">
 </a>
@@ -40,9 +49,9 @@ The `nibijs` source code can be found in the ["packages" directory](https://gith
   - [Example: Transaction with arbitrary messages](#example-transaction-with-arbitrary-messages)
 - [Codebase structure](#codebase-structure)
 - [Development Quick Start](#development-quick-start)
-- [🔓 License](#-license)
+- [🔓 License](#%F0%9F%94%93-license)
 
-To learn more about Nibiru, see [docs.nibiru.fi](https://docs.nibiru.fi)
+To learn more about Nibiru, see [nibiru.fi/docs](https://nibiru.fi/docs)
 
 ---
 
@@ -60,11 +69,12 @@ npm install @nibiruchain/nibijs # or yarn add
 
 The entrypoint for `nibijs` is the `Sdk` object, which is meant to mimic the root of a command line interface. It can be used for both queries and transactions.
 
-#### Example: Creating a wallet
+### Example: Creating a wallet
 
 ```js
-import { newRandomWallet, WalletHD } from "@nibiruchain/nibijs"
+import { newRandomWallet } from "@nibiruchain/nibijs"
 
+// Create a new Nibiru wallet
 const wallet = await newRandomWallet()
 const [{ address }] = await wallet.getAccounts()
 
@@ -73,88 +83,106 @@ console.log("mnemonic: ", wallet.mnemonic)
 console.log("address: ", address)
 ```
 
-#### Example: Querying
+### Example: Querying
 
 ```js
-import {
-  IncentivizedTestnet,
-  NibiruQueryClient,
-  NibiruSigningClient,
-} from "@nibiruchain/nibijs"
+import { NibiruQuerier, NibiruTxClient, Localnet } from "@nibiruchain/nibijs"
 
-const TEST_CHAIN = IncentivizedTestnet(2)
-const queryClient = await NibiruQueryClient.connect(TEST_CHAIN.endptTm)
+export const CHAIN: Chain = Localnet
+const querier = await NibiruQuerier.connect(CHAIN.endptTm)
 
-const perpParamsResp = await queryClient.nibiruExtensions.perp.params()
+const perpParamsResp = await querier.nibiruExtensions.perp.params()
 console.log("perpParams: %o", perpParamsResp)
 
-const allMarkets = await queryClient.nibiruExtensions.perp.markets({
+const allMarkets = await querier.nibiruExtensions.perp.markets({
   pair: "ueth:unusd",
 })
 console.log("allMarkets: %o", allMarkets)
 
 const blockHeight = 1
-const block = await queryClient.getBlock(blockHeight)
+const block = await querier.getBlock(blockHeight)
 ```
 
-#### Example: Sending funds
+### Example: Sending funds
 
 ```js
 import {
   Coin,
-  NibiruSigningClient,
-  newCoins,
+  NibiruTxClient,
   newSignerFromMnemonic,
+  Localnet
 } from "@nibiruchain/nibijs"
+import { coins } from "@cosmjs/proto-signing"
 
+export const CHAIN: Chain = Localnet
 const signer = await newSignerFromMnemonic(mnemonic!)
-const signingClient = await NibiruSigningClient.connectWithSigner(
-  TEST_CHAIN.endptTm,
+const txClient = await NibiruTxClient.connectWithSigner(
+  CHAIN.endptTm,
   signer,
 )
 const [{ address: fromAddr }] = await signer.getAccounts()
 
-const tokens: Coin[] = newCoins(5, "unibi")
+const tokens: Coin[] = coins(5, "unibi")
 const toAddr: string = "..." // bech32 address of the receiving party
-const txResp = await signingClient.sendTokens(fromAddr, toAddr, tokens, "auto")
+const txResp = await txClient.sendTokens(fromAddr, toAddr, tokens, "auto")
 ```
 
-#### Example: Transaction with arbitrary messages
+### Example: Transaction with arbitrary messages
 
 ```js
-import { IncentivizedTestnet, NibiruSigningClient, newCoin } from "@nibiruchain/nibijs"
+import {
+  NibiruTxClient,
+  newSignerFromMnemonic,
+  Msg,
+  TxMessage,
+  StdFee,
+  toSdkInt,
+  parseEventLogs,
+  Localnet
+} from "@nibiruchain/nibijs"
 import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
+import { coin } from "@cosmjs/proto-signing"
 
+// const mnemonic = "..." <--
+export const CHAIN: Chain = Localnet
 const signer = await newSignerFromMnemonic(mnemonic!)
 signer.getAccounts()
-const signingClient = await NibiruSigningClient.connectWithSigner(
-  TEST_CHAIN.endptTm,
+const txClient = await NibiruTxClient.connectWithSigner(
+  CHAIN.endptTm,
   signer,
 )
 const [{ address: fromAddr }] = await signer.getAccounts()
 const pair = "ubtc:unusd"
+
+// ------------------------------------
+// Construct tx msgs
+// ------------------------------------
 const msgs: TxMessage[] = [
   Msg.perp.openPosition({
-    tokenPair: pair,
-    baseAssetAmountLimit: 0,
-    leverage: 1,
-    quoteAssetAmount: 10,
     sender: fromAddr,
+    pair: pair,
+    quoteAssetAmount: 10,
+    leverage: 1,
     goLong: true,
+    baseAssetAmountLimit: 0,
   }),
   Msg.perp.addMargin({
     sender: fromAddr,
-    tokenPair: pair,
-    margin: newCoin("20", "unusd"),
+    pair: pair,
+    margin: coin("20", "unusd"),
   }),
   Msg.perp.removeMargin({
-    tokenPair: pair,
     sender: fromAddr,
-    margin: newCoin("5", "unusd"),
+    pair: pair,
+    margin: coin("5", "unusd"),
   }),
   // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
 ]
-const txResp = await signingClient.signAndBroadcast(fromAddr, msgs, "auto")
+
+// ------------------------------------
+// Broadcast tx
+// ------------------------------------
+const txResp = await txClient.signAndBroadcast(fromAddr, msgs, "auto")
 ```
 
 ## Codebase structure
@@ -171,27 +199,30 @@ const txResp = await signingClient.signAndBroadcast(fromAddr, msgs, "auto")
 
 ---
 
-<!--
-## 📜 Contribution Guidelines
-
-TODO
--->
+<!-- TODO: ## 📜 Contribution Guidelines -->
 
 ## Development Quick Start
 
-1. First install yarn.
+1. Install and use `nvm`.
+
+   ```bash
+   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.6/install.sh | bash
+   nvm use
+   ```
+
+2. Install yarn.
 
    ```sh
    npm install -g yarn
    ```
 
-2. Then, install package dependencies. At the root of the repository, run
+3. Then, install package dependencies. At the root of the repository, run
 
    ```sh
    yarn
    ```
 
-3. Lastly, compile the code in each package.
+4. Lastly, compile the code in each package.
 
    ```sh
    yarn build

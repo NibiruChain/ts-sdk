@@ -4,7 +4,10 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "baseUrl": "./",
-    "composite": true
+    "composite": true,
+    "paths": {
+      "@nibiruchain/nibijs": ["./*"]
+    }
   },
   "include": ["src/**/*"],
   "references": [
