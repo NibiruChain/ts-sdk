@@ -13,6 +13,7 @@ import {
   newCoinMapFromCoins,
   queryChainIdWithRest,
   toSdkDec,
+  Mainnet,
 } from "../chain"
 import { TEST_CHAIN } from "../testutil"
 import { NibiruTxClient } from "../tx/txClient"
@@ -56,13 +57,9 @@ describe("chain/chain", () => {
   })
 
   test("Mainnet", () => {
+    const result = Mainnet()
     const shortName = "cataclysm"
     const number = 1
-    const result = new CustomChain({
-      shortName,
-      number,
-      mainnet: true,
-    })
     expect(result.chainId).toEqual(`${shortName}-${number}`)
     expect(result.chainName).toEqual(`${shortName}-${number}`)
     expect(result.endptGrpc).toEqual(`grpc.nibiru.fi`)

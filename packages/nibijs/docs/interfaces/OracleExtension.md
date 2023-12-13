@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/oracle.ts:37](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/oracle.ts#L37)
+[query/oracle.ts:37](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/oracle.ts#L37)

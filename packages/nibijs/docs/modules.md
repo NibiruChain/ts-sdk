@@ -74,6 +74,7 @@
 
 - [Devnet](modules.md#devnet)
 - [IncentivizedTestnet](modules.md#incentivizedtestnet)
+- [Mainnet](modules.md#mainnet)
 - [Testnet](modules.md#testnet)
 - [assert](modules.md#assert)
 - [assertExpectedError](modules.md#assertexpectederror)
@@ -128,7 +129,7 @@
 
 #### Defined in
 
-[query/query.ts:32](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/query.ts#L32)
+[query/query.ts:32](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/query.ts#L32)
 
 ## Variables
 
@@ -146,7 +147,7 @@
 
 #### Defined in
 
-[testutil.ts:19](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/testutil.ts#L19)
+[testutil.ts:19](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/testutil.ts#L19)
 
 ---
 
@@ -156,7 +157,7 @@
 
 #### Defined in
 
-[chain/parse.ts:2](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/parse.ts#L2)
+[chain/parse.ts:2](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/parse.ts#L2)
 
 ---
 
@@ -171,7 +172,7 @@ controllable, isolated development environment for testing purposes.
 
 #### Defined in
 
-[chain/chain.ts:93](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/chain.ts#L93)
+[chain/chain.ts:102](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L102)
 
 ---
 
@@ -181,7 +182,7 @@ controllable, isolated development environment for testing purposes.
 
 #### Defined in
 
-[msg/index.ts:9](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/index.ts#L9)
+[msg/index.ts:9](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/index.ts#L9)
 
 ---
 
@@ -203,7 +204,7 @@ controllable, isolated development environment for testing purposes.
 
 #### Defined in
 
-[msg/perp.ts:16](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L16)
+[msg/perp.ts:16](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L16)
 
 ---
 
@@ -222,7 +223,7 @@ controllable, isolated development environment for testing purposes.
 
 #### Defined in
 
-[msg/spot.ts:12](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/spot.ts#L12)
+[msg/spot.ts:12](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/spot.ts#L12)
 
 ---
 
@@ -234,7 +235,7 @@ Address for the wallet of the default validator on localnet"
 
 #### Defined in
 
-[testutil.ts:16](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/testutil.ts#L16)
+[testutil.ts:16](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/testutil.ts#L16)
 
 ---
 
@@ -250,7 +251,7 @@ Localnet
 
 #### Defined in
 
-[testutil.ts:8](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/testutil.ts#L8)
+[testutil.ts:8](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/testutil.ts#L8)
 
 ---
 
@@ -262,7 +263,7 @@ Mnemonic for the wallet of the default validator on localnet"
 
 #### Defined in
 
-[testutil.ts:11](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/testutil.ts#L11)
+[testutil.ts:11](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/testutil.ts#L11)
 
 ---
 
@@ -272,7 +273,7 @@ Mnemonic for the wallet of the default validator on localnet"
 
 #### Defined in
 
-[tx/txClient.ts:31](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/tx/txClient.ts#L31)
+[tx/txClient.ts:31](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/txClient.ts#L31)
 
 ---
 
@@ -282,7 +283,7 @@ Mnemonic for the wallet of the default validator on localnet"
 
 #### Defined in
 
-[msg/perp.ts:26](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L26)
+[msg/perp.ts:26](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L26)
 
 ---
 
@@ -292,7 +293,7 @@ Mnemonic for the wallet of the default validator on localnet"
 
 #### Defined in
 
-[msg/spot.ts:19](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/spot.ts#L19)
+[msg/spot.ts:19](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/spot.ts#L19)
 
 ## Functions
 
@@ -316,7 +317,7 @@ dev team to live-test new features before official public release.
 
 #### Defined in
 
-[chain/chain.ts:132](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/chain.ts#L132)
+[chain/chain.ts:141](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L141)
 
 ---
 
@@ -345,7 +346,31 @@ Testnet - Permanent Nibiru public test network.
 
 #### Defined in
 
-[chain/chain.ts:114](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/chain.ts#L114)
+[chain/chain.ts:123](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L123)
+
+---
+
+### Mainnet
+
+▸ **Mainnet**(`chainNumber?`): [`CustomChain`](classes/CustomChain.md)
+
+Mainnet: "Chain" configuration for the Nibiru "mainnet".
+❗ Mainnet uses real funds. For more info, see
+<ahref="https://nibiru.fi/docs/dev/networks/">Nibiru Netwokrs</a>.
+
+#### Parameters
+
+| Name          | Type     | Default value |
+| :------------ | :------- | :------------ |
+| `chainNumber` | `number` | `1`           |
+
+#### Returns
+
+[`CustomChain`](classes/CustomChain.md)
+
+#### Defined in
+
+[chain/chain.ts:152](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L152)
 
 ---
 
@@ -358,9 +383,8 @@ networks that are upgraded in advance of Nibiru's mainnet network as a
 beta-testing environments.
 
 For an updated list of active networks, see:
-TODO: Add networks link
 
-- <a href="https://nibiru.fi/docs/">Networks | Nibiru Docs (Recommended)</a>
+- <a href="https://nibiru.fi/docs/">Nibiru Networks | Nibiru Docs (Recommended)</a>
 - <a href="https://github.com/NibiruChain/Networks/tree/main">NibiruChain/Networks (GitHub)</a>
 
 By default, the "Testnet" function returns the permanent testnet if no
@@ -378,7 +402,7 @@ arguments are passed.
 
 #### Defined in
 
-[chain/chain.ts:114](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/chain.ts#L114)
+[chain/chain.ts:123](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L123)
 
 ---
 
@@ -404,7 +428,7 @@ an "AssertionError" is thrown with an optional custom message.
 
 #### Defined in
 
-[chain/types.ts:14](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/types.ts#L14)
+[chain/types.ts:14](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/types.ts#L14)
 
 ---
 
@@ -431,7 +455,7 @@ expectation that the error message is contained within the list of acceptable er
 
 #### Defined in
 
-[testutil.ts:100](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/testutil.ts#L100)
+[testutil.ts:100](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/testutil.ts#L100)
 
 ---
 
@@ -456,7 +480,7 @@ contained in `events`.
 
 #### Defined in
 
-[testutil.ts:82](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/testutil.ts#L82)
+[testutil.ts:82](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/testutil.ts#L82)
 
 ---
 
@@ -480,7 +504,7 @@ Asserts that a list of ABCIEvents contains a specific type of `TxMsg`. This
 
 #### Defined in
 
-[testutil.ts:63](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/testutil.ts#L63)
+[testutil.ts:63](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/testutil.ts#L63)
 
 ---
 
@@ -503,7 +527,7 @@ assertValidBlock: Performs runtime type validation on a CometBFT "Block".
 
 #### Defined in
 
-[testutil.ts:49](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/testutil.ts#L49)
+[testutil.ts:49](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/testutil.ts#L49)
 
 ---
 
@@ -525,7 +549,7 @@ Validates that block queried via the JSON RPC client has the expected fields.
 
 #### Defined in
 
-[testutil.ts:26](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/testutil.ts#L26)
+[testutil.ts:26](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/testutil.ts#L26)
 
 ---
 
@@ -555,7 +579,7 @@ Thus, a byte value of 9 is represented as "09".
 
 #### Defined in
 
-[hash.ts:14](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/hash.ts#L14)
+[hash.ts:14](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/hash.ts#L14)
 
 ---
 
@@ -579,7 +603,7 @@ a ChainIdParts object
 
 #### Defined in
 
-[chain/chain.ts:166](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/chain.ts#L166)
+[chain/chain.ts:186](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L186)
 
 ---
 
@@ -601,7 +625,7 @@ eventToMap: Converts an ABCIEvent into an EventMap.
 
 #### Defined in
 
-[tx/event.ts:44](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/tx/event.ts#L44)
+[tx/event.ts:44](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/event.ts#L44)
 
 ---
 
@@ -623,7 +647,7 @@ Constructs a faucet URL from a Chain object.
 
 #### Defined in
 
-[chain/useFaucet.ts:59](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/useFaucet.ts#L59)
+[chain/useFaucet.ts:59](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/useFaucet.ts#L59)
 
 ---
 
@@ -647,7 +671,7 @@ events of known type are present.
 
 #### Defined in
 
-[tx/event.ts:54](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/tx/event.ts#L54)
+[tx/event.ts:54](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/event.ts#L54)
 
 ---
 
@@ -687,7 +711,7 @@ the human-readbale Dec.
 
 #### Defined in
 
-[chain/parse.ts:113](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/parse.ts#L113)
+[chain/parse.ts:113](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/parse.ts#L113)
 
 ---
 
@@ -707,7 +731,7 @@ the human-readbale Dec.
 
 #### Defined in
 
-[chain/parse.ts:166](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/parse.ts#L166)
+[chain/parse.ts:166](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/parse.ts#L166)
 
 ---
 
@@ -721,7 +745,7 @@ the human-readbale Dec.
 
 #### Defined in
 
-[tx/signer.ts:19](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/tx/signer.ts#L19)
+[tx/signer.ts:19](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L19)
 
 ---
 
@@ -775,7 +799,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[hash.ts:51](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/hash.ts#L51)
+[hash.ts:51](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/hash.ts#L51)
 
 ---
 
@@ -795,7 +819,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/perp.ts:41](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L41)
+[msg/perp.ts:41](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L41)
 
 ---
 
@@ -815,7 +839,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/perp.ts:77](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L77)
+[msg/perp.ts:77](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L77)
 
 ---
 
@@ -835,7 +859,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/spot.ts:31](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/spot.ts#L31)
+[msg/spot.ts:31](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/spot.ts#L31)
 
 ---
 
@@ -855,7 +879,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/perp.ts:86](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L86)
+[msg/perp.ts:86](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L86)
 
 ---
 
@@ -875,7 +899,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/spot.ts:47](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/spot.ts#L47)
+[msg/spot.ts:47](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/spot.ts#L47)
 
 ---
 
@@ -895,7 +919,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/spot.ts:39](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/spot.ts#L39)
+[msg/spot.ts:39](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/spot.ts#L39)
 
 ---
 
@@ -915,7 +939,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/perp.ts:59](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L59)
+[msg/perp.ts:59](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L59)
 
 ---
 
@@ -935,7 +959,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/perp.ts:68](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L68)
+[msg/perp.ts:68](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L68)
 
 ---
 
@@ -955,7 +979,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/perp.ts:97](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L97)
+[msg/perp.ts:97](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L97)
 
 ---
 
@@ -975,7 +999,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/perp.ts:50](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L50)
+[msg/perp.ts:50](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L50)
 
 ---
 
@@ -995,7 +1019,7 @@ if (result.isOk()) {
 
 #### Defined in
 
-[msg/spot.ts:55](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/spot.ts#L55)
+[msg/spot.ts:55](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/spot.ts#L55)
 
 ---
 
@@ -1018,7 +1042,7 @@ the network and endpoint are active.
 
 #### Defined in
 
-[chain/chain.ts:156](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/chain.ts#L156)
+[chain/chain.ts:176](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L176)
 
 ---
 
@@ -1038,7 +1062,7 @@ the network and endpoint are active.
 
 #### Defined in
 
-[chain/types.ts:32](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/types.ts#L32)
+[chain/types.ts:32](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/types.ts#L32)
 
 ---
 
@@ -1065,7 +1089,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT.
 
 #### Defined in
 
-[tx/signer.ts:45](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/tx/signer.ts#L45)
+[tx/signer.ts:45](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L45)
 
 ---
 
@@ -1092,7 +1116,7 @@ A wallet for protobuf based signing using SIGN_MODE_DIRECT
 
 #### Defined in
 
-[tx/signer.ts:29](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/tx/signer.ts#L29)
+[tx/signer.ts:29](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/signer.ts#L29)
 
 ---
 
@@ -1116,7 +1140,7 @@ have type "Error" since it's perfectly valid to throw strings or `undefined`.
 
 #### Defined in
 
-[result.ts:75](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/result.ts#L75)
+[result.ts:75](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/result.ts#L75)
 
 ---
 
@@ -1146,7 +1170,7 @@ const eventLogs = parseEventLogs(txResp)
 
 #### Defined in
 
-[tx/event.ts:67](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/tx/event.ts#L67)
+[tx/event.ts:67](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/tx/event.ts#L67)
 
 ---
 
@@ -1166,7 +1190,7 @@ const eventLogs = parseEventLogs(txResp)
 
 #### Defined in
 
-[chain/chain.ts:139](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/chain.ts#L139)
+[chain/chain.ts:159](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/chain.ts#L159)
 
 ---
 
@@ -1186,7 +1210,7 @@ const eventLogs = parseEventLogs(txResp)
 
 #### Defined in
 
-[query/epochs.ts:19](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/epochs.ts#L19)
+[query/epochs.ts:19](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/epochs.ts#L19)
 
 ---
 
@@ -1206,7 +1230,7 @@ const eventLogs = parseEventLogs(txResp)
 
 #### Defined in
 
-[query/inflation.ts:29](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/inflation.ts#L29)
+[query/inflation.ts:29](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/inflation.ts#L29)
 
 ---
 
@@ -1226,7 +1250,7 @@ const eventLogs = parseEventLogs(txResp)
 
 #### Defined in
 
-[query/oracle.ts:91](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/oracle.ts#L91)
+[query/oracle.ts:91](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/oracle.ts#L91)
 
 ---
 
@@ -1246,7 +1270,7 @@ const eventLogs = parseEventLogs(txResp)
 
 #### Defined in
 
-[query/perp.ts:45](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/perp.ts#L45)
+[query/perp.ts:45](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/perp.ts#L45)
 
 ---
 
@@ -1266,7 +1290,7 @@ const eventLogs = parseEventLogs(txResp)
 
 #### Defined in
 
-[query/spot.ts:102](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/spot.ts#L102)
+[query/spot.ts:102](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/spot.ts#L102)
 
 ---
 
@@ -1286,7 +1310,7 @@ const eventLogs = parseEventLogs(txResp)
 
 #### Defined in
 
-[query/sudo.ts:14](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/sudo.ts#L14)
+[query/sudo.ts:14](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/sudo.ts#L14)
 
 ---
 
@@ -1333,7 +1357,7 @@ sdk.Dec protobuf string into a number.
 
 #### Defined in
 
-[chain/parse.ts:30](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/parse.ts#L30)
+[chain/parse.ts:30](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/parse.ts#L30)
 
 ---
 
@@ -1353,7 +1377,7 @@ sdk.Dec protobuf string into a number.
 
 #### Defined in
 
-[chain/parse.ts:164](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/parse.ts#L164)
+[chain/parse.ts:164](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/parse.ts#L164)
 
 ---
 
@@ -1373,7 +1397,7 @@ sdk.Dec protobuf string into a number.
 
 #### Defined in
 
-[query/spot.ts:49](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/spot.ts#L49)
+[query/spot.ts:49](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/spot.ts#L49)
 
 ---
 
@@ -1393,7 +1417,7 @@ sdk.Dec protobuf string into a number.
 
 #### Defined in
 
-[query/spot.ts:41](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/query/spot.ts#L41)
+[query/spot.ts:41](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/query/spot.ts#L41)
 
 ---
 
@@ -1422,4 +1446,4 @@ Sends 11 NIBI, 100 NUSD, and 100 USDT to the given address from the testnet fauc
 
 #### Defined in
 
-[chain/useFaucet.ts:7](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/chain/useFaucet.ts#L7)
+[chain/useFaucet.ts:7](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/chain/useFaucet.ts#L7)

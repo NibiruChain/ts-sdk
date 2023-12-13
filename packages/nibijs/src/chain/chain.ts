@@ -25,6 +25,15 @@ export interface Chain {
   feeDenom: string
 }
 
+/** ChainIdParts: An object mapping to the standard strucutre of Nibiru Chain
+ * identifier. Generally, the CometBFT RPC, gRPC, and REST endpoints can be
+ * deduced from `ChainIdParts`.
+ * @example
+ * let chain: ChainIdParts = {
+ *   shortName: "cataclysm", number: 1, mainnet: true,
+ * }
+ * chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
+ * */
 export interface ChainIdParts {
   prefix?: string // e.g. `nibiru`
   shortName: string // e.g. `testnet`
@@ -37,11 +46,11 @@ export interface ChainIdParts {
  *
  * @example
  * ```ts
- * export const TEST_CHAIN = new CustomChain({
+ * export const chain = new CustomChain({
  *   prefix: "nibiru",
  *   shortName: "testnet",
  *   number: 1,
- * }) // v0.19.2
+ * }) // v0.21.43
  * ```
  */
 export class CustomChain implements Chain {
@@ -104,8 +113,8 @@ export const Localnet: Chain = {
  * beta-testing environments.
  *
  * For an updated list of active networks, see:
- * TODO: Add networks link
- * - <a href="https://nibiru.fi/docs/">Networks | Nibiru Docs (Recommended)</a>
+ *
+ * - <a href="https://nibiru.fi/docs/">Nibiru Networks | Nibiru Docs (Recommended)</a>
  * - <a href="https://github.com/NibiruChain/Networks/tree/main">NibiruChain/Networks (GitHub)</a>
  *
  * By default, the "Testnet" function returns the permanent testnet if no
@@ -134,6 +143,17 @@ export const Devnet = (chainNumber: number) =>
     prefix: "nibiru",
     shortName: "devnet",
     number: chainNumber,
+  })
+
+/** Mainnet: "Chain" configuration for the Nibiru "mainnet".
+ * ❗ Mainnet uses real funds. For more info, see
+ * <ahref="https://nibiru.fi/docs/dev/networks/">Nibiru Netwokrs</a>.
+ * */
+export const Mainnet = (chainNumber: number = 1) =>
+  new CustomChain({
+    shortName: "cataclysm",
+    number: chainNumber,
+    mainnet: true,
   })
 
 export const queryChainIdWithRest = async (

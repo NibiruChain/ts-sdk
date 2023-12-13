@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[msg/index.ts:6](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/index.ts#L6)
+[msg/index.ts:6](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/index.ts#L6)
 
 ---
 
@@ -37,4 +37,4 @@
 
 #### Defined in
 
-[msg/index.ts:5](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/index.ts#L5)
+[msg/index.ts:5](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/index.ts#L5)

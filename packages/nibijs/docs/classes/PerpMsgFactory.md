@@ -55,7 +55,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:124](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L124)
+[msg/perp.ts:124](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L124)
 
 ---
 
@@ -75,7 +75,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:161](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L161)
+[msg/perp.ts:161](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L161)
 
 ---
 
@@ -95,7 +95,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:175](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L175)
+[msg/perp.ts:175](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L175)
 
 ---
 
@@ -115,7 +115,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:131](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L131)
+[msg/perp.ts:131](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L131)
 
 ---
 
@@ -141,7 +141,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:138](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L138)
+[msg/perp.ts:138](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L138)
 
 ---
 
@@ -161,7 +161,7 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:168](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L168)
+[msg/perp.ts:168](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L168)
 
 ---
 
@@ -181,4 +181,4 @@ Returns a 'TxMessage' for adding margin to a position
 
 #### Defined in
 
-[msg/perp.ts:110](https://github.com/NibiruChain/ts-sdk/blob/23db897/packages/nibijs/src/msg/perp.ts#L110)
+[msg/perp.ts:110](https://github.com/NibiruChain/ts-sdk/blob/6e650cb/packages/nibijs/src/msg/perp.ts#L110)
