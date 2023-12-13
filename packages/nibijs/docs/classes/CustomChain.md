@@ -48,8 +48,8 @@ export const chain = new CustomChain({
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name           | Type                                            |
+| :------------- | :---------------------------------------------- |
 | `chainIdParts` | [`ChainIdParts`](../interfaces/ChainIdParts.md) |
 
 #### Defined in
@@ -72,7 +72,7 @@ chainId: identifier for the chain
 
 [chain/chain.ts:57](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L57)
 
-___
+---
 
 ### chainIdParts
 
@@ -82,7 +82,7 @@ ___
 
 [chain/chain.ts:64](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L64)
 
-___
+---
 
 ### chainName
 
@@ -98,7 +98,7 @@ chainName: the name of the chain to display to the user
 
 [chain/chain.ts:58](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L58)
 
-___
+---
 
 ### endptGrpc
 
@@ -114,7 +114,7 @@ endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 [chain/chain.ts:61](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L61)
 
-___
+---
 
 ### endptRest
 
@@ -130,7 +130,7 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 [chain/chain.ts:60](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L60)
 
-___
+---
 
 ### endptTm
 
@@ -146,11 +146,11 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 [chain/chain.ts:59](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L59)
 
-___
+---
 
 ### feeDenom
 
-• `Readonly` **feeDenom**: ``"unibi"``
+• `Readonly` **feeDenom**: `"unibi"`
 
 feeDenom: the denomination of the fee to be paid for transactions.
 
@@ -176,7 +176,7 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 [chain/chain.ts:90](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L90)
 
-___
+---
 
 ### fromChainId
 
@@ -184,8 +184,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `chainId` | `string` |
 
 #### Returns

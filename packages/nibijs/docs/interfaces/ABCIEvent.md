@@ -25,7 +25,7 @@ key-value strings of arbitrary data.
 
 [tx/event.ts:23](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/tx/event.ts#L23)
 
-___
+---
 
 ### type
 

@@ -17,6 +17,10 @@ export interface Chain {
   endptRest: string
   /** endptGrpc: endpoint for the gRPC gateway. Usually on port 9090. */
   endptGrpc: string
+  /** endptHm: endpoint for the heart monitor. */
+  endptHm: string
+  /** endptWs: endpoint for the web socket. */
+  endptWs: string
   /** chainId: identifier for the chain */
   chainId: string
   /** chainName: the name of the chain to display to the user */
@@ -59,6 +63,8 @@ export class CustomChain implements Chain {
   public readonly endptTm: string
   public readonly endptRest: string
   public readonly endptGrpc: string
+  public readonly endptHm: string
+  public readonly endptWs: string
   public readonly feeDenom = "unibi"
 
   private readonly chainIdParts: ChainIdParts
@@ -75,6 +81,8 @@ export class CustomChain implements Chain {
     this.endptTm = `https://rpc${chainEndpt}.nibiru.fi`
     this.endptRest = `https://lcd${chainEndpt}.nibiru.fi`
     this.endptGrpc = `grpc${chainEndpt}.nibiru.fi`
+    this.endptHm = `https://hm-graphql${chainEndpt}/query`
+    this.endptWs = `wss://hm-graphql${chainEndpt}/query`
   }
 
   public static fromChainId(chainId: string): Chain {
@@ -103,6 +111,8 @@ export const Localnet: Chain = {
   endptTm: "http://127.0.0.1:26657",
   endptRest: "http://127.0.0.1:1317",
   endptGrpc: "http://127.0.0.1:9090",
+  endptHm: "http://127.0.0.1:443/query",
+  endptWs: "ws://127.0.0.1:443/query",
   chainId: "nibiru-localnet-0",
   chainName: "Nibiru Localnet (Default)",
   feeDenom: "unibi",
@@ -157,11 +167,11 @@ export const Mainnet = (chainNumber: number = 1) =>
   })
 
 export const queryChainIdWithRest = async (
-  chain: Chain,
+  chain: Chain
 ): Promise<Result<string>> => {
   const queryChainId = async (chain: Chain): Promise<string> => {
     const response = await fetch(
-      `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`,
+      `${chain.endptRest}/cosmos/base/tendermint/v1beta1/node_info`
     )
     const nodeInfo: { default_node_info: { network: string } } =
       await response.json()

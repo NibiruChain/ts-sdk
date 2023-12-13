@@ -29,7 +29,7 @@ EncodeObject.typeUrl
 
 [msg/perp.ts:82](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/msg/perp.ts#L82)
 
-___
+---
 
 ### value
 

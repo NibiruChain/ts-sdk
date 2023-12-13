@@ -39,8 +39,8 @@ if (res.isOk()) {
 ## Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 ## Table of contents
 
@@ -69,16 +69,16 @@ if (res.isOk()) {
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `«destructured»` | `Object` |
-| › `err?` | `unknown` |
-| › `ok?` | `T` |
+| Name             | Type      |
+| :--------------- | :-------- |
+| `«destructured»` | `Object`  |
+| › `err?`         | `unknown` |
+| › `ok?`          | `T`       |
 
 #### Defined in
 
@@ -94,7 +94,7 @@ if (res.isOk()) {
 
 [result.ts:32](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L32)
 
-___
+---
 
 ### ok
 
@@ -118,7 +118,7 @@ ___
 
 [result.ts:44](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L44)
 
-___
+---
 
 ### isOk
 
@@ -132,7 +132,7 @@ ___
 
 [result.ts:45](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L45)
 
-___
+---
 
 ### ofSafeExec
 
@@ -143,13 +143,13 @@ Constructor for "Result" using the return value of the input function.
 #### Type parameters
 
 | Name |
-| :------ |
-| `Y` |
+| :--- |
+| `Y`  |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name | Type                        |
+| :--- | :-------------------------- |
 | `fn` | (...`args`: `any`[]) => `Y` |
 
 #### Returns
@@ -160,7 +160,7 @@ Constructor for "Result" using the return value of the input function.
 
 [result.ts:48](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L48)
 
-___
+---
 
 ### ofSafeExecAsync
 
@@ -171,13 +171,13 @@ Constructor for "Result" using the return value of the input async function.
 #### Type parameters
 
 | Name |
-| :------ |
-| `Y` |
+| :--- |
+| `Y`  |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name | Type                  |
+| :--- | :-------------------- |
 | `fn` | () => `Promise`<`Y`\> |
 
 #### Returns
