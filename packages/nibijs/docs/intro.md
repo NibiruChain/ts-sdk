@@ -1,7 +1,7 @@
 NibiJS Documentation / [Exports](modules.md)
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/main/img/nibijs.png" width="100%">
+<img src="https://raw.githubusercontent.com/NibiruChain/ts-sdk/develop/img/nibijs.png" width="100%">
 </p>
 
 <!-- NOTE: Use direct links for external sites that copy these files. -->

@@ -30,23 +30,29 @@ describe("chain/chain", () => {
     expect(chain.chainId).toEqual(TEST_CHAIN.chainId)
   })
 
-  const expectCreatedChain = (result: CustomChain, prefix: string) => {
-    expect(result.chainId).toEqual(`nibiru-${prefix}-1`)
-    expect(result.chainName).toEqual(`nibiru-${prefix}-1`)
-    expect(result.endptGrpc).toEqual(`grpc.${prefix}-1.nibiru.fi`)
-    expect(result.endptRest).toEqual(`https://lcd.${prefix}-1.nibiru.fi`)
-    expect(result.endptTm).toEqual(`https://rpc.${prefix}-1.nibiru.fi`)
+  const expectCreatedChain = (
+    result: CustomChain,
+    prefix: string,
+    num: number
+  ) => {
+    expect(result.chainId).toEqual(`nibiru-${prefix}-${num}`)
+    expect(result.chainName).toEqual(`nibiru-${prefix}-${num}`)
+    expect(result.endptGrpc).toEqual(`grpc.${prefix}-${num}.nibiru.fi`)
+    expect(result.endptRest).toEqual(`https://lcd.${prefix}-${num}.nibiru.fi`)
+    expect(result.endptTm).toEqual(`https://rpc.${prefix}-${num}.nibiru.fi`)
     expect(result.feeDenom).toEqual(`unibi`)
   }
 
   test("IncentivizedTestnet", async () => {
-    const result = Testnet(1)
-    expectCreatedChain(result, "itn")
+    const num = 1
+    const result = Testnet(num)
+    expectCreatedChain(result, "testnet", num)
   })
 
   test("Devnet", async () => {
-    const result = Devnet(1)
-    expectCreatedChain(result, "devnet")
+    const num = 2
+    const result = Devnet(num)
+    expectCreatedChain(result, "devnet", num)
   })
 
   test("Mainnet", () => {

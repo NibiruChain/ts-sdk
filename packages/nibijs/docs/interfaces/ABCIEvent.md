@@ -23,7 +23,7 @@ key-value strings of arbitrary data.
 
 #### Defined in
 
-[tx/event.ts:23](https://github.com/NibiruChain/ts-sdk/blob/5bf3d1e/packages/nibijs/src/tx/event.ts#L23)
+[tx/event.ts:23](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/tx/event.ts#L23)
 
 ---
 
@@ -33,4 +33,4 @@ key-value strings of arbitrary data.
 
 #### Defined in
 
-[tx/event.ts:22](https://github.com/NibiruChain/ts-sdk/blob/5bf3d1e/packages/nibijs/src/tx/event.ts#L22)
+[tx/event.ts:22](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/tx/event.ts#L22)
