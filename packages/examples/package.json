@@ -6,7 +6,7 @@
   "dependencies": {
     "@cosmjs/amino": "^0.32.1",
     "@cosmjs/proto-signing": "^0.32.1",
-    "@nibiruchain/nibijs": "0.21.42"
+    "@nibiruchain/nibijs": "0.21.43"
   },
   "engines": {
     "node": ">=18"

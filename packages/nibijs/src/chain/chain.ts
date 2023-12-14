@@ -17,6 +17,10 @@ export interface Chain {
   endptRest: string
   /** endptGrpc: endpoint for the gRPC gateway. Usually on port 9090. */
   endptGrpc: string
+  /** endptHm: endpoint for the heart monitor. */
+  endptHm: string
+  /** endptWs: endpoint for the web socket. */
+  endptWs: string
   /** chainId: identifier for the chain */
   chainId: string
   /** chainName: the name of the chain to display to the user */
@@ -25,6 +29,15 @@ export interface Chain {
   feeDenom: string
 }
 
+/** ChainIdParts: An object mapping to the standard strucutre of Nibiru Chain
+ * identifier. Generally, the CometBFT RPC, gRPC, and REST endpoints can be
+ * deduced from `ChainIdParts`.
+ * @example
+ * let chain: ChainIdParts = {
+ *   shortName: "cataclysm", number: 1, mainnet: true,
+ * }
+ * chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
+ * */
 export interface ChainIdParts {
   prefix?: string // e.g. `nibiru`
   shortName: string // e.g. `testnet`
@@ -37,11 +50,11 @@ export interface ChainIdParts {
  *
  * @example
  * ```ts
- * export const TEST_CHAIN = new CustomChain({
+ * export const chain = new CustomChain({
  *   prefix: "nibiru",
  *   shortName: "testnet",
  *   number: 1,
- * }) // v0.19.2
+ * })
  * ```
  */
 export class CustomChain implements Chain {
@@ -50,6 +63,8 @@ export class CustomChain implements Chain {
   public readonly endptTm: string
   public readonly endptRest: string
   public readonly endptGrpc: string
+  public readonly endptHm: string
+  public readonly endptWs: string
   public readonly feeDenom = "unibi"
 
   private readonly chainIdParts: ChainIdParts
@@ -66,6 +81,8 @@ export class CustomChain implements Chain {
     this.endptTm = `https://rpc${chainEndpt}.nibiru.fi`
     this.endptRest = `https://lcd${chainEndpt}.nibiru.fi`
     this.endptGrpc = `grpc${chainEndpt}.nibiru.fi`
+    this.endptHm = `https://hm-graphql${chainEndpt}.nibiru.fi/query`
+    this.endptWs = `wss://hm-graphql${chainEndpt}.nibiru.fi/query`
   }
 
   public static fromChainId(chainId: string): Chain {
@@ -94,6 +111,8 @@ export const Localnet: Chain = {
   endptTm: "http://127.0.0.1:26657",
   endptRest: "http://127.0.0.1:1317",
   endptGrpc: "http://127.0.0.1:9090",
+  endptHm: "http://127.0.0.1:443/query",
+  endptWs: "ws://127.0.0.1:443/query",
   chainId: "nibiru-localnet-0",
   chainName: "Nibiru Localnet (Default)",
   feeDenom: "unibi",
@@ -104,8 +123,8 @@ export const Localnet: Chain = {
  * beta-testing environments.
  *
  * For an updated list of active networks, see:
- * TODO: Add networks link
- * - <a href="https://nibiru.fi/docs/">Networks | Nibiru Docs (Recommended)</a>
+ *
+ * - <a href="https://nibiru.fi/docs/">Nibiru Networks | Nibiru Docs (Recommended)</a>
  * - <a href="https://github.com/NibiruChain/Networks/tree/main">NibiruChain/Networks (GitHub)</a>
  *
  * By default, the "Testnet" function returns the permanent testnet if no
@@ -134,6 +153,17 @@ export const Devnet = (chainNumber: number) =>
     prefix: "nibiru",
     shortName: "devnet",
     number: chainNumber,
+  })
+
+/** Mainnet: "Chain" configuration for the Nibiru "mainnet".
+ * ❗ Mainnet uses real funds. For more info, see
+ * <a href="https://nibiru.fi/docs/dev/networks/">Nibiru Netwokrs</a>.
+ * */
+export const Mainnet = (chainNumber: number = 1) =>
+  new CustomChain({
+    shortName: "cataclysm",
+    number: chainNumber,
+    mainnet: true,
   })
 
 export const queryChainIdWithRest = async (
