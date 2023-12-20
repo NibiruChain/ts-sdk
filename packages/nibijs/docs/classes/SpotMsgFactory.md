@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.42](../intro.md) / [Exports](../modules.md) / SpotMsgFactory
+[NibiJS Documentation - v0.21.43](../intro.md) / [Exports](../modules.md) / SpotMsgFactory
 
 # Class: SpotMsgFactory
 
@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[msg/spot.ts:61](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/msg/spot.ts#L61)
+[msg/spot.ts:61](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/msg/spot.ts#L61)
 
 ---
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[msg/spot.ts:91](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/msg/spot.ts#L91)
+[msg/spot.ts:91](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/msg/spot.ts#L91)
 
 ---
 
@@ -79,7 +79,7 @@
 
 #### Defined in
 
-[msg/spot.ts:74](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/msg/spot.ts#L74)
+[msg/spot.ts:74](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/msg/spot.ts#L74)
 
 ---
 
@@ -99,4 +99,4 @@
 
 #### Defined in
 
-[msg/spot.ts:102](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/msg/spot.ts#L102)
+[msg/spot.ts:102](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/msg/spot.ts#L102)

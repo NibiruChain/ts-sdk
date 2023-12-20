@@ -1,6 +1,21 @@
-[NibiJS Documentation - v0.21.42](../intro.md) / [Exports](../modules.md) / ChainIdParts
+[NibiJS Documentation - v0.21.43](../intro.md) / [Exports](../modules.md) / ChainIdParts
 
 # Interface: ChainIdParts
+
+ChainIdParts: An object mapping to the standard strucutre of Nibiru Chain
+identifier. Generally, the CometBFT RPC, gRPC, and REST endpoints can be
+deduced from `ChainIdParts`.
+
+**`Example`**
+
+```ts
+let chain: ChainIdParts = {
+  shortName: "cataclysm",
+  number: 1,
+  mainnet: true,
+}
+chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
+```
 
 ## Table of contents
 
@@ -19,7 +34,7 @@
 
 #### Defined in
 
-[chain/chain.ts:32](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/chain/chain.ts#L32)
+[chain/chain.ts:41](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L41)
 
 ---
 
@@ -29,7 +44,7 @@
 
 #### Defined in
 
-[chain/chain.ts:31](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/chain/chain.ts#L31)
+[chain/chain.ts:40](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L40)
 
 ---
 
@@ -39,7 +54,7 @@
 
 #### Defined in
 
-[chain/chain.ts:29](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/chain/chain.ts#L29)
+[chain/chain.ts:38](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L38)
 
 ---
 
@@ -49,4 +64,4 @@
 
 #### Defined in
 
-[chain/chain.ts:30](https://github.com/NibiruChain/ts-sdk/blob/d8a549e/packages/nibijs/src/chain/chain.ts#L30)
+[chain/chain.ts:39](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L39)

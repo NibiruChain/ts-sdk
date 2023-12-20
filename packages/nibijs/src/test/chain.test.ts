@@ -13,6 +13,7 @@ import {
   newCoinMapFromCoins,
   queryChainIdWithRest,
   toSdkDec,
+  Mainnet,
 } from "../chain"
 import { TEST_CHAIN } from "../testutil"
 import { NibiruTxClient } from "../tx/txClient"
@@ -32,14 +33,22 @@ describe("chain/chain", () => {
 
   const expectCreatedChain = (
     result: CustomChain,
-    prefix: string,
+    shortName: string,
     num: number
   ) => {
-    expect(result.chainId).toEqual(`nibiru-${prefix}-${num}`)
-    expect(result.chainName).toEqual(`nibiru-${prefix}-${num}`)
-    expect(result.endptGrpc).toEqual(`grpc.${prefix}-${num}.nibiru.fi`)
-    expect(result.endptRest).toEqual(`https://lcd.${prefix}-${num}.nibiru.fi`)
-    expect(result.endptTm).toEqual(`https://rpc.${prefix}-${num}.nibiru.fi`)
+    expect(result.chainId).toEqual(`nibiru-${shortName}-${num}`)
+    expect(result.chainName).toEqual(`nibiru-${shortName}-${num}`)
+    expect(result.endptGrpc).toEqual(`grpc.${shortName}-${num}.nibiru.fi`)
+    expect(result.endptRest).toEqual(
+      `https://lcd.${shortName}-${num}.nibiru.fi`
+    )
+    expect(result.endptTm).toEqual(`https://rpc.${shortName}-${num}.nibiru.fi`)
+    expect(result.endptHm).toEqual(
+      `https://hm-graphql.${shortName}-${num}.nibiru.fi/query`
+    )
+    expect(result.endptWs).toEqual(
+      `wss://hm-graphql.${shortName}-${num}.nibiru.fi/query`
+    )
     expect(result.feeDenom).toEqual(`unibi`)
   }
 
@@ -56,18 +65,16 @@ describe("chain/chain", () => {
   })
 
   test("Mainnet", () => {
+    const result = Mainnet()
     const shortName = "cataclysm"
     const number = 1
-    const result = new CustomChain({
-      shortName,
-      number,
-      mainnet: true,
-    })
     expect(result.chainId).toEqual(`${shortName}-${number}`)
     expect(result.chainName).toEqual(`${shortName}-${number}`)
     expect(result.endptGrpc).toEqual(`grpc.nibiru.fi`)
     expect(result.endptRest).toEqual(`https://lcd.nibiru.fi`)
     expect(result.endptTm).toEqual(`https://rpc.nibiru.fi`)
+    expect(result.endptHm).toEqual(`https://hm-graphql.nibiru.fi/query`)
+    expect(result.endptWs).toEqual(`wss://hm-graphql.nibiru.fi/query`)
     expect(result.feeDenom).toEqual(`unibi`)
   })
 
@@ -82,6 +89,8 @@ describe("chain/chain", () => {
       endptTm: "",
       endptRest: "",
       endptGrpc: "",
+      endptHm: "",
+      endptWs: "",
       chainId: "chain-id",
       chainName: "inactive-chain",
       feeDenom: "unibi",
