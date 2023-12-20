@@ -2304,10 +2304,10 @@
     "cross-fetch" "4.0.0"
     "graphql-ws" "^5.14.0"
 
-"@nibiruchain/nibijs@0.21.42":
-  "integrity" "sha512-fqG1gmOnVoU9e9bZ4e0kFw+jaK1i3O+rMSYIXvp8i7St6t3wyUCTCIRbUcYb5GFHb8L766uu7U1P9s51ZNWddw=="
-  "resolved" "https://registry.npmjs.org/@nibiruchain/nibijs/-/nibijs-0.21.42.tgz"
-  "version" "0.21.42"
+"@nibiruchain/nibijs@0.21.43":
+  "integrity" "sha512-92R2FK2+ZU2hl1MDCUpNuI/c9anwuGlEiNWwIjsxvwbjAAn92DSddn9sYsnpaxbsMEHc2AkeYkzZFneN+Vb7rg=="
+  "resolved" "https://registry.npmjs.org/@nibiruchain/nibijs/-/nibijs-0.21.43.tgz"
+  "version" "0.21.43"
   dependencies:
     "@cosmjs/cosmwasm-stargate" "^0.31.0"
     "@cosmjs/proto-signing" "^0.31.0"
@@ -2320,7 +2320,7 @@
 
 "@nibiruchain/nibijs@file:/home/runner/work/ts-sdk/ts-sdk/packages/nibijs":
   "resolved" "file:packages/nibijs"
-  "version" "0.21.43"
+  "version" "0.21.44"
   dependencies:
     "@cosmjs/cosmwasm-stargate" "^0.31.0"
     "@cosmjs/proto-signing" "^0.31.0"

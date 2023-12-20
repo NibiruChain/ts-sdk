@@ -82,7 +82,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:33](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L33)
+[result.ts:33](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/result.ts#L33)
 
 ## Properties
 
@@ -92,7 +92,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:32](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L32)
+[result.ts:32](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/result.ts#L32)
 
 ---
 
@@ -102,7 +102,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:31](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L31)
+[result.ts:31](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/result.ts#L31)
 
 ## Methods
 
@@ -116,7 +116,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:44](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L44)
+[result.ts:44](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/result.ts#L44)
 
 ---
 
@@ -130,7 +130,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:45](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L45)
+[result.ts:45](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/result.ts#L45)
 
 ---
 
@@ -158,7 +158,7 @@ Constructor for "Result" using the return value of the input function.
 
 #### Defined in
 
-[result.ts:48](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L48)
+[result.ts:48](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/result.ts#L48)
 
 ---
 
@@ -192,4 +192,4 @@ const result = Result.ofSafeExecAsync(async () => someAsyncFunc(args))
 
 #### Defined in
 
-[result.ts:60](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/result.ts#L60)
+[result.ts:60](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/result.ts#L60)
