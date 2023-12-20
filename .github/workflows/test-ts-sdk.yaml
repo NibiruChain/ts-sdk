@@ -12,7 +12,6 @@ jobs:
   test-ts-sdk:
     runs-on: ubuntu-latest
     env:
-      CHAIN_HOST: ${{ secrets.CHAIN_HOST }}
       VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
       VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
       LCD_ENDPOINT: "http://127.0.0.1:1317"
