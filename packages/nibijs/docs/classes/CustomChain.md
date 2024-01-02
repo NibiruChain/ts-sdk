@@ -31,8 +31,10 @@ export const chain = new CustomChain({
 - [chainIdParts](CustomChain.md#chainidparts)
 - [chainName](CustomChain.md#chainname)
 - [endptGrpc](CustomChain.md#endptgrpc)
+- [endptHm](CustomChain.md#endpthm)
 - [endptRest](CustomChain.md#endptrest)
 - [endptTm](CustomChain.md#endpttm)
+- [endptWs](CustomChain.md#endptws)
 - [feeDenom](CustomChain.md#feedenom)
 
 ### Methods
@@ -54,7 +56,7 @@ export const chain = new CustomChain({
 
 #### Defined in
 
-[chain/chain.ts:66](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L66)
+[chain/chain.ts:72](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L72)
 
 ## Properties
 
@@ -70,7 +72,7 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:57](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L57)
+[chain/chain.ts:61](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L61)
 
 ---
 
@@ -80,7 +82,7 @@ chainId: identifier for the chain
 
 #### Defined in
 
-[chain/chain.ts:64](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L64)
+[chain/chain.ts:70](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L70)
 
 ---
 
@@ -96,7 +98,7 @@ chainName: the name of the chain to display to the user
 
 #### Defined in
 
-[chain/chain.ts:58](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L58)
+[chain/chain.ts:62](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L62)
 
 ---
 
@@ -112,7 +114,23 @@ endptGrpc: endpoint for the gRPC gateway. Usually on port 9090.
 
 #### Defined in
 
-[chain/chain.ts:61](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L61)
+[chain/chain.ts:65](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L65)
+
+---
+
+### endptHm
+
+• `Readonly` **endptHm**: `string`
+
+endptHm: endpoint for the heart monitor.
+
+#### Implementation of
+
+[Chain](../interfaces/Chain.md).[endptHm](../interfaces/Chain.md#endpthm)
+
+#### Defined in
+
+[chain/chain.ts:66](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L66)
 
 ---
 
@@ -128,7 +146,7 @@ endptRest: endpoint for the REST server. Also, the LCD endpoint.
 
 #### Defined in
 
-[chain/chain.ts:60](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L60)
+[chain/chain.ts:64](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L64)
 
 ---
 
@@ -144,7 +162,23 @@ endptTm: endpoint for the Tendermint RPC server. Usually on port 26657.
 
 #### Defined in
 
-[chain/chain.ts:59](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L59)
+[chain/chain.ts:63](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L63)
+
+---
+
+### endptWs
+
+• `Readonly` **endptWs**: `string`
+
+endptWs: endpoint for the web socket.
+
+#### Implementation of
+
+[Chain](../interfaces/Chain.md).[endptWs](../interfaces/Chain.md#endptws)
+
+#### Defined in
+
+[chain/chain.ts:67](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L67)
 
 ---
 
@@ -160,7 +194,7 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:62](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L62)
+[chain/chain.ts:68](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L68)
 
 ## Methods
 
@@ -174,7 +208,7 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:90](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L90)
+[chain/chain.ts:98](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L98)
 
 ---
 
@@ -194,4 +228,4 @@ feeDenom: the denomination of the fee to be paid for transactions.
 
 #### Defined in
 
-[chain/chain.ts:80](https://github.com/NibiruChain/ts-sdk/blob/cacf9b9/packages/nibijs/src/chain/chain.ts#L80)
+[chain/chain.ts:88](https://github.com/NibiruChain/ts-sdk/blob/c7f0580/packages/nibijs/src/chain/chain.ts#L88)
