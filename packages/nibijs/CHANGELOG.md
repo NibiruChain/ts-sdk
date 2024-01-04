@@ -1,3 +1,9 @@
+## [@nibiruchain/nibijs-v0.21.45](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.44...@nibiruchain/nibijs-v0.21.45) (2024-01-04)
+
+### Miscellaneous Chores
+
+- develop -> main ([#274](https://github.com/NibiruChain/ts-sdk/issues/274)) ([e2ebd40](https://github.com/NibiruChain/ts-sdk/commit/e2ebd40c5df0a0a4126b3aa97709e13b7e2e0ba8)), closes [#254](https://github.com/NibiruChain/ts-sdk/issues/254) [#256](https://github.com/NibiruChain/ts-sdk/issues/256) [#257](https://github.com/NibiruChain/ts-sdk/issues/257) [#262](https://github.com/NibiruChain/ts-sdk/issues/262) [#260](https://github.com/NibiruChain/ts-sdk/issues/260)
+
 ## [@nibiruchain/nibijs-v0.21.44](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/nibijs-v0.21.43...@nibiruchain/nibijs-v0.21.44) (2023-12-20)
 
 ### Features

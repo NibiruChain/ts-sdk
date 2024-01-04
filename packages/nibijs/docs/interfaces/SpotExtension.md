@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/spot.ts:58](https://github.com/NibiruChain/ts-sdk/blob/b09b5db/packages/nibijs/src/query/spot.ts#L58)
+[query/spot.ts:58](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/query/spot.ts#L58)
