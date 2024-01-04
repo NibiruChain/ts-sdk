@@ -58,6 +58,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [checkout_cache_install]
     steps:
+      - name: Download preview_image
+        uses: actions/download-artifact@v4
+        with:
+          name: preview_image
+
+      - name: Untar files
+        run: tar -xf preview_image.tar
+
       - name: yarn build
         uses: borales/actions-yarn@v4
         with:
@@ -67,8 +75,18 @@ jobs:
     runs-on: ubuntu-latest
     needs: [checkout_cache_install]
     steps:
-      - name: Run tests
-        run: yarn test
+      - name: Download preview_image
+        uses: actions/download-artifact@v4
+        with:
+          name: preview_image
+
+      - name: Untar files
+        run: tar -xf preview_image.tar
+
+      - name: yarn test
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: test
 
       - name: "Run examples (packages/examples)"
         run: |
