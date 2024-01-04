@@ -3,6 +3,7 @@
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "./dist",
+    "baseUrl": "./",
     "composite": true
   },
   "include": ["src/**/*", "index.ts"]

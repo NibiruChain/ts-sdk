@@ -7,8 +7,8 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@cosmjs/amino": "^0.32.1",
-    "@cosmjs/proto-signing": "^0.32.1",
+    "@cosmjs/amino": "^0.32.2",
+    "@cosmjs/proto-signing": "^0.32.2",
     "@nibiruchain/nibijs": "0.21.45"
   },
   "devDependencies": {

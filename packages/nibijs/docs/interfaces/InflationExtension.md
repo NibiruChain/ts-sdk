@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/query/inflation.ts:19](https://github.com/NibiruChain/ts-sdk/blob/7891168/packages/nibijs/src/query/inflation.ts#L19)
+[src/query/inflation.ts:19](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/inflation.ts#L19)

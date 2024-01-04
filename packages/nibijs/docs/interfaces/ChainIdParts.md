@@ -34,7 +34,7 @@ chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
 
 #### Defined in
 
-[src/chain/chain.ts:45](https://github.com/NibiruChain/ts-sdk/blob/7891168/packages/nibijs/src/chain/chain.ts#L45)
+[src/chain/chain.ts:45](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/chain/chain.ts#L45)
 
 ---
 
@@ -44,7 +44,7 @@ chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
 
 #### Defined in
 
-[src/chain/chain.ts:44](https://github.com/NibiruChain/ts-sdk/blob/7891168/packages/nibijs/src/chain/chain.ts#L44)
+[src/chain/chain.ts:44](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/chain/chain.ts#L44)
 
 ---
 
@@ -54,7 +54,7 @@ chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
 
 #### Defined in
 
-[src/chain/chain.ts:42](https://github.com/NibiruChain/ts-sdk/blob/7891168/packages/nibijs/src/chain/chain.ts#L42)
+[src/chain/chain.ts:42](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/chain/chain.ts#L42)
 
 ---
 
@@ -64,4 +64,4 @@ chain = { prefix: "nibiru", shortName: "testnet", number: 1 }
 
 #### Defined in
 
-[src/chain/chain.ts:43](https://github.com/NibiruChain/ts-sdk/blob/7891168/packages/nibijs/src/chain/chain.ts#L43)
+[src/chain/chain.ts:43](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/chain/chain.ts#L43)
