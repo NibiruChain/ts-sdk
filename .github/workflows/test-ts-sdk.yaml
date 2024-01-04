@@ -9,30 +9,11 @@ on:
 jobs:
   checkout_cache_install:
     runs-on: ubuntu-latest
-    env:
-      VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
-      VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
-      LCD_ENDPOINT: "http://127.0.0.1:1317"
-      GRPC_ENDPOINT: "127.0.0.1:9090"
-      TENDERMINT_RPC_ENDPOINT: "http://127.0.0.1:26657"
-      USE_LOCALNET: true
-      WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
-      CHAIN_ID: "nibiru-localnet-0"
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-
-      - name: Run Nibiru network in the background (scripts/localnet.sh)
-        run: |
-          # Install nibid CLI
-          # Use https://get.nibiru.fi/ to get the most recent release.
-          curl -s https://get.nibiru.fi/@v0.21.9! | bash
-          # Sanity check nibid CLI
-          nibid version
-          # Start local network
-          bash scripts/localnet.sh &
 
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
@@ -74,6 +55,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: [checkout_cache_install]
+    env:
+      VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
+      VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
+      LCD_ENDPOINT: "http://127.0.0.1:1317"
+      GRPC_ENDPOINT: "127.0.0.1:9090"
+      TENDERMINT_RPC_ENDPOINT: "http://127.0.0.1:26657"
+      USE_LOCALNET: true
+      WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
+      CHAIN_ID: "nibiru-localnet-0"
     steps:
       - name: Download preview_image
         uses: actions/download-artifact@v4
@@ -82,6 +72,16 @@ jobs:
 
       - name: Untar files
         run: tar -xf preview_image.tar
+
+      - name: Run Nibiru network in the background (scripts/localnet.sh)
+        run: |
+          # Install nibid CLI
+          # Use https://get.nibiru.fi/ to get the most recent release.
+          curl -s https://get.nibiru.fi/@v0.21.9! | bash
+          # Sanity check nibid CLI
+          nibid version
+          # Start local network
+          bash scripts/localnet.sh &
 
       - name: yarn test
         uses: borales/actions-yarn@v4
