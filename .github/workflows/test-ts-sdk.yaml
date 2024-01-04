@@ -3,13 +3,11 @@ name: ⛓️ Tests @nibiruchain/ts-sdk
 on:
   pull_request:
     branches: ["develop", "main"]
-    paths: ["**.js", "**.ts", "**.tsx", "**.json"]
   push:
     branches: ["main"]
-    paths: ["**.js", "**.ts", "**.tsx", "**.json"]
 
 jobs:
-  test-ts-sdk:
+  checkout_cache_install:
     runs-on: ubuntu-latest
     env:
       VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
@@ -21,8 +19,8 @@ jobs:
       WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
       CHAIN_ID: "nibiru-localnet-0"
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
@@ -42,15 +40,33 @@ jobs:
           node-version: "lts/hydrogen"
           cache: "yarn"
 
-      - name: Install yarn using npm
-        run: npm install -g yarn
+      - name: yarn install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
 
-      - name: Install dependencies
-        run: yarn --prefer-offline --check-files
+      - name: "Tar files"
+        run: tar -cf preview_image.tar ./
 
-      - name: Build the application
-        run: yarn build --include-dependencies || yarn build --parallel --include-dependencies
+      - name: Upload preview_image
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview_image
+          path: ./preview_image.tar
 
+  build:
+    runs-on: ubuntu-latest
+    needs: [checkout_cache_install]
+    steps:
+      - name: yarn build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [checkout_cache_install]
+    steps:
       - name: Run tests
         run: yarn test
 
