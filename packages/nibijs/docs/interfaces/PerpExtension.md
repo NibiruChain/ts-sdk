@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.44](../intro.md) / [Exports](../modules.md) / PerpExtension
+[NibiJS Documentation - v0.21.45](../intro.md) / [Exports](../modules.md) / PerpExtension
 
 # Interface: PerpExtension
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/perp.ts:24](https://github.com/NibiruChain/ts-sdk/blob/b09b5db/packages/nibijs/src/query/perp.ts#L24)
+[src/query/perp.ts:24](https://github.com/NibiruChain/ts-sdk/blob/7891168/packages/nibijs/src/query/perp.ts#L24)

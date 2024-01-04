@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.44](../intro.md) / [Exports](../modules.md) / InflationExtension
+[NibiJS Documentation - v0.21.45](../intro.md) / [Exports](../modules.md) / InflationExtension
 
 # Interface: InflationExtension
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[query/inflation.ts:19](https://github.com/NibiruChain/ts-sdk/blob/b09b5db/packages/nibijs/src/query/inflation.ts#L19)
+[src/query/inflation.ts:19](https://github.com/NibiruChain/ts-sdk/blob/7891168/packages/nibijs/src/query/inflation.ts#L19)

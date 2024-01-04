@@ -90,7 +90,7 @@ jobs:
 
       - name: "Run examples (packages/examples)"
         run: |
-          yarn run tsx packages/examples/examples.test.ts
+          yarn run tsx examples/examples.test.ts
           # tsx is a TS script executor similar to ts-node, except it runs more
           # consistently and has a more lightweight implementation.
 

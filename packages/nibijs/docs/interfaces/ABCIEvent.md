@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.44](../intro.md) / [Exports](../modules.md) / ABCIEvent
+[NibiJS Documentation - v0.21.45](../intro.md) / [Exports](../modules.md) / ABCIEvent
 
 # Interface: ABCIEvent
 
@@ -23,7 +23,7 @@ key-value strings of arbitrary data.
 
 #### Defined in
 
-[tx/event.ts:23](https://github.com/NibiruChain/ts-sdk/blob/b09b5db/packages/nibijs/src/tx/event.ts#L23)
+[src/tx/event.ts:23](https://github.com/NibiruChain/ts-sdk/blob/7891168/packages/nibijs/src/tx/event.ts#L23)
 
 ---
 
@@ -33,4 +33,4 @@ key-value strings of arbitrary data.
 
 #### Defined in
 
-[tx/event.ts:22](https://github.com/NibiruChain/ts-sdk/blob/b09b5db/packages/nibijs/src/tx/event.ts#L22)
+[src/tx/event.ts:22](https://github.com/NibiruChain/ts-sdk/blob/7891168/packages/nibijs/src/tx/event.ts#L22)

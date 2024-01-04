@@ -11,10 +11,11 @@ import {
   newRandomWallet,
   Localnet,
   Chain,
+  TEST_ADDRESS,
+  TEST_MNEMONIC,
 } from "@nibiruchain/nibijs"
 import { StdFee, coin } from "@cosmjs/amino"
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
-import { TEST_ADDRESS, TEST_MNEMONIC } from "@nibiruchain/nibijs/dist/testutil"
 import esMain from "es-main"
 
 // -----------------------------------------------
@@ -28,7 +29,7 @@ const CHAIN: Chain = Localnet
 let _SIGNER: DirectSecp256k1HdWallet | null
 let _SIGNING_CLIENT: NibiruTxClient | null
 
-const getSigner = async (): Promise<DirectSecp256k1HdWallet> => {
+export const getSigner = async (): Promise<DirectSecp256k1HdWallet> => {
   if (!_SIGNER) {
     // For the account that will sign the transaction
     _SIGNER = await newSignerFromMnemonic(TEST_MNEMONIC)
@@ -36,7 +37,7 @@ const getSigner = async (): Promise<DirectSecp256k1HdWallet> => {
   return _SIGNER
 }
 
-const getSigningClient = async (): Promise<NibiruTxClient> => {
+export const getSigningClient = async (): Promise<NibiruTxClient> => {
   if (!_SIGNING_CLIENT) {
     const signer = await getSigner()
     _SIGNING_CLIENT = await NibiruTxClient.connectWithSigner(
@@ -166,7 +167,7 @@ const exampleTxMsgs = async () => {
 }
 
 /** Example: Send Funds */
-const exampleSendFunds = async () => {
+export const exampleSendFunds = async () => {
   console.log(
     hereDoc(`Running example: ${exampleSendFunds.name}...
     This example broadcasts a transaction to send 5 unibi from the test account

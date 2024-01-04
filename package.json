@@ -22,13 +22,14 @@
     "lint": "eslint -c './.eslintrc.js' './packages/**/*.{ts,js}'",
     "lint:ci": "yarn lint . --format junit",
     "lint:md": "markdownlint --ignore node_modules --ignore .git",
-    "install:packages": "yarn --prefer-offline --check-files",
+    "install:packages": "yarn --prefer-offline --check-files && cd examples && yarn --prefer-offline --check-files && cd ..",
     "localnet": "bash scripts/localnet.sh",
     "format": "yarn lint --fix",
     "format:md": "yarn lint:md --fix",
     "proto-gen": "yarn exec ./scripts/protocgen.sh",
     "prettier": "prettier --write . --ignore-path .gitignore",
     "prepare": "husky install",
+    "run:example": "cd examples && yarn run tsx examples.test.ts && cd ..",
     "semantic-release": "lerna exec --concurrency 1 -- semantic-release -e semantic-release-monorepo --tag-format='${LERNA_PACKAGE_NAME}-v\\${version}'"
   },
   "lint-staged": {

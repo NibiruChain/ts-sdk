@@ -3,8 +3,6 @@
   "description": "Protobuf-generated types for Nibiru Chain",
   "version": "0.21.16",
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],

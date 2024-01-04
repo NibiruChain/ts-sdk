@@ -15,22 +15,12 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "incremental": true,
+    "baseUrl": ".",
     "paths": {
-      "@nibiruchain/protojs": ["./packages/protojs/src/*"],
-      "@nibiruchain/nibijs": ["./packages/nibijs/src/*"],
-      "@nibiruchain/indexer-nibi": ["./packages/indexer-nibi/src/*"]
+      "@nibiruchain/protojs/*": ["./packages/protojs/*"],
+      "@nibiruchain/nibijs/*": ["./packages/nibijs/*"],
+      "@nibiruchain/indexer-nibi/*": ["./packages/indexer-nibi/*"]
     }
   },
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"],
-  "references": [
-    {
-      "path": "./packages/protojs"
-    },
-    {
-      "path": "./packages/nibijs"
-    },
-    {
-      "path": "./packages/indexer-nibi"
-    }
-  ]
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

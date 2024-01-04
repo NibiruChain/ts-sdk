@@ -5,11 +5,8 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "tsc --build",
+    "build": "rm -f tsconfig.tsbuildinfo && tsc --build",
     "build:watch": "tsc --build --watch",
     "gql-generate": "rm -rf src/gql && graphql-code-generator --config codegen.ts",
     "clean": "tsc --clean",
