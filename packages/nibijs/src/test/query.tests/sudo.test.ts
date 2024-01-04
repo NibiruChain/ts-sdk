@@ -1,5 +1,5 @@
 import { QueryClient } from "@cosmjs/stargate"
-import * as query from "@nibiruchain/protojs/dist/nibiru/sudo/v1/query"
+import * as query from "@nibiruchain/protojs/src/nibiru/sudo/v1/query"
 import { setupSudoExtension } from "../../query"
 
 describe("setupSudoExtension", () => {

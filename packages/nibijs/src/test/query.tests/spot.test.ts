@@ -1,5 +1,5 @@
 import { QueryClient } from "@cosmjs/stargate"
-import * as query from "@nibiruchain/protojs/dist/nibiru/spot/v1/query"
+import * as query from "@nibiruchain/protojs/src/nibiru/spot/v1/query"
 import { setupSpotExtension, transformPool } from "../../query"
 
 describe("setupSpotExtension", () => {

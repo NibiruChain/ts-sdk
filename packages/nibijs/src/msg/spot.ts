@@ -5,7 +5,7 @@ import {
   MsgJoinPool,
   MsgSwapAssets,
   protobufPackage,
-} from "@nibiruchain/protojs/dist/nibiru/spot/v1/tx"
+} from "@nibiruchain/protojs/src/nibiru/spot/v1/tx"
 import { TxMessage } from "./encode-types"
 import { toSdkDec } from "../chain"
 

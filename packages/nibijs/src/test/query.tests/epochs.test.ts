@@ -1,5 +1,5 @@
 import { QueryClient } from "@cosmjs/stargate"
-import * as query from "@nibiruchain/protojs/dist/nibiru/epochs/v1/query"
+import * as query from "@nibiruchain/protojs/src/nibiru/epochs/v1/query"
 import { setupEpochsExtension } from "../../query"
 
 describe("setupEpochsExtension", () => {

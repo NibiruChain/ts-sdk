@@ -8,8 +8,8 @@ import {
   MsgRemoveMargin,
   MsgPartialClose,
   protobufPackage,
-} from "@nibiruchain/protojs/dist/nibiru/perp/v2/tx"
-import { Direction } from "@nibiruchain/protojs/dist/nibiru/perp/v2/state"
+} from "@nibiruchain/protojs/src/nibiru/perp/v2/tx"
+import { Direction } from "@nibiruchain/protojs/src/nibiru/perp/v2/state"
 import { toSdkDec, toSdkInt } from "../chain"
 import { TxMessage } from "./encode-types"
 

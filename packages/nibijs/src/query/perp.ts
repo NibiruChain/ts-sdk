@@ -9,7 +9,7 @@ import {
   QueryPositionResponse,
   QueryPositionsRequest,
   QueryPositionsResponse,
-} from "@nibiruchain/protojs/dist/nibiru/perp/v2/query"
+} from "@nibiruchain/protojs/src/nibiru/perp/v2/query"
 import { fromSdkDec } from "../chain"
 
 function transformPosition(resp: QueryPositionResponse): QueryPositionResponse {

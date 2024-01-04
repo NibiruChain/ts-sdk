@@ -26,11 +26,11 @@ import {
   QueryParamsResponse,
   QueryVoteTargetsRequest,
   QueryVoteTargetsResponse,
-} from "@nibiruchain/protojs/dist/nibiru/oracle/v1/query"
+} from "@nibiruchain/protojs/src/nibiru/oracle/v1/query"
 import {
   AggregateExchangeRatePrevote,
   AggregateExchangeRateVote,
-} from "@nibiruchain/protojs/dist/nibiru/oracle/v1/oracle"
+} from "@nibiruchain/protojs/src/nibiru/oracle/v1/oracle"
 import { fromSdkDec } from "../chain"
 
 export interface OracleExtension {
