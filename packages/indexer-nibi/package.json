@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -f tsconfig.tsbuildinfo && tsc --build",
+    "build": "rm -f tsconfig.tsbuildinfo && rm -rf dist && tsc --build",
     "build:watch": "tsc --build --watch",
     "gql-generate": "rm -rf src/gql && graphql-code-generator --config codegen.ts",
     "clean": "tsc --clean",

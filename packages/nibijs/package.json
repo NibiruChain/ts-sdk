@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -f tsconfig.tsbuildinfo && tsc --build && yarn docgen",
+    "build": "rm -f tsconfig.tsbuildinfo && rm -rf dist && tsc --build && yarn docgen",
     "build:watch": "tsc --build --watch",
     "clean": "tsc --clean",
     "docgen": "yarn run typedoc --tsconfig tsconfig.json --plugin typedoc-plugin-markdown",

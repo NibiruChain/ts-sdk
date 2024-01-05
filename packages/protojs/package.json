@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -f tsconfig.tsbuildinfo && tsc --build"
+    "build": "rm -f tsconfig.tsbuildinfo && rm -rf dist && tsc --build"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
