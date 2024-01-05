@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.44](../intro.md) / [Exports](../modules.md) / Result
+[NibiJS Documentation - v0.21.45](../intro.md) / [Exports](../modules.md) / Result
 
 # Class: Result<T\>
 
@@ -82,7 +82,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:33](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/result.ts#L33)
+[src/result.ts:33](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/result.ts#L33)
 
 ## Properties
 
@@ -92,7 +92,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:32](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/result.ts#L32)
+[src/result.ts:32](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/result.ts#L32)
 
 ---
 
@@ -102,7 +102,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:31](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/result.ts#L31)
+[src/result.ts:31](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/result.ts#L31)
 
 ## Methods
 
@@ -116,7 +116,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:44](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/result.ts#L44)
+[src/result.ts:44](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/result.ts#L44)
 
 ---
 
@@ -130,7 +130,7 @@ if (res.isOk()) {
 
 #### Defined in
 
-[result.ts:45](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/result.ts#L45)
+[src/result.ts:45](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/result.ts#L45)
 
 ---
 
@@ -158,7 +158,7 @@ Constructor for "Result" using the return value of the input function.
 
 #### Defined in
 
-[result.ts:48](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/result.ts#L48)
+[src/result.ts:48](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/result.ts#L48)
 
 ---
 
@@ -192,4 +192,4 @@ const result = Result.ofSafeExecAsync(async () => someAsyncFunc(args))
 
 #### Defined in
 
-[result.ts:60](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/result.ts#L60)
+[src/result.ts:60](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/result.ts#L60)

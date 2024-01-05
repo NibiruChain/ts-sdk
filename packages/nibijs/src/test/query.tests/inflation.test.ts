@@ -1,5 +1,5 @@
 import { QueryClient } from "@cosmjs/stargate"
-import * as query from "@nibiruchain/protojs/dist/nibiru/inflation/v1/query"
+import * as query from "@nibiruchain/protojs/src/nibiru/inflation/v1/query"
 import { setupInflationExtension } from "../../query"
 
 describe("setupInflationExtension", () => {

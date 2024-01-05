@@ -9,13 +9,17 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc --build",
+    "build": "rm -f tsconfig.tsbuildinfo && rm -rf dist && tsc --build",
     "build:watch": "tsc --build --watch",
     "gql-generate": "rm -rf src/gql && graphql-code-generator --config codegen.ts",
     "clean": "tsc --clean",
     "test": "jest",
     "test:watch": "jest --watch",
     "coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "cross-fetch": "4.0.0",
+    "graphql-ws": "^5.14.0"
   },
   "devDependencies": {
     "@babel/core": "7.22.9",
@@ -28,10 +32,6 @@
     "jest": "^28.1.3",
     "ts-jest": "^28.0.0-next.3",
     "ws": "^8.14.1"
-  },
-  "dependencies": {
-    "cross-fetch": "4.0.0",
-    "graphql-ws": "^5.14.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

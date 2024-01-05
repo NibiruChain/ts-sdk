@@ -3,7 +3,7 @@ import {
   QueryClientImpl,
   QuerySudoersRequest,
   QuerySudoersResponse,
-} from "@nibiruchain/protojs/dist/nibiru/sudo/v1/query"
+} from "@nibiruchain/protojs/src/nibiru/sudo/v1/query"
 
 export interface SudoExtension {
   readonly sudo: Readonly<{

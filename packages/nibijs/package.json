@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -f tsconfig.tsbuildinfo && tsc --build && yarn docgen",
+    "build": "rm -f tsconfig.tsbuildinfo && rm -rf dist && tsc --build && yarn docgen",
     "build:watch": "tsc --build --watch",
     "clean": "tsc --clean",
     "docgen": "yarn run typedoc --tsconfig tsconfig.json --plugin typedoc-plugin-markdown",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@keplr-wallet/types": "^0.12.12",
-    "@types/jest": "^29.1.2",
+    "@types/jest": "^27.0.1",
     "@types/jest-expect-message": "^1.1.0",
     "@types/long": "^4.0.0",
     "@types/node-fetch": "^2.6.2",

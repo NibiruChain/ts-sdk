@@ -13,7 +13,7 @@ import {
   QueryPeriodResponse,
   QuerySkippedEpochsRequest,
   QuerySkippedEpochsResponse,
-} from "@nibiruchain/protojs/dist/nibiru/inflation/v1/query"
+} from "@nibiruchain/protojs/src/nibiru/inflation/v1/query"
 
 export interface InflationExtension {
   readonly inflation: Readonly<{

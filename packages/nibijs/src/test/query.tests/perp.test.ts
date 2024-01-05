@@ -1,5 +1,5 @@
 import { QueryClient } from "@cosmjs/stargate"
-import * as query from "@nibiruchain/protojs/dist/nibiru/perp/v2/query"
+import * as query from "@nibiruchain/protojs/src/nibiru/perp/v2/query"
 import { setupPerpExtension } from "../../query"
 
 describe("setupPerpExtension", () => {

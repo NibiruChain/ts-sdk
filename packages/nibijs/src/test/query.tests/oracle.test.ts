@@ -1,6 +1,6 @@
 import Long from "long"
 import { QueryClient } from "@cosmjs/stargate"
-import * as query from "@nibiruchain/protojs/dist/nibiru/oracle/v1/query"
+import * as query from "@nibiruchain/protojs/src/nibiru/oracle/v1/query"
 import { setupOracleExtension } from "../../query"
 import { fromSdkDec } from "../../chain"
 

@@ -11,10 +11,11 @@ import {
   newRandomWallet,
   Localnet,
   Chain,
+  TEST_ADDRESS,
+  TEST_MNEMONIC,
 } from "@nibiruchain/nibijs"
 import { StdFee, coin } from "@cosmjs/amino"
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
-import { TEST_ADDRESS, TEST_MNEMONIC } from "@nibiruchain/nibijs/dist/testutil"
 import esMain from "es-main"
 
 // -----------------------------------------------

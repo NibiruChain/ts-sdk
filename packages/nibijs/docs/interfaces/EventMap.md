@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.44](../intro.md) / [Exports](../modules.md) / EventMap
+[NibiJS Documentation - v0.21.45](../intro.md) / [Exports](../modules.md) / EventMap
 
 # Interface: EventMap
 
@@ -41,4 +41,4 @@ export interface EventTransfer extends EventMap {
 
 #### Defined in
 
-[tx/event.ts:41](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/tx/event.ts#L41)
+[src/tx/event.ts:41](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/tx/event.ts#L41)

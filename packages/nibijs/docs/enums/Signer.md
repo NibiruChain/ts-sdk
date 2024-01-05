@@ -1,4 +1,4 @@
-[NibiJS Documentation - v0.21.44](../intro.md) / [Exports](../modules.md) / Signer
+[NibiJS Documentation - v0.21.45](../intro.md) / [Exports](../modules.md) / Signer
 
 # Enumeration: Signer
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[tx/signer.ts:53](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/tx/signer.ts#L53)
+[src/tx/signer.ts:53](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/tx/signer.ts#L53)
 
 ---
 
@@ -27,4 +27,4 @@
 
 #### Defined in
 
-[tx/signer.ts:52](https://github.com/NibiruChain/ts-sdk/blob/e2ebd40/packages/nibijs/src/tx/signer.ts#L52)
+[src/tx/signer.ts:52](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/tx/signer.ts#L52)

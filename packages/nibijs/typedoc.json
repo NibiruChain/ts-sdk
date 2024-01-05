@@ -3,7 +3,7 @@
   "name": "NibiJS Documentation",
   "excludeExternals": true,
   "includeVersion": true,
-  "entryPointStrategy": "expand", // "resolve", "expand", or "packages"
+  "entryPointStrategy": "expand",
   "entryDocument": "intro.md",
-  "entryPoints": ["src/index.ts"]
+  "entryPoints": ["index.ts"]
 }

@@ -1,3 +1,4 @@
+export * from "./balancer"
 export * from "./chain"
 export * from "./msg"
 export * from "./query"
