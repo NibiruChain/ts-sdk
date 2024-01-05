@@ -5,5 +5,5 @@
   "includeVersion": true,
   "entryPointStrategy": "expand",
   "entryDocument": "intro.md",
-  "entryPoints": ["index.ts"]
+  "entryPoints": ["src/index.ts"]
 }
