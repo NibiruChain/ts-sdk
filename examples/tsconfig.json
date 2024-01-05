@@ -6,7 +6,8 @@
     "moduleResolution": "NodeNext",
     "rootDir": "./",
     "outDir": "./dist",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {}
   },
   "include": ["./examples.test.ts"],
   "exclude": ["node_modules", "dist"]
