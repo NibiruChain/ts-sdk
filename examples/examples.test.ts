@@ -29,7 +29,7 @@ const CHAIN: Chain = Localnet
 let _SIGNER: DirectSecp256k1HdWallet | null
 let _SIGNING_CLIENT: NibiruTxClient | null
 
-export const getSigner = async (): Promise<DirectSecp256k1HdWallet> => {
+const getSigner = async (): Promise<DirectSecp256k1HdWallet> => {
   if (!_SIGNER) {
     // For the account that will sign the transaction
     _SIGNER = await newSignerFromMnemonic(TEST_MNEMONIC)
@@ -37,7 +37,7 @@ export const getSigner = async (): Promise<DirectSecp256k1HdWallet> => {
   return _SIGNER
 }
 
-export const getSigningClient = async (): Promise<NibiruTxClient> => {
+const getSigningClient = async (): Promise<NibiruTxClient> => {
   if (!_SIGNING_CLIENT) {
     const signer = await getSigner()
     _SIGNING_CLIENT = await NibiruTxClient.connectWithSigner(
@@ -167,7 +167,7 @@ const exampleTxMsgs = async () => {
 }
 
 /** Example: Send Funds */
-export const exampleSendFunds = async () => {
+const exampleSendFunds = async () => {
   console.log(
     hereDoc(`Running example: ${exampleSendFunds.name}...
     This example broadcasts a transaction to send 5 unibi from the test account

@@ -5,6 +5,9 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rm -f tsconfig.tsbuildinfo && tsc --build && yarn docgen",
     "build:watch": "tsc --build --watch",
@@ -26,6 +29,7 @@
   },
   "devDependencies": {
     "@keplr-wallet/types": "^0.12.12",
+    "@nibiruchain/protojs": "0.21.16",
     "@types/jest": "^29.1.2",
     "@types/jest-expect-message": "^1.1.0",
     "@types/long": "^4.0.0",

@@ -21,7 +21,6 @@ import {
   defaultGovDeposit,
   defaultGovProposal,
   defaultGovVote,
-  defaultIbcChannel,
   defaultIbcChannelsResponse,
   defaultIbcTransfer,
   defaultMarkPriceCandles,
