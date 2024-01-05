@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/query/epochs.ts:11](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/epochs.ts#L11)
+[src/query/epochs.ts:11](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/epochs.ts#L11)

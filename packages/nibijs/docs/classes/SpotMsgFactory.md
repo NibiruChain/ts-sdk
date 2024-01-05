@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/msg/spot.ts:61](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/msg/spot.ts#L61)
+[src/msg/spot.ts:61](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/msg/spot.ts#L61)
 
 ---
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/msg/spot.ts:91](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/msg/spot.ts#L91)
+[src/msg/spot.ts:91](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/msg/spot.ts#L91)
 
 ---
 
@@ -79,7 +79,7 @@
 
 #### Defined in
 
-[src/msg/spot.ts:74](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/msg/spot.ts#L74)
+[src/msg/spot.ts:74](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/msg/spot.ts#L74)
 
 ---
 
@@ -99,4 +99,4 @@
 
 #### Defined in
 
-[src/msg/spot.ts:102](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/msg/spot.ts#L102)
+[src/msg/spot.ts:102](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/msg/spot.ts#L102)
