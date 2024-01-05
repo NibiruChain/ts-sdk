@@ -1,3 +1,9 @@
+## [@nibiruchain/indexer-nibi-v0.21.34](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.33...@nibiruchain/indexer-nibi-v0.21.34) (2024-01-05)
+
+### Miscellaneous Chores
+
+- develop -> main ([#275](https://github.com/NibiruChain/ts-sdk/issues/275)) ([c5e4f87](https://github.com/NibiruChain/ts-sdk/commit/c5e4f879d49309c9faa389a0ae06e113eeb92c97)), closes [#254](https://github.com/NibiruChain/ts-sdk/issues/254) [#256](https://github.com/NibiruChain/ts-sdk/issues/256) [#257](https://github.com/NibiruChain/ts-sdk/issues/257) [#262](https://github.com/NibiruChain/ts-sdk/issues/262) [#260](https://github.com/NibiruChain/ts-sdk/issues/260)
+
 ## [@nibiruchain/indexer-nibi-v0.21.33](https://github.com/NibiruChain/ts-sdk/compare/@nibiruchain/indexer-nibi-v0.21.32...@nibiruchain/indexer-nibi-v0.21.33) (2023-11-15)
 
 ### Features

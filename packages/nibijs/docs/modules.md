@@ -11,6 +11,7 @@
 
 ### Classes
 
+- [BalancerPool](classes/BalancerPool.md)
 - [CustomChain](classes/CustomChain.md)
 - [MsgFactory](classes/MsgFactory.md)
 - [NibiruQuerier](classes/NibiruQuerier.md)
@@ -19,6 +20,7 @@
 - [Result](classes/Result.md)
 - [SpotMsgFactory](classes/SpotMsgFactory.md)
 - [StableSwap](classes/StableSwap.md)
+- [Swap](classes/Swap.md)
 
 ### Interfaces
 
