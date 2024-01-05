@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/query/sudo.ts:9](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/sudo.ts#L9)
+[src/query/sudo.ts:9](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/sudo.ts#L9)

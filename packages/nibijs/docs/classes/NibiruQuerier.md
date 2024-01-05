@@ -58,7 +58,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[src/query/query.ts:66](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/query.ts#L66)
+[src/query/query.ts:66](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/query.ts#L66)
 
 ## Properties
 
@@ -68,7 +68,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[src/query/query.ts:53](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/query.ts#L53)
+[src/query/query.ts:53](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/query.ts#L53)
 
 ---
 
@@ -78,7 +78,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[src/query/query.ts:55](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/query.ts#L55)
+[src/query/query.ts:55](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/query.ts#L55)
 
 ---
 
@@ -88,7 +88,7 @@ StargateClient.constructor
 
 #### Defined in
 
-[src/query/query.ts:54](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/query.ts#L54)
+[src/query/query.ts:54](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/query.ts#L54)
 
 ## Methods
 
@@ -126,7 +126,7 @@ const txRespResult = await getTxByHash(txHash)
 
 #### Defined in
 
-[src/query/query.ts:122](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/query.ts#L122)
+[src/query/query.ts:122](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/query.ts#L122)
 
 ---
 
@@ -153,7 +153,7 @@ getTxByHash - Equivalent query using the hex-encoded tx hash string.
 
 #### Defined in
 
-[src/query/query.ts:136](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/query.ts#L136)
+[src/query/query.ts:136](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/query.ts#L136)
 
 ---
 
@@ -173,7 +173,7 @@ getTxByHash - Equivalent query using the hex-encoded tx hash string.
 
 #### Defined in
 
-[src/query/query.ts:92](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/query.ts#L92)
+[src/query/query.ts:92](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/query.ts#L92)
 
 ---
 
@@ -187,7 +187,7 @@ getTxByHash - Equivalent query using the hex-encoded tx hash string.
 
 #### Defined in
 
-[src/query/query.ts:100](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/query.ts#L100)
+[src/query/query.ts:100](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/query.ts#L100)
 
 ---
 
@@ -212,4 +212,4 @@ StargateClient.connect
 
 #### Defined in
 
-[src/query/query.ts:57](https://github.com/NibiruChain/ts-sdk/blob/c5e4f87/packages/nibijs/src/query/query.ts#L57)
+[src/query/query.ts:57](https://github.com/NibiruChain/ts-sdk/blob/89f4b6e/packages/nibijs/src/query/query.ts#L57)
