@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "rootDir": "./",
+    "outDir": "./dist",
+    "baseUrl": "./"
+  },
+  "include": ["./examples.test.ts"],
+  "exclude": ["node_modules", "dist"]
+}
