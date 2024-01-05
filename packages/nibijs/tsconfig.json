@@ -1,18 +1,17 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
     "rootDir": "./src",
+    "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@nibiruchain/nibijs": ["./*"]
-    },
-    "composite": true
+    }
   },
+  "include": ["src/**/*"],
   "references": [
     {
       "path": "../protojs"
     }
-  ],
-  "include": ["src/**/*"]
+  ]
 }
