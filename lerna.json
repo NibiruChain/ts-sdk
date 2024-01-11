@@ -1,6 +1,0 @@
-{
-  "npmClient": "yarn",
-  "name": "nibiru-ts",
-  "version": "independent",
-  "useWorkspaces": true
-}

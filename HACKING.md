@@ -33,7 +33,7 @@ The `nibijs` package is documented in JSDoc format with TSDoc. TSDoc is a propos
 
 [TypeDoc](https://www.npmjs.com/package/typedoc) is a documentation generator for TypeScript projects built on top of TSDoc. We use TypeDoc to generate HTML and CSS for the nibijs docs, and `typedoc-plugin-markdown` to create the corresponding docs in markdown.
 
-The corresponding scripts for TypeDoc can are defined in `packages/nibijs/package.json`:
+The corresponding scripts for TypeDoc can are defined in `package.json`:
 
 ```
 yarn docgen:md

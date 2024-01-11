@@ -24,7 +24,7 @@ jobs:
       - name: yarn install
         uses: borales/actions-yarn@v4
         with:
-          cmd: install:packages
+          cmd: install
 
       - name: "Tar files"
         run: tar -cf preview_image.tar ./

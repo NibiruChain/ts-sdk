@@ -1,7 +1,7 @@
 name: Semantic Release 🚀
 on:
   push:
-    branches: ["main", "release/*"]
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -20,23 +20,27 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+
       - name: Setup NodeJS and npm
         uses: actions/setup-node@v3
         with:
           node-version: "lts/hydrogen"
-      - name: Install yarn using npm
-        run: npm install -g yarn
-      - name: Setup NodeJS with yarn caching
-        uses: actions/setup-node@v3
-        with:
-          node-version: "lts/hydrogen"
           cache: "yarn"
-      - name: Install dependencies
-        run: yarn --prefer-offline --check-files
-      - name: Packages Build
-        run: yarn build
-      - name: Semantic Release
+
+      - name: yarn install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+
+      - name: yarn build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+
+      - name: yarn semantic-release
+        uses: borales/actions-yarn@v4
         env:
           GITHUB_TOKEN: ${{ secrets.NIBIBOT_GIT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn semantic-release
+        with:
+          cmd: semantic-release

@@ -4,32 +4,23 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["jest", "node"],
     "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "composite": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
+    "outDir": "dist",
     "esModuleInterop": true,
-    "incremental": true,
+    "baseUrl": "./",
+    "skipLibCheck": true,
     "paths": {
-      "@nibiruchain/protojs": ["./packages/protojs"],
-      "@nibiruchain/nibijs": ["./packages/nibijs"]
+      "@/*": ["src/*"]
     }
   },
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"],
-  "references": [
-    {
-      "path": "./packages/protojs"
-    },
-    {
-      "path": "./packages/nibijs"
-    },
-    {
-      "path": "./packages/indexer-nibi"
-    }
-  ]
+  "include": ["src/**/*", "index.ts", "codegen.ts"],
+  "exclude": ["node_modules", "dist"]
 }

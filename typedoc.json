@@ -1,0 +1,10 @@
+{
+  "out": "docs",
+  "name": "NibiJS Documentation",
+  "excludeExternals": true,
+  "includeVersion": true,
+  "entryPointStrategy": "expand",
+  "entryDocument": "intro.md",
+  "entryPoints": ["./index.ts", "src/**/*"],
+  "externalPattern": ["**/node_modules/**"]
+}

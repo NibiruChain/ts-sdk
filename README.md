@@ -37,7 +37,7 @@ The official TypeScript SDK for the Nibiru blockchain
 
 The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions.
 
-The `nibijs` source code can be found in the ["packages" directory](https://github.com/NibiruChain/ts-sdk/tree/main/packages). The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`.
+The `nibijs` source code can be found in the `src` directory.
 
 #### Table of Contents
 
