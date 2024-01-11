@@ -23,7 +23,7 @@
     "lint": "eslint -c './.eslintrc.js' './packages/**/*.{ts,js}'",
     "lint:ci": "yarn lint . --format junit",
     "lint:md": "markdownlint --ignore node_modules --ignore .git",
-    "install:packages": "yarn --prefer-offline --check-files && cd examples && yarn --prefer-offline --check-files && cd ..",
+    "install:packages": "yarn --prefer-offline --check-files",
     "localnet": "bash scripts/localnet.sh",
     "format": "yarn lint --fix",
     "format:md": "yarn lint:md --fix",

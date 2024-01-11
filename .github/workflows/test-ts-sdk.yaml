@@ -88,14 +88,6 @@ jobs:
         with:
           cmd: test
 
-      - name: "Run examples"
-        run: |
-          cd examples
-          yarn run:examples
-          cd ..
-          # tsx is a TS script executor similar to ts-node, except it runs more
-          # consistently and has a more lightweight implementation.
-
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
 
