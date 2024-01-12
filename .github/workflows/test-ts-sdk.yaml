@@ -25,6 +25,9 @@ jobs:
           path: "nibiru"
           token: ${{ secrets.NIBIBOT_GIT_TOKEN }}
 
+      - name: Change working directory to ts-sdk
+        run: cd ts-sdk
+
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
         with:
