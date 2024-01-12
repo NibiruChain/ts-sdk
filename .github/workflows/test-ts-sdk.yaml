@@ -25,19 +25,18 @@ jobs:
           path: "nibiru"
           token: ${{ secrets.NIBIBOT_GIT_TOKEN }}
 
-      - name: Change working directory to ts-sdk
-        run: cd ts-sdk && ls
-
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
         with:
           node-version: "lts/hydrogen"
           cache: "yarn"
+          cache-dependency-path: "**/yarn.lock"
 
       - name: yarn install
         uses: borales/actions-yarn@v4
         with:
           cmd: install
+          dir: "ts-sdk"
 
       - name: "Tar files"
         run: tar -cf preview_image.tar ./
@@ -64,10 +63,14 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: build
+          dir: "ts-sdk"
 
   test:
     runs-on: ubuntu-latest
     needs: [checkout_cache_install]
+    defaults:
+      run:
+        working-directory: ts-sdk
     env:
       VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
       VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
