@@ -1,4 +1,4 @@
-name: ⛓️ Tests @nibiruchain/ts-sdk
+name: ⛓️ Builds and Tests @nibiruchain/ts-sdk
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  checkout_cache_install:
+  checkout_cache_install_build_test:
     runs-on: ubuntu-latest
     env:
       VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
@@ -86,5 +86,7 @@ jobs:
       - name: "SonarQube Quality Gate"
         uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
+        with:
+          scanMetadataReportFile: ts-sdk/sonar/report-task.txt
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
