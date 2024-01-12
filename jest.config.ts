@@ -31,7 +31,7 @@ const config: Config = {
       location: {},
     },
   },
-  moduleDirectories: [".", "node_modules", "src"],
+  moduleDirectories: ["<rootDir>", "node_modules", "src"],
   moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
   modulePaths: [compilerOptions.baseUrl], // <-- This will be set to 'baseUrl' value
   moduleNameMapper: {
