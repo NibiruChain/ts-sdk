@@ -33,7 +33,7 @@
     "localnet": "bash scripts/localnet.sh",
     "format": "yarn lint --fix",
     "format:md": "yarn lint:md --fix",
-    "proto-gen": "bash ./scripts/protocgen.sh && yarn generate-barrels",
+    "proto-gen": "bash ./scripts/protocgen.sh",
     "prettier": "prettier --write . --ignore-path .gitignore",
     "prepare": "husky install",
     "semantic-release": "semantic-release --tag-format='\\${version}'"

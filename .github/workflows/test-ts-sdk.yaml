@@ -68,9 +68,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: [checkout_cache_install]
-    defaults:
-      run:
-        working-directory: ts-sdk
     env:
       VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
       VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
@@ -97,24 +94,30 @@ jobs:
           # Sanity check nibid CLI
           nibid version
           # Start local network
+          cd ts-sdk
           bash scripts/localnet.sh &
 
       - name: yarn test
         uses: borales/actions-yarn@v4
         with:
           cmd: test
+          dir: "ts-sdk"
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
+        with:
+          coverage-summary-path: ./ts-sdk/coverage/coverage-summary.json
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          dir: "ts-sdk"
 
       - name: "SonarQube Quality Gate"
         uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          dir: "ts-sdk"

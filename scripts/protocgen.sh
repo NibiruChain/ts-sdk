@@ -33,7 +33,7 @@ for dir in $(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1
 done;
 
 rm -rf proto/
-
+yarn generate-barrels
 # # the `descriptor.ts` file is only used for gogoproto, and it causes issues with TS-generated code
 rm $PKG_OUT_DIR/google/protobuf/descriptor.ts
 rm $PKG_OUT_DIR/index.google.protobuf.ts
