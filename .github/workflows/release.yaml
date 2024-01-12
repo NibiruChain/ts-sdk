@@ -35,7 +35,7 @@ jobs:
       - name: yarn build
         uses: borales/actions-yarn@v4
         with:
-          cmd: install
+          cmd: build
 
       - name: yarn semantic-release
         uses: borales/actions-yarn@v4

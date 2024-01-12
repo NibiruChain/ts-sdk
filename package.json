@@ -16,7 +16,7 @@
   "scripts": {
     "generate-barrels": "barrelsby -c barrelsby.json --delete -l all -s flat -S -e \".test.ts|.config.ts|.codegen.ts\"",
     "build": "bash ./scripts/build.sh",
-    "build:tsc": "rm -f tsconfig.tsbuildinfo && rm -rf dist && tsc --build",
+    "build:tsc": "rm -rf dist && tsc --build",
     "build:watch": "tsc --build --watch",
     "docgen": "yarn run typedoc --tsconfig tsconfig.json --plugin typedoc-plugin-markdown --plugin typedoc-plugin-missing-exports",
     "docgen:changes": "git diff-index --name-only origin/HEAD -- | grep -q \"src\" && yarn docgen || true",

@@ -10,10 +10,20 @@ jobs:
   checkout_cache_install:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout ts-sdk Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          path: "ts-sdk"
+
+      - name: Checkout nibiru Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          repository: NibiruChain/nibiru
+          ref: releases/v0.21.x
+          path: "nibiru"
+          token: ${{ secrets.NIBIBOT_GIT_TOKEN }}
 
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
