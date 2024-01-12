@@ -43,7 +43,7 @@ const config: Config = {
   preset: "ts-jest",
   testEnvironment: "node",
   reporters: ["default"],
-  testPathIgnorePatterns: ["/node_modules/", "/build/", "/coverage/"],
+  testPathIgnorePatterns: ["/node_modules/", "/build/", "/coverage/", "/dist/"],
   testTimeout: 120000,
 }
 
