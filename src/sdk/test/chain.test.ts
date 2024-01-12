@@ -8,12 +8,12 @@ import {
   Devnet,
   fromSdkDec,
   fromSdkInt,
-  Testnet,
   isRestEndptLive,
   newCoinMapFromCoins,
   queryChainIdWithRest,
   toSdkDec,
   Mainnet,
+  Testnet,
 } from "../chain"
 import { TEST_CHAIN } from "../testutil"
 import { NibiruTxClient } from "../tx/txClient"
@@ -79,9 +79,9 @@ describe("chain/chain", () => {
   })
 
   test("queryChainIdWithRest", async () => {
-    const chain = Devnet(2)
+    const chain = Testnet(2)
     const result = await queryChainIdWithRest(chain)
-    expect(result.ok).toEqual("nibiru-devnet-2")
+    expect(result.ok).toEqual("nibiru-testnet-2")
   })
 
   test("inactive chain validation cases", async () => {
