@@ -12,10 +12,11 @@ const config: Config = {
     "src/**/*.{js,jsx,ts,tsx}",
     "!**/node_modules/**",
     "!**/dist/**",
+    "!**/index.*.ts",
     "!**/index.ts",
     "!**/sdk/test/helpers.ts",
   ],
-  coveragePathIgnorePatterns: ["/node_modules/", "/dist/"],
+  coveragePathIgnorePatterns: ["/node_modules/", "/dist/", "/src/protojs/"],
   coverageReporters: ["json-summary", "text", "html", "lcov"],
   coverageThreshold: {
     global: {
