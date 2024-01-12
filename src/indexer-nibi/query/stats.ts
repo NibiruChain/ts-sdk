@@ -213,7 +213,7 @@ export const GQLStatsQueryString = (
   }
 
   return `
-      GQLStats {
+      stats {
         ${GQLStatsQuery.join("\n")}
       }
     `

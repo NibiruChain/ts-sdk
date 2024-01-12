@@ -185,7 +185,7 @@ export const GQLPerpQueryString = (
   }
 
   return `
-      GQLPerp {
+      perp {
         ${GQLPerpQuery.join("\n")}
       }
     `
