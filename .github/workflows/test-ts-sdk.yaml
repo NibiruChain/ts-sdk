@@ -9,6 +9,15 @@ on:
 jobs:
   checkout_cache_install:
     runs-on: ubuntu-latest
+    env:
+      VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
+      VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
+      LCD_ENDPOINT: "http://127.0.0.1:1317"
+      GRPC_ENDPOINT: "127.0.0.1:9090"
+      TENDERMINT_RPC_ENDPOINT: "http://127.0.0.1:26657"
+      USE_LOCALNET: true
+      WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
+      CHAIN_ID: "nibiru-localnet-0"
     steps:
       - name: Checkout ts-sdk Repository
         uses: actions/checkout@v4
@@ -38,53 +47,11 @@ jobs:
           cmd: install
           dir: "ts-sdk"
 
-      - name: "Tar files"
-        run: tar -cf preview_image.tar ./
-
-      - name: Upload preview_image
-        uses: actions/upload-artifact@v4
-        with:
-          name: preview_image
-          path: ./preview_image.tar
-
-  build:
-    runs-on: ubuntu-latest
-    needs: [checkout_cache_install]
-    steps:
-      - name: Download preview_image
-        uses: actions/download-artifact@v4
-        with:
-          name: preview_image
-
-      - name: Untar files
-        run: tar -xf preview_image.tar
-
       - name: yarn build
         uses: borales/actions-yarn@v4
         with:
           cmd: build
           dir: "ts-sdk"
-
-  test:
-    runs-on: ubuntu-latest
-    needs: [checkout_cache_install]
-    env:
-      VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
-      VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
-      LCD_ENDPOINT: "http://127.0.0.1:1317"
-      GRPC_ENDPOINT: "127.0.0.1:9090"
-      TENDERMINT_RPC_ENDPOINT: "http://127.0.0.1:26657"
-      USE_LOCALNET: true
-      WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
-      CHAIN_ID: "nibiru-localnet-0"
-    steps:
-      - name: Download preview_image
-        uses: actions/download-artifact@v4
-        with:
-          name: preview_image
-
-      - name: Untar files
-        run: tar -xf preview_image.tar
 
       - name: Run Nibiru network in the background (scripts/localnet.sh)
         run: |
