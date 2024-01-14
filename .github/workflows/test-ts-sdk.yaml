@@ -23,7 +23,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-          path: "ts-sdk"
 
       - name: Checkout nibiru Repository
         uses: actions/checkout@v4
@@ -45,13 +44,11 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install
-          dir: "ts-sdk"
 
       - name: yarn build
         uses: borales/actions-yarn@v4
         with:
           cmd: build
-          dir: "ts-sdk"
 
       - name: Run Nibiru network in the background (scripts/localnet.sh)
         run: |
@@ -61,24 +58,20 @@ jobs:
           # Sanity check nibid CLI
           nibid version
           # Start local network
-          cd ts-sdk
           bash scripts/localnet.sh &
 
       - name: yarn test
         uses: borales/actions-yarn@v4
         with:
           cmd: test
-          dir: "ts-sdk"
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
         with:
-          coverage-summary-path: ./ts-sdk/coverage/coverage-summary.json
+          coverage-summary-path: ./coverage/coverage-summary.json
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
-        with:
-          projectBaseDir: ts-sdk
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -88,7 +81,5 @@ jobs:
       - name: "SonarQube Quality Gate"
         uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
-        with:
-          scanMetadataReportFile: "**/report-task.txt"
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

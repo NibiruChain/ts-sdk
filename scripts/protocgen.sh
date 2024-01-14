@@ -10,7 +10,7 @@ set -eo pipefail
 #     This script currently assumes you have a local clone of the repo.
 #   PKG_OUT_DIR: Output path where the generated code will go upon
 #     successful execution.
-NIBIRU_REPO="../nibiru"
+NIBIRU_REPO="./nibiru"
 PKG_OUT_DIR="./src/protojs"
 
 # -----------------------------------------------------------------------------
