@@ -83,7 +83,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      - run: cd .. ls && cd .. && ls
+      - run: cd .. && ls && cd .. && ls
 
       - name: "SonarQube Quality Gate"
         uses: sonarsource/sonarqube-quality-gate-action@master
