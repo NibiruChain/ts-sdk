@@ -83,12 +83,12 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      - run: ls && cd ts-sdk && ls
+      - run: cd .. ls && cd .. && ls
 
       - name: "SonarQube Quality Gate"
         uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
         with:
-          scanMetadataReportFile: ts-sdk/report-task.txt
+          scanMetadataReportFile: "**/report-task.txt"
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
