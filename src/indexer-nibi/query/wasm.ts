@@ -22,10 +22,10 @@ export const wasmQueryString = (
   args: QueryWasmArgs,
   fields?: GqlWasmFields
 ) => {
-  const oracleQuery: string[] = []
+  const wasmQuery: string[] = []
 
   if (fields?.userContracts) {
-    oracleQuery.push(
+    wasmQuery.push(
       gqlQuery(
         "userContracts",
         args.userContracts ?? {},
@@ -38,7 +38,7 @@ export const wasmQueryString = (
   // Default Objects
 
   if (args.userContracts && !fields?.userContracts) {
-    oracleQuery.push(
+    wasmQuery.push(
       gqlQuery(
         "userContracts",
         args.userContracts,
@@ -50,7 +50,7 @@ export const wasmQueryString = (
 
   return `
         wasm {
-          ${oracleQuery.join("\n")}
+          ${wasmQuery.join("\n")}
         }
       `
 }
