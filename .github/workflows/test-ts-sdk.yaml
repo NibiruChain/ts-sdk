@@ -1,4 +1,4 @@
-name: ⛓️ Tests @nibiruchain/ts-sdk
+name: ⛓️ Builds and Tests @nibiruchain/ts-sdk
 
 on:
   pull_request:
@@ -7,54 +7,8 @@ on:
     branches: ["main"]
 
 jobs:
-  checkout_cache_install:
+  checkout_cache_install_build_test:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-
-      - name: Setup NodeJS with yarn caching
-        uses: actions/setup-node@v3
-        with:
-          node-version: "lts/hydrogen"
-          cache: "yarn"
-
-      - name: yarn install
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install:packages
-
-      - name: "Tar files"
-        run: tar -cf preview_image.tar ./
-
-      - name: Upload preview_image
-        uses: actions/upload-artifact@v4
-        with:
-          name: preview_image
-          path: ./preview_image.tar
-
-  build:
-    runs-on: ubuntu-latest
-    needs: [checkout_cache_install]
-    steps:
-      - name: Download preview_image
-        uses: actions/download-artifact@v4
-        with:
-          name: preview_image
-
-      - name: Untar files
-        run: tar -xf preview_image.tar
-
-      - name: yarn build
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build
-
-  test:
-    runs-on: ubuntu-latest
-    needs: [checkout_cache_install]
     env:
       VALIDATOR_MNEMONIC: ${{ secrets.VALIDATOR_MNEMONIC }}
       VALIDATOR_ADDRESS: ${{ secrets.VALIDATOR_ADDRESS }}
@@ -65,13 +19,36 @@ jobs:
       WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
       CHAIN_ID: "nibiru-localnet-0"
     steps:
-      - name: Download preview_image
-        uses: actions/download-artifact@v4
+      - name: Checkout ts-sdk Repository
+        uses: actions/checkout@v4
         with:
-          name: preview_image
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Untar files
-        run: tar -xf preview_image.tar
+      - name: Checkout nibiru Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          repository: NibiruChain/nibiru
+          ref: releases/v0.21.x
+          path: "nibiru"
+          token: ${{ secrets.NIBIBOT_GIT_TOKEN }}
+
+      - name: Setup NodeJS with yarn caching
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/hydrogen"
+          cache: "yarn"
+          cache-dependency-path: "**/yarn.lock"
+
+      - name: yarn install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+
+      - name: yarn build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
 
       - name: Run Nibiru network in the background (scripts/localnet.sh)
         run: |
@@ -90,6 +67,8 @@ jobs:
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
+        with:
+          coverage-summary-path: ./coverage/coverage-summary.json
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
