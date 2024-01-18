@@ -14,6 +14,8 @@ import {
   GQLStatsFields,
   communityPoolQueryString,
   delegationsQueryString,
+  QueryWasmArgs,
+  GqlWasmFields,
 } from "./query"
 import {
   defaultDelegations,
@@ -43,6 +45,7 @@ import {
   defaultTvl,
   defaultUnbondings,
   defaultUser,
+  defaultUserContract,
   defaultUsers,
   defaultValidator,
   defaultVolume,
@@ -995,6 +998,43 @@ test("stats", async () => {
       perpPnl: defaultPerpPnl,
       users: defaultUsers,
       volume: defaultVolume,
+    }
+  )
+})
+
+const testWasm = async (args: QueryWasmArgs, fields?: GqlWasmFields) => {
+  const resp = await heartMonitor.wasm(args, fields)
+  expect(resp).toHaveProperty("wasm")
+
+  if (resp.wasm) {
+    const { wasm } = resp
+
+    checkFields([wasm], ["userContracts"])
+  }
+}
+
+test("wasm", async () => {
+  await testWasm({
+    userContracts: {
+      limit: 1,
+    },
+  })
+
+  await testWasm(
+    {
+      userContracts: {
+        limit: 1,
+      },
+    },
+    {
+      userContracts: defaultUserContract,
+    }
+  )
+
+  await testWasm(
+    {},
+    {
+      userContracts: defaultUserContract,
     }
   )
 })
