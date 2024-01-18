@@ -31,6 +31,7 @@ import {
   GQLToken,
   GQLUnbonding,
   GQLUser,
+  GQLUserContract,
   GQLValidator,
   GQLValidatorStatus,
 } from "./gql/generated"
@@ -182,6 +183,7 @@ export const defaultMarkPriceCandles: GQLMarkPriceCandle = {
   volumeNotional: 0,
   pair: "",
   period: 0,
+  periodInterval: "",
   periodStartTs: "",
   indexPriceTwapClose: 0,
 }
@@ -267,6 +269,7 @@ export const defaultStatsFees: GQLStatsFees = {
   feesTotal: 0,
   feesTotalCumulative: 0,
   period: 0,
+  periodInterval: "",
   periodStartTs: "",
 }
 
@@ -275,6 +278,7 @@ export const defaultPerpOpenInterest: GQLStatsPerpOpenInterest = {
   openInterestShort: 0,
   openInterestTotal: 0,
   period: 0,
+  periodInterval: "",
   periodStartTs: "",
 }
 
@@ -284,6 +288,7 @@ export const defaultPerpPnl: GQLStatsPerpPnl = {
   netPnl: 0,
   netPnlCumulative: 0,
   period: 0,
+  periodInterval: "",
   periodStartTs: "",
   profit: 0,
   profitCumulative: 0,
@@ -291,6 +296,7 @@ export const defaultPerpPnl: GQLStatsPerpPnl = {
 
 export const defaultTotals: GQLStatsTotals = {
   period: 0,
+  periodInterval: "",
   periodStartTs: "",
   totalPerp: 0,
   totalFeesPerp: 0,
@@ -303,6 +309,7 @@ export const defaultTotals: GQLStatsTotals = {
 
 export const defaultTvl: GQLStatsTvl = {
   period: 0,
+  periodInterval: "",
   periodStartTs: "",
   tvlPerp: 0,
   tvlStablecoin: 0,
@@ -321,6 +328,7 @@ export const defaultUsers: GQLStatsUsers = {
   newUsersTotal: 0,
   newUsersTotalCumulative: 0,
   period: 0,
+  periodInterval: "",
   periodStartTs: "",
   userActionsPerp: 0,
   uniqueUsersLp: 0,
@@ -342,6 +350,7 @@ export const defaultVolume: GQLStatsVolume = {
   volumeTotal: 0,
   volumeTotalCumulative: 0,
   period: 0,
+  periodInterval: "",
   periodStartTs: "",
 }
 
@@ -395,4 +404,9 @@ export const defaultIbc: GQLIbc = {
 export const defaultIbcChannelsResponse: GQLIbcChannelsResponse = {
   channels: [defaultIbcChannel],
   revision_height: 0,
+}
+
+export const defaultUserContract: GQLUserContract = {
+  user: defaultUser,
+  contractAddress: "",
 }
