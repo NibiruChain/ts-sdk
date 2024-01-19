@@ -1,3 +1,10 @@
+### [1.0.1](https://github.com/NibiruChain/ts-sdk/compare/v1.0.0...v1.0.1) (2024-01-19)
+
+### Bug Fixes
+
+- remove private ([4420e49](https://github.com/NibiruChain/ts-sdk/commit/4420e4917430a738331a565a84bb5c092df2ef1e))
+- remove private ([3f67572](https://github.com/NibiruChain/ts-sdk/commit/3f6757247b328387bd8b48fabdf3bcec9f7331b9))
+
 ## [1.0.0](https://github.com/NibiruChain/ts-sdk/compare/v0.7.6...v1.0.0) (2024-01-19)
 
 ### ⚠ BREAKING CHANGES
