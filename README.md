@@ -5,7 +5,7 @@
 <!-- NOTE: Use direct links for external sites that copy these files. -->
 
 <p align="center">
-The official TypeScript SDK for the Nibiru blockchain
+The official TypeScript SDK for the Nibiru blockchain!
 </p>
 
 <div style="display: flex; flex-direction: row; gap: 4px;">
@@ -37,7 +37,7 @@ The official TypeScript SDK for the Nibiru blockchain
 
 The NibiJS (`@nibiruchain/nibijs`) package makes it possible to interact with Nibiru from a Node.js or browser environment. `nibijs` provides simple abstractions for core data structures, serialization, key management, API requests, and the submission of transactions.
 
-The `nibijs` source code can be found in the ["packages" directory](https://github.com/NibiruChain/ts-sdk/tree/main/packages). The types and classes generated from Nibiru's `.proto` files are inside a separate `npm` package called `@nibiruchain/protojs`.
+The `nibijs` source code can be found in the `src` directory.
 
 #### Table of Contents
 
@@ -86,45 +86,69 @@ console.log("address: ", address)
 ### Example: Querying
 
 ```js
-import { NibiruQuerier, NibiruTxClient, Localnet } from "@nibiruchain/nibijs"
+import { NibiruQuerier, Testnet } from "@nibiruchain/nibijs"
 
-export const CHAIN: Chain = Localnet
+export const CHAIN = Testnet(2)
 const querier = await NibiruQuerier.connect(CHAIN.endptTm)
 
-const perpParamsResp = await querier.nibiruExtensions.perp.params()
-console.log("perpParams: %o", perpParamsResp)
+// Query balances
+const exampleAddress = "nibi17dz4cdw5fmm2cxd4ht9xvjmpw3ycmpkpcc6js9"
+const balances = await querier.getAllBalances(exampleAddress)
+console.log("balances: %o", balances)
 
-const allMarkets = await querier.nibiruExtensions.perp.markets({
-  pair: "ueth:unusd",
-})
-console.log("allMarkets: %o", allMarkets)
-
-const blockHeight = 1
+// Query block
+const blockHeight = 200000
 const block = await querier.getBlock(blockHeight)
+console.log("block: %o", block)
+
+// Query PERP markets
+const perpMarkets = await querier.nibiruExtensions.perp.markets()
+console.log("perpMarkets: %o", perpMarkets)
+
+// Query SPOT pools
+const spotPools = await querier.nibiruExtensions.spot.pools()
+console.log("spotPools: %o", spotPools)
 ```
 
 ### Example: Sending funds
 
 ```js
 import {
-  Coin,
   NibiruTxClient,
   newSignerFromMnemonic,
-  Localnet
+  Testnet,
+  NibiruQuerier,
 } from "@nibiruchain/nibijs"
 import { coins } from "@cosmjs/proto-signing"
 
-export const CHAIN: Chain = Localnet
-const signer = await newSignerFromMnemonic(mnemonic!)
-const txClient = await NibiruTxClient.connectWithSigner(
-  CHAIN.endptTm,
-  signer,
-)
+export const CHAIN = Testnet(2)
+const mnemonic = "your mnemonic here..."
+const signer = await newSignerFromMnemonic(mnemonic)
+const querier = await NibiruQuerier.connect(CHAIN.endptTm)
+const txClient = await NibiruTxClient.connectWithSigner(CHAIN.endptTm, signer)
 const [{ address: fromAddr }] = await signer.getAccounts()
 
-const tokens: Coin[] = coins(5, "unibi")
-const toAddr: string = "..." // bech32 address of the receiving party
-const txResp = await txClient.sendTokens(fromAddr, toAddr, tokens, "auto")
+// Check balance before sending tokens
+const exampleAddress = "nibi1mzjkw9z5ugajxchl884y0c28lk2627hpuljuw4"
+let balances = await querier.getAllBalances(exampleAddress)
+console.log("balances: %o", balances)
+
+const tokens = coins(5, "unibi")
+const txResp = await txClient.sendTokens(
+  fromAddr,
+  exampleAddress,
+  tokens,
+  5000 // gas fee 5000 unibi
+)
+console.log(txResp)
+
+// Execution could take several seconds
+const delay = (ms) => new Promise((res) => setTimeout(res, ms))
+await delay(10000)
+
+// Check balance after send tokens
+balances = await querier.getAllBalances(exampleAddress)
+console.log("balances: %o", balances)
 ```
 
 ### Example: Transaction with arbitrary messages
@@ -134,30 +158,21 @@ import {
   NibiruTxClient,
   newSignerFromMnemonic,
   Msg,
-  TxMessage,
-  StdFee,
-  toSdkInt,
-  parseEventLogs,
-  Localnet
+  Testnet,
+  NibiruQuerier,
 } from "@nibiruchain/nibijs"
-import { Msg, TxMessage } from "@nibiruchain/nibijs/dist/msg"
 import { coin } from "@cosmjs/proto-signing"
 
-// const mnemonic = "..." <--
-export const CHAIN: Chain = Localnet
-const signer = await newSignerFromMnemonic(mnemonic!)
-signer.getAccounts()
-const txClient = await NibiruTxClient.connectWithSigner(
-  CHAIN.endptTm,
-  signer,
-)
+const mnemonic = "Your mnemonic here"
+export const CHAIN = Testnet(2)
+const signer = await newSignerFromMnemonic(mnemonic)
+const querier = await NibiruQuerier.connect(CHAIN.endptTm)
+const txClient = await NibiruTxClient.connectWithSigner(CHAIN.endptTm, signer)
 const [{ address: fromAddr }] = await signer.getAccounts()
 const pair = "ubtc:unusd"
 
-// ------------------------------------
 // Construct tx msgs
-// ------------------------------------
-const msgs: TxMessage[] = [
+const msgs = [
   Msg.perp.openPosition({
     sender: fromAddr,
     pair: pair,
@@ -179,10 +194,18 @@ const msgs: TxMessage[] = [
   // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
 ]
 
-// ------------------------------------
 // Broadcast tx
-// ------------------------------------
 const txResp = await txClient.signAndBroadcast(fromAddr, msgs, "auto")
+console.log(txResp)
+
+// Check your open PERP positions
+const delay = (ms) => new Promise((res) => setTimeout(res, ms))
+await delay(5000)
+
+const perpPositions = await querier.nibiruExtensions.perp.positions({
+  trader: fromAddr,
+})
+console.log("perpPositions: %o", perpPositions)
 ```
 
 ## Codebase structure

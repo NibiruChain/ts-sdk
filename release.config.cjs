@@ -2,19 +2,19 @@
 const commitVariants = [
   {
     type: "breaking",
-    release: "minor",
+    release: "major",
     section: "BREAKING CHANGES",
     hidden: false,
   },
   {
     type: "feat",
-    release: "patch",
+    release: "minor",
     section: "Features",
     hidden: false,
   },
   {
     type: "refactor",
-    release: "patch",
+    release: "major",
     section: "Code Refactors",
     hidden: false,
   },
@@ -38,7 +38,7 @@ const commitVariants = [
   },
   {
     type: "revert",
-    release: "patch",
+    release: "minor",
     section: "Reverts",
     hidden: false,
   },
