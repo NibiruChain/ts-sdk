@@ -36,6 +36,7 @@ import {
   GQLUnbonding,
   GQLUser,
   GQLValidator,
+  GQLWasm,
 } from "./gql/generated"
 import {
   GqlOutCommunityPool,
@@ -97,6 +98,7 @@ import {
   GqlOutPerpPositions,
 } from "./subscription"
 import { queryBatchHandler } from "./batchHandlers/queryBatchHandler"
+import { GqlOutWasm, GqlWasmFields, QueryWasmArgs, wasm } from "./query/wasm"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a GQLQueryGql function. */
@@ -226,6 +228,11 @@ export interface IHeartMonitor {
     args: GQLQueryGqlValidatorsArgs,
     fields?: Partial<GQLValidator>
   ) => Promise<GqlOutValidators>
+
+  readonly wasm: (
+    args: QueryWasmArgs,
+    fields?: GqlWasmFields
+  ) => Promise<GqlOutWasm>
 }
 
 /** HeartMonitor is an API for "Heart Monitor" that indexes the Nibiru blockchain
@@ -362,4 +369,7 @@ export class HeartMonitor implements IHeartMonitor {
     args: GQLQueryGqlValidatorsArgs,
     fields?: Partial<GQLValidator>
   ) => validators(args, this.gqlEndpt, fields)
+
+  wasm = async (args: QueryWasmArgs, fields?: GqlWasmFields) =>
+    wasm(args, this.gqlEndpt, fields)
 }
