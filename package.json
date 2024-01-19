@@ -3,7 +3,6 @@
   "description": "The TypeScript SDK for the Nibiru blockchain.",
   "version": "0.22.0",
   "license": "MIT",
-  "private": "false",
   "repository": {
     "type": "git",
     "url": "https://github.com/NibiruChain/ts-sdk"
