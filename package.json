@@ -36,7 +36,7 @@
     "proto-gen": "bash ./scripts/protocgen.sh",
     "prettier": "prettier --write . --ignore-path .gitignore",
     "prepare": "husky install",
-    "semantic-release": "semantic-release --tag-format='\\${version}'"
+    "semantic-release": "semantic-release"
   },
   "lint-staged": {
     "*.{js,ts}": [
