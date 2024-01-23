@@ -1,3 +1,10 @@
+### [1.0.2](https://github.com/NibiruChain/ts-sdk/compare/v1.0.1...v1.0.2) (2024-01-23)
+
+### Bug Fixes
+
+- path resolution ([#294](https://github.com/NibiruChain/ts-sdk/issues/294)) ([6c76223](https://github.com/NibiruChain/ts-sdk/commit/6c762237a2436bb909109ff4d4e952b80bc47315))
+- path resolution ([#294](https://github.com/NibiruChain/ts-sdk/issues/294)) ([caad35d](https://github.com/NibiruChain/ts-sdk/commit/caad35decb7851c89a93c8214afec20e6159b7a5))
+
 ### [1.0.1](https://github.com/NibiruChain/ts-sdk/compare/v1.0.0...v1.0.1) (2024-01-19)
 
 ### Bug Fixes
