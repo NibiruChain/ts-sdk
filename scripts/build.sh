@@ -12,6 +12,6 @@ yarn build:tsc
 echo "Fix path resolution"
 dist_folder="./dist"
 # Go through all ts and js files in the dist folder
-find "$dist_folder" -type f \( -name "*.ts" -o -name "*.js" \) -exec sed -i 's|require("@/|require("../../|g' {} +
+find "$dist_folder" -type f \( -name "*.ts" -o -name "*.js" \) -exec sed -i 's|require("@/|require("src/|g' {} +
 
 # yarn docgen
