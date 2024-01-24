@@ -9,12 +9,32 @@ export const arg = (name: string, value: any, ignoreQuotes?: boolean) => {
   return `${name}: ${isString}${value}${isString}`
 }
 
-export const getWhereArgArr = (whereArgs: any) =>
-  `where: {
-    ${Object.keys(whereArgs)
-      .map((key) => arg(key, whereArgs[key]))
+export const objToGql = (obj: any): string | number => {
+  // Make sure we don't alter integers.
+  if (typeof obj === "number") {
+    return obj
+  }
+
+  // Stringify everything other than objects and arrays.
+  if (typeof obj !== "object" || Array.isArray(obj)) {
+    return JSON.stringify(obj)
+  }
+
+  // Iterate through object keys to convert into a string
+  // to be interpolated into the query.
+  const res = `{
+    ${Object.keys(obj)
+      .map((key) => `${key}:${objToGql(obj[key])}`)
       .join(", ")}
   }`
+
+  return res
+}
+
+export const getWhereArgArr = (whereArgs: any) => {
+  const res = `where: ${objToGql(whereArgs)}`
+  return res
+}
 
 export const convertObjectToPropertiesString = (obj: any) => {
   let result = ""
@@ -79,11 +99,13 @@ export const gqlQuery = <T>(
 
   const hasQueryList = (char: string) => (queryArgList.length > 0 ? char : "")
 
-  return `${excludeParentObject ? "" : "{"}
+  const res = `${excludeParentObject ? "" : "{"}
     ${name} ${hasQueryList("(")}${queryArgList.join(", ")}${hasQueryList(")")} {
       ${properties}
     }
     ${excludeParentObject ? "" : "}"}`
+
+  return res
 }
 
 export const doGqlQuery = async (gqlQuery: string, gqlEndpt: string) => {
