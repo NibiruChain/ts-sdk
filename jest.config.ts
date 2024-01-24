@@ -1,5 +1,4 @@
 import type { Config } from "jest"
-import { pathsToModuleNameMapper } from "ts-jest"
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { compilerOptions } = require("./tsconfig")
@@ -52,10 +51,6 @@ const config: Config = {
   moduleDirectories: ["<rootDir>", "node_modules", "src"],
   moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
   modulePaths: [compilerOptions.baseUrl], // <-- This will be set to 'baseUrl' value
-  moduleNameMapper: {
-    "~/(.*)": "<rootDir>/src/$1",
-    ...pathsToModuleNameMapper(compilerOptions.paths),
-  },
   roots: ["<rootDir>"],
   preset: "ts-jest",
   testEnvironment: "node",
