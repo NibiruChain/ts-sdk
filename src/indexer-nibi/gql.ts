@@ -9,12 +9,30 @@ export const arg = (name: string, value: any, ignoreQuotes?: boolean) => {
   return `${name}: ${isString}${value}${isString}`
 }
 
-export const getWhereArgArr = (whereArgs: any) =>
-  `where: {
-    ${Object.keys(whereArgs)
-      .map((key) => arg(key, whereArgs[key]))
+export const objToGql = (obj: any): string | number => {
+  // Make sure we don't alter integers.
+  if (typeof obj === "number") {
+    return obj
+  }
+
+  // Stringify everything other than objects and arrays.
+  if (typeof obj !== "object" || Array.isArray(obj)) {
+    return JSON.stringify(obj)
+  }
+
+  // Iterate through object keys to convert into a string
+  // to be interpolated into the query.
+  const res = `{
+    ${Object.keys(obj)
+      .map((key) => `${key}:${objToGql(obj[key])}`)
       .join(", ")}
   }`
+
+  return res
+}
+
+export const getWhereArgArr = (whereArgs: any) =>
+  `where: ${objToGql(whereArgs)}`
 
 export const convertObjectToPropertiesString = (obj: any) => {
   let result = ""
