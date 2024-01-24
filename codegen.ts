@@ -5,7 +5,7 @@ const changeQueryName = (str: string) => `GQL${pascalCase(str)}`
 
 export default {
   schema: {
-    "indexer-nibi": {
+    codegen: {
       loader: "./src/gql/graphql-codegen/codegen-loader.js",
     },
   },

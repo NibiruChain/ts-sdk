@@ -1,6 +1,5 @@
 import { WebSocket } from "ws"
 import { HeartMonitor } from "./heart-monitor"
-import { checkFields, cleanResponse, gqlEndptFromTmRpc } from "../utils"
 import {
   GovernanceFields,
   IbcFields,
@@ -20,6 +19,9 @@ import {
   GqlOutDelegations,
 } from "../query"
 import {
+  checkFields,
+  cleanResponse,
+  gqlEndptFromTmRpc,
   defaultDelegations,
   defaultDistributionCommission,
   defaultGovDeposit,
