@@ -1,3 +1,10 @@
+## [2.0.0](https://github.com/NibiruChain/ts-sdk/compare/v1.0.2...v2.0.0) (2024-01-23)
+
+### Code Refactors
+
+- ../.. instead of src ([#296](https://github.com/NibiruChain/ts-sdk/issues/296)) ([7cfdf7a](https://github.com/NibiruChain/ts-sdk/commit/7cfdf7a2f54b5ddcb529b15685e8a8e99cd6231b))
+- ../.. instead of src ([#296](https://github.com/NibiruChain/ts-sdk/issues/296)) ([e51c214](https://github.com/NibiruChain/ts-sdk/commit/e51c2145693c5239a68ab39009b48a0b4b9bfb0a))
+
 ### [1.0.2](https://github.com/NibiruChain/ts-sdk/compare/v1.0.1...v1.0.2) (2024-01-23)
 
 ### Bug Fixes
