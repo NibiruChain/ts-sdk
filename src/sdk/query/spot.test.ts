@@ -86,14 +86,21 @@ describe("setupSpotExtension", () => {
     }),
   } as unknown as query.QueryClientImpl)
 
-  test("transformPool undefined", () => {
+  test("transformPool - poolParams", () => {
     const result = transformPool({
       id: new Long(0),
       address: "",
       poolAssets: [],
       totalWeight: "",
     })
-    expect(result).toBeUndefined()
+
+    expect(result).toEqual({
+      address: "",
+      id: { high: 0, low: 0, unsigned: false },
+      poolAssets: [],
+      poolParams: undefined,
+      totalWeight: "",
+    })
   })
 
   test("should setup spot extension correctly", () => {
