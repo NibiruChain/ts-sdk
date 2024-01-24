@@ -5,7 +5,7 @@ import {
   QueryCurrentEpochResponse,
   QueryEpochsInfoRequest,
   QueryEpochsInfoResponse,
-} from "@/protojs/nibiru/epochs/v1/query"
+} from "../../protojs/nibiru/epochs/v1/query"
 
 export interface EpochsExtension {
   readonly epochs: Readonly<{
