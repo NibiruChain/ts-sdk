@@ -16,10 +16,7 @@
     "outDir": "dist",
     "esModuleInterop": true,
     "baseUrl": "./",
-    "skipLibCheck": true,
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "skipLibCheck": true
   },
   "include": ["src/**/*", "index.ts", "codegen.ts"],
   "exclude": ["node_modules", "dist"]

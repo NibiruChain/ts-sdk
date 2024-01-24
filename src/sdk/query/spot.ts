@@ -36,7 +36,7 @@ import {
   QueryTotalSharesRequest,
   QueryTotalSharesResponse,
 } from "../../protojs/nibiru/spot/v1/query"
-import { fromSdkDec } from "../chain"
+import { fromSdkDec } from "../utils"
 
 export const transformPoolParams = (pp?: PoolParams) => {
   if (pp) {
@@ -46,10 +46,7 @@ export const transformPoolParams = (pp?: PoolParams) => {
   return pp
 }
 
-export const transformPool = (p?: Pool) => {
-  if (!p) {
-    return p
-  }
+export const transformPool = (p: Pool) => {
   p.poolParams = transformPoolParams(p.poolParams)
   return p
 }
@@ -116,13 +113,13 @@ export const setupSpotExtension = (base: QueryClient): SpotExtension => {
       pool: async (poolId: number) => {
         const req = QueryPoolRequest.fromPartial({ poolId })
         const resp = await queryService.Pool(req)
-        resp.pool = transformPool(resp.pool)
+        resp.pool = resp.pool ? transformPool(resp.pool) : undefined
         return resp
       },
       pools: async (pagination?: IPageRequest) => {
         const req = QueryPoolsRequest.fromPartial({ pagination })
         const resp = await queryService.Pools(req)
-        resp.pools = resp.pools.map((p) => transformPool(p)!)
+        resp.pools = resp.pools.map((p) => transformPool(p))
         return resp
       },
       poolParams: async (poolId: number) => {

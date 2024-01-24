@@ -6,7 +6,7 @@ import {
   MsgSwapAssets,
 } from "../../protojs/nibiru/spot/v1/tx"
 import { TxMessage } from "./encode-types"
-import { toSdkDec } from "../chain"
+import { toSdkDec } from "../utils"
 
 const protobufPackage = "nibiru.spot.v1"
 

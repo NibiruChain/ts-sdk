@@ -10,7 +10,7 @@ import {
   QueryPositionsRequest,
   QueryPositionsResponse,
 } from "../../protojs/nibiru/perp/v2/query"
-import { fromSdkDec } from "../chain"
+import { fromSdkDec } from "../utils"
 
 function transformPosition(resp: QueryPositionResponse): QueryPositionResponse {
   const { positionNotional: pn, unrealizedPnl: upnl, marginRatio: mr } = resp
