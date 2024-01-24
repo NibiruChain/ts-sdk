@@ -31,10 +31,8 @@ export const objToGql = (obj: any): string | number => {
   return res
 }
 
-export const getWhereArgArr = (whereArgs: any) => {
-  const res = `where: ${objToGql(whereArgs)}`
-  return res
-}
+export const getWhereArgArr = (whereArgs: any) =>
+  `where: ${objToGql(whereArgs)}`
 
 export const convertObjectToPropertiesString = (obj: any) => {
   let result = ""
@@ -99,13 +97,11 @@ export const gqlQuery = <T>(
 
   const hasQueryList = (char: string) => (queryArgList.length > 0 ? char : "")
 
-  const res = `${excludeParentObject ? "" : "{"}
+  return `${excludeParentObject ? "" : "{"}
     ${name} ${hasQueryList("(")}${queryArgList.join(", ")}${hasQueryList(")")} {
       ${properties}
     }
     ${excludeParentObject ? "" : "}"}`
-
-  return res
 }
 
 export const doGqlQuery = async (gqlQuery: string, gqlEndpt: string) => {
