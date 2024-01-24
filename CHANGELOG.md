@@ -1,3 +1,9 @@
+### [2.0.1](https://github.com/NibiruChain/ts-sdk/compare/v2.0.0...v2.0.1) (2024-01-24)
+
+### Miscellaneous Chores
+
+- gql when args fix ([#299](https://github.com/NibiruChain/ts-sdk/issues/299)) ([10776c2](https://github.com/NibiruChain/ts-sdk/commit/10776c28e08e41446e11365da9277fc42a249b1c)), closes [#298](https://github.com/NibiruChain/ts-sdk/issues/298) [#293](https://github.com/NibiruChain/ts-sdk/issues/293)
+
 ## [2.0.0](https://github.com/NibiruChain/ts-sdk/compare/v1.0.2...v2.0.0) (2024-01-23)
 
 ### Code Refactors
