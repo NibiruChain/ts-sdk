@@ -1,16 +1,21 @@
-reports
-junit.xml
-dist
-temp
-.build-cache
-.DS_STORE
 # Created by https://www.gitignore.io/api/node,intellij+all,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=node,intellij+all,visualstudiocode
 
 docs/
 src/protojs/
 proto/
-src/indexer-nibi/gql/
+src/gql/utils/generated.ts
+src/gql/utils/schema.graphql
+dist
+**/node_modules/*
+nibiru/
+
+
+reports
+junit.xml
+temp
+.build-cache
+.DS_STORE
 
 ### Intellij+all ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
@@ -203,5 +208,3 @@ typings/
 # End of https://www.gitignore.io/api/node,intellij+all,visualstudiocode
 .yarn
 .DS_Store
-
-nibiru/

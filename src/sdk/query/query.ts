@@ -26,8 +26,8 @@ import { PerpExtension, setupPerpExtension } from "./perp"
 import { setupSpotExtension, SpotExtension } from "./spot"
 import { setupSudoExtension, SudoExtension } from "./sudo"
 import { InflationExtension, setupInflationExtension } from "./inflation"
-import { Result } from "../result"
-import { bytesToHex, hexToBytes } from "../hash"
+import { Result } from "../utils/result"
+import { bytesToHex, hexToBytes } from "../utils/hash"
 
 export type NibiruExtensions = StargateQueryClient &
   SpotExtension &

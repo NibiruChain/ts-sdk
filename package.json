@@ -21,7 +21,7 @@
     "docgen:changes": "git diff-index --name-only origin/HEAD -- | grep -q \"src\" && yarn docgen || true",
     "clean": "tsc --clean",
     "commit": "cz",
-    "gql-generate": "rm -rf src/indexer-nibi/gql && graphql-code-generator --config codegen.ts",
+    "gql-generate": "graphql-code-generator --config codegen.ts",
     "test": "jest",
     "test:verbose": "jest --verbose --detectOpenHandles",
     "test:watch": "jest --watch",
@@ -34,6 +34,7 @@
     "format:md": "yarn lint:md --fix",
     "proto-gen": "bash ./scripts/protocgen.sh",
     "prettier": "prettier --write . --ignore-path .gitignore",
+    "eslint": "eslint --fix . --ignore-path .gitignore",
     "prepare": "husky install",
     "semantic-release": "semantic-release"
   },

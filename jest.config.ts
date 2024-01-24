@@ -1,5 +1,7 @@
 import type { Config } from "jest"
-const { pathsToModuleNameMapper } = require("ts-jest")
+import { pathsToModuleNameMapper } from "ts-jest"
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { compilerOptions } = require("./tsconfig")
 
 // For a detailed explanation regarding each configuration property, visit:
@@ -14,9 +16,25 @@ const config: Config = {
     "!**/dist/**",
     "!**/index.*.ts",
     "!**/index.ts",
-    "!**/sdk/test/helpers.ts",
   ],
-  coveragePathIgnorePatterns: ["/node_modules/", "/dist/", "/src/protojs/"],
+  coveragePathIgnorePatterns: [
+    "/docs/",
+    "/node_modules/",
+    "/build/",
+    "/coverage/",
+    "/dist/",
+    "/src/protojs/",
+    "/nibiru",
+  ],
+  testPathIgnorePatterns: [
+    "/docs/",
+    "/node_modules/",
+    "/build/",
+    "/coverage/",
+    "/dist/",
+    "/src/protojs/",
+    "/nibiru",
+  ],
   coverageReporters: ["json-summary", "text", "html", "lcov"],
   coverageThreshold: {
     global: {
@@ -26,7 +44,6 @@ const config: Config = {
       statements: 75,
     },
   },
-  coverageProvider: "v8",
   globals: {
     window: {
       location: {},
@@ -40,11 +57,9 @@ const config: Config = {
     ...pathsToModuleNameMapper(compilerOptions.paths),
   },
   roots: ["<rootDir>"],
-  modulePathIgnorePatterns: ["examples"],
   preset: "ts-jest",
   testEnvironment: "node",
   reporters: ["default"],
-  testPathIgnorePatterns: ["/node_modules/", "/build/", "/coverage/", "/dist/"],
   testTimeout: 120000,
 }
 

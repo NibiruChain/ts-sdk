@@ -5,9 +5,9 @@ import {
   MsgClosePosition,
   MsgMarketOrder,
   MsgRemoveMargin,
-} from "@/protojs/nibiru/perp/v2/tx"
-import { Direction } from "@/protojs/nibiru/perp/v2/state"
-import { TxLog } from "../chain"
+} from "../../protojs/nibiru/perp/v2/tx"
+import { Direction } from "../../protojs/nibiru/perp/v2/state"
+import { TxLog } from "../utils"
 import { TxMessage } from "../msg"
 import { PERP_MSG_TYPE_URLS } from "../msg/perp"
 import { NibiruQuerier } from "../query/query"
@@ -19,7 +19,7 @@ import {
   TEST_ADDRESS,
   TEST_MNEMONIC,
   ERR,
-} from "../testutil"
+} from "../utils/testutil"
 import { newRandomWallet, newSignerFromMnemonic } from "./signer"
 import { NibiruTxClient } from "./txClient"
 
@@ -106,7 +106,7 @@ describe("nibid tx perp", () => {
     ]
 
     const assertHappyPath = (result: DeliverTxResponse) => {
-      const txLogs: TxLog[] = JSON.parse(result.rawLog!)
+      const txLogs: TxLog[] = JSON.parse(result.rawLog ?? "{}")
       expect(txLogs).toHaveLength(4)
 
       // perp tx open-position events
@@ -154,11 +154,12 @@ describe("nibid tx perp", () => {
     } catch (error) {
       const okErrors: string[] = [ERR.collections, ERR.noPrices, ERR.sequence]
 
-      let err = error as any
+      const err = error as { rawLog: unknown }
+      let rawError
       if (err.rawLog) {
-        err = err.rawLog
+        rawError = err.rawLog
       }
-      assertExpectedError(err, okErrors)
+      assertExpectedError(rawError ?? err, okErrors)
     }
   }, 40_000 /* default timeout is not sufficient. */)
 
@@ -201,7 +202,7 @@ describe("nibid tx perp", () => {
     ]
 
     const assertHappyPath = (result: DeliverTxResponse) => {
-      const txLogs: TxLog[] = JSON.parse(result.rawLog!)
+      const txLogs: TxLog[] = JSON.parse(result.rawLog ?? "{}")
       expect(txLogs).toHaveLength(1)
 
       // perp tx close-position events
@@ -220,11 +221,12 @@ describe("nibid tx perp", () => {
     } catch (error) {
       const okErrors: string[] = [ERR.collections, ERR.sequence]
 
-      let err = error as any
+      const err = error as { rawLog: unknown }
+      let rawError
       if (err.rawLog) {
-        err = err.rawLog
+        rawError = err.rawLog
       }
-      assertExpectedError(err, okErrors)
+      assertExpectedError(rawError ?? err, okErrors)
     }
   })
 })

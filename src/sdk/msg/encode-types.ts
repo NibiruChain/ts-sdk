@@ -18,4 +18,4 @@ export declare const Msg: MsgFactory
  * @field typeUrl: registered identifier for the proto message
  * @field value: proto-able message body
  */
-export interface TxMessage extends EncodeObject {}
+export type TxMessage = EncodeObject
