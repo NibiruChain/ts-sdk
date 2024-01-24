@@ -1016,6 +1016,10 @@ const testWasm = async (args: QueryWasmArgs, fields?: GqlWasmFields) => {
 test("wasm", async () => {
   await testWasm({
     userContracts: {
+      where: {
+        contractAddress: { like: "123" },
+        userAddress: { eq: "456" },
+      },
       limit: 1,
     },
   })
