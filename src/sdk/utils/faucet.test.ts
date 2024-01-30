@@ -1,9 +1,17 @@
 import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import { coins } from "@cosmjs/proto-signing"
 import { fetch } from "cross-fetch"
-import { Chain, faucetUrlFromChain, newCoinMapFromCoins, useFaucet } from "."
-import { newRandomWallet, newSignerFromMnemonic, NibiruTxClient } from "../tx"
-import { TEST_CHAIN, TEST_MNEMONIC } from "./testutil"
+import {
+  Chain,
+  faucetUrlFromChain,
+  newCoinMapFromCoins,
+  useFaucet,
+  newRandomWallet,
+  newSignerFromMnemonic,
+  NibiruTxClient,
+  TEST_CHAIN,
+  TEST_MNEMONIC,
+} from ".."
 
 jest.mock("cross-fetch", () => ({
   fetch: jest.fn().mockImplementation(() => ({ catch: jest.fn() })),

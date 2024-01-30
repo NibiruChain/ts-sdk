@@ -1,15 +1,13 @@
-import { defaultSpotPool } from "../utils/defaultObjects"
 import {
+  defaultSpotPool,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLQueryGqlSpotPoolExitedArgs,
   GQLSpotPoolExited,
   GQLSpotPoolExitedOrder,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutSpotPoolExited {
   spotPoolExited?: GQLQuery["spotPoolExited"]

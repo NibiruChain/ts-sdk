@@ -36,7 +36,7 @@ import {
   QueryTotalSharesRequest,
   QueryTotalSharesResponse,
 } from "../../protojs/nibiru/spot/v1/query"
-import { fromSdkDec } from "../utils"
+import { fromSdkDec } from ".."
 
 export const transformPoolParams = (pp?: PoolParams) => {
   if (pp) {

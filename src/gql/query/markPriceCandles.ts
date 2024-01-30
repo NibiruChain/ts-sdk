@@ -1,14 +1,12 @@
-import { defaultMarkPriceCandles } from "../utils/defaultObjects"
 import {
+  defaultMarkPriceCandles,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQueryGqlMarkPriceCandlesArgs,
   GQLQuery,
   GQLMarkPriceCandle,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutMarkPriceCandles {
   markPriceCandles?: GQLQuery["markPriceCandles"]

@@ -1,15 +1,13 @@
-import { defaultValidator } from "../utils/defaultObjects"
 import {
+  defaultValidator,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLQueryGqlValidatorsArgs,
   GQLValidator,
   GQLValidatorOrder,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutValidators {
   validators?: GQLQuery["validators"]

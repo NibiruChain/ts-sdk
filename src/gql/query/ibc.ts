@@ -1,18 +1,14 @@
 import {
   defaultIbcChannelsResponse,
   defaultIbcTransfer,
-} from "../utils/defaultObjects"
-import {
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLIbcgqlIbcTransfersArgs,
   GQLIbcChannelsResponse,
   GQLIbcTransfer,
-} from "../utils/generated"
+} from ".."
 
 export type QueryIbcArgs = {
   ibcChannels?: undefined

@@ -1,5 +1,5 @@
 import { fetch } from "cross-fetch"
-import { Result } from "./result"
+import { Result } from "."
 
 /**
  * Specifies chain information for all endpoints a Nibiru node exposes such as the

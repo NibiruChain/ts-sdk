@@ -1,11 +1,8 @@
-import { GraphQLSchema } from "graphql"
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const loader = require("./codegen-loader")
+import { changeQueryName } from "./codegen"
 
 describe("codegen-loader tests", () => {
-  test("codegen-loader", async () => {
-    const testResult = await loader()
-    expect(testResult).toBeInstanceOf(GraphQLSchema)
+  test("changeQueryName", () => {
+    const testResult = changeQueryName("query name")
+    expect(testResult).toEqual("GQLQueryName")
   })
 })

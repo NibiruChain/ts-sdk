@@ -1,7 +1,7 @@
 import type { CodegenConfig } from "@graphql-codegen/cli"
 import { pascalCase } from "change-case-all"
 
-const changeQueryName = (str: string) => `GQL${pascalCase(str)}`
+export const changeQueryName = (str: string) => `GQL${pascalCase(str)}`
 
 export default {
   schema: {

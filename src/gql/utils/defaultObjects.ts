@@ -34,7 +34,7 @@ import {
   GQLUserContract,
   GQLValidator,
   GQLValidatorStatus,
-} from "./generated"
+} from "."
 
 export const defaultToken: GQLToken = {
   denom: "",

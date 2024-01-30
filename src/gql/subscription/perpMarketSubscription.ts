@@ -3,9 +3,10 @@ import {
   GQLSubscriptionGqlPerpMarketArgs,
   GQLPerpMarket,
   GQLSubscription,
-} from "../utils/generated"
-import { defaultPerpMarket } from "../utils/defaultObjects"
-import { gqlQuery, convertObjectToPropertiesString } from "../utils/consts"
+  defaultPerpMarket,
+  gqlQuery,
+  convertObjectToPropertiesString,
+} from ".."
 
 export interface GqlOutPerpMarket {
   perpMarket?: GQLSubscription["perpMarket"]

@@ -6,13 +6,9 @@ import {
   defaultTvl,
   defaultUsers,
   defaultVolume,
-} from "../utils/defaultObjects"
-import {
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLStatsGqlFeesArgs,
   GQLStatsFees,
@@ -28,7 +24,7 @@ import {
   GQLStatsGqlTvlArgs,
   GQLStatsGqlUsersArgs,
   GQLStatsGqlVolumeArgs,
-} from "../utils/generated"
+} from ".."
 
 export type QueryStatsArgs = {
   fees?: GQLStatsGqlFeesArgs

@@ -1,11 +1,12 @@
 import { Client, ExecutionResult } from "graphql-ws"
-import { defaultPerpPosition } from "../utils/defaultObjects"
 import {
+  defaultPerpPosition,
   GQLSubscriptionGqlPerpPositionsArgs,
   GQLPerpPosition,
   GQLSubscription,
-} from "../utils/generated"
-import { gqlQuery, convertObjectToPropertiesString } from "../utils/consts"
+  gqlQuery,
+  convertObjectToPropertiesString,
+} from ".."
 
 export interface GqlOutPerpPositions {
   perpPositions?: GQLSubscription["perpPositions"]

@@ -1,14 +1,12 @@
-import { defaultToken } from "../utils/defaultObjects"
 import {
+  defaultToken,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQueryGqlCommunityPoolArgs,
   GQLQuery,
   GQLToken,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutCommunityPool {
   communityPool?: GQLQuery["communityPool"]

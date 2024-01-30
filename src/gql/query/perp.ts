@@ -3,13 +3,9 @@ import {
   defaultPerpMarket,
   defaultPerpPosition,
   defaultPerpPositionChanges,
-} from "../utils/defaultObjects"
-import {
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLPerpLeaderboard,
   GQLPerpMarket,
@@ -21,7 +17,7 @@ import {
   GQLPerpGqlPositionArgs,
   GQLPerpGqlPositionsArgs,
   GQLPerpGqlPositionChangesArgs,
-} from "../utils/generated"
+} from ".."
 
 export type QueryPerpArgs = {
   leaderboard?: GQLPerpGqlLeaderboardArgs

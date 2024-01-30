@@ -14,9 +14,9 @@ import {
   toSdkDec,
   Mainnet,
   Testnet,
-} from "."
-import { TEST_CHAIN } from "./testutil"
-import { NibiruTxClient } from "../tx/txClient"
+  TEST_CHAIN,
+  NibiruTxClient,
+} from ".."
 
 describe("chain/chain", () => {
   test("testnet rpc", async () => {

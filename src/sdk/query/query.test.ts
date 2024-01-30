@@ -2,17 +2,17 @@ import fs from "fs"
 import { Block, coins } from "@cosmjs/stargate"
 import Long from "long"
 import { fetch } from "cross-fetch"
-import { NibiruQuerier } from "."
 import {
+  NibiruQuerier,
   TEST_CHAIN,
   TEST_ADDRESS,
   assertValidBlock,
   assertValidBlockFromJsonRpc,
   TEST_MNEMONIC,
   assertExpectedError,
-} from "../utils/testutil"
-import { newSignerFromMnemonic } from "../tx/signer"
-import { NibiruTxClient } from "../tx/txClient"
+  newSignerFromMnemonic,
+  NibiruTxClient,
+} from ".."
 
 interface BlockResp {
   result: { block: { [key: string]: unknown } }

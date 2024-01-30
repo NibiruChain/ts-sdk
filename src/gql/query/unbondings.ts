@@ -1,15 +1,13 @@
-import { defaultUnbondings } from "../utils/defaultObjects"
 import {
+  defaultUnbondings,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLQueryGqlUnbondingsArgs,
   GQLUnbonding,
   GQLUnbondingOrder,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutUnbondings {
   unbondings?: GQLQuery["unbondings"]

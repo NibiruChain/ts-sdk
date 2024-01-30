@@ -2,10 +2,11 @@ import { Client, ExecutionResult } from "graphql-ws"
 import {
   GQLMarkPriceCandle,
   GQLSubscriptionGqlMarkPriceCandlesArgs,
-} from "../utils/generated"
-import { gqlQuery, convertObjectToPropertiesString } from "../utils/consts"
-import { GqlOutMarkPriceCandles } from "../query"
-import { defaultMarkPriceCandles } from "../utils/defaultObjects"
+  gqlQuery,
+  convertObjectToPropertiesString,
+  defaultMarkPriceCandles,
+  GqlOutMarkPriceCandles,
+} from ".."
 
 export const markPriceCandlesSubscriptionQueryString = (
   args: GQLSubscriptionGqlMarkPriceCandlesArgs,

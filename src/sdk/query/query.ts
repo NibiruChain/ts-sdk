@@ -20,14 +20,23 @@ import {
   WasmExtension,
 } from "@cosmjs/cosmwasm-stargate"
 import { TxResponse } from "@cosmjs/tendermint-rpc/build/tendermint37"
-import { EpochsExtension, setupEpochsExtension } from "./epochs"
-import { OracleExtension, setupOracleExtension } from "./oracle"
-import { PerpExtension, setupPerpExtension } from "./perp"
-import { setupSpotExtension, SpotExtension } from "./spot"
-import { setupSudoExtension, SudoExtension } from "./sudo"
-import { InflationExtension, setupInflationExtension } from "./inflation"
-import { Result } from "../utils/result"
-import { bytesToHex, hexToBytes } from "../utils/hash"
+import {
+  EpochsExtension,
+  setupEpochsExtension,
+  OracleExtension,
+  setupOracleExtension,
+  PerpExtension,
+  setupPerpExtension,
+  setupSpotExtension,
+  SpotExtension,
+  setupSudoExtension,
+  SudoExtension,
+  InflationExtension,
+  setupInflationExtension,
+  Result,
+  bytesToHex,
+  hexToBytes,
+} from ".."
 
 export type NibiruExtensions = StargateQueryClient &
   SpotExtension &

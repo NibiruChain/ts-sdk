@@ -9,8 +9,7 @@ import {
   MsgPartialClose,
 } from "../../protojs/nibiru/perp/v2/tx"
 import { Direction } from "../../protojs/nibiru/perp/v2/state"
-import { toSdkDec, toSdkInt } from "../utils"
-import { TxMessage } from "./encode-types"
+import { toSdkDec, toSdkInt, TxMessage } from ".."
 
 const protobufPackage = "nibiru.perp.v2"
 

@@ -1,7 +1,5 @@
 import { Block } from "@cosmjs/stargate"
-import { Chain, Localnet } from "."
-import { parseError } from "./result"
-import { ABCIEvent } from "../tx"
+import { Chain, Localnet, parseError, ABCIEvent } from ".."
 
 /** TEST_CHAIN: Alias for Localnet.
  * @see Localnet */

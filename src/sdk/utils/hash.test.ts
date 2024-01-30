@@ -1,4 +1,4 @@
-import { bytesToHex, hexToBytes } from "./hash"
+import { bytesToHex, hexToBytes } from "."
 
 const TEST_CASES: { hex: string; bz: Uint8Array }[] = [
   {

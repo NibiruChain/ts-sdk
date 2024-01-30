@@ -36,8 +36,7 @@ import {
   GQLUnbonding,
   GQLUser,
   GQLValidator,
-} from "../utils"
-import {
+  queryBatchHandler,
   GqlOutCommunityPool,
   GqlOutDelegations,
   GqlOutDistributionCommissions,
@@ -86,8 +85,6 @@ import {
   GqlOutIbc,
   ibc,
   QueryPerpArgs,
-} from "../query"
-import {
   markPriceCandlesSubscription,
   GqlOutPerpMarket,
   perpMarketSubscription,
@@ -95,9 +92,11 @@ import {
   oraclePricesSubscription,
   GqlOutOraclePrices,
   GqlOutPerpPositions,
-} from "../subscription"
-import { queryBatchHandler } from "../utils"
-import { GqlOutWasm, GqlWasmFields, QueryWasmArgs, wasm } from "../query/wasm"
+  GqlOutWasm,
+  GqlWasmFields,
+  QueryWasmArgs,
+  wasm,
+} from ".."
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a GQLQueryGql function. */

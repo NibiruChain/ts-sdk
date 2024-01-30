@@ -1,15 +1,13 @@
-import { defaultRedelegations } from "../utils/defaultObjects"
 import {
+  defaultRedelegations,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLQueryGqlRedelegationsArgs,
   GQLRedelegation,
   GQLRedelegationOrder,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutRedelegations {
   redelegations?: GQLQuery["redelegations"]

@@ -7,11 +7,11 @@ import {
   MsgRemoveMargin,
 } from "../../protojs/nibiru/perp/v2/tx"
 import { Direction } from "../../protojs/nibiru/perp/v2/state"
-import { TxLog } from "../utils"
-import { TxMessage } from "../msg"
-import { PERP_MSG_TYPE_URLS } from "../msg/perp"
-import { NibiruQuerier } from "../query/query"
 import {
+  TxLog,
+  TxMessage,
+  PERP_MSG_TYPE_URLS,
+  NibiruQuerier,
   assertHasEventType,
   assertHasMsgType,
   assertExpectedError,
@@ -19,9 +19,10 @@ import {
   TEST_ADDRESS,
   TEST_MNEMONIC,
   ERR,
-} from "../utils/testutil"
-import { newRandomWallet, newSignerFromMnemonic } from "./signer"
-import { NibiruTxClient } from "./txClient"
+  newRandomWallet,
+  newSignerFromMnemonic,
+  NibiruTxClient,
+} from ".."
 
 describe("txClient", () => {
   test("connects", async () => {

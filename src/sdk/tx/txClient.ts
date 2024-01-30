@@ -17,8 +17,9 @@ import {
   SigningCosmWasmClientOptions,
   setupWasmExtension,
 } from "@cosmjs/cosmwasm-stargate"
-import { perpTypes, spotTypes } from "../msg"
 import {
+  perpTypes,
+  spotTypes,
   setupInflationExtension,
   setupSudoExtension,
   setupSpotExtension,
@@ -26,7 +27,7 @@ import {
   setupPerpExtension,
   setupOracleExtension,
   setupEpochsExtension,
-} from "../query"
+} from ".."
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
   ...defaultRegistryTypes,

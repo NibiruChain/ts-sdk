@@ -1,9 +1,11 @@
-import { checkFields, queryBatchHandler } from "."
 import {
+  checkFields,
+  queryBatchHandler,
   GqlOutCommunityPool,
   communityPoolQueryString,
-} from "../query/communityPool"
-import { GqlOutDelegations, delegationsQueryString } from "../query"
+  GqlOutDelegations,
+  delegationsQueryString,
+} from ".."
 
 describe("queryBatchHandler tests", () => {
   test("queryBatchHandler", async () => {

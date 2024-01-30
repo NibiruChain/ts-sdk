@@ -1,6 +1,6 @@
 import { WebSocket } from "ws"
-import { HeartMonitor } from "./heart-monitor"
 import {
+  HeartMonitor,
   GovernanceFields,
   IbcFields,
   OracleFields,
@@ -17,8 +17,6 @@ import {
   GqlWasmFields,
   GqlOutCommunityPool,
   GqlOutDelegations,
-} from "../query"
-import {
   checkFields,
   cleanResponse,
   gqlEndptFromTmRpc,
@@ -89,7 +87,7 @@ import {
   GQLUnbonding,
   GQLUser,
   GQLValidator,
-} from "../utils"
+} from ".."
 
 const nibiruUrl = "devnet-2"
 
