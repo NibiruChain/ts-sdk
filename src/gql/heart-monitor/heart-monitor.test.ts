@@ -223,7 +223,6 @@ const testIbc = async (args: QueryIbcArgs, fields?: IbcFields) => {
 
 test("ibc", async () => {
   await testIbc({
-    ibcChannels: undefined,
     ibcTransfers: {
       limit: 1,
     },

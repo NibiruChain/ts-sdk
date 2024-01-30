@@ -9,7 +9,7 @@ import {
   newRandomWallet,
   newSignerFromMnemonic,
   NibiruTxClient,
-  TEST_CHAIN,
+  Localnet,
   TEST_MNEMONIC,
 } from ".."
 
@@ -29,7 +29,7 @@ test.skip("faucet utility works", async () => {
 
   const validator = await newSignerFromMnemonic(TEST_MNEMONIC)
   const txClient = await NibiruTxClient.connectWithSigner(
-    TEST_CHAIN.endptTm,
+    Localnet.endptTm,
     validator
   )
   const [{ address: fromAddr }] = await validator.getAccounts()
@@ -47,7 +47,7 @@ test.skip("faucet utility works", async () => {
   )
   const faucetResp = await useFaucet({
     address: toAddr,
-    chain: TEST_CHAIN,
+    chain: Localnet,
     grecaptcha: "",
   })
   expect(faucetResp?.ok).toBeTruthy()

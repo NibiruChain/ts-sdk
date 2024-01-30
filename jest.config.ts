@@ -20,6 +20,7 @@ const config: Config = {
     "!**/index.ts",
     "!**/src/protojs/**",
     "!jest.config.ts",
+    "!**/src/gql/utils/generated.ts",
   ],
   testPathIgnorePatterns: ["/node_modules/", "/dist/"],
   coverageReporters: ["json-summary", "text", "html", "lcov"],

@@ -66,7 +66,7 @@ export const defaultValidator: GQLValidator = {
   jailed: false,
   operator_address: "",
   min_self_delegation: 0,
-  status: GQLValidatorStatus.GQLBonded,
+  status: "BONDED" as GQLValidatorStatus.GQLUnbonded,
   tokens: 0,
   unbonding_block: defaultBlock,
   unbonding_time: "",

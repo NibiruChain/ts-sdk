@@ -15,7 +15,7 @@ import {
   assertHasEventType,
   assertHasMsgType,
   assertExpectedError,
-  TEST_CHAIN,
+  Localnet,
   TEST_ADDRESS,
   TEST_MNEMONIC,
   ERR,
@@ -26,7 +26,7 @@ import {
 
 describe("txClient", () => {
   test("connects", async () => {
-    const txClient = await NibiruTxClient.connect(TEST_CHAIN.endptTm)
+    const txClient = await NibiruTxClient.connect(Localnet.endptTm)
     expect(txClient).toBeTruthy()
   })
 })
@@ -39,7 +39,7 @@ describe("nibid tx bank send", () => {
     expect(fromAddr).toBeDefined()
 
     const txClient = await NibiruTxClient.connectWithSigner(
-      TEST_CHAIN.endptTm,
+      Localnet.endptTm,
       signer
     )
 
@@ -54,7 +54,7 @@ describe("nibid tx bank send", () => {
     )
     assertIsDeliverTxSuccess(resp)
 
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const txQuery = await querier.getTxByHash(resp.transactionHash)
     expect(txQuery.isOk()).toBeTruthy()
   })
@@ -66,7 +66,7 @@ describe("nibid tx perp", () => {
   test("open-position, add-margin, remove-margin", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const txClient = await NibiruTxClient.connectWithSigner(
-      TEST_CHAIN.endptTm,
+      Localnet.endptTm,
       signer
     )
     const [{ address: sender }] = await signer.getAccounts()
@@ -165,7 +165,7 @@ describe("nibid tx perp", () => {
   }, 40_000 /* default timeout is not sufficient. */)
 
   test("nibid query perp positions", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const resp = await querier.nibiruExtensions.perp.positions({
       trader: TEST_ADDRESS,
     })
@@ -182,7 +182,7 @@ describe("nibid tx perp", () => {
   test("nibid tx perp close-position", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const txClient = await NibiruTxClient.connectWithSigner(
-      TEST_CHAIN.endptTm,
+      Localnet.endptTm,
       signer
     )
     const [{ address: sender }] = await signer.getAccounts()
