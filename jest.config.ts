@@ -21,6 +21,7 @@ const config: Config = {
     "!**/src/protojs/**",
     "!jest.config.ts",
     "!**/src/gql/utils/generated.ts",
+    "!**/src/sdk/utils/testutil.ts",
   ],
   testPathIgnorePatterns: ["/node_modules/", "/dist/"],
   coverageReporters: ["json-summary", "text", "html", "lcov"],

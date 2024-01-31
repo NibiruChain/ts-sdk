@@ -58,6 +58,11 @@ describe("chain/chain", () => {
     expectCreatedChain(result, "testnet", num)
   })
 
+  test("IncentivizedTestnet - no params", async () => {
+    const result = Testnet()
+    expectCreatedChain(result, "testnet", 1)
+  })
+
   test("Devnet", async () => {
     const num = 2
     const result = Devnet(num)

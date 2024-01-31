@@ -106,16 +106,6 @@ describe("useFaucet", () => {
     })
   })
 
-  test("should return undefined if fetch fails", async () => {
-    const errorMessage = "Failed to fetch"
-
-    jest.mock("cross-fetch", () => ({
-      fetch: jest.fn().mockRejectedValueOnce(new Error(errorMessage)),
-    }))
-
-    expect(await useFaucet({ address, chain, grecaptcha })).toEqual(undefined)
-  })
-
   test("faucetUrlFromChain helper func should construct faucet URL from chain object", () => {
     expect(
       faucetUrlFromChain({
@@ -129,5 +119,19 @@ describe("useFaucet", () => {
         feeDenom: "",
       })
     ).toBe(expectedUrl)
+  })
+
+  test("faucetUrlFromChain - chain includes cataclysm", () => {
+    const result = faucetUrlFromChain({
+      endptTm: "",
+      endptRest: "",
+      endptGrpc: "",
+      endptHm: "",
+      endptWs: "",
+      chainId: "",
+      chainName: "cataclysm",
+      feeDenom: "",
+    })
+    expect(result).toEqual(`https://faucet.nibiru.fi/`)
   })
 })

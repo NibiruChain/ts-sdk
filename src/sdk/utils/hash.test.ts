@@ -58,3 +58,23 @@ test("hex encode: sad path", () => {
   expect(resBz.isErr()).toBeTruthy()
   expect(resBz.err?.message).toContain("even length")
 })
+
+test("hexToBytes - empty string", () => {
+  const resBz = hexToBytes("")
+  expect(resBz.isOk()).toBeTruthy()
+  if (!resBz.ok) {
+    expect(1).toEqual(2)
+    return
+  }
+  const gotHex = bytesToHex(resBz.ok)
+  expect(gotHex).toContain("")
+})
+
+test("hexToBytes - incorrect string", () => {
+  const nonhex = "mock"
+  const resBz = hexToBytes(nonhex)
+  expect(resBz.isErr()).toBeTruthy()
+  expect(resBz.err).toEqual(
+    new Error(`HexError: non-hex characters detected in hex: ${nonhex}`)
+  )
+})

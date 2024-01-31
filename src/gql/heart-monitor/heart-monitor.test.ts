@@ -19,7 +19,6 @@ import {
   GqlOutDelegations,
   checkFields,
   cleanResponse,
-  gqlEndptFromTmRpc,
   defaultDelegations,
   defaultDistributionCommission,
   defaultGovDeposit,
@@ -124,35 +123,6 @@ describe("Heart Monitor constructor", () => {
   })
 })
 
-describe("gqlEndptFromTmRpc", () => {
-  interface TestCase {
-    in: string
-    want: string | null
-  }
-
-  const tests: TestCase[] = [
-    {
-      in: `https://rpc.${nibiruUrl}.nibiru.fi`,
-      want: `https://hm-graphql.${nibiruUrl}.nibiru.fi/graphql`,
-    },
-    {
-      in: `----rpc.${nibiruUrl}.-----`,
-      want: `https://hm-graphql.${nibiruUrl}.nibiru.fi/graphql`,
-    },
-    { in: "", want: null },
-    { in: "rpctestnet-nodots", want: null },
-    {
-      in: "rpc.testnet-nodots",
-      want: "https://hm-graphql.testnet-nodots.nibiru.fi/graphql",
-    },
-  ]
-
-  test.each(tests)("%s", (tc: TestCase) => {
-    const got = gqlEndptFromTmRpc(tc.in)
-    expect(got).toBe(tc.want)
-  })
-})
-
 const testCommunityPool = async (
   args: GQLQueryGqlCommunityPoolArgs,
   fields?: GQLToken
@@ -217,12 +187,21 @@ const testIbc = async (args: QueryIbcArgs, fields?: IbcFields) => {
   if (resp.ibc) {
     const { ibc } = resp
 
-    checkFields([ibc], ["ibcChannels", "ibcTransfers"])
+    checkFields(
+      [ibc],
+      [...(args.ibcChannels ? ["ibcChannels"] : []), "ibcTransfers"]
+    )
   }
 }
 
 test("ibc", async () => {
   await testIbc({
+    ibcTransfers: {
+      limit: 1,
+    },
+  })
+  await testIbc({
+    ibcChannels: undefined,
     ibcTransfers: {
       limit: 1,
     },

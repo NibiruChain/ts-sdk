@@ -15,9 +15,6 @@ export const queryBatchHandler = async <T>(
   endpt: string
 ) => <T>doGqlQuery(`{ ${queryQueryStrings.join("\n")} }`, endpt)
 
-const createGqlEndpt = (chain: string) =>
-  `https://hm-graphql.${chain}.nibiru.fi/graphql`
-
 export const arg = (name: string, value: unknown, ignoreQuotes?: boolean) => {
   const isString = typeof value === "string" && !ignoreQuotes ? `"` : ""
 
@@ -132,27 +129,4 @@ export const doGqlQuery = async <T>(gqlQuery: string, gqlEndpt: string) => {
     body: JSON.stringify({ query: gqlQuery }),
   })
   return cleanResponse(rawResp) as T
-}
-
-export const gqlEndptFromTmRpc = (endptTm: string) => {
-  const endptTmParts = endptTm.split(".")
-  //  rpcIdx: the index of the substring that includes rpc
-  let rpcIdx = -1
-  endptTmParts.forEach((part, idx) => {
-    if (part.includes("rpc")) {
-      rpcIdx = idx
-    }
-  })
-
-  // nicknameIdx: the index of the substring that includes the chain nickname
-  const nicknameIdx = rpcIdx + 1
-  const invalidRpcIdx = rpcIdx === -1
-  const invalidNicknameIdx = nicknameIdx === endptTmParts.length
-  if (invalidRpcIdx || invalidNicknameIdx) {
-    return null
-  }
-
-  const chainNickname = endptTmParts[nicknameIdx]
-  const gqlEndpt = createGqlEndpt(chainNickname)
-  return gqlEndpt
 }

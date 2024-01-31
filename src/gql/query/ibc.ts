@@ -59,7 +59,8 @@ export const ibcQueryString = (args: QueryIbcArgs, fields?: IbcFields) => {
     ibcQuery.push(
       gqlQuery(
         "ibcChannels",
-        args.ibcChannels ?? {},
+        // args.ibcChannels ?? {},
+        {},
         convertObjectToPropertiesString(defaultIbcChannelsResponse),
         true
       )

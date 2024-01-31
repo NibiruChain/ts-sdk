@@ -46,9 +46,6 @@ export async function useFaucet({
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ address, coins, grecaptcha }),
-  }).catch((err) => {
-    console.error(err)
-    return undefined
   })
 }
 
