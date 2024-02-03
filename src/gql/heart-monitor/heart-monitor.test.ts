@@ -358,40 +358,6 @@ const testOracle = async (args: QueryOracleArgs, fields?: OracleFields) => {
   }
 }
 
-test("oracle", async () => {
-  await testOracle({
-    oraclePrices: {
-      limit: 1,
-      // Covers non-(limit, where, order, orderDesc)
-      offset: 1,
-    },
-    oracles: {
-      limit: 1,
-    },
-  })
-  await testOracle(
-    {
-      oraclePrices: {
-        limit: 1,
-      },
-      oracles: {
-        limit: 1,
-      },
-    },
-    {
-      oraclePrices: defaultOraclePrice,
-      oracles: defaultOracleEntry,
-    }
-  )
-  await testOracle(
-    {},
-    {
-      oraclePrices: defaultOraclePrice,
-      oracles: defaultOracleEntry,
-    }
-  )
-})
-
 const testMarkPriceCandles = async (
   args: GQLQueryGqlMarkPriceCandlesArgs,
   fields?: GQLMarkPriceCandle
@@ -467,7 +433,7 @@ test("markPriceCandlesSubscription", async () => {
   )
 })
 
-const testMarketing = async (
+const testMarketingQuery = async (
   args: QueryMarketingArgs,
   fields?: MarketingFields
 ) => {
@@ -484,8 +450,8 @@ const testMarketing = async (
   }
 }
 
-test("oracle", async () => {
-  await testMarketing({
+test("marketingQuery", async () => {
+  await testMarketingQuery({
     twitterUser: {
       where: { id: "" },
     },
@@ -499,7 +465,7 @@ test("oracle", async () => {
       where: { userId: "" },
     },
   })
-  await testMarketing(
+  await testMarketingQuery(
     {
       twitterUser: {
         where: { id: "" },
@@ -522,7 +488,7 @@ test("oracle", async () => {
       tasks: defaultTask,
     }
   )
-  await testMarketing(
+  await testMarketingQuery(
     {},
     {
       twitterUser: defaultTwitterUser,
@@ -530,6 +496,40 @@ test("oracle", async () => {
       retweets: defaultRetweet,
       likes: defaultLike,
       tasks: defaultTask,
+    }
+  )
+})
+
+test("oracle", async () => {
+  await testOracle({
+    oraclePrices: {
+      limit: 1,
+      // Covers non-(limit, where, order, orderDesc)
+      offset: 1,
+    },
+    oracles: {
+      limit: 1,
+    },
+  })
+  await testOracle(
+    {
+      oraclePrices: {
+        limit: 1,
+      },
+      oracles: {
+        limit: 1,
+      },
+    },
+    {
+      oraclePrices: defaultOraclePrice,
+      oracles: defaultOracleEntry,
+    }
+  )
+  await testOracle(
+    {},
+    {
+      oraclePrices: defaultOraclePrice,
+      oracles: defaultOracleEntry,
     }
   )
 })
