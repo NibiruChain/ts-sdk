@@ -453,16 +453,16 @@ const testMarketingQuery = async (
 test("marketingQuery", async () => {
   await testMarketingQuery({
     twitterUser: {
-      where: { id: "" },
+      where: { id: "USYfpsjW1UQPPW3X9tBAiq67zTn1" },
     },
     tweets: {
-      where: { userId: "" },
+      where: { userId: "USYfpsjW1UQPPW3X9tBAiq67zTn1" },
     },
     retweets: {
-      where: { userId: "" },
+      where: { userId: "USYfpsjW1UQPPW3X9tBAiq67zTn1" },
     },
     likes: {
-      where: { userId: "" },
+      where: { userId: "USYfpsjW1UQPPW3X9tBAiq67zTn1" },
     },
   })
   await testMarketingQuery(
