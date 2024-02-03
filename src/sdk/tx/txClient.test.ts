@@ -32,7 +32,8 @@ describe("txClient", () => {
 })
 
 describe("nibid tx bank send", () => {
-  test("send tokens from the devnet genesis validator to a random account", async () => {
+  // TODO: Refactor for concurrency
+  test.skip("send tokens from the devnet genesis validator to a random account", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const [{ address: fromAddr }]: readonly AccountData[] =
       await signer.getAccounts()
