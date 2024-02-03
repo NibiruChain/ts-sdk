@@ -57,6 +57,15 @@ jobs:
           username: nibibot
           password: ${{ secrets.NIBIBOT_GIT_TOKEN }}
 
+      - name: Checkout nibiru Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          repository: NibiruChain/nibiru
+          ref: main
+          path: "nibiru"
+          token: ${{ secrets.NIBIBOT_GIT_TOKEN }}
+
       - name: Run Nibiru network in the background
         run: |
           cd nibiru
