@@ -13,7 +13,7 @@
     "dist"
   ],
   "scripts": {
-    "generate-barrels": "barrelsby -c barrelsby.json --delete -l all -s flat -S -e \".test.ts|.config.ts|.codegen.ts\"",
+    "generate-barrels": "barrelsby -c barrelsby.json --delete -l all -S -e \".test.ts|.config.ts|.codegen.ts\"",
     "build": "bash ./scripts/build.sh",
     "build:tsc": "rm -rf dist && tsc --build",
     "build:watch": "tsc --build --watch",

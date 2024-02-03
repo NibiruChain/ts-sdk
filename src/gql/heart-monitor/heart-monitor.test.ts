@@ -186,7 +186,7 @@ test("distributionCommissions", async () => {
   await testDistributionCommissions({}, defaultDistributionCommission)
 })
 
-const testfeatureFlags = async (fields?: GQLFeatureFlags) => {
+const testFeatureFlags = async (fields?: GQLFeatureFlags) => {
   const resp = await heartMonitor.featureFlags(fields)
   expect(resp).toHaveProperty("featureFlags")
 
@@ -201,7 +201,7 @@ const testfeatureFlags = async (fields?: GQLFeatureFlags) => {
 }
 
 test("featureFlags", async () => {
-  await testfeatureFlags(defaultFeatureFlags)
+  await testFeatureFlags(defaultFeatureFlags)
 })
 
 const testGovernance = async (
