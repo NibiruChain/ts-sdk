@@ -103,6 +103,15 @@ import {
   GQLFeatureFlags,
   GqlOutFeatureFlags,
   inflation,
+  GqlOutMarketingQuery,
+  MarketingFields,
+  QueryMarketingArgs,
+  marketingQuery,
+  GQLTwitterUser,
+  GQLMarketingMutation,
+  MutationMarketingArgs,
+  marketingMutation,
+  GqlOutMarketingMutation,
 } from ".."
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
@@ -143,6 +152,16 @@ export interface IHeartMonitor {
     args: Partial<QueryInflationArgs>,
     fields?: Partial<InflationFields>
   ) => Promise<GqlOutInflation>
+
+  readonly marketingMutation: (
+    args: Partial<MutationMarketingArgs>,
+    fields?: Partial<GQLMarketingMutation>
+  ) => Promise<GqlOutMarketingMutation>
+
+  readonly marketingQuery: (
+    args: Partial<QueryMarketingArgs>,
+    fields?: Partial<MarketingFields>
+  ) => Promise<GqlOutMarketingQuery>
 
   readonly markPriceCandles: (
     args: Partial<GQLQueryGqlMarkPriceCandlesArgs>,
@@ -311,6 +330,16 @@ export class HeartMonitor implements IHeartMonitor {
     args: Partial<QueryInflationArgs>,
     fields?: Partial<InflationFields>
   ) => inflation(args, this.gqlEndpt, fields)
+
+  marketingQuery = async (
+    args: Partial<QueryMarketingArgs>,
+    fields?: Partial<MarketingFields>
+  ) => marketingQuery(args, this.gqlEndpt, fields)
+
+  marketingMutation = async (
+    args: Partial<MutationMarketingArgs>,
+    fields?: Partial<GQLMarketingMutation>
+  ) => marketingMutation(args, this.gqlEndpt, fields)
 
   markPriceCandles = async (
     args: Partial<GQLQueryGqlMarkPriceCandlesArgs>,

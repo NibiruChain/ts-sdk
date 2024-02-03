@@ -13,6 +13,7 @@ import {
   GQLIbcTransfer,
   GQLInflationDistribution,
   GQLInflationInfo,
+  GQLLike,
   GQLMarkPriceCandle,
   GQLOracleEntry,
   GQLOraclePrice,
@@ -21,6 +22,7 @@ import {
   GQLPerpPosition,
   GQLPerpPositionChange,
   GQLRedelegation,
+  GQLRetweet,
   GQLSpotLpPosition,
   GQLSpotPool,
   GQLSpotPoolSwap,
@@ -31,7 +33,10 @@ import {
   GQLStatsTvl,
   GQLStatsUsers,
   GQLStatsVolume,
+  GQLTask,
   GQLToken,
+  GQLTweet,
+  GQLTwitterUser,
   GQLUnbonding,
   GQLUser,
   GQLUserContract,
@@ -437,4 +442,39 @@ export const defaultFeatureFlags: GQLFeatureFlags = {
   spot: true,
   staking: true,
   wasm: true,
+}
+
+export const defaultTwitterUser: GQLTwitterUser = {
+  id: "",
+  createdAt: "",
+  displayName: "",
+  username: "",
+}
+
+export const defaultTweet: GQLTweet = {
+  conversationId: "",
+  createdAt: "",
+  quoteTweetId: "",
+  id: "",
+  text: "",
+  user: defaultTwitterUser,
+}
+
+export const defaultRetweet: GQLRetweet = {
+  tweet: defaultTweet,
+  user: defaultTwitterUser,
+}
+
+export const defaultLike: GQLLike = {
+  tweet: defaultTweet,
+  user: defaultTwitterUser,
+}
+
+export const defaultTask: GQLTask = {
+  category: "",
+  description: "",
+  expiration_time: "",
+  type: "",
+  id: 0,
+  points: 0,
 }

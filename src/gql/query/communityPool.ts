@@ -13,7 +13,7 @@ export interface GqlOutCommunityPool {
 }
 
 export const communityPoolQueryString = (
-  args: GQLQueryGqlCommunityPoolArgs,
+  args: Partial<GQLQueryGqlCommunityPoolArgs>,
   excludeParentObject: boolean,
   fields?: Partial<GQLToken>
 ) =>

@@ -92,9 +92,16 @@ import {
   defaultInflationDistribution,
   GQLFeatureFlags,
   defaultFeatureFlags,
+  defaultTwitterUser,
+  defaultTweet,
+  defaultRetweet,
+  defaultLike,
+  defaultTask,
+  QueryMarketingArgs,
+  MarketingFields,
 } from ".."
 
-const nibiruUrl = "devnet-2"
+const nibiruUrl = "testnet-1"
 
 const heartMonitor = new HeartMonitor(
   `https://hm-graphql.${nibiruUrl}.nibiru.fi/query`,
@@ -340,6 +347,51 @@ test("inflation", async () => {
   )
 })
 
+const testOracle = async (args: QueryOracleArgs, fields?: OracleFields) => {
+  const resp = await heartMonitor.oracle(args, fields)
+  expect(resp).toHaveProperty("oracle")
+
+  if (resp.oracle) {
+    const { oracle } = resp
+
+    checkFields([oracle], ["oraclePrices", "oracles"])
+  }
+}
+
+test("oracle", async () => {
+  await testOracle({
+    oraclePrices: {
+      limit: 1,
+      // Covers non-(limit, where, order, orderDesc)
+      offset: 1,
+    },
+    oracles: {
+      limit: 1,
+    },
+  })
+  await testOracle(
+    {
+      oraclePrices: {
+        limit: 1,
+      },
+      oracles: {
+        limit: 1,
+      },
+    },
+    {
+      oraclePrices: defaultOraclePrice,
+      oracles: defaultOracleEntry,
+    }
+  )
+  await testOracle(
+    {},
+    {
+      oraclePrices: defaultOraclePrice,
+      oracles: defaultOracleEntry,
+    }
+  )
+})
+
 const testMarkPriceCandles = async (
   args: GQLQueryGqlMarkPriceCandlesArgs,
   fields?: GQLMarkPriceCandle
@@ -415,47 +467,69 @@ test("markPriceCandlesSubscription", async () => {
   )
 })
 
-const testOracle = async (args: QueryOracleArgs, fields?: OracleFields) => {
-  const resp = await heartMonitor.oracle(args, fields)
-  expect(resp).toHaveProperty("oracle")
+const testMarketing = async (
+  args: QueryMarketingArgs,
+  fields?: MarketingFields
+) => {
+  const resp = await heartMonitor.marketingQuery(args, fields)
+  expect(resp).toHaveProperty("marketing")
 
-  if (resp.oracle) {
-    const { oracle } = resp
+  if (resp.marketing) {
+    const { marketing } = resp
 
-    checkFields([oracle], ["oraclePrices", "oracles"])
+    checkFields(
+      [marketing],
+      ["likes", "retweets", "tasks", "tweets", "twitterUser"]
+    )
   }
 }
 
 test("oracle", async () => {
-  await testOracle({
-    oraclePrices: {
-      limit: 1,
-      // Covers non-(limit, where, order, orderDesc)
-      offset: 1,
+  await testMarketing({
+    twitterUser: {
+      where: { id: "" },
     },
-    oracles: {
-      limit: 1,
+    tweets: {
+      where: { userId: "" },
+    },
+    retweets: {
+      where: { userId: "" },
+    },
+    likes: {
+      where: { userId: "" },
     },
   })
-  await testOracle(
+  await testMarketing(
     {
-      oraclePrices: {
-        limit: 1,
+      twitterUser: {
+        where: { id: "" },
       },
-      oracles: {
-        limit: 1,
+      tweets: {
+        where: { userId: "" },
+      },
+      retweets: {
+        where: { userId: "" },
+      },
+      likes: {
+        where: { userId: "" },
       },
     },
     {
-      oraclePrices: defaultOraclePrice,
-      oracles: defaultOracleEntry,
+      twitterUser: defaultTwitterUser,
+      tweets: defaultTweet,
+      retweets: defaultRetweet,
+      likes: defaultLike,
+      tasks: defaultTask,
     }
   )
-  await testOracle(
+  await testMarketing(
     {},
     {
-      oraclePrices: defaultOraclePrice,
-      oracles: defaultOracleEntry,
+      twitterUser: defaultTwitterUser,
+      tweets: defaultTweet,
+      retweets: defaultRetweet,
+      likes: defaultLike,
+      tasks: defaultTask,
     }
   )
 })

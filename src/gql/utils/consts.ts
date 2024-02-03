@@ -97,7 +97,8 @@ export const gqlQuery = <T>(
   name: string,
   typedQueryArgs: IterableDictionary<T>,
   properties: string,
-  excludeParentObject?: boolean
+  excludeParentObject?: boolean,
+  isMutation?: boolean
 ) => {
   const queryArgList = []
 
@@ -115,7 +116,7 @@ export const gqlQuery = <T>(
 
   const hasQueryList = (char: string) => (queryArgList.length > 0 ? char : "")
 
-  return `${excludeParentObject ? "" : "{"}
+  return `${isMutation ? "mutation " : " "}${excludeParentObject ? "" : "{"}
     ${name} ${hasQueryList("(")}${queryArgList.join(", ")}${hasQueryList(")")} {
       ${properties}
     }
