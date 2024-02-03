@@ -84,9 +84,9 @@ describe("chain/chain", () => {
   })
 
   test("queryChainIdWithRest", async () => {
-    const chain = Testnet(2)
+    const chain = Localnet
     const result = await queryChainIdWithRest(chain)
-    expect(result.ok).toEqual("nibiru-testnet-2")
+    expect(result.ok).toEqual("nibiru-localnet-0")
   })
 
   test("inactive chain validation cases", async () => {

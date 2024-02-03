@@ -323,3 +323,56 @@ describe("auth", () => {
     expect(res).toBeDefined()
   })
 })
+
+describe("NibiruQuerier", () => {
+  test("waitForHeight", async () => {
+    jest.useFakeTimers()
+    const setTimeoutSpy = jest.spyOn(global, "setTimeout")
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
+
+    await querier.waitForHeight((await querier.getHeight()) - 1)
+
+    expect(setTimeoutSpy).not.toHaveBeenCalled()
+  })
+
+  // test("waitForNextBlock", async () => {
+  //   const setTimeoutSpy = jest.spyOn(global, "setTimeout")
+  //   const querier = await NibiruQuerier.connect(Localnet.endptTm)
+
+  //   await querier.waitForNextBlock()
+
+  //   expect(setTimeoutSpy).toHaveBeenCalled()
+  // })
+
+  test("getTxByHash - tx doesn't exist", async () => {
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
+
+    const result = await querier.getTxByHash(
+      "7A919F2CC9A51B139444F7D8E84A46EEF307E839C6CA914C1A1C594FEF5C1562"
+    )
+
+    expect(result.isErr()).toEqual(true)
+  })
+
+  test("getTxByHash - wrong hash", async () => {
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
+
+    const result = await querier.getTxByHash("mock")
+
+    expect(result.ok).toEqual(undefined)
+  })
+
+  test("getTxByHash", async () => {
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
+
+    const result = await querier.getTxByHashBytes(
+      Uint8Array.from([
+        193, 113, 231, 87, 170, 14, 237, 180, 87, 3, 220, 115, 58, 146, 22, 42,
+        36, 19, 202, 26, 207, 206, 143, 187, 169, 18, 160, 185, 240, 17, 34,
+        193,
+      ])
+    )
+
+    expect(result.isErr()).toEqual(true)
+  })
+})

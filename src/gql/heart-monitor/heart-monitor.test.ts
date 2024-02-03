@@ -86,6 +86,12 @@ import {
   GQLUnbonding,
   GQLUser,
   GQLValidator,
+  InflationFields,
+  QueryInflationArgs,
+  defaultInflationInfo,
+  defaultInflationDistribution,
+  GQLFeatureFlags,
+  defaultFeatureFlags,
 } from ".."
 
 const nibiruUrl = "devnet-2"
@@ -180,51 +186,22 @@ test("distributionCommissions", async () => {
   await testDistributionCommissions({}, defaultDistributionCommission)
 })
 
-const testIbc = async (args: QueryIbcArgs, fields?: IbcFields) => {
-  const resp = await heartMonitor.ibc(args, fields)
-  expect(resp).toHaveProperty("ibc")
+const testfeatureFlags = async (fields?: GQLFeatureFlags) => {
+  const resp = await heartMonitor.featureFlags(fields)
+  expect(resp).toHaveProperty("featureFlags")
 
-  if (resp.ibc) {
-    const { ibc } = resp
+  if (resp.featureFlags) {
+    const { featureFlags } = resp
 
     checkFields(
-      [ibc],
-      [...(args.ibcChannels ? ["ibcChannels"] : []), "ibcTransfers"]
+      [featureFlags],
+      ["gov", "oracle", "perp", "spot", "staking", "wasm"]
     )
   }
 }
 
-test("ibc", async () => {
-  await testIbc({
-    ibcTransfers: {
-      limit: 1,
-    },
-  })
-  await testIbc({
-    ibcChannels: undefined,
-    ibcTransfers: {
-      limit: 1,
-    },
-  })
-  await testIbc(
-    {
-      ibcChannels: undefined,
-      ibcTransfers: {
-        limit: 1,
-      },
-    },
-    {
-      ibcChannels: defaultIbcChannelsResponse,
-      ibcTransfers: defaultIbcTransfer,
-    }
-  )
-  await testIbc(
-    {},
-    {
-      ibcChannels: defaultIbcChannelsResponse,
-      ibcTransfers: defaultIbcTransfer,
-    }
-  )
+test("featureFlags", async () => {
+  await testfeatureFlags(defaultFeatureFlags)
 })
 
 const testGovernance = async (
@@ -280,6 +257,85 @@ test("governance", async () => {
       govDeposits: defaultGovDeposit,
       govProposals: defaultGovProposal,
       govVotes: defaultGovVote,
+    }
+  )
+})
+
+const testIbc = async (args: QueryIbcArgs, fields?: IbcFields) => {
+  const resp = await heartMonitor.ibc(args, fields)
+  expect(resp).toHaveProperty("ibc")
+
+  if (resp.ibc) {
+    const { ibc } = resp
+
+    checkFields(
+      [ibc],
+      [...(args.ibcChannels ? ["ibcChannels"] : []), "ibcTransfers"]
+    )
+  }
+}
+
+test("ibc", async () => {
+  await testIbc({
+    ibcTransfers: {
+      limit: 1,
+    },
+  })
+  await testIbc({
+    ibcChannels: undefined,
+    ibcTransfers: {
+      limit: 1,
+    },
+  })
+  await testIbc(
+    {
+      ibcChannels: undefined,
+      ibcTransfers: {
+        limit: 1,
+      },
+    },
+    {
+      ibcChannels: defaultIbcChannelsResponse,
+      ibcTransfers: defaultIbcTransfer,
+    }
+  )
+  await testIbc(
+    {},
+    {
+      ibcChannels: defaultIbcChannelsResponse,
+      ibcTransfers: defaultIbcTransfer,
+    }
+  )
+})
+
+const testInflation = async (
+  args: QueryInflationArgs,
+  fields?: InflationFields
+) => {
+  const resp = await heartMonitor.inflation(args, fields)
+  expect(resp).toHaveProperty("inflation")
+
+  if (resp.inflation) {
+    const { inflation } = resp
+
+    checkFields([inflation], ["distributions", "inflations"])
+  }
+}
+
+test("inflation", async () => {
+  await testInflation({
+    inflations: {
+      limit: 1,
+    },
+    distributions: {
+      limit: 1,
+    },
+  })
+  await testInflation(
+    {},
+    {
+      inflations: defaultInflationInfo,
+      distributions: defaultInflationDistribution,
     }
   )
 })

@@ -13,7 +13,7 @@ export interface GqlOutPerpPositions {
 }
 
 export const perpPositionsSubscriptionQueryString = (
-  args: GQLSubscriptionGqlPerpPositionsArgs,
+  args: Partial<GQLSubscriptionGqlPerpPositionsArgs>,
   fields?: Partial<GQLPerpPosition>
 ) =>
   gqlQuery(
@@ -26,7 +26,7 @@ export const perpPositionsSubscriptionQueryString = (
   )
 
 export const perpPositionsSubscription = async (
-  args: GQLSubscriptionGqlPerpPositionsArgs,
+  args: Partial<GQLSubscriptionGqlPerpPositionsArgs>,
   client?: Client,
   fields?: Partial<GQLPerpPosition>
 ): Promise<

@@ -2,6 +2,7 @@ import {
   GQLBlock,
   GQLDelegation,
   GQLDistributionCommission,
+  GQLFeatureFlags,
   GQLGovDeposit,
   GQLGovProposal,
   GQLGovVote,
@@ -10,6 +11,8 @@ import {
   GQLIbcChannel,
   GQLIbcChannelsResponse,
   GQLIbcTransfer,
+  GQLInflationDistribution,
+  GQLInflationInfo,
   GQLMarkPriceCandle,
   GQLOracleEntry,
   GQLOraclePrice,
@@ -409,4 +412,29 @@ export const defaultIbcChannelsResponse: GQLIbcChannelsResponse = {
 export const defaultUserContract: GQLUserContract = {
   user: defaultUser,
   contractAddress: "",
+}
+
+export const defaultInflationDistribution: GQLInflationDistribution = {
+  block: defaultBlock,
+  communityPool: 0,
+  eventSeqNo: 0,
+  stakingRewards: 0,
+  strategicReserve: 0,
+  txSeqNo: 0,
+}
+
+export const defaultInflationInfo: GQLInflationInfo = {
+  amount: 0,
+  block: defaultBlock,
+  epochNumber: 0,
+  epochProvisions: 0,
+}
+
+export const defaultFeatureFlags: GQLFeatureFlags = {
+  gov: true,
+  oracle: true,
+  perp: true,
+  spot: true,
+  staking: true,
+  wasm: true,
 }

@@ -9,7 +9,7 @@ import {
 } from ".."
 
 export const markPriceCandlesSubscriptionQueryString = (
-  args: GQLSubscriptionGqlMarkPriceCandlesArgs,
+  args: Partial<GQLSubscriptionGqlMarkPriceCandlesArgs>,
   fields?: Partial<GQLMarkPriceCandle>
 ) =>
   `subscription {
@@ -24,7 +24,7 @@ export const markPriceCandlesSubscriptionQueryString = (
   }`
 
 export const markPriceCandlesSubscription = async (
-  args: GQLSubscriptionGqlMarkPriceCandlesArgs,
+  args: Partial<GQLSubscriptionGqlMarkPriceCandlesArgs>,
   client?: Client,
   fields?: Partial<GQLMarkPriceCandle>
 ): Promise<

@@ -13,7 +13,7 @@ export interface GqlOutPerpMarket {
 }
 
 export const perpMarketSubscriptionQueryString = (
-  args: GQLSubscriptionGqlPerpMarketArgs,
+  args: Partial<GQLSubscriptionGqlPerpMarketArgs>,
   fields?: Partial<GQLPerpMarket>
 ) =>
   `subscription {
@@ -28,7 +28,7 @@ export const perpMarketSubscriptionQueryString = (
   }`
 
 export const perpMarketSubscription = async (
-  args: GQLSubscriptionGqlPerpMarketArgs,
+  args: Partial<GQLSubscriptionGqlPerpMarketArgs>,
   client?: Client,
   fields?: Partial<GQLPerpMarket>
 ): Promise<
