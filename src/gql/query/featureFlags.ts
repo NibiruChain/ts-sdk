@@ -14,8 +14,8 @@ export interface GqlOutFeatureFlags {
 export const featureFlagsQueryString = (
   excludeParentObject: boolean,
   fields?: Partial<GQLFeatureFlags>
-) => {
-  return gqlQuery(
+) =>
+  gqlQuery(
     "featureFlags",
     {},
     fields
@@ -23,7 +23,6 @@ export const featureFlagsQueryString = (
       : convertObjectToPropertiesString(defaultFeatureFlags),
     excludeParentObject
   )
-}
 
 export const featureFlags = async (
   endpt: string,

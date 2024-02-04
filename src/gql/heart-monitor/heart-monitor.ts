@@ -107,7 +107,6 @@ import {
   MarketingFields,
   QueryMarketingArgs,
   marketingQuery,
-  GQLTwitterUser,
   GQLMarketingMutation,
   MutationMarketingArgs,
   marketingMutation,

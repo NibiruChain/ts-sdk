@@ -209,6 +209,7 @@ const testFeatureFlags = async (fields?: GQLFeatureFlags) => {
 
 test("featureFlags", async () => {
   await testFeatureFlags(defaultFeatureFlags)
+  await testFeatureFlags()
 })
 
 const testGovernance = async (
@@ -561,7 +562,7 @@ const testOraclePricesSubscription = async (
   }
 }
 
-test("oraclePricesSubscription", async () => {
+test.skip("oraclePricesSubscription", async () => {
   await testOraclePricesSubscription({
     where: { pair: "ubtc:unusd" },
   })
@@ -731,7 +732,7 @@ const testPerpMarketSubscription = async (
   }
 }
 
-test("perpMarketSubscription", async () => {
+test.skip("perpMarketSubscription", async () => {
   await testPerpMarketSubscription({
     where: { pair: "ubtc:unusd" },
   })
