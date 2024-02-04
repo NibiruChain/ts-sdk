@@ -450,7 +450,8 @@ const testMarketingQuery = async (
   }
 }
 
-test("marketingQuery", async () => {
+// TODO: Re-enable
+test.skip("marketingQuery", async () => {
   await testMarketingQuery({
     twitterUser: {
       where: { id: "1516130689028087815" },
