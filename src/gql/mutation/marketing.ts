@@ -25,7 +25,7 @@ export const marketingMutationString = (
     marketing {
       ${gqlQuery(
         "updateTwitterUser",
-        args,
+        args.updateTwitterUser ?? {},
         fields
           ? convertObjectToPropertiesString(fields)
           : convertObjectToPropertiesString(defaultTwitterUser),
