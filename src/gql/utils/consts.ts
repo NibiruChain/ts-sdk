@@ -15,10 +15,16 @@ export const queryBatchHandler = async <T>(
   endpt: string
 ) => <T>doGqlQuery(`{ ${queryQueryStrings.join("\n")} }`, endpt)
 
-export const arg = (name: string, value: unknown, ignoreQuotes?: boolean) => {
+export const arg = <T>(
+  name: string,
+  value: unknown,
+  ignoreQuotes?: boolean
+) => {
   const isString = typeof value === "string" && !ignoreQuotes ? `"` : ""
 
-  return `${name}: ${isString}${value}${isString}`
+  return typeof value === "object"
+    ? `${name}: ${objToGql(value as IterableDictionary<T>)}`
+    : `${name}: ${isString}${value}${isString}`
 }
 
 export const objToGql = <T>(obj: IterableDictionary<T>): string | number => {
@@ -111,7 +117,7 @@ export const gqlQuery = <T>(
   delete typedQueryArgs.where
 
   Object.keys(typedQueryArgs).forEach((key) =>
-    queryArgList.push(arg(key, typedQueryArgs[key], true))
+    queryArgList.push(arg<T>(key, typedQueryArgs[key], true))
   )
 
   const hasQueryList = (char: string) => (queryArgList.length > 0 ? char : "")
@@ -123,10 +129,14 @@ export const gqlQuery = <T>(
     ${excludeParentObject ? "" : "}"}`
 }
 
-export const doGqlQuery = async <T>(gqlQuery: string, gqlEndpt: string) => {
+export const doGqlQuery = async <T>(
+  gqlQuery: string,
+  gqlEndpt: string,
+  headers?: HeadersInit
+) => {
   const rawResp = await fetch(gqlEndpt, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...headers },
     body: JSON.stringify({ query: gqlQuery }),
   })
   return cleanResponse(rawResp) as T

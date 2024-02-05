@@ -107,10 +107,10 @@ import {
   MarketingFields,
   QueryMarketingArgs,
   marketingQuery,
-  GQLMarketingMutation,
   MutationMarketingArgs,
   marketingMutation,
   GqlOutMarketingMutation,
+  GQLTwitterUser,
 } from ".."
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
@@ -154,7 +154,8 @@ export interface IHeartMonitor {
 
   readonly marketingMutation: (
     args: Partial<MutationMarketingArgs>,
-    fields?: Partial<GQLMarketingMutation>
+    headers: HeadersInit,
+    fields?: Partial<GQLTwitterUser>
   ) => Promise<GqlOutMarketingMutation>
 
   readonly marketingQuery: (
@@ -337,8 +338,9 @@ export class HeartMonitor implements IHeartMonitor {
 
   marketingMutation = async (
     args: Partial<MutationMarketingArgs>,
-    fields?: Partial<GQLMarketingMutation>
-  ) => marketingMutation(args, this.gqlEndpt, fields)
+    headers: HeadersInit,
+    fields?: Partial<GQLTwitterUser>
+  ) => marketingMutation(args, this.gqlEndpt, headers, fields)
 
   markPriceCandles = async (
     args: Partial<GQLQueryGqlMarkPriceCandlesArgs>,

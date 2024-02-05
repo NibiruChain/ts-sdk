@@ -45,13 +45,15 @@
     "@cosmjs/tendermint-rpc": "^0.31.0",
     "bignumber.js": "^9.1.1",
     "cross-fetch": "4.0.0",
+    "graphql": "^16.7.1",
     "graphql-ws": "^5.14.0"
   },
   "peerDependencies": {
     "@cosmjs/cosmwasm-stargate": "^0.31.0",
     "@cosmjs/proto-signing": "^0.31.0",
     "@cosmjs/stargate": "^0.31.0",
-    "@cosmjs/tendermint-rpc": "^0.31.0"
+    "@cosmjs/tendermint-rpc": "^0.31.0",
+    "graphql": "^16.7.1"
   },
   "devDependencies": {
     "@bufbuild/buf": "^1.28.1",
@@ -74,7 +76,6 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^27.1.7",
     "eslint-plugin-prettier": "^4.2.1",
-    "graphql": "^16.7.1",
     "husky": "^7.0.2",
     "jest": "^29.0.0",
     "lint-staged": "^13.2.2",

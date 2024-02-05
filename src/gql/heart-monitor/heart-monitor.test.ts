@@ -98,6 +98,9 @@ import {
   defaultTask,
   QueryMarketingArgs,
   MarketingFields,
+  MutationMarketingArgs,
+  GQLMarketingMutation,
+  GQLTwitterUser,
 } from ".."
 
 const nibiruUrl = "testnet-1"
@@ -431,6 +434,46 @@ test("markPriceCandlesSubscription", async () => {
     },
     defaultMarkPriceCandles
   )
+})
+
+const testMarketingMutation = async (
+  args: MutationMarketingArgs,
+  fields?: GQLTwitterUser
+) => {
+  const resp = await heartMonitor.marketingMutation(args, {}, fields)
+  expect(resp).toHaveProperty("marketing")
+
+  if (resp.marketing) {
+    const { marketing } = resp
+
+    checkFields(
+      [marketing],
+      [
+        "completedTasks",
+        "creationTimestamp",
+        "displayName",
+        "followersCount",
+        "followingCount",
+        "id",
+        "likes",
+        "listedCount",
+        "nibiAddress",
+        "tweets",
+        "tweetsCount",
+        "username",
+      ]
+    )
+  }
+}
+
+// Create JIT JWT for this test
+test.skip("marketinMutation", async () => {
+  await testMarketingMutation({
+    updateTwitterUser: {
+      id: "800528778854182912",
+      nibiAddress: "nibi1p6luzkxeufy29reymgjqnl5mv6a6gae07cphed",
+    },
+  })
 })
 
 const testMarketingQuery = async (
