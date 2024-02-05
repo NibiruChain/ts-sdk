@@ -37,12 +37,7 @@ export const marketingMutationString = (
 export const marketingMutation = async (
   args: Partial<MutationMarketingArgs>,
   endpt: string,
-  authorizationHeader: HeadersInit,
+  headers: HeadersInit,
   fields?: Partial<GQLTwitterUser>
 ): Promise<GqlOutMarketingMutation> =>
-  doGqlQuery(
-    marketingMutationString(args, true, fields),
-    endpt,
-    authorizationHeader,
-    true
-  )
+  doGqlQuery(marketingMutationString(args, true, fields), endpt, headers)
