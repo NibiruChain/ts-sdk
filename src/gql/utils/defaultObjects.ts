@@ -15,6 +15,7 @@ import {
   GQLInflationInfo,
   GQLLike,
   GQLMarkPriceCandle,
+  GQLNibiruTweet,
   GQLOracleEntry,
   GQLOraclePrice,
   GQLPerpLeaderboard,
@@ -22,7 +23,6 @@ import {
   GQLPerpPosition,
   GQLPerpPositionChange,
   GQLRedelegation,
-  GQLRetweet,
   GQLSpotLpPosition,
   GQLSpotPool,
   GQLSpotPoolSwap,
@@ -34,6 +34,7 @@ import {
   GQLStatsUsers,
   GQLStatsVolume,
   GQLTask,
+  GQLTaskCompletion,
   GQLToken,
   GQLTweet,
   GQLTwitterUser,
@@ -444,37 +445,62 @@ export const defaultFeatureFlags: GQLFeatureFlags = {
   wasm: true,
 }
 
+// TODO: Add default objects to arrays
 export const defaultTwitterUser: GQLTwitterUser = {
-  id: "",
-  createdAt: "",
+  completedTasks: [],
+  creationTimestamp: "",
   displayName: "",
+  followersCount: 0,
+  followingCount: 0,
+  id: "",
+  likes: [],
+  listedCount: 0,
+  nibiAddress: "",
+  tweets: [],
+  tweetsCount: 0,
   username: "",
 }
 
-export const defaultTweet: GQLTweet = {
-  conversationId: "",
-  createdAt: "",
-  quoteTweetId: "",
+export const defaultNibiruTweet: GQLNibiruTweet = {
+  creationTimestamp: "",
   id: "",
-  text: "",
-  user: defaultTwitterUser,
-}
-
-export const defaultRetweet: GQLRetweet = {
-  tweet: defaultTweet,
-  user: defaultTwitterUser,
 }
 
 export const defaultLike: GQLLike = {
-  tweet: defaultTweet,
+  nibiruTweet: defaultNibiruTweet,
   user: defaultTwitterUser,
 }
 
+export const defaultTweet: GQLTweet = {
+  author: defaultTwitterUser,
+  conversationId: "",
+  creationTimestamp: "",
+  id: "",
+  inReplyToTweetId: "",
+  inReplyToUserId: "",
+  isMention: true,
+  likeCount: 0,
+  likes: [defaultLike],
+  quoteCount: 0,
+  quoteTweetId: "",
+  replyCount: 0,
+  retweetId: "",
+  text: "",
+}
+
 export const defaultTask: GQLTask = {
+  behavior: "",
   category: "",
   description: "",
-  expiration_time: "",
-  type: "",
-  id: 0,
+  expirationTime: "",
+  id: "",
+  nibiruTweet: defaultNibiruTweet,
   points: 0,
+  startTime: "",
+}
+
+export const defaultTaskCompletion: GQLTaskCompletion = {
+  completionTime: "",
+  task: defaultTask,
+  user: defaultTwitterUser,
 }

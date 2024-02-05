@@ -1,7 +1,7 @@
 import {
   convertObjectToPropertiesString,
   defaultLike,
-  defaultRetweet,
+  defaultTask,
   defaultTweet,
   defaultTwitterUser,
   doGqlQuery,
@@ -75,12 +75,7 @@ export const marketingQueryString = (
   // No args
   if (fields?.tasks) {
     marketingQuery.push(
-      gqlQuery(
-        "tasks",
-        {},
-        convertObjectToPropertiesString(defaultRetweet),
-        true
-      )
+      gqlQuery("tasks", {}, convertObjectToPropertiesString(defaultTask), true)
     )
   }
 
