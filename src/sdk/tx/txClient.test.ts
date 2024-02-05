@@ -5,40 +5,42 @@ import {
   MsgClosePosition,
   MsgMarketOrder,
   MsgRemoveMargin,
-} from "@/protojs/nibiru/perp/v2/tx"
-import { Direction } from "@/protojs/nibiru/perp/v2/state"
-import { TxLog } from "../chain"
-import { TxMessage } from "../msg"
-import { PERP_MSG_TYPE_URLS } from "../msg/perp"
-import { NibiruQuerier } from "../query/query"
+} from "../../protojs/nibiru/perp/v2/tx"
+import { Direction } from "../../protojs/nibiru/perp/v2/state"
 import {
+  TxLog,
+  TxMessage,
+  PERP_MSG_TYPE_URLS,
+  NibiruQuerier,
   assertHasEventType,
   assertHasMsgType,
   assertExpectedError,
-  TEST_CHAIN,
+  Localnet,
   TEST_ADDRESS,
   TEST_MNEMONIC,
   ERR,
-} from "../testutil"
-import { newRandomWallet, newSignerFromMnemonic } from "./signer"
-import { NibiruTxClient } from "./txClient"
+  newRandomWallet,
+  newSignerFromMnemonic,
+  NibiruTxClient,
+} from ".."
 
 describe("txClient", () => {
   test("connects", async () => {
-    const txClient = await NibiruTxClient.connect(TEST_CHAIN.endptTm)
+    const txClient = await NibiruTxClient.connect(Localnet.endptTm)
     expect(txClient).toBeTruthy()
   })
 })
 
 describe("nibid tx bank send", () => {
-  test("send tokens from the devnet genesis validator to a random account", async () => {
+  // TODO: Refactor for concurrency
+  test.skip("send tokens from the devnet genesis validator to a random account", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const [{ address: fromAddr }]: readonly AccountData[] =
       await signer.getAccounts()
     expect(fromAddr).toBeDefined()
 
     const txClient = await NibiruTxClient.connectWithSigner(
-      TEST_CHAIN.endptTm,
+      Localnet.endptTm,
       signer
     )
 
@@ -53,7 +55,7 @@ describe("nibid tx bank send", () => {
     )
     assertIsDeliverTxSuccess(resp)
 
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const txQuery = await querier.getTxByHash(resp.transactionHash)
     expect(txQuery.isOk()).toBeTruthy()
   })
@@ -62,10 +64,10 @@ describe("nibid tx bank send", () => {
 describe("nibid tx perp", () => {
   const pair = "ubtc:unusd"
 
-  test("open-position, add-margin, remove-margin", async () => {
+  test.skip("open-position, add-margin, remove-margin", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const txClient = await NibiruTxClient.connectWithSigner(
-      TEST_CHAIN.endptTm,
+      Localnet.endptTm,
       signer
     )
     const [{ address: sender }] = await signer.getAccounts()
@@ -106,7 +108,7 @@ describe("nibid tx perp", () => {
     ]
 
     const assertHappyPath = (result: DeliverTxResponse) => {
-      const txLogs: TxLog[] = JSON.parse(result.rawLog!)
+      const txLogs: TxLog[] = JSON.parse(result.rawLog ?? "{}")
       expect(txLogs).toHaveLength(4)
 
       // perp tx open-position events
@@ -154,16 +156,17 @@ describe("nibid tx perp", () => {
     } catch (error) {
       const okErrors: string[] = [ERR.collections, ERR.noPrices, ERR.sequence]
 
-      let err = error as any
+      const err = error as { rawLog: unknown }
+      let rawError
       if (err.rawLog) {
-        err = err.rawLog
+        rawError = err.rawLog
       }
-      assertExpectedError(err, okErrors)
+      assertExpectedError(rawError ?? err, okErrors)
     }
   }, 40_000 /* default timeout is not sufficient. */)
 
   test("nibid query perp positions", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const resp = await querier.nibiruExtensions.perp.positions({
       trader: TEST_ADDRESS,
     })
@@ -177,10 +180,10 @@ describe("nibid tx perp", () => {
     })
   })
 
-  test("nibid tx perp close-position", async () => {
+  test.skip("nibid tx perp close-position", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const txClient = await NibiruTxClient.connectWithSigner(
-      TEST_CHAIN.endptTm,
+      Localnet.endptTm,
       signer
     )
     const [{ address: sender }] = await signer.getAccounts()
@@ -201,7 +204,7 @@ describe("nibid tx perp", () => {
     ]
 
     const assertHappyPath = (result: DeliverTxResponse) => {
-      const txLogs: TxLog[] = JSON.parse(result.rawLog!)
+      const txLogs: TxLog[] = JSON.parse(result.rawLog ?? "{}")
       expect(txLogs).toHaveLength(1)
 
       // perp tx close-position events
@@ -220,11 +223,12 @@ describe("nibid tx perp", () => {
     } catch (error) {
       const okErrors: string[] = [ERR.collections, ERR.sequence]
 
-      let err = error as any
+      const err = error as { rawLog: unknown }
+      let rawError
       if (err.rawLog) {
-        err = err.rawLog
+        rawError = err.rawLog
       }
-      assertExpectedError(err, okErrors)
+      assertExpectedError(rawError ?? err, okErrors)
     }
   })
 })

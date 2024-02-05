@@ -50,15 +50,27 @@ jobs:
         with:
           cmd: build
 
-      - name: Run Nibiru network in the background (scripts/localnet.sh)
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: nibibot
+          password: ${{ secrets.NIBIBOT_GIT_TOKEN }}
+
+      - name: Checkout nibiru Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          repository: NibiruChain/nibiru
+          ref: main
+          path: "nibiru"
+          token: ${{ secrets.NIBIBOT_GIT_TOKEN }}
+
+      - name: Run Nibiru network in the background
         run: |
-          # Install nibid CLI
-          # Use https://get.nibiru.fi/ to get the most recent release.
-          curl -s https://get.nibiru.fi/@v0.21.9! | bash
-          # Sanity check nibid CLI
-          nibid version
-          # Start local network
-          bash scripts/localnet.sh &
+          cd nibiru
+          make chaosnet
+          cd ..
 
       - name: yarn test
         uses: borales/actions-yarn@v4

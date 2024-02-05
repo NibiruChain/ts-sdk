@@ -1,5 +1,6 @@
 import type { Config } from "jest"
-const { pathsToModuleNameMapper } = require("ts-jest")
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { compilerOptions } = require("./tsconfig")
 
 // For a detailed explanation regarding each configuration property, visit:
@@ -9,24 +10,29 @@ const config: Config = {
   verbose: true,
   collectCoverage: true,
   collectCoverageFrom: [
-    "src/**/*.{js,jsx,ts,tsx}",
+    "**/*.{js,jsx,ts,tsx}",
+    "!**/docs/**",
     "!**/node_modules/**",
+    "!**/coverage/**",
     "!**/dist/**",
+    "!**/nibiru/**",
     "!**/index.*.ts",
     "!**/index.ts",
-    "!**/sdk/test/helpers.ts",
+    "!**/src/protojs/**",
+    "!jest.config.ts",
+    "!**/src/gql/utils/generated.ts",
+    "!**/src/sdk/utils/testutil.ts",
   ],
-  coveragePathIgnorePatterns: ["/node_modules/", "/dist/", "/src/protojs/"],
+  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
   coverageReporters: ["json-summary", "text", "html", "lcov"],
   coverageThreshold: {
     global: {
-      branches: 75,
-      functions: 75,
-      lines: 75,
-      statements: 75,
+      branches: 85,
+      functions: 85,
+      lines: 85,
+      statements: 85,
     },
   },
-  coverageProvider: "v8",
   globals: {
     window: {
       location: {},
@@ -35,16 +41,10 @@ const config: Config = {
   moduleDirectories: ["<rootDir>", "node_modules", "src"],
   moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
   modulePaths: [compilerOptions.baseUrl], // <-- This will be set to 'baseUrl' value
-  moduleNameMapper: {
-    "~/(.*)": "<rootDir>/src/$1",
-    ...pathsToModuleNameMapper(compilerOptions.paths),
-  },
   roots: ["<rootDir>"],
-  modulePathIgnorePatterns: ["examples"],
   preset: "ts-jest",
   testEnvironment: "node",
   reporters: ["default"],
-  testPathIgnorePatterns: ["/node_modules/", "/build/", "/coverage/", "/dist/"],
   testTimeout: 120000,
 }
 
