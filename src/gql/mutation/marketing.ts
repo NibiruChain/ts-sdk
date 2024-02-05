@@ -42,5 +42,6 @@ export const marketingMutation = async (
   doGqlQuery(
     marketingMutationString(args, false, fields),
     endpt,
-    authorizationHeader
+    authorizationHeader,
+    true
   )
