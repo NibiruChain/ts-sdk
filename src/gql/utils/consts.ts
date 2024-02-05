@@ -22,9 +22,9 @@ export const arg = <T>(
 ) => {
   const isString = typeof value === "string" && !ignoreQuotes ? `"` : ""
 
-  return typeof value === "string"
-    ? `${name}: ${isString}${value}${isString}`
-    : `${name}: ${objToGql(value as IterableDictionary<T>)}`
+  return typeof value === "object"
+    ? `${name}: ${objToGql(value as IterableDictionary<T>)}`
+    : `${name}: ${isString}${value}${isString}`
 }
 
 export const objToGql = <T>(obj: IterableDictionary<T>): string | number => {
