@@ -21,15 +21,17 @@ export const marketingMutationString = (
   excludeParentObject: boolean,
   fields?: Partial<GQLTwitterUser>
 ) =>
-  gqlQuery(
-    "marketing",
-    args,
-    fields
-      ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultTwitterUser),
-    excludeParentObject,
-    true
-  )
+  `marketing {
+    ${gqlQuery(
+      "updateTwitterUser",
+      args,
+      fields
+        ? convertObjectToPropertiesString(fields)
+        : convertObjectToPropertiesString(defaultTwitterUser),
+      excludeParentObject,
+      true
+    )}
+  }`
 
 export const marketingMutation = async (
   args: Partial<MutationMarketingArgs>,

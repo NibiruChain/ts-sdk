@@ -132,12 +132,15 @@ export const gqlQuery = <T>(
 export const doGqlQuery = async <T>(
   gqlQuery: string,
   gqlEndpt: string,
-  headers?: HeadersInit
+  headers?: HeadersInit,
+  isMutation?: boolean
 ) => {
   const rawResp = await fetch(gqlEndpt, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...headers },
-    body: JSON.stringify({ query: gqlQuery }),
+    body: JSON.stringify(
+      isMutation ? { mutation: gqlQuery } : { query: gqlQuery }
+    ),
   })
   return cleanResponse(rawResp) as T
 }
