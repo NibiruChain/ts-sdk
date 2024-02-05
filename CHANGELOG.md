@@ -1,3 +1,19 @@
+## [3.0.0](https://github.com/NibiruChain/ts-sdk/compare/v2.0.1...v3.0.0) (2024-02-05)
+
+### Bug Fixes
+
+- fix merge ([4f93be8](https://github.com/NibiruChain/ts-sdk/commit/4f93be8b4a21b41035336fa08a0bbc6d6c8daf89))
+- gql where args ([#298](https://github.com/NibiruChain/ts-sdk/issues/298)) ([b57ef0a](https://github.com/NibiruChain/ts-sdk/commit/b57ef0a0de5f44cf539fb183d8e2c048c6c9dfef))
+- more file reorg ([#300](https://github.com/NibiruChain/ts-sdk/issues/300)) ([d6a053a](https://github.com/NibiruChain/ts-sdk/commit/d6a053a1296cb2630e700521357ebb0e03c3988f))
+
+### Miscellaneous Chores
+
+- pr title lint workflow ([#293](https://github.com/NibiruChain/ts-sdk/issues/293)) ([b5dd050](https://github.com/NibiruChain/ts-sdk/commit/b5dd050ac4064203f11b585a059f5db47707ede4))
+
+### Code Refactors
+
+- tests ([#301](https://github.com/NibiruChain/ts-sdk/issues/301)) ([e14b83b](https://github.com/NibiruChain/ts-sdk/commit/e14b83b5a4366713d0b25177b73cbd036300d8c2))
+
 ### [2.0.1](https://github.com/NibiruChain/ts-sdk/compare/v2.0.0...v2.0.1) (2024-01-24)
 
 ### Miscellaneous Chores
