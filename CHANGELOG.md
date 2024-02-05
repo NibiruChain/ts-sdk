@@ -1,3 +1,9 @@
+### [3.0.1](https://github.com/NibiruChain/ts-sdk/compare/v3.0.0...v3.0.1) (2024-02-05)
+
+### Bug Fixes
+
+- update mutation logic ([#303](https://github.com/NibiruChain/ts-sdk/issues/303)) ([6d9d683](https://github.com/NibiruChain/ts-sdk/commit/6d9d683f2507e0f8130046655faa098dceaf65c8))
+
 ## [3.0.0](https://github.com/NibiruChain/ts-sdk/compare/v2.0.1...v3.0.0) (2024-02-05)
 
 ### Bug Fixes
