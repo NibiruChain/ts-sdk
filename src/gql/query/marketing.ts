@@ -7,12 +7,10 @@ import {
   doGqlQuery,
   GQLLike,
   GQLMarketingQueryGqlLikesArgs,
-  GQLMarketingQueryGqlRetweetsArgs,
   GQLMarketingQueryGqlTweetsArgs,
   GQLMarketingQueryGqlTwitterUserArgs,
   gqlQuery,
   GQLQuery,
-  GQLRetweet,
   GQLTask,
   GQLTweet,
   GQLTwitterUser,
@@ -21,7 +19,6 @@ import {
 export type QueryMarketingArgs = {
   twitterUser?: Partial<GQLMarketingQueryGqlTwitterUserArgs>
   tweets?: Partial<GQLMarketingQueryGqlTweetsArgs>
-  retweets?: Partial<GQLMarketingQueryGqlRetweetsArgs>
   likes?: Partial<GQLMarketingQueryGqlLikesArgs>
 }
 
@@ -32,7 +29,6 @@ export interface GqlOutMarketingQuery {
 export type MarketingFields = Partial<{
   twitterUser?: Partial<GQLTwitterUser>
   tweets?: Partial<GQLTweet>
-  retweets?: Partial<GQLRetweet>
   likes?: Partial<GQLLike>
   tasks?: Partial<GQLTask>
 }>
@@ -60,17 +56,6 @@ export const marketingQueryString = (
         "tweets",
         args.tweets ?? {},
         convertObjectToPropertiesString(fields.tweets),
-        true
-      )
-    )
-  }
-
-  if (fields?.retweets) {
-    marketingQuery.push(
-      gqlQuery(
-        "retweets",
-        args.retweets ?? {},
-        convertObjectToPropertiesString(fields.retweets),
         true
       )
     )
@@ -107,17 +92,6 @@ export const marketingQueryString = (
         "likes",
         args.likes,
         convertObjectToPropertiesString(defaultLike),
-        true
-      )
-    )
-  }
-
-  if (args.retweets && !fields?.retweets) {
-    marketingQuery.push(
-      gqlQuery(
-        "retweets",
-        args.retweets,
-        convertObjectToPropertiesString(defaultRetweet),
         true
       )
     )

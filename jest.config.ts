@@ -9,6 +9,7 @@ const { compilerOptions } = require("./tsconfig")
 const config: Config = {
   verbose: true,
   collectCoverage: true,
+  maxWorkers: 1,
   collectCoverageFrom: [
     "**/*.{js,jsx,ts,tsx}",
     "!**/docs/**",

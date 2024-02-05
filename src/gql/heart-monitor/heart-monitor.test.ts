@@ -94,7 +94,6 @@ import {
   defaultFeatureFlags,
   defaultTwitterUser,
   defaultTweet,
-  defaultRetweet,
   defaultLike,
   defaultTask,
   QueryMarketingArgs,
@@ -460,9 +459,6 @@ test.skip("marketingQuery", async () => {
     tweets: {
       where: { userId: "1516130689028087815" },
     },
-    retweets: {
-      where: { userId: "1516130689028087815" },
-    },
     likes: {
       where: { userId: "1516130689028087815" },
     },
@@ -475,9 +471,6 @@ test.skip("marketingQuery", async () => {
       tweets: {
         where: { userId: "" },
       },
-      retweets: {
-        where: { userId: "" },
-      },
       likes: {
         where: { userId: "" },
       },
@@ -485,7 +478,6 @@ test.skip("marketingQuery", async () => {
     {
       twitterUser: defaultTwitterUser,
       tweets: defaultTweet,
-      retweets: defaultRetweet,
       likes: defaultLike,
       tasks: defaultTask,
     }
@@ -495,7 +487,6 @@ test.skip("marketingQuery", async () => {
     {
       twitterUser: defaultTwitterUser,
       tweets: defaultTweet,
-      retweets: defaultRetweet,
       likes: defaultLike,
       tasks: defaultTask,
     }
