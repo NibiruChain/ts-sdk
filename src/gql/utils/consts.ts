@@ -129,10 +129,14 @@ export const gqlQuery = <T>(
     ${excludeParentObject ? "" : "}"}`
 }
 
-export const doGqlQuery = async <T>(gqlQuery: string, gqlEndpt: string) => {
+export const doGqlQuery = async <T>(
+  gqlQuery: string,
+  gqlEndpt: string,
+  headers?: HeadersInit
+) => {
   const rawResp = await fetch(gqlEndpt, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...headers },
     body: JSON.stringify({ query: gqlQuery }),
   })
   return cleanResponse(rawResp) as T
