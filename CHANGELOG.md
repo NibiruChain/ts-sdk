@@ -1,3 +1,9 @@
+### [3.0.5](https://github.com/NibiruChain/ts-sdk/compare/v3.0.4...v3.0.5) (2024-02-05)
+
+### Bug Fixes
+
+- trying again ([83db669](https://github.com/NibiruChain/ts-sdk/commit/83db66903f5edd8c61e0c9322d66ab67d44af43c))
+
 ### [3.0.4](https://github.com/NibiruChain/ts-sdk/compare/v3.0.3...v3.0.4) (2024-02-05)
 
 ### Bug Fixes
