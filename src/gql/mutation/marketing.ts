@@ -5,7 +5,7 @@ import {
   gqlQuery,
   GQLUpdateTwitterUserInput,
   GQLMutation,
-  GQLMarketingMutation,
+  GQLTwitterUser,
 } from ".."
 
 export type MutationMarketingArgs = {
@@ -19,7 +19,7 @@ export interface GqlOutMarketingMutation {
 export const marketingMutationString = (
   args: Partial<MutationMarketingArgs>,
   excludeParentObject: boolean,
-  fields?: Partial<GQLMarketingMutation>
+  fields?: Partial<GQLTwitterUser>
 ) =>
   gqlQuery(
     "marketing",
@@ -34,6 +34,6 @@ export const marketingMutationString = (
 export const marketingMutation = async (
   args: Partial<MutationMarketingArgs>,
   endpt: string,
-  fields?: Partial<GQLMarketingMutation>
+  fields?: Partial<GQLTwitterUser>
 ): Promise<GqlOutMarketingMutation> =>
   doGqlQuery(marketingMutationString(args, false, fields), endpt)
