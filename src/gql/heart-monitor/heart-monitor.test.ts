@@ -440,7 +440,7 @@ const testMarketingMutation = async (
   args: MutationMarketingArgs,
   fields?: GQLTwitterUser
 ) => {
-  const resp = await heartMonitor.marketingMutation(args, fields)
+  const resp = await heartMonitor.marketingMutation(args, {}, fields)
   expect(resp).toHaveProperty("marketing")
 
   if (resp.marketing) {
