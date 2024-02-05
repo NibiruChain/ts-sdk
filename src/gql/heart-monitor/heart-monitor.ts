@@ -107,7 +107,7 @@ import {
   MarketingFields,
   QueryMarketingArgs,
   marketingQuery,
-  MutationMarketingArgs,
+  GQLMarketingMutationGqlUpdateTwitterUserArgs,
   marketingMutation,
   GqlOutMarketingMutation,
   GQLTwitterUser,
@@ -153,7 +153,7 @@ export interface IHeartMonitor {
   ) => Promise<GqlOutInflation>
 
   readonly marketingMutation: (
-    args: Partial<MutationMarketingArgs>,
+    args: Partial<GQLMarketingMutationGqlUpdateTwitterUserArgs>,
     headers: HeadersInit,
     fields?: Partial<GQLTwitterUser>
   ) => Promise<GqlOutMarketingMutation>
@@ -337,7 +337,7 @@ export class HeartMonitor implements IHeartMonitor {
   ) => marketingQuery(args, this.gqlEndpt, fields)
 
   marketingMutation = async (
-    args: Partial<MutationMarketingArgs>,
+    args: Partial<GQLMarketingMutationGqlUpdateTwitterUserArgs>,
     headers: HeadersInit,
     fields?: Partial<GQLTwitterUser>
   ) => marketingMutation(args, this.gqlEndpt, headers, fields)

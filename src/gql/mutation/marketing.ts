@@ -3,21 +3,17 @@ import {
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-  GQLUpdateTwitterUserInput,
   GQLMutation,
   GQLTwitterUser,
+  GQLMarketingMutationGqlUpdateTwitterUserArgs,
 } from ".."
-
-export type MutationMarketingArgs = {
-  updateTwitterUser: GQLUpdateTwitterUserInput
-}
 
 export interface GqlOutMarketingMutation {
   marketing?: GQLMutation["marketing"]
 }
 
 export const marketingMutationString = (
-  args: Partial<MutationMarketingArgs>,
+  args: Partial<GQLMarketingMutationGqlUpdateTwitterUserArgs>,
   excludeParentObject: boolean,
   fields?: Partial<GQLTwitterUser>
 ) =>
@@ -25,7 +21,7 @@ export const marketingMutationString = (
     marketing {
       ${gqlQuery(
         "updateTwitterUser",
-        args.updateTwitterUser ?? {},
+        args,
         fields
           ? convertObjectToPropertiesString(fields)
           : convertObjectToPropertiesString(defaultTwitterUser),
@@ -35,7 +31,7 @@ export const marketingMutationString = (
   }`
 
 export const marketingMutation = async (
-  args: Partial<MutationMarketingArgs>,
+  args: Partial<GQLMarketingMutationGqlUpdateTwitterUserArgs>,
   endpt: string,
   headers: HeadersInit,
   fields?: Partial<GQLTwitterUser>
