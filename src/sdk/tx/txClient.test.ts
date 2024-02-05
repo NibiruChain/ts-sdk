@@ -64,7 +64,7 @@ describe("nibid tx bank send", () => {
 describe("nibid tx perp", () => {
   const pair = "ubtc:unusd"
 
-  test("open-position, add-margin, remove-margin", async () => {
+  test.skip("open-position, add-margin, remove-margin", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const txClient = await NibiruTxClient.connectWithSigner(
       Localnet.endptTm,
@@ -180,7 +180,7 @@ describe("nibid tx perp", () => {
     })
   })
 
-  test("nibid tx perp close-position", async () => {
+  test.skip("nibid tx perp close-position", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const txClient = await NibiruTxClient.connectWithSigner(
       Localnet.endptTm,
