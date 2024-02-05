@@ -14,21 +14,21 @@ import {
   toSdkDec,
   Mainnet,
   Testnet,
-} from "."
-import { TEST_CHAIN } from "./testutil"
-import { NibiruTxClient } from "../tx/txClient"
+  Localnet,
+  NibiruTxClient,
+} from ".."
 
 describe("chain/chain", () => {
   test("testnet rpc", async () => {
-    const sgClient = await NibiruTxClient.connect(TEST_CHAIN.endptTm)
+    const sgClient = await NibiruTxClient.connect(Localnet.endptTm)
     const blockHeight = await sgClient.getHeight()
     expect(blockHeight).toBeDefined()
     expect(blockHeight).toBeGreaterThanOrEqual(0)
   })
 
   test("chain from chain-id", async () => {
-    const chain = CustomChain.fromChainId(TEST_CHAIN.chainId)
-    expect(chain.chainId).toEqual(TEST_CHAIN.chainId)
+    const chain = CustomChain.fromChainId(Localnet.chainId)
+    expect(chain.chainId).toEqual(Localnet.chainId)
   })
 
   const expectCreatedChain = (
@@ -58,6 +58,11 @@ describe("chain/chain", () => {
     expectCreatedChain(result, "testnet", num)
   })
 
+  test("IncentivizedTestnet - no params", async () => {
+    const result = Testnet()
+    expectCreatedChain(result, "testnet", 1)
+  })
+
   test("Devnet", async () => {
     const num = 2
     const result = Devnet(num)
@@ -79,9 +84,9 @@ describe("chain/chain", () => {
   })
 
   test("queryChainIdWithRest", async () => {
-    const chain = Testnet(2)
+    const chain = Localnet
     const result = await queryChainIdWithRest(chain)
-    expect(result.ok).toEqual("nibiru-testnet-2")
+    expect(result.ok).toEqual("nibiru-localnet-0")
   })
 
   test("inactive chain validation cases", async () => {

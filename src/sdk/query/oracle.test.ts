@@ -1,8 +1,7 @@
 import Long from "long"
 import { QueryClient } from "@cosmjs/stargate"
 import * as query from "../../protojs/nibiru/oracle/v1/query"
-import { setupOracleExtension } from "."
-import { fromSdkDec } from "../utils"
+import { fromSdkDec, setupOracleExtension } from ".."
 
 describe("setupOracleExtension", () => {
   const mockBaseQueryClient = {} as QueryClient

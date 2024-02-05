@@ -1,6 +1,5 @@
 import { EncodeObject } from "@cosmjs/proto-signing"
-import { PerpMsgFactory } from "./perp"
-import { SpotMsgFactory } from "./spot"
+import { PerpMsgFactory, SpotMsgFactory } from "."
 
 export interface MsgTypeUrls {
   [msg: string]: string

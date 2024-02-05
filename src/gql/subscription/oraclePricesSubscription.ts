@@ -3,9 +3,10 @@ import {
   GQLSubscriptionGqlOraclePricesArgs,
   GQLOraclePrice,
   GQLSubscription,
-} from "../utils/generated"
-import { defaultOraclePrice } from "../utils/defaultObjects"
-import { gqlQuery, convertObjectToPropertiesString } from "../utils/consts"
+  defaultOraclePrice,
+  gqlQuery,
+  convertObjectToPropertiesString,
+} from ".."
 
 export interface GqlOutOraclePrices {
   oraclePrices?: GQLSubscription["oraclePrices"]

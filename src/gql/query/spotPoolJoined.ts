@@ -1,15 +1,13 @@
-import { defaultSpotPool } from "../utils/defaultObjects"
 import {
+  defaultSpotPool,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLQueryGqlSpotPoolJoinedArgs,
   GQLSpotPoolJoined,
   GQLSpotPoolJoinedOrder,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutSpotPoolJoined {
   spotPoolJoined?: GQLQuery["spotPoolJoined"]

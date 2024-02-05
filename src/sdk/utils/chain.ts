@@ -1,5 +1,5 @@
 import { fetch } from "cross-fetch"
-import { Result } from "./result"
+import { Result } from "."
 
 /**
  * Specifies chain information for all endpoints a Nibiru node exposes such as the
@@ -111,8 +111,8 @@ export const Localnet: Chain = {
   endptTm: "http://127.0.0.1:26657",
   endptRest: "http://127.0.0.1:1317",
   endptGrpc: "http://127.0.0.1:9090",
-  endptHm: "http://127.0.0.1:443/query",
-  endptWs: "ws://127.0.0.1:443/query",
+  endptHm: "http://127.0.0.1:5555/query",
+  endptWs: "ws://127.0.0.1:5555/query",
   chainId: "nibiru-localnet-0",
   chainName: "Nibiru Localnet (Default)",
   feeDenom: "unibi",

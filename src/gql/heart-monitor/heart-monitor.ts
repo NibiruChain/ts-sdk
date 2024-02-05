@@ -36,8 +36,7 @@ import {
   GQLUnbonding,
   GQLUser,
   GQLValidator,
-} from "../utils"
-import {
+  queryBatchHandler,
   GqlOutCommunityPool,
   GqlOutDelegations,
   GqlOutDistributionCommissions,
@@ -86,8 +85,6 @@ import {
   GqlOutIbc,
   ibc,
   QueryPerpArgs,
-} from "../query"
-import {
   markPriceCandlesSubscription,
   GqlOutPerpMarket,
   perpMarketSubscription,
@@ -95,9 +92,26 @@ import {
   oraclePricesSubscription,
   GqlOutOraclePrices,
   GqlOutPerpPositions,
-} from "../subscription"
-import { queryBatchHandler } from "../utils"
-import { GqlOutWasm, GqlWasmFields, QueryWasmArgs, wasm } from "../query/wasm"
+  GqlOutWasm,
+  GqlWasmFields,
+  QueryWasmArgs,
+  wasm,
+  QueryInflationArgs,
+  InflationFields,
+  GqlOutInflation,
+  featureFlags,
+  GQLFeatureFlags,
+  GqlOutFeatureFlags,
+  inflation,
+  GqlOutMarketingQuery,
+  MarketingFields,
+  QueryMarketingArgs,
+  marketingQuery,
+  GQLMarketingMutation,
+  MutationMarketingArgs,
+  marketingMutation,
+  GqlOutMarketingMutation,
+} from ".."
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a GQLQueryGql function. */
@@ -105,65 +119,87 @@ export interface IHeartMonitor {
   closeWebSocket: () => Promise<void | undefined>
 
   readonly communityPool: (
-    args: GQLQueryGqlCommunityPoolArgs,
+    args: Partial<GQLQueryGqlCommunityPoolArgs>,
     fields?: Partial<GQLToken>
   ) => Promise<GqlOutCommunityPool>
 
   readonly delegations: (
-    args: GQLQueryGqlDelegationsArgs,
+    args: Partial<GQLQueryGqlDelegationsArgs>,
     fields?: Partial<GQLDelegation>
   ) => Promise<GqlOutDelegations>
 
   readonly distributionCommissions: (
-    args: GQLQueryGqlDistributionCommissionsArgs,
+    args: Partial<GQLQueryGqlDistributionCommissionsArgs>,
     fields?: Partial<GQLDistributionCommission>
   ) => Promise<GqlOutDistributionCommissions>
 
+  readonly featureFlags: (
+    fields?: Partial<GQLFeatureFlags>
+  ) => Promise<GqlOutFeatureFlags>
+
   readonly governance: (
-    args: QueryGovernanceArgs,
-    fields?: GovernanceFields
+    args: Partial<QueryGovernanceArgs>,
+    fields?: Partial<GovernanceFields>
   ) => Promise<GqlOutGovernance>
 
-  readonly ibc: (args: QueryIbcArgs, fields?: IbcFields) => Promise<GqlOutIbc>
+  readonly ibc: (
+    args: Partial<QueryIbcArgs>,
+    fields?: Partial<IbcFields>
+  ) => Promise<GqlOutIbc>
+
+  readonly inflation: (
+    args: Partial<QueryInflationArgs>,
+    fields?: Partial<InflationFields>
+  ) => Promise<GqlOutInflation>
+
+  readonly marketingMutation: (
+    args: Partial<MutationMarketingArgs>,
+    fields?: Partial<GQLMarketingMutation>
+  ) => Promise<GqlOutMarketingMutation>
+
+  readonly marketingQuery: (
+    args: Partial<QueryMarketingArgs>,
+    fields?: Partial<MarketingFields>
+  ) => Promise<GqlOutMarketingQuery>
 
   readonly markPriceCandles: (
-    args: GQLQueryGqlMarkPriceCandlesArgs,
+    args: Partial<GQLQueryGqlMarkPriceCandlesArgs>,
     fields?: Partial<GQLMarkPriceCandle>
   ) => Promise<GqlOutMarkPriceCandles>
 
   readonly markPriceCandlesSubscription: (
-    args: GQLSubscriptionGqlMarkPriceCandlesArgs,
+    args: Partial<GQLSubscriptionGqlMarkPriceCandlesArgs>,
     fields?: Partial<GQLMarkPriceCandle>
   ) => Promise<
     AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>> | undefined
   >
 
   readonly oracle: (
-    args: QueryOracleArgs,
-    fields?: OracleFields
+    args: Partial<QueryOracleArgs>,
+    fields?: Partial<OracleFields>
   ) => Promise<GqlOutOracle>
 
   readonly oraclePricesSubscription: (
-    args: GQLSubscriptionGqlOraclePricesArgs,
+    args: Partial<GQLSubscriptionGqlOraclePricesArgs>,
     fields?: Partial<GQLOraclePrice>
   ) => Promise<
     AsyncIterableIterator<ExecutionResult<GqlOutOraclePrices>> | undefined
   >
 
   readonly perp: (
-    args: QueryPerpArgs,
-    fields?: GQLPerpFields
+    args: Partial<QueryPerpArgs>,
+    fields?: Partial<GQLPerpFields>
   ) => Promise<GqlOutPerp>
 
   readonly perpMarketSubscription: (
-    args: GQLSubscriptionGqlPerpMarketArgs,
+    args: Partial<GQLSubscriptionGqlPerpMarketArgs>,
     fields?: Partial<GQLPerpMarket>
   ) => Promise<
     AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>> | undefined
   >
 
   readonly perpPositionsSubscription: (
-    args: GQLSubscriptionGqlPerpPositionsArgs,
+    args: Partial<GQLSubscriptionGqlPerpPositionsArgs>,
     fields?: Partial<GQLPerpPosition>
   ) => Promise<
     AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>> | undefined
@@ -174,63 +210,63 @@ export interface IHeartMonitor {
   ) => Promise<T>
 
   readonly redelegations: (
-    args: GQLQueryGqlRedelegationsArgs,
+    args: Partial<GQLQueryGqlRedelegationsArgs>,
     fields?: Partial<GQLRedelegation>
   ) => Promise<GqlOutRedelegations>
 
   readonly spotLpPositions: (
-    args: GQLQueryGqlSpotLpPositionsArgs,
+    args: Partial<GQLQueryGqlSpotLpPositionsArgs>,
     fields?: Partial<GQLSpotLpPosition>
   ) => Promise<GqlOutSpotLpPositions>
 
   readonly spotPoolCreated: (
-    args: GQLQueryGqlSpotPoolCreatedArgs,
+    args: Partial<GQLQueryGqlSpotPoolCreatedArgs>,
     fields?: Partial<GQLSpotPoolCreated>
   ) => Promise<GqlOutSpotPoolCreated>
 
   readonly spotPoolExited: (
-    args: GQLQueryGqlSpotPoolExitedArgs,
+    args: Partial<GQLQueryGqlSpotPoolExitedArgs>,
     fields?: Partial<GQLSpotPoolExited>
   ) => Promise<GqlOutSpotPoolExited>
 
   readonly spotPoolJoined: (
-    args: GQLQueryGqlSpotPoolJoinedArgs,
+    args: Partial<GQLQueryGqlSpotPoolJoinedArgs>,
     fields?: Partial<GQLSpotPoolJoined>
   ) => Promise<GqlOutSpotPoolJoined>
 
   readonly spotPools: (
-    args: GQLQueryGqlSpotPoolsArgs,
+    args: Partial<GQLQueryGqlSpotPoolsArgs>,
     fields?: Partial<GQLSpotPool>
   ) => Promise<GqlOutSpotPools>
 
   readonly spotPoolSwap: (
-    args: GQLQueryGqlSpotPoolSwapArgs,
+    args: Partial<GQLQueryGqlSpotPoolSwapArgs>,
     fields?: Partial<GQLSpotPoolSwap>
   ) => Promise<GqlOutSpotPoolSwap>
 
   readonly stats: (
-    args: QueryStatsArgs,
-    fields?: GQLStatsFields
+    args: Partial<QueryStatsArgs>,
+    fields?: Partial<GQLStatsFields>
   ) => Promise<GqlOutStats>
 
   readonly unbondings: (
-    args: GQLQueryGqlUnbondingsArgs,
+    args: Partial<GQLQueryGqlUnbondingsArgs>,
     fields?: Partial<GQLUnbonding>
   ) => Promise<GqlOutUnbondings>
 
   readonly users: (
-    args: GQLQueryGqlUsersArgs,
+    args: Partial<GQLQueryGqlUsersArgs>,
     fields?: Partial<GQLUser>
   ) => Promise<GqlOutUsers>
 
   readonly validators: (
-    args: GQLQueryGqlValidatorsArgs,
+    args: Partial<GQLQueryGqlValidatorsArgs>,
     fields?: Partial<GQLValidator>
   ) => Promise<GqlOutValidators>
 
   readonly wasm: (
-    args: QueryWasmArgs,
-    fields?: GqlWasmFields
+    args: Partial<QueryWasmArgs>,
+    fields?: Partial<GqlWasmFields>
   ) => Promise<GqlOutWasm>
 }
 
@@ -264,54 +300,78 @@ export class HeartMonitor implements IHeartMonitor {
   closeWebSocket = async () => this.subscriptionClient?.dispose()
 
   communityPool = async (
-    args: GQLQueryGqlCommunityPoolArgs,
+    args: Partial<GQLQueryGqlCommunityPoolArgs>,
     fields?: Partial<GQLToken>
   ) => communityPool(args, this.gqlEndpt, fields)
 
   delegations = async (
-    args: GQLQueryGqlDelegationsArgs,
+    args: Partial<GQLQueryGqlDelegationsArgs>,
     fields?: Partial<GQLDelegation>
   ) => delegations(args, this.gqlEndpt, fields)
 
   distributionCommissions = async (
-    args: GQLQueryGqlDistributionCommissionsArgs,
+    args: Partial<GQLQueryGqlDistributionCommissionsArgs>,
     fields?: Partial<GQLDistributionCommission>
   ) => distributionCommissions(args, this.gqlEndpt, fields)
 
-  governance = async (args: QueryGovernanceArgs, fields?: GovernanceFields) =>
-    governance(args, this.gqlEndpt, fields)
+  featureFlags = async (fields?: Partial<GQLFeatureFlags>) =>
+    featureFlags(this.gqlEndpt, fields)
 
-  ibc = async (args: QueryIbcArgs, fields?: IbcFields) =>
+  governance = async (
+    args: Partial<QueryGovernanceArgs>,
+    fields?: Partial<GovernanceFields>
+  ) => governance(args, this.gqlEndpt, fields)
+
+  ibc = async (args: Partial<QueryIbcArgs>, fields?: Partial<IbcFields>) =>
     ibc(args, this.gqlEndpt, fields)
 
+  inflation = async (
+    args: Partial<QueryInflationArgs>,
+    fields?: Partial<InflationFields>
+  ) => inflation(args, this.gqlEndpt, fields)
+
+  marketingQuery = async (
+    args: Partial<QueryMarketingArgs>,
+    fields?: Partial<MarketingFields>
+  ) => marketingQuery(args, this.gqlEndpt, fields)
+
+  marketingMutation = async (
+    args: Partial<MutationMarketingArgs>,
+    fields?: Partial<GQLMarketingMutation>
+  ) => marketingMutation(args, this.gqlEndpt, fields)
+
   markPriceCandles = async (
-    args: GQLQueryGqlMarkPriceCandlesArgs,
+    args: Partial<GQLQueryGqlMarkPriceCandlesArgs>,
     fields?: Partial<GQLMarkPriceCandle>
   ) => markPriceCandles(args, this.gqlEndpt, fields)
 
   markPriceCandlesSubscription = async (
-    args: GQLSubscriptionGqlMarkPriceCandlesArgs,
+    args: Partial<GQLSubscriptionGqlMarkPriceCandlesArgs>,
     fields?: Partial<GQLMarkPriceCandle>
   ) => markPriceCandlesSubscription(args, this.subscriptionClient, fields)
 
-  oracle = async (args: QueryOracleArgs, fields?: OracleFields) =>
-    oracle(args, this.gqlEndpt, fields)
+  oracle = async (
+    args: Partial<QueryOracleArgs>,
+    fields?: Partial<OracleFields>
+  ) => oracle(args, this.gqlEndpt, fields)
 
   oraclePricesSubscription = async (
-    args: GQLSubscriptionGqlOraclePricesArgs,
+    args: Partial<GQLSubscriptionGqlOraclePricesArgs>,
     fields?: Partial<GQLOraclePrice>
   ) => oraclePricesSubscription(args, this.subscriptionClient, fields)
 
-  perp = async (args: QueryPerpArgs, fields?: GQLPerpFields) =>
-    perp(args, this.gqlEndpt, fields)
+  perp = async (
+    args: Partial<QueryPerpArgs>,
+    fields?: Partial<GQLPerpFields>
+  ) => perp(args, this.gqlEndpt, fields)
 
   perpMarketSubscription = async (
-    args: GQLSubscriptionGqlPerpMarketArgs,
+    args: Partial<GQLSubscriptionGqlPerpMarketArgs>,
     fields?: Partial<GQLPerpMarket>
   ) => perpMarketSubscription(args, this.subscriptionClient, fields)
 
   perpPositionsSubscription = async (
-    args: GQLSubscriptionGqlPerpPositionsArgs,
+    args: Partial<GQLSubscriptionGqlPerpPositionsArgs>,
     fields?: Partial<GQLPerpPosition>
   ) => perpPositionsSubscription(args, this.subscriptionClient, fields)
 
@@ -319,56 +379,62 @@ export class HeartMonitor implements IHeartMonitor {
     <T>queryBatchHandler(queryQueryStrings, this.gqlEndpt)
 
   redelegations = async (
-    args: GQLQueryGqlRedelegationsArgs,
+    args: Partial<GQLQueryGqlRedelegationsArgs>,
     fields?: Partial<GQLRedelegation>
   ) => redelegations(args, this.gqlEndpt, fields)
 
   spotLpPositions = async (
-    args: GQLQueryGqlSpotLpPositionsArgs,
+    args: Partial<GQLQueryGqlSpotLpPositionsArgs>,
     fields?: Partial<GQLSpotLpPosition>
   ) => spotLpPositions(args, this.gqlEndpt, fields)
 
   spotPoolCreated = async (
-    args: GQLQueryGqlSpotPoolCreatedArgs,
+    args: Partial<GQLQueryGqlSpotPoolCreatedArgs>,
     fields?: Partial<GQLSpotPoolCreated>
   ) => spotPoolCreated(args, this.gqlEndpt, fields)
 
   spotPoolExited = async (
-    args: GQLQueryGqlSpotPoolExitedArgs,
+    args: Partial<GQLQueryGqlSpotPoolExitedArgs>,
     fields?: Partial<GQLSpotPoolExited>
   ) => spotPoolExited(args, this.gqlEndpt, fields)
 
   spotPoolJoined = async (
-    args: GQLQueryGqlSpotPoolJoinedArgs,
+    args: Partial<GQLQueryGqlSpotPoolJoinedArgs>,
     fields?: Partial<GQLSpotPoolJoined>
   ) => spotPoolJoined(args, this.gqlEndpt, fields)
 
   spotPools = async (
-    args: GQLQueryGqlSpotPoolsArgs,
+    args: Partial<GQLQueryGqlSpotPoolsArgs>,
     fields?: Partial<GQLSpotPool>
   ) => spotPools(args, this.gqlEndpt, fields)
 
   spotPoolSwap = async (
-    args: GQLQueryGqlSpotPoolSwapArgs,
+    args: Partial<GQLQueryGqlSpotPoolSwapArgs>,
     fields?: Partial<GQLSpotPoolSwap>
   ) => spotPoolSwap(args, this.gqlEndpt, fields)
 
-  stats = async (args: QueryStatsArgs, fields?: GQLStatsFields) =>
-    stats(args, this.gqlEndpt, fields)
+  stats = async (
+    args: Partial<QueryStatsArgs>,
+    fields?: Partial<GQLStatsFields>
+  ) => stats(args, this.gqlEndpt, fields)
 
   unbondings = async (
-    args: GQLQueryGqlUnbondingsArgs,
+    args: Partial<GQLQueryGqlUnbondingsArgs>,
     fields?: Partial<GQLUnbonding>
   ) => unbondings(args, this.gqlEndpt, fields)
 
-  users = async (args: GQLQueryGqlUsersArgs, fields?: Partial<GQLUser>) =>
-    users(args, this.gqlEndpt, fields)
+  users = async (
+    args: Partial<GQLQueryGqlUsersArgs>,
+    fields?: Partial<GQLUser>
+  ) => users(args, this.gqlEndpt, fields)
 
   validators = async (
-    args: GQLQueryGqlValidatorsArgs,
+    args: Partial<GQLQueryGqlValidatorsArgs>,
     fields?: Partial<GQLValidator>
   ) => validators(args, this.gqlEndpt, fields)
 
-  wasm = async (args: QueryWasmArgs, fields?: GqlWasmFields) =>
-    wasm(args, this.gqlEndpt, fields)
+  wasm = async (
+    args: Partial<QueryWasmArgs>,
+    fields?: Partial<GqlWasmFields>
+  ) => wasm(args, this.gqlEndpt, fields)
 }

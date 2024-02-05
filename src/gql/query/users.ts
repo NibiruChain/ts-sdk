@@ -1,15 +1,13 @@
-import { defaultUser } from "../utils/defaultObjects"
 import {
+  defaultUser,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLQueryGqlUsersArgs,
   GQLUser,
   GQLUserOrder,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutUsers {
   users?: GQLQuery["users"]

@@ -1,10 +1,8 @@
-import { defaultGovernance } from "../utils/defaultObjects"
 import {
+  defaultGovernance,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLGovernanceGqlGovDepositsArgs,
   GQLGovernanceGqlGovProposalsArgs,
@@ -12,7 +10,7 @@ import {
   GQLGovDeposit,
   GQLGovProposal,
   GQLGovVote,
-} from "../utils/generated"
+} from ".."
 
 export type QueryGovernanceArgs = {
   govDeposits?: GQLGovernanceGqlGovDepositsArgs

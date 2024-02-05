@@ -1,9 +1,17 @@
 import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import { coins } from "@cosmjs/proto-signing"
 import { fetch } from "cross-fetch"
-import { Chain, faucetUrlFromChain, newCoinMapFromCoins, useFaucet } from "."
-import { newRandomWallet, newSignerFromMnemonic, NibiruTxClient } from "../tx"
-import { TEST_CHAIN, TEST_MNEMONIC } from "./testutil"
+import {
+  Chain,
+  faucetUrlFromChain,
+  newCoinMapFromCoins,
+  useFaucet,
+  newRandomWallet,
+  newSignerFromMnemonic,
+  NibiruTxClient,
+  Localnet,
+  TEST_MNEMONIC,
+} from ".."
 
 jest.mock("cross-fetch", () => ({
   fetch: jest.fn().mockImplementation(() => ({ catch: jest.fn() })),
@@ -21,7 +29,7 @@ test.skip("faucet utility works", async () => {
 
   const validator = await newSignerFromMnemonic(TEST_MNEMONIC)
   const txClient = await NibiruTxClient.connectWithSigner(
-    TEST_CHAIN.endptTm,
+    Localnet.endptTm,
     validator
   )
   const [{ address: fromAddr }] = await validator.getAccounts()
@@ -39,7 +47,7 @@ test.skip("faucet utility works", async () => {
   )
   const faucetResp = await useFaucet({
     address: toAddr,
-    chain: TEST_CHAIN,
+    chain: Localnet,
     grecaptcha: "",
   })
   expect(faucetResp?.ok).toBeTruthy()
@@ -98,16 +106,6 @@ describe("useFaucet", () => {
     })
   })
 
-  test("should return undefined if fetch fails", async () => {
-    const errorMessage = "Failed to fetch"
-
-    jest.mock("cross-fetch", () => ({
-      fetch: jest.fn().mockRejectedValueOnce(new Error(errorMessage)),
-    }))
-
-    expect(await useFaucet({ address, chain, grecaptcha })).toEqual(undefined)
-  })
-
   test("faucetUrlFromChain helper func should construct faucet URL from chain object", () => {
     expect(
       faucetUrlFromChain({
@@ -121,5 +119,19 @@ describe("useFaucet", () => {
         feeDenom: "",
       })
     ).toBe(expectedUrl)
+  })
+
+  test("faucetUrlFromChain - chain includes cataclysm", () => {
+    const result = faucetUrlFromChain({
+      endptTm: "",
+      endptRest: "",
+      endptGrpc: "",
+      endptHm: "",
+      endptWs: "",
+      chainId: "",
+      chainName: "cataclysm",
+      feeDenom: "",
+    })
+    expect(result).toEqual(`https://faucet.nibiru.fi/`)
   })
 })

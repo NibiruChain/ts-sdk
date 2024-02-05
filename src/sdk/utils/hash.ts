@@ -1,4 +1,4 @@
-import { Result } from "./result"
+import { Result } from "."
 
 /**
  * Converts an 8-bit byte array (Uint8Array) into a hexadecimal (hex) string.

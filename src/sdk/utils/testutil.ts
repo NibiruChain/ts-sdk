@@ -1,11 +1,5 @@
 import { Block } from "@cosmjs/stargate"
-import { Chain, Localnet } from "."
-import { parseError } from "./result"
-import { ABCIEvent } from "../tx"
-
-/** TEST_CHAIN: Alias for Localnet.
- * @see Localnet */
-export const TEST_CHAIN = Localnet
+import { Chain, parseError, ABCIEvent } from ".."
 
 /** Mnemonic for the wallet of the default validator on localnet" */
 export const TEST_MNEMONIC =

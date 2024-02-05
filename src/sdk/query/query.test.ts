@@ -2,17 +2,17 @@ import fs from "fs"
 import { Block, coins } from "@cosmjs/stargate"
 import Long from "long"
 import { fetch } from "cross-fetch"
-import { NibiruQuerier } from "."
 import {
-  TEST_CHAIN,
+  NibiruQuerier,
+  Localnet,
   TEST_ADDRESS,
   assertValidBlock,
   assertValidBlockFromJsonRpc,
   TEST_MNEMONIC,
   assertExpectedError,
-} from "../utils/testutil"
-import { newSignerFromMnemonic } from "../tx/signer"
-import { NibiruTxClient } from "../tx/txClient"
+  newSignerFromMnemonic,
+  NibiruTxClient,
+} from ".."
 
 interface BlockResp {
   result: { block: { [key: string]: unknown } }
@@ -20,13 +20,13 @@ interface BlockResp {
 
 describe("connections", () => {
   test("query command is able to fetch latest block", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const blockResp: Block = await querier.getBlock()
-    assertValidBlock(blockResp, TEST_CHAIN)
+    assertValidBlock(blockResp, Localnet)
   })
 
   test("tendermint rpc url returns block with GET", async () => {
-    const resp = await fetch(`${TEST_CHAIN.endptTm}/block`)
+    const resp = await fetch(`${Localnet.endptTm}/block`)
     const respJson = (await resp.json()) as BlockResp
     expect(respJson.result).toHaveProperty("block")
     const blockJson = respJson.result.block
@@ -36,7 +36,7 @@ describe("connections", () => {
 
 describe("x/bank queries", () => {
   test("query bank balance", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const balances = await querier.getAllBalances(TEST_ADDRESS)
 
     expect(balances.length).toBeGreaterThan(0)
@@ -51,7 +51,7 @@ describe("x/bank queries", () => {
 
 describe("x/spot queries", () => {
   test("query spot params", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const { params } = await querier.nibiruExtensions.spot.params()
     const fields: string[] = [
       "poolCreationFee",
@@ -68,7 +68,7 @@ describe("x/spot queries", () => {
 
 describe("x/oracle queries", () => {
   test("query active oracles", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const { actives } = await querier.nibiruExtensions.oracle.actives()
     if (actives.length > 0) {
       const pair = actives[0]
@@ -77,7 +77,7 @@ describe("x/oracle queries", () => {
   })
 
   test("query oracle params", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const { params: moduleParams } =
       await querier.nibiruExtensions.oracle.params()
     expect(moduleParams).toBeDefined()
@@ -85,7 +85,7 @@ describe("x/oracle queries", () => {
   })
 
   test("query exchange rates", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const exhangeRateMap = await querier.nibiruExtensions.oracle.exchangeRates()
     if (Object.keys(exhangeRateMap).length > 0) {
       for (const pair in exhangeRateMap) {
@@ -104,7 +104,7 @@ describe("x/epochs queries", () => {
   test(
     "query epochs info and current epoch",
     async () => {
-      const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+      const querier = await NibiruQuerier.connect(Localnet.endptTm)
       const infoResp = await querier.nibiruExtensions.epochs.epochsInfo()
       expect(infoResp).toHaveProperty("epochs")
       expect(infoResp.epochs.length).toBeGreaterThan(0)
@@ -122,7 +122,7 @@ describe("x/epochs queries", () => {
 
 describe("x/staking module queries", () => {
   test("query bonded validators", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const infoResp = await querier.nibiruExtensions.staking.validators(
       "BOND_STATUS_BONDED"
     )
@@ -133,7 +133,7 @@ describe("x/staking module queries", () => {
 
 describe("distribution module queries", () => {
   test("distribution params", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const resp = await querier.nibiruExtensions.distribution.params()
     const { params } = resp
     expect(params).toBeDefined()
@@ -151,7 +151,7 @@ describe("distribution module queries", () => {
 
 describe("gov module queries", () => {
   test("gov params", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const resp = await querier.nibiruExtensions.gov.params("voting")
     const { votingParams } = resp
     expect(votingParams).toBeDefined()
@@ -164,7 +164,7 @@ describe("gov module queries", () => {
 
 describe("ibc module queries", () => {
   test("all channels", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const resp = await querier.nibiruExtensions.ibc.channel.allChannels()
     const { channels } = resp
     expect(channels).toBeDefined()
@@ -184,7 +184,7 @@ describe("ibc module queries", () => {
     })
   })
   test("all connections", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const resp = await querier.nibiruExtensions.ibc.connection.allConnections()
     const { connections } = resp
     expect(connections).toBeDefined()
@@ -203,7 +203,7 @@ describe("ibc module queries", () => {
     })
   })
   test("clients params", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const resp = await querier.nibiruExtensions.ibc.client.params()
     const { params } = resp
     expect(params).toBeDefined()
@@ -213,7 +213,7 @@ describe("ibc module queries", () => {
     })
   })
   test("transfer params", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const resp = await querier.nibiruExtensions.ibc.transfer.params()
     const { params } = resp
     expect(params).toBeDefined()
@@ -223,7 +223,7 @@ describe("ibc module queries", () => {
     })
   })
   test("verified channel", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const channel = await querier.nibiruExtensions.ibc.verified.channel.channel(
       "transfer",
       "channel-0"
@@ -253,7 +253,7 @@ describe("wasm", () => {
     // Deploy cw20 contract
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const txClient = await NibiruTxClient.connectWithSigner(
-      TEST_CHAIN.endptTm,
+      Localnet.endptTm,
       signer
     )
     const [{ address: sender }] = await signer.getAccounts()
@@ -284,7 +284,7 @@ describe("wasm", () => {
       )
       contractAddress = initRes.contractAddress
 
-      const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+      const querier = await NibiruQuerier.connect(Localnet.endptTm)
 
       testGetCode(querier)
       testGetAllContractState(querier, contractAddress)
@@ -293,6 +293,7 @@ describe("wasm", () => {
     try {
       await assertHappyPath()
     } catch (error) {
+      console.log(error)
       const okErrors: string[] = ["account sequence mismatch"]
       assertExpectedError(error, okErrors)
     }
@@ -317,8 +318,61 @@ describe("wasm", () => {
 
 describe("auth", () => {
   test("account", async () => {
-    const querier = await NibiruQuerier.connect(TEST_CHAIN.endptTm)
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const res = await querier.nibiruExtensions.auth.account(TEST_ADDRESS)
     expect(res).toBeDefined()
+  })
+})
+
+describe("NibiruQuerier", () => {
+  test("waitForHeight", async () => {
+    jest.useFakeTimers()
+    const setTimeoutSpy = jest.spyOn(global, "setTimeout")
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
+
+    await querier.waitForHeight((await querier.getHeight()) - 1)
+
+    expect(setTimeoutSpy).not.toHaveBeenCalled()
+  })
+
+  // test("waitForNextBlock", async () => {
+  //   const setTimeoutSpy = jest.spyOn(global, "setTimeout")
+  //   const querier = await NibiruQuerier.connect(Localnet.endptTm)
+
+  //   await querier.waitForNextBlock()
+
+  //   expect(setTimeoutSpy).toHaveBeenCalled()
+  // })
+
+  test("getTxByHash - tx doesn't exist", async () => {
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
+
+    const result = await querier.getTxByHash(
+      "7A919F2CC9A51B139444F7D8E84A46EEF307E839C6CA914C1A1C594FEF5C1562"
+    )
+
+    expect(result.isErr()).toEqual(true)
+  })
+
+  test("getTxByHash - wrong hash", async () => {
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
+
+    const result = await querier.getTxByHash("mock")
+
+    expect(result.ok).toEqual(undefined)
+  })
+
+  test("getTxByHash", async () => {
+    const querier = await NibiruQuerier.connect(Localnet.endptTm)
+
+    const result = await querier.getTxByHashBytes(
+      Uint8Array.from([
+        193, 113, 231, 87, 170, 14, 237, 180, 87, 3, 220, 115, 58, 146, 22, 42,
+        36, 19, 202, 26, 207, 206, 143, 187, 169, 18, 160, 185, 240, 17, 34,
+        193,
+      ])
+    )
+
+    expect(result.isErr()).toEqual(true)
   })
 })

@@ -2,13 +2,14 @@ import { Client, ExecutionResult } from "graphql-ws"
 import {
   GQLMarkPriceCandle,
   GQLSubscriptionGqlMarkPriceCandlesArgs,
-} from "../utils/generated"
-import { gqlQuery, convertObjectToPropertiesString } from "../utils/consts"
-import { GqlOutMarkPriceCandles } from "../query"
-import { defaultMarkPriceCandles } from "../utils/defaultObjects"
+  gqlQuery,
+  convertObjectToPropertiesString,
+  defaultMarkPriceCandles,
+  GqlOutMarkPriceCandles,
+} from ".."
 
 export const markPriceCandlesSubscriptionQueryString = (
-  args: GQLSubscriptionGqlMarkPriceCandlesArgs,
+  args: Partial<GQLSubscriptionGqlMarkPriceCandlesArgs>,
   fields?: Partial<GQLMarkPriceCandle>
 ) =>
   `subscription {
@@ -23,7 +24,7 @@ export const markPriceCandlesSubscriptionQueryString = (
   }`
 
 export const markPriceCandlesSubscription = async (
-  args: GQLSubscriptionGqlMarkPriceCandlesArgs,
+  args: Partial<GQLSubscriptionGqlMarkPriceCandlesArgs>,
   client?: Client,
   fields?: Partial<GQLMarkPriceCandle>
 ): Promise<

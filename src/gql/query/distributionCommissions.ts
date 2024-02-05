@@ -1,15 +1,13 @@
-import { defaultDistributionCommission } from "../utils/defaultObjects"
 import {
+  defaultDistributionCommission,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLQueryGqlDistributionCommissionsArgs,
   GQLDistributionCommissionOrder,
   GQLDistributionCommission,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutDistributionCommissions {
   distributionCommissions?: GQLQuery["distributionCommissions"]

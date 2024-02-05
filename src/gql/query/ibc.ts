@@ -1,18 +1,14 @@
 import {
   defaultIbcChannelsResponse,
   defaultIbcTransfer,
-} from "../utils/defaultObjects"
-import {
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLIbcgqlIbcTransfersArgs,
   GQLIbcChannelsResponse,
   GQLIbcTransfer,
-} from "../utils/generated"
+} from ".."
 
 export type QueryIbcArgs = {
   ibcChannels?: undefined
@@ -31,16 +27,20 @@ export type IbcFields = Partial<{
 export const ibcQueryString = (args: QueryIbcArgs, fields?: IbcFields) => {
   const ibcQuery: string[] = []
 
-  if (fields?.ibcChannels) {
-    ibcQuery.push(
-      gqlQuery(
-        "ibcChannels",
-        args.ibcChannels ?? {},
-        convertObjectToPropertiesString(fields.ibcChannels),
-        true
-      )
-    )
-  }
+  // TODO: Currently hidden due to lack of arg output from graphql shcema
+  // At the moment this code does nothing as fields.ibcChannels will never be non-nullish
+  // Leaving code here in case the schema ever changes
+
+  // if (fields?.ibcChannels) {
+  //   ibcQuery.push(
+  //     gqlQuery(
+  //       "ibcChannels",
+  //       args.ibcChannels ?? {},
+  //       convertObjectToPropertiesString(fields.ibcChannels),
+  //       true
+  //     )
+  //   )
+  // }
 
   if (fields?.ibcTransfers) {
     ibcQuery.push(
@@ -59,7 +59,8 @@ export const ibcQueryString = (args: QueryIbcArgs, fields?: IbcFields) => {
     ibcQuery.push(
       gqlQuery(
         "ibcChannels",
-        args.ibcChannels ?? {},
+        // args.ibcChannels ?? {},
+        {},
         convertObjectToPropertiesString(defaultIbcChannelsResponse),
         true
       )

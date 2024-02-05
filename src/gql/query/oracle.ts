@@ -1,16 +1,15 @@
-import { defaultOracleEntry, defaultOraclePrice } from "../utils/defaultObjects"
 import {
+  defaultOracleEntry,
+  defaultOraclePrice,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLOracleEntry,
   GQLOracleGqlOraclePricesArgs,
   GQLOracleGqlOraclesArgs,
   GQLOraclePrice,
   GQLQuery,
-} from "../utils/generated"
+} from ".."
 
 export type QueryOracleArgs = {
   oraclePrices?: GQLOracleGqlOraclePricesArgs

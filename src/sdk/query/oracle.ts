@@ -31,7 +31,7 @@ import {
   AggregateExchangeRatePrevote,
   AggregateExchangeRateVote,
 } from "../../protojs/nibiru/oracle/v1/oracle"
-import { fromSdkDec } from "../utils"
+import { fromSdkDec } from ".."
 
 export interface OracleExtension {
   oracle: Readonly<{

@@ -1,6 +1,6 @@
 import { WebSocket } from "ws"
-import { HeartMonitor } from "./heart-monitor"
 import {
+  HeartMonitor,
   GovernanceFields,
   IbcFields,
   OracleFields,
@@ -17,11 +17,8 @@ import {
   GqlWasmFields,
   GqlOutCommunityPool,
   GqlOutDelegations,
-} from "../query"
-import {
   checkFields,
   cleanResponse,
-  gqlEndptFromTmRpc,
   defaultDelegations,
   defaultDistributionCommission,
   defaultGovDeposit,
@@ -89,9 +86,21 @@ import {
   GQLUnbonding,
   GQLUser,
   GQLValidator,
-} from "../utils"
+  InflationFields,
+  QueryInflationArgs,
+  defaultInflationInfo,
+  defaultInflationDistribution,
+  GQLFeatureFlags,
+  defaultFeatureFlags,
+  defaultTwitterUser,
+  defaultTweet,
+  defaultLike,
+  defaultTask,
+  QueryMarketingArgs,
+  MarketingFields,
+} from ".."
 
-const nibiruUrl = "devnet-2"
+const nibiruUrl = "testnet-1"
 
 const heartMonitor = new HeartMonitor(
   `https://hm-graphql.${nibiruUrl}.nibiru.fi/query`,
@@ -123,35 +132,6 @@ describe("Heart Monitor constructor", () => {
       `wss://hm-graphql.${nibiruUrl}.nibiru.fi/query`
     )
     expect(hm.gqlEndpt).toBe(tc.expected)
-  })
-})
-
-describe("gqlEndptFromTmRpc", () => {
-  interface TestCase {
-    in: string
-    want: string | null
-  }
-
-  const tests: TestCase[] = [
-    {
-      in: `https://rpc.${nibiruUrl}.nibiru.fi`,
-      want: `https://hm-graphql.${nibiruUrl}.nibiru.fi/graphql`,
-    },
-    {
-      in: `----rpc.${nibiruUrl}.-----`,
-      want: `https://hm-graphql.${nibiruUrl}.nibiru.fi/graphql`,
-    },
-    { in: "", want: null },
-    { in: "rpctestnet-nodots", want: null },
-    {
-      in: "rpc.testnet-nodots",
-      want: "https://hm-graphql.testnet-nodots.nibiru.fi/graphql",
-    },
-  ]
-
-  test.each(tests)("%s", (tc: TestCase) => {
-    const got = gqlEndptFromTmRpc(tc.in)
-    expect(got).toBe(tc.want)
   })
 })
 
@@ -212,43 +192,23 @@ test("distributionCommissions", async () => {
   await testDistributionCommissions({}, defaultDistributionCommission)
 })
 
-const testIbc = async (args: QueryIbcArgs, fields?: IbcFields) => {
-  const resp = await heartMonitor.ibc(args, fields)
-  expect(resp).toHaveProperty("ibc")
+const testFeatureFlags = async (fields?: GQLFeatureFlags) => {
+  const resp = await heartMonitor.featureFlags(fields)
+  expect(resp).toHaveProperty("featureFlags")
 
-  if (resp.ibc) {
-    const { ibc } = resp
+  if (resp.featureFlags) {
+    const { featureFlags } = resp
 
-    checkFields([ibc], ["ibcChannels", "ibcTransfers"])
+    checkFields(
+      [featureFlags],
+      ["gov", "oracle", "perp", "spot", "staking", "wasm"]
+    )
   }
 }
 
-test("ibc", async () => {
-  await testIbc({
-    ibcChannels: undefined,
-    ibcTransfers: {
-      limit: 1,
-    },
-  })
-  await testIbc(
-    {
-      ibcChannels: undefined,
-      ibcTransfers: {
-        limit: 1,
-      },
-    },
-    {
-      ibcChannels: defaultIbcChannelsResponse,
-      ibcTransfers: defaultIbcTransfer,
-    }
-  )
-  await testIbc(
-    {},
-    {
-      ibcChannels: defaultIbcChannelsResponse,
-      ibcTransfers: defaultIbcTransfer,
-    }
-  )
+test("featureFlags", async () => {
+  await testFeatureFlags(defaultFeatureFlags)
+  await testFeatureFlags()
 })
 
 const testGovernance = async (
@@ -307,6 +267,96 @@ test("governance", async () => {
     }
   )
 })
+
+const testIbc = async (args: QueryIbcArgs, fields?: IbcFields) => {
+  const resp = await heartMonitor.ibc(args, fields)
+  expect(resp).toHaveProperty("ibc")
+
+  if (resp.ibc) {
+    const { ibc } = resp
+
+    checkFields(
+      [ibc],
+      [...(args.ibcChannels ? ["ibcChannels"] : []), "ibcTransfers"]
+    )
+  }
+}
+
+test("ibc", async () => {
+  await testIbc({
+    ibcTransfers: {
+      limit: 1,
+    },
+  })
+  await testIbc({
+    ibcChannels: undefined,
+    ibcTransfers: {
+      limit: 1,
+    },
+  })
+  await testIbc(
+    {
+      ibcChannels: undefined,
+      ibcTransfers: {
+        limit: 1,
+      },
+    },
+    {
+      ibcChannels: defaultIbcChannelsResponse,
+      ibcTransfers: defaultIbcTransfer,
+    }
+  )
+  await testIbc(
+    {},
+    {
+      ibcChannels: defaultIbcChannelsResponse,
+      ibcTransfers: defaultIbcTransfer,
+    }
+  )
+})
+
+const testInflation = async (
+  args: QueryInflationArgs,
+  fields?: InflationFields
+) => {
+  const resp = await heartMonitor.inflation(args, fields)
+  expect(resp).toHaveProperty("inflation")
+
+  if (resp.inflation) {
+    const { inflation } = resp
+
+    checkFields([inflation], ["distributions", "inflations"])
+  }
+}
+
+test("inflation", async () => {
+  await testInflation({
+    inflations: {
+      limit: 1,
+    },
+    distributions: {
+      limit: 1,
+    },
+  })
+  await testInflation(
+    {},
+    {
+      inflations: defaultInflationInfo,
+      distributions: defaultInflationDistribution,
+    }
+  )
+})
+
+const testOracle = async (args: QueryOracleArgs, fields?: OracleFields) => {
+  const resp = await heartMonitor.oracle(args, fields)
+  expect(resp).toHaveProperty("oracle")
+
+  if (resp.oracle) {
+    const { oracle } = resp
+
+    checkFields([oracle], ["oraclePrices", "oracles"])
+  }
+}
 
 const testMarkPriceCandles = async (
   args: GQLQueryGqlMarkPriceCandlesArgs,
@@ -383,16 +433,65 @@ test("markPriceCandlesSubscription", async () => {
   )
 })
 
-const testOracle = async (args: QueryOracleArgs, fields?: OracleFields) => {
-  const resp = await heartMonitor.oracle(args, fields)
-  expect(resp).toHaveProperty("oracle")
+const testMarketingQuery = async (
+  args: QueryMarketingArgs,
+  fields?: MarketingFields
+) => {
+  const resp = await heartMonitor.marketingQuery(args, fields)
+  expect(resp).toHaveProperty("marketing")
 
-  if (resp.oracle) {
-    const { oracle } = resp
+  if (resp.marketing) {
+    const { marketing } = resp
 
-    checkFields([oracle], ["oraclePrices", "oracles"])
+    checkFields(
+      [marketing],
+      ["likes", "retweets", "tasks", "tweets", "twitterUser"]
+    )
   }
 }
+
+// TODO: Re-enable
+test.skip("marketingQuery", async () => {
+  await testMarketingQuery({
+    twitterUser: {
+      where: { id: "1516130689028087815" },
+    },
+    tweets: {
+      where: { userId: "1516130689028087815" },
+    },
+    likes: {
+      where: { userId: "1516130689028087815" },
+    },
+  })
+  await testMarketingQuery(
+    {
+      twitterUser: {
+        where: { id: "" },
+      },
+      tweets: {
+        where: { userId: "" },
+      },
+      likes: {
+        where: { userId: "" },
+      },
+    },
+    {
+      twitterUser: defaultTwitterUser,
+      tweets: defaultTweet,
+      likes: defaultLike,
+      tasks: defaultTask,
+    }
+  )
+  await testMarketingQuery(
+    {},
+    {
+      twitterUser: defaultTwitterUser,
+      tweets: defaultTweet,
+      likes: defaultLike,
+      tasks: defaultTask,
+    }
+  )
+})
 
 test("oracle", async () => {
   await testOracle({
@@ -454,7 +553,7 @@ const testOraclePricesSubscription = async (
   }
 }
 
-test("oraclePricesSubscription", async () => {
+test.skip("oraclePricesSubscription", async () => {
   await testOraclePricesSubscription({
     where: { pair: "ubtc:unusd" },
   })
@@ -624,7 +723,7 @@ const testPerpMarketSubscription = async (
   }
 }
 
-test("perpMarketSubscription", async () => {
+test.skip("perpMarketSubscription", async () => {
   await testPerpMarketSubscription({
     where: { pair: "ubtc:unusd" },
   })

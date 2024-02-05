@@ -1,5 +1,5 @@
 import { DirectSecp256k1HdWallet, Registry } from "@cosmjs/proto-signing"
-import { getRegistry, newRandomWallet, newSignerFromMnemonic } from "./signer"
+import { getRegistry, newRandomWallet, newSignerFromMnemonic } from "."
 
 describe("signer tests", () => {
   test("getRegistry", () => {

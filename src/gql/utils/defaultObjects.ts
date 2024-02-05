@@ -2,6 +2,7 @@ import {
   GQLBlock,
   GQLDelegation,
   GQLDistributionCommission,
+  GQLFeatureFlags,
   GQLGovDeposit,
   GQLGovProposal,
   GQLGovVote,
@@ -10,7 +11,11 @@ import {
   GQLIbcChannel,
   GQLIbcChannelsResponse,
   GQLIbcTransfer,
+  GQLInflationDistribution,
+  GQLInflationInfo,
+  GQLLike,
   GQLMarkPriceCandle,
+  GQLNibiruTweet,
   GQLOracleEntry,
   GQLOraclePrice,
   GQLPerpLeaderboard,
@@ -28,13 +33,17 @@ import {
   GQLStatsTvl,
   GQLStatsUsers,
   GQLStatsVolume,
+  GQLTask,
+  GQLTaskCompletion,
   GQLToken,
+  GQLTweet,
+  GQLTwitterUser,
   GQLUnbonding,
   GQLUser,
   GQLUserContract,
   GQLValidator,
   GQLValidatorStatus,
-} from "./generated"
+} from "."
 
 export const defaultToken: GQLToken = {
   denom: "",
@@ -66,7 +75,7 @@ export const defaultValidator: GQLValidator = {
   jailed: false,
   operator_address: "",
   min_self_delegation: 0,
-  status: GQLValidatorStatus.GQLBonded,
+  status: "BONDED" as GQLValidatorStatus.GQLUnbonded,
   tokens: 0,
   unbonding_block: defaultBlock,
   unbonding_time: "",
@@ -409,4 +418,89 @@ export const defaultIbcChannelsResponse: GQLIbcChannelsResponse = {
 export const defaultUserContract: GQLUserContract = {
   user: defaultUser,
   contractAddress: "",
+}
+
+export const defaultInflationDistribution: GQLInflationDistribution = {
+  block: defaultBlock,
+  communityPool: 0,
+  eventSeqNo: 0,
+  stakingRewards: 0,
+  strategicReserve: 0,
+  txSeqNo: 0,
+}
+
+export const defaultInflationInfo: GQLInflationInfo = {
+  amount: 0,
+  block: defaultBlock,
+  epochNumber: 0,
+  epochProvisions: 0,
+}
+
+export const defaultFeatureFlags: GQLFeatureFlags = {
+  gov: true,
+  oracle: true,
+  perp: true,
+  spot: true,
+  staking: true,
+  wasm: true,
+}
+
+// TODO: Add default objects to arrays
+export const defaultTwitterUser: GQLTwitterUser = {
+  completedTasks: [],
+  creationTimestamp: "",
+  displayName: "",
+  followersCount: 0,
+  followingCount: 0,
+  id: "",
+  likes: [],
+  listedCount: 0,
+  nibiAddress: "",
+  tweets: [],
+  tweetsCount: 0,
+  username: "",
+}
+
+export const defaultNibiruTweet: GQLNibiruTweet = {
+  creationTimestamp: "",
+  id: "",
+}
+
+export const defaultLike: GQLLike = {
+  nibiruTweet: defaultNibiruTweet,
+  user: defaultTwitterUser,
+}
+
+export const defaultTweet: GQLTweet = {
+  author: defaultTwitterUser,
+  conversationId: "",
+  creationTimestamp: "",
+  id: "",
+  inReplyToTweetId: "",
+  inReplyToUserId: "",
+  isMention: true,
+  likeCount: 0,
+  likes: [defaultLike],
+  quoteCount: 0,
+  quoteTweetId: "",
+  replyCount: 0,
+  retweetId: "",
+  text: "",
+}
+
+export const defaultTask: GQLTask = {
+  behavior: "",
+  category: "",
+  description: "",
+  expirationTime: "",
+  id: "",
+  nibiruTweet: defaultNibiruTweet,
+  points: 0,
+  startTime: "",
+}
+
+export const defaultTaskCompletion: GQLTaskCompletion = {
+  completionTime: "",
+  task: defaultTask,
+  user: defaultTwitterUser,
 }

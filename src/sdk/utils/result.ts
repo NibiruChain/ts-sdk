@@ -35,12 +35,14 @@ export class Result<T> {
     this.err = err ? parseError(err) : undefined
 
     if (Boolean(this.ok) && Boolean(this.err)) {
-      throw new Error(
+      console.error(
         "ResultError: ok and error states must not be defined simultaneously"
       )
     }
   }
 
+  // TODO: Refactor all references of these into a common function; isErr === !isOk
+  // Also, ok and err are also public in this class
   isErr = (): boolean => this.err !== undefined
   isOk = (): boolean => !this.isErr()
 

@@ -1,9 +1,12 @@
-import { checkFields, queryBatchHandler } from "."
 import {
+  checkFields,
+  queryBatchHandler,
   GqlOutCommunityPool,
   communityPoolQueryString,
-} from "../query/communityPool"
-import { GqlOutDelegations, delegationsQueryString } from "../query"
+  GqlOutDelegations,
+  delegationsQueryString,
+  arg,
+} from ".."
 
 describe("queryBatchHandler tests", () => {
   test("queryBatchHandler", async () => {
@@ -37,5 +40,10 @@ describe("queryBatchHandler tests", () => {
       const delegationFields = ["amount", "delegator", "validator"]
       checkFields([delegation], delegationFields)
     }
+  })
+
+  test("arg", async () => {
+    const result = arg("mock", "mock", false)
+    expect(result).toEqual(`mock: "mock"`)
   })
 })

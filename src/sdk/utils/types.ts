@@ -1,6 +1,6 @@
 import { Coin } from "@cosmjs/proto-signing"
 import BigNumber from "bignumber.js"
-import { ABCIEvent } from "../tx/event"
+import { ABCIEvent } from ".."
 
 /**
  * Asserts that a given condition is true. If the condition evaluates to false,

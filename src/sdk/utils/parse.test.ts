@@ -1,4 +1,4 @@
-import { fromSdkDec, toSdkDec, toSdkInt } from "./parse"
+import { fromSdkDec, toSdkDec, toSdkInt } from "."
 
 describe("toSdkDec - float to sdk.Dec conversion", () => {
   interface TestCase {

@@ -1,5 +1,5 @@
 import { fetch } from "cross-fetch"
-import { Chain, chainToParts } from "./chain"
+import { Chain, chainToParts } from "."
 
 /**
  * Sends 11 NIBI, 100 NUSD, and 100 USDT to the given address from the testnet faucet.
@@ -46,9 +46,6 @@ export async function useFaucet({
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ address, coins, grecaptcha }),
-  }).catch((err) => {
-    console.error(err)
-    return undefined
   })
 }
 

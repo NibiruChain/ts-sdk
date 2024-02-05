@@ -1,15 +1,13 @@
-import { defaultSpotPoolSwap } from "../utils/defaultObjects"
 import {
+  defaultSpotPoolSwap,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLQueryGqlSpotPoolSwapArgs,
   GQLSpotPoolSwap,
   GQLSpotPoolSwapOrder,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutSpotPoolSwap {
   spotPoolSwap?: GQLQuery["spotPoolSwap"]

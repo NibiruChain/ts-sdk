@@ -1,18 +1,19 @@
 import { Client, ExecutionResult } from "graphql-ws"
-import { defaultPerpPosition } from "../utils/defaultObjects"
 import {
+  defaultPerpPosition,
   GQLSubscriptionGqlPerpPositionsArgs,
   GQLPerpPosition,
   GQLSubscription,
-} from "../utils/generated"
-import { gqlQuery, convertObjectToPropertiesString } from "../utils/consts"
+  gqlQuery,
+  convertObjectToPropertiesString,
+} from ".."
 
 export interface GqlOutPerpPositions {
   perpPositions?: GQLSubscription["perpPositions"]
 }
 
 export const perpPositionsSubscriptionQueryString = (
-  args: GQLSubscriptionGqlPerpPositionsArgs,
+  args: Partial<GQLSubscriptionGqlPerpPositionsArgs>,
   fields?: Partial<GQLPerpPosition>
 ) =>
   gqlQuery(
@@ -25,7 +26,7 @@ export const perpPositionsSubscriptionQueryString = (
   )
 
 export const perpPositionsSubscription = async (
-  args: GQLSubscriptionGqlPerpPositionsArgs,
+  args: Partial<GQLSubscriptionGqlPerpPositionsArgs>,
   client?: Client,
   fields?: Partial<GQLPerpPosition>
 ): Promise<

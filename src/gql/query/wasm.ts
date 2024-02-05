@@ -1,14 +1,12 @@
-import { defaultUserContract } from "../utils/defaultObjects"
 import {
+  defaultUserContract,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLUserContract,
   GQLWasmGqlUserContractsArgs,
-} from "../utils/generated"
+} from ".."
 
 export type QueryWasmArgs = {
   userContracts?: GQLWasmGqlUserContractsArgs

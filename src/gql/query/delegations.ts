@@ -1,15 +1,13 @@
-import { defaultDelegations } from "../utils/defaultObjects"
 import {
+  defaultDelegations,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLQueryGqlDelegationsArgs,
   GQLDelegationOrder,
   GQLDelegation,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutDelegations {
   delegations?: GQLQuery["delegations"]

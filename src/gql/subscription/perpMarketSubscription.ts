@@ -3,16 +3,17 @@ import {
   GQLSubscriptionGqlPerpMarketArgs,
   GQLPerpMarket,
   GQLSubscription,
-} from "../utils/generated"
-import { defaultPerpMarket } from "../utils/defaultObjects"
-import { gqlQuery, convertObjectToPropertiesString } from "../utils/consts"
+  defaultPerpMarket,
+  gqlQuery,
+  convertObjectToPropertiesString,
+} from ".."
 
 export interface GqlOutPerpMarket {
   perpMarket?: GQLSubscription["perpMarket"]
 }
 
 export const perpMarketSubscriptionQueryString = (
-  args: GQLSubscriptionGqlPerpMarketArgs,
+  args: Partial<GQLSubscriptionGqlPerpMarketArgs>,
   fields?: Partial<GQLPerpMarket>
 ) =>
   `subscription {
@@ -27,7 +28,7 @@ export const perpMarketSubscriptionQueryString = (
   }`
 
 export const perpMarketSubscription = async (
-  args: GQLSubscriptionGqlPerpMarketArgs,
+  args: Partial<GQLSubscriptionGqlPerpMarketArgs>,
   client?: Client,
   fields?: Partial<GQLPerpMarket>
 ): Promise<

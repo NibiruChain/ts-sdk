@@ -1,15 +1,13 @@
-import { defaultSpotLpPosition } from "../utils/defaultObjects"
 import {
+  defaultSpotLpPosition,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-} from "../utils/consts"
-import {
   GQLQuery,
   GQLQueryGqlSpotLpPositionsArgs,
   GQLSpotLpPosition,
   GQLSpotLpPositionOrder,
-} from "../utils/generated"
+} from ".."
 
 export interface GqlOutSpotLpPositions {
   spotLpPositions?: GQLQuery["spotLpPositions"]
