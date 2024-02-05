@@ -24,7 +24,7 @@ export const arg = <T>(
 
   return typeof value === "string"
     ? `${name}: ${isString}${value}${isString}`
-    : objToGql(value as IterableDictionary<T>)
+    : `${name}: ${objToGql(value as IterableDictionary<T>)}`
 }
 
 export const objToGql = <T>(obj: IterableDictionary<T>): string | number => {
