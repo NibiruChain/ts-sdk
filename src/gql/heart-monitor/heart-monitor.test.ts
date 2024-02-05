@@ -98,8 +98,7 @@ import {
   defaultTask,
   QueryMarketingArgs,
   MarketingFields,
-  MutationMarketingArgs,
-  GQLMarketingMutation,
+  GQLMarketingMutationGqlUpdateTwitterUserArgs,
   GQLTwitterUser,
 } from ".."
 
@@ -437,7 +436,7 @@ test("markPriceCandlesSubscription", async () => {
 })
 
 const testMarketingMutation = async (
-  args: MutationMarketingArgs,
+  args: GQLMarketingMutationGqlUpdateTwitterUserArgs,
   fields?: GQLTwitterUser
 ) => {
   const resp = await heartMonitor.marketingMutation(args, {}, fields)
@@ -467,9 +466,9 @@ const testMarketingMutation = async (
 }
 
 // Create JIT JWT for this test
-test.skip("marketinMutation", async () => {
+test.skip("marketingMutation", async () => {
   await testMarketingMutation({
-    updateTwitterUser: {
+    input: {
       id: "800528778854182912",
       nibiAddress: "nibi1p6luzkxeufy29reymgjqnl5mv6a6gae07cphed",
     },
