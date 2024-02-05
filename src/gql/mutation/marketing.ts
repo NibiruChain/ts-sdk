@@ -21,7 +21,7 @@ export const marketingMutationString = (
   excludeParentObject: boolean,
   fields?: Partial<GQLTwitterUser>
 ) =>
-  `mutation {
+  `{
     marketing {
       ${gqlQuery(
         "updateTwitterUser",
