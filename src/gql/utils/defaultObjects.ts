@@ -469,6 +469,7 @@ export const defaultNibiruTweet: GQLNibiruTweet = {
 export const defaultLike: GQLLike = {
   nibiruTweet: defaultNibiruTweet,
   user: defaultTwitterUser,
+  creationTimestamp: "",
 }
 
 export const defaultTweet: GQLTweet = {
