@@ -78,7 +78,7 @@ export const marketingQueryString = (
     marketingQuery.push(
       gqlQuery(
         "tasks",
-        args.likes ?? {},
+        args.tasks ?? {},
         convertObjectToPropertiesString(fields.tasks),
         true
       )
