@@ -1,3 +1,67 @@
+### [3.0.10](https://github.com/NibiruChain/ts-sdk/compare/v3.0.9...v3.0.10) (2024-02-06)
+
+### Bug Fixes
+
+- fix build ([fdd2be7](https://github.com/NibiruChain/ts-sdk/commit/fdd2be7f0f446b1876f872cfeb294e2e020849ce))
+- pull latest schema ([98be304](https://github.com/NibiruChain/ts-sdk/commit/98be304e8142411c93972d2d09fdc54b8ce197ce))
+
+### [3.0.9](https://github.com/NibiruChain/ts-sdk/compare/v3.0.8...v3.0.9) (2024-02-06)
+
+### Bug Fixes
+
+- fix test failure ([c53ccb9](https://github.com/NibiruChain/ts-sdk/commit/c53ccb9e341a2a3e34b9910057e766b1c9acd36c))
+- pull latest schema ([79c481f](https://github.com/NibiruChain/ts-sdk/commit/79c481f4aa75b36436c9e7f275f3618533a42928))
+- pull latest schema ([#312](https://github.com/NibiruChain/ts-sdk/issues/312)) ([ea59cd3](https://github.com/NibiruChain/ts-sdk/commit/ea59cd37b7f351fff661027cb86597112b3c5053))
+
+### [3.0.8](https://github.com/NibiruChain/ts-sdk/compare/v3.0.7...v3.0.8) (2024-02-05)
+
+### Bug Fixes
+
+- fix ([bae559b](https://github.com/NibiruChain/ts-sdk/commit/bae559b17a30f1cbc21452e1c729ba917f3b9f4e))
+
+### [3.0.7](https://github.com/NibiruChain/ts-sdk/compare/v3.0.6...v3.0.7) (2024-02-05)
+
+### Bug Fixes
+
+- another fix ([37743c1](https://github.com/NibiruChain/ts-sdk/commit/37743c112851af9098f6d297c6fc75e14ce1a4dc))
+
+### [3.0.6](https://github.com/NibiruChain/ts-sdk/compare/v3.0.5...v3.0.6) (2024-02-05)
+
+### Bug Fixes
+
+- last fix ([15ca846](https://github.com/NibiruChain/ts-sdk/commit/15ca846bfce7ca262edfd074bf9146fec2001490))
+
+### [3.0.5](https://github.com/NibiruChain/ts-sdk/compare/v3.0.4...v3.0.5) (2024-02-05)
+
+### Bug Fixes
+
+- trying again ([83db669](https://github.com/NibiruChain/ts-sdk/commit/83db66903f5edd8c61e0c9322d66ab67d44af43c))
+
+### [3.0.4](https://github.com/NibiruChain/ts-sdk/compare/v3.0.3...v3.0.4) (2024-02-05)
+
+### Bug Fixes
+
+- fix again ([f623432](https://github.com/NibiruChain/ts-sdk/commit/f62343282b3f3d8a60d30e3a141b08b6d3705663))
+
+### [3.0.3](https://github.com/NibiruChain/ts-sdk/compare/v3.0.2...v3.0.3) (2024-02-05)
+
+### Bug Fixes
+
+- fix ([1b6c027](https://github.com/NibiruChain/ts-sdk/commit/1b6c0273f777c868cd58a33c66b25827689fb749))
+
+### [3.0.2](https://github.com/NibiruChain/ts-sdk/compare/v3.0.1...v3.0.2) (2024-02-05)
+
+### Bug Fixes
+
+- fix ([c77f4d3](https://github.com/NibiruChain/ts-sdk/commit/c77f4d37469273906e41507114c78297d8d2152e))
+- fix ([2ac3f01](https://github.com/NibiruChain/ts-sdk/commit/2ac3f0128cd568d2ed7bab6cca7d5c74f7c30b42))
+
+### [3.0.1](https://github.com/NibiruChain/ts-sdk/compare/v3.0.0...v3.0.1) (2024-02-05)
+
+### Bug Fixes
+
+- update mutation logic ([#303](https://github.com/NibiruChain/ts-sdk/issues/303)) ([6d9d683](https://github.com/NibiruChain/ts-sdk/commit/6d9d683f2507e0f8130046655faa098dceaf65c8))
+
 ## [3.0.0](https://github.com/NibiruChain/ts-sdk/compare/v2.0.1...v3.0.0) (2024-02-05)
 
 ### Bug Fixes
