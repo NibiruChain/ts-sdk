@@ -74,10 +74,14 @@ export const marketingQueryString = (
     )
   }
 
-  // No args
   if (fields?.tasks) {
     marketingQuery.push(
-      gqlQuery("tasks", {}, convertObjectToPropertiesString(defaultTask), true)
+      gqlQuery(
+        "tasks",
+        args.likes ?? {},
+        convertObjectToPropertiesString(fields.tasks),
+        true
+      )
     )
   }
 
@@ -89,6 +93,17 @@ export const marketingQueryString = (
         "likes",
         args.likes,
         convertObjectToPropertiesString(defaultLike),
+        true
+      )
+    )
+  }
+
+  if (args.tasks && !fields?.tasks) {
+    marketingQuery.push(
+      gqlQuery(
+        "tasks",
+        args.tasks,
+        convertObjectToPropertiesString(defaultTask),
         true
       )
     )
