@@ -7,6 +7,7 @@ import {
   doGqlQuery,
   GQLLike,
   GQLMarketingQueryGqlLikesArgs,
+  GQLMarketingQueryGqlTasksArgs,
   GQLMarketingQueryGqlTweetsArgs,
   GQLMarketingQueryGqlTwitterUserArgs,
   gqlQuery,
@@ -20,6 +21,7 @@ export type QueryMarketingArgs = {
   twitterUser?: Partial<GQLMarketingQueryGqlTwitterUserArgs>
   tweets?: Partial<GQLMarketingQueryGqlTweetsArgs>
   likes?: Partial<GQLMarketingQueryGqlLikesArgs>
+  tasks?: Partial<GQLMarketingQueryGqlTasksArgs>
 }
 
 export interface GqlOutMarketingQuery {
