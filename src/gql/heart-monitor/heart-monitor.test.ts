@@ -469,7 +469,6 @@ const testMarketingMutation = async (
 test.skip("marketingMutation", async () => {
   await testMarketingMutation({
     input: {
-      creationTimestamp: new Date().toString(),
       userId: "800528778854182912",
       nibiAddress: "nibi1p6luzkxeufy29reymgjqnl5mv6a6gae07cphed",
       displayName: "WildFyre",
