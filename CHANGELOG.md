@@ -1,3 +1,9 @@
+### [3.0.13](https://github.com/NibiruChain/ts-sdk/compare/v3.0.12...v3.0.13) (2024-02-15)
+
+### Bug Fixes
+
+- chore schema ([#318](https://github.com/NibiruChain/ts-sdk/issues/318)) ([09b8310](https://github.com/NibiruChain/ts-sdk/commit/09b83107d503a405f89d78f577b586bdf502c718))
+
 ### [3.0.12](https://github.com/NibiruChain/ts-sdk/compare/v3.0.11...v3.0.12) (2024-02-06)
 
 ### Bug Fixes
