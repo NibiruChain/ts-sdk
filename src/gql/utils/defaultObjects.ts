@@ -480,11 +480,8 @@ export const defaultTweet: GQLTweet = {
   inReplyToTweetId: "",
   inReplyToUserId: "",
   isMention: true,
-  likeCount: 0,
   likes: [defaultLike],
-  quoteCount: 0,
   quoteTweetId: "",
-  replyCount: 0,
   retweetId: "",
   text: "",
 }
