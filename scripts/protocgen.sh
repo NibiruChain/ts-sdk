@@ -33,7 +33,7 @@ cp -r $NIBIRU_REPO/proto/ proto/
 for dir in $(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | uniq | sort); do \
   for file in $(find "${dir}" -maxdepth 1 -name '*.proto'); do
     echo "Generating ts proto code for $file"
-    buf generate --template proto/proto/buf.gen.ts.yaml -o $PKG_OUT_DIR $file
+    buf generate --template proto/buf.gen.ts.yaml -o $PKG_OUT_DIR $file
   done
 done;
 
@@ -43,7 +43,7 @@ yarn generate-barrels
 rm $PKG_OUT_DIR/google/protobuf/descriptor.ts
 rm $PKG_OUT_DIR/index.google.protobuf.ts
 
-# # Empty fles
+# Empty fles
 rm -rf $PKG_OUT_DIR/amino
 rm -rf $PKG_OUT_DIR/gogoproto
 rm $PKG_OUT_DIR/google/api/annotations.ts
