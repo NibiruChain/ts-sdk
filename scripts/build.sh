@@ -5,11 +5,11 @@ set -e
 if [ -d "./nibiru/" ]; then
   echo "The ./nibiru/ directory exists."
   cd nibiru
-  git checkout releases/v0.21.x
+  git checkout main
   cd ..
 else
   cd ../nibiru
-  git checkout releases/v0.21.x
+  git checkout main
   git pull
   cd ../ts-sdk
 fi
