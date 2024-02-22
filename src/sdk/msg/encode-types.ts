@@ -1,13 +1,26 @@
 import { EncodeObject } from "@cosmjs/proto-signing"
-import { PerpMsgFactory, SpotMsgFactory } from "."
+import {
+  DevgasMsgFactory,
+  InflationMsgFactory,
+  OracleMsgFactory,
+  PerpMsgFactory,
+  SpotMsgFactory,
+  SudoMsgFactory,
+  TokenfactoryMsgFactory,
+} from "."
 
 export interface MsgTypeUrls {
   [msg: string]: string
 }
 
 export declare class MsgFactory {
-  spot: typeof SpotMsgFactory
+  devgas: typeof DevgasMsgFactory
+  inflation: typeof InflationMsgFactory
+  oracle: typeof OracleMsgFactory
   perp: typeof PerpMsgFactory
+  spot: typeof SpotMsgFactory
+  sudo: typeof SudoMsgFactory
+  tokenfactory: typeof TokenfactoryMsgFactory
 }
 
 export declare const Msg: MsgFactory

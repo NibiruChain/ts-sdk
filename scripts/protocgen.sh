@@ -46,10 +46,16 @@ rm $PKG_OUT_DIR/index.google.protobuf.ts
 # # Empty fles
 rm -rf $PKG_OUT_DIR/amino
 rm -rf $PKG_OUT_DIR/gogoproto
+rm -rf $PKG_OUT_DIR/cosmos/msg
 rm $PKG_OUT_DIR/google/api/annotations.ts
 rm $PKG_OUT_DIR/index.gogoproto.ts
 rm $PKG_OUT_DIR/index.amino.ts
+rm $PKG_OUT_DIR/index.cosmos.msg.v1.ts
+rm $PKG_OUT_DIR/index.cosmos.msg.ts
 
 sed 's/export \* as gogoproto from \"\.\/index\.gogoproto\"\;//' $PKG_OUT_DIR/index.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.ts
+sed 's/export \* as amino from \"\.\/index\.amino\"\;//' $PKG_OUT_DIR/index.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.ts
+sed 's/export \* as google from \"\.\/index\.google\"\;//' $PKG_OUT_DIR/index.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.ts
 sed 's/export \* from \"\.\/google\/api\/annotations\"\;//' $PKG_OUT_DIR/index.google.api.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.google.api.ts
 sed 's/export \* as protobuf from \"\.\/index.google.protobuf\"\;//' $PKG_OUT_DIR/index.google.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.google.ts
+sed 's/export \* as msg from \"\.\/index.cosmos.msg\"\;//' $PKG_OUT_DIR/index.cosmos.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.cosmos.ts
