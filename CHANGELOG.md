@@ -1,3 +1,19 @@
+### [3.0.14](https://github.com/NibiruChain/ts-sdk/compare/v3.0.13...v3.0.14) (2024-02-22)
+
+### Bug Fixes
+
+- chore msg factories ([#323](https://github.com/NibiruChain/ts-sdk/issues/323)) ([64e028c](https://github.com/NibiruChain/ts-sdk/commit/64e028c4150ec22754dfd80129f4b39c37a3ecd1))
+
+### Miscellaneous Chores
+
+- updating code owners ([9e7cadf](https://github.com/NibiruChain/ts-sdk/commit/9e7cadf8bf326138f15e793f67003666d30679ce))
+
+### [3.0.13](https://github.com/NibiruChain/ts-sdk/compare/v3.0.12...v3.0.13) (2024-02-15)
+
+### Bug Fixes
+
+- chore schema ([#318](https://github.com/NibiruChain/ts-sdk/issues/318)) ([09b8310](https://github.com/NibiruChain/ts-sdk/commit/09b83107d503a405f89d78f577b586bdf502c718))
+
 ### [3.0.12](https://github.com/NibiruChain/ts-sdk/compare/v3.0.11...v3.0.12) (2024-02-06)
 
 ### Bug Fixes
