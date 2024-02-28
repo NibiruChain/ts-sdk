@@ -36,6 +36,8 @@ import {
   Result,
   bytesToHex,
   hexToBytes,
+  setupDevgasExtension,
+  DevgasExtension,
 } from ".."
 
 export type NibiruExtensions = StargateQueryClient &
@@ -45,6 +47,7 @@ export type NibiruExtensions = StargateQueryClient &
   InflationExtension &
   OracleExtension &
   EpochsExtension &
+  DevgasExtension &
   DistributionExtension &
   GovExtension &
   StakingExtension &
@@ -83,6 +86,7 @@ export class NibiruQuerier extends StargateClient {
     this.tm = tmClient
     this.nibiruExtensions = StargateQueryClient.withExtensions(
       tmClient,
+      setupDevgasExtension,
       setupEpochsExtension,
       setupOracleExtension,
       setupPerpExtension,

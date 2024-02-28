@@ -27,6 +27,7 @@ import {
   setupPerpExtension,
   setupOracleExtension,
   setupEpochsExtension,
+  setupDevgasExtension,
 } from ".."
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
@@ -49,6 +50,7 @@ export class NibiruTxClient extends SigningStargateClient {
     this.wasmClient = wasm
     this.nibiruExtensions = QueryClient.withExtensions(
       tmClient,
+      setupDevgasExtension,
       setupEpochsExtension,
       setupOracleExtension,
       setupPerpExtension,
