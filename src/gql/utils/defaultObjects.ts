@@ -452,6 +452,7 @@ export const defaultTwitterUser: GQLTwitterUser = {
   displayName: "",
   followersCount: 0,
   followingCount: 0,
+  discordId: "",
   id: "",
   likes: [],
   listedCount: 0,
