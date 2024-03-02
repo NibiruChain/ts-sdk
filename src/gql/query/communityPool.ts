@@ -6,6 +6,7 @@ import {
   GQLQueryGqlCommunityPoolArgs,
   GQLQuery,
   GQLToken,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutCommunityPool {
@@ -13,9 +14,9 @@ export interface GqlOutCommunityPool {
 }
 
 export const communityPoolQueryString = (
-  args: Partial<GQLQueryGqlCommunityPoolArgs>,
+  args: GQLQueryGqlCommunityPoolArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLToken>
+  fields?: DeepPartial<GQLToken>
 ) =>
   gqlQuery(
     "communityPool",
@@ -29,6 +30,6 @@ export const communityPoolQueryString = (
 export const communityPool = async (
   args: GQLQueryGqlCommunityPoolArgs,
   endpt: string,
-  fields?: Partial<GQLToken>
+  fields?: DeepPartial<GQLToken>
 ): Promise<GqlOutCommunityPool> =>
   doGqlQuery(communityPoolQueryString(args, false, fields), endpt)

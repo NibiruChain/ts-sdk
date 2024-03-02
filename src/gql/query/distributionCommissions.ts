@@ -7,6 +7,7 @@ import {
   GQLQueryGqlDistributionCommissionsArgs,
   GQLDistributionCommissionOrder,
   GQLDistributionCommission,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutDistributionCommissions {
@@ -16,7 +17,7 @@ export interface GqlOutDistributionCommissions {
 export const distributionCommissionsQueryString = (
   args: GQLQueryGqlDistributionCommissionsArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLDistributionCommission>
+  fields?: DeepPartial<GQLDistributionCommission>
 ) => {
   if (!args.limit) args.limit = 100
   if (!args.order_desc) args.order_desc = true
@@ -36,6 +37,6 @@ export const distributionCommissionsQueryString = (
 export const distributionCommissions = async (
   args: GQLQueryGqlDistributionCommissionsArgs,
   endpt: string,
-  fields?: Partial<GQLDistributionCommission>
+  fields?: DeepPartial<GQLDistributionCommission>
 ): Promise<GqlOutDistributionCommissions> =>
   doGqlQuery(distributionCommissionsQueryString(args, false, fields), endpt)

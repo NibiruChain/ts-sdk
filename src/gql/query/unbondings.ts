@@ -7,6 +7,7 @@ import {
   GQLQueryGqlUnbondingsArgs,
   GQLUnbonding,
   GQLUnbondingOrder,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutUnbondings {
@@ -16,7 +17,7 @@ export interface GqlOutUnbondings {
 export const unbondingsQueryString = (
   args: GQLQueryGqlUnbondingsArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLUnbonding>
+  fields?: DeepPartial<GQLUnbonding>
 ) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -35,6 +36,6 @@ export const unbondingsQueryString = (
 export const unbondings = async (
   args: GQLQueryGqlUnbondingsArgs,
   endpt: string,
-  fields?: Partial<GQLUnbonding>
+  fields?: DeepPartial<GQLUnbonding>
 ): Promise<GqlOutUnbondings> =>
   doGqlQuery(unbondingsQueryString(args, false, fields), endpt)

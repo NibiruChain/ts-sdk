@@ -17,6 +17,7 @@ import {
   GQLPerpGqlPositionArgs,
   GQLPerpGqlPositionsArgs,
   GQLPerpGqlPositionChangesArgs,
+  DeepPartial,
 } from ".."
 
 export type QueryPerpArgs = {
@@ -32,13 +33,13 @@ export interface GqlOutPerp {
   GQLPerp?: GQLQuery["perp"]
 }
 
-export type GQLPerpFields = Partial<{
-  leaderboard?: Partial<GQLPerpLeaderboard>
-  market?: Partial<GQLPerpMarket>
-  markets?: Partial<GQLPerpMarket>
-  position?: Partial<GQLPerpPosition>
-  positionChanges?: Partial<GQLPerpPositionChange>
-  positions?: Partial<GQLPerpPosition>
+export type GQLPerpFields = DeepPartial<{
+  leaderboard?: DeepPartial<GQLPerpLeaderboard>
+  market?: DeepPartial<GQLPerpMarket>
+  markets?: DeepPartial<GQLPerpMarket>
+  position?: DeepPartial<GQLPerpPosition>
+  positionChanges?: DeepPartial<GQLPerpPositionChange>
+  positions?: DeepPartial<GQLPerpPosition>
 }>
 
 export const GQLPerpQueryString = (

@@ -6,6 +6,7 @@ import {
   GQLSubscription,
   gqlQuery,
   convertObjectToPropertiesString,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutPerpPositions {
@@ -13,8 +14,8 @@ export interface GqlOutPerpPositions {
 }
 
 export const perpPositionsSubscriptionQueryString = (
-  args: Partial<GQLSubscriptionGqlPerpPositionsArgs>,
-  fields?: Partial<GQLPerpPosition>
+  args: GQLSubscriptionGqlPerpPositionsArgs,
+  fields?: DeepPartial<GQLPerpPosition>
 ) =>
   gqlQuery(
     "perpPositions",
@@ -26,9 +27,9 @@ export const perpPositionsSubscriptionQueryString = (
   )
 
 export const perpPositionsSubscription = async (
-  args: Partial<GQLSubscriptionGqlPerpPositionsArgs>,
+  args: GQLSubscriptionGqlPerpPositionsArgs,
   client?: Client,
-  fields?: Partial<GQLPerpPosition>
+  fields?: DeepPartial<GQLPerpPosition>
 ): Promise<
   AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>> | undefined
 > =>

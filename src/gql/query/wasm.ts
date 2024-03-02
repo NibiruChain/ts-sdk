@@ -6,6 +6,7 @@ import {
   GQLQuery,
   GQLUserContract,
   GQLWasmGqlUserContractsArgs,
+  DeepPartial,
 } from ".."
 
 export type QueryWasmArgs = {
@@ -16,8 +17,8 @@ export interface GqlOutWasm {
   wasm?: GQLQuery["wasm"]
 }
 
-export type GqlWasmFields = Partial<{
-  userContracts?: Partial<GQLUserContract>
+export type GqlWasmFields = DeepPartial<{
+  userContracts?: DeepPartial<GQLUserContract>
 }>
 
 export const wasmQueryString = (

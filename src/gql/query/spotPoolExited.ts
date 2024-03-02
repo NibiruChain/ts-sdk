@@ -7,6 +7,7 @@ import {
   GQLQueryGqlSpotPoolExitedArgs,
   GQLSpotPoolExited,
   GQLSpotPoolExitedOrder,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutSpotPoolExited {
@@ -16,7 +17,7 @@ export interface GqlOutSpotPoolExited {
 export const spotPoolExitedQueryString = (
   args: GQLQueryGqlSpotPoolExitedArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLSpotPoolExited>
+  fields?: DeepPartial<GQLSpotPoolExited>
 ) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -35,6 +36,6 @@ export const spotPoolExitedQueryString = (
 export const spotPoolExited = async (
   args: GQLQueryGqlSpotPoolExitedArgs,
   endpt: string,
-  fields?: Partial<GQLSpotPoolExited>
+  fields?: DeepPartial<GQLSpotPoolExited>
 ): Promise<GqlOutSpotPoolExited> =>
   doGqlQuery(spotPoolExitedQueryString(args, false, fields), endpt)

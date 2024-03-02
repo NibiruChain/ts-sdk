@@ -6,6 +6,7 @@ import {
   GQLQueryGqlMarkPriceCandlesArgs,
   GQLQuery,
   GQLMarkPriceCandle,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutMarkPriceCandles {
@@ -15,7 +16,7 @@ export interface GqlOutMarkPriceCandles {
 export const markPriceCandlesQueryString = (
   args: GQLQueryGqlMarkPriceCandlesArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLMarkPriceCandle>
+  fields?: DeepPartial<GQLMarkPriceCandle>
 ) =>
   gqlQuery(
     "markPriceCandles",
@@ -29,6 +30,6 @@ export const markPriceCandlesQueryString = (
 export const markPriceCandles = async (
   args: GQLQueryGqlMarkPriceCandlesArgs,
   endpt: string,
-  fields?: Partial<GQLMarkPriceCandle>
+  fields?: DeepPartial<GQLMarkPriceCandle>
 ): Promise<GqlOutMarkPriceCandles> =>
   doGqlQuery(markPriceCandlesQueryString(args, false, fields), endpt)

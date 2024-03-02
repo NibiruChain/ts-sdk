@@ -10,6 +10,7 @@ import {
   GQLGovDeposit,
   GQLGovProposal,
   GQLGovVote,
+  DeepPartial,
 } from ".."
 
 export type QueryGovernanceArgs = {
@@ -22,10 +23,10 @@ export interface GqlOutGovernance {
   governance?: GQLQuery["governance"]
 }
 
-export type GovernanceFields = Partial<{
-  govDeposits?: Partial<GQLGovDeposit>
-  govProposals?: Partial<GQLGovProposal>
-  govVotes?: Partial<GQLGovVote>
+export type GovernanceFields = DeepPartial<{
+  govDeposits?: DeepPartial<GQLGovDeposit>
+  govProposals?: DeepPartial<GQLGovProposal>
+  govVotes?: DeepPartial<GQLGovVote>
 }>
 
 export const governanceQueryString = (
