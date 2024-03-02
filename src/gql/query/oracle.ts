@@ -9,6 +9,7 @@ import {
   GQLOracleGqlOraclesArgs,
   GQLOraclePrice,
   GQLQuery,
+  DeepPartial,
 } from ".."
 
 export type QueryOracleArgs = {
@@ -20,9 +21,9 @@ export interface GqlOutOracle {
   oracle?: GQLQuery["oracle"]
 }
 
-export type OracleFields = Partial<{
-  oraclePrices?: Partial<GQLOraclePrice>
-  oracles?: Partial<GQLOracleEntry>
+export type OracleFields = DeepPartial<{
+  oraclePrices?: DeepPartial<GQLOraclePrice>
+  oracles?: DeepPartial<GQLOracleEntry>
 }>
 
 export const oracleQueryString = (

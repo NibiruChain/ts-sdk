@@ -7,6 +7,7 @@ import {
   GQLQueryGqlSpotPoolSwapArgs,
   GQLSpotPoolSwap,
   GQLSpotPoolSwapOrder,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutSpotPoolSwap {
@@ -16,7 +17,7 @@ export interface GqlOutSpotPoolSwap {
 export const spotPoolSwapQueryString = (
   args: GQLQueryGqlSpotPoolSwapArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLSpotPoolSwap>
+  fields?: DeepPartial<GQLSpotPoolSwap>
 ) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -35,6 +36,6 @@ export const spotPoolSwapQueryString = (
 export const spotPoolSwap = async (
   args: GQLQueryGqlSpotPoolSwapArgs,
   endpt: string,
-  fields?: Partial<GQLSpotPoolSwap>
+  fields?: DeepPartial<GQLSpotPoolSwap>
 ): Promise<GqlOutSpotPoolSwap> =>
   doGqlQuery(spotPoolSwapQueryString(args, false, fields), endpt)
