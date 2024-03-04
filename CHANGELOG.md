@@ -1,3 +1,15 @@
+### [3.1.1](https://github.com/NibiruChain/ts-sdk/compare/v3.1.0...v3.1.1) (2024-02-29)
+
+### Bug Fixes
+
+- discord ID chore ([#327](https://github.com/NibiruChain/ts-sdk/issues/327)) ([c3ed699](https://github.com/NibiruChain/ts-sdk/commit/c3ed69921ac6fb1188b9af8a6d8d0fc63f604ef8))
+
+## [3.1.0](https://github.com/NibiruChain/ts-sdk/compare/v3.0.14...v3.1.0) (2024-02-28)
+
+### Features
+
+- devgas query ([#325](https://github.com/NibiruChain/ts-sdk/issues/325)) ([769831a](https://github.com/NibiruChain/ts-sdk/commit/769831afaf31ff1b430058ef5dd8cceac82cde13))
+
 ### [3.0.14](https://github.com/NibiruChain/ts-sdk/compare/v3.0.13...v3.0.14) (2024-02-22)
 
 ### Bug Fixes
