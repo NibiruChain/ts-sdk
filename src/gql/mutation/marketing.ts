@@ -6,6 +6,7 @@ import {
   GQLMutation,
   GQLTwitterUser,
   GQLMarketingMutationGqlUpdateTwitterUserArgs,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutMarketingMutation {
@@ -13,9 +14,9 @@ export interface GqlOutMarketingMutation {
 }
 
 export const marketingMutationString = (
-  args: Partial<GQLMarketingMutationGqlUpdateTwitterUserArgs>,
+  args: GQLMarketingMutationGqlUpdateTwitterUserArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLTwitterUser>
+  fields?: DeepPartial<GQLTwitterUser>
 ) =>
   `mutation {
     marketing {
@@ -31,9 +32,9 @@ export const marketingMutationString = (
   }`
 
 export const marketingMutation = async (
-  args: Partial<GQLMarketingMutationGqlUpdateTwitterUserArgs>,
+  args: GQLMarketingMutationGqlUpdateTwitterUserArgs,
   endpt: string,
   headers: HeadersInit,
-  fields?: Partial<GQLTwitterUser>
+  fields?: DeepPartial<GQLTwitterUser>
 ): Promise<GqlOutMarketingMutation> =>
   doGqlQuery(marketingMutationString(args, true, fields), endpt, headers)

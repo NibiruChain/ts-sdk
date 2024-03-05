@@ -8,6 +8,7 @@ import {
   GQLIbcgqlIbcTransfersArgs,
   GQLIbcChannelsResponse,
   GQLIbcTransfer,
+  DeepPartial,
 } from ".."
 
 export type QueryIbcArgs = {
@@ -19,9 +20,9 @@ export interface GqlOutIbc {
   ibc?: GQLQuery["ibc"]
 }
 
-export type IbcFields = Partial<{
-  ibcChannels?: Partial<GQLIbcChannelsResponse>
-  ibcTransfers?: Partial<GQLIbcTransfer>
+export type IbcFields = DeepPartial<{
+  ibcChannels?: DeepPartial<GQLIbcChannelsResponse>
+  ibcTransfers?: DeepPartial<GQLIbcTransfer>
 }>
 
 export const ibcQueryString = (args: QueryIbcArgs, fields?: IbcFields) => {

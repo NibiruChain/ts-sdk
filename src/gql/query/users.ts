@@ -7,6 +7,7 @@ import {
   GQLQueryGqlUsersArgs,
   GQLUser,
   GQLUserOrder,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutUsers {
@@ -16,7 +17,7 @@ export interface GqlOutUsers {
 export const usersQueryString = (
   args: GQLQueryGqlUsersArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLUser>
+  fields?: DeepPartial<GQLUser>
 ) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -35,6 +36,6 @@ export const usersQueryString = (
 export const users = async (
   args: GQLQueryGqlUsersArgs,
   endpt: string,
-  fields?: Partial<GQLUser>
+  fields?: DeepPartial<GQLUser>
 ): Promise<GqlOutUsers> =>
   doGqlQuery(usersQueryString(args, false, fields), endpt)

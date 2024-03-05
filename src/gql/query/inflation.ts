@@ -9,6 +9,7 @@ import {
   GQLInflationInfo,
   defaultInflationDistribution,
   defaultInflationInfo,
+  DeepPartial,
 } from ".."
 
 export type QueryInflationArgs = {
@@ -20,9 +21,9 @@ export interface GqlOutInflation {
   inflation?: GQLQuery["inflation"]
 }
 
-export type InflationFields = Partial<{
-  distributions?: Partial<GQLInflationDistribution>
-  inflations?: Partial<GQLInflationInfo>
+export type InflationFields = DeepPartial<{
+  distributions?: DeepPartial<GQLInflationDistribution>
+  inflations?: DeepPartial<GQLInflationInfo>
 }>
 
 export const inflationQueryString = (

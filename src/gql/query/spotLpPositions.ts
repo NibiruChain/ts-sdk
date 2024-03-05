@@ -7,6 +7,7 @@ import {
   GQLQueryGqlSpotLpPositionsArgs,
   GQLSpotLpPosition,
   GQLSpotLpPositionOrder,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutSpotLpPositions {
@@ -16,7 +17,7 @@ export interface GqlOutSpotLpPositions {
 export const spotLpPositionsQueryString = (
   args: GQLQueryGqlSpotLpPositionsArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLSpotLpPosition>
+  fields?: DeepPartial<GQLSpotLpPosition>
 ) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -35,6 +36,6 @@ export const spotLpPositionsQueryString = (
 export const spotLpPositions = async (
   args: GQLQueryGqlSpotLpPositionsArgs,
   endpt: string,
-  fields?: Partial<GQLSpotLpPosition>
+  fields?: DeepPartial<GQLSpotLpPosition>
 ): Promise<GqlOutSpotLpPositions> =>
   doGqlQuery(spotLpPositionsQueryString(args, false, fields), endpt)

@@ -6,6 +6,7 @@ import {
   defaultPerpMarket,
   gqlQuery,
   convertObjectToPropertiesString,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutPerpMarket {
@@ -13,8 +14,8 @@ export interface GqlOutPerpMarket {
 }
 
 export const perpMarketSubscriptionQueryString = (
-  args: Partial<GQLSubscriptionGqlPerpMarketArgs>,
-  fields?: Partial<GQLPerpMarket>
+  args: GQLSubscriptionGqlPerpMarketArgs,
+  fields?: DeepPartial<GQLPerpMarket>
 ) =>
   `subscription {
     ${gqlQuery(
@@ -28,9 +29,9 @@ export const perpMarketSubscriptionQueryString = (
   }`
 
 export const perpMarketSubscription = async (
-  args: Partial<GQLSubscriptionGqlPerpMarketArgs>,
+  args: GQLSubscriptionGqlPerpMarketArgs,
   client?: Client,
-  fields?: Partial<GQLPerpMarket>
+  fields?: DeepPartial<GQLPerpMarket>
 ): Promise<
   AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>> | undefined
 > =>

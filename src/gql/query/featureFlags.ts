@@ -5,6 +5,7 @@ import {
   GQLQuery,
   GQLFeatureFlags,
   defaultFeatureFlags,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutFeatureFlags {
@@ -13,7 +14,7 @@ export interface GqlOutFeatureFlags {
 
 export const featureFlagsQueryString = (
   excludeParentObject: boolean,
-  fields?: Partial<GQLFeatureFlags>
+  fields?: DeepPartial<GQLFeatureFlags>
 ) =>
   gqlQuery(
     "featureFlags",
@@ -26,6 +27,6 @@ export const featureFlagsQueryString = (
 
 export const featureFlags = async (
   endpt: string,
-  fields?: Partial<GQLFeatureFlags>
+  fields?: DeepPartial<GQLFeatureFlags>
 ): Promise<GqlOutFeatureFlags> =>
   doGqlQuery(featureFlagsQueryString(false, fields), endpt)

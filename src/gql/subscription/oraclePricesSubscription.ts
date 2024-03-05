@@ -6,6 +6,7 @@ import {
   defaultOraclePrice,
   gqlQuery,
   convertObjectToPropertiesString,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutOraclePrices {
@@ -14,7 +15,7 @@ export interface GqlOutOraclePrices {
 
 export const oraclePricesSubscriptionQueryString = (
   args: GQLSubscriptionGqlOraclePricesArgs,
-  fields?: Partial<GQLOraclePrice>
+  fields?: DeepPartial<GQLOraclePrice>
 ) =>
   `subscription {
     ${gqlQuery(
@@ -30,7 +31,7 @@ export const oraclePricesSubscriptionQueryString = (
 export const oraclePricesSubscription = async (
   args: GQLSubscriptionGqlOraclePricesArgs,
   client?: Client,
-  fields?: Partial<GQLOraclePrice>
+  fields?: DeepPartial<GQLOraclePrice>
 ): Promise<
   AsyncIterableIterator<ExecutionResult<GqlOutOraclePrices>> | undefined
 > =>

@@ -1,5 +1,53 @@
 import { fetch } from "cross-fetch"
 
+type OptionalArrayOr<T, Otherwise> = T extends T[] ? T[] | undefined : Otherwise
+type OptionalUndefinedOr<T, Otherwise> = T extends undefined
+  ? undefined
+  : Otherwise
+type OptionalNullOr<T, Otherwise> = T extends null
+  ? null | undefined
+  : Otherwise
+type OptionalStringOr<T, Otherwise> = T extends string
+  ? T | undefined
+  : Otherwise
+type OptionalNumberOr<T, Otherwise> = T extends number
+  ? T | undefined
+  : Otherwise
+type OptionalBooleanOr<T, Otherwise> = T extends boolean
+  ? boolean | undefined
+  : Otherwise
+
+/**
+ * DeepPartial: A utility type that makes every field and nested field of an
+ * object optional. This is useful for writing GraphQL queries that only use a
+ * subset of fields and enables you to only pull in what's needed.
+ *
+ * Without `DeepPartial<T>`, we would have to query entire objects for different
+ * fields, which adds unnecessary bloat to the both the server and corresponding
+ * response.
+ * */
+export type DeepPartial<T> = OptionalStringOr<
+  T,
+  OptionalNumberOr<
+    T,
+    OptionalBooleanOr<
+      T,
+      OptionalNullOr<
+        T,
+        OptionalUndefinedOr<
+          T,
+          OptionalArrayOr<
+            T,
+            T extends object
+              ? { [Key in keyof T]?: DeepPartial<T[Key]> }
+              : undefined
+          >
+        >
+      >
+    >
+  >
+>
+
 export type IterableDictionary<T> = { [key: string]: T }
 
 export const checkFields = <T>(objects: T[], fields: string[]) => {
@@ -12,13 +60,13 @@ export const checkFields = <T>(objects: T[], fields: string[]) => {
 
 export const queryBatchHandler = async <T>(
   queryQueryStrings: string[],
-  endpt: string
+  endpt: string,
 ) => <T>doGqlQuery(`{ ${queryQueryStrings.join("\n")} }`, endpt)
 
 export const arg = <T>(
   name: string,
   value: unknown,
-  ignoreQuotes?: boolean
+  ignoreQuotes?: boolean,
 ) => {
   const isString = typeof value === "string" && !ignoreQuotes ? `"` : ""
 
@@ -53,7 +101,7 @@ export const getWhereArgArr = <T>(whereArgs: IterableDictionary<T>) =>
   `where: ${objToGql(whereArgs)}`
 
 export const convertObjectToPropertiesString = <T>(
-  obj: IterableDictionary<T>
+  obj: IterableDictionary<T>,
 ) => {
   let result = ""
 
@@ -67,14 +115,14 @@ export const convertObjectToPropertiesString = <T>(
               ${Object.keys(item)
                 .map((k) => `${k}`)
                 .join("\n")}
-            }`
+            }`,
         )
         .join("\n")
       result += `${innerString}\n`
     } else if (typeof value === "object" && value !== null) {
       result += `${key} {
                   ${convertObjectToPropertiesString(
-                    value as IterableDictionary<T>
+                    value as IterableDictionary<T>,
                   )}
                 }\n`
     } else {
@@ -103,20 +151,20 @@ export const gqlQuery = <T>(
   name: string,
   typedQueryArgs: IterableDictionary<T>,
   properties: string,
-  excludeParentObject?: boolean
+  excludeParentObject?: boolean,
 ) => {
   const queryArgList = []
 
   if (typedQueryArgs.where !== undefined) {
     queryArgList.push(
-      getWhereArgArr(typedQueryArgs.where as IterableDictionary<T>)
+      getWhereArgArr(typedQueryArgs.where as IterableDictionary<T>),
     )
   }
 
   delete typedQueryArgs.where
 
   Object.keys(typedQueryArgs).forEach((key) =>
-    queryArgList.push(arg<T>(key, typedQueryArgs[key], true))
+    queryArgList.push(arg<T>(key, typedQueryArgs[key], true)),
   )
 
   const hasQueryList = (char: string) => (queryArgList.length > 0 ? char : "")
@@ -131,7 +179,7 @@ export const gqlQuery = <T>(
 export const doGqlQuery = async <T>(
   gqlQuery: string,
   gqlEndpt: string,
-  headers?: HeadersInit
+  headers?: HeadersInit,
 ) => {
   const rawResp = await fetch(gqlEndpt, {
     method: "POST",

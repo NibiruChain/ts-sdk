@@ -24,6 +24,7 @@ import {
   GQLStatsGqlTvlArgs,
   GQLStatsGqlUsersArgs,
   GQLStatsGqlVolumeArgs,
+  DeepPartial,
 } from ".."
 
 export type QueryStatsArgs = {
@@ -40,14 +41,14 @@ export interface GqlOutStats {
   GQLStats?: GQLQuery["stats"]
 }
 
-export type GQLStatsFields = Partial<{
-  fees?: Partial<GQLStatsFees>
-  perpOpenInterest?: Partial<GQLStatsPerpOpenInterest>
-  perpPnl?: Partial<GQLStatsPerpPnl>
-  totals?: Partial<GQLStatsTotals>
-  tvl?: Partial<GQLStatsTvl>
-  users?: Partial<GQLStatsUsers>
-  volume?: Partial<GQLStatsVolume>
+export type GQLStatsFields = DeepPartial<{
+  fees?: DeepPartial<GQLStatsFees>
+  perpOpenInterest?: DeepPartial<GQLStatsPerpOpenInterest>
+  perpPnl?: DeepPartial<GQLStatsPerpPnl>
+  totals?: DeepPartial<GQLStatsTotals>
+  tvl?: DeepPartial<GQLStatsTvl>
+  users?: DeepPartial<GQLStatsUsers>
+  volume?: DeepPartial<GQLStatsVolume>
 }>
 
 export const GQLStatsQueryString = (

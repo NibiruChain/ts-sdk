@@ -7,6 +7,7 @@ import {
   GQLQueryGqlRedelegationsArgs,
   GQLRedelegation,
   GQLRedelegationOrder,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutRedelegations {
@@ -16,7 +17,7 @@ export interface GqlOutRedelegations {
 export const redelegationsQueryString = (
   args: GQLQueryGqlRedelegationsArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLRedelegation>
+  fields?: DeepPartial<GQLRedelegation>
 ) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -35,6 +36,6 @@ export const redelegationsQueryString = (
 export const redelegations = async (
   args: GQLQueryGqlRedelegationsArgs,
   endpt: string,
-  fields?: Partial<GQLRedelegation>
+  fields?: DeepPartial<GQLRedelegation>
 ): Promise<GqlOutRedelegations> =>
   doGqlQuery(redelegationsQueryString(args, false, fields), endpt)

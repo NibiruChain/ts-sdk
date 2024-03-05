@@ -7,6 +7,7 @@ import {
   GQLQueryGqlValidatorsArgs,
   GQLValidator,
   GQLValidatorOrder,
+  DeepPartial,
 } from ".."
 
 export interface GqlOutValidators {
@@ -16,7 +17,7 @@ export interface GqlOutValidators {
 export const validatorsQueryString = (
   args: GQLQueryGqlValidatorsArgs,
   excludeParentObject: boolean,
-  fields?: Partial<GQLValidator>
+  fields?: DeepPartial<GQLValidator>
 ) => {
   if (!args.limit) args.limit = 100
   if (args.order_desc === undefined) args.order_desc = true
@@ -35,6 +36,6 @@ export const validatorsQueryString = (
 export const validators = async (
   args: GQLQueryGqlValidatorsArgs,
   endpt: string,
-  fields?: Partial<GQLValidator>
+  fields?: DeepPartial<GQLValidator>
 ): Promise<GqlOutValidators> =>
   doGqlQuery(validatorsQueryString(args, false, fields), endpt)

@@ -1,5 +1,6 @@
 import {
   convertObjectToPropertiesString,
+  DeepPartial,
   defaultLike,
   defaultTask,
   defaultTweet,
@@ -18,21 +19,21 @@ import {
 } from ".."
 
 export type QueryMarketingArgs = {
-  twitterUser?: Partial<GQLMarketingQueryGqlTwitterUserArgs>
-  tweets?: Partial<GQLMarketingQueryGqlTweetsArgs>
-  likes?: Partial<GQLMarketingQueryGqlLikesArgs>
-  tasks?: Partial<GQLMarketingQueryGqlTasksArgs>
+  twitterUser?: GQLMarketingQueryGqlTwitterUserArgs
+  tweets?: GQLMarketingQueryGqlTweetsArgs
+  likes?: GQLMarketingQueryGqlLikesArgs
+  tasks?: GQLMarketingQueryGqlTasksArgs
 }
 
 export interface GqlOutMarketingQuery {
   marketing?: GQLQuery["marketing"]
 }
 
-export type MarketingFields = Partial<{
-  twitterUser?: Partial<GQLTwitterUser>
-  tweets?: Partial<GQLTweet>
-  likes?: Partial<GQLLike>
-  tasks?: Partial<GQLTask>
+export type MarketingFields = DeepPartial<{
+  twitterUser?: DeepPartial<GQLTwitterUser>
+  tweets?: DeepPartial<GQLTweet>
+  likes?: DeepPartial<GQLLike>
+  tasks?: DeepPartial<GQLTask>
 }>
 
 export const marketingQueryString = (

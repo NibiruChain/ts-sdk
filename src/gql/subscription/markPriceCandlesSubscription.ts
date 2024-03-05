@@ -6,11 +6,12 @@ import {
   convertObjectToPropertiesString,
   defaultMarkPriceCandles,
   GqlOutMarkPriceCandles,
+  DeepPartial,
 } from ".."
 
 export const markPriceCandlesSubscriptionQueryString = (
-  args: Partial<GQLSubscriptionGqlMarkPriceCandlesArgs>,
-  fields?: Partial<GQLMarkPriceCandle>
+  args: GQLSubscriptionGqlMarkPriceCandlesArgs,
+  fields?: DeepPartial<GQLMarkPriceCandle>
 ) =>
   `subscription {
     ${gqlQuery(
@@ -24,9 +25,9 @@ export const markPriceCandlesSubscriptionQueryString = (
   }`
 
 export const markPriceCandlesSubscription = async (
-  args: Partial<GQLSubscriptionGqlMarkPriceCandlesArgs>,
+  args: GQLSubscriptionGqlMarkPriceCandlesArgs,
   client?: Client,
-  fields?: Partial<GQLMarkPriceCandle>
+  fields?: DeepPartial<GQLMarkPriceCandle>
 ): Promise<
   AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>> | undefined
 > =>
