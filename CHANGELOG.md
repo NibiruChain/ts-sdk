@@ -1,3 +1,9 @@
+## [3.2.0](https://github.com/NibiruChain/ts-sdk/compare/v3.1.1...v3.2.0) (2024-03-05)
+
+### Features
+
+- deepPartial ([#329](https://github.com/NibiruChain/ts-sdk/issues/329)) ([#330](https://github.com/NibiruChain/ts-sdk/issues/330)) ([f2bb64d](https://github.com/NibiruChain/ts-sdk/commit/f2bb64dc2dbfd2af356778a01b806db8bbcfa923))
+
 ### [3.1.1](https://github.com/NibiruChain/ts-sdk/compare/v3.1.0...v3.1.1) (2024-02-29)
 
 ### Bug Fixes
