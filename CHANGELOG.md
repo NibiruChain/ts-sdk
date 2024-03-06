@@ -1,3 +1,10 @@
+### [3.3.1](https://github.com/NibiruChain/ts-sdk/compare/v3.3.0...v3.3.1) (2024-03-06)
+
+### Bug Fixes
+
+- fix build error ([3604410](https://github.com/NibiruChain/ts-sdk/commit/36044105f7691eb75d768736efeaf8086512a9c2))
+- fix gql builder ([82b30ae](https://github.com/NibiruChain/ts-sdk/commit/82b30aedd1482768fba3927f77b78e2d381e5c15))
+
 ## [3.3.0](https://github.com/NibiruChain/ts-sdk/compare/v3.2.0...v3.3.0) (2024-03-06)
 
 ### Features
