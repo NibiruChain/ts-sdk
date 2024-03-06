@@ -1,12 +1,15 @@
 import {
   convertObjectToPropertiesString,
   DeepPartial,
+  defaultAccountLinksInfo,
   defaultLike,
   defaultTask,
   defaultTweet,
   defaultTwitterUser,
   doGqlQuery,
+  GQLAccountLinksInfo,
   GQLLike,
+  GQLMarketingQueryGqlAccountLinksInfoArgs,
   GQLMarketingQueryGqlLikesArgs,
   GQLMarketingQueryGqlTasksArgs,
   GQLMarketingQueryGqlTweetsArgs,
@@ -23,6 +26,7 @@ export type QueryMarketingArgs = {
   tweets?: GQLMarketingQueryGqlTweetsArgs
   likes?: GQLMarketingQueryGqlLikesArgs
   tasks?: GQLMarketingQueryGqlTasksArgs
+  accountLinksInfo?: GQLMarketingQueryGqlAccountLinksInfoArgs
 }
 
 export interface GqlOutMarketingQuery {
@@ -34,6 +38,8 @@ export type MarketingFields = DeepPartial<{
   tweets?: DeepPartial<GQLTweet>
   likes?: DeepPartial<GQLLike>
   tasks?: DeepPartial<GQLTask>
+  accountLinksInfo?: DeepPartial<GQLAccountLinksInfo>
+  lastUpdatedTimestamp?: string
 }>
 
 export const marketingQueryString = (
@@ -86,6 +92,17 @@ export const marketingQueryString = (
     )
   }
 
+  if (fields?.accountLinksInfo) {
+    marketingQuery.push(
+      gqlQuery(
+        "accountLinksInfo",
+        args.accountLinksInfo ?? {},
+        convertObjectToPropertiesString(fields.accountLinksInfo),
+        true
+      )
+    )
+  }
+
   // Default Objects
 
   if (args.likes && !fields?.likes) {
@@ -130,6 +147,22 @@ export const marketingQueryString = (
         true
       )
     )
+  }
+
+  if (args.accountLinksInfo && !fields?.accountLinksInfo) {
+    marketingQuery.push(
+      gqlQuery(
+        "accountLinksInfo",
+        args.accountLinksInfo,
+        convertObjectToPropertiesString(defaultAccountLinksInfo),
+        true
+      )
+    )
+  }
+
+  // Add lastUpdatedTimestamp if specified
+  if (fields?.lastUpdatedTimestamp) {
+    marketingQuery.push("lastUpdatedTimestamp")
   }
 
   return `

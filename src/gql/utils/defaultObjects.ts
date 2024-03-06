@@ -1,4 +1,5 @@
 import {
+  GQLAccountLinksInfo,
   GQLBlock,
   GQLDelegation,
   GQLDistributionCommission,
@@ -452,11 +453,9 @@ export const defaultTwitterUser: GQLTwitterUser = {
   displayName: "",
   followersCount: 0,
   followingCount: 0,
-  discordId: "",
   id: "",
   likes: [],
   listedCount: 0,
-  nibiAddress: "",
   tweets: [],
   tweetsCount: 0,
   username: "",
@@ -502,4 +501,10 @@ export const defaultTaskCompletion: GQLTaskCompletion = {
   completionTime: "",
   task: defaultTask,
   user: defaultTwitterUser,
+}
+
+export const defaultAccountLinksInfo: GQLAccountLinksInfo = {
+  nibiAddress: "",
+  discordId: "",
+  twitterUser: defaultTwitterUser,
 }
