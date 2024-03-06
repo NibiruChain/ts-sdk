@@ -81,14 +81,8 @@ export const marketingMutationString = (
 
   return `mutation {
     marketing {
-      ${gqlQuery(
-        "updateTwitterUser",
-        args,
-        fields
-          ? convertObjectToPropertiesString(fields)
-          : convertObjectToPropertiesString(defaultTwitterUser),
-        excludeParentObject
-      )}
+
+      ${GQLMarketingMutationQuery.join("\n")}
     }
   }`
 }
