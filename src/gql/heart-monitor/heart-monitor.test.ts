@@ -98,8 +98,9 @@ import {
   defaultTask,
   QueryMarketingArgs,
   MarketingFields,
-  GQLMarketingMutationGqlUpdateTwitterUserArgs,
-  GQLTwitterUser,
+  QueryMarketingMutationArgs,
+  GQLMarketingMutationFields,
+  defaultAccountLinksInfo,
 } from ".."
 
 const nibiruUrl = "testnet-1"
@@ -436,8 +437,8 @@ test("markPriceCandlesSubscription", async () => {
 })
 
 const testMarketingMutation = async (
-  args: GQLMarketingMutationGqlUpdateTwitterUserArgs,
-  fields?: GQLTwitterUser
+  args: QueryMarketingMutationArgs,
+  fields?: GQLMarketingMutationFields
 ) => {
   const resp = await heartMonitor.marketingMutation(args, {}, fields)
   expect(resp).toHaveProperty("marketing")
@@ -445,34 +446,29 @@ const testMarketingMutation = async (
   if (resp.marketing) {
     const { marketing } = resp
 
-    checkFields(
-      [marketing],
-      [
-        "completedTasks",
-        "creationTimestamp",
-        "displayName",
-        "followersCount",
-        "followingCount",
-        "id",
-        "likes",
-        "listedCount",
-        "nibiAddress",
-        "tweets",
-        "tweetsCount",
-        "username",
-      ]
-    )
+    checkFields([marketing], ["updateTwitterUser", "linkAccounts"])
   }
 }
 
 // Create JIT JWT for this test
 test.skip("marketingMutation", async () => {
   await testMarketingMutation({
-    input: {
-      userId: "800528778854182912",
-      nibiAddress: "nibi1p6luzkxeufy29reymgjqnl5mv6a6gae07cphed",
-      displayName: "WildFyre",
-      username: "wildfyreapp",
+    updateTwitterUser: {
+      input: {
+        userId: "800528778854182912",
+        nibiAddress: "nibi1p6luzkxeufy29reymgjqnl5mv6a6gae07cphed",
+        displayName: "WildFyre",
+        username: "wildfyreapp",
+      },
+    },
+    linkAccounts: {
+      input: {
+        nibiAddress: "nibi1p6luzkxeufy29reymgjqnl5mv6a6gae07cphed",
+        twitterUser: {
+          displayName: "WildFyre",
+          username: "wildfyreapp",
+        },
+      },
     },
   })
 })
@@ -489,7 +485,15 @@ const testMarketingQuery = async (
 
     checkFields(
       [marketing],
-      ["likes", "retweets", "tasks", "tweets", "twitterUser"]
+      [
+        "likes",
+        "retweets",
+        "tasks",
+        "tweets",
+        "twitterUser",
+        "accountLinksInfo",
+        "lastUpdatedTimestamp",
+      ]
     )
   }
 }
@@ -506,6 +510,12 @@ test.skip("marketingQuery", async () => {
     likes: {
       where: { userId: "1516130689028087815" },
     },
+    accountLinksInfo: {
+      where: {
+        nibiAddress: "nibi1p6luzkxeufy29reymgjqnl5mv6a6gae07cphed",
+        twitterId: "800528778854182912",
+      },
+    },
   })
   await testMarketingQuery(
     {
@@ -518,21 +528,31 @@ test.skip("marketingQuery", async () => {
       likes: {
         where: { userId: "" },
       },
+      accountLinksInfo: {
+        where: {
+          nibiAddress: "",
+          twitterId: "",
+        },
+      },
     },
     {
+      accountLinksInfo: defaultAccountLinksInfo,
       twitterUser: defaultTwitterUser,
       tweets: defaultTweet,
       likes: defaultLike,
       tasks: defaultTask,
+      lastUpdatedTimestamp: "",
     }
   )
   await testMarketingQuery(
     {},
     {
+      accountLinksInfo: defaultAccountLinksInfo,
       twitterUser: defaultTwitterUser,
       tweets: defaultTweet,
       likes: defaultLike,
       tasks: defaultTask,
+      lastUpdatedTimestamp: "",
     }
   )
 })
