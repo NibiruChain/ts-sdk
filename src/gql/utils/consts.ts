@@ -112,9 +112,7 @@ export const convertObjectToPropertiesString = <T>(
         .map(
           (item) =>
             `${key} {
-              ${Object.keys(item)
-                .map((k) => `${k}`)
-                .join("\n")}
+              ${convertObjectToPropertiesString(item as IterableDictionary<T>)}
             }`
         )
         .join("\n")
