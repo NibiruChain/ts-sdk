@@ -28,7 +28,6 @@ export type GQLMarketingMutationFields = DeepPartial<{
 
 export const marketingMutationString = (
   args: QueryMarketingMutationArgs,
-  excludeParentObject: boolean,
   fields?: DeepPartial<GQLMarketingMutationFields>
 ) => {
   const GQLMarketingMutationQuery: string[] = []
@@ -81,7 +80,6 @@ export const marketingMutationString = (
 
   return `mutation {
     marketing {
-
       ${GQLMarketingMutationQuery.join("\n")}
     }
   }`
@@ -93,4 +91,4 @@ export const marketingMutation = async (
   headers: HeadersInit,
   fields?: DeepPartial<GQLMarketingMutationFields>
 ): Promise<GqlOutMarketingMutation> =>
-  doGqlQuery(marketingMutationString(args, true, fields), endpt, headers)
+  doGqlQuery(marketingMutationString(args, fields), endpt, headers)
