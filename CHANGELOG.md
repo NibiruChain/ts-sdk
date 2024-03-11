@@ -1,3 +1,32 @@
+### [3.3.2](https://github.com/NibiruChain/ts-sdk/compare/v3.3.1...v3.3.2) (2024-03-06)
+
+### Bug Fixes
+
+- fix ([3bb03d8](https://github.com/NibiruChain/ts-sdk/commit/3bb03d8ed8678d9bf522b6e811c96b220e276d16))
+
+### [3.3.1](https://github.com/NibiruChain/ts-sdk/compare/v3.3.0...v3.3.1) (2024-03-06)
+
+### Bug Fixes
+
+- fix build error ([3604410](https://github.com/NibiruChain/ts-sdk/commit/36044105f7691eb75d768736efeaf8086512a9c2))
+- fix gql builder ([82b30ae](https://github.com/NibiruChain/ts-sdk/commit/82b30aedd1482768fba3927f77b78e2d381e5c15))
+
+## [3.3.0](https://github.com/NibiruChain/ts-sdk/compare/v3.2.0...v3.3.0) (2024-03-06)
+
+### Features
+
+- deepPartial ([#329](https://github.com/NibiruChain/ts-sdk/issues/329)) ([89f2504](https://github.com/NibiruChain/ts-sdk/commit/89f2504c089ca8ed48dbc2c88bfddba91a3702c2))
+- marketing mutation + query ([#331](https://github.com/NibiruChain/ts-sdk/issues/331)) ([61c7fe8](https://github.com/NibiruChain/ts-sdk/commit/61c7fe898b2c23f87b4191cd57e87de16229d02a))
+
+### Bug Fixes
+
+- fix barrel ([599041f](https://github.com/NibiruChain/ts-sdk/commit/599041f2b319405feb9a4f4a6e9683b2f8634557))
+- merge ([4e1144d](https://github.com/NibiruChain/ts-sdk/commit/4e1144daac0a609f9332732450eb91ae40e9253d))
+
+### Documentation
+
+- **gql:** add JSDoc comment for DeepPartial ([26176e3](https://github.com/NibiruChain/ts-sdk/commit/26176e383ffb2a34192802bc846dfa68f9d78656))
+
 ## [3.2.0](https://github.com/NibiruChain/ts-sdk/compare/v3.1.1...v3.2.0) (2024-03-05)
 
 ### Features
