@@ -419,6 +419,7 @@ export const defaultIbcChannelsResponse: GQLIbcChannelsResponse = {
 export const defaultUserContract: GQLUserContract = {
   user: defaultUser,
   contractAddress: "",
+  contractType: "",
 }
 
 export const defaultInflationDistribution: GQLInflationDistribution = {
