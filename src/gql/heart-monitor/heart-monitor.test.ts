@@ -1180,7 +1180,6 @@ test("wasm", async () => {
       where: {
         contractAddress: { like: "123" },
         userAddress: { eq: "456" },
-        contractType: { eq: "" },
       },
       limit: 1,
     },
