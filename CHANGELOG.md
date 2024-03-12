@@ -1,3 +1,9 @@
+### [3.3.3](https://github.com/NibiruChain/ts-sdk/compare/v3.3.2...v3.3.3) (2024-03-12)
+
+### Miscellaneous Chores
+
+- develop -> main ([#337](https://github.com/NibiruChain/ts-sdk/issues/337)) ([51a9842](https://github.com/NibiruChain/ts-sdk/commit/51a98428d7e441fa7c7758dee9b925e34f126c61))
+
 ### [3.3.2](https://github.com/NibiruChain/ts-sdk/compare/v3.3.1...v3.3.2) (2024-03-06)
 
 ### Bug Fixes
