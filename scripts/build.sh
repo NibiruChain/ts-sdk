@@ -7,11 +7,15 @@ if [ -d "./nibiru/" ]; then
   cd nibiru
   git checkout main
   cd ..
-else
+elif [ -d "../nibiru/" ]; then
   cd ../nibiru
   git checkout main
   git pull
   cd ../ts-sdk
+else
+  cd ..
+  git clone git@github.com:NibiruChain/nibiru.git
+  cd ts-sdk
 fi
 
 yarn gql-generate & yarn proto-gen
