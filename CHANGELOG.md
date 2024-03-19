@@ -1,3 +1,21 @@
+## [4.0.0](https://github.com/NibiruChain/ts-sdk/compare/v3.3.4...v4.0.0) (2024-03-19)
+
+### Features
+
+- trigger latest build ([#340](https://github.com/NibiruChain/ts-sdk/issues/340)) ([866c603](https://github.com/NibiruChain/ts-sdk/commit/866c603be250b06f10ead37bc7859a34b9ad4547))
+
+### Bug Fixes
+
+- tests ([00d98cb](https://github.com/NibiruChain/ts-sdk/commit/00d98cbcfafcc21e9bb32f370be7040c167ab198))
+
+### Code Refactors
+
+- adding contract type to user ([7857b2b](https://github.com/NibiruChain/ts-sdk/commit/7857b2b6fca65a502075f365c5fca4cb235ef78d))
+
+### Tests
+
+- fix ([a12ba71](https://github.com/NibiruChain/ts-sdk/commit/a12ba71fb821c1939a60be978bdc3386a43d7f13))
+
 ### [3.3.4](https://github.com/NibiruChain/ts-sdk/compare/v3.3.3...v3.3.4) (2024-03-18)
 
 ### Miscellaneous Chores
