@@ -1,3 +1,9 @@
+### [3.3.4](https://github.com/NibiruChain/ts-sdk/compare/v3.3.3...v3.3.4) (2024-03-18)
+
+### Miscellaneous Chores
+
+- develop -> main ([#341](https://github.com/NibiruChain/ts-sdk/issues/341)) ([cae2d15](https://github.com/NibiruChain/ts-sdk/commit/cae2d1560dca5498747672e794dc67bd875e4107)), closes [#340](https://github.com/NibiruChain/ts-sdk/issues/340)
+
 ### [3.3.3](https://github.com/NibiruChain/ts-sdk/compare/v3.3.2...v3.3.3) (2024-03-12)
 
 ### Miscellaneous Chores
