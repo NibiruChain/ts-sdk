@@ -1,3 +1,9 @@
+## [4.1.0](https://github.com/NibiruChain/ts-sdk/compare/v4.0.0...v4.1.0) (2024-04-01)
+
+### Features
+
+- proxy prices ([#343](https://github.com/NibiruChain/ts-sdk/issues/343)) ([#344](https://github.com/NibiruChain/ts-sdk/issues/344)) ([b4ab83c](https://github.com/NibiruChain/ts-sdk/commit/b4ab83c2d9b4f17ec0f8bad6141bc7b5a9dc1228))
+
 ## [4.0.0](https://github.com/NibiruChain/ts-sdk/compare/v3.3.4...v4.0.0) (2024-03-19)
 
 ### Features
