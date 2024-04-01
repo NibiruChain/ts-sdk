@@ -23,6 +23,7 @@ import {
   GQLPerpMarket,
   GQLPerpPosition,
   GQLPerpPositionChange,
+  GQLProxies,
   GQLRedelegation,
   GQLSpotLpPosition,
   GQLSpotPool,
@@ -508,4 +509,21 @@ export const defaultAccountLinksInfo: GQLAccountLinksInfo = {
   nibiAddress: "",
   discordId: "",
   twitterUser: defaultTwitterUser,
+}
+
+export const defaultProxy: GQLProxies = {
+  bybit: {
+    ask1Price: "",
+    ask1Size: "",
+    bid1Price: "",
+    bid1Size: "",
+    highPrice24h: "",
+    lastPrice: "",
+    lowPrice24h: "",
+    prevPrice24h: "",
+    price24hPcnt: "",
+    symbol: "",
+    turnover24h: "",
+    volume24h: "",
+  },
 }
