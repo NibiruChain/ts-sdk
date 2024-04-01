@@ -101,6 +101,8 @@ import {
   QueryMarketingMutationArgs,
   GQLMarketingMutationFields,
   defaultAccountLinksInfo,
+  defaultProxy,
+  GQLProxies,
 } from ".."
 
 const nibiruUrl = "testnet-1"
@@ -861,6 +863,22 @@ test("perpPositionsSubscription", async () => {
     },
     defaultPerpPosition
   )
+})
+
+const testProxies = async (fields?: GQLProxies) => {
+  const resp = await heartMonitor.proxies(fields)
+  expect(resp).toHaveProperty("proxies")
+
+  if (resp.proxies) {
+    const { proxies } = resp
+
+    checkFields([proxies], ["bybit"])
+  }
+}
+
+test("featureFlags", async () => {
+  await testProxies(defaultProxy)
+  await testProxies()
 })
 
 test("queryBatchHandler", async () => {

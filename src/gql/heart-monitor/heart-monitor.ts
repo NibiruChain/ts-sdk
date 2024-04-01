@@ -112,6 +112,9 @@ import {
   DeepPartial,
   QueryMarketingMutationArgs,
   GQLMarketingMutationFields,
+  GQLProxies,
+  GqlOutProxies,
+  proxies,
 } from ".."
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
@@ -206,6 +209,8 @@ export interface IHeartMonitor {
   ) => Promise<
     AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>> | undefined
   >
+
+  readonly proxies: (fields?: DeepPartial<GQLProxies>) => Promise<GqlOutProxies>
 
   readonly GQLQueryGqlBatchHandler: <T>(
     queryQueryStrings: string[]
@@ -373,6 +378,9 @@ export class HeartMonitor implements IHeartMonitor {
     args: GQLSubscriptionGqlPerpPositionsArgs,
     fields?: DeepPartial<GQLPerpPosition>
   ) => perpPositionsSubscription(args, this.subscriptionClient, fields)
+
+  proxies = async (fields?: DeepPartial<GQLProxies>) =>
+    proxies(this.gqlEndpt, fields)
 
   GQLQueryGqlBatchHandler = async <T>(queryQueryStrings: string[]) =>
     <T>queryBatchHandler(queryQueryStrings, this.gqlEndpt)
