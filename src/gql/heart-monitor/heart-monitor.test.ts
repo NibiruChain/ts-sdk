@@ -876,7 +876,7 @@ const testProxies = async (fields?: GQLProxies) => {
   }
 }
 
-test("featureFlags", async () => {
+test("proxies", async () => {
   await testProxies(defaultProxy)
   await testProxies()
 })
