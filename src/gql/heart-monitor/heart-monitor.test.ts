@@ -103,6 +103,7 @@ import {
   defaultAccountLinksInfo,
   defaultProxy,
   GQLProxies,
+  defaultInflationReward,
 } from ".."
 
 const nibiruUrl = "testnet-1"
@@ -330,7 +331,10 @@ const testInflation = async (
   if (resp.inflation) {
     const { inflation } = resp
 
-    checkFields([inflation], ["distributions", "inflations"])
+    checkFields(
+      [inflation],
+      ["distributions", "inflations", ...(fields?.rewards ? ["rewards"] : [])]
+    )
   }
 }
 
@@ -348,6 +352,7 @@ test("inflation", async () => {
     {
       inflations: defaultInflationInfo,
       distributions: defaultInflationDistribution,
+      rewards: defaultInflationReward,
     }
   )
 })

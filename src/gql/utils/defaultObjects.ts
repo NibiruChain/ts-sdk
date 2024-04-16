@@ -14,6 +14,7 @@ import {
   GQLIbcTransfer,
   GQLInflationDistribution,
   GQLInflationInfo,
+  GQLInflationRewards,
   GQLLike,
   GQLMarkPriceCandle,
   GQLNibiruTweet,
@@ -430,6 +431,10 @@ export const defaultInflationDistribution: GQLInflationDistribution = {
   stakingRewards: 0,
   strategicReserve: 0,
   txSeqNo: 0,
+}
+export const defaultInflationReward: GQLInflationRewards = {
+  annualReward: 0,
+  totalStaked: 0,
 }
 
 export const defaultInflationInfo: GQLInflationInfo = {
