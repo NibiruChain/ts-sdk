@@ -10,6 +10,7 @@ import {
   defaultInflationDistribution,
   defaultInflationInfo,
   DeepPartial,
+  GQLInflationRewards,
 } from ".."
 
 export type QueryInflationArgs = {
@@ -24,6 +25,7 @@ export interface GqlOutInflation {
 export type InflationFields = DeepPartial<{
   distributions?: DeepPartial<GQLInflationDistribution>
   inflations?: DeepPartial<GQLInflationInfo>
+  rewards?: DeepPartial<GQLInflationRewards>
 }>
 
 export const inflationQueryString = (
@@ -49,6 +51,17 @@ export const inflationQueryString = (
         "inflations",
         args.inflations ?? {},
         convertObjectToPropertiesString(fields.inflations),
+        true
+      )
+    )
+  }
+
+  if (fields?.rewards) {
+    inflationQuery.push(
+      gqlQuery(
+        "rewards",
+        {},
+        convertObjectToPropertiesString(fields.rewards),
         true
       )
     )
