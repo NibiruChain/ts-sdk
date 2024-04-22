@@ -1,3 +1,9 @@
+## [4.2.0](https://github.com/NibiruChain/ts-sdk/compare/v4.1.0...v4.2.0) (2024-04-22)
+
+### Features
+
+- inflation rewards | remove spot, perp, and marketing ([#346](https://github.com/NibiruChain/ts-sdk/issues/346)) ([bb81957](https://github.com/NibiruChain/ts-sdk/commit/bb81957eab79278c4543b6b6cc9d4dcfbc6a7bc0)), closes [#343](https://github.com/NibiruChain/ts-sdk/issues/343)
+
 ## [4.1.0](https://github.com/NibiruChain/ts-sdk/compare/v4.0.0...v4.1.0) (2024-04-01)
 
 ### Features
