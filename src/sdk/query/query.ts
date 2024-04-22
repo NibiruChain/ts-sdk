@@ -25,10 +25,6 @@ import {
   setupEpochsExtension,
   OracleExtension,
   setupOracleExtension,
-  PerpExtension,
-  setupPerpExtension,
-  setupSpotExtension,
-  SpotExtension,
   setupSudoExtension,
   SudoExtension,
   InflationExtension,
@@ -41,8 +37,6 @@ import {
 } from ".."
 
 export type NibiruExtensions = StargateQueryClient &
-  SpotExtension &
-  PerpExtension &
   SudoExtension &
   InflationExtension &
   OracleExtension &
@@ -89,10 +83,8 @@ export class NibiruQuerier extends StargateClient {
       setupDevgasExtension,
       setupEpochsExtension,
       setupOracleExtension,
-      setupPerpExtension,
       setupSudoExtension,
       setupInflationExtension,
-      setupSpotExtension,
       setupDistributionExtension,
       setupGovExtension,
       setupStakingExtension,

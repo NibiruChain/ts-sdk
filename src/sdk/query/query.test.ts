@@ -49,23 +49,6 @@ describe("x/bank queries", () => {
   })
 })
 
-describe("x/spot queries", () => {
-  test("query spot params", async () => {
-    const querier = await NibiruQuerier.connect(Localnet.endptTm)
-    const { params } = await querier.nibiruExtensions.spot.params()
-    const fields: string[] = [
-      "poolCreationFee",
-      "startingPoolNumber",
-      "whitelistedAsset",
-    ]
-    for (const field of fields) {
-      expect(params).toHaveProperty(field)
-    }
-    expect(params?.whitelistedAsset.length).toBeGreaterThan(0)
-    expect(params?.whitelistedAsset[0]).not.toBe("")
-  })
-})
-
 describe("x/oracle queries", () => {
   test("query active oracles", async () => {
     const querier = await NibiruQuerier.connect(Localnet.endptTm)
@@ -177,7 +160,7 @@ describe("ibc module queries", () => {
       "channelId",
       "counterparty",
     ]
-    channels.forEach((channel) => {
+    channels.forEach((channel: any) => {
       properties.forEach((prop) => {
         expect(channel).toHaveProperty(prop)
       })
@@ -196,7 +179,7 @@ describe("ibc module queries", () => {
       "delayPeriod",
       "counterparty",
     ]
-    connections.forEach((connection) => {
+    connections.forEach((connection: any) => {
       properties.forEach((prop) => {
         expect(connection).toHaveProperty(prop)
       })

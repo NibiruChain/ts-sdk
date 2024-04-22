@@ -1,5 +1,4 @@
 import {
-  GQLAccountLinksInfo,
   GQLBlock,
   GQLDelegation,
   GQLDistributionCommission,
@@ -14,9 +13,8 @@ import {
   GQLIbcTransfer,
   GQLInflationDistribution,
   GQLInflationInfo,
-  GQLLike,
+  GQLInflationRewards,
   GQLMarkPriceCandle,
-  GQLNibiruTweet,
   GQLOracleEntry,
   GQLOraclePrice,
   GQLPerpLeaderboard,
@@ -35,11 +33,7 @@ import {
   GQLStatsTvl,
   GQLStatsUsers,
   GQLStatsVolume,
-  GQLTask,
-  GQLTaskCompletion,
   GQLToken,
-  GQLTweet,
-  GQLTwitterUser,
   GQLUnbonding,
   GQLUser,
   GQLUserContract,
@@ -431,6 +425,10 @@ export const defaultInflationDistribution: GQLInflationDistribution = {
   strategicReserve: 0,
   txSeqNo: 0,
 }
+export const defaultInflationReward: GQLInflationRewards = {
+  annualReward: 0,
+  totalStaked: 0,
+}
 
 export const defaultInflationInfo: GQLInflationInfo = {
   amount: 0,
@@ -446,69 +444,6 @@ export const defaultFeatureFlags: GQLFeatureFlags = {
   spot: true,
   staking: true,
   wasm: true,
-}
-
-// TODO: Add default objects to arrays
-export const defaultTwitterUser: GQLTwitterUser = {
-  completedTasks: [],
-  creationTimestamp: "",
-  displayName: "",
-  followersCount: 0,
-  followingCount: 0,
-  id: "",
-  likes: [],
-  listedCount: 0,
-  tweets: [],
-  tweetsCount: 0,
-  username: "",
-}
-
-export const defaultNibiruTweet: GQLNibiruTweet = {
-  creationTimestamp: "",
-  id: "",
-}
-
-export const defaultLike: GQLLike = {
-  nibiruTweet: defaultNibiruTweet,
-  user: defaultTwitterUser,
-  creationTimestamp: "",
-}
-
-export const defaultTweet: GQLTweet = {
-  author: defaultTwitterUser,
-  conversationId: "",
-  creationTimestamp: "",
-  id: "",
-  inReplyToTweetId: "",
-  inReplyToUserId: "",
-  isMention: true,
-  likes: [defaultLike],
-  quoteTweetId: "",
-  retweetId: "",
-  text: "",
-}
-
-export const defaultTask: GQLTask = {
-  behavior: "",
-  category: "",
-  description: "",
-  expirationTime: "",
-  id: "",
-  nibiruTweet: defaultNibiruTweet,
-  points: 0,
-  startTime: "",
-}
-
-export const defaultTaskCompletion: GQLTaskCompletion = {
-  completionTime: "",
-  task: defaultTask,
-  user: defaultTwitterUser,
-}
-
-export const defaultAccountLinksInfo: GQLAccountLinksInfo = {
-  nibiAddress: "",
-  discordId: "",
-  twitterUser: defaultTwitterUser,
 }
 
 export const defaultProxy: GQLProxies = {
