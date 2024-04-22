@@ -3,8 +3,6 @@ import {
   DevgasMsgFactory,
   InflationMsgFactory,
   OracleMsgFactory,
-  PerpMsgFactory,
-  SpotMsgFactory,
   SudoMsgFactory,
   TokenfactoryMsgFactory,
 } from "."
@@ -17,8 +15,6 @@ export declare class MsgFactory {
   devgas: typeof DevgasMsgFactory
   inflation: typeof InflationMsgFactory
   oracle: typeof OracleMsgFactory
-  perp: typeof PerpMsgFactory
-  spot: typeof SpotMsgFactory
   sudo: typeof SudoMsgFactory
   tokenfactory: typeof TokenfactoryMsgFactory
 }

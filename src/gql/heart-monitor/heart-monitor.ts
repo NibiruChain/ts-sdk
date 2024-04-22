@@ -103,15 +103,7 @@ import {
   GQLFeatureFlags,
   GqlOutFeatureFlags,
   inflation,
-  GqlOutMarketingQuery,
-  MarketingFields,
-  QueryMarketingArgs,
-  marketingQuery,
-  marketingMutation,
-  GqlOutMarketingMutation,
   DeepPartial,
-  QueryMarketingMutationArgs,
-  GQLMarketingMutationFields,
   GQLProxies,
   GqlOutProxies,
   proxies,
@@ -155,17 +147,6 @@ export interface IHeartMonitor {
     args: QueryInflationArgs,
     fields?: DeepPartial<InflationFields>
   ) => Promise<GqlOutInflation>
-
-  readonly marketingMutation: (
-    args: QueryMarketingMutationArgs,
-    headers: HeadersInit,
-    fields?: DeepPartial<GQLMarketingMutationFields>
-  ) => Promise<GqlOutMarketingMutation>
-
-  readonly marketingQuery: (
-    args: QueryMarketingArgs,
-    fields?: DeepPartial<MarketingFields>
-  ) => Promise<GqlOutMarketingQuery>
 
   readonly markPriceCandles: (
     args: GQLQueryGqlMarkPriceCandlesArgs,
@@ -336,17 +317,6 @@ export class HeartMonitor implements IHeartMonitor {
     args: QueryInflationArgs,
     fields?: DeepPartial<InflationFields>
   ) => inflation(args, this.gqlEndpt, fields)
-
-  marketingQuery = async (
-    args: QueryMarketingArgs,
-    fields?: DeepPartial<MarketingFields>
-  ) => marketingQuery(args, this.gqlEndpt, fields)
-
-  marketingMutation = async (
-    args: QueryMarketingMutationArgs,
-    headers: HeadersInit,
-    fields?: DeepPartial<GQLMarketingMutationFields>
-  ) => marketingMutation(args, this.gqlEndpt, headers, fields)
 
   markPriceCandles = async (
     args: GQLQueryGqlMarkPriceCandlesArgs,
