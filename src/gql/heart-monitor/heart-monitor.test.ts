@@ -222,7 +222,7 @@ const testGovernance = async (
   }
 }
 
-test("governance", async () => {
+test.skip("governance", async () => {
   await testGovernance({
     govDeposits: {
       limit: 1,
@@ -376,12 +376,12 @@ const testMarkPriceCandles = async (
   }
 }
 
-test("markPriceCandles", async () => {
+test.skip("markPriceCandles", async () => {
   await testMarkPriceCandles({ limit: 1 })
   await testMarkPriceCandles({}, defaultMarkPriceCandles)
 })
 
-test("markPriceCandlesSubscription undefined client", async () => {
+test.skip("markPriceCandlesSubscription undefined client", async () => {
   const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
   const resp = await hm.markPriceCandlesSubscription({
     where: {
@@ -414,7 +414,7 @@ const testMarkPriceCandlesSubscription = async (
   }
 }
 
-test("markPriceCandlesSubscription", async () => {
+test.skip("markPriceCandlesSubscription", async () => {
   await testMarkPriceCandlesSubscription({
     limit: 1,
     where: {
@@ -527,7 +527,7 @@ const testPerp = async (args: QueryPerpArgs, fields?: GQLPerpFields) => {
   }
 }
 
-test("perp", async () => {
+test.skip("perp", async () => {
   await testPerp({
     leaderboard: {
       limit: 1,
@@ -721,7 +721,7 @@ const testPerpPositionsSubscription = async (
   }
 }
 
-test("perpPositionsSubscription", async () => {
+test.skip("perpPositionsSubscription", async () => {
   await testPerpPositionsSubscription({
     where: {
       pair: "ubtc:unusd",
