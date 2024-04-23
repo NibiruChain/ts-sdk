@@ -1,6 +1,5 @@
 import {
   GQLBlock,
-  GQLDelegation,
   GQLDistributionCommission,
   GQLFeatureFlags,
   GQLGovDeposit,
@@ -22,7 +21,6 @@ import {
   GQLPerpPosition,
   GQLPerpPositionChange,
   GQLProxies,
-  GQLRedelegation,
   GQLSpotLpPosition,
   GQLSpotPool,
   GQLSpotPoolSwap,
@@ -34,7 +32,6 @@ import {
   GQLStatsUsers,
   GQLStatsVolume,
   GQLToken,
-  GQLUnbonding,
   GQLUser,
   GQLUserContract,
   GQLValidator,
@@ -234,21 +231,6 @@ export const defaultDistributionCommission: GQLDistributionCommission = {
   validator: defaultValidator,
 }
 
-export const defaultDelegations: GQLDelegation = {
-  amount: 0,
-  delegator: defaultUser,
-  validator: defaultValidator,
-}
-
-export const defaultRedelegations: GQLRedelegation = {
-  amount: 0,
-  delegator: defaultUser,
-  source_validator: defaultValidator,
-  destination_validator: defaultValidator,
-  completion_time: "",
-  creation_block: defaultBlock,
-}
-
 export const defaultSpotLpPosition: GQLSpotLpPosition = {
   created_block: defaultBlock,
   pool: defaultPool,
@@ -357,14 +339,6 @@ export const defaultVolume: GQLStatsVolume = {
   period: 0,
   periodInterval: "",
   periodStartTs: "",
-}
-
-export const defaultUnbondings: GQLUnbonding = {
-  amount: 0,
-  completion_time: "",
-  creation_block: defaultBlock,
-  delegator: defaultUser,
-  validator: defaultValidator,
 }
 
 export const defaultOraclePrice: GQLOraclePrice = {

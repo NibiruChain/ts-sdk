@@ -1,27 +1,21 @@
 import { WebSocket } from "ws"
 import { Client, ExecutionResult, createClient } from "graphql-ws"
 import {
-  GQLDelegation,
   GQLDistributionCommission,
   GQLMarkPriceCandle,
   GQLOraclePrice,
   GQLPerpMarket,
   GQLPerpPosition,
   GQLQueryGqlCommunityPoolArgs,
-  GQLQueryGqlDelegationsArgs,
   GQLQueryGqlDistributionCommissionsArgs,
   GQLQueryGqlMarkPriceCandlesArgs,
-  GQLQueryGqlRedelegationsArgs,
   GQLQueryGqlSpotLpPositionsArgs,
   GQLQueryGqlSpotPoolCreatedArgs,
   GQLQueryGqlSpotPoolExitedArgs,
   GQLQueryGqlSpotPoolJoinedArgs,
   GQLQueryGqlSpotPoolSwapArgs,
   GQLQueryGqlSpotPoolsArgs,
-  GQLQueryGqlUnbondingsArgs,
   GQLQueryGqlUsersArgs,
-  GQLQueryGqlValidatorsArgs,
-  GQLRedelegation,
   GQLSpotLpPosition,
   GQLSpotPool,
   GQLSpotPoolCreated,
@@ -33,36 +27,26 @@ import {
   GQLSubscriptionGqlPerpMarketArgs,
   GQLSubscriptionGqlPerpPositionsArgs,
   GQLToken,
-  GQLUnbonding,
   GQLUser,
-  GQLValidator,
   queryBatchHandler,
   GqlOutCommunityPool,
-  GqlOutDelegations,
   GqlOutDistributionCommissions,
-  GqlOutRedelegations,
   GqlOutSpotLpPositions,
   GqlOutSpotPoolCreated,
   GqlOutSpotPoolExited,
   GqlOutSpotPoolJoined,
   GqlOutSpotPoolSwap,
   GqlOutSpotPools,
-  GqlOutUnbondings,
   GqlOutUsers,
-  GqlOutValidators,
   communityPool,
-  delegations,
   distributionCommissions,
-  redelegations,
   spotLpPositions,
   spotPoolCreated,
   spotPoolExited,
   spotPoolJoined,
   spotPoolSwap,
   spotPools,
-  unbondings,
   users,
-  validators,
   GqlOutPerp,
   GQLPerpFields,
   perp,
@@ -108,6 +92,12 @@ import {
   GqlOutProxies,
   proxies,
 } from ".."
+import {
+  GQLStakingFields,
+  GqlOutStaking,
+  QueryStakingArgs,
+  staking,
+} from "../query/staking"
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
  * Each of its methods corresponds to a GQLQueryGql function. */
@@ -118,11 +108,6 @@ export interface IHeartMonitor {
     args: GQLQueryGqlCommunityPoolArgs,
     fields?: DeepPartial<GQLToken>
   ) => Promise<GqlOutCommunityPool>
-
-  readonly delegations: (
-    args: GQLQueryGqlDelegationsArgs,
-    fields?: DeepPartial<GQLDelegation>
-  ) => Promise<GqlOutDelegations>
 
   readonly distributionCommissions: (
     args: GQLQueryGqlDistributionCommissionsArgs,
@@ -197,11 +182,6 @@ export interface IHeartMonitor {
     queryQueryStrings: string[]
   ) => Promise<T>
 
-  readonly redelegations: (
-    args: GQLQueryGqlRedelegationsArgs,
-    fields?: DeepPartial<GQLRedelegation>
-  ) => Promise<GqlOutRedelegations>
-
   readonly spotLpPositions: (
     args: GQLQueryGqlSpotLpPositionsArgs,
     fields?: DeepPartial<GQLSpotLpPosition>
@@ -237,25 +217,20 @@ export interface IHeartMonitor {
     fields?: DeepPartial<GQLStatsFields>
   ) => Promise<GqlOutStats>
 
-  readonly unbondings: (
-    args: GQLQueryGqlUnbondingsArgs,
-    fields?: DeepPartial<GQLUnbonding>
-  ) => Promise<GqlOutUnbondings>
-
   readonly users: (
     args: GQLQueryGqlUsersArgs,
     fields?: DeepPartial<GQLUser>
   ) => Promise<GqlOutUsers>
 
-  readonly validators: (
-    args: GQLQueryGqlValidatorsArgs,
-    fields?: DeepPartial<GQLValidator>
-  ) => Promise<GqlOutValidators>
-
   readonly wasm: (
     args: QueryWasmArgs,
     fields?: DeepPartial<GqlWasmFields>
   ) => Promise<GqlOutWasm>
+
+  readonly staking: (
+    args: QueryStakingArgs,
+    fields?: DeepPartial<GQLStakingFields>
+  ) => Promise<GqlOutStaking>
 }
 
 /** HeartMonitor is an API for "Heart Monitor" that indexes the Nibiru blockchain
@@ -291,11 +266,6 @@ export class HeartMonitor implements IHeartMonitor {
     args: GQLQueryGqlCommunityPoolArgs,
     fields?: DeepPartial<GQLToken>
   ) => communityPool(args, this.gqlEndpt, fields)
-
-  delegations = async (
-    args: GQLQueryGqlDelegationsArgs,
-    fields?: DeepPartial<GQLDelegation>
-  ) => delegations(args, this.gqlEndpt, fields)
 
   distributionCommissions = async (
     args: GQLQueryGqlDistributionCommissionsArgs,
@@ -355,11 +325,6 @@ export class HeartMonitor implements IHeartMonitor {
   GQLQueryGqlBatchHandler = async <T>(queryQueryStrings: string[]) =>
     <T>queryBatchHandler(queryQueryStrings, this.gqlEndpt)
 
-  redelegations = async (
-    args: GQLQueryGqlRedelegationsArgs,
-    fields?: DeepPartial<GQLRedelegation>
-  ) => redelegations(args, this.gqlEndpt, fields)
-
   spotLpPositions = async (
     args: GQLQueryGqlSpotLpPositionsArgs,
     fields?: DeepPartial<GQLSpotLpPosition>
@@ -393,19 +358,14 @@ export class HeartMonitor implements IHeartMonitor {
   stats = async (args: QueryStatsArgs, fields?: DeepPartial<GQLStatsFields>) =>
     stats(args, this.gqlEndpt, fields)
 
-  unbondings = async (
-    args: GQLQueryGqlUnbondingsArgs,
-    fields?: DeepPartial<GQLUnbonding>
-  ) => unbondings(args, this.gqlEndpt, fields)
-
   users = async (args: GQLQueryGqlUsersArgs, fields?: DeepPartial<GQLUser>) =>
     users(args, this.gqlEndpt, fields)
 
-  validators = async (
-    args: GQLQueryGqlValidatorsArgs,
-    fields?: DeepPartial<GQLValidator>
-  ) => validators(args, this.gqlEndpt, fields)
-
   wasm = async (args: QueryWasmArgs, fields?: DeepPartial<GqlWasmFields>) =>
     wasm(args, this.gqlEndpt, fields)
+
+  staking = async (
+    args: QueryStakingArgs,
+    fields?: DeepPartial<GQLStakingFields>
+  ) => staking(args, this.gqlEndpt, fields)
 }

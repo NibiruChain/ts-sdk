@@ -12,14 +12,11 @@ import {
   QueryStatsArgs,
   GQLStatsFields,
   communityPoolQueryString,
-  delegationsQueryString,
   QueryWasmArgs,
   GqlWasmFields,
   GqlOutCommunityPool,
-  GqlOutDelegations,
   checkFields,
   cleanResponse,
-  defaultDelegations,
   defaultDistributionCommission,
   defaultGovDeposit,
   defaultGovProposal,
@@ -36,7 +33,6 @@ import {
   defaultPerpPosition,
   defaultPerpPositionChanges,
   defaultPool,
-  defaultRedelegations,
   defaultSpotLpPosition,
   defaultSpotPool,
   defaultSpotPoolSwap,
@@ -44,11 +40,9 @@ import {
   defaultToken,
   defaultTotals,
   defaultTvl,
-  defaultUnbondings,
   defaultUser,
   defaultUserContract,
   defaultUsers,
-  defaultValidator,
   defaultVolume,
   GQLDelegation,
   GQLDistributionCommission,
@@ -58,20 +52,15 @@ import {
   GQLPerpMarket,
   GQLPerpPosition,
   GQLQueryGqlCommunityPoolArgs,
-  GQLQueryGqlDelegationsArgs,
   GQLQueryGqlDistributionCommissionsArgs,
   GQLQueryGqlMarkPriceCandlesArgs,
-  GQLQueryGqlRedelegationsArgs,
   GQLQueryGqlSpotLpPositionsArgs,
   GQLQueryGqlSpotPoolCreatedArgs,
   GQLQueryGqlSpotPoolExitedArgs,
   GQLQueryGqlSpotPoolJoinedArgs,
   GQLQueryGqlSpotPoolSwapArgs,
   GQLQueryGqlSpotPoolsArgs,
-  GQLQueryGqlUnbondingsArgs,
   GQLQueryGqlUsersArgs,
-  GQLQueryGqlValidatorsArgs,
-  GQLRedelegation,
   GQLSpotLpPosition,
   GQLSpotPool,
   GQLSpotPoolCreated,
@@ -83,9 +72,7 @@ import {
   GQLSubscriptionGqlPerpMarketArgs,
   GQLSubscriptionGqlPerpPositionsArgs,
   GQLToken,
-  GQLUnbonding,
   GQLUser,
-  GQLValidator,
   InflationFields,
   QueryInflationArgs,
   defaultInflationInfo,
@@ -95,6 +82,11 @@ import {
   defaultProxy,
   GQLProxies,
   defaultInflationReward,
+  QueryStakingArgs,
+  GQLStakingFields,
+  GQLValidatorOrder,
+  GQLStakingQueryString,
+  GQLStakingActionType,
 } from ".."
 
 const nibiruUrl = "testnet-1"
@@ -149,25 +141,6 @@ const testCommunityPool = async (
 test("communityPool", async () => {
   await testCommunityPool({ limit: 1 })
   await testCommunityPool({}, defaultToken)
-})
-
-const testDelegations = async (
-  args: GQLQueryGqlDelegationsArgs,
-  fields?: GQLDelegation
-) => {
-  const resp = await heartMonitor.delegations(args, fields)
-  expect(resp).toHaveProperty("delegations")
-
-  if ((resp.delegations?.length ?? 0) > 0) {
-    const [delegation] = resp.delegations ?? []
-
-    checkFields([delegation], ["amount", "delegator", "validator"])
-  }
-}
-
-test("delegations", async () => {
-  await testDelegations({ limit: 1 })
-  await testDelegations({}, defaultDelegations)
 })
 
 const testDistributionCommissions = async (
@@ -760,19 +733,25 @@ test("queryBatchHandler", async () => {
   // TODO: Make a partial type that includes all of these
   const resp = await heartMonitor.GQLQueryGqlBatchHandler<{
     communityPool: GqlOutCommunityPool[]
-    delegations: GqlOutDelegations[]
+    staking: {
+      delegations: GQLDelegation[]
+    }
   }>([
     communityPoolQueryString({}, true),
-    delegationsQueryString(
+    GQLStakingQueryString(
+      { delegations: { limit: 1 } },
       {
-        limit: 1,
-      },
-      true
+        delegations: {
+          delegator: { address: "" },
+          validator: { operator_address: "" },
+          amount: 0,
+        },
+      }
     ),
   ])
 
   expect(resp).toHaveProperty("communityPool")
-  expect(resp).toHaveProperty("delegations")
+  expect(resp.staking).toHaveProperty("delegations")
 
   if ((resp.communityPool?.length ?? 0) > 0) {
     const [communityPool] = resp.communityPool ?? []
@@ -780,42 +759,11 @@ test("queryBatchHandler", async () => {
     checkFields([communityPool], ["amount", "denom"])
   }
 
-  if ((resp.delegations?.length ?? 0) > 0) {
-    const [delegation] = resp.delegations ?? []
+  if ((resp.staking.delegations?.length ?? 0) > 0) {
+    const [delegation] = resp.staking.delegations ?? []
 
     checkFields([delegation], ["amount", "delegator", "validator"])
   }
-})
-
-const testRedelegations = async (
-  args: GQLQueryGqlRedelegationsArgs,
-  fields?: GQLRedelegation
-) => {
-  const resp = await heartMonitor.redelegations(args, fields)
-  expect(resp).toHaveProperty("redelegations")
-
-  if ((resp.redelegations?.length ?? 0) > 0) {
-    const [redelegations] = resp.redelegations ?? []
-
-    checkFields(
-      [redelegations],
-      [
-        "delegator",
-        "source_validator",
-        "destination_validator",
-        "amount",
-        "creation_block",
-        "completion_time",
-      ]
-    )
-  }
-}
-
-test("redelegations", async () => {
-  await testRedelegations({
-    limit: 1,
-  })
-  await testRedelegations({}, defaultRedelegations)
 })
 
 const testSpotLpPositions = async (
@@ -1097,28 +1045,6 @@ test("wasm", async () => {
   )
 })
 
-const testUnbondings = async (
-  args: GQLQueryGqlUnbondingsArgs,
-  fields?: GQLUnbonding
-) => {
-  const resp = await heartMonitor.unbondings(args, fields)
-  expect(resp).toHaveProperty("unbondings")
-
-  if ((resp.unbondings?.length ?? 0) > 0) {
-    const [unbonding] = resp.unbondings ?? []
-
-    checkFields(
-      [unbonding],
-      ["delegator", "validator", "amount", "creation_block", "completion_time"]
-    )
-  }
-}
-
-test("unbondings", async () => {
-  await testUnbondings({ limit: 1 })
-  await testUnbondings({}, defaultUnbondings)
-})
-
 const testUsers = async (args: GQLQueryGqlUsersArgs, fields?: GQLUser) => {
   const resp = await heartMonitor.users(args, fields)
 
@@ -1136,39 +1062,59 @@ test("users", async () => {
   await testUsers({}, defaultUser)
 })
 
-const testValidators = async (
-  args: GQLQueryGqlValidatorsArgs,
-  fields?: GQLValidator
+const testStaking = async (
+  args: QueryStakingArgs,
+  fields: GQLStakingFields
 ) => {
-  const resp = await heartMonitor.validators(args, fields)
-  expect(resp).toHaveProperty("validators")
+  const resp = await heartMonitor.staking(args, fields)
+  expect(resp).toHaveProperty("staking")
 
-  if ((resp.validators?.length ?? 0) > 0) {
-    const [validator] = resp.validators ?? []
+  if (resp.staking) {
+    const { staking } = resp
 
     checkFields(
-      [validator],
-      [
-        "commission_rates",
-        "commission_update_time",
-        "delegator_shares",
-        "description",
-        "jailed",
-        "min_self_delegation",
-        "operator_address",
-        "status",
-        "tokens",
-        "unbonding_block",
-        "unbonding_time",
-      ]
+      [staking],
+      ["delegations", "history", "redelegations", "unbondings", "validators"]
     )
   }
 }
-test("validators", async () => {
-  await testValidators({
-    limit: 1,
-  })
-  await testValidators({}, defaultValidator)
+
+test("staking", async () => {
+  await testStaking(
+    {
+      delegations: {
+        limit: 10,
+        order_desc: true,
+      },
+      history: {
+        limit: 10,
+        order_desc: true,
+        where: {
+          delegator: {
+            like: "nibi",
+          },
+        },
+      },
+      redelegations: {
+        limit: 10,
+      },
+      unbondings: {
+        limit: 10,
+      },
+      validators: {
+        limit: 10,
+        order_by: GQLValidatorOrder.GQLTokens,
+        order_desc: true,
+      },
+    },
+    {
+      delegations: { amount: 0 },
+      redelegations: { amount: 0 },
+      unbondings: { amount: 0 },
+      validators: { operator_address: "" },
+      history: { action: GQLStakingActionType.GQLUnbond, amount: 0 },
+    }
+  )
 })
 
 describe("gql cleanResponse", () => {
