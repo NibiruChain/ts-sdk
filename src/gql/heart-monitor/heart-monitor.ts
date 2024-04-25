@@ -355,6 +355,11 @@ export class HeartMonitor implements IHeartMonitor {
     fields?: DeepPartial<GQLSpotPoolSwap>
   ) => spotPoolSwap(args, this.gqlEndpt, fields)
 
+  staking = async (
+    args: QueryStakingArgs,
+    fields?: DeepPartial<GQLStakingFields>
+  ) => staking(args, this.gqlEndpt, fields)
+
   stats = async (args: QueryStatsArgs, fields?: DeepPartial<GQLStatsFields>) =>
     stats(args, this.gqlEndpt, fields)
 
@@ -363,9 +368,4 @@ export class HeartMonitor implements IHeartMonitor {
 
   wasm = async (args: QueryWasmArgs, fields?: DeepPartial<GqlWasmFields>) =>
     wasm(args, this.gqlEndpt, fields)
-
-  staking = async (
-    args: QueryStakingArgs,
-    fields?: DeepPartial<GQLStakingFields>
-  ) => staking(args, this.gqlEndpt, fields)
 }

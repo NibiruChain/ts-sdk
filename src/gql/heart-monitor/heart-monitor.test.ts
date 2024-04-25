@@ -87,6 +87,7 @@ import {
   GQLValidatorOrder,
   GQLStakingQueryString,
   GQLStakingActionType,
+  checkNoFields,
 } from ".."
 
 const nibiruUrl = "testnet-1"
@@ -1115,6 +1116,48 @@ test("staking", async () => {
       history: { action: GQLStakingActionType.GQLUnbond, amount: 0 },
     }
   )
+})
+
+test("staking - empty args", async () => {
+  testStaking(
+    {
+      delegations: {},
+      history: {},
+      redelegations: {},
+      unbondings: {},
+      validators: {},
+    },
+    {
+      delegations: { amount: 0 },
+      redelegations: { amount: 0 },
+      unbondings: { amount: 0 },
+      validators: { operator_address: "" },
+      history: { action: GQLStakingActionType.GQLUnbond, amount: 0 },
+    }
+  )
+})
+
+test("staking - partial fields", async () => {
+  const args = {
+    redelegations: {},
+    validators: {},
+    history: {},
+  }
+
+  const fields = {
+    redelegations: { amount: 0 },
+    validators: { operator_address: "" },
+    history: { action: GQLStakingActionType.GQLUnbond, amount: 0 },
+  }
+  const resp = await heartMonitor.staking(args, fields)
+  expect(resp).toHaveProperty("staking")
+
+  if (resp.staking) {
+    const { staking } = resp
+
+    checkFields([staking], ["history", "redelegations", "validators"])
+    checkNoFields([staking], ["delegations", "unbondings"])
+  }
 })
 
 describe("gql cleanResponse", () => {

@@ -58,6 +58,14 @@ export const checkFields = <T>(objects: T[], fields: string[]) => {
   })
 }
 
+export const checkNoFields = <T>(objects: T[], fields: string[]) => {
+  objects.forEach((obj: T) => {
+    fields.forEach((field: string) => {
+      expect(obj).not.toHaveProperty(field)
+    })
+  })
+}
+
 export const queryBatchHandler = async <T>(
   queryQueryStrings: string[],
   endpt: string
