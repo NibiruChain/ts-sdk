@@ -27,23 +27,20 @@ export const calculateEpochMintProvision = (
 }
 
 export const computeAPR = (
-  myStake: number,
-  totalStaked: number,
   params: Params,
-  period: number
+  period: number,
+  totalStaked: number,
+  myStake?: number
 ) => {
-  if (myStake < 0 || totalStaked < 0) {
-    return 0
-  }
-
   // get epoch mint
   const annualReward = calculateEpochMintProvision(params, BigNumber(period))
     .times(params.inflationDistribution?.stakingRewards ?? 0)
     .times(12)
 
-  return BigNumber(myStake)
-    .div(myStake + totalStaked)
-    .times(annualReward)
-    .div(myStake)
-    .toNumber()
+  return myStake && myStake > 0
+    ? BigNumber(myStake)
+        .div(myStake + totalStaked)
+        .times(annualReward.div(myStake))
+        .toNumber()
+    : BigNumber(annualReward).div(totalStaked).toNumber()
 }

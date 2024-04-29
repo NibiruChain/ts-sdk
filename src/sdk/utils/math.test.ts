@@ -165,10 +165,10 @@ describe("computeAPR", () => {
     let failed = false
     try {
       const res = computeAPR(
-        tt.in.myStake,
-        tt.in.totalStaked,
         tt.in.params,
-        tt.in.period
+        tt.in.period,
+        tt.in.totalStaked,
+        tt.in.myStake
       )
       expect(res).toEqual(tt.expected)
     } catch (e) {
