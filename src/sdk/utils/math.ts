@@ -38,9 +38,8 @@ export const computeAPR = (
     .times(12)
 
   return myStake && myStake > 0
-    ? BigNumber(myStake)
-        .div(myStake + totalStaked)
-        .times(annualReward.div(myStake))
+    ? BigNumber(annualReward)
+        .div(BigNumber(myStake).plus(totalStaked))
         .toNumber()
     : BigNumber(annualReward).div(totalStaked).toNumber()
 }
