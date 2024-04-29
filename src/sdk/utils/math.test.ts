@@ -3,6 +3,27 @@ import { calculateEpochMintProvision, computeAPR, polynomial } from "./math"
 import { Params } from "src/protojs/nibiru/inflation/v1/genesis"
 import Long from "long"
 
+const params = {
+  inflationEnabled: true,
+  polynomialFactors: [
+    "-0.000147085524000000",
+    "0.074291982762000000",
+    "-18.867415611180000000",
+    "3128.641926954698000000",
+    "-334834.740631598223000000",
+    "17827464.906540066004000000",
+  ],
+  inflationDistribution: {
+    stakingRewards: "0.281250000000000000",
+    communityPool: "0.354825000000000000",
+    strategicReserves: "0.363925000000000000",
+  },
+  epochsPerPeriod: new Long(30),
+  periodsPerYear: new Long(12),
+  maxPeriod: new Long(96),
+  hasInflationStarted: true,
+}
+
 describe("polynomial", () => {
   interface TestCase {
     name: string
@@ -20,14 +41,7 @@ describe("polynomial", () => {
     {
       name: "real",
       in: {
-        factors: [
-          "-0.000147085524000000",
-          "0.074291982762000000",
-          "-18.867415611180000000",
-          "3128.641926954698000000",
-          "-334834.740631598223000000",
-          "17827464.906540066004000000",
-        ],
+        factors: params.polynomialFactors,
         x: BigNumber(0),
       },
       expected: BigNumber("17827464.906540066004000000"),
@@ -69,26 +83,7 @@ describe("calculateEpochMintProvision", () => {
     {
       name: "real",
       in: {
-        params: {
-          inflationEnabled: true,
-          polynomialFactors: [
-            "-0.000147085524000000",
-            "0.074291982762000000",
-            "-18.867415611180000000",
-            "3128.641926954698000000",
-            "-334834.740631598223000000",
-            "17827464.906540066004000000",
-          ],
-          inflationDistribution: {
-            stakingRewards: "0.281250000000000000",
-            communityPool: "0.354825000000000000",
-            strategicReserves: "0.363925000000000000",
-          },
-          epochsPerPeriod: new Long(30),
-          periodsPerYear: new Long(12),
-          maxPeriod: new Long(96),
-          hasInflationStarted: true,
-        },
+        params,
         period: BigNumber(0),
       },
       expected: BigNumber("17827464.906540066004"),
@@ -149,26 +144,7 @@ describe("computeAPR", () => {
       in: {
         myStake: 10,
         totalStaked: 10_000_000,
-        params: {
-          inflationEnabled: true,
-          polynomialFactors: [
-            "-0.000147085524000000",
-            "0.074291982762000000",
-            "-18.867415611180000000",
-            "3128.641926954698000000",
-            "-334834.740631598223000000",
-            "17827464.906540066004000000",
-          ],
-          inflationDistribution: {
-            stakingRewards: "0.281250000000000000",
-            communityPool: "0.354825000000000000",
-            strategicReserves: "0.363925000000000000",
-          },
-          epochsPerPeriod: new Long(30),
-          periodsPerYear: new Long(12),
-          maxPeriod: new Long(96),
-          hasInflationStarted: true,
-        },
+        params,
         period: 0,
       },
       expected: 6.016763389193883,
@@ -178,26 +154,7 @@ describe("computeAPR", () => {
       in: {
         myStake: 0,
         totalStaked: 0,
-        params: {
-          inflationEnabled: true,
-          polynomialFactors: [
-            "-0.000147085524000000",
-            "0.074291982762000000",
-            "-18.867415611180000000",
-            "3128.641926954698000000",
-            "-334834.740631598223000000",
-            "17827464.906540066004000000",
-          ],
-          inflationDistribution: {
-            stakingRewards: "0.281250000000000000",
-            communityPool: "0.354825000000000000",
-            strategicReserves: "0.363925000000000000",
-          },
-          epochsPerPeriod: new Long(30),
-          periodsPerYear: new Long(12),
-          maxPeriod: new Long(96),
-          hasInflationStarted: true,
-        },
+        params,
         period: 0,
       },
       expected: NaN,
