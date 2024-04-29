@@ -9,7 +9,6 @@ export const polynomial = (factors: string[], x: BigNumber) => {
     )
   }
 
-  // Multiply by 1 million to get the value in a specific unit
   return result
 }
 
@@ -22,7 +21,7 @@ export const calculateEpochMintProvision = (
 
   return polynomialValue.lt(0) ||
     params.epochsPerPeriod.eq(0) ||
-    params.maxPeriod.lt(period.toString())
+    period.gt(params.maxPeriod.toString()).toString()
     ? BigNumber(0)
     : polynomialValue
 }
@@ -33,6 +32,10 @@ export const computeAPR = (
   params: Params,
   period: number
 ) => {
+  if (myStake < 0 || totalStaked < 0) {
+    return 0
+  }
+
   // get epoch mint
   const annualReward = calculateEpochMintProvision(params, BigNumber(period))
     .times(params.inflationDistribution?.stakingRewards ?? 0)
