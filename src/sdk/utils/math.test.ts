@@ -150,14 +150,24 @@ describe("computeAPR", () => {
       expected: 6.016763389193883,
     },
     {
-      name: "NaN",
+      name: "real - no stake",
+      in: {
+        myStake: 0,
+        totalStaked: 10_000_000,
+        params,
+        period: 0,
+      },
+      expected: 6.016769405957272,
+    },
+    {
+      name: "infinity",
       in: {
         myStake: 0,
         totalStaked: 0,
         params,
         period: 0,
       },
-      expected: NaN,
+      expected: Infinity,
     },
   ]
 

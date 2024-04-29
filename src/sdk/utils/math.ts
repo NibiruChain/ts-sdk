@@ -21,7 +21,7 @@ export const calculateEpochMintProvision = (
 
   return polynomialValue.lt(0) ||
     params.epochsPerPeriod.eq(0) ||
-    period.gt(params.maxPeriod.toString()).toString()
+    period.gt(params.maxPeriod.toString())
     ? BigNumber(0)
     : polynomialValue
 }
