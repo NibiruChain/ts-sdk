@@ -26,20 +26,20 @@ export const calculateEpochMintProvision = (
     : polynomialValue
 }
 
-export const computeAPR = (
+export const computeMonthlyAPR = (
   params: Params,
   period: number,
   totalStaked: number,
-  myStake?: number
+  myStake: number,
+  addedStake = 0
 ) => {
-  // get epoch mint
-  const annualReward = calculateEpochMintProvision(params, BigNumber(period))
-    .times(params.inflationDistribution?.stakingRewards ?? 0)
-    .times(12)
+  const rewardForPeriod = calculateEpochMintProvision(
+    params,
+    BigNumber(period)
+  ).times(params.inflationDistribution?.stakingRewards ?? 0)
 
-  return myStake && myStake > 0
-    ? BigNumber(annualReward)
-        .div(BigNumber(myStake).plus(totalStaked))
-        .toNumber()
-    : BigNumber(annualReward).div(totalStaked).toNumber()
+  return BigNumber(myStake + addedStake)
+    .div(totalStaked + addedStake)
+    .times(rewardForPeriod)
+    .toNumber()
 }

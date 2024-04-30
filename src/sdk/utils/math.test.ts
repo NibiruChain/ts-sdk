@@ -1,5 +1,9 @@
 import BigNumber from "bignumber.js"
-import { calculateEpochMintProvision, computeAPR, polynomial } from "./math"
+import {
+  calculateEpochMintProvision,
+  computeMonthlyAPR,
+  polynomial,
+} from "./math"
 import { Params } from "src/protojs/nibiru/inflation/v1/genesis"
 import Long from "long"
 
@@ -147,7 +151,7 @@ describe("computeAPR", () => {
         params,
         period: 0,
       },
-      expected: 6.016763389193883,
+      expected: 5.013974504964393,
     },
     {
       name: "real - no stake",
@@ -157,24 +161,24 @@ describe("computeAPR", () => {
         params,
         period: 0,
       },
-      expected: 6.016769405957272,
+      expected: 0,
     },
     {
-      name: "infinity",
+      name: "NaN",
       in: {
         myStake: 0,
         totalStaked: 0,
         params,
         period: 0,
       },
-      expected: Infinity,
+      expected: NaN,
     },
   ]
 
   test.each(tests)("%o", (tt) => {
     let failed = false
     try {
-      const res = computeAPR(
+      const res = computeMonthlyAPR(
         tt.in.params,
         tt.in.period,
         tt.in.totalStaked,
