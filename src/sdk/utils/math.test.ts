@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js"
 import {
   calculateEpochMintProvision,
-  computeMonthlyAPR,
+  computeStakingEmmisionPerPeriod,
   polynomial,
 } from "./math"
 import { Params } from "src/protojs/nibiru/inflation/v1/genesis"
@@ -178,7 +178,7 @@ describe("computeAPR", () => {
   test.each(tests)("%o", (tt) => {
     let failed = false
     try {
-      const res = computeMonthlyAPR(
+      const res = computeStakingEmmisionPerPeriod(
         tt.in.params,
         tt.in.period,
         tt.in.totalStaked,
