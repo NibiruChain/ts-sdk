@@ -1,11 +1,7 @@
-import BigNumber from "bignumber.js"
-import {
-  calculateEpochMintProvision,
-  computeStakingEmmisionPerPeriod,
-  polynomial,
-} from "./math"
+import { computeStakingEmmisionPerPeriod } from "./math"
 import { Params } from "src/protojs/nibiru/inflation/v1/genesis"
 import Long from "long"
+import { QueryEpochMintProvisionResponse } from "src/protojs/nibiru/inflation/v1/query"
 
 const params = {
   inflationEnabled: true,
@@ -28,107 +24,6 @@ const params = {
   hasInflationStarted: true,
 }
 
-describe("polynomial", () => {
-  interface TestCase {
-    name: string
-    in: { factors: string[]; x: BigNumber }
-    expected: BigNumber
-    shouldFail?: boolean
-  }
-
-  const tests: TestCase[] = [
-    {
-      name: "zero",
-      in: { factors: ["0"], x: BigNumber(0) },
-      expected: BigNumber("0"),
-    },
-    {
-      name: "real",
-      in: {
-        factors: params.polynomialFactors,
-        x: BigNumber(0),
-      },
-      expected: BigNumber("17827464.906540066004000000"),
-    },
-    {
-      name: "noarray",
-      in: {
-        factors: [],
-        x: BigNumber(0),
-      },
-      expected: BigNumber("0"),
-    },
-  ]
-
-  test.each(tests)("%o", (tt) => {
-    let failed = false
-    try {
-      const res = polynomial(tt.in.factors, tt.in.x)
-      expect(res.eq(tt.expected)).toBe(true)
-    } catch (e) {
-      if (!tt.shouldFail) {
-        console.error(`Test ${tt.name} failed with error: ${e}`)
-      }
-      failed = true
-    }
-    expect(failed).toBe(!!tt.shouldFail)
-  })
-})
-
-describe("calculateEpochMintProvision", () => {
-  interface TestCase {
-    name: string
-    in: { params: Params; period: BigNumber }
-    expected: BigNumber
-    shouldFail?: boolean
-  }
-
-  const tests: TestCase[] = [
-    {
-      name: "real",
-      in: {
-        params,
-        period: BigNumber(0),
-      },
-      expected: BigNumber("17827464.906540066004"),
-    },
-    {
-      name: "zero",
-      in: {
-        params: {
-          inflationEnabled: true,
-          polynomialFactors: [],
-          inflationDistribution: {
-            stakingRewards: "0",
-            communityPool: "0",
-            strategicReserves: "0",
-          },
-          epochsPerPeriod: new Long(0),
-          periodsPerYear: new Long(0),
-          maxPeriod: new Long(0),
-          hasInflationStarted: true,
-        },
-        period: BigNumber(0),
-      },
-      expected: BigNumber(0),
-    },
-  ]
-
-  test.each(tests)("%o", (tt) => {
-    let failed = false
-    try {
-      const res = calculateEpochMintProvision(tt.in.params, tt.in.period)
-      expect(res.eq(tt.expected)).toBe(true)
-    } catch (e) {
-      if (!tt.shouldFail) {
-        console.error(`Test ${tt.name} failed with error: ${e}`)
-      }
-      failed = true
-    }
-    expect(failed).toBe(!!tt.shouldFail)
-  })
-})
-
 describe("computeAPR", () => {
   interface TestCase {
     name: string
@@ -136,7 +31,7 @@ describe("computeAPR", () => {
       myStake: number
       totalStaked: number
       params: Params
-      period: number
+      epochMintProvision: QueryEpochMintProvisionResponse
     }
     expected: number
     shouldFail?: boolean
@@ -149,7 +44,9 @@ describe("computeAPR", () => {
         myStake: 10,
         totalStaked: 10_000_000,
         params,
-        period: 0,
+        epochMintProvision: QueryEpochMintProvisionResponse.fromPartial({
+          epochMintProvision: { amount: "17827464.906540066004" },
+        }),
       },
       expected: 5.013974504964393,
     },
@@ -159,7 +56,9 @@ describe("computeAPR", () => {
         myStake: 0,
         totalStaked: 10_000_000,
         params,
-        period: 0,
+        epochMintProvision: QueryEpochMintProvisionResponse.fromPartial({
+          epochMintProvision: { amount: "17827464.906540066004" },
+        }),
       },
       expected: 0,
     },
@@ -169,7 +68,9 @@ describe("computeAPR", () => {
         myStake: 0,
         totalStaked: 0,
         params,
-        period: 0,
+        epochMintProvision: QueryEpochMintProvisionResponse.fromPartial({
+          epochMintProvision: { amount: "0" },
+        }),
       },
       expected: NaN,
     },
@@ -180,7 +81,7 @@ describe("computeAPR", () => {
     try {
       const res = computeStakingEmmisionPerPeriod(
         tt.in.params,
-        tt.in.period,
+        tt.in.epochMintProvision,
         tt.in.totalStaked,
         tt.in.myStake
       )
