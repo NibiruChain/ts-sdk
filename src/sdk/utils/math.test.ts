@@ -1,4 +1,4 @@
-import { computeStakingEmmisionPerPeriod } from "./math"
+import { computeStakingEmissionPerPeriod } from "./math"
 import { Params } from "src/protojs/nibiru/inflation/v1/genesis"
 import Long from "long"
 import { QueryEpochMintProvisionResponse } from "src/protojs/nibiru/inflation/v1/query"
@@ -24,7 +24,7 @@ const params = {
   hasInflationStarted: true,
 }
 
-describe("computeStakingEmmisionPerPeriod", () => {
+describe("computeStakingEmissionPerPeriod", () => {
   interface TestCase {
     name: string
     in: {
@@ -79,7 +79,7 @@ describe("computeStakingEmmisionPerPeriod", () => {
   test.each(tests)("%o", (tt) => {
     let failed = false
     try {
-      const res = computeStakingEmmisionPerPeriod(
+      const res = computeStakingEmissionPerPeriod(
         tt.in.params,
         tt.in.epochMintProvision,
         tt.in.totalStaked,

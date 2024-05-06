@@ -17,7 +17,7 @@ import { QueryEpochMintProvisionResponse } from "src/protojs/nibiru/inflation/v1
  * @param addedStake - New stake to add to the user's current stake. This is
  *     used to compute a new annual percentage return after a staking tx.
  * */
-export const computeStakingEmmisionPerPeriod = (
+export const computeStakingEmissionPerPeriod = (
   params: Params,
   epochMintProvision: QueryEpochMintProvisionResponse,
   totalStaked: number,
