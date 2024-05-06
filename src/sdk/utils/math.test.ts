@@ -24,7 +24,7 @@ const params = {
   hasInflationStarted: true,
 }
 
-describe("computeAPR", () => {
+describe("computeStakingEmmisionPerPeriod", () => {
   interface TestCase {
     name: string
     in: {
