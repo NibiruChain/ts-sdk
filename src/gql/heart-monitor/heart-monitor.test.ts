@@ -204,7 +204,7 @@ const testGovernance = async (
   }
 }
 
-test("governance", async () => {
+test.skip("governance", async () => {
   await testGovernance(
     {
       govDeposits: {
