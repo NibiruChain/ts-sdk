@@ -70,6 +70,8 @@ export const defaultValidator: GQLValidator = {
     security_contact: "",
     website: "",
   },
+  creation_block: defaultBlock,
+  self_delegation: 0,
   jailed: false,
   operator_address: "",
   min_self_delegation: 0,
