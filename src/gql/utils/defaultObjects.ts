@@ -468,7 +468,7 @@ export const defaultProxy: GQLProxies = {
 }
 
 export const defaultStakingHistoryItem: GQLStakingHistoryItem = {
-  action: GQLStakingActionType.GQLCancel,
+  action: "cancel" as GQLStakingActionType.GQLCancel,
   amount: 0,
   block: defaultBlock,
   completion_time: "",
