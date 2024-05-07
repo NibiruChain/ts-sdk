@@ -1,6 +1,5 @@
 import { Client, ExecutionResult } from "graphql-ws"
 import {
-  defaultPerpPosition,
   GQLSubscriptionGqlPerpPositionsArgs,
   GQLPerpPosition,
   GQLSubscription,
@@ -15,21 +14,14 @@ export interface GqlOutPerpPositions {
 
 export const perpPositionsSubscriptionQueryString = (
   args: GQLSubscriptionGqlPerpPositionsArgs,
-  fields?: DeepPartial<GQLPerpPosition>
+  fields: DeepPartial<GQLPerpPosition>
 ) =>
-  gqlQuery(
-    "perpPositions",
-    args,
-    fields
-      ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultPerpPosition),
-    true
-  )
+  gqlQuery("perpPositions", args, convertObjectToPropertiesString(fields), true)
 
 export const perpPositionsSubscription = async (
   args: GQLSubscriptionGqlPerpPositionsArgs,
-  client?: Client,
-  fields?: DeepPartial<GQLPerpPosition>
+  fields: DeepPartial<GQLPerpPosition>,
+  client?: Client
 ): Promise<
   AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>> | undefined
 > =>

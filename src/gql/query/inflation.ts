@@ -7,8 +7,6 @@ import {
   GQLQuery,
   GQLInflationDistribution,
   GQLInflationInfo,
-  defaultInflationDistribution,
-  defaultInflationInfo,
   DeepPartial,
   GQLInflationRewards,
 } from ".."
@@ -30,7 +28,7 @@ export type InflationFields = DeepPartial<{
 
 export const inflationQueryString = (
   args: QueryInflationArgs,
-  fields?: InflationFields
+  fields: InflationFields
 ) => {
   const inflationQuery: string[] = []
 
@@ -67,30 +65,6 @@ export const inflationQueryString = (
     )
   }
 
-  // Default Objects
-
-  if (args.distributions && !fields?.distributions) {
-    inflationQuery.push(
-      gqlQuery(
-        "distributions",
-        args.distributions,
-        convertObjectToPropertiesString(defaultInflationDistribution),
-        true
-      )
-    )
-  }
-
-  if (args.inflations && !fields?.inflations) {
-    inflationQuery.push(
-      gqlQuery(
-        "inflations",
-        args.inflations,
-        convertObjectToPropertiesString(defaultInflationInfo),
-        true
-      )
-    )
-  }
-
   return `
         inflation {
           ${inflationQuery.join("\n")}
@@ -101,7 +75,7 @@ export const inflationQueryString = (
 export const inflation = async (
   args: QueryInflationArgs,
   endpt: string,
-  fields?: InflationFields
+  fields: InflationFields
 ): Promise<GqlOutInflation> =>
   doGqlQuery(
     `{

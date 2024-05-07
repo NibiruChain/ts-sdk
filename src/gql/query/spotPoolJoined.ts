@@ -1,5 +1,4 @@
 import {
-  defaultSpotPool,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -17,18 +16,16 @@ export interface GqlOutSpotPoolJoined {
 export const spotPoolJoinedQueryString = (
   args: GQLQueryGqlSpotPoolJoinedArgs,
   excludeParentObject: boolean,
-  fields?: DeepPartial<GQLSpotPoolJoined>
+  fields: DeepPartial<GQLSpotPoolJoined>
 ) => {
   if (!args.limit) args.limit = 100
-  if (args.order_desc === undefined) args.order_desc = true
+  if (!args.order_desc) args.order_desc = true
   if (!args.order_by) args.order_by = GQLSpotPoolJoinedOrder.GQLPoolId
 
   return gqlQuery(
     "spotPoolJoined",
     args,
-    fields
-      ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultSpotPool),
+    convertObjectToPropertiesString(fields),
     excludeParentObject
   )
 }
@@ -36,6 +33,6 @@ export const spotPoolJoinedQueryString = (
 export const spotPoolJoined = async (
   args: GQLQueryGqlSpotPoolJoinedArgs,
   endpt: string,
-  fields?: DeepPartial<GQLSpotPoolJoined>
+  fields: DeepPartial<GQLSpotPoolJoined>
 ): Promise<GqlOutSpotPoolJoined> =>
   doGqlQuery(spotPoolJoinedQueryString(args, false, fields), endpt)

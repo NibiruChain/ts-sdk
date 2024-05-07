@@ -26,6 +26,8 @@ import {
   GQLSpotLpPosition,
   GQLSpotPool,
   GQLSpotPoolSwap,
+  GQLStakingActionType,
+  GQLStakingHistoryItem,
   GQLStatsFees,
   GQLStatsPerpOpenInterest,
   GQLStatsPerpPnl,
@@ -461,4 +463,14 @@ export const defaultProxy: GQLProxies = {
     turnover24h: "",
     volume24h: "",
   },
+}
+
+export const defaultStakingHistoryItem: GQLStakingHistoryItem = {
+  action: GQLStakingActionType.GQLCancel,
+  amount: 0,
+  block: defaultBlock,
+  completion_time: "",
+  delegator: defaultUser,
+  destination_validator: defaultValidator,
+  validator: defaultValidator,
 }

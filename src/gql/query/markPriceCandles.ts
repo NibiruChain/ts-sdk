@@ -1,5 +1,4 @@
 import {
-  defaultMarkPriceCandles,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -16,20 +15,18 @@ export interface GqlOutMarkPriceCandles {
 export const markPriceCandlesQueryString = (
   args: GQLQueryGqlMarkPriceCandlesArgs,
   excludeParentObject: boolean,
-  fields?: DeepPartial<GQLMarkPriceCandle>
+  fields: DeepPartial<GQLMarkPriceCandle>
 ) =>
   gqlQuery(
     "markPriceCandles",
     args,
-    fields
-      ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultMarkPriceCandles),
+    convertObjectToPropertiesString(fields),
     excludeParentObject
   )
 
 export const markPriceCandles = async (
   args: GQLQueryGqlMarkPriceCandlesArgs,
   endpt: string,
-  fields?: DeepPartial<GQLMarkPriceCandle>
+  fields: DeepPartial<GQLMarkPriceCandle>
 ): Promise<GqlOutMarkPriceCandles> =>
   doGqlQuery(markPriceCandlesQueryString(args, false, fields), endpt)

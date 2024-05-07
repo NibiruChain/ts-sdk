@@ -1,5 +1,4 @@
 import {
-  defaultSpotPool,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -17,18 +16,16 @@ export interface GqlOutSpotPoolExited {
 export const spotPoolExitedQueryString = (
   args: GQLQueryGqlSpotPoolExitedArgs,
   excludeParentObject: boolean,
-  fields?: DeepPartial<GQLSpotPoolExited>
+  fields: DeepPartial<GQLSpotPoolExited>
 ) => {
   if (!args.limit) args.limit = 100
-  if (args.order_desc === undefined) args.order_desc = true
+  if (!args.order_desc) args.order_desc = true
   if (!args.order_by) args.order_by = GQLSpotPoolExitedOrder.GQLPoolId
 
   return gqlQuery(
     "spotPoolExited",
     args,
-    fields
-      ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultSpotPool),
+    convertObjectToPropertiesString(fields),
     excludeParentObject
   )
 }
@@ -36,6 +33,6 @@ export const spotPoolExitedQueryString = (
 export const spotPoolExited = async (
   args: GQLQueryGqlSpotPoolExitedArgs,
   endpt: string,
-  fields?: DeepPartial<GQLSpotPoolExited>
+  fields: DeepPartial<GQLSpotPoolExited>
 ): Promise<GqlOutSpotPoolExited> =>
   doGqlQuery(spotPoolExitedQueryString(args, false, fields), endpt)
