@@ -4,30 +4,27 @@ import {
   GQLSubscriptionGqlMarkPriceCandlesArgs,
   gqlQuery,
   convertObjectToPropertiesString,
-  defaultMarkPriceCandles,
   GqlOutMarkPriceCandles,
   DeepPartial,
 } from ".."
 
 export const markPriceCandlesSubscriptionQueryString = (
   args: GQLSubscriptionGqlMarkPriceCandlesArgs,
-  fields?: DeepPartial<GQLMarkPriceCandle>
+  fields: DeepPartial<GQLMarkPriceCandle>
 ) =>
   `subscription {
     ${gqlQuery(
       "markPriceCandles",
       args,
-      fields
-        ? convertObjectToPropertiesString(fields)
-        : convertObjectToPropertiesString(defaultMarkPriceCandles),
+      convertObjectToPropertiesString(fields),
       true
     )}
   }`
 
 export const markPriceCandlesSubscription = async (
   args: GQLSubscriptionGqlMarkPriceCandlesArgs,
-  client?: Client,
-  fields?: DeepPartial<GQLMarkPriceCandle>
+  fields: DeepPartial<GQLMarkPriceCandle>,
+  client?: Client
 ): Promise<
   AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>> | undefined
 > =>

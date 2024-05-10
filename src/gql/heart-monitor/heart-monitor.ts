@@ -1,27 +1,21 @@
 import { WebSocket } from "ws"
 import { Client, ExecutionResult, createClient } from "graphql-ws"
 import {
-  GQLDelegation,
   GQLDistributionCommission,
   GQLMarkPriceCandle,
   GQLOraclePrice,
   GQLPerpMarket,
   GQLPerpPosition,
   GQLQueryGqlCommunityPoolArgs,
-  GQLQueryGqlDelegationsArgs,
   GQLQueryGqlDistributionCommissionsArgs,
   GQLQueryGqlMarkPriceCandlesArgs,
-  GQLQueryGqlRedelegationsArgs,
   GQLQueryGqlSpotLpPositionsArgs,
   GQLQueryGqlSpotPoolCreatedArgs,
   GQLQueryGqlSpotPoolExitedArgs,
   GQLQueryGqlSpotPoolJoinedArgs,
   GQLQueryGqlSpotPoolSwapArgs,
   GQLQueryGqlSpotPoolsArgs,
-  GQLQueryGqlUnbondingsArgs,
   GQLQueryGqlUsersArgs,
-  GQLQueryGqlValidatorsArgs,
-  GQLRedelegation,
   GQLSpotLpPosition,
   GQLSpotPool,
   GQLSpotPoolCreated,
@@ -33,36 +27,26 @@ import {
   GQLSubscriptionGqlPerpMarketArgs,
   GQLSubscriptionGqlPerpPositionsArgs,
   GQLToken,
-  GQLUnbonding,
   GQLUser,
-  GQLValidator,
   queryBatchHandler,
   GqlOutCommunityPool,
-  GqlOutDelegations,
   GqlOutDistributionCommissions,
-  GqlOutRedelegations,
   GqlOutSpotLpPositions,
   GqlOutSpotPoolCreated,
   GqlOutSpotPoolExited,
   GqlOutSpotPoolJoined,
   GqlOutSpotPoolSwap,
   GqlOutSpotPools,
-  GqlOutUnbondings,
   GqlOutUsers,
-  GqlOutValidators,
   communityPool,
-  delegations,
   distributionCommissions,
-  redelegations,
   spotLpPositions,
   spotPoolCreated,
   spotPoolExited,
   spotPoolJoined,
   spotPoolSwap,
   spotPools,
-  unbondings,
   users,
-  validators,
   GqlOutPerp,
   GQLPerpFields,
   perp,
@@ -107,6 +91,10 @@ import {
   GQLProxies,
   GqlOutProxies,
   proxies,
+  GQLStakingFields,
+  GqlOutStaking,
+  QueryStakingArgs,
+  staking,
 } from ".."
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
@@ -116,145 +104,130 @@ export interface IHeartMonitor {
 
   readonly communityPool: (
     args: GQLQueryGqlCommunityPoolArgs,
-    fields?: DeepPartial<GQLToken>
+    fields: DeepPartial<GQLToken>
   ) => Promise<GqlOutCommunityPool>
-
-  readonly delegations: (
-    args: GQLQueryGqlDelegationsArgs,
-    fields?: DeepPartial<GQLDelegation>
-  ) => Promise<GqlOutDelegations>
 
   readonly distributionCommissions: (
     args: GQLQueryGqlDistributionCommissionsArgs,
-    fields?: DeepPartial<GQLDistributionCommission>
+    fields: DeepPartial<GQLDistributionCommission>
   ) => Promise<GqlOutDistributionCommissions>
 
   readonly featureFlags: (
-    fields?: DeepPartial<GQLFeatureFlags>
+    fields: DeepPartial<GQLFeatureFlags>
   ) => Promise<GqlOutFeatureFlags>
 
   readonly governance: (
     args: QueryGovernanceArgs,
-    fields?: DeepPartial<GovernanceFields>
+    fields: DeepPartial<GovernanceFields>
   ) => Promise<GqlOutGovernance>
 
   readonly ibc: (
     args: QueryIbcArgs,
-    fields?: DeepPartial<IbcFields>
+    fields: DeepPartial<IbcFields>
   ) => Promise<GqlOutIbc>
 
   readonly inflation: (
     args: QueryInflationArgs,
-    fields?: DeepPartial<InflationFields>
+    fields: DeepPartial<InflationFields>
   ) => Promise<GqlOutInflation>
 
   readonly markPriceCandles: (
     args: GQLQueryGqlMarkPriceCandlesArgs,
-    fields?: DeepPartial<GQLMarkPriceCandle>
+    fields: DeepPartial<GQLMarkPriceCandle>
   ) => Promise<GqlOutMarkPriceCandles>
 
   readonly markPriceCandlesSubscription: (
     args: GQLSubscriptionGqlMarkPriceCandlesArgs,
-    fields?: DeepPartial<GQLMarkPriceCandle>
+    fields: DeepPartial<GQLMarkPriceCandle>
   ) => Promise<
     AsyncIterableIterator<ExecutionResult<GqlOutMarkPriceCandles>> | undefined
   >
 
   readonly oracle: (
     args: QueryOracleArgs,
-    fields?: DeepPartial<OracleFields>
+    fields: DeepPartial<OracleFields>
   ) => Promise<GqlOutOracle>
 
   readonly oraclePricesSubscription: (
     args: GQLSubscriptionGqlOraclePricesArgs,
-    fields?: DeepPartial<GQLOraclePrice>
+    fields: DeepPartial<GQLOraclePrice>
   ) => Promise<
     AsyncIterableIterator<ExecutionResult<GqlOutOraclePrices>> | undefined
   >
 
   readonly perp: (
     args: QueryPerpArgs,
-    fields?: DeepPartial<GQLPerpFields>
+    fields: DeepPartial<GQLPerpFields>
   ) => Promise<GqlOutPerp>
 
   readonly perpMarketSubscription: (
     args: GQLSubscriptionGqlPerpMarketArgs,
-    fields?: DeepPartial<GQLPerpMarket>
+    fields: DeepPartial<GQLPerpMarket>
   ) => Promise<
     AsyncIterableIterator<ExecutionResult<GqlOutPerpMarket>> | undefined
   >
 
   readonly perpPositionsSubscription: (
     args: GQLSubscriptionGqlPerpPositionsArgs,
-    fields?: DeepPartial<GQLPerpPosition>
+    fields: DeepPartial<GQLPerpPosition>
   ) => Promise<
     AsyncIterableIterator<ExecutionResult<GqlOutPerpPositions>> | undefined
   >
 
-  readonly proxies: (fields?: DeepPartial<GQLProxies>) => Promise<GqlOutProxies>
+  readonly proxies: (fields: DeepPartial<GQLProxies>) => Promise<GqlOutProxies>
 
   readonly GQLQueryGqlBatchHandler: <T>(
     queryQueryStrings: string[]
   ) => Promise<T>
 
-  readonly redelegations: (
-    args: GQLQueryGqlRedelegationsArgs,
-    fields?: DeepPartial<GQLRedelegation>
-  ) => Promise<GqlOutRedelegations>
-
   readonly spotLpPositions: (
     args: GQLQueryGqlSpotLpPositionsArgs,
-    fields?: DeepPartial<GQLSpotLpPosition>
+    fields: DeepPartial<GQLSpotLpPosition>
   ) => Promise<GqlOutSpotLpPositions>
 
   readonly spotPoolCreated: (
     args: GQLQueryGqlSpotPoolCreatedArgs,
-    fields?: DeepPartial<GQLSpotPoolCreated>
+    fields: DeepPartial<GQLSpotPoolCreated>
   ) => Promise<GqlOutSpotPoolCreated>
 
   readonly spotPoolExited: (
     args: GQLQueryGqlSpotPoolExitedArgs,
-    fields?: DeepPartial<GQLSpotPoolExited>
+    fields: DeepPartial<GQLSpotPoolExited>
   ) => Promise<GqlOutSpotPoolExited>
 
   readonly spotPoolJoined: (
     args: GQLQueryGqlSpotPoolJoinedArgs,
-    fields?: DeepPartial<GQLSpotPoolJoined>
+    fields: DeepPartial<GQLSpotPoolJoined>
   ) => Promise<GqlOutSpotPoolJoined>
 
   readonly spotPools: (
     args: GQLQueryGqlSpotPoolsArgs,
-    fields?: DeepPartial<GQLSpotPool>
+    fields: DeepPartial<GQLSpotPool>
   ) => Promise<GqlOutSpotPools>
 
   readonly spotPoolSwap: (
     args: GQLQueryGqlSpotPoolSwapArgs,
-    fields?: DeepPartial<GQLSpotPoolSwap>
+    fields: DeepPartial<GQLSpotPoolSwap>
   ) => Promise<GqlOutSpotPoolSwap>
+
+  readonly staking: (
+    args: QueryStakingArgs,
+    fields?: DeepPartial<GQLStakingFields>
+  ) => Promise<GqlOutStaking>
 
   readonly stats: (
     args: QueryStatsArgs,
-    fields?: DeepPartial<GQLStatsFields>
+    fields: DeepPartial<GQLStatsFields>
   ) => Promise<GqlOutStats>
-
-  readonly unbondings: (
-    args: GQLQueryGqlUnbondingsArgs,
-    fields?: DeepPartial<GQLUnbonding>
-  ) => Promise<GqlOutUnbondings>
 
   readonly users: (
     args: GQLQueryGqlUsersArgs,
-    fields?: DeepPartial<GQLUser>
+    fields: DeepPartial<GQLUser>
   ) => Promise<GqlOutUsers>
-
-  readonly validators: (
-    args: GQLQueryGqlValidatorsArgs,
-    fields?: DeepPartial<GQLValidator>
-  ) => Promise<GqlOutValidators>
 
   readonly wasm: (
     args: QueryWasmArgs,
-    fields?: DeepPartial<GqlWasmFields>
+    fields: DeepPartial<GqlWasmFields>
   ) => Promise<GqlOutWasm>
 }
 
@@ -289,123 +262,108 @@ export class HeartMonitor implements IHeartMonitor {
 
   communityPool = async (
     args: GQLQueryGqlCommunityPoolArgs,
-    fields?: DeepPartial<GQLToken>
+    fields: DeepPartial<GQLToken>
   ) => communityPool(args, this.gqlEndpt, fields)
-
-  delegations = async (
-    args: GQLQueryGqlDelegationsArgs,
-    fields?: DeepPartial<GQLDelegation>
-  ) => delegations(args, this.gqlEndpt, fields)
 
   distributionCommissions = async (
     args: GQLQueryGqlDistributionCommissionsArgs,
-    fields?: DeepPartial<GQLDistributionCommission>
+    fields: DeepPartial<GQLDistributionCommission>
   ) => distributionCommissions(args, this.gqlEndpt, fields)
 
-  featureFlags = async (fields?: DeepPartial<GQLFeatureFlags>) =>
+  featureFlags = async (fields: DeepPartial<GQLFeatureFlags>) =>
     featureFlags(this.gqlEndpt, fields)
 
   governance = async (
     args: QueryGovernanceArgs,
-    fields?: DeepPartial<GovernanceFields>
+    fields: DeepPartial<GovernanceFields>
   ) => governance(args, this.gqlEndpt, fields)
 
-  ibc = async (args: QueryIbcArgs, fields?: DeepPartial<IbcFields>) =>
+  ibc = async (args: QueryIbcArgs, fields: DeepPartial<IbcFields>) =>
     ibc(args, this.gqlEndpt, fields)
 
   inflation = async (
     args: QueryInflationArgs,
-    fields?: DeepPartial<InflationFields>
+    fields: DeepPartial<InflationFields>
   ) => inflation(args, this.gqlEndpt, fields)
 
   markPriceCandles = async (
     args: GQLQueryGqlMarkPriceCandlesArgs,
-    fields?: DeepPartial<GQLMarkPriceCandle>
+    fields: DeepPartial<GQLMarkPriceCandle>
   ) => markPriceCandles(args, this.gqlEndpt, fields)
 
   markPriceCandlesSubscription = async (
     args: GQLSubscriptionGqlMarkPriceCandlesArgs,
-    fields?: DeepPartial<GQLMarkPriceCandle>
-  ) => markPriceCandlesSubscription(args, this.subscriptionClient, fields)
+    fields: DeepPartial<GQLMarkPriceCandle>
+  ) => markPriceCandlesSubscription(args, fields, this.subscriptionClient)
 
-  oracle = async (args: QueryOracleArgs, fields?: DeepPartial<OracleFields>) =>
+  oracle = async (args: QueryOracleArgs, fields: DeepPartial<OracleFields>) =>
     oracle(args, this.gqlEndpt, fields)
 
   oraclePricesSubscription = async (
     args: GQLSubscriptionGqlOraclePricesArgs,
-    fields?: DeepPartial<GQLOraclePrice>
-  ) => oraclePricesSubscription(args, this.subscriptionClient, fields)
+    fields: DeepPartial<GQLOraclePrice>
+  ) => oraclePricesSubscription(args, fields, this.subscriptionClient)
 
-  perp = async (args: QueryPerpArgs, fields?: DeepPartial<GQLPerpFields>) =>
+  perp = async (args: QueryPerpArgs, fields: DeepPartial<GQLPerpFields>) =>
     perp(args, this.gqlEndpt, fields)
 
   perpMarketSubscription = async (
     args: GQLSubscriptionGqlPerpMarketArgs,
-    fields?: DeepPartial<GQLPerpMarket>
-  ) => perpMarketSubscription(args, this.subscriptionClient, fields)
+    fields: DeepPartial<GQLPerpMarket>
+  ) => perpMarketSubscription(args, fields, this.subscriptionClient)
 
   perpPositionsSubscription = async (
     args: GQLSubscriptionGqlPerpPositionsArgs,
-    fields?: DeepPartial<GQLPerpPosition>
-  ) => perpPositionsSubscription(args, this.subscriptionClient, fields)
+    fields: DeepPartial<GQLPerpPosition>
+  ) => perpPositionsSubscription(args, fields, this.subscriptionClient)
 
-  proxies = async (fields?: DeepPartial<GQLProxies>) =>
+  proxies = async (fields: DeepPartial<GQLProxies>) =>
     proxies(this.gqlEndpt, fields)
 
   GQLQueryGqlBatchHandler = async <T>(queryQueryStrings: string[]) =>
     <T>queryBatchHandler(queryQueryStrings, this.gqlEndpt)
 
-  redelegations = async (
-    args: GQLQueryGqlRedelegationsArgs,
-    fields?: DeepPartial<GQLRedelegation>
-  ) => redelegations(args, this.gqlEndpt, fields)
-
   spotLpPositions = async (
     args: GQLQueryGqlSpotLpPositionsArgs,
-    fields?: DeepPartial<GQLSpotLpPosition>
+    fields: DeepPartial<GQLSpotLpPosition>
   ) => spotLpPositions(args, this.gqlEndpt, fields)
 
   spotPoolCreated = async (
     args: GQLQueryGqlSpotPoolCreatedArgs,
-    fields?: DeepPartial<GQLSpotPoolCreated>
+    fields: DeepPartial<GQLSpotPoolCreated>
   ) => spotPoolCreated(args, this.gqlEndpt, fields)
 
   spotPoolExited = async (
     args: GQLQueryGqlSpotPoolExitedArgs,
-    fields?: DeepPartial<GQLSpotPoolExited>
+    fields: DeepPartial<GQLSpotPoolExited>
   ) => spotPoolExited(args, this.gqlEndpt, fields)
 
   spotPoolJoined = async (
     args: GQLQueryGqlSpotPoolJoinedArgs,
-    fields?: DeepPartial<GQLSpotPoolJoined>
+    fields: DeepPartial<GQLSpotPoolJoined>
   ) => spotPoolJoined(args, this.gqlEndpt, fields)
 
   spotPools = async (
     args: GQLQueryGqlSpotPoolsArgs,
-    fields?: DeepPartial<GQLSpotPool>
+    fields: DeepPartial<GQLSpotPool>
   ) => spotPools(args, this.gqlEndpt, fields)
 
   spotPoolSwap = async (
     args: GQLQueryGqlSpotPoolSwapArgs,
-    fields?: DeepPartial<GQLSpotPoolSwap>
+    fields: DeepPartial<GQLSpotPoolSwap>
   ) => spotPoolSwap(args, this.gqlEndpt, fields)
 
-  stats = async (args: QueryStatsArgs, fields?: DeepPartial<GQLStatsFields>) =>
+  staking = async (
+    args: QueryStakingArgs,
+    fields?: DeepPartial<GQLStakingFields>
+  ) => staking(args, this.gqlEndpt, fields)
+
+  stats = async (args: QueryStatsArgs, fields: DeepPartial<GQLStatsFields>) =>
     stats(args, this.gqlEndpt, fields)
 
-  unbondings = async (
-    args: GQLQueryGqlUnbondingsArgs,
-    fields?: DeepPartial<GQLUnbonding>
-  ) => unbondings(args, this.gqlEndpt, fields)
-
-  users = async (args: GQLQueryGqlUsersArgs, fields?: DeepPartial<GQLUser>) =>
+  users = async (args: GQLQueryGqlUsersArgs, fields: DeepPartial<GQLUser>) =>
     users(args, this.gqlEndpt, fields)
 
-  validators = async (
-    args: GQLQueryGqlValidatorsArgs,
-    fields?: DeepPartial<GQLValidator>
-  ) => validators(args, this.gqlEndpt, fields)
-
-  wasm = async (args: QueryWasmArgs, fields?: DeepPartial<GqlWasmFields>) =>
+  wasm = async (args: QueryWasmArgs, fields: DeepPartial<GqlWasmFields>) =>
     wasm(args, this.gqlEndpt, fields)
 }

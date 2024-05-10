@@ -12,11 +12,9 @@ import {
   QueryStatsArgs,
   GQLStatsFields,
   communityPoolQueryString,
-  delegationsQueryString,
   QueryWasmArgs,
   GqlWasmFields,
   GqlOutCommunityPool,
-  GqlOutDelegations,
   checkFields,
   cleanResponse,
   defaultDelegations,
@@ -50,28 +48,21 @@ import {
   defaultUsers,
   defaultValidator,
   defaultVolume,
-  GQLDelegation,
   GQLDistributionCommission,
-  GQLGovDepositsOrder,
   GQLMarkPriceCandle,
   GQLOraclePrice,
   GQLPerpMarket,
   GQLPerpPosition,
   GQLQueryGqlCommunityPoolArgs,
-  GQLQueryGqlDelegationsArgs,
   GQLQueryGqlDistributionCommissionsArgs,
   GQLQueryGqlMarkPriceCandlesArgs,
-  GQLQueryGqlRedelegationsArgs,
   GQLQueryGqlSpotLpPositionsArgs,
   GQLQueryGqlSpotPoolCreatedArgs,
   GQLQueryGqlSpotPoolExitedArgs,
   GQLQueryGqlSpotPoolJoinedArgs,
   GQLQueryGqlSpotPoolSwapArgs,
   GQLQueryGqlSpotPoolsArgs,
-  GQLQueryGqlUnbondingsArgs,
   GQLQueryGqlUsersArgs,
-  GQLQueryGqlValidatorsArgs,
-  GQLRedelegation,
   GQLSpotLpPosition,
   GQLSpotPool,
   GQLSpotPoolCreated,
@@ -83,9 +74,7 @@ import {
   GQLSubscriptionGqlPerpMarketArgs,
   GQLSubscriptionGqlPerpPositionsArgs,
   GQLToken,
-  GQLUnbonding,
   GQLUser,
-  GQLValidator,
   InflationFields,
   QueryInflationArgs,
   defaultInflationInfo,
@@ -95,7 +84,21 @@ import {
   defaultProxy,
   GQLProxies,
   defaultInflationReward,
+  featureFlagsQueryString,
+  GqlOutFeatureFlags,
+  GQLStakingFields,
+  QueryStakingArgs,
+  defaultStakingHistoryItem,
+  GQLValidatorOrder,
 } from ".."
+
+const checkNoFields = <T>(objects: T[], fields: string[]) => {
+  objects.forEach((obj: T) => {
+    fields.forEach((field: string) => {
+      expect(obj).not.toHaveProperty(field)
+    })
+  })
+}
 
 const nibiruUrl = "testnet-1"
 
@@ -134,7 +137,7 @@ describe("Heart Monitor constructor", () => {
 
 const testCommunityPool = async (
   args: GQLQueryGqlCommunityPoolArgs,
-  fields?: GQLToken
+  fields: GQLToken
 ) => {
   const resp = await heartMonitor.communityPool(args, fields)
   expect(resp).toHaveProperty("communityPool")
@@ -147,32 +150,12 @@ const testCommunityPool = async (
 }
 
 test("communityPool", async () => {
-  await testCommunityPool({ limit: 1 })
   await testCommunityPool({}, defaultToken)
-})
-
-const testDelegations = async (
-  args: GQLQueryGqlDelegationsArgs,
-  fields?: GQLDelegation
-) => {
-  const resp = await heartMonitor.delegations(args, fields)
-  expect(resp).toHaveProperty("delegations")
-
-  if ((resp.delegations?.length ?? 0) > 0) {
-    const [delegation] = resp.delegations ?? []
-
-    checkFields([delegation], ["amount", "delegator", "validator"])
-  }
-}
-
-test("delegations", async () => {
-  await testDelegations({ limit: 1 })
-  await testDelegations({}, defaultDelegations)
 })
 
 const testDistributionCommissions = async (
   args: GQLQueryGqlDistributionCommissionsArgs,
-  fields?: GQLDistributionCommission
+  fields: GQLDistributionCommission
 ) => {
   const resp = await heartMonitor.distributionCommissions(args, fields)
   expect(resp).toHaveProperty("distributionCommissions")
@@ -185,11 +168,11 @@ const testDistributionCommissions = async (
 }
 
 test("distributionCommissions", async () => {
-  await testDistributionCommissions({ limit: 1 })
+  await testDistributionCommissions({ limit: 1 }, defaultDistributionCommission)
   await testDistributionCommissions({}, defaultDistributionCommission)
 })
 
-const testFeatureFlags = async (fields?: GQLFeatureFlags) => {
+const testFeatureFlags = async (fields: GQLFeatureFlags) => {
   const resp = await heartMonitor.featureFlags(fields)
   expect(resp).toHaveProperty("featureFlags")
 
@@ -205,12 +188,11 @@ const testFeatureFlags = async (fields?: GQLFeatureFlags) => {
 
 test("featureFlags", async () => {
   await testFeatureFlags(defaultFeatureFlags)
-  await testFeatureFlags()
 })
 
 const testGovernance = async (
   args: QueryGovernanceArgs,
-  fields?: GovernanceFields
+  fields: GovernanceFields
 ) => {
   const resp = await heartMonitor.governance(args, fields)
   expect(resp).toHaveProperty("governance")
@@ -223,20 +205,6 @@ const testGovernance = async (
 }
 
 test.skip("governance", async () => {
-  await testGovernance({
-    govDeposits: {
-      limit: 1,
-      // Covers order and orderDesc, replaced by order_by and order_desc
-      order: GQLGovDepositsOrder.GQLBlock,
-      orderDesc: true,
-    },
-    govProposals: {
-      limit: 1,
-    },
-    govVotes: {
-      limit: 1,
-    },
-  })
   await testGovernance(
     {
       govDeposits: {
@@ -265,7 +233,7 @@ test.skip("governance", async () => {
   )
 })
 
-const testIbc = async (args: QueryIbcArgs, fields?: IbcFields) => {
+const testIbc = async (args: QueryIbcArgs, fields: IbcFields) => {
   const resp = await heartMonitor.ibc(args, fields)
   expect(resp).toHaveProperty("ibc")
 
@@ -280,17 +248,6 @@ const testIbc = async (args: QueryIbcArgs, fields?: IbcFields) => {
 }
 
 test("ibc", async () => {
-  await testIbc({
-    ibcTransfers: {
-      limit: 1,
-    },
-  })
-  await testIbc({
-    ibcChannels: undefined,
-    ibcTransfers: {
-      limit: 1,
-    },
-  })
   await testIbc(
     {
       ibcChannels: undefined,
@@ -314,7 +271,7 @@ test("ibc", async () => {
 
 const testInflation = async (
   args: QueryInflationArgs,
-  fields?: InflationFields
+  fields: InflationFields
 ) => {
   const resp = await heartMonitor.inflation(args, fields)
   expect(resp).toHaveProperty("inflation")
@@ -324,20 +281,12 @@ const testInflation = async (
 
     checkFields(
       [inflation],
-      ["distributions", "inflations", ...(fields?.rewards ? ["rewards"] : [])]
+      ["distributions", "inflations", ...(fields.rewards ? ["rewards"] : [])]
     )
   }
 }
 
 test("inflation", async () => {
-  await testInflation({
-    inflations: {
-      limit: 1,
-    },
-    distributions: {
-      limit: 1,
-    },
-  })
   await testInflation(
     {},
     {
@@ -348,7 +297,7 @@ test("inflation", async () => {
   )
 })
 
-const testOracle = async (args: QueryOracleArgs, fields?: OracleFields) => {
+const testOracle = async (args: QueryOracleArgs, fields: OracleFields) => {
   const resp = await heartMonitor.oracle(args, fields)
   expect(resp).toHaveProperty("oracle")
 
@@ -361,7 +310,7 @@ const testOracle = async (args: QueryOracleArgs, fields?: OracleFields) => {
 
 const testMarkPriceCandles = async (
   args: GQLQueryGqlMarkPriceCandlesArgs,
-  fields?: GQLMarkPriceCandle
+  fields: GQLMarkPriceCandle
 ) => {
   const resp = await heartMonitor.markPriceCandles(args, fields)
   expect(resp).toHaveProperty("markPriceCandles")
@@ -377,26 +326,28 @@ const testMarkPriceCandles = async (
 }
 
 test.skip("markPriceCandles", async () => {
-  await testMarkPriceCandles({ limit: 1 })
   await testMarkPriceCandles({}, defaultMarkPriceCandles)
 })
 
 test.skip("markPriceCandlesSubscription undefined client", async () => {
   const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
-  const resp = await hm.markPriceCandlesSubscription({
-    where: {
-      pairEq: "ubtc:unusd",
-      periodEq: 100000000,
+  const resp = await hm.markPriceCandlesSubscription(
+    {
+      where: {
+        pairEq: "ubtc:unusd",
+        periodEq: 100000000,
+      },
+      limit: 1,
     },
-    limit: 1,
-  })
+    defaultMarkPriceCandles
+  )
 
   expect(resp).toBeUndefined()
 })
 
 const testMarkPriceCandlesSubscription = async (
   args: GQLSubscriptionGqlMarkPriceCandlesArgs,
-  fields?: GQLMarkPriceCandle
+  fields: GQLMarkPriceCandle
 ) => {
   const resp = await heartMonitor.markPriceCandlesSubscription(args, fields)
 
@@ -415,13 +366,6 @@ const testMarkPriceCandlesSubscription = async (
 }
 
 test.skip("markPriceCandlesSubscription", async () => {
-  await testMarkPriceCandlesSubscription({
-    limit: 1,
-    where: {
-      pairEq: "ubtc:unusd",
-      periodEq: 100000000,
-    },
-  })
   await testMarkPriceCandlesSubscription(
     {
       limit: 1,
@@ -435,16 +379,6 @@ test.skip("markPriceCandlesSubscription", async () => {
 })
 
 test("oracle", async () => {
-  await testOracle({
-    oraclePrices: {
-      limit: 1,
-      // Covers non-(limit, where, order, orderDesc)
-      offset: 1,
-    },
-    oracles: {
-      limit: 1,
-    },
-  })
   await testOracle(
     {
       oraclePrices: {
@@ -470,16 +404,19 @@ test("oracle", async () => {
 
 test("oraclePricesSubscription undefined client", async () => {
   const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
-  const resp = await hm.oraclePricesSubscription({
-    where: { pair: "ubtc:unusd" },
-  })
+  const resp = await hm.oraclePricesSubscription(
+    {
+      where: { pair: "ubtc:unusd" },
+    },
+    defaultOraclePrice
+  )
 
   expect(resp).toBeUndefined()
 })
 
 const testOraclePricesSubscription = async (
   args: GQLSubscriptionGqlOraclePricesArgs,
-  fields?: GQLOraclePrice
+  fields: GQLOraclePrice
 ) => {
   const resp = await heartMonitor.oraclePricesSubscription(args, fields)
 
@@ -495,9 +432,6 @@ const testOraclePricesSubscription = async (
 }
 
 test.skip("oraclePricesSubscription", async () => {
-  await testOraclePricesSubscription({
-    where: { pair: "ubtc:unusd" },
-  })
   await testOraclePricesSubscription(
     {
       where: { pair: "ubtc:unusd" },
@@ -506,7 +440,7 @@ test.skip("oraclePricesSubscription", async () => {
   )
 })
 
-const testPerp = async (args: QueryPerpArgs, fields?: GQLPerpFields) => {
+const testPerp = async (args: QueryPerpArgs, fields: GQLPerpFields) => {
   const resp = await heartMonitor.perp(args, fields)
   expect(resp).toHaveProperty("perp")
 
@@ -528,33 +462,6 @@ const testPerp = async (args: QueryPerpArgs, fields?: GQLPerpFields) => {
 }
 
 test.skip("perp", async () => {
-  await testPerp({
-    leaderboard: {
-      limit: 1,
-    },
-    market: {
-      where: {
-        pair: "ubtc:unusd",
-      },
-    },
-    markets: {
-      limit: 1,
-    },
-    position: {
-      where: {
-        pair: "ubtc:unusd",
-        trader_address: "nibi1judn9xtel563nmq0ghpvmkqvyd5wnkm30mvkk3",
-      },
-    },
-    positions: {
-      limit: 1,
-    },
-    positionChanges: {
-      limit: 1,
-      where: { traderAddressEq: "nibi1judn9xtel563nmq0ghpvmkqvyd5wnkm30mvkk3" },
-    },
-  })
-
   await testPerp(
     {
       leaderboard: {
@@ -614,16 +521,19 @@ test.skip("perp", async () => {
 
 test("perpMarketSubscription undefined client", async () => {
   const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
-  const resp = await hm.perpMarketSubscription({
-    where: { pair: "ubtc:unusd" },
-  })
+  const resp = await hm.perpMarketSubscription(
+    {
+      where: { pair: "ubtc:unusd" },
+    },
+    defaultPerpMarket
+  )
 
   expect(resp).toBeUndefined()
 })
 
 const testPerpMarketSubscription = async (
   args: GQLSubscriptionGqlPerpMarketArgs,
-  fields?: GQLPerpMarket
+  fields: GQLPerpMarket
 ) => {
   const resp = await heartMonitor.perpMarketSubscription(args, fields)
 
@@ -665,10 +575,6 @@ const testPerpMarketSubscription = async (
 }
 
 test.skip("perpMarketSubscription", async () => {
-  await testPerpMarketSubscription({
-    where: { pair: "ubtc:unusd" },
-  })
-
   await testPerpMarketSubscription(
     {
       where: { pair: "ubtc:unusd" },
@@ -679,19 +585,22 @@ test.skip("perpMarketSubscription", async () => {
 
 test("perpPositionsSubscription undefined client", async () => {
   const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
-  const resp = await hm.perpPositionsSubscription({
-    where: {
-      pair: "ubtc:unusd",
-      trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
+  const resp = await hm.perpPositionsSubscription(
+    {
+      where: {
+        pair: "ubtc:unusd",
+        trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
+      },
     },
-  })
+    defaultPerpPosition
+  )
 
   expect(resp).toBeUndefined()
 })
 
 const testPerpPositionsSubscription = async (
   args: GQLSubscriptionGqlPerpPositionsArgs,
-  fields?: GQLPerpPosition
+  fields: GQLPerpPosition
 ) => {
   const resp = await heartMonitor.perpPositionsSubscription(args, fields)
 
@@ -722,13 +631,6 @@ const testPerpPositionsSubscription = async (
 }
 
 test.skip("perpPositionsSubscription", async () => {
-  await testPerpPositionsSubscription({
-    where: {
-      pair: "ubtc:unusd",
-      trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
-    },
-  })
-
   await testPerpPositionsSubscription(
     {
       where: {
@@ -740,7 +642,7 @@ test.skip("perpPositionsSubscription", async () => {
   )
 })
 
-const testProxies = async (fields?: GQLProxies) => {
+const testProxies = async (fields: GQLProxies) => {
   const resp = await heartMonitor.proxies(fields)
   expect(resp).toHaveProperty("proxies")
 
@@ -753,26 +655,20 @@ const testProxies = async (fields?: GQLProxies) => {
 
 test("proxies", async () => {
   await testProxies(defaultProxy)
-  await testProxies()
 })
 
 test("queryBatchHandler", async () => {
   // TODO: Make a partial type that includes all of these
   const resp = await heartMonitor.GQLQueryGqlBatchHandler<{
     communityPool: GqlOutCommunityPool[]
-    delegations: GqlOutDelegations[]
+    featureFlags: GqlOutFeatureFlags
   }>([
-    communityPoolQueryString({}, true),
-    delegationsQueryString(
-      {
-        limit: 1,
-      },
-      true
-    ),
+    communityPoolQueryString({}, true, defaultToken),
+    featureFlagsQueryString(true, defaultFeatureFlags),
   ])
 
   expect(resp).toHaveProperty("communityPool")
-  expect(resp).toHaveProperty("delegations")
+  expect(resp).toHaveProperty("featureFlags")
 
   if ((resp.communityPool?.length ?? 0) > 0) {
     const [communityPool] = resp.communityPool ?? []
@@ -780,47 +676,19 @@ test("queryBatchHandler", async () => {
     checkFields([communityPool], ["amount", "denom"])
   }
 
-  if ((resp.delegations?.length ?? 0) > 0) {
-    const [delegation] = resp.delegations ?? []
-
-    checkFields([delegation], ["amount", "delegator", "validator"])
-  }
-})
-
-const testRedelegations = async (
-  args: GQLQueryGqlRedelegationsArgs,
-  fields?: GQLRedelegation
-) => {
-  const resp = await heartMonitor.redelegations(args, fields)
-  expect(resp).toHaveProperty("redelegations")
-
-  if ((resp.redelegations?.length ?? 0) > 0) {
-    const [redelegations] = resp.redelegations ?? []
+  if (resp.featureFlags) {
+    const { featureFlags } = resp
 
     checkFields(
-      [redelegations],
-      [
-        "delegator",
-        "source_validator",
-        "destination_validator",
-        "amount",
-        "creation_block",
-        "completion_time",
-      ]
+      [featureFlags],
+      ["gov", "oracle", "perp", "spot", "staking", "wasm"]
     )
   }
-}
-
-test("redelegations", async () => {
-  await testRedelegations({
-    limit: 1,
-  })
-  await testRedelegations({}, defaultRedelegations)
 })
 
 const testSpotLpPositions = async (
   args: GQLQueryGqlSpotLpPositionsArgs,
-  fields?: GQLSpotLpPosition
+  fields: GQLSpotLpPosition
 ) => {
   const resp = await heartMonitor.spotLpPositions(args, fields)
   expect(resp).toHaveProperty("spotLpPositions")
@@ -836,15 +704,12 @@ const testSpotLpPositions = async (
 }
 
 test("spotLpPositions", async () => {
-  await testSpotLpPositions({
-    limit: 1,
-  })
   await testSpotLpPositions({}, defaultSpotLpPosition)
 })
 
 const testSpotPoolCreated = async (
   args: GQLQueryGqlSpotPoolCreatedArgs,
-  fields?: GQLSpotPoolCreated
+  fields: GQLSpotPoolCreated
 ) => {
   const resp = await heartMonitor.spotPoolCreated(args, fields)
   expect(resp).toHaveProperty("spotPoolCreated")
@@ -857,15 +722,12 @@ const testSpotPoolCreated = async (
 }
 
 test("spotPoolCreated", async () => {
-  await testSpotPoolCreated({
-    limit: 1,
-  })
   await testSpotPoolCreated({}, defaultSpotPool)
 })
 
 const testSpotPoolExited = async (
   args: GQLQueryGqlSpotPoolExitedArgs,
-  fields?: GQLSpotPoolExited
+  fields: GQLSpotPoolExited
 ) => {
   const resp = await heartMonitor.spotPoolExited(args, fields)
   expect(resp).toHaveProperty("spotPoolExited")
@@ -878,15 +740,12 @@ const testSpotPoolExited = async (
 }
 
 test("spotPoolExited", async () => {
-  await testSpotPoolExited({
-    limit: 1,
-  })
   await testSpotPoolExited({}, defaultSpotPool)
 })
 
 const testSpotPoolJoined = async (
   args: GQLQueryGqlSpotPoolJoinedArgs,
-  fields?: GQLSpotPoolJoined
+  fields: GQLSpotPoolJoined
 ) => {
   const resp = await heartMonitor.spotPoolJoined(args, fields)
   expect(resp).toHaveProperty("spotPoolJoined")
@@ -899,15 +758,12 @@ const testSpotPoolJoined = async (
 }
 
 test("spotPoolJoined", async () => {
-  await testSpotPoolJoined({
-    limit: 1,
-  })
   await testSpotPoolJoined({}, defaultSpotPool)
 })
 
 const testSpotPools = async (
   args: GQLQueryGqlSpotPoolsArgs,
-  fields?: GQLSpotPool
+  fields: GQLSpotPool
 ) => {
   const resp = await heartMonitor.spotPools(args, fields)
   expect(resp).toHaveProperty("spotPools")
@@ -934,15 +790,12 @@ const testSpotPools = async (
 }
 
 test("spotPools", async () => {
-  await testSpotPools({
-    limit: 1,
-  })
   await testSpotPools({}, defaultPool)
 })
 
 const testSpotPoolSwap = async (
   args: GQLQueryGqlSpotPoolSwapArgs,
-  fields?: GQLSpotPoolSwap
+  fields: GQLSpotPoolSwap
 ) => {
   const resp = await heartMonitor.spotPoolSwap(args, fields)
   expect(resp).toHaveProperty("spotPoolSwap")
@@ -958,11 +811,10 @@ const testSpotPoolSwap = async (
 }
 
 test("spotPoolSwap", async () => {
-  await testSpotPoolSwap({ limit: 1 })
   await testSpotPoolSwap({}, defaultSpotPoolSwap)
 })
 
-const testStats = async (args: QueryStatsArgs, fields?: GQLStatsFields) => {
+const testStats = async (args: QueryStatsArgs, fields: GQLStatsFields) => {
   const resp = await heartMonitor.stats(args, fields)
   expect(resp).toHaveProperty("stats")
 
@@ -984,30 +836,78 @@ const testStats = async (args: QueryStatsArgs, fields?: GQLStatsFields) => {
   }
 }
 
+const testStaking = async (
+  args: QueryStakingArgs,
+  fields: GQLStakingFields
+) => {
+  const resp = await heartMonitor.staking(args, fields)
+  expect(resp).toHaveProperty("staking")
+
+  if (resp.staking) {
+    const { staking } = resp
+
+    checkFields(
+      [staking],
+      ["delegations", "history", "redelegations", "unbondings", "validators"]
+    )
+  }
+}
+
+test("staking", async () => {
+  await testStaking(
+    {
+      delegations: {
+        limit: 10,
+        order_desc: true,
+      },
+      history: {
+        limit: 10,
+        order_desc: true,
+        where: {
+          delegator: {
+            like: "nibi",
+          },
+        },
+      },
+      redelegations: {
+        limit: 10,
+      },
+      unbondings: {
+        limit: 10,
+      },
+      validators: {
+        limit: 10,
+        order_by: GQLValidatorOrder.GQLTokens,
+        order_desc: true,
+      },
+    },
+    {
+      delegations: defaultDelegations,
+      redelegations: defaultRedelegations,
+      unbondings: defaultUnbondings,
+      validators: defaultValidator,
+      history: defaultStakingHistoryItem,
+    }
+  )
+  await testStaking(
+    {
+      delegations: {},
+      history: {},
+      redelegations: {},
+      unbondings: {},
+      validators: {},
+    },
+    {
+      delegations: defaultDelegations,
+      redelegations: defaultRedelegations,
+      unbondings: defaultUnbondings,
+      validators: defaultValidator,
+      history: defaultStakingHistoryItem,
+    }
+  )
+})
+
 test("stats", async () => {
-  await testStats({
-    totals: {
-      limit: 1,
-    },
-    fees: {
-      limit: 1,
-    },
-    perpOpenInterest: {
-      limit: 1,
-    },
-    tvl: {
-      limit: 1,
-    },
-    perpPnl: {
-      limit: 1,
-    },
-    users: {
-      limit: 1,
-    },
-    volume: {
-      limit: 1,
-    },
-  })
   await testStats(
     {
       totals: {
@@ -1056,7 +956,7 @@ test("stats", async () => {
   )
 })
 
-const testWasm = async (args: QueryWasmArgs, fields?: GqlWasmFields) => {
+const testWasm = async (args: QueryWasmArgs, fields: GqlWasmFields) => {
   const resp = await heartMonitor.wasm(args, fields)
   expect(resp).toHaveProperty("wasm")
 
@@ -1068,16 +968,6 @@ const testWasm = async (args: QueryWasmArgs, fields?: GqlWasmFields) => {
 }
 
 test("wasm", async () => {
-  await testWasm({
-    userContracts: {
-      where: {
-        contractAddress: { like: "123" },
-        userAddress: { eq: "456" },
-      },
-      limit: 1,
-    },
-  })
-
   await testWasm(
     {
       userContracts: {
@@ -1097,29 +987,7 @@ test("wasm", async () => {
   )
 })
 
-const testUnbondings = async (
-  args: GQLQueryGqlUnbondingsArgs,
-  fields?: GQLUnbonding
-) => {
-  const resp = await heartMonitor.unbondings(args, fields)
-  expect(resp).toHaveProperty("unbondings")
-
-  if ((resp.unbondings?.length ?? 0) > 0) {
-    const [unbonding] = resp.unbondings ?? []
-
-    checkFields(
-      [unbonding],
-      ["delegator", "validator", "amount", "creation_block", "completion_time"]
-    )
-  }
-}
-
-test("unbondings", async () => {
-  await testUnbondings({ limit: 1 })
-  await testUnbondings({}, defaultUnbondings)
-})
-
-const testUsers = async (args: GQLQueryGqlUsersArgs, fields?: GQLUser) => {
+const testUsers = async (args: GQLQueryGqlUsersArgs, fields: GQLUser) => {
   const resp = await heartMonitor.users(args, fields)
 
   expect(resp).toHaveProperty("users")
@@ -1132,43 +1000,7 @@ const testUsers = async (args: GQLQueryGqlUsersArgs, fields?: GQLUser) => {
 }
 
 test("users", async () => {
-  await testUsers({ limit: 1 })
   await testUsers({}, defaultUser)
-})
-
-const testValidators = async (
-  args: GQLQueryGqlValidatorsArgs,
-  fields?: GQLValidator
-) => {
-  const resp = await heartMonitor.validators(args, fields)
-  expect(resp).toHaveProperty("validators")
-
-  if ((resp.validators?.length ?? 0) > 0) {
-    const [validator] = resp.validators ?? []
-
-    checkFields(
-      [validator],
-      [
-        "commission_rates",
-        "commission_update_time",
-        "delegator_shares",
-        "description",
-        "jailed",
-        "min_self_delegation",
-        "operator_address",
-        "status",
-        "tokens",
-        "unbonding_block",
-        "unbonding_time",
-      ]
-    )
-  }
-}
-test("validators", async () => {
-  await testValidators({
-    limit: 1,
-  })
-  await testValidators({}, defaultValidator)
 })
 
 describe("gql cleanResponse", () => {

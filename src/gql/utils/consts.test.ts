@@ -3,42 +3,42 @@ import {
   queryBatchHandler,
   GqlOutCommunityPool,
   communityPoolQueryString,
-  GqlOutDelegations,
-  delegationsQueryString,
   arg,
+  defaultToken,
+  GqlOutFeatureFlags,
+  defaultFeatureFlags,
+  featureFlagsQueryString,
 } from ".."
 
 describe("queryBatchHandler tests", () => {
   test("queryBatchHandler", async () => {
     const resp = await queryBatchHandler<{
       communityPool: GqlOutCommunityPool[]
-      delegations: GqlOutDelegations[]
+      featureFlags: GqlOutFeatureFlags
     }>(
       [
-        communityPoolQueryString({}, true),
-        delegationsQueryString(
-          {
-            limit: 1,
-          },
-          true
-        ),
+        communityPoolQueryString({}, true, defaultToken),
+
+        featureFlagsQueryString(true, defaultFeatureFlags),
       ],
       "https://hm-graphql.testnet-1.nibiru.fi/query"
     )
-
     expect(resp).toHaveProperty("communityPool")
-    expect(resp).toHaveProperty("delegations")
+    expect(resp).toHaveProperty("featureFlags")
 
-    if (resp.communityPool?.length) {
-      const [communityPool] = resp.communityPool
-      const communityPoolFields = ["amount", "denom"]
-      checkFields([communityPool], communityPoolFields)
+    if ((resp.communityPool?.length ?? 0) > 0) {
+      const [communityPool] = resp.communityPool ?? []
+
+      checkFields([communityPool], ["amount", "denom"])
     }
 
-    if (resp.delegations?.length) {
-      const [delegation] = resp.delegations
-      const delegationFields = ["amount", "delegator", "validator"]
-      checkFields([delegation], delegationFields)
+    if (resp.featureFlags) {
+      const { featureFlags } = resp
+
+      checkFields(
+        [featureFlags],
+        ["gov", "oracle", "perp", "spot", "staking", "wasm"]
+      )
     }
   })
 

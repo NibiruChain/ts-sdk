@@ -1,5 +1,4 @@
 import {
-  defaultUserContract,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -21,10 +20,7 @@ export type GqlWasmFields = DeepPartial<{
   userContracts?: DeepPartial<GQLUserContract>
 }>
 
-export const wasmQueryString = (
-  args: QueryWasmArgs,
-  fields?: GqlWasmFields
-) => {
+export const wasmQueryString = (args: QueryWasmArgs, fields: GqlWasmFields) => {
   const wasmQuery: string[] = []
 
   if (fields?.userContracts) {
@@ -33,19 +29,6 @@ export const wasmQueryString = (
         "userContracts",
         args.userContracts ?? {},
         convertObjectToPropertiesString(fields.userContracts),
-        true
-      )
-    )
-  }
-
-  // Default Objects
-
-  if (args.userContracts && !fields?.userContracts) {
-    wasmQuery.push(
-      gqlQuery(
-        "userContracts",
-        args.userContracts,
-        convertObjectToPropertiesString(defaultUserContract),
         true
       )
     )
@@ -61,11 +44,11 @@ export const wasmQueryString = (
 export const wasm = async (
   args: QueryWasmArgs,
   endpt: string,
-  fields?: GqlWasmFields
+  fields: GqlWasmFields
 ): Promise<GqlOutWasm> =>
   doGqlQuery(
     `{
-        ${wasmQueryString(args, fields)}
-      }`,
+      ${wasmQueryString(args, fields)}
+    }`,
     endpt
   )
