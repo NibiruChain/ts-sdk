@@ -1,5 +1,4 @@
 import {
-  defaultDistributionCommission,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -17,7 +16,7 @@ export interface GqlOutDistributionCommissions {
 export const distributionCommissionsQueryString = (
   args: GQLQueryGqlDistributionCommissionsArgs,
   excludeParentObject: boolean,
-  fields?: DeepPartial<GQLDistributionCommission>
+  fields: DeepPartial<GQLDistributionCommission>
 ) => {
   if (!args.limit) args.limit = 100
   if (!args.order_desc) args.order_desc = true
@@ -27,9 +26,7 @@ export const distributionCommissionsQueryString = (
   return gqlQuery(
     "distributionCommissions",
     args,
-    fields
-      ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultDistributionCommission),
+    convertObjectToPropertiesString(fields),
     excludeParentObject
   )
 }
@@ -37,6 +34,6 @@ export const distributionCommissionsQueryString = (
 export const distributionCommissions = async (
   args: GQLQueryGqlDistributionCommissionsArgs,
   endpt: string,
-  fields?: DeepPartial<GQLDistributionCommission>
+  fields: DeepPartial<GQLDistributionCommission>
 ): Promise<GqlOutDistributionCommissions> =>
   doGqlQuery(distributionCommissionsQueryString(args, false, fields), endpt)

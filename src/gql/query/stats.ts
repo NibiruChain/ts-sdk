@@ -1,11 +1,4 @@
 import {
-  defaultStatsFees,
-  defaultPerpOpenInterest,
-  defaultPerpPnl,
-  defaultTotals,
-  defaultTvl,
-  defaultUsers,
-  defaultVolume,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -53,7 +46,7 @@ export type GQLStatsFields = DeepPartial<{
 
 export const GQLStatsQueryString = (
   args: QueryStatsArgs,
-  fields?: GQLStatsFields
+  fields: GQLStatsFields
 ) => {
   const GQLStatsQuery: string[] = []
 
@@ -134,85 +127,6 @@ export const GQLStatsQueryString = (
     )
   }
 
-  // Default Objects
-
-  if (args.fees && !fields?.fees) {
-    GQLStatsQuery.push(
-      gqlQuery(
-        "fees",
-        args.fees,
-        convertObjectToPropertiesString(defaultStatsFees),
-        true
-      )
-    )
-  }
-
-  if (args.perpOpenInterest && !fields?.perpOpenInterest) {
-    GQLStatsQuery.push(
-      gqlQuery(
-        "perpOpenInterest",
-        args.perpOpenInterest,
-        convertObjectToPropertiesString(defaultPerpOpenInterest),
-        true
-      )
-    )
-  }
-
-  if (args.perpPnl && !fields?.perpPnl) {
-    GQLStatsQuery.push(
-      gqlQuery(
-        "perpPnl",
-        args.perpPnl,
-        convertObjectToPropertiesString(defaultPerpPnl),
-        true
-      )
-    )
-  }
-
-  if (args.totals && !fields?.totals) {
-    GQLStatsQuery.push(
-      gqlQuery(
-        "totals",
-        args.totals,
-        convertObjectToPropertiesString(defaultTotals),
-        true
-      )
-    )
-  }
-
-  if (args.tvl && !fields?.tvl) {
-    GQLStatsQuery.push(
-      gqlQuery(
-        "tvl",
-        args.tvl,
-        convertObjectToPropertiesString(defaultTvl),
-        true
-      )
-    )
-  }
-
-  if (args.users && !fields?.users) {
-    GQLStatsQuery.push(
-      gqlQuery(
-        "users",
-        args.users,
-        convertObjectToPropertiesString(defaultUsers),
-        true
-      )
-    )
-  }
-
-  if (args.volume && !fields?.volume) {
-    GQLStatsQuery.push(
-      gqlQuery(
-        "volume",
-        args.volume,
-        convertObjectToPropertiesString(defaultVolume),
-        true
-      )
-    )
-  }
-
   return `
       stats {
         ${GQLStatsQuery.join("\n")}
@@ -223,7 +137,7 @@ export const GQLStatsQueryString = (
 export const stats = async (
   args: QueryStatsArgs,
   endpt: string,
-  fields?: GQLStatsFields
+  fields: GQLStatsFields
 ): Promise<GqlOutStats> =>
   doGqlQuery(
     `{
