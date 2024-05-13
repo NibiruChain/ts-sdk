@@ -1,3 +1,36 @@
+## [4.3.0](https://github.com/NibiruChain/ts-sdk/compare/v4.2.0...v4.3.0) (2024-05-13)
+
+### Features
+
+- calc apr ([f66a2ab](https://github.com/NibiruChain/ts-sdk/commit/f66a2ab2c55a8e796b58f79edad11313597aa428))
+- inflation rewards ([fcff7ef](https://github.com/NibiruChain/ts-sdk/commit/fcff7ef0b921578726230bc5a50ac4023ab6df58))
+- no default objects + staking changes ([#350](https://github.com/NibiruChain/ts-sdk/issues/350)) ([b4e4125](https://github.com/NibiruChain/ts-sdk/commit/b4e41253e7a2a616bb16eb565ceea1cc7545391e))
+- proxy prices ([#343](https://github.com/NibiruChain/ts-sdk/issues/343)) ([e5baeed](https://github.com/NibiruChain/ts-sdk/commit/e5baeed0f5ad92b02180a6c2370f23ac2cb7a016))
+
+### Bug Fixes
+
+- comments ([9c60b39](https://github.com/NibiruChain/ts-sdk/commit/9c60b3950b85c34cb039556a320177f73b723e4a))
+- latest formula ([ac9e57b](https://github.com/NibiruChain/ts-sdk/commit/ac9e57bc5f90b71f4fea7e18d831a94766c196a6))
+- mispell ([10d660f](https://github.com/NibiruChain/ts-sdk/commit/10d660f911cbe89bb7ad904622f6b594a45d53c8))
+- name ([84cf8b5](https://github.com/NibiruChain/ts-sdk/commit/84cf8b5a44b61d26a81b5bf977295ebbc0aa08c3))
+- optional mystake ([24f4f87](https://github.com/NibiruChain/ts-sdk/commit/24f4f8783c70001503b78cde1d4c56502aff68af))
+- simplify ([8015860](https://github.com/NibiruChain/ts-sdk/commit/8015860d079e96dcdb10a95180bac42da183e7c4))
+- test ([b52f442](https://github.com/NibiruChain/ts-sdk/commit/b52f44210c73efbc45a88c1291b65510ba55d57b))
+- test ([dabe094](https://github.com/NibiruChain/ts-sdk/commit/dabe094fcaafaf5c23668616e10905c960832347))
+- test ([eb22f64](https://github.com/NibiruChain/ts-sdk/commit/eb22f64850c60803ad069ddb970f10cd1a185360))
+- test ([11c5925](https://github.com/NibiruChain/ts-sdk/commit/11c59253cb91e276fc0a794e23202fd97de89e90))
+- test name ([796925f](https://github.com/NibiruChain/ts-sdk/commit/796925f5177b2dcfdaed1321f9152a4a38c0ac0c))
+- update formula ([30d9887](https://github.com/NibiruChain/ts-sdk/commit/30d988735e31b074807d18b74fbe0c7bac63c416))
+- updates ([4f541d2](https://github.com/NibiruChain/ts-sdk/commit/4f541d2de4656aeafa25bd86ba3c5aa4227b3eac))
+
+### Miscellaneous Chores
+
+- remove spot, perp, and marketing ([41d54d9](https://github.com/NibiruChain/ts-sdk/commit/41d54d935694e554f2d596663e5a9a0a7566b852))
+
+### Documentation
+
+- **math:** explain exported fns more ([6570b32](https://github.com/NibiruChain/ts-sdk/commit/6570b32224f9b3f4dd39144d4f16123ae1966bc3))
+
 ## [4.2.0](https://github.com/NibiruChain/ts-sdk/compare/v4.1.0...v4.2.0) (2024-04-22)
 
 ### Features
