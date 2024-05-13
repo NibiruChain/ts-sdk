@@ -33,8 +33,8 @@ describe("event tests", () => {
       transactionHash: "",
       txIndex: 0,
       code: 0,
-      gasUsed: 0,
-      gasWanted: 0,
+      gasUsed: BigInt(0),
+      gasWanted: BigInt(0),
       msgResponses: [],
     })
     expect(result).toEqual([eventToMap(wasmEvent)])

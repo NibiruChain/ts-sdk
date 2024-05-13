@@ -39,20 +39,20 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@cosmjs/cosmwasm-stargate": "^0.31.0",
-    "@cosmjs/proto-signing": "^0.31.0",
-    "@cosmjs/stargate": "^0.31.0",
-    "@cosmjs/tendermint-rpc": "^0.31.0",
+    "@cosmjs/cosmwasm-stargate": "^0.32.3",
+    "@cosmjs/proto-signing": "^0.32.3",
+    "@cosmjs/stargate": "^0.32.3",
+    "@cosmjs/tendermint-rpc": "^0.32.3",
     "bignumber.js": "^9.1.1",
     "cross-fetch": "4.0.0",
     "graphql": "^16.7.1",
     "graphql-ws": "^5.14.0"
   },
   "peerDependencies": {
-    "@cosmjs/cosmwasm-stargate": "^0.31.0",
-    "@cosmjs/proto-signing": "^0.31.0",
-    "@cosmjs/stargate": "^0.31.0",
-    "@cosmjs/tendermint-rpc": "^0.31.0",
+    "@cosmjs/cosmwasm-stargate": "^0.32.3",
+    "@cosmjs/proto-signing": "^0.32.3",
+    "@cosmjs/stargate": "^0.32.3",
+    "@cosmjs/tendermint-rpc": "^0.32.3",
     "graphql": "^16.7.1"
   },
   "devDependencies": {
