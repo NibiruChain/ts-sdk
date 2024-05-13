@@ -1,6 +1,4 @@
 import {
-  defaultOracleEntry,
-  defaultOraclePrice,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -28,7 +26,7 @@ export type OracleFields = DeepPartial<{
 
 export const oracleQueryString = (
   args: QueryOracleArgs,
-  fields?: OracleFields
+  fields: OracleFields
 ) => {
   const oracleQuery: string[] = []
 
@@ -54,30 +52,6 @@ export const oracleQueryString = (
     )
   }
 
-  // Default Objects
-
-  if (args.oraclePrices && !fields?.oraclePrices) {
-    oracleQuery.push(
-      gqlQuery(
-        "oraclePrices",
-        args.oraclePrices,
-        convertObjectToPropertiesString(defaultOraclePrice),
-        true
-      )
-    )
-  }
-
-  if (args.oracles && !fields?.oracles) {
-    oracleQuery.push(
-      gqlQuery(
-        "oracles",
-        args.oracles,
-        convertObjectToPropertiesString(defaultOracleEntry),
-        true
-      )
-    )
-  }
-
   return `
         oracle {
           ${oracleQuery.join("\n")}
@@ -88,11 +62,11 @@ export const oracleQueryString = (
 export const oracle = async (
   args: QueryOracleArgs,
   endpt: string,
-  fields?: OracleFields
+  fields: OracleFields
 ): Promise<GqlOutOracle> =>
   doGqlQuery(
     `{
-        ${oracleQueryString(args, fields)}
-      }`,
+      ${oracleQueryString(args, fields)}
+    }`,
     endpt
   )

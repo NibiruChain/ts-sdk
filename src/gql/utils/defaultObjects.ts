@@ -26,6 +26,8 @@ import {
   GQLSpotLpPosition,
   GQLSpotPool,
   GQLSpotPoolSwap,
+  GQLStakingActionType,
+  GQLStakingHistoryItem,
   GQLStatsFees,
   GQLStatsPerpOpenInterest,
   GQLStatsPerpPnl,
@@ -68,6 +70,8 @@ export const defaultValidator: GQLValidator = {
     security_contact: "",
     website: "",
   },
+  creation_block: defaultBlock,
+  self_delegation: 0,
   jailed: false,
   operator_address: "",
   min_self_delegation: 0,
@@ -461,4 +465,14 @@ export const defaultProxy: GQLProxies = {
     turnover24h: "",
     volume24h: "",
   },
+}
+
+export const defaultStakingHistoryItem: GQLStakingHistoryItem = {
+  action: "cancel" as GQLStakingActionType.GQLCancel,
+  amount: 0,
+  block: defaultBlock,
+  completion_time: "",
+  delegator: defaultUser,
+  destination_validator: defaultValidator,
+  validator: defaultValidator,
 }

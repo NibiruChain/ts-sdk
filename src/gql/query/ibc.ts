@@ -1,6 +1,4 @@
 import {
-  defaultIbcChannelsResponse,
-  defaultIbcTransfer,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -25,23 +23,8 @@ export type IbcFields = DeepPartial<{
   ibcTransfers?: DeepPartial<GQLIbcTransfer>
 }>
 
-export const ibcQueryString = (args: QueryIbcArgs, fields?: IbcFields) => {
+export const ibcQueryString = (args: QueryIbcArgs, fields: IbcFields) => {
   const ibcQuery: string[] = []
-
-  // TODO: Currently hidden due to lack of arg output from graphql shcema
-  // At the moment this code does nothing as fields.ibcChannels will never be non-nullish
-  // Leaving code here in case the schema ever changes
-
-  // if (fields?.ibcChannels) {
-  //   ibcQuery.push(
-  //     gqlQuery(
-  //       "ibcChannels",
-  //       args.ibcChannels ?? {},
-  //       convertObjectToPropertiesString(fields.ibcChannels),
-  //       true
-  //     )
-  //   )
-  // }
 
   if (fields?.ibcTransfers) {
     ibcQuery.push(
@@ -54,26 +37,13 @@ export const ibcQueryString = (args: QueryIbcArgs, fields?: IbcFields) => {
     )
   }
 
-  // Default Objects
-
-  if (!fields?.ibcChannels) {
+  if (fields?.ibcChannels) {
     ibcQuery.push(
       gqlQuery(
         "ibcChannels",
-        // args.ibcChannels ?? {},
+        // No args
         {},
-        convertObjectToPropertiesString(defaultIbcChannelsResponse),
-        true
-      )
-    )
-  }
-
-  if (args.ibcTransfers && !fields?.ibcTransfers) {
-    ibcQuery.push(
-      gqlQuery(
-        "ibcTransfers",
-        args.ibcTransfers,
-        convertObjectToPropertiesString(defaultIbcTransfer),
+        convertObjectToPropertiesString(fields?.ibcChannels),
         true
       )
     )
@@ -89,7 +59,7 @@ export const ibcQueryString = (args: QueryIbcArgs, fields?: IbcFields) => {
 export const ibc = async (
   args: QueryIbcArgs,
   endpt: string,
-  fields?: IbcFields
+  fields: IbcFields
 ): Promise<GqlOutIbc> =>
   doGqlQuery(
     `{

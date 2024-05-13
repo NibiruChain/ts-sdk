@@ -1,5 +1,4 @@
 import {
-  defaultProxy,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -14,20 +13,17 @@ export interface GqlOutProxies {
 
 export const proxiesQueryString = (
   excludeParentObject: boolean,
-  fields?: DeepPartial<GQLProxies>
-) => {
-  return gqlQuery(
+  fields: DeepPartial<GQLProxies>
+) =>
+  gqlQuery(
     "proxies",
     {},
-    fields
-      ? convertObjectToPropertiesString(fields)
-      : convertObjectToPropertiesString(defaultProxy),
+    convertObjectToPropertiesString(fields),
     excludeParentObject
   )
-}
 
 export const proxies = async (
   endpt: string,
-  fields?: DeepPartial<GQLProxies>
+  fields: DeepPartial<GQLProxies>
 ): Promise<GqlOutProxies> =>
   doGqlQuery(proxiesQueryString(false, fields), endpt)

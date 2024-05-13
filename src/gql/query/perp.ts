@@ -1,8 +1,4 @@
 import {
-  defaultPerpLeaderboard,
-  defaultPerpMarket,
-  defaultPerpPosition,
-  defaultPerpPositionChanges,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -44,7 +40,7 @@ export type GQLPerpFields = DeepPartial<{
 
 export const GQLPerpQueryString = (
   args: QueryPerpArgs,
-  fields?: GQLPerpFields
+  fields: GQLPerpFields
 ) => {
   const GQLPerpQuery: string[] = []
 
@@ -117,74 +113,6 @@ export const GQLPerpQueryString = (
     )
   }
 
-  // Default Objects
-
-  if (args.leaderboard && !fields?.leaderboard) {
-    GQLPerpQuery.push(
-      gqlQuery(
-        "leaderboard",
-        args.leaderboard,
-        convertObjectToPropertiesString(defaultPerpLeaderboard),
-        true
-      )
-    )
-  }
-
-  if (args.market && !fields?.market) {
-    GQLPerpQuery.push(
-      gqlQuery(
-        "market",
-        args.market,
-        convertObjectToPropertiesString(defaultPerpMarket),
-        true
-      )
-    )
-  }
-
-  if (args.markets && !fields?.markets) {
-    GQLPerpQuery.push(
-      gqlQuery(
-        "markets",
-        args.markets,
-        convertObjectToPropertiesString(defaultPerpMarket),
-        true
-      )
-    )
-  }
-
-  if (args.position && !fields?.position) {
-    GQLPerpQuery.push(
-      gqlQuery(
-        "position",
-        args.position,
-        convertObjectToPropertiesString(defaultPerpPosition),
-        true
-      )
-    )
-  }
-
-  if (args.positionChanges && !fields?.positionChanges) {
-    GQLPerpQuery.push(
-      gqlQuery(
-        "positionChanges",
-        args.positionChanges,
-        convertObjectToPropertiesString(defaultPerpPositionChanges),
-        true
-      )
-    )
-  }
-
-  if (args.positions && !fields?.positions) {
-    GQLPerpQuery.push(
-      gqlQuery(
-        "positions",
-        args.positions,
-        convertObjectToPropertiesString(defaultPerpPosition),
-        true
-      )
-    )
-  }
-
   return `
       perp {
         ${GQLPerpQuery.join("\n")}
@@ -195,7 +123,7 @@ export const GQLPerpQueryString = (
 export const perp = async (
   args: QueryPerpArgs,
   endpt: string,
-  fields?: GQLPerpFields
+  fields: GQLPerpFields
 ): Promise<GqlOutPerp> =>
   doGqlQuery(
     `{

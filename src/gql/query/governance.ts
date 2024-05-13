@@ -1,5 +1,4 @@
 import {
-  defaultGovernance,
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
@@ -31,7 +30,7 @@ export type GovernanceFields = DeepPartial<{
 
 export const governanceQueryString = (
   args: QueryGovernanceArgs,
-  fields?: GovernanceFields
+  fields: GovernanceFields
 ) => {
   const governanceQuery: string[] = []
 
@@ -68,41 +67,6 @@ export const governanceQueryString = (
     )
   }
 
-  // Default Objects
-
-  if (args.govDeposits && !fields?.govDeposits) {
-    governanceQuery.push(
-      gqlQuery(
-        "govDeposits",
-        args.govDeposits,
-        convertObjectToPropertiesString(defaultGovernance.govDeposits[0]),
-        true
-      )
-    )
-  }
-
-  if (args.govProposals && !fields?.govProposals) {
-    governanceQuery.push(
-      gqlQuery(
-        "govProposals",
-        args.govProposals,
-        convertObjectToPropertiesString(defaultGovernance.govProposals[0]),
-        true
-      )
-    )
-  }
-
-  if (args.govVotes && !fields?.govVotes) {
-    governanceQuery.push(
-      gqlQuery(
-        "govVotes",
-        args.govVotes,
-        convertObjectToPropertiesString(defaultGovernance.govVotes[0]),
-        true
-      )
-    )
-  }
-
   return `
       governance {
           ${governanceQuery.join("\n")}
@@ -113,7 +77,7 @@ export const governanceQueryString = (
 export const governance = async (
   args: QueryGovernanceArgs,
   endpt: string,
-  fields?: GovernanceFields
+  fields: GovernanceFields
 ): Promise<GqlOutGovernance> =>
   doGqlQuery(
     `{
