@@ -1,3 +1,9 @@
+### [4.3.1](https://github.com/NibiruChain/ts-sdk/compare/v4.3.0...v4.3.1) (2024-05-13)
+
+### Miscellaneous Chores
+
+- upgrading cosmjs ([#352](https://github.com/NibiruChain/ts-sdk/issues/352)) ([#353](https://github.com/NibiruChain/ts-sdk/issues/353)) ([2f119c5](https://github.com/NibiruChain/ts-sdk/commit/2f119c5e294b07a590fbe3c461023c2a9824fa8d))
+
 ## [4.3.0](https://github.com/NibiruChain/ts-sdk/compare/v4.2.0...v4.3.0) (2024-05-13)
 
 ### Features
