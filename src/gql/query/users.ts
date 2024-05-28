@@ -7,10 +7,27 @@ import {
   GQLUser,
   GQLUserOrder,
   DeepPartial,
+  GQLQueryGqlUserArgs,
 } from ".."
 
+export interface GqlOutUser {
+  user?: GQLQuery["user"]
+}
 export interface GqlOutUsers {
   users?: GQLQuery["users"]
+}
+
+export const userQueryString = (
+  args: GQLQueryGqlUserArgs,
+  excludeParentObject: boolean,
+  fields: DeepPartial<GQLUser>
+) => {
+  return gqlQuery(
+    "user",
+    args,
+    convertObjectToPropertiesString(fields),
+    excludeParentObject
+  )
 }
 
 export const usersQueryString = (
@@ -29,6 +46,13 @@ export const usersQueryString = (
     excludeParentObject
   )
 }
+
+export const user = async (
+  args: GQLQueryGqlUserArgs,
+  endpt: string,
+  fields: DeepPartial<GQLUser>
+): Promise<GqlOutUser> =>
+  doGqlQuery(userQueryString(args, false, fields), endpt)
 
 export const users = async (
   args: GQLQueryGqlUsersArgs,
