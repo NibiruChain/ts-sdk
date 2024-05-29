@@ -90,6 +90,7 @@ import {
   QueryStakingArgs,
   defaultStakingHistoryItem,
   GQLValidatorOrder,
+  GQLQueryGqlUserArgs,
 } from ".."
 
 const checkNoFields = <T>(objects: T[], fields: string[]) => {
@@ -983,6 +984,30 @@ test("wasm", async () => {
     {},
     {
       userContracts: defaultUserContract,
+    }
+  )
+})
+
+const testUser = async (args: GQLQueryGqlUserArgs, fields: GQLUser) => {
+  const resp = await heartMonitor.user(args, fields)
+  expect(resp).toHaveProperty("user")
+
+  const fieldsToCheck = ["address", "balances", "created_block", "is_blocked"]
+  fieldsToCheck.forEach((field: string) => {
+    expect(resp.user).toHaveProperty(field)
+  })
+}
+
+test("user", async () => {
+  await testUser(
+    {
+      where: {
+        address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
+      },
+    },
+    {
+      ...defaultUser,
+      is_blocked: true,
     }
   )
 })
