@@ -1,3 +1,9 @@
+## [4.4.0](https://github.com/NibiruChain/ts-sdk/compare/v4.3.2...v4.4.0) (2024-05-30)
+
+### Features
+
+- add gql user query ([#356](https://github.com/NibiruChain/ts-sdk/issues/356)) ([#357](https://github.com/NibiruChain/ts-sdk/issues/357)) ([cb65530](https://github.com/NibiruChain/ts-sdk/commit/cb6553004cff98c7925aaa7cd1dbcad5f5fbc50b))
+
 ### [4.3.2](https://github.com/NibiruChain/ts-sdk/compare/v4.3.1...v4.3.2) (2024-05-16)
 
 ### Miscellaneous Chores
