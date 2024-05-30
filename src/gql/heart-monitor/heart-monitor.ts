@@ -95,6 +95,9 @@ import {
   GqlOutStaking,
   QueryStakingArgs,
   staking,
+  GQLQueryGqlUserArgs,
+  user,
+  GqlOutUser,
 } from ".."
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
@@ -219,6 +222,11 @@ export interface IHeartMonitor {
     args: QueryStatsArgs,
     fields: DeepPartial<GQLStatsFields>
   ) => Promise<GqlOutStats>
+
+  readonly user: (
+    args: GQLQueryGqlUserArgs,
+    fields: DeepPartial<GQLUser>
+  ) => Promise<GqlOutUser>
 
   readonly users: (
     args: GQLQueryGqlUsersArgs,
@@ -360,6 +368,9 @@ export class HeartMonitor implements IHeartMonitor {
 
   stats = async (args: QueryStatsArgs, fields: DeepPartial<GQLStatsFields>) =>
     stats(args, this.gqlEndpt, fields)
+
+  user = async (args: GQLQueryGqlUserArgs, fields: DeepPartial<GQLUser>) =>
+    user(args, this.gqlEndpt, fields)
 
   users = async (args: GQLQueryGqlUsersArgs, fields: DeepPartial<GQLUser>) =>
     users(args, this.gqlEndpt, fields)
