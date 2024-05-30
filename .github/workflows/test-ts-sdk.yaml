@@ -18,20 +18,22 @@ jobs:
       USE_LOCALNET: true
       WEBSOCKET_ENDPOINT: "ws://127.0.0.1:26657/websocket"
       CHAIN_ID: "nibiru-localnet-0"
+      ROCKSDB_VERSION: "8.9.1"
+      NIBIRU_VERSION: "latest"
     steps:
       - name: Checkout ts-sdk Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Checkout nibiru Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-          repository: NibiruChain/nibiru
-          ref: main
-          path: "nibiru"
-          token: ${{ secrets.NIBIBOT_GIT_TOKEN }}
+      # - name: Checkout nibiru Repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      #     repository: NibiruChain/nibiru
+      #     ref: main
+      #     path: "nibiru"
+      #     token: ${{ secrets.NIBIBOT_GIT_TOKEN }}
 
       - name: Setup NodeJS with yarn caching
         uses: actions/setup-node@v3
@@ -50,19 +52,46 @@ jobs:
         with:
           cmd: build
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: nibibot
-          password: ${{ secrets.NIBIBOT_GIT_TOKEN }}
+      # - name: Login to GitHub Container Registry
+      #   uses: docker/login-action@v3
+      #   with:
+      #     registry: ghcr.io
+      #     username: nibibot
+      #     password: ${{ secrets.NIBIBOT_GIT_TOKEN }}
 
-      - name: Run Nibiru network in the background
+      # - name: Run Nibiru network in the background
+      #   run: |
+      #     cd nibiru
+      #     make chaosnet
+      #     cd ..
+
+      # Install and run chain
+      - name: Get path to temp-dir for the cache step.
+        id: cache-temp-dir
         run: |
-          cd nibiru
-          make chaosnet
-          cd ..
+          echo "CACHE_TEMP_DIR=$(pwd)/temp-${{ env.ROCKSDB_VERSION }}" >> $GITHUB_ENV
 
+      - name: Cache the rocksdb and other dependencies
+        id: go-hm-deps
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.CACHE_TEMP_DIR }}
+          key: ${{ runner.os }}-go-hm-deps
+
+      - name: Install Linux deps
+        run: |
+          make install-linux-deps
+
+      - name: Install nibid
+        run: curl -s https://get.nibiru.fi/@${{ env.NIBIRU_VERSION }}! | bash
+
+      - name: run localnet
+        run: bash scripts/localnet.sh --no-build &
+
+      - name: Wait for 120 seconds
+        run: sleep 120
+
+      # Run tests
       - name: yarn test
         uses: borales/actions-yarn@v4
         with:
