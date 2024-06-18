@@ -8,8 +8,6 @@ import {
   setupDistributionExtension,
   setupGovExtension,
   setupIbcExtension,
-  setupStakingExtension,
-  StakingExtension,
   StargateClient,
   StargateClientOptions,
 } from "@cosmjs/stargate"
@@ -29,11 +27,13 @@ import {
   SudoExtension,
   InflationExtension,
   setupInflationExtension,
+  setupStakingExtension,
   Result,
   bytesToHex,
   hexToBytes,
   setupDevgasExtension,
   DevgasExtension,
+  StakeExtension,
 } from ".."
 
 export type NibiruExtensions = StargateQueryClient &
@@ -44,7 +44,7 @@ export type NibiruExtensions = StargateQueryClient &
   DevgasExtension &
   DistributionExtension &
   GovExtension &
-  StakingExtension &
+  StakeExtension &
   IbcExtension &
   WasmExtension &
   AuthExtension
@@ -90,7 +90,8 @@ export class NibiruQuerier extends StargateClient {
       setupStakingExtension,
       setupIbcExtension,
       setupWasmExtension,
-      setupAuthExtension
+      setupAuthExtension,
+      setupStakingExtension
     )
   }
 

@@ -8,8 +8,8 @@ src/gql/utils/generated.ts
 src/gql/utils/schema.graphql
 dist
 **/node_modules/*
-nibiru/
-
+/nibiru
+/cosmos-sdk
 
 reports
 junit.xml

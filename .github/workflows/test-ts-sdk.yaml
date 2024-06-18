@@ -38,7 +38,6 @@ jobs:
         with:
           node-version: "lts/hydrogen"
           cache: "yarn"
-          cache-dependency-path: "**/yarn.lock"
 
       - name: yarn install
         uses: borales/actions-yarn@v4
