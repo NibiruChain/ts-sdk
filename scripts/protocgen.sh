@@ -57,5 +57,4 @@ sed 's/export \* as gogoproto from \"\.\/index\.gogoproto\"\;//' $PKG_OUT_DIR/in
 sed 's/export \* as amino from \"\.\/index\.amino\"\;//' $PKG_OUT_DIR/index.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.ts
 sed 's/export \* as google from \"\.\/index\.google\"\;//' $PKG_OUT_DIR/index.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.ts
 sed 's/export \* from \"\.\/google\/api\/annotations\"\;//' $PKG_OUT_DIR/index.google.api.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.google.api.ts
-# sed 's/export \* as protobuf from \"\.\/index.google.protobuf\"\;//' $PKG_OUT_DIR/index.google.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.google.ts
 sed 's/export \* as msg from \"\.\/index.cosmos.msg\"\;//' $PKG_OUT_DIR/index.cosmos.ts > tmpfile && mv tmpfile $PKG_OUT_DIR/index.cosmos.ts
