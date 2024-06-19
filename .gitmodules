@@ -1,6 +1,0 @@
-[submodule "cosmos-sdk"]
-	path = cosmos-sdk
-	url = https://github.com/cosmos/cosmos-sdk
-[submodule "nibiru"]
-	path = nibiru
-	url = https://github.com/NibiruChain/nibiru

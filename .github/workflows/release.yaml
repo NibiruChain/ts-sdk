@@ -22,11 +22,6 @@ jobs:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
           submodules: true
 
-      - name: Git Submodule Update
-        run: |
-          git pull --recurse-submodules
-          git submodule update --remote --recursive
-
       - name: Setup NodeJS and npm
         uses: actions/setup-node@v3
         with:
