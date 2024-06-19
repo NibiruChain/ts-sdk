@@ -1,6 +1,6 @@
 import { QueryClient, coin } from "@cosmjs/stargate"
 import * as query from "../../protojs/cosmos/staking/v1beta1/tx"
-import { setupStakingExtension } from "."
+import { setupStakeExtension } from "."
 import Long from "long"
 
 describe("setupStakingExtension", () => {
@@ -11,7 +11,7 @@ describe("setupStakingExtension", () => {
   } as unknown as query.MsgClientImpl)
 
   test("should setup sudo extension correctly", () => {
-    const extension = setupStakingExtension(mockBaseQueryClient)
+    const extension = setupStakeExtension(mockBaseQueryClient)
 
     expect(extension.staking).toBeDefined()
     expect(extension.staking.cancelUnbondingDelegation).toBeInstanceOf(Function)
@@ -23,7 +23,7 @@ describe("setupStakingExtension", () => {
         .spyOn(query.MsgCancelUnbondingDelegation, "fromPartial")
         .mockReturnValue({} as query.MsgCancelUnbondingDelegation)
 
-      const extension = setupStakingExtension(mockBaseQueryClient)
+      const extension = setupStakeExtension(mockBaseQueryClient)
       const testArgs = {
         validatorAddress: "",
         delegatorAddress: "",

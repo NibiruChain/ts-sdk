@@ -13,7 +13,7 @@ export interface StakeExtension {
   }>
 }
 
-export const setupStakingExtension = (base: QueryClient): StakeExtension => {
+export const setupStakeExtension = (base: QueryClient): StakeExtension => {
   const rpcClient = createProtobufRpcClient(base)
   const queryService = new MsgClientImpl(rpcClient)
 

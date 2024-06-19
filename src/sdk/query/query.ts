@@ -10,6 +10,8 @@ import {
   setupIbcExtension,
   StargateClient,
   StargateClientOptions,
+  StakingExtension,
+  setupStakingExtension,
 } from "@cosmjs/stargate"
 import { Tendermint37Client } from "@cosmjs/tendermint-rpc"
 import {
@@ -27,7 +29,7 @@ import {
   SudoExtension,
   InflationExtension,
   setupInflationExtension,
-  setupStakingExtension,
+  setupStakeExtension,
   Result,
   bytesToHex,
   hexToBytes,
@@ -44,6 +46,7 @@ export type NibiruExtensions = StargateQueryClient &
   DevgasExtension &
   DistributionExtension &
   GovExtension &
+  StakingExtension &
   StakeExtension &
   IbcExtension &
   WasmExtension &
@@ -91,7 +94,7 @@ export class NibiruQuerier extends StargateClient {
       setupIbcExtension,
       setupWasmExtension,
       setupAuthExtension,
-      setupStakingExtension
+      setupStakeExtension
     )
   }
 
