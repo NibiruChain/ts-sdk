@@ -160,7 +160,7 @@ describe("ibc module queries", () => {
       "channelId",
       "counterparty",
     ]
-    channels.forEach((channel: any) => {
+    channels.forEach((channel) => {
       properties.forEach((prop) => {
         expect(channel).toHaveProperty(prop)
       })
@@ -179,7 +179,7 @@ describe("ibc module queries", () => {
       "delayPeriod",
       "counterparty",
     ]
-    connections.forEach((connection: any) => {
+    connections.forEach((connection) => {
       properties.forEach((prop) => {
         expect(connection).toHaveProperty(prop)
       })

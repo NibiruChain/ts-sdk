@@ -245,7 +245,14 @@ console.log("perpPositions: %o", perpPositions)
    yarn
    ```
 
-4. Lastly, compile the code in each package.
+4. Initialize git submodules
+
+   ```sh
+   git submodule init
+   git submodule update
+   ```
+
+5. Lastly, compile the code in each package.
 
    ```sh
    yarn build
