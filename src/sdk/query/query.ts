@@ -29,13 +29,11 @@ import {
   SudoExtension,
   InflationExtension,
   setupInflationExtension,
-  setupStakeExtension,
   Result,
   bytesToHex,
   hexToBytes,
   setupDevgasExtension,
   DevgasExtension,
-  StakeExtension,
 } from ".."
 
 export type NibiruExtensions = StargateQueryClient &
@@ -47,7 +45,6 @@ export type NibiruExtensions = StargateQueryClient &
   DistributionExtension &
   GovExtension &
   StakingExtension &
-  StakeExtension &
   IbcExtension &
   WasmExtension &
   AuthExtension
@@ -93,8 +90,7 @@ export class NibiruQuerier extends StargateClient {
       setupStakingExtension,
       setupIbcExtension,
       setupWasmExtension,
-      setupAuthExtension,
-      setupStakeExtension
+      setupAuthExtension
     )
   }
 
