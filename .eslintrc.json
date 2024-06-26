@@ -13,5 +13,5 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "ignorePatterns": ["nibiru/*", "cosmos-sdk/*"]
+  "ignorePatterns": ["nibiru/*"]
 }
