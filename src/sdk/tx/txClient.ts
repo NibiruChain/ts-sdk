@@ -24,7 +24,6 @@ import {
   setupOracleExtension,
   setupEpochsExtension,
   setupDevgasExtension,
-  setupStakeExtension,
 } from ".."
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
@@ -53,7 +52,6 @@ export class NibiruTxClient extends SigningStargateClient {
       setupDistributionExtension,
       setupGovExtension,
       setupStakingExtension,
-      setupStakeExtension,
       setupIbcExtension,
       setupWasmExtension,
       setupAuthExtension
