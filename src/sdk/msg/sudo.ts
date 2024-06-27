@@ -5,7 +5,7 @@ import {
   MsgClientImpl,
   MsgEditSudoers,
   MsgEditSudoersResponse,
-} from "../../protojs/index.nibiru.sudo.v1"
+} from "../../protojs/nibiru/sudo/v1/tx"
 
 export interface SudoMsgExtension {
   readonly sudoMsg: Readonly<{

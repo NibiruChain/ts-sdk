@@ -5,7 +5,7 @@ import {
   MsgEditInflationParamsResponse,
   MsgToggleInflation,
   MsgToggleInflationResponse,
-} from "../../protojs/index.nibiru.inflation.v1"
+} from "../../protojs/nibiru/inflation/v1/tx"
 
 export interface InflationMsgExtension {
   readonly inflationMsg: Readonly<{
