@@ -1,7 +1,7 @@
 import Long from "long"
 import { QueryClient } from "@cosmjs/stargate"
 import * as query from "../../protojs/nibiru/oracle/v1/query"
-import { fromSdkDec, setupOracleExtension } from ".."
+import { fromSdkDec, setupOracleExtension, toSdkDec } from ".."
 
 describe("setupOracleExtension", () => {
   const mockBaseQueryClient = {} as QueryClient
@@ -65,8 +65,8 @@ describe("setupOracleExtension", () => {
     expect(extension.oracle.aggregateVotes).toBeInstanceOf(Function)
     expect(extension.oracle.exchangeRate).toBeInstanceOf(Function)
     expect(extension.oracle.exchangeRates).toBeInstanceOf(Function)
-    expect(extension.oracle.feeder).toBeInstanceOf(Function)
-    expect(extension.oracle.missCount).toBeInstanceOf(Function)
+    expect(extension.oracle.feederDelegation).toBeInstanceOf(Function)
+    expect(extension.oracle.missCounter).toBeInstanceOf(Function)
     expect(extension.oracle.params).toBeInstanceOf(Function)
     expect(extension.oracle.voteTargets).toBeInstanceOf(Function)
   })
@@ -108,12 +108,14 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryAggregatePrevoteRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.aggregatePrevote("1234567")
+      const result = await extension.oracle.aggregatePrevote({
+        validatorAddr: "1234567",
+      })
 
       expect(queryAggregatePrevoteRequest).toHaveBeenCalledWith({
         validatorAddr: "1234567",
       })
-      expect(result).toEqual(mockAggregatePrevoteResponse.aggregatePrevote)
+      expect(result).toEqual(mockAggregatePrevoteResponse)
     })
   })
 
@@ -127,7 +129,7 @@ describe("setupOracleExtension", () => {
       const result = await extension.oracle.aggregatePrevotes()
 
       expect(queryAggregatePrevotesRequest).toHaveBeenCalledWith({})
-      expect(result).toEqual(mockAggregatePrevotesResponse.aggregatePrevotes)
+      expect(result).toEqual(mockAggregatePrevotesResponse)
     })
   })
 
@@ -138,12 +140,14 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryAggregateVoteRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.aggregateVote("1234567")
+      const result = await extension.oracle.aggregateVote({
+        validatorAddr: "1234567",
+      })
 
       expect(queryAggregateVoteRequest).toHaveBeenCalledWith({
         validatorAddr: "1234567",
       })
-      expect(result).toEqual(mockAggregateVoteResponse.aggregateVote)
+      expect(result).toEqual(mockAggregateVoteResponse)
     })
   })
 
@@ -157,7 +161,7 @@ describe("setupOracleExtension", () => {
       const result = await extension.oracle.aggregateVotes()
 
       expect(queryAggregateVotesRequest).toHaveBeenCalledWith({})
-      expect(result).toEqual(mockAggregateVotesResponse.aggregateVotes)
+      expect(result).toEqual(mockAggregateVotesResponse)
     })
   })
 
@@ -168,10 +172,10 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryExchangeRateRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.exchangeRate("PAIR")
+      const result = await extension.oracle.exchangeRate({ pair: "PAIR" })
 
       expect(queryExchangeRateRequest).toHaveBeenCalledWith({ pair: "PAIR" })
-      expect(result).toEqual(mockExchangeRate)
+      expect(fromSdkDec(result.exchangeRate)).toEqual(mockExchangeRate)
     })
   })
 
@@ -185,7 +189,10 @@ describe("setupOracleExtension", () => {
       const result = await extension.oracle.exchangeRates()
 
       expect(queryExchangeRatesRequest).toHaveBeenCalledWith({})
-      expect(result).toEqual({ USD: 1.32e-16 })
+      expect(result.exchangeRates[0]).toEqual({
+        exchangeRate: "132",
+        pair: "USD",
+      })
     })
   })
 
@@ -196,10 +203,14 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryFeederDelegationRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.feeder("oracle")
+      const result = await extension.oracle.feederDelegation({
+        validatorAddr: "oracle",
+      })
 
-      expect(queryFeederDelegationRequest).toHaveBeenCalledWith({})
-      expect(result).toEqual(mockFeederDelegationResponse.feederAddr)
+      expect(queryFeederDelegationRequest).toHaveBeenCalledWith({
+        validatorAddr: "oracle",
+      })
+      expect(result).toEqual(mockFeederDelegationResponse)
     })
   })
 
@@ -210,10 +221,14 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryMissCounterRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.missCount("oracle")
+      const result = await extension.oracle.missCounter({
+        validatorAddr: "oracle",
+      })
 
-      expect(queryMissCounterRequest).toHaveBeenCalledWith({})
-      expect(result).toEqual(mockMissCounterResponse.missCounter.toNumber())
+      expect(queryMissCounterRequest).toHaveBeenCalledWith({
+        validatorAddr: "oracle",
+      })
+      expect(result).toEqual(mockMissCounterResponse)
     })
   })
 
@@ -241,7 +256,7 @@ describe("setupOracleExtension", () => {
       const result = await extension.oracle.voteTargets()
 
       expect(queryVoteTargetsRequest).toHaveBeenCalledWith({})
-      expect(result).toEqual(mockVoteTargetsResponse.voteTargets)
+      expect(result).toEqual(mockVoteTargetsResponse)
     })
   })
 })

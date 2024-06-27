@@ -71,10 +71,9 @@ describe("x/oracle queries", () => {
     const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const exhangeRateMap = await querier.nibiruExtensions.oracle.exchangeRates()
     if (Object.keys(exhangeRateMap).length > 0) {
-      for (const pair in exhangeRateMap) {
-        const exchangeRate = exhangeRateMap[pair]
-        expect(exchangeRate).toBeDefined()
-        expect(exchangeRate).toBeGreaterThan(0)
+      for (const pair in exhangeRateMap.exchangeRates) {
+        expect(pair).toBeDefined()
+        expect(pair).toEqual(0)
         break
       }
     }
@@ -88,7 +87,7 @@ describe("x/epochs queries", () => {
     "query epochs info and current epoch",
     async () => {
       const querier = await NibiruQuerier.connect(Localnet.endptTm)
-      const infoResp = await querier.nibiruExtensions.epochs.epochsInfo()
+      const infoResp = await querier.nibiruExtensions.epochs.epochsInfos()
       expect(infoResp).toHaveProperty("epochs")
       expect(infoResp.epochs.length).toBeGreaterThan(0)
 

@@ -24,6 +24,12 @@ import {
   setupOracleExtension,
   setupEpochsExtension,
   setupDevgasExtension,
+  setupTokenFactoryExtension,
+  setupDevgasMsgExtension,
+  setupInflationMsgExtension,
+  setupOracleMsgExtension,
+  setupSudoMsgExtension,
+  setupTokenFactoryMsgExtension,
 } from ".."
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
@@ -54,7 +60,13 @@ export class NibiruTxClient extends SigningStargateClient {
       setupStakingExtension,
       setupIbcExtension,
       setupWasmExtension,
-      setupAuthExtension
+      setupAuthExtension,
+      setupTokenFactoryExtension,
+      setupDevgasMsgExtension,
+      setupInflationMsgExtension,
+      setupOracleMsgExtension,
+      setupSudoMsgExtension,
+      setupTokenFactoryMsgExtension
     )
   }
 

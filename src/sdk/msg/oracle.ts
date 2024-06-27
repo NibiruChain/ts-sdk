@@ -1,103 +1,59 @@
-import { EncodeObject, GeneratedType } from "@cosmjs/proto-signing"
+import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
 import {
   MsgAggregateExchangeRatePrevote,
+  MsgAggregateExchangeRatePrevoteResponse,
   MsgAggregateExchangeRateVote,
+  MsgAggregateExchangeRateVoteResponse,
+  MsgClientImpl,
   MsgDelegateFeedConsent,
+  MsgDelegateFeedConsentResponse,
   MsgEditOracleParams,
+  MsgEditOracleParamsResponse,
 } from "../../protojs/nibiru/oracle/v1/tx"
-import { TxMessage } from ".."
 
-const protobufPackage = "nibiru.oracle.v1"
-
-export const ORACLE_MSG_TYPE_URLS = {
-  MsgAggregateExchangeRatePrevote: `/${protobufPackage}.MsgAggregateExchangeRatePrevote`,
-  MsgAggregateExchangeRateVote: `/${protobufPackage}.MsgAggregateExchangeRateVote`,
-  MsgDelegateFeedConsent: `/${protobufPackage}.MsgDelegateFeedConsent`,
-  MsgEditOracleParams: `/${protobufPackage}.MsgEditOracleParams`,
+export interface OracleMsgExtension {
+  readonly oracleMsg: Readonly<{
+    aggregateExchangeRatePrevote: (
+      body: MsgAggregateExchangeRatePrevote
+    ) => Promise<MsgAggregateExchangeRatePrevoteResponse>
+    aggregateExchangeRateVote: (
+      body: MsgAggregateExchangeRateVote
+    ) => Promise<MsgAggregateExchangeRateVoteResponse>
+    delegateFeedConsent: (
+      body: MsgDelegateFeedConsent
+    ) => Promise<MsgDelegateFeedConsentResponse>
+    editOracleParams: (
+      body: MsgEditOracleParams
+    ) => Promise<MsgEditOracleParamsResponse>
+  }>
 }
 
-export const oracleTypes: ReadonlyArray<[string, GeneratedType]> = [
-  [
-    ORACLE_MSG_TYPE_URLS.MsgAggregateExchangeRatePrevote,
-    MsgAggregateExchangeRatePrevote,
-  ],
-  [
-    ORACLE_MSG_TYPE_URLS.MsgAggregateExchangeRateVote,
-    MsgAggregateExchangeRateVote,
-  ],
-  [ORACLE_MSG_TYPE_URLS.MsgDelegateFeedConsent, MsgDelegateFeedConsent],
-  [ORACLE_MSG_TYPE_URLS.MsgEditOracleParams, MsgEditOracleParams],
-]
+export const setupOracleMsgExtension = (
+  base: QueryClient
+): OracleMsgExtension => {
+  const queryService = new MsgClientImpl(createProtobufRpcClient(base))
 
-export interface MsgAggregateExchangeRatePrevoteEncodeObject
-  extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgAggregateExchangeRatePrevote>
-}
+  return {
+    oracleMsg: {
+      aggregateExchangeRatePrevote: async (
+        body: MsgAggregateExchangeRatePrevote
+      ) =>
+        queryService.AggregateExchangeRatePrevote(
+          MsgAggregateExchangeRatePrevote.fromPartial(body)
+        ),
 
-export const isMsgAggregateExchangeRatePrevoteEncodeObject = (
-  encodeObject: EncodeObject
-) =>
-  encodeObject.typeUrl === ORACLE_MSG_TYPE_URLS.MsgAggregateExchangeRatePrevote
+      aggregateExchangeRateVote: async (body: MsgAggregateExchangeRateVote) =>
+        queryService.AggregateExchangeRateVote(
+          MsgAggregateExchangeRateVote.fromPartial(body)
+        ),
 
-export interface MsgAggregateExchangeRateVoteEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgAggregateExchangeRateVote>
-}
+      delegateFeedConsent: async (body: MsgDelegateFeedConsent) =>
+        queryService.DelegateFeedConsent(
+          MsgDelegateFeedConsent.fromPartial(body)
+        ),
 
-export const isMsgAggregateExchangeRateVoteEncodeObject = (
-  encodeObject: EncodeObject
-) => encodeObject.typeUrl === ORACLE_MSG_TYPE_URLS.MsgAggregateExchangeRateVote
-
-export interface MsgDelegateFeedConsentEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgDelegateFeedConsent>
-}
-
-export const isMsgDelegateFeedConsentEncodeObject = (
-  encodeObject: EncodeObject
-) => encodeObject.typeUrl === ORACLE_MSG_TYPE_URLS.MsgDelegateFeedConsent
-
-export interface MsgEditOracleParamsEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgEditOracleParams>
-}
-
-export const isMsgEditOracleParamsEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === ORACLE_MSG_TYPE_URLS.MsgEditOracleParams
-
-// ----------------------------------------------------------------------------
-
-export class OracleMsgFactory {
-  static aggregateExchangeRatePrevote(
-    msg: MsgAggregateExchangeRatePrevote
-  ): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgAggregateExchangeRatePrevote`,
-      value: MsgAggregateExchangeRatePrevote.fromPartial(msg),
-    }
-  }
-
-  static aggregateExchangeRateVote(
-    msg: MsgAggregateExchangeRateVote
-  ): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgAggregateExchangeRateVote`,
-      value: MsgAggregateExchangeRateVote.fromPartial(msg),
-    }
-  }
-
-  static delegateFeedConsent(msg: MsgDelegateFeedConsent): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgDelegateFeedConsent`,
-      value: MsgDelegateFeedConsent.fromPartial(msg),
-    }
-  }
-
-  static editOracleParams(msg: MsgEditOracleParams): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgEditOracleParams`,
-      value: MsgEditOracleParams.fromPartial(msg),
-    }
+      editOracleParams: async (body: MsgEditOracleParams) =>
+        queryService.EditOracleParams(MsgEditOracleParams.fromPartial(body)),
+    },
   }
 }

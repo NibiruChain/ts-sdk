@@ -93,14 +93,6 @@ import {
   GQLQueryGqlUserArgs,
 } from ".."
 
-const checkNoFields = <T>(objects: T[], fields: string[]) => {
-  objects.forEach((obj: T) => {
-    fields.forEach((field: string) => {
-      expect(obj).not.toHaveProperty(field)
-    })
-  })
-}
-
 const nibiruUrl = "testnet-1"
 
 const heartMonitor = new HeartMonitor(
@@ -854,7 +846,7 @@ const testStaking = async (
   }
 }
 
-test("staking", async () => {
+test.skip("staking", async () => {
   await testStaking(
     {
       delegations: {

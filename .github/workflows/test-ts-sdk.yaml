@@ -51,7 +51,7 @@ jobs:
       - name: Run Nibiru network in the background
         run: |
           cd nibiru
-          make chaosnet
+          make chaosnet-heartmonitor
           cd ..
 
       - name: yarn test
