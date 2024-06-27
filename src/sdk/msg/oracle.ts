@@ -9,7 +9,7 @@ import {
   MsgDelegateFeedConsentResponse,
   MsgEditOracleParams,
   MsgEditOracleParamsResponse,
-} from "src/protojs/index.nibiru.oracle.v1"
+} from "../../protojs/index.nibiru.oracle.v1"
 
 export interface OracleMsgExtension {
   readonly oracleMsg: Readonly<{

@@ -9,7 +9,7 @@ import {
   MsgUpdateFeeShareResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "src/protojs/index.nibiru.devgas.v1"
+} from "../../protojs/index.nibiru.devgas.v1"
 
 export interface DevgasMsgExtension {
   readonly devgasMsg: Readonly<{

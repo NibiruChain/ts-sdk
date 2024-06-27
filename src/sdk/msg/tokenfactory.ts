@@ -15,7 +15,7 @@ import {
   MsgSetDenomMetadataResponse,
   MsgBurnNative,
   MsgBurnNativeResponse,
-} from "src/protojs/index.nibiru.tokenfactory.v1"
+} from "../../protojs/index.nibiru.tokenfactory.v1"
 
 export interface TokenFactoryMsgExtension {
   readonly tokenFactoryMsg: Readonly<{
