@@ -9,29 +9,23 @@ import {
 
 export interface EpochsExtension {
   readonly epochs: Readonly<{
-    currentEpoch: (args: {
-      identifier: string
-    }) => Promise<QueryCurrentEpochResponse>
-    epochsInfo: () => Promise<QueryEpochInfosResponse>
+    currentEpoch: (
+      body: QueryCurrentEpochRequest
+    ) => Promise<QueryCurrentEpochResponse>
+    epochsInfos: () => Promise<QueryEpochInfosResponse>
   }>
 }
 
 export const setupEpochsExtension = (base: QueryClient): EpochsExtension => {
-  const rpcClient = createProtobufRpcClient(base)
-  const queryService = new QueryClientImpl(rpcClient)
+  const queryService = new QueryClientImpl(createProtobufRpcClient(base))
 
   return {
     epochs: {
-      currentEpoch: async (args: { identifier: string }) => {
-        const req = QueryCurrentEpochRequest.fromPartial(args)
-        const resp = await queryService.CurrentEpoch(req)
-        return resp
-      },
-      epochsInfo: async () => {
-        const req = QueryEpochInfosRequest.fromPartial({})
-        const resp = await queryService.EpochInfos(req)
-        return resp
-      },
+      currentEpoch: async (body: QueryCurrentEpochRequest) =>
+        queryService.CurrentEpoch(QueryCurrentEpochRequest.fromPartial(body)),
+
+      epochsInfos: async () =>
+        queryService.EpochInfos(QueryEpochInfosRequest.fromPartial({})),
     },
   }
 }

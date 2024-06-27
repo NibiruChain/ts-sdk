@@ -12,16 +12,12 @@ export interface SudoExtension {
 }
 
 export const setupSudoExtension = (base: QueryClient): SudoExtension => {
-  const rpcClient = createProtobufRpcClient(base)
-  const queryService = new QueryClientImpl(rpcClient)
+  const queryService = new QueryClientImpl(createProtobufRpcClient(base))
 
   return {
     sudo: {
-      querySudoers: async () => {
-        const req = QuerySudoersRequest.fromPartial({})
-        const resp = await queryService.QuerySudoers(req)
-        return resp
-      },
+      querySudoers: async () =>
+        queryService.QuerySudoers(QuerySudoersRequest.fromPartial({})),
     },
   }
 }

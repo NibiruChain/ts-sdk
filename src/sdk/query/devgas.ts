@@ -23,33 +23,23 @@ export interface DevgasExtension {
 }
 
 export const setupDevgasExtension = (base: QueryClient): DevgasExtension => {
-  const rpcClient = createProtobufRpcClient(base)
-  const queryService = new QueryClientImpl(rpcClient)
+  const queryService = new QueryClientImpl(createProtobufRpcClient(base))
 
   return {
     devgas: {
-      feeShare: async (args: QueryFeeShareRequest) => {
-        const req = QueryFeeShareRequest.fromPartial(args)
-        const resp = await queryService.FeeShare(req)
-        return resp
-      },
-      feeSharesByWithdrawer: async (
-        args: QueryFeeSharesByWithdrawerRequest
-      ) => {
-        const req = QueryFeeSharesByWithdrawerRequest.fromPartial(args)
-        const resp = await queryService.FeeSharesByWithdrawer(req)
-        return resp
-      },
-      feeShares: async (args: QueryFeeSharesRequest) => {
-        const req = QueryFeeSharesRequest.fromPartial(args)
-        const resp = await queryService.FeeShares(req)
-        return resp
-      },
-      params: async (args: QueryParamsRequest) => {
-        const req = QueryParamsRequest.fromPartial(args)
-        const resp = await queryService.Params(req)
-        return resp
-      },
+      feeShare: async (args: QueryFeeShareRequest) =>
+        queryService.FeeShare(QueryFeeShareRequest.fromPartial(args)),
+
+      feeSharesByWithdrawer: async (args: QueryFeeSharesByWithdrawerRequest) =>
+        queryService.FeeSharesByWithdrawer(
+          QueryFeeSharesByWithdrawerRequest.fromPartial(args)
+        ),
+
+      feeShares: async (args: QueryFeeSharesRequest) =>
+        queryService.FeeShares(QueryFeeSharesRequest.fromPartial(args)),
+
+      params: async (args: QueryParamsRequest) =>
+        queryService.Params(QueryParamsRequest.fromPartial(args)),
     },
   }
 }

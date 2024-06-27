@@ -1,49 +1,29 @@
-import { EncodeObject, GeneratedType } from "@cosmjs/proto-signing"
-import { MsgChangeRoot, MsgEditSudoers } from "../../protojs/nibiru/sudo/v1/tx"
-import { TxMessage } from ".."
+import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
+import {
+  MsgChangeRoot,
+  MsgChangeRootResponse,
+  MsgClientImpl,
+  MsgEditSudoers,
+  MsgEditSudoersResponse,
+} from "src/protojs/index.nibiru.sudo.v1"
 
-const protobufPackage = "nibiru.sudo.v1"
-
-export const SUDO_MSG_TYPE_URLS = {
-  MsgChangeRoot: `/${protobufPackage}.MsgChangeRoot`,
-  MsgEditSudoers: `/${protobufPackage}.MsgEditSudoers`,
+export interface SudoMsgExtension {
+  readonly sudoMsg: Readonly<{
+    editSudoers: (body: MsgEditSudoers) => Promise<MsgEditSudoersResponse>
+    changeRoot: (body: MsgChangeRoot) => Promise<MsgChangeRootResponse>
+  }>
 }
 
-export const sudoTypes: ReadonlyArray<[string, GeneratedType]> = [
-  [SUDO_MSG_TYPE_URLS.MsgChangeRoot, MsgChangeRoot],
-  [SUDO_MSG_TYPE_URLS.MsgEditSudoers, MsgEditSudoers],
-]
+export const setupSudoMsgExtension = (base: QueryClient): SudoMsgExtension => {
+  const queryService = new MsgClientImpl(createProtobufRpcClient(base))
 
-export interface MsgChangeRootEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgChangeRoot>
-}
+  return {
+    sudoMsg: {
+      editSudoers: async (body: MsgEditSudoers) =>
+        queryService.EditSudoers(MsgEditSudoers.fromPartial(body)),
 
-export const isMsgChangeRootEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === SUDO_MSG_TYPE_URLS.MsgChangeRoot
-
-export interface MsgEditSudoersEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgEditSudoers>
-}
-
-export const isMsgEditSudoersEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === SUDO_MSG_TYPE_URLS.MsgEditSudoers
-
-// ----------------------------------------------------------------------------
-
-export class SudoMsgFactory {
-  static changeRoot(msg: MsgChangeRoot): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgChangeRoot`,
-      value: MsgChangeRoot.fromPartial(msg),
-    }
-  }
-
-  static editSudoers(msg: MsgEditSudoers): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgEditSudoers`,
-      value: MsgEditSudoers.fromPartial(msg),
-    }
+      changeRoot: async (body: MsgChangeRoot) =>
+        queryService.ChangeRoot(MsgChangeRoot.fromPartial(body)),
+    },
   }
 }

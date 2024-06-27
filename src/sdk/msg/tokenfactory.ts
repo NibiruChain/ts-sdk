@@ -1,124 +1,67 @@
-import { EncodeObject, GeneratedType } from "@cosmjs/proto-signing"
+import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
 import {
-  MsgBurn,
-  MsgChangeAdmin,
   MsgCreateDenom,
-  MsgMint,
-  MsgSetDenomMetadata,
+  MsgClientImpl,
+  MsgCreateDenomResponse,
+  MsgChangeAdmin,
+  MsgChangeAdminResponse,
   MsgUpdateModuleParams,
-} from "../../protojs/nibiru/tokenfactory/v1/tx"
-import { TxMessage } from ".."
+  MsgUpdateModuleParamsResponse,
+  MsgBurn,
+  MsgBurnResponse,
+  MsgMint,
+  MsgMintResponse,
+  MsgSetDenomMetadata,
+  MsgSetDenomMetadataResponse,
+  MsgBurnNative,
+  MsgBurnNativeResponse,
+} from "src/protojs/index.nibiru.tokenfactory.v1"
 
-const protobufPackage = "nibiru.tokenfactory.v1"
-
-export const TOKENFACTORY_MSG_TYPE_URLS = {
-  MsgBurn: `/${protobufPackage}.MsgBurn`,
-  MsgChangeAdmin: `/${protobufPackage}.MsgChangeAdmin`,
-  MsgCreateDenom: `/${protobufPackage}.MsgCreateDenom`,
-  MsgMint: `/${protobufPackage}.MsgMint`,
-  MsgSetDenomMetadata: `/${protobufPackage}.MsgSetDenomMetadata`,
-  MsgUpdateModuleParams: `/${protobufPackage}.MsgUpdateModuleParams`,
+export interface TokenFactoryMsgExtension {
+  readonly tokenFactoryMsg: Readonly<{
+    createDenom: (body: MsgCreateDenom) => Promise<MsgCreateDenomResponse>
+    changeAdmin: (body: MsgChangeAdmin) => Promise<MsgChangeAdminResponse>
+    updateModuleParams: (
+      body: MsgUpdateModuleParams
+    ) => Promise<MsgUpdateModuleParamsResponse>
+    mint: (body: MsgMint) => Promise<MsgMintResponse>
+    burn: (body: MsgBurn) => Promise<MsgBurnResponse>
+    setDenomMetadata: (
+      body: MsgSetDenomMetadata
+    ) => Promise<MsgSetDenomMetadataResponse>
+    burnNative: (body: MsgBurnNative) => Promise<MsgBurnNativeResponse>
+  }>
 }
 
-export const tokenfactoryTypes: ReadonlyArray<[string, GeneratedType]> = [
-  [TOKENFACTORY_MSG_TYPE_URLS.MsgBurn, MsgBurn],
-  [TOKENFACTORY_MSG_TYPE_URLS.MsgChangeAdmin, MsgChangeAdmin],
-  [TOKENFACTORY_MSG_TYPE_URLS.MsgCreateDenom, MsgCreateDenom],
-  [TOKENFACTORY_MSG_TYPE_URLS.MsgMint, MsgMint],
-  [TOKENFACTORY_MSG_TYPE_URLS.MsgSetDenomMetadata, MsgSetDenomMetadata],
-  [TOKENFACTORY_MSG_TYPE_URLS.MsgUpdateModuleParams, MsgUpdateModuleParams],
-]
+export const setupTokenFactoryMsgExtension = (
+  base: QueryClient
+): TokenFactoryMsgExtension => {
+  const queryService = new MsgClientImpl(createProtobufRpcClient(base))
 
-export interface MsgBurnEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgBurn>
-}
+  return {
+    tokenFactoryMsg: {
+      createDenom: async (body: MsgCreateDenom) =>
+        queryService.CreateDenom(MsgCreateDenom.fromPartial(body)),
 
-export const isMsgBurnEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === TOKENFACTORY_MSG_TYPE_URLS.MsgBurn
+      changeAdmin: async (body: MsgChangeAdmin) =>
+        queryService.ChangeAdmin(MsgChangeAdmin.fromPartial(body)),
 
-export interface MsgChangeAdminEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgChangeAdmin>
-}
+      updateModuleParams: async (body: MsgUpdateModuleParams) =>
+        queryService.UpdateModuleParams(
+          MsgUpdateModuleParams.fromPartial(body)
+        ),
 
-export const isMsgChangeAdminEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === TOKENFACTORY_MSG_TYPE_URLS.MsgChangeAdmin
+      mint: async (body: MsgMint) =>
+        queryService.Mint(MsgMint.fromPartial(body)),
 
-export interface MsgCreateDenomEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgCreateDenom>
-}
+      burn: async (body: MsgBurn) =>
+        queryService.Burn(MsgBurn.fromPartial(body)),
 
-export const isMsgCreateDenomEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === TOKENFACTORY_MSG_TYPE_URLS.MsgCreateDenom
+      setDenomMetadata: async (body: MsgSetDenomMetadata) =>
+        queryService.SetDenomMetadata(MsgSetDenomMetadata.fromPartial(body)),
 
-export interface MsgMintEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgMint>
-}
-
-export const isMsgMintEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === TOKENFACTORY_MSG_TYPE_URLS.MsgMint
-
-export interface MsgSetDenomMetadataObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgSetDenomMetadata>
-}
-export const isMsgSetDenomMetadataEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === TOKENFACTORY_MSG_TYPE_URLS.MsgSetDenomMetadata
-
-export interface MsgMsgUpdateModuleParamsObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgUpdateModuleParams>
-}
-
-export const isMsgUpdateModuleParamsEncodeObject = (
-  encodeObject: EncodeObject
-) => encodeObject.typeUrl === TOKENFACTORY_MSG_TYPE_URLS.MsgUpdateModuleParams
-
-// ----------------------------------------------------------------------------
-
-export class TokenfactoryMsgFactory {
-  static burn(msg: MsgBurn): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgBurn`,
-      value: MsgBurn.fromPartial(msg),
-    }
-  }
-
-  static changeAdmin(msg: MsgChangeAdmin): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgChangeAdmin`,
-      value: MsgChangeAdmin.fromPartial(msg),
-    }
-  }
-
-  static createDenom(msg: MsgCreateDenom): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgCreateDenom`,
-      value: MsgCreateDenom.fromPartial(msg),
-    }
-  }
-
-  static mint(msg: MsgMint): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgMint`,
-      value: MsgMint.fromPartial(msg),
-    }
-  }
-
-  static setDenomMetadata(msg: MsgSetDenomMetadata): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgSetDenomMetadata`,
-      value: MsgSetDenomMetadata.fromPartial(msg),
-    }
-  }
-
-  static updateModuleParams(msg: MsgUpdateModuleParams): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgMint`,
-      value: MsgUpdateModuleParams.fromPartial(msg),
-    }
+      burnNative: async (body: MsgBurnNative) =>
+        queryService.BurnNative(MsgBurnNative.fromPartial(body)),
+    },
   }
 }

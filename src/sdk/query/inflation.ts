@@ -29,41 +29,31 @@ export interface InflationExtension {
 export const setupInflationExtension = (
   base: QueryClient
 ): InflationExtension => {
-  const rpcClient = createProtobufRpcClient(base)
-  const queryService = new QueryClientImpl(rpcClient)
+  const queryService = new QueryClientImpl(createProtobufRpcClient(base))
 
   return {
     inflation: {
-      period: async () => {
-        const req = QueryPeriodRequest.fromPartial({})
-        const resp = await queryService.Period(req)
-        return resp
-      },
-      epochMintProvision: async () => {
-        const req = QueryEpochMintProvisionRequest.fromPartial({})
-        const resp = await queryService.EpochMintProvision(req)
-        return resp
-      },
-      skippedEpochs: async () => {
-        const req = QuerySkippedEpochsRequest.fromPartial({})
-        const resp = await queryService.SkippedEpochs(req)
-        return resp
-      },
-      circulatingSupply: async () => {
-        const req = QueryCirculatingSupplyRequest.fromPartial({})
-        const resp = await queryService.CirculatingSupply(req)
-        return resp
-      },
-      inflationRate: async () => {
-        const req = QueryInflationRateRequest.fromPartial({})
-        const resp = await queryService.InflationRate(req)
-        return resp
-      },
-      params: async () => {
-        const req = QueryParamsRequest.fromPartial({})
-        const resp = await queryService.Params(req)
-        return resp
-      },
+      circulatingSupply: async () =>
+        queryService.CirculatingSupply(
+          QueryCirculatingSupplyRequest.fromPartial({})
+        ),
+
+      epochMintProvision: async () =>
+        queryService.EpochMintProvision(
+          QueryEpochMintProvisionRequest.fromPartial({})
+        ),
+
+      inflationRate: async () =>
+        queryService.InflationRate(QueryInflationRateRequest.fromPartial({})),
+
+      params: async () =>
+        queryService.Params(QueryParamsRequest.fromPartial({})),
+
+      period: async () =>
+        queryService.Period(QueryPeriodRequest.fromPartial({})),
+
+      skippedEpochs: async () =>
+        queryService.SkippedEpochs(QuerySkippedEpochsRequest.fromPartial({})),
     },
   }
 }
