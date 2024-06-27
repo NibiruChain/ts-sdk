@@ -5,7 +5,7 @@
 <!-- NOTE: Use direct links for external sites that copy these files. -->
 
 <p align="center">
-The official TypeScript SDK for the Nibiru blockchain
+The official TypeScript SDK for the Nibiru blockchain!
 </p>
 
 <div style="display: flex; flex-direction: row; gap: 4px;">
