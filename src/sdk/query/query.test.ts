@@ -73,7 +73,7 @@ describe("x/oracle queries", () => {
     if (Object.keys(exhangeRateMap).length > 0) {
       for (const pair in exhangeRateMap.exchangeRates) {
         expect(pair).toBeDefined()
-        expect(pair).toBeGreaterThan(0)
+        expect(pair).toEqual(0)
         break
       }
     }

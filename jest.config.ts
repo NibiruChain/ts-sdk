@@ -23,7 +23,7 @@ const config: Config = {
     "!**/src/gql/utils/generated.ts",
     "!**/src/sdk/utils/testutil.ts",
   ],
-  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
+  testPathIgnorePatterns: ["/node_modules/", "/dist/", "/nibiru/"],
   coverageReporters: ["json-summary", "text", "html", "lcov"],
   globals: {
     window: {
