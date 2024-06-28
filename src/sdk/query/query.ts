@@ -34,7 +34,21 @@ import {
   hexToBytes,
   setupDevgasExtension,
   DevgasExtension,
+  DevgasMsgExtension,
+  OracleMsgExtension,
+  InflationMsgExtension,
+  SudoMsgExtension,
+  TokenFactoryMsgExtension,
+  setupDevgasMsgExtension,
+  setupInflationMsgExtension,
+  setupOracleMsgExtension,
+  setupSudoMsgExtension,
+  setupTokenFactoryMsgExtension,
 } from ".."
+import {
+  TokenFactoryExtension,
+  setupTokenFactoryExtension,
+} from "./tokenfactory"
 
 export type NibiruExtensions = StargateQueryClient &
   SudoExtension &
@@ -47,7 +61,13 @@ export type NibiruExtensions = StargateQueryClient &
   StakingExtension &
   IbcExtension &
   WasmExtension &
-  AuthExtension
+  AuthExtension &
+  TokenFactoryExtension &
+  DevgasMsgExtension &
+  OracleMsgExtension &
+  InflationMsgExtension &
+  SudoMsgExtension &
+  TokenFactoryMsgExtension
 
 /** Querier for a Nibiru network.
  * @example
@@ -90,7 +110,13 @@ export class NibiruQuerier extends StargateClient {
       setupStakingExtension,
       setupIbcExtension,
       setupWasmExtension,
-      setupAuthExtension
+      setupAuthExtension,
+      setupTokenFactoryExtension,
+      setupDevgasMsgExtension,
+      setupInflationMsgExtension,
+      setupOracleMsgExtension,
+      setupSudoMsgExtension,
+      setupTokenFactoryMsgExtension
     )
   }
 

@@ -3,7 +3,6 @@
  */
 
 export * from "./devgas"
-export * from "./encode-types"
 export * from "./inflation"
 export * from "./oracle"
 export * from "./sudo"

@@ -1,88 +1,49 @@
-import { EncodeObject, GeneratedType } from "@cosmjs/proto-signing"
+import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
 import {
   MsgCancelFeeShare,
+  MsgCancelFeeShareResponse,
+  MsgClientImpl,
   MsgRegisterFeeShare,
+  MsgRegisterFeeShareResponse,
   MsgUpdateFeeShare,
+  MsgUpdateFeeShareResponse,
   MsgUpdateParams,
+  MsgUpdateParamsResponse,
 } from "../../protojs/nibiru/devgas/v1/tx"
-import { TxMessage } from ".."
 
-const protobufPackage = "nibiru.devgas.v1"
-
-export const DEVGAS_MSG_TYPE_URLS = {
-  MsgCancelFeeShare: `/${protobufPackage}.MsgCancelFeeShare`,
-  MsgRegisterFeeShare: `/${protobufPackage}.MsgRegisterFeeShare`,
-  MsgUpdateFeeShare: `/${protobufPackage}.MsgUpdateFeeShare`,
-  MsgUpdateParams: `/${protobufPackage}.MsgUpdateParams`,
+export interface DevgasMsgExtension {
+  readonly devgasMsg: Readonly<{
+    registerFeeShare: (
+      body: MsgRegisterFeeShare
+    ) => Promise<MsgRegisterFeeShareResponse>
+    updateFeeShare: (
+      body: MsgUpdateFeeShare
+    ) => Promise<MsgUpdateFeeShareResponse>
+    cancelFeeShare: (
+      body: MsgCancelFeeShare
+    ) => Promise<MsgCancelFeeShareResponse>
+    updateParams: (body: MsgUpdateParams) => Promise<MsgUpdateParamsResponse>
+  }>
 }
 
-export const devgasTypes: ReadonlyArray<[string, GeneratedType]> = [
-  [DEVGAS_MSG_TYPE_URLS.MsgCancelFeeShare, MsgCancelFeeShare],
-  [DEVGAS_MSG_TYPE_URLS.MsgRegisterFeeShare, MsgRegisterFeeShare],
-  [DEVGAS_MSG_TYPE_URLS.MsgUpdateFeeShare, MsgUpdateFeeShare],
-  [DEVGAS_MSG_TYPE_URLS.MsgUpdateParams, MsgUpdateParams],
-]
+export const setupDevgasMsgExtension = (
+  base: QueryClient
+): DevgasMsgExtension => {
+  const queryService = new MsgClientImpl(createProtobufRpcClient(base))
 
-export interface MsgCancelFeeShareEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgCancelFeeShare>
-}
+  return {
+    devgasMsg: {
+      registerFeeShare: async (body: MsgRegisterFeeShare) =>
+        queryService.RegisterFeeShare(MsgRegisterFeeShare.fromPartial(body)),
 
-export const isMsgCancelFeeShareEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === DEVGAS_MSG_TYPE_URLS.MsgCancelFeeShare
+      updateFeeShare: async (body: MsgUpdateFeeShare) =>
+        queryService.UpdateFeeShare(MsgUpdateFeeShare.fromPartial(body)),
 
-export interface MsgRegisterFeeShareEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgRegisterFeeShare>
-}
+      cancelFeeShare: async (body: MsgCancelFeeShare) =>
+        queryService.CancelFeeShare(MsgCancelFeeShare.fromPartial(body)),
 
-export const isMsgRegisterFeeShareEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === DEVGAS_MSG_TYPE_URLS.MsgRegisterFeeShare
-
-export interface MsgUpdateFeeShareEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgUpdateFeeShare>
-}
-
-export const isMsgUpdateFeeShareEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === DEVGAS_MSG_TYPE_URLS.MsgUpdateFeeShare
-
-export interface MsgUpdateParamsEncodeObject extends EncodeObject {
-  readonly typeUrl: string
-  readonly value: Partial<MsgUpdateParams>
-}
-
-export const isMsgUpdateParamsEncodeObject = (encodeObject: EncodeObject) =>
-  encodeObject.typeUrl === DEVGAS_MSG_TYPE_URLS.MsgUpdateParams
-
-// ----------------------------------------------------------------------------
-
-export class DevgasMsgFactory {
-  static cancelFeeShare(msg: MsgCancelFeeShare): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgCancelFeeShare`,
-      value: MsgCancelFeeShare.fromPartial(msg),
-    }
-  }
-
-  static registerFeeShare(msg: MsgRegisterFeeShare): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgRegisterFeeShare`,
-      value: MsgRegisterFeeShare.fromPartial(msg),
-    }
-  }
-
-  static MsgUpdateFeeShare(msg: MsgUpdateFeeShare): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgUpdateFeeShare`,
-      value: MsgUpdateFeeShare.fromPartial(msg),
-    }
-  }
-
-  static updateParams(msg: MsgUpdateParams): TxMessage {
-    return {
-      typeUrl: `/${protobufPackage}.MsgUpdateParams`,
-      value: MsgUpdateParams.fromPartial(msg),
-    }
+      updateParams: async (body: MsgUpdateParams) =>
+        queryService.UpdateParams(MsgUpdateParams.fromPartial(body)),
+    },
   }
 }
