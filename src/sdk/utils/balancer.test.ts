@@ -1,5 +1,5 @@
 import { BigNumber } from "bignumber.js"
-import { BalancerPool, Swap } from "../balancer"
+import { BalancerPool, Swap } from "./balancer"
 
 describe("balancer tests", () => {
   test("add x", () => {
