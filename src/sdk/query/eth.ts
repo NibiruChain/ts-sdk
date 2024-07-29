@@ -24,7 +24,7 @@ import {
   QueryValidatorAccountRequest,
   QueryValidatorAccountResponse,
 } from "../../protojs/eth/evm/v1/query"
-import { MsgEthereumTxResponse } from "../../protojs/index.eth.evm.v1"
+import { MsgEthereumTxResponse } from "../../protojs/eth/evm/v1/tx"
 
 export interface EthExtension {
   ethAccount: (args: QueryEthAccountRequest) => Promise<QueryEthAccountResponse>
