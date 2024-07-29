@@ -12,6 +12,7 @@ import {
   StargateClientOptions,
   StakingExtension,
   setupStakingExtension,
+  QueryClient,
 } from "@cosmjs/stargate"
 import { Tendermint37Client } from "@cosmjs/tendermint-rpc"
 import {
@@ -44,18 +45,57 @@ import {
   setupOracleMsgExtension,
   setupSudoMsgExtension,
   setupTokenFactoryMsgExtension,
-} from ".."
-import {
+  EthExtension,
+  EthMsgExtension,
+  setupEthExtension,
+  setupEthMsgExtension,
   TokenFactoryExtension,
   setupTokenFactoryExtension,
-} from "./tokenfactory"
+} from ".."
+
+export interface MsgExtension {
+  readonly msg: Readonly<{
+    ethMsg: EthMsgExtension
+    tokenFactoryMsg: TokenFactoryMsgExtension
+    sudoMsg: SudoMsgExtension
+    inflationMsg: InflationMsgExtension
+    oracleMsg: OracleMsgExtension
+    devgasMsg: DevgasMsgExtension
+  }>
+  readonly query: Readonly<{
+    devgas: DevgasExtension
+    epochs: EpochsExtension
+    eth: EthExtension
+    inflation: InflationExtension
+    oracle: OracleExtension
+    sudo: SudoExtension
+    tokenFactory: TokenFactoryExtension
+  }>
+}
+
+export const setupMsgExtension = (base: QueryClient): MsgExtension => {
+  return {
+    msg: {
+      ethMsg: setupEthMsgExtension(base),
+      tokenFactoryMsg: setupTokenFactoryMsgExtension(base),
+      sudoMsg: setupSudoMsgExtension(base),
+      inflationMsg: setupInflationMsgExtension(base),
+      oracleMsg: setupOracleMsgExtension(base),
+      devgasMsg: setupDevgasMsgExtension(base),
+    },
+    query: {
+      devgas: setupDevgasExtension(base),
+      epochs: setupEpochsExtension(base),
+      eth: setupEthExtension(base),
+      inflation: setupInflationExtension(base),
+      oracle: setupOracleExtension(base),
+      sudo: setupSudoExtension(base),
+      tokenFactory: setupTokenFactoryExtension(base),
+    },
+  }
+}
 
 export type NibiruExtensions = StargateQueryClient &
-  SudoExtension &
-  InflationExtension &
-  OracleExtension &
-  EpochsExtension &
-  DevgasExtension &
   DistributionExtension &
   GovExtension &
   StakingExtension &
@@ -63,11 +103,7 @@ export type NibiruExtensions = StargateQueryClient &
   WasmExtension &
   AuthExtension &
   TokenFactoryExtension &
-  DevgasMsgExtension &
-  OracleMsgExtension &
-  InflationMsgExtension &
-  SudoMsgExtension &
-  TokenFactoryMsgExtension
+  MsgExtension
 
 /** Querier for a Nibiru network.
  * @example
@@ -102,6 +138,7 @@ export class NibiruQuerier extends StargateClient {
       tmClient,
       setupDevgasExtension,
       setupEpochsExtension,
+      setupEthExtension,
       setupOracleExtension,
       setupSudoExtension,
       setupInflationExtension,
@@ -112,11 +149,7 @@ export class NibiruQuerier extends StargateClient {
       setupWasmExtension,
       setupAuthExtension,
       setupTokenFactoryExtension,
-      setupDevgasMsgExtension,
-      setupInflationMsgExtension,
-      setupOracleMsgExtension,
-      setupSudoMsgExtension,
-      setupTokenFactoryMsgExtension
+      setupMsgExtension
     )
   }
 

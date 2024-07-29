@@ -4,6 +4,7 @@
 
 export * from "./devgas"
 export * from "./epochs"
+export * from "./eth"
 export * from "./inflation"
 export * from "./oracle"
 export * from "./query"
