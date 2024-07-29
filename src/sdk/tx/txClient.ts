@@ -17,22 +17,7 @@ import {
   SigningCosmWasmClientOptions,
   setupWasmExtension,
 } from "@cosmjs/cosmwasm-stargate"
-import {
-  setupInflationExtension,
-  setupSudoExtension,
-  NibiruExtensions,
-  setupOracleExtension,
-  setupEpochsExtension,
-  setupDevgasExtension,
-  setupTokenFactoryExtension,
-  setupDevgasMsgExtension,
-  setupInflationMsgExtension,
-  setupOracleMsgExtension,
-  setupSudoMsgExtension,
-  setupTokenFactoryMsgExtension,
-  setupEthExtension,
-  setupEthMsgExtension,
-} from ".."
+import { NibiruExtensions, setupNibiruExtension } from ".."
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
   ...defaultRegistryTypes,
@@ -52,25 +37,13 @@ export class NibiruTxClient extends SigningStargateClient {
     this.wasmClient = wasm
     this.nibiruExtensions = QueryClient.withExtensions(
       tmClient,
-      setupDevgasExtension,
-      setupEpochsExtension,
-      setupEthExtension,
-      setupOracleExtension,
-      setupSudoExtension,
-      setupInflationExtension,
       setupDistributionExtension,
       setupGovExtension,
       setupStakingExtension,
       setupIbcExtension,
       setupWasmExtension,
       setupAuthExtension,
-      setupTokenFactoryExtension,
-      setupDevgasMsgExtension,
-      setupEthMsgExtension,
-      setupInflationMsgExtension,
-      setupOracleMsgExtension,
-      setupSudoMsgExtension,
-      setupTokenFactoryMsgExtension
+      setupNibiruExtension
     )
   }
 

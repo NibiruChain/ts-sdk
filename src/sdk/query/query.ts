@@ -53,7 +53,7 @@ import {
   setupTokenFactoryExtension,
 } from ".."
 
-export interface MsgExtension {
+export interface NibiruExtension {
   readonly msg: Readonly<{
     ethMsg: EthMsgExtension
     tokenFactoryMsg: TokenFactoryMsgExtension
@@ -73,7 +73,7 @@ export interface MsgExtension {
   }>
 }
 
-export const setupMsgExtension = (base: QueryClient): MsgExtension => {
+export const setupNibiruExtension = (base: QueryClient): NibiruExtension => {
   return {
     msg: {
       ethMsg: setupEthMsgExtension(base),
@@ -102,8 +102,7 @@ export type NibiruExtensions = StargateQueryClient &
   IbcExtension &
   WasmExtension &
   AuthExtension &
-  TokenFactoryExtension &
-  MsgExtension
+  NibiruExtension
 
 /** Querier for a Nibiru network.
  * @example
@@ -136,20 +135,13 @@ export class NibiruQuerier extends StargateClient {
     this.tm = tmClient
     this.nibiruExtensions = StargateQueryClient.withExtensions(
       tmClient,
-      setupDevgasExtension,
-      setupEpochsExtension,
-      setupEthExtension,
-      setupOracleExtension,
-      setupSudoExtension,
-      setupInflationExtension,
       setupDistributionExtension,
       setupGovExtension,
       setupStakingExtension,
       setupIbcExtension,
       setupWasmExtension,
       setupAuthExtension,
-      setupTokenFactoryExtension,
-      setupMsgExtension
+      setupNibiruExtension
     )
   }
 
