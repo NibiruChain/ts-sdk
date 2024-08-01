@@ -4,11 +4,9 @@ import {
   GovernanceFields,
   IbcFields,
   OracleFields,
-  GQLPerpFields,
   QueryGovernanceArgs,
   QueryIbcArgs,
   QueryOracleArgs,
-  QueryPerpArgs,
   QueryStatsArgs,
   GQLStatsFields,
   communityPoolQueryString,
@@ -24,20 +22,11 @@ import {
   defaultGovVote,
   defaultIbcChannelsResponse,
   defaultIbcTransfer,
-  defaultMarkPriceCandles,
   defaultOracleEntry,
   defaultOraclePrice,
-  defaultPerpLeaderboard,
-  defaultPerpMarket,
   defaultPerpOpenInterest,
   defaultPerpPnl,
-  defaultPerpPosition,
-  defaultPerpPositionChanges,
-  defaultPool,
   defaultRedelegations,
-  defaultSpotLpPosition,
-  defaultSpotPool,
-  defaultSpotPoolSwap,
   defaultStatsFees,
   defaultToken,
   defaultTotals,
@@ -49,30 +38,11 @@ import {
   defaultValidator,
   defaultVolume,
   GQLDistributionCommission,
-  GQLMarkPriceCandle,
   GQLOraclePrice,
-  GQLPerpMarket,
-  GQLPerpPosition,
   GQLQueryGqlCommunityPoolArgs,
   GQLQueryGqlDistributionCommissionsArgs,
-  GQLQueryGqlMarkPriceCandlesArgs,
-  GQLQueryGqlSpotLpPositionsArgs,
-  GQLQueryGqlSpotPoolCreatedArgs,
-  GQLQueryGqlSpotPoolExitedArgs,
-  GQLQueryGqlSpotPoolJoinedArgs,
-  GQLQueryGqlSpotPoolSwapArgs,
-  GQLQueryGqlSpotPoolsArgs,
   GQLQueryGqlUsersArgs,
-  GQLSpotLpPosition,
-  GQLSpotPool,
-  GQLSpotPoolCreated,
-  GQLSpotPoolExited,
-  GQLSpotPoolJoined,
-  GQLSpotPoolSwap,
-  GQLSubscriptionGqlMarkPriceCandlesArgs,
   GQLSubscriptionGqlOraclePricesArgs,
-  GQLSubscriptionGqlPerpMarketArgs,
-  GQLSubscriptionGqlPerpPositionsArgs,
   GQLToken,
   GQLUser,
   InflationFields,
@@ -92,6 +62,7 @@ import {
   GQLValidatorOrder,
   GQLQueryGqlUserArgs,
 } from ".."
+import { Client } from "graphql-ws"
 
 const nibiruUrl = "testnet-1"
 
@@ -141,6 +112,12 @@ const testCommunityPool = async (
     checkFields([communityPool], ["amount", "denom"])
   }
 }
+
+test("closeWebSocket - no dispose", async () => {
+  const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
+  await hm.closeWebSocket()
+  expect(hm.subscriptionClient).toEqual(undefined)
+})
 
 test("communityPool", async () => {
   await testCommunityPool({}, defaultToken)
@@ -228,19 +205,51 @@ test.skip("governance", async () => {
 
 const testIbc = async (args: QueryIbcArgs, fields: IbcFields) => {
   const resp = await heartMonitor.ibc(args, fields)
-  expect(resp).toHaveProperty("ibc")
+  if (fields.ibcChannels || fields.ibcTransfers) {
+    expect(resp).toHaveProperty("ibc")
 
-  if (resp.ibc) {
-    const { ibc } = resp
+    if (resp.ibc) {
+      const { ibc } = resp
 
-    checkFields(
-      [ibc],
-      [...(args.ibcChannels ? ["ibcChannels"] : []), "ibcTransfers"]
-    )
+      checkFields(
+        [ibc],
+        [
+          ...(args.ibcChannels ? ["ibcChannels"] : []),
+          ...(args.ibcTransfers ? ["ibcTransfers"] : []),
+        ]
+      )
+    }
+  } else {
+    expect((resp as unknown as { data: null }).data).toBe(null)
   }
 }
 
 test("ibc", async () => {
+  await testIbc(
+    {},
+    {
+      ibcChannels: defaultIbcChannelsResponse,
+      ibcTransfers: defaultIbcTransfer,
+    }
+  )
+  await testIbc(
+    {
+      ibcTransfers: {
+        limit: 1,
+      },
+    },
+    {
+      ibcTransfers: defaultIbcTransfer,
+    }
+  )
+  await testIbc(
+    {
+      ibcChannels: undefined,
+    },
+    {
+      ibcChannels: defaultIbcChannelsResponse,
+    }
+  )
   await testIbc(
     {
       ibcChannels: undefined,
@@ -248,17 +257,7 @@ test("ibc", async () => {
         limit: 1,
       },
     },
-    {
-      ibcChannels: defaultIbcChannelsResponse,
-      ibcTransfers: defaultIbcTransfer,
-    }
-  )
-  await testIbc(
-    {},
-    {
-      ibcChannels: defaultIbcChannelsResponse,
-      ibcTransfers: defaultIbcTransfer,
-    }
+    {}
   )
 })
 
@@ -288,6 +287,15 @@ test("inflation", async () => {
       rewards: defaultInflationReward,
     }
   )
+
+  await testInflation(
+    { inflations: { limit: 1 }, distributions: { limit: 1 } },
+    {
+      inflations: defaultInflationInfo,
+      distributions: defaultInflationDistribution,
+      rewards: defaultInflationReward,
+    }
+  )
 })
 
 const testOracle = async (args: QueryOracleArgs, fields: OracleFields) => {
@@ -300,76 +308,6 @@ const testOracle = async (args: QueryOracleArgs, fields: OracleFields) => {
     checkFields([oracle], ["oraclePrices", "oracles"])
   }
 }
-
-const testMarkPriceCandles = async (
-  args: GQLQueryGqlMarkPriceCandlesArgs,
-  fields: GQLMarkPriceCandle
-) => {
-  const resp = await heartMonitor.markPriceCandles(args, fields)
-  expect(resp).toHaveProperty("markPriceCandles")
-
-  if ((resp.markPriceCandles?.length ?? 0) > 0) {
-    const [markPriceCandle] = resp.markPriceCandles ?? []
-
-    checkFields(
-      [markPriceCandle],
-      ["close", "high", "low", "open", "pair", "period", "periodStartTs"]
-    )
-  }
-}
-
-test.skip("markPriceCandles", async () => {
-  await testMarkPriceCandles({}, defaultMarkPriceCandles)
-})
-
-test.skip("markPriceCandlesSubscription undefined client", async () => {
-  const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
-  const resp = await hm.markPriceCandlesSubscription(
-    {
-      where: {
-        pairEq: "ubtc:unusd",
-        periodEq: 100000000,
-      },
-      limit: 1,
-    },
-    defaultMarkPriceCandles
-  )
-
-  expect(resp).toBeUndefined()
-})
-
-const testMarkPriceCandlesSubscription = async (
-  args: GQLSubscriptionGqlMarkPriceCandlesArgs,
-  fields: GQLMarkPriceCandle
-) => {
-  const resp = await heartMonitor.markPriceCandlesSubscription(args, fields)
-
-  const event = await resp?.next()
-
-  expect(event?.value.data).toHaveProperty("markPriceCandles")
-
-  if ((event?.value.data.markPriceCandles.length ?? 0) > 0) {
-    const [markPriceCandle] = event?.value.data.markPriceCandles ?? []
-
-    checkFields(
-      [markPriceCandle],
-      ["close", "high", "low", "open", "pair", "period", "periodStartTs"]
-    )
-  }
-}
-
-test.skip("markPriceCandlesSubscription", async () => {
-  await testMarkPriceCandlesSubscription(
-    {
-      limit: 1,
-      where: {
-        pairEq: "ubtc:unusd",
-        periodEq: 100000000,
-      },
-    },
-    defaultMarkPriceCandles
-  )
-})
 
 test("oracle", async () => {
   await testOracle(
@@ -433,208 +371,6 @@ test.skip("oraclePricesSubscription", async () => {
   )
 })
 
-const testPerp = async (args: QueryPerpArgs, fields: GQLPerpFields) => {
-  const resp = await heartMonitor.perp(args, fields)
-  expect(resp).toHaveProperty("perp")
-
-  if (resp.GQLPerp) {
-    const { GQLPerp } = resp
-
-    checkFields(
-      [GQLPerp],
-      [
-        "leaderboard",
-        "market",
-        "markets",
-        "position",
-        "positionChanges",
-        "positions",
-      ]
-    )
-  }
-}
-
-test.skip("perp", async () => {
-  await testPerp(
-    {
-      leaderboard: {
-        limit: 1,
-      },
-      market: {
-        where: {
-          pair: "ubtc:unusd",
-        },
-      },
-      markets: {
-        limit: 1,
-      },
-      position: {
-        where: {
-          pair: "ubtc:unusd",
-          trader_address: "nibi1judn9xtel563nmq0ghpvmkqvyd5wnkm30mvkk3",
-        },
-      },
-      positions: {
-        limit: 1,
-      },
-      positionChanges: {
-        limit: 1,
-        where: {
-          traderAddressEq: "nibi1judn9xtel563nmq0ghpvmkqvyd5wnkm30mvkk3",
-        },
-      },
-    },
-    {
-      leaderboard: defaultPerpLeaderboard,
-      market: defaultPerpMarket,
-      markets: defaultPerpMarket,
-      position: defaultPerpPosition,
-      positions: defaultPerpPosition,
-      positionChanges: defaultPerpPositionChanges,
-    }
-  )
-
-  // Note: This is because market and position do not exist
-  const resp = await heartMonitor.perp(
-    {},
-    {
-      leaderboard: defaultPerpLeaderboard,
-      markets: defaultPerpMarket,
-      positions: defaultPerpPosition,
-    }
-  )
-  expect(resp).toHaveProperty("perp")
-
-  if (resp.GQLPerp) {
-    const { GQLPerp } = resp
-
-    checkFields([GQLPerp], ["leaderboard", "markets", "positions"])
-  }
-})
-
-test("perpMarketSubscription undefined client", async () => {
-  const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
-  const resp = await hm.perpMarketSubscription(
-    {
-      where: { pair: "ubtc:unusd" },
-    },
-    defaultPerpMarket
-  )
-
-  expect(resp).toBeUndefined()
-})
-
-const testPerpMarketSubscription = async (
-  args: GQLSubscriptionGqlPerpMarketArgs,
-  fields: GQLPerpMarket
-) => {
-  const resp = await heartMonitor.perpMarketSubscription(args, fields)
-
-  const event = await resp?.next()
-
-  expect(event?.value.data).toHaveProperty("perpMarket")
-  if (event?.value.data.perpMarket) {
-    const { perpMarket } = event.value.data
-
-    checkFields(
-      [perpMarket],
-      [
-        "pair",
-        "enabled",
-        "maintenance_margin_ratio",
-        "max_leverage",
-        "latest_cumulative_premium_fraction",
-        "exchange_fee_ratio",
-        "ecosystem_fund_fee_ratio",
-        "max_funding_rate",
-        "liquidation_fee_ratio",
-        "partial_liquidation_ratio",
-        "funding_rate_epoch_id",
-        "twap_lookback_window",
-        "prepaid_bad_debt",
-        "base_reserve",
-        "quote_reserve",
-        "sqrt_depth",
-        "price_multiplier",
-        "total_long",
-        "total_short",
-        "mark_price",
-        "mark_price_twap",
-        "index_price_twap",
-        "is_deleted",
-      ]
-    )
-  }
-}
-
-test.skip("perpMarketSubscription", async () => {
-  await testPerpMarketSubscription(
-    {
-      where: { pair: "ubtc:unusd" },
-    },
-    defaultPerpMarket
-  )
-})
-
-test("perpPositionsSubscription undefined client", async () => {
-  const hm = new HeartMonitor(`https://hm-graphql.${nibiruUrl}.nibiru.fi/query`)
-  const resp = await hm.perpPositionsSubscription(
-    {
-      where: {
-        pair: "ubtc:unusd",
-        trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
-      },
-    },
-    defaultPerpPosition
-  )
-
-  expect(resp).toBeUndefined()
-})
-
-const testPerpPositionsSubscription = async (
-  args: GQLSubscriptionGqlPerpPositionsArgs,
-  fields: GQLPerpPosition
-) => {
-  const resp = await heartMonitor.perpPositionsSubscription(args, fields)
-
-  const event = await resp?.next()
-
-  expect(event?.value.data).toHaveProperty("perpPositions")
-  if ((event?.value.data.perpPositions.length ?? 0) > 0) {
-    const [perpPositions] = event?.value.data.perpPositions ?? []
-
-    checkFields(
-      [perpPositions],
-      [
-        "pair",
-        "trader_address",
-        "size",
-        "margin",
-        "open_notional",
-        "position_notional",
-        "latest_cumulative_premium_fraction",
-        "unrealized_pnl",
-        "unrealized_funding_payment",
-        "margin_ratio",
-        "bad_debt",
-        "last_updated_block",
-      ]
-    )
-  }
-}
-
-test.skip("perpPositionsSubscription", async () => {
-  await testPerpPositionsSubscription(
-    {
-      where: {
-        pair: "ubtc:unusd",
-        trader_address: "nibi14garegtvsx3zcku4esd30xd2pze7ck44ysxeg3",
-      },
-    },
-    defaultPerpPosition
-  )
-})
-
 const testProxies = async (fields: GQLProxies) => {
   const resp = await heartMonitor.proxies(fields)
   expect(resp).toHaveProperty("proxies")
@@ -679,134 +415,6 @@ test("queryBatchHandler", async () => {
   }
 })
 
-const testSpotLpPositions = async (
-  args: GQLQueryGqlSpotLpPositionsArgs,
-  fields: GQLSpotLpPosition
-) => {
-  const resp = await heartMonitor.spotLpPositions(args, fields)
-  expect(resp).toHaveProperty("spotLpPositions")
-
-  if ((resp.spotLpPositions?.length ?? 0) > 0) {
-    const [spotLpPositions] = resp.spotLpPositions ?? []
-
-    checkFields(
-      [spotLpPositions],
-      ["pool", "user", "pool_shares", "created_block"]
-    )
-  }
-}
-
-test("spotLpPositions", async () => {
-  await testSpotLpPositions({}, defaultSpotLpPosition)
-})
-
-const testSpotPoolCreated = async (
-  args: GQLQueryGqlSpotPoolCreatedArgs,
-  fields: GQLSpotPoolCreated
-) => {
-  const resp = await heartMonitor.spotPoolCreated(args, fields)
-  expect(resp).toHaveProperty("spotPoolCreated")
-
-  if ((resp.spotPoolCreated?.length ?? 0) > 0) {
-    const [spotPoolCreated] = resp.spotPoolCreated ?? []
-
-    checkFields([spotPoolCreated], ["user", "block", "pool", "pool_shares"])
-  }
-}
-
-test("spotPoolCreated", async () => {
-  await testSpotPoolCreated({}, defaultSpotPool)
-})
-
-const testSpotPoolExited = async (
-  args: GQLQueryGqlSpotPoolExitedArgs,
-  fields: GQLSpotPoolExited
-) => {
-  const resp = await heartMonitor.spotPoolExited(args, fields)
-  expect(resp).toHaveProperty("spotPoolExited")
-
-  if ((resp.spotPoolExited?.length ?? 0) > 0) {
-    const [spotPoolExited] = resp.spotPoolExited ?? []
-
-    checkFields([spotPoolExited], ["user", "block", "pool", "pool_shares"])
-  }
-}
-
-test("spotPoolExited", async () => {
-  await testSpotPoolExited({}, defaultSpotPool)
-})
-
-const testSpotPoolJoined = async (
-  args: GQLQueryGqlSpotPoolJoinedArgs,
-  fields: GQLSpotPoolJoined
-) => {
-  const resp = await heartMonitor.spotPoolJoined(args, fields)
-  expect(resp).toHaveProperty("spotPoolJoined")
-
-  if ((resp.spotPoolJoined?.length ?? 0) > 0) {
-    const [spotPoolJoined] = resp.spotPoolJoined ?? []
-
-    checkFields([spotPoolJoined], ["user", "block", "pool", "pool_shares"])
-  }
-}
-
-test("spotPoolJoined", async () => {
-  await testSpotPoolJoined({}, defaultSpotPool)
-})
-
-const testSpotPools = async (
-  args: GQLQueryGqlSpotPoolsArgs,
-  fields: GQLSpotPool
-) => {
-  const resp = await heartMonitor.spotPools(args, fields)
-  expect(resp).toHaveProperty("spotPools")
-
-  if ((resp.spotPools?.length ?? 0) > 0) {
-    const [spotPools] = resp.spotPools ?? []
-
-    checkFields(
-      [spotPools],
-      [
-        "pool_id",
-        "pool_type",
-        "swap_fee",
-        "exit_fee",
-        "amplification",
-        "tokens",
-        "weights",
-        "total_weight",
-        "total_shares",
-        "created_block",
-      ]
-    )
-  }
-}
-
-test("spotPools", async () => {
-  await testSpotPools({}, defaultPool)
-})
-
-const testSpotPoolSwap = async (
-  args: GQLQueryGqlSpotPoolSwapArgs,
-  fields: GQLSpotPoolSwap
-) => {
-  const resp = await heartMonitor.spotPoolSwap(args, fields)
-  expect(resp).toHaveProperty("spotPoolSwap")
-
-  if ((resp.spotPoolSwap?.length ?? 0) > 0) {
-    const [spotPoolSwap] = resp.spotPoolSwap ?? []
-
-    checkFields(
-      [spotPoolSwap],
-      ["user", "block", "token_in", "token_out", "pool"]
-    )
-  }
-}
-
-test("spotPoolSwap", async () => {
-  await testSpotPoolSwap({}, defaultSpotPoolSwap)
-})
-
 const testStats = async (args: QueryStatsArgs, fields: GQLStatsFields) => {
   const resp = await heartMonitor.stats(args, fields)
   expect(resp).toHaveProperty("stats")
@@ -846,7 +454,7 @@ const testStaking = async (
   }
 }
 
-test.skip("staking", async () => {
+test("staking", async () => {
   await testStaking(
     {
       delegations: {
@@ -883,13 +491,7 @@ test.skip("staking", async () => {
     }
   )
   await testStaking(
-    {
-      delegations: {},
-      history: {},
-      redelegations: {},
-      unbondings: {},
-      validators: {},
-    },
+    {},
     {
       delegations: defaultDelegations,
       redelegations: defaultRedelegations,
