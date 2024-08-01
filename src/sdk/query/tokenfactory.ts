@@ -10,11 +10,9 @@ import {
 } from "../../protojs/nibiru/tokenfactory/v1/query"
 
 export interface TokenFactoryExtension {
-  readonly tokenFactory: Readonly<{
-    denomInfo: (body: QueryDenomInfoRequest) => Promise<QueryDenomInfoResponse>
-    denoms: (body: QueryDenomsRequest) => Promise<QueryDenomsResponse>
-    params: (body: QueryParamsRequest) => Promise<QueryParamsResponse>
-  }>
+  denomInfo: (body: QueryDenomInfoRequest) => Promise<QueryDenomInfoResponse>
+  denoms: (body: QueryDenomsRequest) => Promise<QueryDenomsResponse>
+  params: (body: QueryParamsRequest) => Promise<QueryParamsResponse>
 }
 
 export const setupTokenFactoryExtension = (
@@ -23,15 +21,12 @@ export const setupTokenFactoryExtension = (
   const queryService = new QueryClientImpl(createProtobufRpcClient(base))
 
   return {
-    tokenFactory: {
-      denomInfo: async (body: QueryDenomInfoRequest) =>
-        queryService.DenomInfo(QueryDenomInfoRequest.fromPartial(body)),
+    denomInfo: async (body: QueryDenomInfoRequest) =>
+      queryService.DenomInfo(QueryDenomInfoRequest.fromPartial(body)),
 
-      denoms: async (body: QueryDenomsRequest) =>
-        queryService.Denoms(QueryDenomsRequest.fromPartial(body)),
+    denoms: async (body: QueryDenomsRequest) =>
+      queryService.Denoms(QueryDenomsRequest.fromPartial(body)),
 
-      params: async () =>
-        queryService.Params(QueryParamsRequest.fromPartial({})),
-    },
+    params: async () => queryService.Params(QueryParamsRequest.fromPartial({})),
   }
 }

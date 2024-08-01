@@ -3,6 +3,7 @@
  */
 
 export * from "./devgas"
+export * from "./eth"
 export * from "./inflation"
 export * from "./oracle"
 export * from "./sudo"

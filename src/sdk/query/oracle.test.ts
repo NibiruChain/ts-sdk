@@ -57,18 +57,18 @@ describe("setupOracleExtension", () => {
   test("should setup oracle extension correctly", () => {
     const extension = setupOracleExtension(mockBaseQueryClient)
 
-    expect(extension.oracle).toBeDefined()
-    expect(extension.oracle.actives).toBeInstanceOf(Function)
-    expect(extension.oracle.aggregatePrevote).toBeInstanceOf(Function)
-    expect(extension.oracle.aggregatePrevotes).toBeInstanceOf(Function)
-    expect(extension.oracle.aggregateVote).toBeInstanceOf(Function)
-    expect(extension.oracle.aggregateVotes).toBeInstanceOf(Function)
-    expect(extension.oracle.exchangeRate).toBeInstanceOf(Function)
-    expect(extension.oracle.exchangeRates).toBeInstanceOf(Function)
-    expect(extension.oracle.feederDelegation).toBeInstanceOf(Function)
-    expect(extension.oracle.missCounter).toBeInstanceOf(Function)
-    expect(extension.oracle.params).toBeInstanceOf(Function)
-    expect(extension.oracle.voteTargets).toBeInstanceOf(Function)
+    expect(extension).toBeDefined()
+    expect(extension.actives).toBeInstanceOf(Function)
+    expect(extension.aggregatePrevote).toBeInstanceOf(Function)
+    expect(extension.aggregatePrevotes).toBeInstanceOf(Function)
+    expect(extension.aggregateVote).toBeInstanceOf(Function)
+    expect(extension.aggregateVotes).toBeInstanceOf(Function)
+    expect(extension.exchangeRate).toBeInstanceOf(Function)
+    expect(extension.exchangeRates).toBeInstanceOf(Function)
+    expect(extension.feederDelegation).toBeInstanceOf(Function)
+    expect(extension.missCounter).toBeInstanceOf(Function)
+    expect(extension.params).toBeInstanceOf(Function)
+    expect(extension.voteTargets).toBeInstanceOf(Function)
   })
 
   jest.spyOn(query, "QueryClientImpl").mockReturnValue({
@@ -94,7 +94,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryActivesRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.actives()
+      const result = await extension.actives()
 
       expect(queryActiveRequest).toHaveBeenCalledWith({})
       expect(result).toEqual(mockActivesResponse)
@@ -108,7 +108,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryAggregatePrevoteRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.aggregatePrevote({
+      const result = await extension.aggregatePrevote({
         validatorAddr: "1234567",
       })
 
@@ -126,7 +126,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryAggregatePrevotesRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.aggregatePrevotes()
+      const result = await extension.aggregatePrevotes()
 
       expect(queryAggregatePrevotesRequest).toHaveBeenCalledWith({})
       expect(result).toEqual(mockAggregatePrevotesResponse)
@@ -140,7 +140,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryAggregateVoteRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.aggregateVote({
+      const result = await extension.aggregateVote({
         validatorAddr: "1234567",
       })
 
@@ -158,7 +158,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryAggregateVotesRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.aggregateVotes()
+      const result = await extension.aggregateVotes()
 
       expect(queryAggregateVotesRequest).toHaveBeenCalledWith({})
       expect(result).toEqual(mockAggregateVotesResponse)
@@ -172,7 +172,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryExchangeRateRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.exchangeRate({ pair: "PAIR" })
+      const result = await extension.exchangeRate({ pair: "PAIR" })
 
       expect(queryExchangeRateRequest).toHaveBeenCalledWith({ pair: "PAIR" })
       expect(fromSdkDec(result.exchangeRate)).toEqual(mockExchangeRate)
@@ -186,7 +186,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryExchangeRatesRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.exchangeRates()
+      const result = await extension.exchangeRates()
 
       expect(queryExchangeRatesRequest).toHaveBeenCalledWith({})
       expect(result.exchangeRates[0]).toEqual({
@@ -203,7 +203,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryFeederDelegationRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.feederDelegation({
+      const result = await extension.feederDelegation({
         validatorAddr: "oracle",
       })
 
@@ -221,7 +221,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryMissCounterRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.missCounter({
+      const result = await extension.missCounter({
         validatorAddr: "oracle",
       })
 
@@ -239,7 +239,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryParamsRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.params()
+      const result = await extension.params()
 
       expect(queryParamsRequest).toHaveBeenCalledWith({})
       expect(result).toEqual(mockParamsResponse)
@@ -253,7 +253,7 @@ describe("setupOracleExtension", () => {
         .mockReturnValue({} as query.QueryVoteTargetsRequest)
 
       const extension = setupOracleExtension(mockBaseQueryClient)
-      const result = await extension.oracle.voteTargets()
+      const result = await extension.voteTargets()
 
       expect(queryVoteTargetsRequest).toHaveBeenCalledWith({})
       expect(result).toEqual(mockVoteTargetsResponse)
