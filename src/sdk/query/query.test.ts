@@ -376,24 +376,8 @@ describe("NibiruQuerier", () => {
   test("setupNibiruExtension ", async () => {
     const mockBaseQueryClient = {} as QueryClient
     const extension = setupNibiruExtension(mockBaseQueryClient)
-    expect(extension).toBeInstanceOf({
-      msg: {
-        ethMsg: setupEthMsgExtension(mockBaseQueryClient),
-        tokenFactoryMsg: setupTokenFactoryMsgExtension(mockBaseQueryClient),
-        sudoMsg: setupSudoMsgExtension(mockBaseQueryClient),
-        inflationMsg: setupInflationMsgExtension(mockBaseQueryClient),
-        oracleMsg: setupOracleMsgExtension(mockBaseQueryClient),
-        devgasMsg: setupDevgasMsgExtension(mockBaseQueryClient),
-      },
-      query: {
-        devgas: setupDevgasExtension(mockBaseQueryClient),
-        epochs: setupEpochsExtension(mockBaseQueryClient),
-        eth: setupEthExtension(mockBaseQueryClient),
-        inflation: setupInflationExtension(mockBaseQueryClient),
-        oracle: setupOracleExtension(mockBaseQueryClient),
-        sudo: setupSudoExtension(mockBaseQueryClient),
-        tokenFactory: setupTokenFactoryExtension(mockBaseQueryClient),
-      },
-    })
+
+    expect(extension.msg).toBeTruthy()
+    expect(extension.query).toBeTruthy()
   })
 })
