@@ -1,5 +1,5 @@
 import fs from "fs"
-import { Block, coins } from "@cosmjs/stargate"
+import { Block, coins, QueryClient } from "@cosmjs/stargate"
 import Long from "long"
 import { fetch } from "cross-fetch"
 import {
@@ -12,6 +12,20 @@ import {
   assertExpectedError,
   newSignerFromMnemonic,
   NibiruTxClient,
+  setupNibiruExtension,
+  setupDevgasExtension,
+  setupDevgasMsgExtension,
+  setupEpochsExtension,
+  setupEthExtension,
+  setupEthMsgExtension,
+  setupInflationExtension,
+  setupInflationMsgExtension,
+  setupOracleExtension,
+  setupOracleMsgExtension,
+  setupSudoExtension,
+  setupSudoMsgExtension,
+  setupTokenFactoryExtension,
+  setupTokenFactoryMsgExtension,
 } from ".."
 
 interface BlockResp {
@@ -357,5 +371,29 @@ describe("NibiruQuerier", () => {
     )
 
     expect(result.isErr()).toEqual(true)
+  })
+
+  test("setupNibiruExtension ", async () => {
+    const mockBaseQueryClient = {} as QueryClient
+    const extension = setupNibiruExtension(mockBaseQueryClient)
+    expect(extension).toBeInstanceOf({
+      msg: {
+        ethMsg: setupEthMsgExtension(mockBaseQueryClient),
+        tokenFactoryMsg: setupTokenFactoryMsgExtension(mockBaseQueryClient),
+        sudoMsg: setupSudoMsgExtension(mockBaseQueryClient),
+        inflationMsg: setupInflationMsgExtension(mockBaseQueryClient),
+        oracleMsg: setupOracleMsgExtension(mockBaseQueryClient),
+        devgasMsg: setupDevgasMsgExtension(mockBaseQueryClient),
+      },
+      query: {
+        devgas: setupDevgasExtension(mockBaseQueryClient),
+        epochs: setupEpochsExtension(mockBaseQueryClient),
+        eth: setupEthExtension(mockBaseQueryClient),
+        inflation: setupInflationExtension(mockBaseQueryClient),
+        oracle: setupOracleExtension(mockBaseQueryClient),
+        sudo: setupSudoExtension(mockBaseQueryClient),
+        tokenFactory: setupTokenFactoryExtension(mockBaseQueryClient),
+      },
+    })
   })
 })

@@ -27,6 +27,7 @@ export const setupTokenFactoryExtension = (
     denoms: async (body: QueryDenomsRequest) =>
       queryService.Denoms(QueryDenomsRequest.fromPartial(body)),
 
-    params: async () => queryService.Params(QueryParamsRequest.fromPartial({})),
+    params: async (body: QueryParamsRequest) =>
+      queryService.Params(QueryParamsRequest.fromPartial(body)),
   }
 }

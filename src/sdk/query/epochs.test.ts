@@ -14,7 +14,7 @@ describe("setupEpochsExtension", () => {
     }),
   } as unknown as query.QueryClientImpl)
 
-  test("should setup epochs extension correctly", () => {
+  test("should setup extension correctly", () => {
     const extension = setupEpochsExtension(mockBaseQueryClient)
 
     expect(extension).toBeDefined()

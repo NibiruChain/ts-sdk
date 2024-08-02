@@ -1,7 +1,7 @@
 import Long from "long"
 import { QueryClient } from "@cosmjs/stargate"
 import * as query from "../../protojs/nibiru/oracle/v1/query"
-import { fromSdkDec, setupOracleExtension, toSdkDec } from ".."
+import { fromSdkDec, newExchangeRatesMap, setupOracleExtension } from ".."
 
 describe("setupOracleExtension", () => {
   const mockBaseQueryClient = {} as QueryClient
@@ -69,6 +69,7 @@ describe("setupOracleExtension", () => {
     expect(extension.missCounter).toBeInstanceOf(Function)
     expect(extension.params).toBeInstanceOf(Function)
     expect(extension.voteTargets).toBeInstanceOf(Function)
+    expect(extension.exchangeRateTwap).toBeInstanceOf(Function)
   })
 
   jest.spyOn(query, "QueryClientImpl").mockReturnValue({
@@ -80,6 +81,7 @@ describe("setupOracleExtension", () => {
     AggregateVote: jest.fn().mockResolvedValue(mockAggregateVoteResponse),
     AggregateVotes: jest.fn().mockResolvedValue(mockAggregateVotesResponse),
     ExchangeRate: jest.fn().mockResolvedValue(mockExchangeRateResponse),
+    ExchangeRateTwap: jest.fn().mockResolvedValue(mockExchangeRateResponse),
     ExchangeRates: jest.fn().mockResolvedValue(mockExchangeRatesResponse),
     FeederDelegation: jest.fn().mockResolvedValue(mockFeederDelegationResponse),
     MissCounter: jest.fn().mockResolvedValue(mockMissCounterResponse),
@@ -257,6 +259,27 @@ describe("setupOracleExtension", () => {
 
       expect(queryVoteTargetsRequest).toHaveBeenCalledWith({})
       expect(result).toEqual(mockVoteTargetsResponse)
+    })
+  })
+
+  describe("oracle.exchangeRateTwap", () => {
+    test("should call QueryExchangeRateRequest and return the response", async () => {
+      const queryExchangeRateRequest = jest
+        .spyOn(query.QueryExchangeRateRequest, "fromPartial")
+        .mockReturnValue({} as query.QueryExchangeRateRequest)
+
+      const extension = setupOracleExtension(mockBaseQueryClient)
+      const result = await extension.exchangeRateTwap({ pair: "PAIR" })
+
+      expect(queryExchangeRateRequest).toHaveBeenCalledWith({ pair: "PAIR" })
+      expect(result).toEqual(mockExchangeRateResponse)
+    })
+  })
+
+  describe("newExchangeRatesMap ", () => {
+    test("should call method and return a response", async () => {
+      const test = newExchangeRatesMap(mockExchangeRatesResponse)
+      expect(test).toEqual({ USD: 1.32e-16 })
     })
   })
 })

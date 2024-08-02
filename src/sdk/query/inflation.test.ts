@@ -24,7 +24,7 @@ describe("setupInflationExtension", () => {
     }),
   } as unknown as query.QueryClientImpl)
 
-  test("should setup inflation extension correctly", () => {
+  test("should setup extension correctly", () => {
     const extension = setupInflationExtension(mockBaseQueryClient)
 
     expect(extension).toBeDefined()
