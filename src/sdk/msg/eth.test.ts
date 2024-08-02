@@ -55,6 +55,7 @@ describe("setupEthMsgExtension", () => {
         authority: "",
         params: {
           evmDenom: "",
+          createFuntokenFee: "",
           enableCreate: true,
           enableCall: true,
           extraEips: [new Long(0)],
@@ -67,6 +68,7 @@ describe("setupEthMsgExtension", () => {
         authority: "",
         params: {
           evmDenom: "",
+          createFuntokenFee: "",
           enableCreate: true,
           enableCall: true,
           extraEips: [new Long(0)],
