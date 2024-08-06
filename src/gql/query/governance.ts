@@ -34,7 +34,7 @@ export const governanceQueryString = (
 ) => {
   const governanceQuery: string[] = []
 
-  if (fields?.govDeposits) {
+  if (fields.govDeposits) {
     governanceQuery.push(
       gqlQuery(
         "govDeposits",
@@ -45,7 +45,7 @@ export const governanceQueryString = (
     )
   }
 
-  if (fields?.govProposals) {
+  if (fields.govProposals) {
     governanceQuery.push(
       gqlQuery(
         "govProposals",
@@ -56,7 +56,7 @@ export const governanceQueryString = (
     )
   }
 
-  if (fields?.govVotes) {
+  if (fields.govVotes) {
     governanceQuery.push(
       gqlQuery(
         "govVotes",

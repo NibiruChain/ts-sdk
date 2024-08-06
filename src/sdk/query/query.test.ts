@@ -1,5 +1,5 @@
 import fs from "fs"
-import { Block, coins } from "@cosmjs/stargate"
+import { Block, coins, QueryClient } from "@cosmjs/stargate"
 import Long from "long"
 import { fetch } from "cross-fetch"
 import {
@@ -12,6 +12,20 @@ import {
   assertExpectedError,
   newSignerFromMnemonic,
   NibiruTxClient,
+  setupNibiruExtension,
+  setupDevgasExtension,
+  setupDevgasMsgExtension,
+  setupEpochsExtension,
+  setupEthExtension,
+  setupEthMsgExtension,
+  setupInflationExtension,
+  setupInflationMsgExtension,
+  setupOracleExtension,
+  setupOracleMsgExtension,
+  setupSudoExtension,
+  setupSudoMsgExtension,
+  setupTokenFactoryExtension,
+  setupTokenFactoryMsgExtension,
 } from ".."
 
 interface BlockResp {
@@ -52,7 +66,7 @@ describe("x/bank queries", () => {
 describe("x/oracle queries", () => {
   test("query active oracles", async () => {
     const querier = await NibiruQuerier.connect(Localnet.endptTm)
-    const { actives } = await querier.nibiruExtensions.oracle.actives()
+    const { actives } = await querier.nibiruExtensions.query.oracle.actives()
     if (actives.length > 0) {
       const pair = actives[0]
       expect(pair).toContain(":")
@@ -62,14 +76,15 @@ describe("x/oracle queries", () => {
   test("query oracle params", async () => {
     const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const { params: moduleParams } =
-      await querier.nibiruExtensions.oracle.params()
+      await querier.nibiruExtensions.query.oracle.params()
     expect(moduleParams).toBeDefined()
     expect(moduleParams?.whitelist.length).toBeGreaterThan(0)
   })
 
   test("query exchange rates", async () => {
     const querier = await NibiruQuerier.connect(Localnet.endptTm)
-    const exhangeRateMap = await querier.nibiruExtensions.oracle.exchangeRates()
+    const exhangeRateMap =
+      await querier.nibiruExtensions.query.oracle.exchangeRates()
     if (Object.keys(exhangeRateMap).length > 0) {
       for (const pair in exhangeRateMap.exchangeRates) {
         expect(pair).toBeDefined()
@@ -87,13 +102,13 @@ describe("x/epochs queries", () => {
     "query epochs info and current epoch",
     async () => {
       const querier = await NibiruQuerier.connect(Localnet.endptTm)
-      const infoResp = await querier.nibiruExtensions.epochs.epochsInfos()
+      const infoResp = await querier.nibiruExtensions.query.epochs.epochsInfos()
       expect(infoResp).toHaveProperty("epochs")
       expect(infoResp.epochs.length).toBeGreaterThan(0)
 
       const epochId = infoResp.epochs[0].identifier
       const currentEpochResp =
-        await querier.nibiruExtensions.epochs.currentEpoch({
+        await querier.nibiruExtensions.query.epochs.currentEpoch({
           identifier: epochId,
         })
       expect(Long.isLong(currentEpochResp.currentEpoch)).toBeTruthy()
@@ -356,5 +371,13 @@ describe("NibiruQuerier", () => {
     )
 
     expect(result.isErr()).toEqual(true)
+  })
+
+  test("setupNibiruExtension ", async () => {
+    const mockBaseQueryClient = {} as QueryClient
+    const extension = setupNibiruExtension(mockBaseQueryClient)
+
+    expect(extension.msg).toBeTruthy()
+    expect(extension.query).toBeTruthy()
   })
 })

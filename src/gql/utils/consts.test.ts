@@ -8,6 +8,8 @@ import {
   GqlOutFeatureFlags,
   defaultFeatureFlags,
   featureFlagsQueryString,
+  objToGql,
+  IterableDictionary,
 } from ".."
 
 describe("queryBatchHandler tests", () => {
@@ -45,5 +47,17 @@ describe("queryBatchHandler tests", () => {
   test("arg", async () => {
     const result = arg("mock", "mock", false)
     expect(result).toEqual(`mock: "mock"`)
+  })
+
+  test("arg", async () => {
+    const result = arg("mock", { mock: "mock" }, false)
+    expect(result).toEqual(`mock: {
+    mock:"mock"
+  }`)
+  })
+
+  test("objToGql - wrong object type", async () => {
+    const result = objToGql<number>(12 as unknown as IterableDictionary<number>)
+    expect(result).toEqual(12)
   })
 })
