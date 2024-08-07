@@ -11,8 +11,8 @@ import {
   QueryCodeResponse,
   QueryEthAccountRequest,
   QueryEthAccountResponse,
-  QueryNibiruAccountRequest,
-  QueryNibiruAccountResponse,
+  QueryFunTokenMappingRequest,
+  QueryFunTokenMappingResponse,
   QueryParamsRequest,
   QueryParamsResponse,
   QueryStorageRequest,
@@ -28,9 +28,6 @@ import { MsgEthereumTxResponse } from "../../protojs/eth/evm/v1/tx"
 
 export interface EthExtension {
   ethAccount: (args: QueryEthAccountRequest) => Promise<QueryEthAccountResponse>
-  nibiruAccount: (
-    args: QueryNibiruAccountRequest
-  ) => Promise<QueryNibiruAccountResponse>
   validatorAccount: (
     args: QueryValidatorAccountRequest
   ) => Promise<QueryValidatorAccountResponse>
@@ -43,6 +40,9 @@ export interface EthExtension {
   traceTx: (args: QueryTraceTxRequest) => Promise<QueryTraceTxResponse>
   traceBlock: (args: QueryTraceBlockRequest) => Promise<QueryTraceBlockResponse>
   baseFee: (args: QueryBaseFeeRequest) => Promise<QueryBaseFeeResponse>
+  funTokenMapping: (
+    request: QueryFunTokenMappingRequest
+  ) => Promise<QueryFunTokenMappingResponse>
 }
 
 export const setupEthExtension = (base: QueryClient): EthExtension => {
@@ -51,9 +51,6 @@ export const setupEthExtension = (base: QueryClient): EthExtension => {
   return {
     ethAccount: async (args: QueryEthAccountRequest) =>
       queryService.EthAccount(QueryEthAccountRequest.fromPartial(args)),
-
-    nibiruAccount: async (args: QueryNibiruAccountRequest) =>
-      queryService.NibiruAccount(QueryNibiruAccountRequest.fromPartial(args)),
 
     validatorAccount: async (args: QueryValidatorAccountRequest) =>
       queryService.ValidatorAccount(
@@ -86,5 +83,10 @@ export const setupEthExtension = (base: QueryClient): EthExtension => {
 
     baseFee: async (args: QueryBaseFeeRequest) =>
       queryService.BaseFee(QueryBaseFeeRequest.fromPartial(args)),
+
+    funTokenMapping: async (args: QueryFunTokenMappingRequest) =>
+      queryService.FunTokenMapping(
+        QueryFunTokenMappingRequest.fromPartial(args)
+      ),
   }
 }

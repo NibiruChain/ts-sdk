@@ -9,9 +9,6 @@ describe("setupEpochsExtension", () => {
 
   jest.spyOn(query, "QueryClientImpl").mockReturnValue({
     EthAccount: jest.fn().mockResolvedValue({ ethAccount: "Test" }),
-    NibiruAccount: jest.fn().mockResolvedValue({
-      nibiruAccount: "Test",
-    }),
     ValidatorAccount: jest.fn().mockResolvedValue({
       validatorAccount: "Test",
     }),
@@ -42,6 +39,9 @@ describe("setupEpochsExtension", () => {
     BaseFee: jest.fn().mockResolvedValue({
       baseFee: "Test",
     }),
+    FunTokenMapping: jest.fn().mockResolvedValue({
+      baseFee: "Test",
+    }),
   } as unknown as query.QueryClientImpl)
 
   test("should setup extension correctly", () => {
@@ -49,7 +49,6 @@ describe("setupEpochsExtension", () => {
 
     expect(extension).toBeDefined()
     expect(extension.ethAccount).toBeInstanceOf(Function)
-    expect(extension.nibiruAccount).toBeInstanceOf(Function)
     expect(extension.validatorAccount).toBeInstanceOf(Function)
     expect(extension.balance).toBeInstanceOf(Function)
     expect(extension.storage).toBeInstanceOf(Function)
@@ -60,6 +59,7 @@ describe("setupEpochsExtension", () => {
     expect(extension.traceTx).toBeInstanceOf(Function)
     expect(extension.traceBlock).toBeInstanceOf(Function)
     expect(extension.baseFee).toBeInstanceOf(Function)
+    expect(extension.funTokenMapping).toBeInstanceOf(Function)
   })
 
   describe("ethAccount", () => {
@@ -79,18 +79,18 @@ describe("setupEpochsExtension", () => {
     })
   })
 
-  describe("nibiruAccount", () => {
-    test("should call QueryNibiruAccountRequest and return the response", async () => {
-      const queryNibiruAccountRequest = jest
-        .spyOn(query.QueryNibiruAccountRequest, "fromPartial")
-        .mockReturnValue({} as query.QueryNibiruAccountRequest)
+  describe("funTokenMapping", () => {
+    test("should call QueryFunTokenMappingRequest and return the response", async () => {
+      const queryFunTokenMappingRequest = jest
+        .spyOn(query.QueryFunTokenMappingRequest, "fromPartial")
+        .mockReturnValue({} as query.QueryFunTokenMappingRequest)
 
       const extension = setupEthExtension(mockBaseQueryClient)
-      const result = await extension.nibiruAccount({
-        address: "",
+      const result = await extension.funTokenMapping({
+        token: "",
       })
-      expect(queryNibiruAccountRequest).toHaveBeenCalledWith({
-        address: "",
+      expect(queryFunTokenMappingRequest).toHaveBeenCalledWith({
+        token: "",
       })
       expect(result).toEqual({ nibiruAccount: "Test" })
     })

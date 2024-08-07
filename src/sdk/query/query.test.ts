@@ -13,19 +13,6 @@ import {
   newSignerFromMnemonic,
   NibiruTxClient,
   setupNibiruExtension,
-  setupDevgasExtension,
-  setupDevgasMsgExtension,
-  setupEpochsExtension,
-  setupEthExtension,
-  setupEthMsgExtension,
-  setupInflationExtension,
-  setupInflationMsgExtension,
-  setupOracleExtension,
-  setupOracleMsgExtension,
-  setupSudoExtension,
-  setupSudoMsgExtension,
-  setupTokenFactoryExtension,
-  setupTokenFactoryMsgExtension,
 } from ".."
 
 interface BlockResp {
