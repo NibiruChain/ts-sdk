@@ -92,7 +92,7 @@ describe("setupEpochsExtension", () => {
       expect(queryFunTokenMappingRequest).toHaveBeenCalledWith({
         token: "",
       })
-      expect(result).toEqual({ nibiruAccount: "Test" })
+      expect(result).toEqual({ baseFee: "Test" })
     })
   })
 
