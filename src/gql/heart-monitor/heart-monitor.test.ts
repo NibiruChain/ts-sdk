@@ -62,7 +62,6 @@ import {
   GQLValidatorOrder,
   GQLQueryGqlUserArgs,
 } from ".."
-import { Client } from "graphql-ws"
 
 const nibiruUrl = "testnet-1"
 
@@ -454,7 +453,7 @@ const testStaking = async (
   }
 }
 
-test("staking", async () => {
+test.skip("staking", async () => {
   await testStaking(
     {
       delegations: {

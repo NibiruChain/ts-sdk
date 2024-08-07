@@ -1,3 +1,18 @@
+## [4.5.0](https://github.com/NibiruChain/ts-sdk/compare/v4.4.0...v4.5.0) (2024-06-28)
+
+### Features
+
+- add gql user query ([#356](https://github.com/NibiruChain/ts-sdk/issues/356)) ([f3dfa3a](https://github.com/NibiruChain/ts-sdk/commit/f3dfa3aed28fa0d5451466eda7ab4e064c2b19e4))
+- staking extension and git submodules ([#360](https://github.com/NibiruChain/ts-sdk/issues/360)) ([4251709](https://github.com/NibiruChain/ts-sdk/commit/42517098bba1cebb120e2b397f4ffc03657ea8d4))
+
+### Reverts
+
+- cosmos submodule only ([#362](https://github.com/NibiruChain/ts-sdk/issues/362)) ([#363](https://github.com/NibiruChain/ts-sdk/issues/363)) ([c012a83](https://github.com/NibiruChain/ts-sdk/commit/c012a8342dde79f3f3b23e13d93c5b00de7edfca))
+
+### Miscellaneous Chores
+
+- develop -> main ([#365](https://github.com/NibiruChain/ts-sdk/issues/365)) ([7e513c6](https://github.com/NibiruChain/ts-sdk/commit/7e513c692d4384350dbc0ae728d738d90b8d2315)), closes [#362](https://github.com/NibiruChain/ts-sdk/issues/362)
+
 ## [4.4.0](https://github.com/NibiruChain/ts-sdk/compare/v4.3.2...v4.4.0) (2024-05-30)
 
 ### Features
