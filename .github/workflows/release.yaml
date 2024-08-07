@@ -10,6 +10,8 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    env:
+      BUF_TOKEN: ${{ secrets.BUF_TOKEN }}
     permissions:
       contents: write
       issues: write

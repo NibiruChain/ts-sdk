@@ -30,7 +30,7 @@ export const oracleQueryString = (
 ) => {
   const oracleQuery: string[] = []
 
-  if (fields?.oraclePrices) {
+  if (fields.oraclePrices) {
     oracleQuery.push(
       gqlQuery(
         "oraclePrices",
@@ -41,7 +41,7 @@ export const oracleQueryString = (
     )
   }
 
-  if (fields?.oracles) {
+  if (fields.oracles) {
     oracleQuery.push(
       gqlQuery(
         "oracles",

@@ -32,7 +32,7 @@ export const inflationQueryString = (
 ) => {
   const inflationQuery: string[] = []
 
-  if (fields?.distributions) {
+  if (fields.distributions) {
     inflationQuery.push(
       gqlQuery(
         "distributions",
@@ -43,7 +43,7 @@ export const inflationQueryString = (
     )
   }
 
-  if (fields?.inflations) {
+  if (fields.inflations) {
     inflationQuery.push(
       gqlQuery(
         "inflations",
@@ -54,7 +54,7 @@ export const inflationQueryString = (
     )
   }
 
-  if (fields?.rewards) {
+  if (fields.rewards) {
     inflationQuery.push(
       gqlQuery(
         "rewards",

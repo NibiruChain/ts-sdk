@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 import { BigNumber } from "bignumber.js"
-import { StableSwap } from "."
+import { StableSwap } from "./stableswap"
 
 describe("stableswap tests", () => {
   test("stabletests", () => {

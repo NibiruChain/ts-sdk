@@ -14,8 +14,8 @@ describe("setupSudoExtension", () => {
   test("should setup sudo extension correctly", () => {
     const extension = setupSudoExtension(mockBaseQueryClient)
 
-    expect(extension.sudo).toBeDefined()
-    expect(extension.sudo.querySudoers).toBeInstanceOf(Function)
+    expect(extension).toBeDefined()
+    expect(extension.querySudoers).toBeInstanceOf(Function)
   })
 
   describe("sudo.querySudoers", () => {
@@ -25,7 +25,7 @@ describe("setupSudoExtension", () => {
         .mockReturnValue({} as query.QuerySudoersRequest)
 
       const extension = setupSudoExtension(mockBaseQueryClient)
-      const result = await extension.sudo.querySudoers()
+      const result = await extension.querySudoers()
 
       expect(querySudoersRequest).toHaveBeenCalledWith({})
       expect(result).toEqual({ sudoers: ["Test Sudoer 1", "Test Sudoer 2"] })

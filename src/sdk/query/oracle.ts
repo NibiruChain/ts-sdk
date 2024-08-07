@@ -30,57 +30,55 @@ import {
 import { fromSdkDec } from ".."
 
 export interface OracleExtension {
-  oracle: Readonly<{
-    /** actives: Query the list of active/whitelisted pairs for the oracle module. */
-    actives: () => Promise<QueryActivesResponse>
-    /** aggregatePrevote: TODO Query outstanding oracle aggregate prevotes. */
-    aggregatePrevote: (
-      body: QueryAggregatePrevoteRequest
-    ) => Promise<QueryAggregatePrevoteResponse>
-    /** aggregatePrevotes: TODO Query all aggregate prevotes. */
-    aggregatePrevotes: () => Promise<QueryAggregatePrevotesResponse>
+  /** actives: Query the list of active/whitelisted pairs for the oracle module. */
+  actives: () => Promise<QueryActivesResponse>
+  /** aggregatePrevote: TODO Query outstanding oracle aggregate prevotes. */
+  aggregatePrevote: (
+    body: QueryAggregatePrevoteRequest
+  ) => Promise<QueryAggregatePrevoteResponse>
+  /** aggregatePrevotes: TODO Query all aggregate prevotes. */
+  aggregatePrevotes: () => Promise<QueryAggregatePrevotesResponse>
 
-    /** aggregateVote: TODO Query outstanding oracle aggregate vote. */
-    aggregateVote: (
-      body: QueryAggregateVoteRequest
-    ) => Promise<QueryAggregateVoteResponse>
+  /** aggregateVote: TODO Query outstanding oracle aggregate vote. */
+  aggregateVote: (
+    body: QueryAggregateVoteRequest
+  ) => Promise<QueryAggregateVoteResponse>
 
-    /** aggregateVotes: TODO Query all aggregate votes. */
-    aggregateVotes: () => Promise<QueryAggregateVotesResponse>
+  /** aggregateVotes: TODO Query all aggregate votes. */
+  aggregateVotes: () => Promise<QueryAggregateVotesResponse>
 
-    /** exchangeRate: Returns the  current exchange rate that validators voted
-     * for on the given 'pair'. */
-    exchangeRate: (
-      body: QueryExchangeRateRequest
-    ) => Promise<QueryExchangeRateResponse>
+  /** exchangeRate: Returns the  current exchange rate that validators voted
+   * for on the given 'pair'. */
+  exchangeRate: (
+    body: QueryExchangeRateRequest
+  ) => Promise<QueryExchangeRateResponse>
 
-    /** exchangeRate: Returns the  current exchange rate that validators voted
-     * for on the given 'pair'. */
-    exchangeRateTwap: (
-      body: QueryExchangeRateRequest
-    ) => Promise<QueryExchangeRateResponse>
+  /** exchangeRate: Returns the  current exchange rate that validators voted
+   * for on the given 'pair'. */
+  exchangeRateTwap: (
+    body: QueryExchangeRateRequest
+  ) => Promise<QueryExchangeRateResponse>
 
-    /** TODO Query all exchange rates. */
-    exchangeRates: () => Promise<QueryExchangeRatesResponse>
+  /** TODO Query all exchange rates. */
+  exchangeRates: () => Promise<QueryExchangeRatesResponse>
 
-    /** feederDelegation: Query for the feeder account to which the validator has
-     * delegated the authority to vote on exchange rotes prices. */
-    feederDelegation: (
-      body: QueryFeederDelegationRequest
-    ) => Promise<QueryFeederDelegationResponse>
+  /** feederDelegation: Query for the feeder account to which the validator has
+   * delegated the authority to vote on exchange rotes prices. */
+  feederDelegation: (
+    body: QueryFeederDelegationRequest
+  ) => Promise<QueryFeederDelegationResponse>
 
-    /** TODO Query the miss count of a validator */
-    missCounter: (
-      body: QueryMissCounterRequest
-    ) => Promise<QueryMissCounterResponse>
+  /** TODO Query the miss count of a validator */
+  missCounter: (
+    body: QueryMissCounterRequest
+  ) => Promise<QueryMissCounterResponse>
 
-    /** params: Returns the module parameters for the x/oracle module. */
-    params: () => Promise<QueryParamsResponse>
+  /** params: Returns the module parameters for the x/oracle module. */
+  params: () => Promise<QueryParamsResponse>
 
-    /** voteTargets: Returns current vote targets, the list of pairs that
-     * everyone should vote on in the during the vote period. */
-    voteTargets: () => Promise<QueryVoteTargetsResponse>
-  }>
+  /** voteTargets: Returns current vote targets, the list of pairs that
+   * everyone should vote on in the during the vote period. */
+  voteTargets: () => Promise<QueryVoteTargetsResponse>
 }
 
 export interface ExchangeRatesMap {
@@ -102,50 +100,45 @@ export const setupOracleExtension = (base: QueryClient): OracleExtension => {
   )
 
   return {
-    oracle: {
-      actives: async () =>
-        queryService.Actives(QueryActivesRequest.fromPartial({})),
+    actives: async () =>
+      queryService.Actives(QueryActivesRequest.fromPartial({})),
 
-      aggregatePrevote: async (body: QueryAggregatePrevoteRequest) =>
-        queryService.AggregatePrevote(
-          QueryAggregatePrevoteRequest.fromPartial(body)
-        ),
+    aggregatePrevote: async (body: QueryAggregatePrevoteRequest) =>
+      queryService.AggregatePrevote(
+        QueryAggregatePrevoteRequest.fromPartial(body)
+      ),
 
-      aggregatePrevotes: async () =>
-        queryService.AggregatePrevotes(
-          QueryAggregatePrevotesRequest.fromPartial({})
-        ),
+    aggregatePrevotes: async () =>
+      queryService.AggregatePrevotes(
+        QueryAggregatePrevotesRequest.fromPartial({})
+      ),
 
-      aggregateVote: async (body: QueryAggregateVoteRequest) =>
-        queryService.AggregateVote(QueryAggregateVoteRequest.fromPartial(body)),
+    aggregateVote: async (body: QueryAggregateVoteRequest) =>
+      queryService.AggregateVote(QueryAggregateVoteRequest.fromPartial(body)),
 
-      aggregateVotes: async () =>
-        queryService.AggregateVotes(QueryAggregateVotesRequest.fromPartial({})),
+    aggregateVotes: async () =>
+      queryService.AggregateVotes(QueryAggregateVotesRequest.fromPartial({})),
 
-      exchangeRate: async (body: QueryExchangeRateRequest) =>
-        queryService.ExchangeRate(QueryExchangeRateRequest.fromPartial(body)),
+    exchangeRate: async (body: QueryExchangeRateRequest) =>
+      queryService.ExchangeRate(QueryExchangeRateRequest.fromPartial(body)),
 
-      exchangeRateTwap: async (body: QueryExchangeRateRequest) =>
-        queryService.ExchangeRateTwap(
-          QueryExchangeRateRequest.fromPartial(body)
-        ),
+    exchangeRateTwap: async (body: QueryExchangeRateRequest) =>
+      queryService.ExchangeRateTwap(QueryExchangeRateRequest.fromPartial(body)),
 
-      exchangeRates: async () =>
-        queryService.ExchangeRates(QueryExchangeRatesRequest.fromPartial({})),
+    exchangeRates: async () =>
+      queryService.ExchangeRates(QueryExchangeRatesRequest.fromPartial({})),
 
-      feederDelegation: async (body: QueryFeederDelegationRequest) =>
-        queryService.FeederDelegation(
-          QueryFeederDelegationRequest.fromPartial(body)
-        ),
+    feederDelegation: async (body: QueryFeederDelegationRequest) =>
+      queryService.FeederDelegation(
+        QueryFeederDelegationRequest.fromPartial(body)
+      ),
 
-      missCounter: async (body: QueryMissCounterRequest) =>
-        queryService.MissCounter(QueryMissCounterRequest.fromPartial(body)),
+    missCounter: async (body: QueryMissCounterRequest) =>
+      queryService.MissCounter(QueryMissCounterRequest.fromPartial(body)),
 
-      params: async () =>
-        queryService.Params(QueryParamsRequest.fromPartial({})),
+    params: async () => queryService.Params(QueryParamsRequest.fromPartial({})),
 
-      voteTargets: async () =>
-        queryService.VoteTargets(QueryVoteTargetsRequest.fromPartial({})),
-    },
+    voteTargets: async () =>
+      queryService.VoteTargets(QueryVoteTargetsRequest.fromPartial({})),
   }
 }

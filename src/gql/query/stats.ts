@@ -50,7 +50,7 @@ export const GQLStatsQueryString = (
 ) => {
   const GQLStatsQuery: string[] = []
 
-  if (fields?.fees) {
+  if (fields.fees) {
     GQLStatsQuery.push(
       gqlQuery(
         "fees",
@@ -61,7 +61,7 @@ export const GQLStatsQueryString = (
     )
   }
 
-  if (fields?.perpOpenInterest) {
+  if (fields.perpOpenInterest) {
     GQLStatsQuery.push(
       gqlQuery(
         "perpOpenInterest",
@@ -72,7 +72,7 @@ export const GQLStatsQueryString = (
     )
   }
 
-  if (fields?.perpPnl) {
+  if (fields.perpPnl) {
     GQLStatsQuery.push(
       gqlQuery(
         "perpPnl",
@@ -83,7 +83,7 @@ export const GQLStatsQueryString = (
     )
   }
 
-  if (fields?.totals) {
+  if (fields.totals) {
     GQLStatsQuery.push(
       gqlQuery(
         "totals",
@@ -94,7 +94,7 @@ export const GQLStatsQueryString = (
     )
   }
 
-  if (fields?.tvl) {
+  if (fields.tvl) {
     GQLStatsQuery.push(
       gqlQuery(
         "tvl",
@@ -105,7 +105,7 @@ export const GQLStatsQueryString = (
     )
   }
 
-  if (fields?.users) {
+  if (fields.users) {
     GQLStatsQuery.push(
       gqlQuery(
         "users",
@@ -116,7 +116,7 @@ export const GQLStatsQueryString = (
     )
   }
 
-  if (fields?.volume) {
+  if (fields.volume) {
     GQLStatsQuery.push(
       gqlQuery(
         "volume",

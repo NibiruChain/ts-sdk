@@ -8,22 +8,18 @@ import {
 } from "../../protojs/nibiru/sudo/v1/tx"
 
 export interface SudoMsgExtension {
-  readonly sudoMsg: Readonly<{
-    editSudoers: (body: MsgEditSudoers) => Promise<MsgEditSudoersResponse>
-    changeRoot: (body: MsgChangeRoot) => Promise<MsgChangeRootResponse>
-  }>
+  editSudoers: (body: MsgEditSudoers) => Promise<MsgEditSudoersResponse>
+  changeRoot: (body: MsgChangeRoot) => Promise<MsgChangeRootResponse>
 }
 
 export const setupSudoMsgExtension = (base: QueryClient): SudoMsgExtension => {
   const queryService = new MsgClientImpl(createProtobufRpcClient(base))
 
   return {
-    sudoMsg: {
-      editSudoers: async (body: MsgEditSudoers) =>
-        queryService.EditSudoers(MsgEditSudoers.fromPartial(body)),
+    editSudoers: async (body: MsgEditSudoers) =>
+      queryService.EditSudoers(MsgEditSudoers.fromPartial(body)),
 
-      changeRoot: async (body: MsgChangeRoot) =>
-        queryService.ChangeRoot(MsgChangeRoot.fromPartial(body)),
-    },
+    changeRoot: async (body: MsgChangeRoot) =>
+      queryService.ChangeRoot(MsgChangeRoot.fromPartial(body)),
   }
 }

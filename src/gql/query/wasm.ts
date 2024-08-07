@@ -23,7 +23,7 @@ export type GqlWasmFields = DeepPartial<{
 export const wasmQueryString = (args: QueryWasmArgs, fields: GqlWasmFields) => {
   const wasmQuery: string[] = []
 
-  if (fields?.userContracts) {
+  if (fields.userContracts) {
     wasmQuery.push(
       gqlQuery(
         "userContracts",

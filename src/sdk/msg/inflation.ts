@@ -8,14 +8,12 @@ import {
 } from "../../protojs/nibiru/inflation/v1/tx"
 
 export interface InflationMsgExtension {
-  readonly inflationMsg: Readonly<{
-    toggleInflation: (
-      body: MsgToggleInflation
-    ) => Promise<MsgToggleInflationResponse>
-    editInflationParams: (
-      body: MsgEditInflationParams
-    ) => Promise<MsgEditInflationParamsResponse>
-  }>
+  toggleInflation: (
+    body: MsgToggleInflation
+  ) => Promise<MsgToggleInflationResponse>
+  editInflationParams: (
+    body: MsgEditInflationParams
+  ) => Promise<MsgEditInflationParamsResponse>
 }
 
 export const setupInflationMsgExtension = (
@@ -24,14 +22,12 @@ export const setupInflationMsgExtension = (
   const queryService = new MsgClientImpl(createProtobufRpcClient(base))
 
   return {
-    inflationMsg: {
-      toggleInflation: async (body: MsgToggleInflation) =>
-        queryService.ToggleInflation(MsgToggleInflation.fromPartial(body)),
+    toggleInflation: async (body: MsgToggleInflation) =>
+      queryService.ToggleInflation(MsgToggleInflation.fromPartial(body)),
 
-      editInflationParams: async (body: MsgEditInflationParams) =>
-        queryService.EditInflationParams(
-          MsgEditInflationParams.fromPartial(body)
-        ),
-    },
+    editInflationParams: async (body: MsgEditInflationParams) =>
+      queryService.EditInflationParams(
+        MsgEditInflationParams.fromPartial(body)
+      ),
   }
 }

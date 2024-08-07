@@ -74,6 +74,31 @@ describe("computeStakingEmissionPerPeriod", () => {
       },
       expected: NaN,
     },
+    {
+      name: "NaN",
+      in: {
+        myStake: 0,
+        totalStaked: 0,
+        params: {
+          inflationEnabled: true,
+          polynomialFactors: [
+            "-0.000147085524000000",
+            "0.074291982762000000",
+            "-18.867415611180000000",
+            "3128.641926954698000000",
+            "-334834.740631598223000000",
+            "17827464.906540066004000000",
+          ],
+          inflationDistribution: undefined,
+          epochsPerPeriod: new Long(30),
+          periodsPerYear: new Long(12),
+          maxPeriod: new Long(96),
+          hasInflationStarted: true,
+        },
+        epochMintProvision: QueryEpochMintProvisionResponse.fromPartial({}),
+      },
+      expected: NaN,
+    },
   ]
 
   test.each(tests)("%o", (tt) => {

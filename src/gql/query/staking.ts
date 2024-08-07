@@ -38,11 +38,11 @@ export type GQLStakingFields = DeepPartial<{
 
 export const GQLStakingQueryString = (
   args: QueryStakingArgs,
-  fields?: GQLStakingFields
+  fields: GQLStakingFields
 ) => {
   const GQLStakingQuery: string[] = []
 
-  if (fields?.delegations) {
+  if (fields.delegations) {
     GQLStakingQuery.push(
       gqlQuery(
         "delegations",
@@ -53,7 +53,7 @@ export const GQLStakingQueryString = (
     )
   }
 
-  if (fields?.history) {
+  if (fields.history) {
     GQLStakingQuery.push(
       gqlQuery(
         "history",
@@ -64,7 +64,7 @@ export const GQLStakingQueryString = (
     )
   }
 
-  if (fields?.redelegations) {
+  if (fields.redelegations) {
     GQLStakingQuery.push(
       gqlQuery(
         "redelegations",
@@ -75,7 +75,7 @@ export const GQLStakingQueryString = (
     )
   }
 
-  if (fields?.unbondings) {
+  if (fields.unbondings) {
     GQLStakingQuery.push(
       gqlQuery(
         "unbondings",
@@ -86,7 +86,7 @@ export const GQLStakingQueryString = (
     )
   }
 
-  if (fields?.validators) {
+  if (fields.validators) {
     GQLStakingQuery.push(
       gqlQuery(
         "validators",
@@ -107,7 +107,7 @@ export const GQLStakingQueryString = (
 export const staking = async (
   args: QueryStakingArgs,
   endpt: string,
-  fields?: GQLStakingFields
+  fields: GQLStakingFields
 ): Promise<GqlOutStaking> =>
   doGqlQuery(
     `{

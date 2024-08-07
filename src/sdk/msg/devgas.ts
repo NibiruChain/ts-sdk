@@ -12,18 +12,16 @@ import {
 } from "../../protojs/nibiru/devgas/v1/tx"
 
 export interface DevgasMsgExtension {
-  readonly devgasMsg: Readonly<{
-    registerFeeShare: (
-      body: MsgRegisterFeeShare
-    ) => Promise<MsgRegisterFeeShareResponse>
-    updateFeeShare: (
-      body: MsgUpdateFeeShare
-    ) => Promise<MsgUpdateFeeShareResponse>
-    cancelFeeShare: (
-      body: MsgCancelFeeShare
-    ) => Promise<MsgCancelFeeShareResponse>
-    updateParams: (body: MsgUpdateParams) => Promise<MsgUpdateParamsResponse>
-  }>
+  registerFeeShare: (
+    body: MsgRegisterFeeShare
+  ) => Promise<MsgRegisterFeeShareResponse>
+  updateFeeShare: (
+    body: MsgUpdateFeeShare
+  ) => Promise<MsgUpdateFeeShareResponse>
+  cancelFeeShare: (
+    body: MsgCancelFeeShare
+  ) => Promise<MsgCancelFeeShareResponse>
+  updateParams: (body: MsgUpdateParams) => Promise<MsgUpdateParamsResponse>
 }
 
 export const setupDevgasMsgExtension = (
@@ -32,18 +30,16 @@ export const setupDevgasMsgExtension = (
   const queryService = new MsgClientImpl(createProtobufRpcClient(base))
 
   return {
-    devgasMsg: {
-      registerFeeShare: async (body: MsgRegisterFeeShare) =>
-        queryService.RegisterFeeShare(MsgRegisterFeeShare.fromPartial(body)),
+    registerFeeShare: async (body: MsgRegisterFeeShare) =>
+      queryService.RegisterFeeShare(MsgRegisterFeeShare.fromPartial(body)),
 
-      updateFeeShare: async (body: MsgUpdateFeeShare) =>
-        queryService.UpdateFeeShare(MsgUpdateFeeShare.fromPartial(body)),
+    updateFeeShare: async (body: MsgUpdateFeeShare) =>
+      queryService.UpdateFeeShare(MsgUpdateFeeShare.fromPartial(body)),
 
-      cancelFeeShare: async (body: MsgCancelFeeShare) =>
-        queryService.CancelFeeShare(MsgCancelFeeShare.fromPartial(body)),
+    cancelFeeShare: async (body: MsgCancelFeeShare) =>
+      queryService.CancelFeeShare(MsgCancelFeeShare.fromPartial(body)),
 
-      updateParams: async (body: MsgUpdateParams) =>
-        queryService.UpdateParams(MsgUpdateParams.fromPartial(body)),
-    },
+    updateParams: async (body: MsgUpdateParams) =>
+      queryService.UpdateParams(MsgUpdateParams.fromPartial(body)),
   }
 }
