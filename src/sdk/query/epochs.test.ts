@@ -14,12 +14,12 @@ describe("setupEpochsExtension", () => {
     }),
   } as unknown as query.QueryClientImpl)
 
-  test("should setup epochs extension correctly", () => {
+  test("should setup extension correctly", () => {
     const extension = setupEpochsExtension(mockBaseQueryClient)
 
-    expect(extension.epochs).toBeDefined()
-    expect(extension.epochs.currentEpoch).toBeInstanceOf(Function)
-    expect(extension.epochs.epochsInfos).toBeInstanceOf(Function)
+    expect(extension).toBeDefined()
+    expect(extension.currentEpoch).toBeInstanceOf(Function)
+    expect(extension.epochsInfos).toBeInstanceOf(Function)
   })
 
   describe("epochs.currentEpoch", () => {
@@ -29,7 +29,7 @@ describe("setupEpochsExtension", () => {
         .mockReturnValue({} as query.QueryCurrentEpochRequest)
 
       const extension = setupEpochsExtension(mockBaseQueryClient)
-      const result = await extension.epochs.currentEpoch({
+      const result = await extension.currentEpoch({
         identifier: "Test Identifier",
       })
       expect(queryCurrentEpochRequest).toHaveBeenCalledWith({
@@ -46,7 +46,7 @@ describe("setupEpochsExtension", () => {
         .mockReturnValue({} as query.QueryEpochInfosRequest)
 
       const extension = setupEpochsExtension(mockBaseQueryClient)
-      const result = await extension.epochs.epochsInfos()
+      const result = await extension.epochsInfos()
 
       expect(queryEpochInfosRequest).toHaveBeenCalledWith({})
       expect(result).toEqual({

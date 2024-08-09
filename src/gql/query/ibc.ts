@@ -26,7 +26,7 @@ export type IbcFields = DeepPartial<{
 export const ibcQueryString = (args: QueryIbcArgs, fields: IbcFields) => {
   const ibcQuery: string[] = []
 
-  if (fields?.ibcTransfers) {
+  if (fields.ibcTransfers) {
     ibcQuery.push(
       gqlQuery(
         "ibcTransfers",
@@ -37,13 +37,13 @@ export const ibcQueryString = (args: QueryIbcArgs, fields: IbcFields) => {
     )
   }
 
-  if (fields?.ibcChannels) {
+  if (fields.ibcChannels) {
     ibcQuery.push(
       gqlQuery(
         "ibcChannels",
         // No args
         {},
-        convertObjectToPropertiesString(fields?.ibcChannels),
+        convertObjectToPropertiesString(fields.ibcChannels),
         true
       )
     )

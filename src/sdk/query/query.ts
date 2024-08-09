@@ -12,6 +12,7 @@ import {
   StargateClientOptions,
   StakingExtension,
   setupStakingExtension,
+  QueryClient,
 } from "@cosmjs/stargate"
 import { Tendermint37Client } from "@cosmjs/tendermint-rpc"
 import {
@@ -44,30 +45,64 @@ import {
   setupOracleMsgExtension,
   setupSudoMsgExtension,
   setupTokenFactoryMsgExtension,
-} from ".."
-import {
+  EthExtension,
+  EthMsgExtension,
+  setupEthExtension,
+  setupEthMsgExtension,
   TokenFactoryExtension,
   setupTokenFactoryExtension,
-} from "./tokenfactory"
+} from ".."
+
+export interface NibiruExtension {
+  readonly msg: Readonly<{
+    ethMsg: EthMsgExtension
+    tokenFactoryMsg: TokenFactoryMsgExtension
+    sudoMsg: SudoMsgExtension
+    inflationMsg: InflationMsgExtension
+    oracleMsg: OracleMsgExtension
+    devgasMsg: DevgasMsgExtension
+  }>
+  readonly query: Readonly<{
+    devgas: DevgasExtension
+    epochs: EpochsExtension
+    eth: EthExtension
+    inflation: InflationExtension
+    oracle: OracleExtension
+    sudo: SudoExtension
+    tokenFactory: TokenFactoryExtension
+  }>
+}
+
+export const setupNibiruExtension = (base: QueryClient): NibiruExtension => {
+  return {
+    msg: {
+      ethMsg: setupEthMsgExtension(base),
+      tokenFactoryMsg: setupTokenFactoryMsgExtension(base),
+      sudoMsg: setupSudoMsgExtension(base),
+      inflationMsg: setupInflationMsgExtension(base),
+      oracleMsg: setupOracleMsgExtension(base),
+      devgasMsg: setupDevgasMsgExtension(base),
+    },
+    query: {
+      devgas: setupDevgasExtension(base),
+      epochs: setupEpochsExtension(base),
+      eth: setupEthExtension(base),
+      inflation: setupInflationExtension(base),
+      oracle: setupOracleExtension(base),
+      sudo: setupSudoExtension(base),
+      tokenFactory: setupTokenFactoryExtension(base),
+    },
+  }
+}
 
 export type NibiruExtensions = StargateQueryClient &
-  SudoExtension &
-  InflationExtension &
-  OracleExtension &
-  EpochsExtension &
-  DevgasExtension &
   DistributionExtension &
   GovExtension &
   StakingExtension &
   IbcExtension &
   WasmExtension &
   AuthExtension &
-  TokenFactoryExtension &
-  DevgasMsgExtension &
-  OracleMsgExtension &
-  InflationMsgExtension &
-  SudoMsgExtension &
-  TokenFactoryMsgExtension
+  NibiruExtension
 
 /** Querier for a Nibiru network.
  * @example
@@ -100,23 +135,13 @@ export class NibiruQuerier extends StargateClient {
     this.tm = tmClient
     this.nibiruExtensions = StargateQueryClient.withExtensions(
       tmClient,
-      setupDevgasExtension,
-      setupEpochsExtension,
-      setupOracleExtension,
-      setupSudoExtension,
-      setupInflationExtension,
       setupDistributionExtension,
       setupGovExtension,
       setupStakingExtension,
       setupIbcExtension,
       setupWasmExtension,
       setupAuthExtension,
-      setupTokenFactoryExtension,
-      setupDevgasMsgExtension,
-      setupInflationMsgExtension,
-      setupOracleMsgExtension,
-      setupSudoMsgExtension,
-      setupTokenFactoryMsgExtension
+      setupNibiruExtension
     )
   }
 
