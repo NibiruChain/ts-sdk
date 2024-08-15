@@ -2,33 +2,18 @@ import { fetch } from "cross-fetch"
 import { Chain, chainToParts } from "."
 
 /**
- * Sends 11 NIBI, 100 NUSD, and 100 USDT to the given address from the testnet faucet.
+ * Sends 10 NIBI to the given address from the testnet faucet.
  */
 export async function useFaucet({
   address,
   chain,
-  amts,
   grecaptcha,
 }: {
   address: string
   chain: Chain
-  amts?: { nibi: number; nusd: number; usdt: number }
   grecaptcha: string
 }): Promise<Response | undefined> {
-  if (!amts) {
-    // default values
-    amts = {
-      nibi: 11,
-      nusd: 100,
-      usdt: 100,
-    }
-  }
-
-  const coins: string[] = [
-    `${amts.nibi * 1e6}unibi`,
-    `${amts.nusd * 1e6}unusd`,
-    `${amts.usdt * 1e6}uusdt`,
-  ]
+  const coins: string[] = [`${10e6}unibi`]
   const faucetUrl = faucetUrlFromChain(chain)
 
   // Execute faucet request
