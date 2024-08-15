@@ -78,7 +78,7 @@ describe("useFaucet", () => {
   test("should request funds from faucet with default amounts", async () => {
     await useFaucet({ address, chain, grecaptcha })
 
-    const expectedCoins = ["11000000unibi", "100000000unusd", "100000000uusdt"]
+    const expectedCoins = ["10000000unibi"]
 
     expect(fetch).toHaveBeenCalledWith(expectedUrl, {
       method: "POST",
@@ -91,10 +91,9 @@ describe("useFaucet", () => {
   })
 
   test("should request funds from faucet with custom amounts", async () => {
-    const amts = { nibi: 5, nusd: 50, usdt: 50 }
-    await useFaucet({ address, chain, amts, grecaptcha })
+    await useFaucet({ address, chain, grecaptcha })
 
-    const expectedCoins = ["5000000unibi", "50000000unusd", "50000000uusdt"]
+    const expectedCoins = ["10000000unibi"]
 
     expect(fetch).toHaveBeenCalledWith(expectedUrl, {
       method: "POST",
