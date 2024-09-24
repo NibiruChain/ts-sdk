@@ -1,3 +1,10 @@
+### [4.5.2](https://github.com/NibiruChain/ts-sdk/compare/v4.5.1...v4.5.2) (2024-09-24)
+
+### Miscellaneous Chores
+
+- develop -> main ([#370](https://github.com/NibiruChain/ts-sdk/issues/370)) ([ec2a25b](https://github.com/NibiruChain/ts-sdk/commit/ec2a25bd3d02cdeb6b56fad1b1a85c9c249dc697)), closes [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367) [#369](https://github.com/NibiruChain/ts-sdk/issues/369) [#368](https://github.com/NibiruChain/ts-sdk/issues/368) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367)
+- **github:** Add project automation for https://tinyurl.com/25uty9w5 ([c2c27e5](https://github.com/NibiruChain/ts-sdk/commit/c2c27e57a5f94f2180f2df0ad67597790809b143))
+
 ### [4.5.1](https://github.com/NibiruChain/ts-sdk/compare/v4.5.0...v4.5.1) (2024-08-09)
 
 ### Miscellaneous Chores
