@@ -11,15 +11,17 @@ import { BaseAccount } from "src/protojs/cosmos/auth/v1beta1/auth"
  * @param {EthAccount} ethAccount - The EthAccount object containing the account's base information.
  * @returns {Account} The Cosmos account object.
  */
-export const accountFromEthAccount = (baseAccount: BaseAccount): Account => {
-  const { address, pubKey, accountNumber, sequence } = baseAccount
-  return {
-    address,
-    pubkey: decodeOptionalPubkey(pubKey),
-    accountNumber: accountNumber.toNumber(),
-    sequence: sequence.toNumber(),
-  }
-}
+export const accountFromEthAccount = ({
+  address,
+  pubKey,
+  accountNumber,
+  sequence,
+}: BaseAccount): Account => ({
+  address,
+  pubkey: decodeOptionalPubkey(pubKey),
+  accountNumber: accountNumber.toNumber(),
+  sequence: sequence.toNumber(),
+})
 
 /**
  * Parses an account input into a Cosmos account. Handles both EthAccount and other standard accounts.
