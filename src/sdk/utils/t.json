@@ -1,0 +1,41 @@
+{
+  "chainId": "cataclysm-1",
+  "chainName": "cataclysm-1",
+  "rpc": "https://rpc.nibiru.fi",
+  "rest": "https://lcd.nibiru.fi",
+  "stakeCurrency": {
+    "coinDenom": "NIBI",
+    "coinMinimalDenom": "unibi",
+    "coinDecimals": 6
+  },
+  "bip44": {
+    "coinType": 118
+  },
+  "bech32Config": {
+    "bech32PrefixAccAddr": "nibi",
+    "bech32PrefixAccPub": "nibipub",
+    "bech32PrefixValAddr": "nibivaloper",
+    "bech32PrefixValPub": "nibivaloperpub",
+    "bech32PrefixConsAddr": "nibivalcons",
+    "bech32PrefixConsPub": "nibivalconspub"
+  },
+  "currencies": [
+    {
+      "coinDenom": "NIBI",
+      "coinMinimalDenom": "unibi",
+      "coinDecimals": 6
+    }
+  ],
+  "feeCurrencies": [
+    {
+      "coinDenom": "NIBI",
+      "coinMinimalDenom": "unibi",
+      "coinDecimals": 6,
+      "gasPriceStep": {
+        "low": 0.05,
+        "average": 0.125,
+        "high": 0.2
+      }
+    }
+  ]
+}
