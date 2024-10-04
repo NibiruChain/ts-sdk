@@ -9,14 +9,20 @@ import { Any } from "src/protojs/google/protobuf/any"
  * @param {EthAccount} ethAccount - The EthAccount object containing the account's base information.
  * @returns {Account} The Cosmos account object.
  */
-export const accountFromEthAccount = ({
-  baseAccount,
-}: EthAccount): Account => ({
-  address: baseAccount?.address ?? "",
-  pubkey: decodeOptionalPubkey(baseAccount?.pubKey) ?? null,
-  accountNumber: baseAccount?.accountNumber?.toNumber() ?? 0,
-  sequence: baseAccount?.sequence?.toNumber() ?? 0,
-})
+export const accountFromEthAccount = ({ baseAccount }: EthAccount): Account => {
+  if (!baseAccount) {
+    throw new Error("baseAccount is undefined in EthAccount")
+  }
+
+  const { address, pubKey, accountNumber, sequence } = baseAccount
+
+  return {
+    address,
+    pubkey: decodeOptionalPubkey(pubKey),
+    accountNumber: accountNumber.toNumber(),
+    sequence: sequence?.toNumber(),
+  }
+}
 
 /**
  * Parses an account input into a Cosmos account. Handles both EthAccount and other standard accounts.

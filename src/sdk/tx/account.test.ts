@@ -1,13 +1,25 @@
 import { accountFromEthAccount, accountFromNibiru } from "./account"
 import { EthAccount } from "src/protojs/eth/types/v1/account"
-import { Any } from "cosmjs-types/google/protobuf/any"
+import { Any } from "src/protojs/google/protobuf/any"
 import Long from "long"
+import * as cosmjs from "@cosmjs/stargate"
 
 describe("accountFromEthAccount", () => {
-  it("should return valid account information with nibi address and Long types", () => {
+  it("should throw an error when baseAccount is undefined", () => {
+    const ethAccount: EthAccount = {
+      baseAccount: undefined, // Simulating undefined baseAccount
+      codeHash: "",
+    }
+
+    expect(() => accountFromEthAccount(ethAccount)).toThrowError(
+      "baseAccount is undefined in EthAccount"
+    )
+  })
+
+  it("should return a valid account when baseAccount is defined", () => {
     const ethAccount: EthAccount = {
       baseAccount: {
-        address: "nibi1234567", // Use nibi Bech32 encoding
+        address: "nibi1testaddress",
         pubKey: {
           typeUrl: "/cosmos.crypto.secp256k1.PubKey",
           value: new Uint8Array([1, 2, 3]),
@@ -20,34 +32,23 @@ describe("accountFromEthAccount", () => {
 
     const account = accountFromEthAccount(ethAccount)
 
-    expect(account.address).toEqual("nibi1234567")
+    expect(account.address).toBe("nibi1testaddress")
     expect(account.pubkey).toEqual({
       typeUrl: "/cosmos.crypto.secp256k1.PubKey",
       value: new Uint8Array([1, 2, 3]),
     })
-    expect(account.accountNumber).toEqual(Long.fromNumber(123))
-    expect(account.sequence).toEqual(Long.fromNumber(1))
-  })
-
-  it("should handle null/undefined baseAccount fields and return Long.ZERO", () => {
-    const ethAccount: EthAccount = { baseAccount: undefined, codeHash: "" }
-
-    const account = accountFromEthAccount(ethAccount)
-
-    expect(account.address).toEqual("")
-    expect(account.pubkey).toBeNull()
-    expect(account.accountNumber).toEqual(Long.ZERO)
-    expect(account.sequence).toEqual(Long.ZERO)
+    expect(account.accountNumber).toEqual(123)
+    expect(account.sequence).toEqual(1)
   })
 })
 
 describe("accountFromNibiru", () => {
-  it("should parse EthAccount typeUrl", () => {
+  it("should parse EthAccount typeUrl and return valid account", () => {
     const input: Any = {
       typeUrl: "/eth.types.v1.EthAccount",
       value: EthAccount.encode({
         baseAccount: {
-          address: "nibi1234567",
+          address: "nibi1testaddress",
           pubKey: {
             typeUrl: "/cosmos.crypto.secp256k1.PubKey",
             value: new Uint8Array([4, 5, 6]),
@@ -61,16 +62,25 @@ describe("accountFromNibiru", () => {
 
     const account = accountFromNibiru(input)
 
-    expect(account.address).toEqual("nibi1234567") // Ensure the prefix is 'nibi'
+    expect(account.address).toBe("nibi1testaddress")
     expect(account.pubkey).toEqual({
       typeUrl: "/cosmos.crypto.secp256k1.PubKey",
       value: new Uint8Array([4, 5, 6]),
     })
-    expect(account.accountNumber).toEqual(Long.fromNumber(456))
-    expect(account.sequence).toEqual(Long.fromNumber(2))
+    expect(account.accountNumber).toEqual(456)
+    expect(account.sequence).toEqual(2)
   })
 
-  it("should call accountFromAny for non-EthAccount typeUrl", () => {
+  it("should handle non-EthAccount typeUrl by calling accountFromAny", () => {
+    const mockAccountFromAny = jest
+      .spyOn(cosmjs, "accountFromAny")
+      .mockReturnValue({
+        address: "nibi1otheraddress",
+        pubkey: null,
+        accountNumber: 789,
+        sequence: 3,
+      })
+
     const input: Any = {
       typeUrl: "/other.types.v1.Account",
       value: new Uint8Array([7, 8, 9]),
@@ -79,5 +89,6 @@ describe("accountFromNibiru", () => {
     const account = accountFromNibiru(input)
 
     expect(account.address).toBe("nibi1otheraddress")
+    expect(mockAccountFromAny).toHaveBeenCalledWith(input)
   })
 })
