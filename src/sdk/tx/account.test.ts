@@ -3,6 +3,14 @@ import { EthAccount } from "src/protojs/eth/types/v1/account"
 import { Any } from "src/protojs/google/protobuf/any"
 import Long from "long"
 import * as cosmjs from "@cosmjs/stargate"
+import { decodeOptionalPubkey } from "@cosmjs/proto-signing"
+
+// Mock decodeOptionalPubkey
+jest.mock("@cosmjs/proto-signing", () => ({
+  decodeOptionalPubkey: jest.fn(),
+}))
+
+const mockedDecodeOptionalPubkey = decodeOptionalPubkey as jest.Mock
 
 describe("accountFromEthAccount", () => {
   it("should throw an error when baseAccount is undefined", () => {
@@ -29,6 +37,11 @@ describe("accountFromEthAccount", () => {
       },
       codeHash: "",
     }
+
+    mockedDecodeOptionalPubkey.mockReturnValue({
+      typeUrl: "/cosmos.crypto.secp256k1.PubKey",
+      value: new Uint8Array([1, 2, 3]),
+    })
 
     const account = accountFromEthAccount(ethAccount)
 
@@ -59,6 +72,11 @@ describe("accountFromNibiru", () => {
         codeHash: "",
       }).finish(),
     }
+
+    mockedDecodeOptionalPubkey.mockReturnValue({
+      typeUrl: "/cosmos.crypto.secp256k1.PubKey",
+      value: new Uint8Array([4, 5, 6]),
+    })
 
     const account = accountFromNibiru(input)
 
