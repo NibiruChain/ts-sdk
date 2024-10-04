@@ -20,7 +20,7 @@ export const accountFromEthAccount = ({ baseAccount }: EthAccount): Account => {
     address,
     pubkey: decodeOptionalPubkey(pubKey),
     accountNumber: accountNumber.toNumber(),
-    sequence: sequence?.toNumber(),
+    sequence: sequence.toNumber(),
   }
 }
 
