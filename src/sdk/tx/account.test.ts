@@ -4,6 +4,7 @@ import { Any } from "src/protojs/google/protobuf/any"
 import Long from "long"
 import * as cosmjs from "@cosmjs/stargate"
 import { decodeOptionalPubkey } from "@cosmjs/proto-signing"
+import { BaseAccount } from "src/protojs/cosmos/auth/v1beta1/auth"
 
 // Mock decodeOptionalPubkey
 jest.mock("@cosmjs/proto-signing", () => ({
@@ -13,29 +14,21 @@ jest.mock("@cosmjs/proto-signing", () => ({
 const mockedDecodeOptionalPubkey = decodeOptionalPubkey as jest.Mock
 
 describe("accountFromEthAccount", () => {
-  it("should throw an error when baseAccount is undefined", () => {
-    const ethAccount: EthAccount = {
-      baseAccount: undefined, // Simulating undefined baseAccount
-      codeHash: "",
-    }
+  it("should throw an error if baseAccount is undefined", () => {
+    const baseAccount: BaseAccount = undefined as unknown as BaseAccount
 
-    expect(() => accountFromEthAccount(ethAccount)).toThrowError(
-      "baseAccount is undefined in EthAccount"
-    )
+    expect(() => accountFromEthAccount(baseAccount)).toThrow()
   })
 
   it("should return a valid account when baseAccount is defined", () => {
-    const ethAccount: EthAccount = {
-      baseAccount: {
-        address: "nibi1testaddress",
-        pubKey: {
-          typeUrl: "/cosmos.crypto.secp256k1.PubKey",
-          value: new Uint8Array([1, 2, 3]),
-        },
-        accountNumber: Long.fromNumber(123),
-        sequence: Long.fromNumber(1),
+    const baseAccount: BaseAccount = {
+      address: "nibi1testaddress",
+      pubKey: {
+        typeUrl: "/cosmos.crypto.secp256k1.PubKey",
+        value: new Uint8Array([1, 2, 3]),
       },
-      codeHash: "",
+      accountNumber: Long.fromNumber(123),
+      sequence: Long.fromNumber(1),
     }
 
     mockedDecodeOptionalPubkey.mockReturnValue({
@@ -43,7 +36,7 @@ describe("accountFromEthAccount", () => {
       value: new Uint8Array([1, 2, 3]),
     })
 
-    const account = accountFromEthAccount(ethAccount)
+    const account = accountFromEthAccount(baseAccount)
 
     expect(account.address).toBe("nibi1testaddress")
     expect(account.pubkey).toEqual({
