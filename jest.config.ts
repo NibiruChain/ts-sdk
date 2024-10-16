@@ -22,6 +22,7 @@ const config: Config = {
     "!jest.config.ts",
     "!**/src/gql/utils/generated.ts",
     "!**/src/sdk/utils/testutil.ts",
+    "!**/src/sdk/core/signingcosmwasmclient.ts", // Implementation from Cosmjs
   ],
   testPathIgnorePatterns: ["/node_modules/", "/dist/", "/nibiru/"],
   coverageReporters: ["json-summary", "text", "html", "lcov"],
