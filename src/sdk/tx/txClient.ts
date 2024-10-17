@@ -18,6 +18,7 @@ import {
   setupWasmExtension,
 } from "@cosmjs/cosmwasm-stargate"
 import { NibiruExtensions, setupNibiruExtension } from ".."
+import { accountFromNibiru } from "./account"
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
   ...defaultRegistryTypes,
@@ -69,6 +70,7 @@ export class NibiruTxClient extends SigningStargateClient {
         registry: new Registry(nibiruRegistryTypes),
         gasPrice: GasPrice.fromString("0.025unibi"),
         broadcastPollIntervalMs: 1_000, // 1 second poll times
+        accountParser: accountFromNibiru,
         ...options,
       },
       wasmClient

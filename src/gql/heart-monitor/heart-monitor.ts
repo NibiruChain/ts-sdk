@@ -16,10 +16,6 @@ import {
   communityPool,
   distributionCommissions,
   users,
-  GqlOutStats,
-  QueryStatsArgs,
-  GQLStatsFields,
-  stats,
   GqlOutGovernance,
   QueryGovernanceArgs,
   governance,
@@ -118,11 +114,6 @@ export interface IHeartMonitor {
     fields: DeepPartial<GQLStakingFields>
   ) => Promise<GqlOutStaking>
 
-  readonly stats: (
-    args: QueryStatsArgs,
-    fields: DeepPartial<GQLStatsFields>
-  ) => Promise<GqlOutStats>
-
   readonly user: (
     args: GQLQueryGqlUserArgs,
     fields: DeepPartial<GQLUser>
@@ -212,9 +203,6 @@ export class HeartMonitor implements IHeartMonitor {
     args: QueryStakingArgs,
     fields: DeepPartial<GQLStakingFields>
   ) => staking(args, this.gqlEndpt, fields)
-
-  stats = async (args: QueryStatsArgs, fields: DeepPartial<GQLStatsFields>) =>
-    stats(args, this.gqlEndpt, fields)
 
   user = async (args: GQLQueryGqlUserArgs, fields: DeepPartial<GQLUser>) =>
     user(args, this.gqlEndpt, fields)
