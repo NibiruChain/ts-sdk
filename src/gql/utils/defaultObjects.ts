@@ -28,13 +28,6 @@ import {
   GQLSpotPoolSwap,
   GQLStakingActionType,
   GQLStakingHistoryItem,
-  GQLStatsFees,
-  GQLStatsPerpOpenInterest,
-  GQLStatsPerpPnl,
-  GQLStatsTotals,
-  GQLStatsTvl,
-  GQLStatsUsers,
-  GQLStatsVolume,
   GQLToken,
   GQLUnbonding,
   GQLUser,
@@ -268,101 +261,6 @@ export const defaultSpotPoolSwap: GQLSpotPoolSwap = {
   user: defaultUser,
 }
 
-export const defaultStatsFees: GQLStatsFees = {
-  feesLiquidations: 0,
-  feesLiquidationsCumulative: 0,
-  feesPerp: 0,
-  feesPerpCumulative: 0,
-  feesSwap: 0,
-  feesSwapCumulative: 0,
-  feesTotal: 0,
-  feesTotalCumulative: 0,
-  period: 0,
-  periodInterval: "",
-  periodStartTs: "",
-}
-
-export const defaultPerpOpenInterest: GQLStatsPerpOpenInterest = {
-  openInterestLong: 0,
-  openInterestShort: 0,
-  openInterestTotal: 0,
-  period: 0,
-  periodInterval: "",
-  periodStartTs: "",
-}
-
-export const defaultPerpPnl: GQLStatsPerpPnl = {
-  loss: 0,
-  lossCumulative: 0,
-  netPnl: 0,
-  netPnlCumulative: 0,
-  period: 0,
-  periodInterval: "",
-  periodStartTs: "",
-  profit: 0,
-  profitCumulative: 0,
-}
-
-export const defaultTotals: GQLStatsTotals = {
-  period: 0,
-  periodInterval: "",
-  periodStartTs: "",
-  totalPerp: 0,
-  totalFeesPerp: 0,
-  totalFeesLiquidations: 0,
-  totalOpenInterest: 0,
-  totalTransactions: 0,
-  totalSwap: 0,
-  totalTvl: 0,
-}
-
-export const defaultTvl: GQLStatsTvl = {
-  period: 0,
-  periodInterval: "",
-  periodStartTs: "",
-  tvlPerp: 0,
-  tvlStablecoin: 0,
-  tvlStaking: 0,
-  tvlSwap: 0,
-  tvlTotal: 0,
-}
-
-export const defaultUsers: GQLStatsUsers = {
-  newUsersLp: 0,
-  newUsersLpCumulative: 0,
-  newUsersPerp: 0,
-  newUsersPerpCumulative: 0,
-  newUsersSwap: 0,
-  newUsersSwapCumulative: 0,
-  newUsersTotal: 0,
-  newUsersTotalCumulative: 0,
-  period: 0,
-  periodInterval: "",
-  periodStartTs: "",
-  userActionsPerp: 0,
-  uniqueUsersLp: 0,
-  uniqueUsersPerp: 0,
-  uniqueUsersSwap: 0,
-  uniqueUsersTotal: 0,
-  userActionsLp: 0,
-  userActionsSwap: 0,
-  userActionsTotal: 0,
-  newAuthUsers: 0,
-  newAuthUsersCumulative: 0,
-}
-
-export const defaultVolume: GQLStatsVolume = {
-  volumePerp: 0,
-  volumePerpCumulative: 0,
-  volumeSwap: 0,
-  volumeSwapCumulative: 0,
-  volumeTotal: 0,
-  volumeTotalCumulative: 0,
-  period: 0,
-  periodInterval: "",
-  periodStartTs: "",
-}
-
 export const defaultUnbondings: GQLUnbonding = {
   amount: 0,
   completion_time: "",
@@ -444,8 +342,8 @@ export const defaultInflationInfo: GQLInflationInfo = {
 export const defaultFeatureFlags: GQLFeatureFlags = {
   gov: true,
   oracle: true,
-  perp: true,
-  spot: true,
+  perp: false,
+  spot: false,
   staking: true,
   wasm: true,
 }
