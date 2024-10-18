@@ -7,8 +7,6 @@ import {
   QueryGovernanceArgs,
   QueryIbcArgs,
   QueryOracleArgs,
-  QueryStatsArgs,
-  GQLStatsFields,
   communityPoolQueryString,
   QueryWasmArgs,
   GqlWasmFields,
@@ -24,19 +22,12 @@ import {
   defaultIbcTransfer,
   defaultOracleEntry,
   defaultOraclePrice,
-  defaultPerpOpenInterest,
-  defaultPerpPnl,
   defaultRedelegations,
-  defaultStatsFees,
   defaultToken,
-  defaultTotals,
-  defaultTvl,
   defaultUnbondings,
   defaultUser,
   defaultUserContract,
-  defaultUsers,
   defaultValidator,
-  defaultVolume,
   GQLDistributionCommission,
   GQLOraclePrice,
   GQLQueryGqlCommunityPoolArgs,
@@ -414,28 +405,6 @@ test("queryBatchHandler", async () => {
   }
 })
 
-const testStats = async (args: QueryStatsArgs, fields: GQLStatsFields) => {
-  const resp = await heartMonitor.stats(args, fields)
-  expect(resp).toHaveProperty("stats")
-
-  if (resp.GQLStats) {
-    const { GQLStats } = resp
-
-    checkFields(
-      [GQLStats],
-      [
-        "totals",
-        "fees",
-        "perpOpenInterest",
-        "tvl",
-        "perpPnl",
-        "users",
-        "volume",
-      ]
-    )
-  }
-}
-
 const testStaking = async (
   args: QueryStakingArgs,
   fields: GQLStakingFields
@@ -497,55 +466,6 @@ test.skip("staking", async () => {
       unbondings: defaultUnbondings,
       validators: defaultValidator,
       history: defaultStakingHistoryItem,
-    }
-  )
-})
-
-test("stats", async () => {
-  await testStats(
-    {
-      totals: {
-        limit: 1,
-      },
-      fees: {
-        limit: 1,
-      },
-      perpOpenInterest: {
-        limit: 1,
-      },
-      tvl: {
-        limit: 1,
-      },
-      perpPnl: {
-        limit: 1,
-      },
-      users: {
-        limit: 1,
-      },
-      volume: {
-        limit: 1,
-      },
-    },
-    {
-      totals: defaultTotals,
-      fees: defaultStatsFees,
-      perpOpenInterest: defaultPerpOpenInterest,
-      tvl: defaultTvl,
-      perpPnl: defaultPerpPnl,
-      users: defaultUsers,
-      volume: defaultVolume,
-    }
-  )
-  await testStats(
-    {},
-    {
-      totals: defaultTotals,
-      fees: defaultStatsFees,
-      perpOpenInterest: defaultPerpOpenInterest,
-      tvl: defaultTvl,
-      perpPnl: defaultPerpPnl,
-      users: defaultUsers,
-      volume: defaultVolume,
     }
   )
 })

@@ -12,12 +12,13 @@ import {
   SigningStargateClientOptions,
 } from "@cosmjs/stargate"
 import { Tendermint37Client } from "@cosmjs/tendermint-rpc"
-import {
-  SigningCosmWasmClient,
-  SigningCosmWasmClientOptions,
-  setupWasmExtension,
-} from "@cosmjs/cosmwasm-stargate"
+import { setupWasmExtension } from "@cosmjs/cosmwasm-stargate"
 import { NibiruExtensions, setupNibiruExtension } from ".."
+import { accountFromNibiru } from "./account"
+import {
+  NibiSigningCosmWasmClient,
+  NibiSigningCosmWasmClientOptions,
+} from "../core/signingcosmwasmclient"
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
   ...defaultRegistryTypes,
@@ -25,13 +26,13 @@ export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
 
 export class NibiruTxClient extends SigningStargateClient {
   public readonly nibiruExtensions: NibiruExtensions
-  public readonly wasmClient: SigningCosmWasmClient
+  public readonly wasmClient: NibiSigningCosmWasmClient
 
   protected constructor(
     tmClient: Tendermint37Client,
     signer: OfflineSigner,
     options: SigningStargateClientOptions,
-    wasm: SigningCosmWasmClient
+    wasm: NibiSigningCosmWasmClient
   ) {
     super(tmClient, signer, options)
     this.wasmClient = wasm
@@ -51,14 +52,15 @@ export class NibiruTxClient extends SigningStargateClient {
     endpoint: string,
     signer: OfflineSigner,
     options: SigningStargateClientOptions = {},
-    wasmOptions: SigningCosmWasmClientOptions = {}
+    wasmOptions: NibiSigningCosmWasmClientOptions = {}
   ): Promise<NibiruTxClient> {
     const tmClient = await Tendermint37Client.connect(endpoint)
-    const wasmClient = await SigningCosmWasmClient.connectWithSigner(
+    const wasmClient = await NibiSigningCosmWasmClient.connectWithSigner(
       endpoint,
       signer,
       {
         gasPrice: GasPrice.fromString("0.025unibi"),
+        accountParser: accountFromNibiru,
         ...wasmOptions,
       }
     )
@@ -69,6 +71,7 @@ export class NibiruTxClient extends SigningStargateClient {
         registry: new Registry(nibiruRegistryTypes),
         gasPrice: GasPrice.fromString("0.025unibi"),
         broadcastPollIntervalMs: 1_000, // 1 second poll times
+        accountParser: accountFromNibiru,
         ...options,
       },
       wasmClient
