@@ -1,3 +1,10 @@
+### [5.0.1](https://github.com/NibiruChain/ts-sdk/compare/v5.0.0...v5.0.1) (2024-10-18)
+
+### Bug Fixes
+
+- self reference pathing ([f79e404](https://github.com/NibiruChain/ts-sdk/commit/f79e4043eecfa974025017a5042d8aeeb394d6ab))
+- self reference pathing ([2968cbc](https://github.com/NibiruChain/ts-sdk/commit/2968cbc4fc5345824e2a5847ade7d90b625be265))
+
 ## [5.0.0](https://github.com/NibiruChain/ts-sdk/compare/v4.5.2...v5.0.0) (2024-10-18)
 
 ### ⚠ BREAKING CHANGES
