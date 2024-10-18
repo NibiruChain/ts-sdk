@@ -1,9 +1,9 @@
 import { decodeOptionalPubkey } from "@cosmjs/proto-signing"
 import { Account, accountFromAny, AccountParser } from "@cosmjs/stargate"
-import { EthAccount } from "src/protojs/eth/types/v1/account"
-import { Any } from "src/protojs/google/protobuf/any"
+import { EthAccount } from "../../protojs/eth/types/v1/account"
+import { Any } from "../../protojs/google/protobuf/any"
 import { assert } from "@cosmjs/utils"
-import { BaseAccount } from "src/protojs/cosmos/auth/v1beta1/auth"
+import { BaseAccount } from "../../protojs/cosmos/auth/v1beta1/auth"
 
 /**
  * Converts an EthAccount to a general Cosmos Account object.
