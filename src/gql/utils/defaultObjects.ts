@@ -14,18 +14,10 @@ import {
   GQLInflationDistribution,
   GQLInflationInfo,
   GQLInflationRewards,
-  GQLMarkPriceCandle,
   GQLOracleEntry,
   GQLOraclePrice,
-  GQLPerpLeaderboard,
-  GQLPerpMarket,
-  GQLPerpPosition,
-  GQLPerpPositionChange,
   GQLProxies,
   GQLRedelegation,
-  GQLSpotLpPosition,
-  GQLSpotPool,
-  GQLSpotPoolSwap,
   GQLStakingActionType,
   GQLStakingHistoryItem,
   GQLToken,
@@ -82,68 +74,6 @@ export const defaultActor: GQLUser = {
 
 export const defaultUser = defaultActor
 
-export const defaultPerpMarket: GQLPerpMarket = {
-  base_reserve: 0,
-  ecosystem_fund_fee_ratio: 0,
-  max_funding_rate: 0,
-  enabled: true,
-  exchange_fee_ratio: 0,
-  funding_rate_epoch_id: "",
-  index_price_twap: 0,
-  is_deleted: false,
-  latest_cumulative_premium_fraction: 0,
-  liquidation_fee_ratio: 0,
-  maintenance_margin_ratio: 0,
-  mark_price: 0,
-  mark_price_twap: 0,
-  max_leverage: 0,
-  pair: "",
-  partial_liquidation_ratio: 0,
-  prepaid_bad_debt: defaultToken,
-  price_multiplier: 0,
-  quote_reserve: 0,
-  sqrt_depth: 0,
-  total_long: 0,
-  total_short: 0,
-  twap_lookback_window: "",
-}
-
-export const defaultPerpPosition: GQLPerpPosition = {
-  bad_debt: 0,
-  last_updated_block: defaultBlock,
-  latest_cumulative_premium_fraction: 0,
-  margin: 0,
-  margin_ratio: 0,
-  open_notional: 0,
-  pair: "",
-  liquidation_price: 0,
-  position_notional: 0,
-  size: 0,
-  trader_address: "",
-  unrealized_funding_payment: 0,
-  unrealized_pnl: 0,
-}
-
-export const defaultPool: GQLSpotPool = {
-  amplification: 0,
-  created_block: defaultBlock,
-  exit_fee: 0,
-  swap_fee: 0,
-  pool_id: 0,
-  tokens: [defaultToken],
-  pool_type: "",
-  total_shares: defaultToken,
-  total_weight: 0,
-  weights: [defaultToken],
-}
-
-export const defaultSpotPool = {
-  block: defaultBlock,
-  pool: defaultPool,
-  pool_shares: defaultToken,
-  user: defaultUser,
-}
-
 export const defaultGovProposal: GQLGovProposal = {
   depositEndTime: "",
   finalTallyResultAbstain: 0,
@@ -176,50 +106,6 @@ export const defaultGovVote: GQLGovVote = {
   sender: defaultUser,
 }
 
-export const defaultMarkPriceCandles: GQLMarkPriceCandle = {
-  close: 0,
-  high: 0,
-  low: 0,
-  open: 0,
-  volume: 0,
-  volumeNotional: 0,
-  pair: "",
-  period: 0,
-  periodInterval: "",
-  periodStartTs: "",
-  indexPriceTwapClose: 0,
-}
-
-export const defaultPerpPositionChanges: GQLPerpPositionChange = {
-  badDebt: defaultToken,
-  block: defaultBlock,
-  changeReason: "",
-  eventSeqNo: 0,
-  exchangedNotional: 0,
-  exchangedSize: 0,
-  fundingPayment: 0,
-  latestCumulativePremiumFraction: 0,
-  margin: 0,
-  marginToUser: 0,
-  openNotional: 0,
-  pair: "",
-  positionNotional: 0,
-  realizedPnl: 0,
-  size: 0,
-  traderAddress: "",
-  transactionFee: defaultToken,
-  txSeqNo: 0,
-}
-
-export const defaultPerpLeaderboard: GQLPerpLeaderboard = {
-  avg_pct_pnl_rank: 0,
-  avg_pct_pnl: 0,
-  input_margin: 0,
-  raw_pnl: 0,
-  raw_pnl_with_unrealized: 0,
-  trader_address: "",
-}
-
 export const defaultGovernance: GQLGovernance = {
   govDeposits: [defaultGovDeposit],
   govProposals: [defaultGovProposal],
@@ -227,7 +113,7 @@ export const defaultGovernance: GQLGovernance = {
 }
 
 export const defaultDistributionCommission: GQLDistributionCommission = {
-  commission: [defaultToken],
+  commission: defaultToken,
   validator: defaultValidator,
 }
 
@@ -244,21 +130,6 @@ export const defaultRedelegations: GQLRedelegation = {
   destination_validator: defaultValidator,
   completion_time: "",
   creation_block: defaultBlock,
-}
-
-export const defaultSpotLpPosition: GQLSpotLpPosition = {
-  created_block: defaultBlock,
-  pool: defaultPool,
-  pool_shares: defaultToken,
-  user: defaultUser,
-}
-
-export const defaultSpotPoolSwap: GQLSpotPoolSwap = {
-  block: defaultBlock,
-  pool: defaultPool,
-  token_in: defaultToken,
-  token_out: defaultToken,
-  user: defaultUser,
 }
 
 export const defaultUnbondings: GQLUnbonding = {
@@ -342,8 +213,6 @@ export const defaultInflationInfo: GQLInflationInfo = {
 export const defaultFeatureFlags: GQLFeatureFlags = {
   gov: true,
   oracle: true,
-  perp: false,
-  spot: false,
   staking: true,
   wasm: true,
 }
