@@ -36,6 +36,9 @@ describe("setupEpochsExtension", () => {
     TraceBlock: jest.fn().mockResolvedValue({
       traceBlock: "Test",
     }),
+    TraceCall: jest.fn().mockResolvedValue({
+      traceCall: "Test",
+    }),
     BaseFee: jest.fn().mockResolvedValue({
       baseFee: "Test",
     }),
@@ -58,6 +61,7 @@ describe("setupEpochsExtension", () => {
     expect(extension.estimateGas).toBeInstanceOf(Function)
     expect(extension.traceTx).toBeInstanceOf(Function)
     expect(extension.traceBlock).toBeInstanceOf(Function)
+    expect(extension.traceCall).toBeInstanceOf(Function)
     expect(extension.baseFee).toBeInstanceOf(Function)
     expect(extension.funTokenMapping).toBeInstanceOf(Function)
   })
@@ -244,7 +248,6 @@ describe("setupEpochsExtension", () => {
           limit: 0,
           enableMemory: true,
           enableReturnData: true,
-          tracerJsonConfig: "",
         },
         predecessors: [MsgEthereumTx.fromPartial({})],
         blockNumber: new Long(0),
@@ -267,7 +270,6 @@ describe("setupEpochsExtension", () => {
           limit: 0,
           enableMemory: true,
           enableReturnData: true,
-          tracerJsonConfig: "",
         },
         predecessors: [MsgEthereumTx.fromPartial({})],
         blockNumber: new Long(0),
@@ -300,7 +302,6 @@ describe("setupEpochsExtension", () => {
           limit: 0,
           enableMemory: true,
           enableReturnData: true,
-          tracerJsonConfig: "",
         },
         blockNumber: new Long(0),
         blockHash: "",
@@ -321,7 +322,6 @@ describe("setupEpochsExtension", () => {
           limit: 0,
           enableMemory: true,
           enableReturnData: true,
-          tracerJsonConfig: "",
         },
         blockNumber: new Long(0),
         blockHash: "",
@@ -329,6 +329,59 @@ describe("setupEpochsExtension", () => {
         proposerAddress: new Uint8Array(),
         chainId: new Long(0),
         blockMaxGas: new Long(0),
+      })
+      expect(result).toEqual({ traceBlock: "Test" })
+    })
+  })
+
+  describe("traceCall", () => {
+    test("should call QueryTraceTxRequest and return the response", async () => {
+      const queryTraceTxRequest = jest
+        .spyOn(query.QueryTraceTxRequest, "fromPartial")
+        .mockReturnValue({} as query.QueryTraceTxRequest)
+
+      const extension = setupEthExtension(mockBaseQueryClient)
+      const result = await extension.traceCall({
+        msg: {
+          data: { typeUrl: "", value: new Uint8Array() },
+          size: 0,
+          hash: "",
+          from: "",
+        },
+        predecessors: [
+          {
+            data: { typeUrl: "", value: new Uint8Array() },
+            size: 0,
+            hash: "",
+            from: "",
+          },
+        ],
+        blockHash: "",
+        blockMaxGas: new Long(0),
+        proposerAddress: new Uint8Array(),
+        blockNumber: new Long(0),
+        chainId: new Long(0),
+      })
+      expect(queryTraceTxRequest).toHaveBeenCalledWith({
+        msg: {
+          data: { typeUrl: "", value: new Uint8Array() },
+          size: 0,
+          hash: "",
+          from: "",
+        },
+        predecessors: [
+          {
+            data: { typeUrl: "", value: new Uint8Array() },
+            size: 0,
+            hash: "",
+            from: "",
+          },
+        ],
+        blockHash: "",
+        blockMaxGas: new Long(0),
+        proposerAddress: new Uint8Array(),
+        blockNumber: new Long(0),
+        chainId: new Long(0),
       })
       expect(result).toEqual({ traceBlock: "Test" })
     })
