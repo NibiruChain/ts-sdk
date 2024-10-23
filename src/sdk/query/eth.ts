@@ -39,6 +39,7 @@ export interface EthExtension {
   estimateGas: (args: EthCallRequest) => Promise<EstimateGasResponse>
   traceTx: (args: QueryTraceTxRequest) => Promise<QueryTraceTxResponse>
   traceBlock: (args: QueryTraceBlockRequest) => Promise<QueryTraceBlockResponse>
+  traceCall: (args: QueryTraceTxRequest) => Promise<QueryTraceTxResponse>
   baseFee: (args: QueryBaseFeeRequest) => Promise<QueryBaseFeeResponse>
   funTokenMapping: (
     request: QueryFunTokenMappingRequest
@@ -80,6 +81,9 @@ export const setupEthExtension = (base: QueryClient): EthExtension => {
 
     traceBlock: async (args: QueryTraceBlockRequest) =>
       queryService.TraceBlock(QueryTraceBlockRequest.fromPartial(args)),
+
+    traceCall: async (args: QueryTraceTxRequest) =>
+      queryService.TraceCall(QueryTraceTxRequest.fromPartial(args)),
 
     baseFee: async (args: QueryBaseFeeRequest) =>
       queryService.BaseFee(QueryBaseFeeRequest.fromPartial(args)),
