@@ -11,6 +11,12 @@ describe("setupEthMsgExtension", () => {
     UpdateParams: jest.fn().mockResolvedValue({
       test: "Test",
     }),
+    CreateFunToken: jest.fn().mockResolvedValue({
+      test: "Test",
+    }),
+    ConvertCoinToEVM: jest.fn().mockResolvedValue({
+      test: "Test",
+    }),
   } as unknown as query.MsgClientImpl)
 
   test("should setup extension correctly", () => {

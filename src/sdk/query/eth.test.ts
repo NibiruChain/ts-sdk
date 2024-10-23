@@ -383,7 +383,7 @@ describe("setupEpochsExtension", () => {
         blockNumber: new Long(0),
         chainId: new Long(0),
       })
-      expect(result).toEqual({ traceBlock: "Test" })
+      expect(result).toEqual({ traceCall: "Test" })
     })
   })
 
