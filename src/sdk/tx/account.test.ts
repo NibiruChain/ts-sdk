@@ -1,10 +1,10 @@
 import { accountFromEthAccount, accountFromNibiru } from "./account"
-import { EthAccount } from "src/protojs/eth/types/v1/account"
-import { Any } from "src/protojs/google/protobuf/any"
+import { EthAccount } from "../../protojs/eth/types/v1/account"
+import { Any } from "../../protojs/google/protobuf/any"
 import Long from "long"
 import * as cosmjs from "@cosmjs/stargate"
 import { decodeOptionalPubkey } from "@cosmjs/proto-signing"
-import { BaseAccount } from "src/protojs/cosmos/auth/v1beta1/auth"
+import { BaseAccount } from "../../protojs/cosmos/auth/v1beta1/auth"
 
 // Mock decodeOptionalPubkey
 jest.mock("@cosmjs/proto-signing", () => ({
