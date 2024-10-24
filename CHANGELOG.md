@@ -1,3 +1,9 @@
+### [5.0.2](https://github.com/NibiruChain/ts-sdk/compare/v5.0.1...v5.0.2) (2024-10-24)
+
+### Miscellaneous Chores
+
+- update eth proto to latest ([#386](https://github.com/NibiruChain/ts-sdk/issues/386)) ([20b645d](https://github.com/NibiruChain/ts-sdk/commit/20b645d23c29cf801b7ca55b0892be25dc7a5c9b)), closes [#385](https://github.com/NibiruChain/ts-sdk/issues/385)
+
 ### [5.0.1](https://github.com/NibiruChain/ts-sdk/compare/v5.0.0...v5.0.1) (2024-10-18)
 
 ### Bug Fixes
