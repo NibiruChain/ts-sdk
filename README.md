@@ -46,10 +46,9 @@ The `nibijs` source code can be found in the `src` directory.
   - [Example: Creating a wallet](#example-creating-a-wallet)
   - [Example: Querying](#example-querying)
   - [Example: Sending funds](#example-sending-funds)
-  - [Example: Transaction with arbitrary messages](#example-transaction-with-arbitrary-messages)
 - [Codebase structure](#codebase-structure)
 - [Development Quick Start](#development-quick-start)
-- [🔓 License](#%F0%9F%94%93-license)
+- [🔓 License](#-license)
 
 To learn more about Nibiru, see [nibiru.fi/docs](https://nibiru.fi/docs)
 
@@ -100,14 +99,6 @@ console.log("balances: %o", balances)
 const blockHeight = 200000
 const block = await querier.getBlock(blockHeight)
 console.log("block: %o", block)
-
-// Query PERP markets
-const perpMarkets = await querier.nibiruExtensions.perp.markets()
-console.log("perpMarkets: %o", perpMarkets)
-
-// Query SPOT pools
-const spotPools = await querier.nibiruExtensions.spot.pools()
-console.log("spotPools: %o", spotPools)
 ```
 
 ### Example: Sending funds
@@ -149,63 +140,6 @@ await delay(10000)
 // Check balance after send tokens
 balances = await querier.getAllBalances(exampleAddress)
 console.log("balances: %o", balances)
-```
-
-### Example: Transaction with arbitrary messages
-
-```js
-import {
-  NibiruTxClient,
-  newSignerFromMnemonic,
-  Msg,
-  Testnet,
-  NibiruQuerier,
-} from "@nibiruchain/nibijs"
-import { coin } from "@cosmjs/proto-signing"
-
-const mnemonic = "Your mnemonic here"
-export const CHAIN = Testnet(2)
-const signer = await newSignerFromMnemonic(mnemonic)
-const querier = await NibiruQuerier.connect(CHAIN.endptTm)
-const txClient = await NibiruTxClient.connectWithSigner(CHAIN.endptTm, signer)
-const [{ address: fromAddr }] = await signer.getAccounts()
-const pair = "ubtc:unusd"
-
-// Construct tx msgs
-const msgs = [
-  Msg.perp.openPosition({
-    sender: fromAddr,
-    pair: pair,
-    quoteAssetAmount: 10,
-    leverage: 1,
-    goLong: true,
-    baseAssetAmountLimit: 0,
-  }),
-  Msg.perp.addMargin({
-    sender: fromAddr,
-    pair: pair,
-    margin: coin("20", "unusd"),
-  }),
-  Msg.perp.removeMargin({
-    sender: fromAddr,
-    pair: pair,
-    margin: coin("5", "unusd"),
-  }),
-  // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
-]
-
-// Broadcast tx
-const txResp = await txClient.signAndBroadcast(fromAddr, msgs, "auto")
-console.log(txResp)
-
-// Check your open PERP positions
-const delay = (ms) => new Promise((res) => setTimeout(res, ms))
-await delay(5000)
-
-const perpPositions = await querier.nibiruExtensions.perp.positions({
-  trader: fromAddr,
-})
-console.log("perpPositions: %o", perpPositions)
 ```
 
 ## Codebase structure

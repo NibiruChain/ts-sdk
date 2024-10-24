@@ -11,6 +11,12 @@ describe("setupEthMsgExtension", () => {
     UpdateParams: jest.fn().mockResolvedValue({
       test: "Test",
     }),
+    CreateFunToken: jest.fn().mockResolvedValue({
+      test: "Test",
+    }),
+    ConvertCoinToEvm: jest.fn().mockResolvedValue({
+      test: "Test",
+    }),
   } as unknown as query.MsgClientImpl)
 
   test("should setup extension correctly", () => {
@@ -54,28 +60,60 @@ describe("setupEthMsgExtension", () => {
       const result = await extension.updateParams({
         authority: "",
         params: {
-          evmDenom: "",
           createFuntokenFee: "",
-          enableCreate: true,
-          enableCall: true,
           extraEips: [new Long(0)],
-          allowUnprotectedTxs: true,
-          activePrecompiles: [""],
           evmChannels: [""],
         },
       })
       expect(msgUpdateParams).toHaveBeenCalledWith({
         authority: "",
         params: {
-          evmDenom: "",
           createFuntokenFee: "",
-          enableCreate: true,
-          enableCall: true,
           extraEips: [new Long(0)],
-          allowUnprotectedTxs: true,
-          activePrecompiles: [""],
           evmChannels: [""],
         },
+      })
+      expect(result).toEqual({ test: "Test" })
+    })
+  })
+
+  describe("createFunToken", () => {
+    test("should call MsgCreateFunToken and return the response", async () => {
+      const msgCreateFunToken = jest
+        .spyOn(query.MsgCreateFunToken, "fromPartial")
+        .mockReturnValue({} as query.MsgCreateFunToken)
+
+      const extension = setupEthMsgExtension(mockBaseQueryClient)
+      const result = await extension.createFunToken({
+        fromBankDenom: "",
+        fromErc20: "",
+        sender: "",
+      })
+      expect(msgCreateFunToken).toHaveBeenCalledWith({
+        fromBankDenom: "",
+        fromErc20: "",
+        sender: "",
+      })
+      expect(result).toEqual({ test: "Test" })
+    })
+  })
+
+  describe("convertCoinToEVM", () => {
+    test("should call MsgConvertCoinToEvm and return the response", async () => {
+      const msgConvertCoinToEvm = jest
+        .spyOn(query.MsgConvertCoinToEvm, "fromPartial")
+        .mockReturnValue({} as query.MsgConvertCoinToEvm)
+
+      const extension = setupEthMsgExtension(mockBaseQueryClient)
+      const result = await extension.convertCoinToEVM({
+        toEthAddr: "",
+        bankCoin: { denom: "", amount: "" },
+        sender: "",
+      })
+      expect(msgConvertCoinToEvm).toHaveBeenCalledWith({
+        toEthAddr: "",
+        bankCoin: { denom: "", amount: "" },
+        sender: "",
       })
       expect(result).toEqual({ test: "Test" })
     })

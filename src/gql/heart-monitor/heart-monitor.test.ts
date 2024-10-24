@@ -139,10 +139,7 @@ const testFeatureFlags = async (fields: GQLFeatureFlags) => {
   if (resp.featureFlags) {
     const { featureFlags } = resp
 
-    checkFields(
-      [featureFlags],
-      ["gov", "oracle", "perp", "spot", "staking", "wasm"]
-    )
+    checkFields([featureFlags], ["gov", "oracle", "staking", "wasm"])
   }
 }
 
@@ -398,10 +395,7 @@ test("queryBatchHandler", async () => {
   if (resp.featureFlags) {
     const { featureFlags } = resp
 
-    checkFields(
-      [featureFlags],
-      ["gov", "oracle", "perp", "spot", "staking", "wasm"]
-    )
+    checkFields([featureFlags], ["gov", "oracle", "staking", "wasm"])
   }
 })
 
