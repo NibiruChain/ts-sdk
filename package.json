@@ -45,8 +45,8 @@
     "@cosmjs/tendermint-rpc": "^0.32.3",
     "bignumber.js": "^9.1.1",
     "cross-fetch": "4.0.0",
-    "graphql": "^16.7.1",
-    "graphql-ws": "^5.14.0",
+    "graphql": "^16.9.0",
+    "graphql-ws": "^5.16.0",
     "pako": "^2.1.0"
   },
   "peerDependencies": {
@@ -54,7 +54,7 @@
     "@cosmjs/proto-signing": "^0.32.3",
     "@cosmjs/stargate": "^0.32.3",
     "@cosmjs/tendermint-rpc": "^0.32.3",
-    "graphql": "^16.7.1"
+    "graphql": "^16.9.0"
   },
   "devDependencies": {
     "@bufbuild/buf": "^1.28.1",
