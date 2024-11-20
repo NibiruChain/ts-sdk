@@ -1,5 +1,6 @@
 import { createProtobufRpcClient, QueryClient } from "@cosmjs/stargate"
 import {
+  MsgServiceName,
   MsgClientImpl,
   MsgConvertCoinToEvm,
   MsgConvertCoinToEvmResponse,
@@ -10,6 +11,21 @@ import {
   MsgUpdateParams,
   MsgUpdateParamsResponse,
 } from "../../protojs/eth/evm/v1/tx"
+import { GeneratedType } from "@cosmjs/proto-signing"
+
+export const ETH_MSG_TYPE_URLS = {
+  MsgEthereumTx: `/${MsgServiceName}EthereumTx`,
+  MsgUpdateParams: `/${MsgServiceName}UpdateParams`,
+  MsgCreateFunToken: `/${MsgServiceName}CreateFunToken`,
+  MsgConvertCoinToEvm: `/${MsgServiceName}ConvertCoinToEvm`,
+}
+
+export const ethTypes: ReadonlyArray<[string, GeneratedType]> = [
+  [ETH_MSG_TYPE_URLS.MsgEthereumTx, MsgEthereumTx],
+  [ETH_MSG_TYPE_URLS.MsgUpdateParams, MsgUpdateParams],
+  [ETH_MSG_TYPE_URLS.MsgCreateFunToken, MsgCreateFunToken],
+  [ETH_MSG_TYPE_URLS.MsgConvertCoinToEvm, MsgConvertCoinToEvm],
+]
 
 export interface EthMsgExtension {
   ethereumTx: (body: MsgEthereumTx) => Promise<MsgEthereumTxResponse>
