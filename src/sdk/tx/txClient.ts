@@ -13,7 +13,12 @@ import {
 } from "@cosmjs/stargate"
 import { Tendermint37Client } from "@cosmjs/tendermint-rpc"
 import { setupWasmExtension } from "@cosmjs/cosmwasm-stargate"
-import { NibiruExtensions, setupNibiruExtension } from ".."
+import {
+  ethTypes,
+  NibiruExtensions,
+  setupNibiruExtension,
+  tokenfactoryTypes,
+} from ".."
 import { accountFromNibiru } from "./account"
 import {
   NibiSigningCosmWasmClient,
@@ -22,6 +27,8 @@ import {
 
 export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
   ...defaultRegistryTypes,
+  ...tokenfactoryTypes,
+  ...ethTypes,
 ]
 
 export class NibiruTxClient extends SigningStargateClient {
