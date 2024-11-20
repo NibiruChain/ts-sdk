@@ -67,7 +67,6 @@ export class NibiruTxClient extends SigningStargateClient {
       signer,
       {
         gasPrice: GasPrice.fromString("0.025unibi"),
-        registry: new Registry(nibiruRegistryTypes),
         accountParser: accountFromNibiru,
         ...wasmOptions,
       }
