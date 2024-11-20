@@ -24,7 +24,7 @@ export const TOKENFACTORY_MSG_TYPE_URLS = {
   MsgChangeAdmin: `/${MsgServiceName}ChangeAdmin`,
   MsgUpdateModuleParams: `/${MsgServiceName}UpdateModuleParams`,
   MsgMint: `/${MsgServiceName}Mint`,
-  MsgBurns: `/${MsgServiceName}Burns`,
+  MsgBurn: `/${MsgServiceName}Burn`,
   MsgSetDenomMetadata: `/${MsgServiceName}SetDenomMetadata`,
   MsgBurnNative: `/${MsgServiceName}BurnNative`,
 }
@@ -34,7 +34,7 @@ export const tokenfactoryTypes: ReadonlyArray<[string, GeneratedType]> = [
   [TOKENFACTORY_MSG_TYPE_URLS.MsgChangeAdmin, MsgChangeAdmin],
   [TOKENFACTORY_MSG_TYPE_URLS.MsgUpdateModuleParams, MsgUpdateModuleParams],
   [TOKENFACTORY_MSG_TYPE_URLS.MsgMint, MsgMint],
-  [TOKENFACTORY_MSG_TYPE_URLS.MsgBurns, MsgBurn],
+  [TOKENFACTORY_MSG_TYPE_URLS.MsgBurn, MsgBurn],
   [TOKENFACTORY_MSG_TYPE_URLS.MsgSetDenomMetadata, MsgSetDenomMetadata],
   [TOKENFACTORY_MSG_TYPE_URLS.MsgBurnNative, MsgBurnNative],
 ]
