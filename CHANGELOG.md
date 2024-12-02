@@ -1,3 +1,20 @@
+## [6.0.0](https://github.com/NibiruChain/ts-sdk/compare/v5.0.3...v6.0.0) (2024-12-02)
+
+### Bug Fixes
+
+- test ([9d7ff5c](https://github.com/NibiruChain/ts-sdk/commit/9d7ff5c5b2f8c07819d33d9b945542342bfd023a))
+- test ([e0b49c9](https://github.com/NibiruChain/ts-sdk/commit/e0b49c9aa23f35fb2cfe9289b35983e1f73f81f7))
+
+### Miscellaneous Chores
+
+- update eth proto to latest ([96014f2](https://github.com/NibiruChain/ts-sdk/commit/96014f26dfc4e85bd3b0dd5c1bf1d2dcc799496e))
+- upgrade graphql ([#387](https://github.com/NibiruChain/ts-sdk/issues/387)) ([d707e12](https://github.com/NibiruChain/ts-sdk/commit/d707e129e5d5d42f0203eb6c8aa21f5d8f10cfd1))
+
+### Code Refactors
+
+- adding eth & tokenfactory types ([#389](https://github.com/NibiruChain/ts-sdk/issues/389)) ([8c6c34c](https://github.com/NibiruChain/ts-sdk/commit/8c6c34c8c3b2f2eef47798c10fe91e71b59f5f2a))
+- updating to latest graphql schema since featureflags don't include spot & perp ([#385](https://github.com/NibiruChain/ts-sdk/issues/385)) ([cbb36d7](https://github.com/NibiruChain/ts-sdk/commit/cbb36d752d177c6c467175d94463772d56f3e5f6))
+
 ### [5.0.3](https://github.com/NibiruChain/ts-sdk/compare/v5.0.2...v5.0.3) (2024-11-20)
 
 ### Miscellaneous Chores
