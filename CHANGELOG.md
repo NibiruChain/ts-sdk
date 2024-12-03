@@ -1,3 +1,9 @@
+### [6.0.1](https://github.com/NibiruChain/ts-sdk/compare/v6.0.0...v6.0.1) (2024-12-03)
+
+### Miscellaneous Chores
+
+- bump nibiru submodule and unhide protojs and gql so we can tra… ([#393](https://github.com/NibiruChain/ts-sdk/issues/393)) ([a4b52d0](https://github.com/NibiruChain/ts-sdk/commit/a4b52d048d07b1b28fac07892f209d6c0008a1b2))
+
 ## [6.0.0](https://github.com/NibiruChain/ts-sdk/compare/v5.0.3...v6.0.0) (2024-12-02)
 
 ### Bug Fixes
