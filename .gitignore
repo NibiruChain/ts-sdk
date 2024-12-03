@@ -2,10 +2,6 @@
 # Edit at https://www.gitignore.io/?templates=node,intellij+all,visualstudiocode
 
 docs/
-src/protojs/
-proto/
-src/gql/utils/generated.ts
-src/gql/utils/schema.graphql
 dist
 **/node_modules/*
 
