@@ -1,0 +1,630 @@
+directive @goModel(model: String, models: [String!]) on ENUM | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
+
+type Block {
+  block: Int!
+  block_duration: Float!
+  block_ts: Int!
+  num_txs: Int!
+}
+
+type BybitResponse {
+  ask1Price: String!
+  ask1Size: String!
+  bid1Price: String!
+  bid1Size: String!
+  highPrice24h: String!
+  lastPrice: String!
+  lowPrice24h: String!
+  prevPrice24h: String!
+  price24hPcnt: String!
+  symbol: String!
+  turnover24h: String!
+  volume24h: String!
+}
+
+input CommunityPoolFilter {
+  denom: String
+}
+
+enum CommunityPoolOrder {
+  denom
+}
+
+input ContractEventsFilter {
+  block: IntFilter
+  contractAddress: StringFilter
+  type: StringFilter
+}
+
+enum ContractEventsOrder {
+  contract_address
+  sequence
+  type
+}
+
+type Delegation {
+  amount: Int!
+  delegator: User!
+  validator: Validator!
+}
+
+input DelegationFilter {
+  delegator_address: String
+  validator_address: String
+}
+
+enum DelegationOrder {
+  delegator_address
+  validator_address
+}
+
+type DistributionCommission {
+  commission: Token
+  validator: Validator!
+}
+
+input DistributionCommissionFilter {
+  validator_address: String
+}
+
+enum DistributionCommissionOrder {
+  validator_address
+}
+
+type Employee {
+  email: String!
+  instagram: String!
+  name: String!
+  phone: String!
+  telegram: String!
+  twitter: String!
+}
+
+input EmployeeFilter {
+  email: String
+  instagram: String
+  name: String
+  phone: String
+  telegram: String
+  twitter: String
+}
+
+type Event {
+  attributes: [EventAttribute!]!
+  block: Block!
+  contractAddress: String
+  eventSeqNo: Int!
+  txSeqNo: Int!
+  type: String!
+}
+
+type EventAttribute {
+  key: String!
+  value: String!
+}
+
+type FeatureFlags {
+  gov: Boolean!
+  oracle: Boolean!
+  staking: Boolean!
+  wasm: Boolean!
+}
+
+input FloatFilter {
+  eq: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+}
+
+type GovDeposit {
+  amount: [Token!]!
+  block: Block!
+  proposal: GovProposal!
+  sender: User!
+}
+
+input GovDepositsFilter {
+  block: IntFilter
+  proposalId: IntFilter
+  senderEq: String
+}
+
+enum GovDepositsOrder {
+  block
+  proposal_id
+  sender
+}
+
+type GovProposal {
+  depositEndTime: Time!
+  finalTallyResultAbstain: Int!
+  finalTallyResultNo: Int!
+  finalTallyResultNoWithVeto: Int!
+  finalTallyResultYes: Int!
+  id: Int!
+  metadata: String!
+  proposer: User!
+  status: String!
+  submitTime: Time!
+  summary: String!
+  title: String!
+  totalDeposit: [Token!]!
+  votingEndTime: Time
+  votingStartTime: Time
+}
+
+input GovProposalsFilter {
+  depositEndTime: TimeFilter
+  finalTallyResultAbstain: IntFilter
+  finalTallyResultNo: IntFilter
+  finalTallyResultNoWithVeto: IntFilter
+  finalTallyResultYes: IntFilter
+  id: IntFilter
+  proposerEq: String
+  submitTime: TimeFilter
+  summary: StringFilter
+  title: StringFilter
+  votingEndTime: TimeFilter
+  votingStartTime: TimeFilter
+}
+
+enum GovProposalsOrder {
+  deposit_end_time
+  final_tally_result_abstain
+  final_tally_result_no
+  final_tally_result_no_with_veto
+  final_tally_result_yes
+  id
+  proposer
+  status
+  submit_time
+  summary
+  title
+  voting_end_time
+  voting_start_time
+}
+
+type GovVote {
+  block: Block!
+  option: String!
+  proposal: GovProposal!
+  sender: User!
+}
+
+input GovVotesFilter {
+  block: IntFilter
+  optionEq: String
+  proposalId: IntFilter
+  senderEq: String
+}
+
+enum GovVotesOrder {
+  block
+  option
+  proposal_id
+  sender
+}
+
+type Governance {
+  govDeposits(limit: Int, order: GovDepositsOrder, orderDesc: Boolean, where: GovDepositsFilter): [GovDeposit!]!
+  govProposals(limit: Int, order: GovProposalsOrder, orderDesc: Boolean, where: GovProposalsFilter): [GovProposal!]!
+  govVotes(limit: Int, order: GovVotesOrder, orderDesc: Boolean, where: GovVotesFilter): [GovVote!]!
+}
+
+type IBC {
+  ibcChannels: IBCChannelsResponse!
+  ibcTransfers(limit: Int, offset: Int, order_by: IBCTranferOrder, order_desc: Boolean, where: IBCTranferFilter): [IBCTransfer!]!
+}
+
+type IBCChannel {
+  chain_id: String!
+  chain_logo: String!
+  chain_name: String!
+  channel_id: String!
+  counterparty_channel_id: String!
+  revision_height: Int!
+}
+
+type IBCChannelsResponse {
+  channels: [IBCChannel!]!
+  revision_height: Int!
+}
+
+input IBCTranferFilter {
+  receiver: String
+  sender: String
+}
+
+enum IBCTranferOrder {
+  block
+  receiver
+  sender
+}
+
+type IBCTransfer {
+  amount: Float!
+  block: Block!
+  denom: String!
+  memo: String!
+  receiver: String!
+  sender: String!
+}
+
+type Inflation {
+  distributions(limit: Int, offset: Int, order_by: InflationDistributionOrder, order_desc: Boolean, where: InflationDistributionFilter): [InflationDistribution!]!
+  inflations(limit: Int, offset: Int, order_by: InflationInfoOrder, order_desc: Boolean, where: InflationInfoFilter): [InflationInfo!]!
+  rewards: InflationRewards
+}
+
+type InflationDistribution {
+  block: Block!
+  communityPool: Float!
+  eventSeqNo: Int!
+  stakingRewards: Float!
+  strategicReserve: Float!
+  txSeqNo: Int!
+}
+
+input InflationDistributionFilter {
+  block: IntFilter
+  blockTs: TimeFilter
+}
+
+enum InflationDistributionOrder {
+  sequence
+}
+
+type InflationInfo {
+  amount: Float!
+  block: Block!
+  epochNumber: Int!
+  epochProvisions: Float!
+}
+
+input InflationInfoFilter {
+  block: IntFilter
+  blockTs: TimeFilter
+  epochNumber: IntFilter
+}
+
+enum InflationInfoOrder {
+  block
+  epoch_number
+}
+
+type InflationRewards {
+  annualReward: Int!
+  totalStaked: Int!
+}
+
+input IntFilter {
+  eq: Int
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+}
+
+type Internal {
+  employee(where: EmployeeFilter!): Employee
+}
+
+type Message {
+  action: String
+  block: Block!
+  contractAddr: String
+  funds: [Token!]
+  msgSeqNo: Int!
+  senderAddr: String
+  txCode: Int!
+  txHash: String!
+  txSeqNo: Int!
+  type: String!
+}
+
+input MessagesFilter {
+  block: IntFilter
+  senderAddr: String
+  txHash: String
+  type: String
+}
+
+enum MessagesOrder {
+  sequence
+  type
+}
+
+type Oracle {
+  oraclePrices(limit: Int, offset: Int, order_by: OraclePricesOrder, order_desc: Boolean, where: OraclePricesFilter): [OraclePrice!]!
+  oracles(limit: Int, order_by: OraclesOrder, order_desc: Boolean, where: OraclesFilter): [OracleEntry!]!
+}
+
+type OracleEntry {
+  numVotes: Int!
+  validator: Validator!
+}
+
+type OraclePrice {
+  block: Block!
+  eventSeqNo: Int! @deprecated(reason: "Not applicable for oracle prices")
+  pair: String!
+  price: Float!
+  txSeqNo: Int! @deprecated(reason: "Not applicable for oracle prices")
+}
+
+input OraclePricesFilter {
+  block: IntFilter
+  pair: StringFilter
+}
+
+enum OraclePricesOrder {
+  pair
+  price
+  sequence
+}
+
+input OraclesFilter {
+  numVotes: IntFilter
+  validatorAddressEq: String
+}
+
+enum OraclesOrder {
+  num_votes
+  validator_address
+}
+
+type Proxies {
+  bybit: BybitResponse!
+}
+
+type Query {
+  communityPool(limit: Int, order_by: CommunityPoolOrder, order_desc: Boolean, where: CommunityPoolFilter): [Token!]!
+  delegations(limit: Int, order_by: DelegationOrder, order_desc: Boolean, where: DelegationFilter): [Delegation!]! @deprecated(reason: "Moved to staking sub schema")
+  distributionCommissions(limit: Int, order_by: DistributionCommissionOrder, order_desc: Boolean, where: DistributionCommissionFilter): [DistributionCommission!]!
+  featureFlags: FeatureFlags!
+  governance: Governance!
+  ibc: IBC!
+  inflation: Inflation!
+  internal: Internal!
+  messages(limit: Int, offset: Int, order_by: MessagesOrder, order_desc: Boolean, where: MessagesFilter): [Message!]!
+  oracle: Oracle!
+  proxies: Proxies!
+  redelegations(limit: Int, order_by: RedelegationOrder, order_desc: Boolean, where: RedelegationFilter): [Redelegation!]! @deprecated(reason: "Moved to staking sub schema")
+  staking: Staking!
+  stats: Stats! @deprecated(reason: "Will be removed next release")
+  unbondings(limit: Int, order_by: UnbondingOrder, order_desc: Boolean, where: UnbondingFilter): [Unbonding!]! @deprecated(reason: "Moved to staking sub schema")
+  user(where: UserFilter!): User
+  users(limit: Int, order_by: UserOrder, order_desc: Boolean, where: UsersFilter): [User!]!
+  validators(limit: Int, order_by: ValidatorOrder, order_desc: Boolean, where: ValidatorFilter): [Validator!]! @deprecated(reason: "Moved to staking sub schema")
+  wasm: Wasm!
+}
+
+type Redelegation {
+  amount: Int!
+  completion_time: String!
+  creation_block: Block!
+  delegator: User!
+  destination_validator: Validator!
+  source_validator: Validator!
+}
+
+input RedelegationFilter {
+  delegator_address: String
+  destination_validator_address: String
+  source_validator_address: String
+}
+
+enum RedelegationOrder {
+  completion_time
+  creation_height
+  delegator_address
+  destination_validator_address
+  source_validator_address
+}
+
+type Staking {
+  delegations(limit: Int, offset: Int, order_by: DelegationOrder, order_desc: Boolean, where: DelegationFilter): [Delegation!]!
+  history(limit: Int, offset: Int, order_by: StakingHistoryOrder, order_desc: Boolean, where: StakingHistoryFilter): [StakingHistoryItem!]!
+  redelegations(limit: Int, offset: Int, order_by: RedelegationOrder, order_desc: Boolean, where: RedelegationFilter): [Redelegation!]!
+  unbondings(limit: Int, offset: Int, order_by: UnbondingOrder, order_desc: Boolean, where: UnbondingFilter): [Unbonding!]!
+  validators(limit: Int, offset: Int, order_by: ValidatorOrder, order_desc: Boolean, where: ValidatorFilter): [Validator!]!
+}
+
+enum StakingActionType {
+  cancel
+  delegate
+  redelegate
+  redelegate_completed
+  unbond
+  unbond_completed
+  withdraw
+}
+
+input StakingHistoryFilter {
+  actions: [StakingActionType!]
+  amount: IntFilter
+  block: IntFilter
+  completionTime: TimeFilter
+  delegator: StringFilter
+  validator: StringFilter
+}
+
+type StakingHistoryItem {
+  action: StakingActionType!
+  amount: Int!
+  block: Block!
+  completion_time: Time
+  delegator: User!
+  destination_validator: Validator
+  validator: Validator!
+}
+
+enum StakingHistoryOrder {
+  action
+  amount
+  delegator
+  sequence
+  validator
+}
+
+type Stats {
+  volume(limit: Int, order: StatsVolumeOrder, orderDesc: Boolean): [StatsVolume!]!
+}
+
+type StatsVolume {
+  periodStartTs: Time!
+  volumePerpCumulative: Float!
+}
+
+enum StatsVolumeOrder {
+  period_start_ts
+}
+
+input StringFilter {
+  eq: String
+  like: String
+}
+
+input SubOraclePricesFilter {
+  pair: String!
+}
+
+type Subscription {
+  oraclePrices(where: SubOraclePricesFilter): [OraclePrice!]!
+}
+
+scalar Time
+
+input TimeFilter {
+  eq: Time
+  gt: Time
+  gte: Time
+  lt: Time
+  lte: Time
+}
+
+type Token {
+  amount: String!
+  denom: String!
+}
+
+type Unbonding {
+  amount: Int!
+  completion_time: String!
+  creation_block: Block!
+  delegator: User!
+  validator: Validator!
+}
+
+input UnbondingFilter {
+  delegator_address: String
+  validator_address: String
+}
+
+enum UnbondingOrder {
+  completion_time
+  creation_height
+  delegator_address
+  validator_address
+}
+
+type User {
+  address: String!
+  balances: [Token]!
+  created_block: Block!
+  is_blocked: Boolean
+}
+
+type UserContract {
+  contractAddress: String!
+  contractType: String!
+  events: [Event!]
+  user: User!
+}
+
+input UserContractsFilter {
+  contractAddress: StringFilter
+  contractType: StringFilter
+  userAddress: StringFilter
+}
+
+enum UserContractsOrder {
+  contract_address
+  contract_type
+  user_address
+}
+
+input UserFilter {
+  address: String!
+}
+
+enum UserOrder {
+  address
+  created_block
+}
+
+input UsersFilter {
+  address: String
+  created_block_eq: Int
+  created_block_gte: Int
+  created_block_lte: Int
+}
+
+type Validator {
+  commission_rates: ValidatorCommission
+  commission_update_time: String!
+  creation_block: Block!
+  delegator_shares: Float!
+  description: ValidatorDescription!
+  jailed: Boolean!
+  min_self_delegation: Int!
+  operator_address: String!
+  self_delegation: Int!
+  status: ValidatorStatus!
+  tokens: Int!
+  unbonding_block: Block!
+  unbonding_time: String!
+  uptime: Float
+}
+
+type ValidatorCommission {
+  max_change_rate: Float!
+  max_rate: Float!
+  rate: Float!
+}
+
+type ValidatorDescription {
+  details: String!
+  identity: String!
+  moniker: String!
+  security_contact: String!
+  website: String!
+}
+
+input ValidatorFilter {
+  jailed: Boolean
+  moniker: String
+  operator_address: String
+  status: ValidatorStatus
+}
+
+enum ValidatorOrder {
+  jailed
+  moniker
+  operator_address
+  status
+  tokens
+}
+
+enum ValidatorStatus {
+  BONDED
+  UNBONDED
+  UNBONDING
+}
+
+type Wasm {
+  contractEvents(limit: Int, offset: Int, order: ContractEventsOrder, orderDesc: Boolean, where: ContractEventsFilter): [Event!]!
+  userContracts(limit: Int, offset: Int, order: UserContractsOrder, orderDesc: Boolean, where: UserContractsFilter): [UserContract!]!
+}
