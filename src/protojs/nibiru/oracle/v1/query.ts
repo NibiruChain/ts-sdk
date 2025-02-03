@@ -19,6 +19,14 @@ export interface QueryExchangeRateRequest {
 export interface QueryExchangeRateResponse {
   /** exchange_rate defines the exchange rate of assets voted by validators */
   exchangeRate: string;
+  /**
+   * Block timestamp for the block where the oracle came to consensus for this
+   * price. This timestamp is a conventional Unix millisecond time, i.e. the
+   * number of milliseconds elapsed since January 1, 1970 UTC.
+   */
+  blockTimestampMs: Long;
+  /** Block height when the oracle came to consensus for this price. */
+  blockHeight: Long;
 }
 
 /**
@@ -255,13 +263,19 @@ export const QueryExchangeRateRequest = {
 };
 
 function createBaseQueryExchangeRateResponse(): QueryExchangeRateResponse {
-  return { exchangeRate: "" };
+  return { exchangeRate: "", blockTimestampMs: Long.ZERO, blockHeight: Long.UZERO };
 }
 
 export const QueryExchangeRateResponse = {
   encode(message: QueryExchangeRateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.exchangeRate !== "") {
       writer.uint32(10).string(message.exchangeRate);
+    }
+    if (!message.blockTimestampMs.isZero()) {
+      writer.uint32(16).int64(message.blockTimestampMs);
+    }
+    if (!message.blockHeight.isZero()) {
+      writer.uint32(24).uint64(message.blockHeight);
     }
     return writer;
   },
@@ -280,6 +294,20 @@ export const QueryExchangeRateResponse = {
 
           message.exchangeRate = reader.string();
           continue;
+        case 2:
+          if (tag !== 16) {
+            break;
+          }
+
+          message.blockTimestampMs = reader.int64() as Long;
+          continue;
+        case 3:
+          if (tag !== 24) {
+            break;
+          }
+
+          message.blockHeight = reader.uint64() as Long;
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -290,12 +318,19 @@ export const QueryExchangeRateResponse = {
   },
 
   fromJSON(object: any): QueryExchangeRateResponse {
-    return { exchangeRate: isSet(object.exchangeRate) ? String(object.exchangeRate) : "" };
+    return {
+      exchangeRate: isSet(object.exchangeRate) ? String(object.exchangeRate) : "",
+      blockTimestampMs: isSet(object.blockTimestampMs) ? Long.fromValue(object.blockTimestampMs) : Long.ZERO,
+      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.UZERO,
+    };
   },
 
   toJSON(message: QueryExchangeRateResponse): unknown {
     const obj: any = {};
     message.exchangeRate !== undefined && (obj.exchangeRate = message.exchangeRate);
+    message.blockTimestampMs !== undefined &&
+      (obj.blockTimestampMs = (message.blockTimestampMs || Long.ZERO).toString());
+    message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.UZERO).toString());
     return obj;
   },
 
@@ -306,6 +341,12 @@ export const QueryExchangeRateResponse = {
   fromPartial<I extends Exact<DeepPartial<QueryExchangeRateResponse>, I>>(object: I): QueryExchangeRateResponse {
     const message = createBaseQueryExchangeRateResponse();
     message.exchangeRate = object.exchangeRate ?? "";
+    message.blockTimestampMs = (object.blockTimestampMs !== undefined && object.blockTimestampMs !== null)
+      ? Long.fromValue(object.blockTimestampMs)
+      : Long.ZERO;
+    message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
+      ? Long.fromValue(object.blockHeight)
+      : Long.UZERO;
     return message;
   },
 };
@@ -1417,7 +1458,10 @@ export const QueryParamsResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
-  /** ExchangeRate returns exchange rate of a pair */
+  /**
+   * ExchangeRate returns exchange rate of a pair along with the block height and
+   * block time that the exchange rate was set by the oracle module.
+   */
   ExchangeRate(request: QueryExchangeRateRequest): Promise<QueryExchangeRateResponse>;
   /** ExchangeRateTwap returns twap exchange rate of a pair */
   ExchangeRateTwap(request: QueryExchangeRateRequest): Promise<QueryExchangeRateResponse>;

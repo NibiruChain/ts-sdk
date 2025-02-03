@@ -85,9 +85,15 @@ export interface ExchangeRateTuple {
   exchangeRate: string;
 }
 
-export interface DatedPrice {
+export interface ExchangeRateAtBlock {
   exchangeRate: string;
   createdBlock: Long;
+  /**
+   * Block timestamp for the block where the oracle came to consensus for this
+   * price. This timestamp is a conventional Unix millisecond time, i.e. the
+   * number of milliseconds elapsed since January 1, 1970 UTC.
+   */
+  blockTimestampMs: Long;
 }
 
 /**
@@ -556,25 +562,28 @@ export const ExchangeRateTuple = {
   },
 };
 
-function createBaseDatedPrice(): DatedPrice {
-  return { exchangeRate: "", createdBlock: Long.UZERO };
+function createBaseExchangeRateAtBlock(): ExchangeRateAtBlock {
+  return { exchangeRate: "", createdBlock: Long.UZERO, blockTimestampMs: Long.ZERO };
 }
 
-export const DatedPrice = {
-  encode(message: DatedPrice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const ExchangeRateAtBlock = {
+  encode(message: ExchangeRateAtBlock, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.exchangeRate !== "") {
       writer.uint32(10).string(message.exchangeRate);
     }
     if (!message.createdBlock.isZero()) {
       writer.uint32(16).uint64(message.createdBlock);
     }
+    if (!message.blockTimestampMs.isZero()) {
+      writer.uint32(24).int64(message.blockTimestampMs);
+    }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): DatedPrice {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ExchangeRateAtBlock {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseDatedPrice();
+    const message = createBaseExchangeRateAtBlock();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -592,6 +601,13 @@ export const DatedPrice = {
 
           message.createdBlock = reader.uint64() as Long;
           continue;
+        case 3:
+          if (tag !== 24) {
+            break;
+          }
+
+          message.blockTimestampMs = reader.int64() as Long;
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -601,30 +617,36 @@ export const DatedPrice = {
     return message;
   },
 
-  fromJSON(object: any): DatedPrice {
+  fromJSON(object: any): ExchangeRateAtBlock {
     return {
       exchangeRate: isSet(object.exchangeRate) ? String(object.exchangeRate) : "",
       createdBlock: isSet(object.createdBlock) ? Long.fromValue(object.createdBlock) : Long.UZERO,
+      blockTimestampMs: isSet(object.blockTimestampMs) ? Long.fromValue(object.blockTimestampMs) : Long.ZERO,
     };
   },
 
-  toJSON(message: DatedPrice): unknown {
+  toJSON(message: ExchangeRateAtBlock): unknown {
     const obj: any = {};
     message.exchangeRate !== undefined && (obj.exchangeRate = message.exchangeRate);
     message.createdBlock !== undefined && (obj.createdBlock = (message.createdBlock || Long.UZERO).toString());
+    message.blockTimestampMs !== undefined &&
+      (obj.blockTimestampMs = (message.blockTimestampMs || Long.ZERO).toString());
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<DatedPrice>, I>>(base?: I): DatedPrice {
-    return DatedPrice.fromPartial(base ?? {});
+  create<I extends Exact<DeepPartial<ExchangeRateAtBlock>, I>>(base?: I): ExchangeRateAtBlock {
+    return ExchangeRateAtBlock.fromPartial(base ?? {});
   },
 
-  fromPartial<I extends Exact<DeepPartial<DatedPrice>, I>>(object: I): DatedPrice {
-    const message = createBaseDatedPrice();
+  fromPartial<I extends Exact<DeepPartial<ExchangeRateAtBlock>, I>>(object: I): ExchangeRateAtBlock {
+    const message = createBaseExchangeRateAtBlock();
     message.exchangeRate = object.exchangeRate ?? "";
     message.createdBlock = (object.createdBlock !== undefined && object.createdBlock !== null)
       ? Long.fromValue(object.createdBlock)
       : Long.UZERO;
+    message.blockTimestampMs = (object.blockTimestampMs !== undefined && object.blockTimestampMs !== null)
+      ? Long.fromValue(object.blockTimestampMs)
+      : Long.ZERO;
     return message;
   },
 };
