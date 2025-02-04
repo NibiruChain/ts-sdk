@@ -16,8 +16,8 @@ export interface MsgEthereumTx {
   /** hash of the transaction in hex format */
   hash: string;
   /**
-   * from is the ethereum signer address in hex format. This address value is checked
-   * against the address derived from the signature (V, R, S) using the
+   * from is the ethereum signer address in hex format. This address value is
+   * checked against the address derived from the signature (V, R, S) using the
    * secp256k1 elliptic curve
    */
   from: string;
@@ -46,23 +46,23 @@ export interface LegacyTx {
   /** data is the data payload bytes of the transaction. */
   data: Uint8Array;
   /**
-   * v defines the recovery id as the "v" signature value from the elliptic curve
-   * digital signatute algorithm (ECDSA). It indicates which of two possible
-   * solutions should be used to reconstruct the public key from the signature.
-   * In Ethereum, "v" takes the value 27 or 28 for transactions that are not
-   * relay-protected.
+   * v defines the recovery id as the "v" signature value from the elliptic
+   * curve digital signatute algorithm (ECDSA). It indicates which of two
+   * possible solutions should be used to reconstruct the public key from the
+   * signature. In Ethereum, "v" takes the value 27 or 28 for transactions that
+   * are not relay-protected.
    */
   v: Uint8Array;
   /**
-   * r defines the x-coordinate of a point on the elliptic curve in the elliptic curve
-   * digital signatute algorithm (ECDSA). It's crucial in ensuring uniqueness of
-   * the signature.
+   * r defines the x-coordinate of a point on the elliptic curve in the elliptic
+   * curve digital signatute algorithm (ECDSA). It's crucial in ensuring
+   * uniqueness of the signature.
    */
   r: Uint8Array;
   /**
-   * s define the signature value derived from the private key, message hash, and
-   * the value of "r". It ensures that the signature is tied to both the message
-   * and the private key of the sender.
+   * s define the signature value derived from the private key, message hash,
+   * and the value of "r". It ensures that the signature is tied to both the
+   * message and the private key of the sender.
    */
   s: Uint8Array;
 }
@@ -98,15 +98,15 @@ export interface AccessListTx {
    */
   v: Uint8Array;
   /**
-   * r defines the x-coordinate of a point on the elliptic curve in the elliptic curve
-   * digital signatute algorithm (ECDSA). It's crucial in ensuring uniqueness of
-   * the signature.
+   * r defines the x-coordinate of a point on the elliptic curve in the elliptic
+   * curve digital signatute algorithm (ECDSA). It's crucial in ensuring
+   * uniqueness of the signature.
    */
   r: Uint8Array;
   /**
-   * s define the signature value derived from the private key, message hash, and
-   * the value of "r". It ensures that the signature is tied to both the message
-   * and the private key of the sender.
+   * s define the signature value derived from the private key, message hash,
+   * and the value of "r". It ensures that the signature is tied to both the
+   * message and the private key of the sender.
    */
   s: Uint8Array;
 }
@@ -144,15 +144,15 @@ export interface DynamicFeeTx {
    */
   v: Uint8Array;
   /**
-   * r defines the x-coordinate of a point on the elliptic curve in the elliptic curve
-   * digital signatute algorithm (ECDSA). It's crucial in ensuring uniqueness of
-   * the signature.
+   * r defines the x-coordinate of a point on the elliptic curve in the elliptic
+   * curve digital signatute algorithm (ECDSA). It's crucial in ensuring
+   * uniqueness of the signature.
    */
   r: Uint8Array;
   /**
-   * s define the signature value derived from the private key, message hash, and
-   * the value of "r". It ensures that the signature is tied to both the message
-   * and the private key of the sender.
+   * s define the signature value derived from the private key, message hash,
+   * and the value of "r". It ensures that the signature is tied to both the
+   * message and the private key of the sender.
    */
   s: Uint8Array;
 }
@@ -175,8 +175,8 @@ export interface MsgEthereumTxResponse {
    */
   logs: Log[];
   /**
-   * ret is the returned data from evm function (result or data supplied with revert
-   * opcode)
+   * ret is the returned data from evm function (result or data supplied with
+   * revert opcode)
    */
   ret: Uint8Array;
   /** vm_error is the error returned by vm execution */
@@ -1357,7 +1357,11 @@ function createBaseMsgConvertCoinToEvm(): MsgConvertCoinToEvm {
 export const MsgConvertCoinToEvm = {
   encode(message: MsgConvertCoinToEvm, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.toEthAddr !== "") {
-      writer.uint32(10).string(message.toEthAddr);
+      // Converting string to raw bytes
+      const bytes = new Uint8Array(
+      message.toEthAddr.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16))
+      )
+      writer.uint32(10).bytes(bytes)
     }
     if (message.sender !== "") {
       writer.uint32(18).string(message.sender);
@@ -1492,7 +1496,8 @@ export interface Msg {
   /**
    * CreateFunToken: Create a "FunToken" mapping. Either the ERC20 contract
    * address can be given to create the mapping to a Bank Coin, or the
-   * denomination for a Bank Coin can be given to create the mapping to an ERC20.
+   * denomination for a Bank Coin can be given to create the mapping to an
+   * ERC20.
    */
   CreateFunToken(request: MsgCreateFunToken): Promise<MsgCreateFunTokenResponse>;
   /**

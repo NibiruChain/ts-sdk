@@ -2,6 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Log } from "./evm";
 
 /** Copyright (c) 2023-2024 Nibi, Inc. */
 
@@ -19,14 +20,14 @@ export interface EventEthereumTx {
   hash: string;
   /** recipient of the transaction */
   recipient: string;
-  /** eth_tx_failed contains a VM error should it occur */
-  ethTxFailed: string;
+  /** vm_error contains a VM error should it occur */
+  vmError: string;
 }
 
 /** EventTxLog defines the event for an Ethereum transaction log */
 export interface EventTxLog {
   /** tx_logs is an array of transaction logs */
-  txLogs: string[];
+  logs: Log[];
 }
 
 /** EventBlockBloom defines an Ethereum block bloom filter event */
@@ -71,7 +72,7 @@ export interface EventContractExecuted {
 }
 
 function createBaseEventEthereumTx(): EventEthereumTx {
-  return { amount: "", ethHash: "", index: "", gasUsed: "", hash: "", recipient: "", ethTxFailed: "" };
+  return { amount: "", ethHash: "", index: "", gasUsed: "", hash: "", recipient: "", vmError: "" };
 }
 
 export const EventEthereumTx = {
@@ -94,8 +95,8 @@ export const EventEthereumTx = {
     if (message.recipient !== "") {
       writer.uint32(50).string(message.recipient);
     }
-    if (message.ethTxFailed !== "") {
-      writer.uint32(58).string(message.ethTxFailed);
+    if (message.vmError !== "") {
+      writer.uint32(58).string(message.vmError);
     }
     return writer;
   },
@@ -154,7 +155,7 @@ export const EventEthereumTx = {
             break;
           }
 
-          message.ethTxFailed = reader.string();
+          message.vmError = reader.string();
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -173,7 +174,7 @@ export const EventEthereumTx = {
       gasUsed: isSet(object.gasUsed) ? String(object.gasUsed) : "",
       hash: isSet(object.hash) ? String(object.hash) : "",
       recipient: isSet(object.recipient) ? String(object.recipient) : "",
-      ethTxFailed: isSet(object.ethTxFailed) ? String(object.ethTxFailed) : "",
+      vmError: isSet(object.vmError) ? String(object.vmError) : "",
     };
   },
 
@@ -185,7 +186,7 @@ export const EventEthereumTx = {
     message.gasUsed !== undefined && (obj.gasUsed = message.gasUsed);
     message.hash !== undefined && (obj.hash = message.hash);
     message.recipient !== undefined && (obj.recipient = message.recipient);
-    message.ethTxFailed !== undefined && (obj.ethTxFailed = message.ethTxFailed);
+    message.vmError !== undefined && (obj.vmError = message.vmError);
     return obj;
   },
 
@@ -201,19 +202,19 @@ export const EventEthereumTx = {
     message.gasUsed = object.gasUsed ?? "";
     message.hash = object.hash ?? "";
     message.recipient = object.recipient ?? "";
-    message.ethTxFailed = object.ethTxFailed ?? "";
+    message.vmError = object.vmError ?? "";
     return message;
   },
 };
 
 function createBaseEventTxLog(): EventTxLog {
-  return { txLogs: [] };
+  return { logs: [] };
 }
 
 export const EventTxLog = {
   encode(message: EventTxLog, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.txLogs) {
-      writer.uint32(10).string(v!);
+    for (const v of message.logs) {
+      Log.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -230,7 +231,7 @@ export const EventTxLog = {
             break;
           }
 
-          message.txLogs.push(reader.string());
+          message.logs.push(Log.decode(reader, reader.uint32()));
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -242,15 +243,15 @@ export const EventTxLog = {
   },
 
   fromJSON(object: any): EventTxLog {
-    return { txLogs: Array.isArray(object?.txLogs) ? object.txLogs.map((e: any) => String(e)) : [] };
+    return { logs: Array.isArray(object?.logs) ? object.logs.map((e: any) => Log.fromJSON(e)) : [] };
   },
 
   toJSON(message: EventTxLog): unknown {
     const obj: any = {};
-    if (message.txLogs) {
-      obj.txLogs = message.txLogs.map((e) => e);
+    if (message.logs) {
+      obj.logs = message.logs.map((e) => e ? Log.toJSON(e) : undefined);
     } else {
-      obj.txLogs = [];
+      obj.logs = [];
     }
     return obj;
   },
@@ -261,7 +262,7 @@ export const EventTxLog = {
 
   fromPartial<I extends Exact<DeepPartial<EventTxLog>, I>>(object: I): EventTxLog {
     const message = createBaseEventTxLog();
-    message.txLogs = object.txLogs?.map((e) => e) || [];
+    message.logs = object.logs?.map((e) => Log.fromPartial(e)) || [];
     return message;
   },
 };
