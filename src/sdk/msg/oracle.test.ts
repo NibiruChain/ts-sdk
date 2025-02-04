@@ -1,6 +1,7 @@
 import { QueryClient } from "@cosmjs/stargate"
 import * as query from "../../protojs/nibiru/oracle/v1/tx"
 import { setupOracleMsgExtension } from "."
+import Long from "long"
 
 describe("setupEthMsgExtension", () => {
   const mockBaseQueryClient = {} as QueryClient
@@ -100,29 +101,35 @@ describe("setupEthMsgExtension", () => {
       const extension = setupOracleMsgExtension(mockBaseQueryClient)
       const result = await extension.editOracleParams({
         sender: "",
-        votePeriod: "",
-        voteThreshold: "",
-        rewardBand: "",
-        whitelist: [""],
-        slashFraction: "",
-        slashWindow: "",
-        minValidPerWindow: "",
-        twapLookbackWindow: "",
-        minVoters: "",
-        validatorFeeRatio: "",
+        params: {
+          votePeriod: Long.fromNumber(0),
+          voteThreshold: "",
+          rewardBand: "",
+          whitelist: [""],
+          slashFraction: "",
+          slashWindow: Long.fromNumber(0),
+          minValidPerWindow: "",
+          twapLookbackWindow: { seconds: Long.ZERO, nanos: 0 },
+          minVoters: Long.fromNumber(0),
+          validatorFeeRatio: "",
+          expirationBlocks: Long.fromNumber(0),
+        },
       })
       expect(msgEditOracleParams).toHaveBeenCalledWith({
         sender: "",
-        votePeriod: "",
-        voteThreshold: "",
-        rewardBand: "",
-        whitelist: [""],
-        slashFraction: "",
-        slashWindow: "",
-        minValidPerWindow: "",
-        twapLookbackWindow: "",
-        minVoters: "",
-        validatorFeeRatio: "",
+        params: {
+          votePeriod: Long.fromNumber(0),
+          voteThreshold: "",
+          rewardBand: "",
+          whitelist: [""],
+          slashFraction: "",
+          slashWindow: Long.fromNumber(0),
+          minValidPerWindow: "",
+          twapLookbackWindow: { seconds: Long.ZERO, nanos: 0 },
+          minVoters: Long.fromNumber(0),
+          validatorFeeRatio: "",
+          expirationBlocks: Long.fromNumber(0),
+        },
       })
       expect(result).toEqual({ test: "Test" })
     })
