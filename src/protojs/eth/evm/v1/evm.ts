@@ -182,7 +182,9 @@ export const FunToken = {
             break;
           }
 
-          message.erc20Addr = reader.string();
+          // Converting raw bytes to string
+          const bytes = reader.bytes()
+          message.erc20Addr = "0x" + Buffer.from(bytes).toString("hex");
           continue;
         case 2:
           if (tag !== 18) {

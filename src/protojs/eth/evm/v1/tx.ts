@@ -1357,7 +1357,11 @@ function createBaseMsgConvertCoinToEvm(): MsgConvertCoinToEvm {
 export const MsgConvertCoinToEvm = {
   encode(message: MsgConvertCoinToEvm, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.toEthAddr !== "") {
-      writer.uint32(10).string(message.toEthAddr);
+      // Converting string to raw bytes
+      const bytes = new Uint8Array(
+      message.toEthAddr.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16))
+      )
+      writer.uint32(10).bytes(bytes)
     }
     if (message.sender !== "") {
       writer.uint32(18).string(message.sender);
