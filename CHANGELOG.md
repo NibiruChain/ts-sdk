@@ -1,3 +1,85 @@
+### [6.0.1](https://github.com/NibiruChain/ts-sdk/compare/v6.0.0...v6.0.1) (2024-12-03)
+
+### Miscellaneous Chores
+
+- bump nibiru submodule and unhide protojs and gql so we can tra… ([#393](https://github.com/NibiruChain/ts-sdk/issues/393)) ([a4b52d0](https://github.com/NibiruChain/ts-sdk/commit/a4b52d048d07b1b28fac07892f209d6c0008a1b2))
+
+## [6.0.0](https://github.com/NibiruChain/ts-sdk/compare/v5.0.3...v6.0.0) (2024-12-02)
+
+### Bug Fixes
+
+- test ([9d7ff5c](https://github.com/NibiruChain/ts-sdk/commit/9d7ff5c5b2f8c07819d33d9b945542342bfd023a))
+- test ([e0b49c9](https://github.com/NibiruChain/ts-sdk/commit/e0b49c9aa23f35fb2cfe9289b35983e1f73f81f7))
+
+### Miscellaneous Chores
+
+- update eth proto to latest ([96014f2](https://github.com/NibiruChain/ts-sdk/commit/96014f26dfc4e85bd3b0dd5c1bf1d2dcc799496e))
+- upgrade graphql ([#387](https://github.com/NibiruChain/ts-sdk/issues/387)) ([d707e12](https://github.com/NibiruChain/ts-sdk/commit/d707e129e5d5d42f0203eb6c8aa21f5d8f10cfd1))
+
+### Code Refactors
+
+- adding eth & tokenfactory types ([#389](https://github.com/NibiruChain/ts-sdk/issues/389)) ([8c6c34c](https://github.com/NibiruChain/ts-sdk/commit/8c6c34c8c3b2f2eef47798c10fe91e71b59f5f2a))
+- updating to latest graphql schema since featureflags don't include spot & perp ([#385](https://github.com/NibiruChain/ts-sdk/issues/385)) ([cbb36d7](https://github.com/NibiruChain/ts-sdk/commit/cbb36d752d177c6c467175d94463772d56f3e5f6))
+
+### [5.0.3](https://github.com/NibiruChain/ts-sdk/compare/v5.0.2...v5.0.3) (2024-11-20)
+
+### Miscellaneous Chores
+
+- develop -> main ([#388](https://github.com/NibiruChain/ts-sdk/issues/388)) ([24ea6e8](https://github.com/NibiruChain/ts-sdk/commit/24ea6e8172902703f656cb4c83522a272fa50694)), closes [#385](https://github.com/NibiruChain/ts-sdk/issues/385) [#387](https://github.com/NibiruChain/ts-sdk/issues/387) [#389](https://github.com/NibiruChain/ts-sdk/issues/389)
+
+### [5.0.2](https://github.com/NibiruChain/ts-sdk/compare/v5.0.1...v5.0.2) (2024-10-24)
+
+### Miscellaneous Chores
+
+- update eth proto to latest ([#386](https://github.com/NibiruChain/ts-sdk/issues/386)) ([20b645d](https://github.com/NibiruChain/ts-sdk/commit/20b645d23c29cf801b7ca55b0892be25dc7a5c9b)), closes [#385](https://github.com/NibiruChain/ts-sdk/issues/385)
+
+### [5.0.1](https://github.com/NibiruChain/ts-sdk/compare/v5.0.0...v5.0.1) (2024-10-18)
+
+### Bug Fixes
+
+- self reference pathing ([f79e404](https://github.com/NibiruChain/ts-sdk/commit/f79e4043eecfa974025017a5042d8aeeb394d6ab))
+- self reference pathing ([2968cbc](https://github.com/NibiruChain/ts-sdk/commit/2968cbc4fc5345824e2a5847ade7d90b625be265))
+
+## [5.0.0](https://github.com/NibiruChain/ts-sdk/compare/v4.5.2...v5.0.0) (2024-10-18)
+
+### ⚠ BREAKING CHANGES
+
+- **faucet:** set default tokens (#369)
+
+### Features
+
+- account parser ([#374](https://github.com/NibiruChain/ts-sdk/issues/374)) ([d7e324d](https://github.com/NibiruChain/ts-sdk/commit/d7e324d9fd48f3a2f407573c0985d88e0b3b8a5f)), closes [#370](https://github.com/NibiruChain/ts-sdk/issues/370) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367) [#369](https://github.com/NibiruChain/ts-sdk/issues/369) [#368](https://github.com/NibiruChain/ts-sdk/issues/368) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367)
+- add msg client ([32374dd](https://github.com/NibiruChain/ts-sdk/commit/32374dde25da906a5b2005363313f76832e9e00f))
+- cosmwasmclient extension & signingcosmwasmclient implementation ([#379](https://github.com/NibiruChain/ts-sdk/issues/379)) ([b89a700](https://github.com/NibiruChain/ts-sdk/commit/b89a700ce5b919955b66739f387cfc883157fec2))
+- eth protos ([#366](https://github.com/NibiruChain/ts-sdk/issues/366)) ([9d496c7](https://github.com/NibiruChain/ts-sdk/commit/9d496c7621cd4c7b280b426c9df6c538e974a02a)), closes [#367](https://github.com/NibiruChain/ts-sdk/issues/367)
+
+### Bug Fixes
+
+- build ([b9b3d74](https://github.com/NibiruChain/ts-sdk/commit/b9b3d746a644e74f5eecc41d6ec3872d93eee481))
+- build ([79fcd49](https://github.com/NibiruChain/ts-sdk/commit/79fcd49a59d6b7ffcac8c1c72143f1a36e74a625))
+- fixes to pass ([0c3f86a](https://github.com/NibiruChain/ts-sdk/commit/0c3f86a2189767daf60baf862c1a3b862d9d98b3))
+- path again ([e5f1ff3](https://github.com/NibiruChain/ts-sdk/commit/e5f1ff34fb706906888fcf2726c9cc2dee01471a))
+- paths ([c762665](https://github.com/NibiruChain/ts-sdk/commit/c76266543a4c6109f30d232c994f6fa1a90feccb))
+- pull latest ([35eb2d8](https://github.com/NibiruChain/ts-sdk/commit/35eb2d8e85478456433d48c44707159597bc4128))
+- try chaosnet ibc ([d66c15c](https://github.com/NibiruChain/ts-sdk/commit/d66c15c160a0d211fe2b5328a6661dd0fb6e31d6))
+- try hm ([954f259](https://github.com/NibiruChain/ts-sdk/commit/954f259ffc48ab2aacba382d36a9dbbf7e0d497f))
+
+### Reverts
+
+- cosmos submodule only ([#362](https://github.com/NibiruChain/ts-sdk/issues/362)) ([1d09461](https://github.com/NibiruChain/ts-sdk/commit/1d09461f748696a69ebc349daaa096596d60b1d5))
+
+### Code Refactors
+
+- **faucet:** set default tokens ([#369](https://github.com/NibiruChain/ts-sdk/issues/369)) ([859882a](https://github.com/NibiruChain/ts-sdk/commit/859882a1514170d20542ab9d99755e05252c303c)), closes [#368](https://github.com/NibiruChain/ts-sdk/issues/368) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367)
+
+### Miscellaneous Chores
+
+- develop -> main ([5518ddd](https://github.com/NibiruChain/ts-sdk/commit/5518dddf0f15fca3b53c8653945ea5675db39b17))
+- develop -> main (remove stats + update default feature flags) ([#380](https://github.com/NibiruChain/ts-sdk/issues/380)) ([087d569](https://github.com/NibiruChain/ts-sdk/commit/087d56968086e64a0dddecf06f5445586b7bf648)), closes [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367) [#369](https://github.com/NibiruChain/ts-sdk/issues/369) [#368](https://github.com/NibiruChain/ts-sdk/issues/368) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367)
+- main to develop ([#375](https://github.com/NibiruChain/ts-sdk/issues/375)) ([49b0766](https://github.com/NibiruChain/ts-sdk/commit/49b07664b2fa0b065644e184237ce1193250144c)), closes [#370](https://github.com/NibiruChain/ts-sdk/issues/370) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367) [#369](https://github.com/NibiruChain/ts-sdk/issues/369) [#368](https://github.com/NibiruChain/ts-sdk/issues/368) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367) [#362](https://github.com/NibiruChain/ts-sdk/issues/362) [#366](https://github.com/NibiruChain/ts-sdk/issues/366) [#367](https://github.com/NibiruChain/ts-sdk/issues/367)
+- remove stats and update default feature flags ([56bef2a](https://github.com/NibiruChain/ts-sdk/commit/56bef2acb0b35dcce576d5d22d33258454391639))
+- trigger release ([d89c408](https://github.com/NibiruChain/ts-sdk/commit/d89c4083fe4361b2a95b20818da95904f448988f))
+
 ### [4.5.2](https://github.com/NibiruChain/ts-sdk/compare/v4.5.1...v4.5.2) (2024-09-24)
 
 ### Miscellaneous Chores
