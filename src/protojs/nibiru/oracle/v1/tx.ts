@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Params } from "./oracle";
+import { Duration } from "../../../google/protobuf/duration";
 
 /**
  * MsgAggregateExchangeRatePrevote represents a message to submit
@@ -66,35 +66,62 @@ export interface MsgDelegateFeedConsent {
 export interface MsgDelegateFeedConsentResponse {
 }
 
-/**
- * MsgEditOracleParams: gRPC tx message for updating the x/oracle module params
- * [SUDO] Only callable by sudoers.
- */
 export interface MsgEditOracleParams {
   sender: string;
-  votePeriod: string;
-  /** vote_threshold: [cosmossdk.io/math.LegacyDec] TODO: */
-  voteThreshold: string;
-  /** reward_band: [cosmossdk.io/math.LegacyDec] TODO: */
-  rewardBand: string;
-  whitelist: string[];
-  /** slash_fraction: [cosmossdk.io/math.LegacyDec] TODO: */
-  slashFraction: string;
-  slashWindow: string;
-  /** min_valid_per_window: [cosmossdk.io/math.LegacyDec] TODO: */
-  minValidPerWindow: string;
-  twapLookbackWindow: string;
-  minVoters: string;
-  /** VoteThreshold: [cosmossdk.io/math.LegacyDec] TODO: */
-  validatorFeeRatio: string;
+  params?: OracleParamsMsg;
 }
 
-/**
- * MsgEditOracleParamsResponse defines the Msg/EditOracleParams response
- * type.
- */
 export interface MsgEditOracleParamsResponse {
-  newParams?: Params;
+}
+
+export interface OracleParamsMsg {
+  /** VotePeriod defines the number of blocks during which voting takes place. */
+  votePeriod: Long;
+  /**
+   * VoteThreshold specifies the minimum proportion of votes that must be
+   * received for a ballot to pass.
+   */
+  voteThreshold: string;
+  /**
+   * RewardBand defines a maxium divergence that a price vote can have from the
+   * weighted median in the ballot. If a vote lies within the valid range
+   * defined by:
+   * 	μ := weightedMedian,
+   * 	validRange := μ ± (μ * rewardBand / 2),
+   * then rewards are added to the validator performance.
+   * Note that if the reward band is smaller than 1 standard
+   * deviation, the band is taken to be 1 standard deviation.a price
+   */
+  rewardBand: string;
+  /**
+   * The set of whitelisted markets, or asset pairs, for the module.
+   * Ex. '["unibi:uusd","ubtc:uusd"]'
+   */
+  whitelist: string[];
+  /**
+   * SlashFraction returns the proportion of an oracle's stake that gets
+   * slashed in the event of slashing. `SlashFraction` specifies the exact
+   * penalty for failing a voting period.
+   */
+  slashFraction: string;
+  /**
+   * SlashWindow returns the number of voting periods that specify a
+   * "slash window". After each slash window, all oracles that have missed more
+   * than the penalty threshold are slashed. Missing the penalty threshold is
+   * synonymous with submitting fewer valid votes than `MinValidPerWindow`.
+   */
+  slashWindow: Long;
+  minValidPerWindow: string;
+  /** Amount of time to look back for TWAP calculations */
+  twapLookbackWindow?: Duration;
+  /**
+   * The minimum number of voters (i.e. oracle validators) per pair for it to be
+   * considered a passing ballot. Recommended at least 4.
+   */
+  minVoters: Long;
+  /** The validator fee ratio that is given to validators every epoch. */
+  validatorFeeRatio: string;
+  expirationBlocks: Long;
 }
 
 function createBaseMsgAggregateExchangeRatePrevote(): MsgAggregateExchangeRatePrevote {
@@ -492,19 +519,7 @@ export const MsgDelegateFeedConsentResponse = {
 };
 
 function createBaseMsgEditOracleParams(): MsgEditOracleParams {
-  return {
-    sender: "",
-    votePeriod: "",
-    voteThreshold: "",
-    rewardBand: "",
-    whitelist: [],
-    slashFraction: "",
-    slashWindow: "",
-    minValidPerWindow: "",
-    twapLookbackWindow: "",
-    minVoters: "",
-    validatorFeeRatio: "",
-  };
+  return { sender: "", params: undefined };
 }
 
 export const MsgEditOracleParams = {
@@ -512,35 +527,8 @@ export const MsgEditOracleParams = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
-    if (message.votePeriod !== "") {
-      writer.uint32(18).string(message.votePeriod);
-    }
-    if (message.voteThreshold !== "") {
-      writer.uint32(26).string(message.voteThreshold);
-    }
-    if (message.rewardBand !== "") {
-      writer.uint32(34).string(message.rewardBand);
-    }
-    for (const v of message.whitelist) {
-      writer.uint32(42).string(v!);
-    }
-    if (message.slashFraction !== "") {
-      writer.uint32(50).string(message.slashFraction);
-    }
-    if (message.slashWindow !== "") {
-      writer.uint32(58).string(message.slashWindow);
-    }
-    if (message.minValidPerWindow !== "") {
-      writer.uint32(66).string(message.minValidPerWindow);
-    }
-    if (message.twapLookbackWindow !== "") {
-      writer.uint32(74).string(message.twapLookbackWindow);
-    }
-    if (message.minVoters !== "") {
-      writer.uint32(82).string(message.minVoters);
-    }
-    if (message.validatorFeeRatio !== "") {
-      writer.uint32(90).string(message.validatorFeeRatio);
+    if (message.params !== undefined) {
+      OracleParamsMsg.encode(message.params, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -564,70 +552,7 @@ export const MsgEditOracleParams = {
             break;
           }
 
-          message.votePeriod = reader.string();
-          continue;
-        case 3:
-          if (tag !== 26) {
-            break;
-          }
-
-          message.voteThreshold = reader.string();
-          continue;
-        case 4:
-          if (tag !== 34) {
-            break;
-          }
-
-          message.rewardBand = reader.string();
-          continue;
-        case 5:
-          if (tag !== 42) {
-            break;
-          }
-
-          message.whitelist.push(reader.string());
-          continue;
-        case 6:
-          if (tag !== 50) {
-            break;
-          }
-
-          message.slashFraction = reader.string();
-          continue;
-        case 7:
-          if (tag !== 58) {
-            break;
-          }
-
-          message.slashWindow = reader.string();
-          continue;
-        case 8:
-          if (tag !== 66) {
-            break;
-          }
-
-          message.minValidPerWindow = reader.string();
-          continue;
-        case 9:
-          if (tag !== 74) {
-            break;
-          }
-
-          message.twapLookbackWindow = reader.string();
-          continue;
-        case 10:
-          if (tag !== 82) {
-            break;
-          }
-
-          message.minVoters = reader.string();
-          continue;
-        case 11:
-          if (tag !== 90) {
-            break;
-          }
-
-          message.validatorFeeRatio = reader.string();
+          message.params = OracleParamsMsg.decode(reader, reader.uint32());
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -641,36 +566,14 @@ export const MsgEditOracleParams = {
   fromJSON(object: any): MsgEditOracleParams {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
-      votePeriod: isSet(object.votePeriod) ? String(object.votePeriod) : "",
-      voteThreshold: isSet(object.voteThreshold) ? String(object.voteThreshold) : "",
-      rewardBand: isSet(object.rewardBand) ? String(object.rewardBand) : "",
-      whitelist: Array.isArray(object?.whitelist) ? object.whitelist.map((e: any) => String(e)) : [],
-      slashFraction: isSet(object.slashFraction) ? String(object.slashFraction) : "",
-      slashWindow: isSet(object.slashWindow) ? String(object.slashWindow) : "",
-      minValidPerWindow: isSet(object.minValidPerWindow) ? String(object.minValidPerWindow) : "",
-      twapLookbackWindow: isSet(object.twapLookbackWindow) ? String(object.twapLookbackWindow) : "",
-      minVoters: isSet(object.minVoters) ? String(object.minVoters) : "",
-      validatorFeeRatio: isSet(object.validatorFeeRatio) ? String(object.validatorFeeRatio) : "",
+      params: isSet(object.params) ? OracleParamsMsg.fromJSON(object.params) : undefined,
     };
   },
 
   toJSON(message: MsgEditOracleParams): unknown {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
-    message.votePeriod !== undefined && (obj.votePeriod = message.votePeriod);
-    message.voteThreshold !== undefined && (obj.voteThreshold = message.voteThreshold);
-    message.rewardBand !== undefined && (obj.rewardBand = message.rewardBand);
-    if (message.whitelist) {
-      obj.whitelist = message.whitelist.map((e) => e);
-    } else {
-      obj.whitelist = [];
-    }
-    message.slashFraction !== undefined && (obj.slashFraction = message.slashFraction);
-    message.slashWindow !== undefined && (obj.slashWindow = message.slashWindow);
-    message.minValidPerWindow !== undefined && (obj.minValidPerWindow = message.minValidPerWindow);
-    message.twapLookbackWindow !== undefined && (obj.twapLookbackWindow = message.twapLookbackWindow);
-    message.minVoters !== undefined && (obj.minVoters = message.minVoters);
-    message.validatorFeeRatio !== undefined && (obj.validatorFeeRatio = message.validatorFeeRatio);
+    message.params !== undefined && (obj.params = message.params ? OracleParamsMsg.toJSON(message.params) : undefined);
     return obj;
   },
 
@@ -681,29 +584,19 @@ export const MsgEditOracleParams = {
   fromPartial<I extends Exact<DeepPartial<MsgEditOracleParams>, I>>(object: I): MsgEditOracleParams {
     const message = createBaseMsgEditOracleParams();
     message.sender = object.sender ?? "";
-    message.votePeriod = object.votePeriod ?? "";
-    message.voteThreshold = object.voteThreshold ?? "";
-    message.rewardBand = object.rewardBand ?? "";
-    message.whitelist = object.whitelist?.map((e) => e) || [];
-    message.slashFraction = object.slashFraction ?? "";
-    message.slashWindow = object.slashWindow ?? "";
-    message.minValidPerWindow = object.minValidPerWindow ?? "";
-    message.twapLookbackWindow = object.twapLookbackWindow ?? "";
-    message.minVoters = object.minVoters ?? "";
-    message.validatorFeeRatio = object.validatorFeeRatio ?? "";
+    message.params = (object.params !== undefined && object.params !== null)
+      ? OracleParamsMsg.fromPartial(object.params)
+      : undefined;
     return message;
   },
 };
 
 function createBaseMsgEditOracleParamsResponse(): MsgEditOracleParamsResponse {
-  return { newParams: undefined };
+  return {};
 }
 
 export const MsgEditOracleParamsResponse = {
-  encode(message: MsgEditOracleParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.newParams !== undefined) {
-      Params.encode(message.newParams, writer.uint32(10).fork()).ldelim();
-    }
+  encode(_: MsgEditOracleParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -714,12 +607,171 @@ export const MsgEditOracleParamsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgEditOracleParamsResponse {
+    return {};
+  },
+
+  toJSON(_: MsgEditOracleParamsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgEditOracleParamsResponse>, I>>(base?: I): MsgEditOracleParamsResponse {
+    return MsgEditOracleParamsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgEditOracleParamsResponse>, I>>(_: I): MsgEditOracleParamsResponse {
+    const message = createBaseMsgEditOracleParamsResponse();
+    return message;
+  },
+};
+
+function createBaseOracleParamsMsg(): OracleParamsMsg {
+  return {
+    votePeriod: Long.UZERO,
+    voteThreshold: "",
+    rewardBand: "",
+    whitelist: [],
+    slashFraction: "",
+    slashWindow: Long.UZERO,
+    minValidPerWindow: "",
+    twapLookbackWindow: undefined,
+    minVoters: Long.UZERO,
+    validatorFeeRatio: "",
+    expirationBlocks: Long.UZERO,
+  };
+}
+
+export const OracleParamsMsg = {
+  encode(message: OracleParamsMsg, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.votePeriod.isZero()) {
+      writer.uint32(8).uint64(message.votePeriod);
+    }
+    if (message.voteThreshold !== "") {
+      writer.uint32(18).string(message.voteThreshold);
+    }
+    if (message.rewardBand !== "") {
+      writer.uint32(26).string(message.rewardBand);
+    }
+    for (const v of message.whitelist) {
+      writer.uint32(34).string(v!);
+    }
+    if (message.slashFraction !== "") {
+      writer.uint32(42).string(message.slashFraction);
+    }
+    if (!message.slashWindow.isZero()) {
+      writer.uint32(48).uint64(message.slashWindow);
+    }
+    if (message.minValidPerWindow !== "") {
+      writer.uint32(58).string(message.minValidPerWindow);
+    }
+    if (message.twapLookbackWindow !== undefined) {
+      Duration.encode(message.twapLookbackWindow, writer.uint32(66).fork()).ldelim();
+    }
+    if (!message.minVoters.isZero()) {
+      writer.uint32(72).uint64(message.minVoters);
+    }
+    if (message.validatorFeeRatio !== "") {
+      writer.uint32(82).string(message.validatorFeeRatio);
+    }
+    if (!message.expirationBlocks.isZero()) {
+      writer.uint32(88).uint64(message.expirationBlocks);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): OracleParamsMsg {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseOracleParamsMsg();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
         case 1:
-          if (tag !== 10) {
+          if (tag !== 8) {
             break;
           }
 
-          message.newParams = Params.decode(reader, reader.uint32());
+          message.votePeriod = reader.uint64() as Long;
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.voteThreshold = reader.string();
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
+
+          message.rewardBand = reader.string();
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.whitelist.push(reader.string());
+          continue;
+        case 5:
+          if (tag !== 42) {
+            break;
+          }
+
+          message.slashFraction = reader.string();
+          continue;
+        case 6:
+          if (tag !== 48) {
+            break;
+          }
+
+          message.slashWindow = reader.uint64() as Long;
+          continue;
+        case 7:
+          if (tag !== 58) {
+            break;
+          }
+
+          message.minValidPerWindow = reader.string();
+          continue;
+        case 8:
+          if (tag !== 66) {
+            break;
+          }
+
+          message.twapLookbackWindow = Duration.decode(reader, reader.uint32());
+          continue;
+        case 9:
+          if (tag !== 72) {
+            break;
+          }
+
+          message.minVoters = reader.uint64() as Long;
+          continue;
+        case 10:
+          if (tag !== 82) {
+            break;
+          }
+
+          message.validatorFeeRatio = reader.string();
+          continue;
+        case 11:
+          if (tag !== 88) {
+            break;
+          }
+
+          message.expirationBlocks = reader.uint64() as Long;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -730,26 +782,71 @@ export const MsgEditOracleParamsResponse = {
     return message;
   },
 
-  fromJSON(object: any): MsgEditOracleParamsResponse {
-    return { newParams: isSet(object.newParams) ? Params.fromJSON(object.newParams) : undefined };
+  fromJSON(object: any): OracleParamsMsg {
+    return {
+      votePeriod: isSet(object.votePeriod) ? Long.fromValue(object.votePeriod) : Long.UZERO,
+      voteThreshold: isSet(object.voteThreshold) ? String(object.voteThreshold) : "",
+      rewardBand: isSet(object.rewardBand) ? String(object.rewardBand) : "",
+      whitelist: Array.isArray(object?.whitelist) ? object.whitelist.map((e: any) => String(e)) : [],
+      slashFraction: isSet(object.slashFraction) ? String(object.slashFraction) : "",
+      slashWindow: isSet(object.slashWindow) ? Long.fromValue(object.slashWindow) : Long.UZERO,
+      minValidPerWindow: isSet(object.minValidPerWindow) ? String(object.minValidPerWindow) : "",
+      twapLookbackWindow: isSet(object.twapLookbackWindow) ? Duration.fromJSON(object.twapLookbackWindow) : undefined,
+      minVoters: isSet(object.minVoters) ? Long.fromValue(object.minVoters) : Long.UZERO,
+      validatorFeeRatio: isSet(object.validatorFeeRatio) ? String(object.validatorFeeRatio) : "",
+      expirationBlocks: isSet(object.expirationBlocks) ? Long.fromValue(object.expirationBlocks) : Long.UZERO,
+    };
   },
 
-  toJSON(message: MsgEditOracleParamsResponse): unknown {
+  toJSON(message: OracleParamsMsg): unknown {
     const obj: any = {};
-    message.newParams !== undefined &&
-      (obj.newParams = message.newParams ? Params.toJSON(message.newParams) : undefined);
+    message.votePeriod !== undefined && (obj.votePeriod = (message.votePeriod || Long.UZERO).toString());
+    message.voteThreshold !== undefined && (obj.voteThreshold = message.voteThreshold);
+    message.rewardBand !== undefined && (obj.rewardBand = message.rewardBand);
+    if (message.whitelist) {
+      obj.whitelist = message.whitelist.map((e) => e);
+    } else {
+      obj.whitelist = [];
+    }
+    message.slashFraction !== undefined && (obj.slashFraction = message.slashFraction);
+    message.slashWindow !== undefined && (obj.slashWindow = (message.slashWindow || Long.UZERO).toString());
+    message.minValidPerWindow !== undefined && (obj.minValidPerWindow = message.minValidPerWindow);
+    message.twapLookbackWindow !== undefined &&
+      (obj.twapLookbackWindow = message.twapLookbackWindow ? Duration.toJSON(message.twapLookbackWindow) : undefined);
+    message.minVoters !== undefined && (obj.minVoters = (message.minVoters || Long.UZERO).toString());
+    message.validatorFeeRatio !== undefined && (obj.validatorFeeRatio = message.validatorFeeRatio);
+    message.expirationBlocks !== undefined &&
+      (obj.expirationBlocks = (message.expirationBlocks || Long.UZERO).toString());
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<MsgEditOracleParamsResponse>, I>>(base?: I): MsgEditOracleParamsResponse {
-    return MsgEditOracleParamsResponse.fromPartial(base ?? {});
+  create<I extends Exact<DeepPartial<OracleParamsMsg>, I>>(base?: I): OracleParamsMsg {
+    return OracleParamsMsg.fromPartial(base ?? {});
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgEditOracleParamsResponse>, I>>(object: I): MsgEditOracleParamsResponse {
-    const message = createBaseMsgEditOracleParamsResponse();
-    message.newParams = (object.newParams !== undefined && object.newParams !== null)
-      ? Params.fromPartial(object.newParams)
+  fromPartial<I extends Exact<DeepPartial<OracleParamsMsg>, I>>(object: I): OracleParamsMsg {
+    const message = createBaseOracleParamsMsg();
+    message.votePeriod = (object.votePeriod !== undefined && object.votePeriod !== null)
+      ? Long.fromValue(object.votePeriod)
+      : Long.UZERO;
+    message.voteThreshold = object.voteThreshold ?? "";
+    message.rewardBand = object.rewardBand ?? "";
+    message.whitelist = object.whitelist?.map((e) => e) || [];
+    message.slashFraction = object.slashFraction ?? "";
+    message.slashWindow = (object.slashWindow !== undefined && object.slashWindow !== null)
+      ? Long.fromValue(object.slashWindow)
+      : Long.UZERO;
+    message.minValidPerWindow = object.minValidPerWindow ?? "";
+    message.twapLookbackWindow = (object.twapLookbackWindow !== undefined && object.twapLookbackWindow !== null)
+      ? Duration.fromPartial(object.twapLookbackWindow)
       : undefined;
+    message.minVoters = (object.minVoters !== undefined && object.minVoters !== null)
+      ? Long.fromValue(object.minVoters)
+      : Long.UZERO;
+    message.validatorFeeRatio = object.validatorFeeRatio ?? "";
+    message.expirationBlocks = (object.expirationBlocks !== undefined && object.expirationBlocks !== null)
+      ? Long.fromValue(object.expirationBlocks)
+      : Long.UZERO;
     return message;
   },
 };
