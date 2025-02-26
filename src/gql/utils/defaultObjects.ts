@@ -81,7 +81,7 @@ export const defaultActor: GQLUser = {
         name: "",
         price: 0,
         symbol: "",
-        type: GQLTokenType.GQLBank,
+        type: "bank" as GQLTokenType.GQLBank,
         verified: false,
       },
     },
