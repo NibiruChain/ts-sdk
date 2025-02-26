@@ -21,6 +21,7 @@ import {
   GQLStakingActionType,
   GQLStakingHistoryItem,
   GQLToken,
+  GQLTokenType,
   GQLUnbonding,
   GQLUser,
   GQLUserContract,
@@ -69,6 +70,22 @@ export const defaultValidator: GQLValidator = {
 export const defaultActor: GQLUser = {
   address: "",
   balances: [defaultToken],
+  all_balances: [
+    {
+      amount: "",
+      token_info: {
+        bank_denom: "",
+        decimals: 0,
+        erc20_contract_address: "",
+        logo: "",
+        name: "",
+        price: 0,
+        symbol: "",
+        type: GQLTokenType.GQLBank,
+        verified: false,
+      },
+    },
+  ],
   created_block: defaultBlock,
 }
 

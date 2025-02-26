@@ -527,7 +527,10 @@ const testUsers = async (args: GQLQueryGqlUsersArgs, fields: GQLUser) => {
   if ((resp.users?.length ?? 0) > 0) {
     const [users] = resp.users ?? []
 
-    checkFields([users], ["address", "balances", "created_block"])
+    checkFields(
+      [users],
+      ["address", "balances", "all_balances", "created_block"]
+    )
   }
 }
 
