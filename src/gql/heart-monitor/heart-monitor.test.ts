@@ -52,6 +52,8 @@ import {
   defaultStakingHistoryItem,
   GQLValidatorOrder,
   GQLQueryGqlUserArgs,
+  GQLEvm,
+  defaultEvm,
 } from ".."
 
 const nibiruUrl = "testnet-1"
@@ -373,6 +375,21 @@ test("proxies", async () => {
   await testProxies(defaultProxy)
 })
 
+const testEvm = async (fields: GQLEvm) => {
+  const resp = await heartMonitor.evm(fields)
+  expect(resp).toHaveProperty("evm")
+
+  if (resp.evm) {
+    const { evm } = resp
+
+    checkFields([evm], ["funTokens"])
+  }
+}
+
+test("evm", async () => {
+  await testEvm(defaultEvm)
+})
+
 test("queryBatchHandler", async () => {
   // TODO: Make a partial type that includes all of these
   const resp = await heartMonitor.GQLQueryGqlBatchHandler<{
@@ -527,7 +544,10 @@ const testUsers = async (args: GQLQueryGqlUsersArgs, fields: GQLUser) => {
   if ((resp.users?.length ?? 0) > 0) {
     const [users] = resp.users ?? []
 
-    checkFields([users], ["address", "balances", "created_block"])
+    checkFields(
+      [users],
+      ["address", "balances", "all_balances", "created_block"]
+    )
   }
 }
 

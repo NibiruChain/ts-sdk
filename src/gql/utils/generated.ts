@@ -15,6 +15,12 @@ export type Scalars = {
   Time: { input: string; output: string; }
 };
 
+export type GQLBalance = {
+  readonly __typename?: 'Balance';
+  readonly amount: Scalars['String']['output'];
+  readonly token_info: GQLTokenInfo;
+};
+
 export type GQLBlock = {
   readonly __typename?: 'Block';
   readonly block: Scalars['Int']['output'];
@@ -125,6 +131,11 @@ export type GQLEventAttribute = {
   readonly value: Scalars['String']['output'];
 };
 
+export type GQLEvm = {
+  readonly __typename?: 'Evm';
+  readonly funTokens: ReadonlyArray<GQLFunToken>;
+};
+
 export type GQLFeatureFlags = {
   readonly __typename?: 'FeatureFlags';
   readonly gov: Scalars['Boolean']['output'];
@@ -139,6 +150,15 @@ export type GQLFloatFilter = {
   readonly gte?: InputMaybe<Scalars['Float']['input']>;
   readonly lt?: InputMaybe<Scalars['Float']['input']>;
   readonly lte?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type GQLFunToken = {
+  readonly __typename?: 'FunToken';
+  readonly bank_denom: Scalars['String']['output'];
+  readonly creation_block: GQLBlock;
+  readonly creator: GQLUser;
+  readonly erc20_contract_address: Scalars['String']['output'];
+  readonly is_made_from_coin: Scalars['Boolean']['output'];
 };
 
 export type GQLGovDeposit = {
@@ -501,6 +521,7 @@ export type GQLQuery = {
   /** @deprecated Moved to staking sub schema */
   readonly delegations: ReadonlyArray<GQLDelegation>;
   readonly distributionCommissions: ReadonlyArray<GQLDistributionCommission>;
+  readonly evm: GQLEvm;
   readonly featureFlags: GQLFeatureFlags;
   readonly governance: GQLGovernance;
   readonly ibc: GQLIbc;
@@ -764,6 +785,24 @@ export type GQLToken = {
   readonly denom: Scalars['String']['output'];
 };
 
+export type GQLTokenInfo = {
+  readonly __typename?: 'TokenInfo';
+  readonly bank_denom: Scalars['String']['output'];
+  readonly decimals: Scalars['Int']['output'];
+  readonly erc20_contract_address: Scalars['String']['output'];
+  readonly logo: Scalars['String']['output'];
+  readonly name: Scalars['String']['output'];
+  readonly price: Scalars['Float']['output'];
+  readonly symbol: Scalars['String']['output'];
+  readonly type: GQLTokenType;
+  readonly verified: Scalars['Boolean']['output'];
+};
+
+export enum GQLTokenType {
+  GQLBank = 'bank',
+  GQLErc20 = 'erc20'
+}
+
 export type GQLUnbonding = {
   readonly __typename?: 'Unbonding';
   readonly amount: Scalars['Int']['output'];
@@ -788,7 +827,8 @@ export enum GQLUnbondingOrder {
 export type GQLUser = {
   readonly __typename?: 'User';
   readonly address: Scalars['String']['output'];
-  readonly balances: ReadonlyArray<Maybe<GQLToken>>;
+  readonly all_balances: ReadonlyArray<GQLBalance>;
+  readonly balances: ReadonlyArray<GQLToken>;
   readonly created_block: GQLBlock;
   readonly is_blocked?: Maybe<Scalars['Boolean']['output']>;
 };

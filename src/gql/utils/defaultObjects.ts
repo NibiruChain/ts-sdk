@@ -2,6 +2,7 @@ import {
   GQLBlock,
   GQLDelegation,
   GQLDistributionCommission,
+  GQLEvm,
   GQLFeatureFlags,
   GQLGovDeposit,
   GQLGovProposal,
@@ -21,6 +22,7 @@ import {
   GQLStakingActionType,
   GQLStakingHistoryItem,
   GQLToken,
+  GQLTokenType,
   GQLUnbonding,
   GQLUser,
   GQLUserContract,
@@ -69,6 +71,22 @@ export const defaultValidator: GQLValidator = {
 export const defaultActor: GQLUser = {
   address: "",
   balances: [defaultToken],
+  all_balances: [
+    {
+      amount: "",
+      token_info: {
+        bank_denom: "",
+        decimals: 0,
+        erc20_contract_address: "",
+        logo: "",
+        name: "",
+        price: 0,
+        symbol: "",
+        type: "bank" as GQLTokenType.GQLBank,
+        verified: false,
+      },
+    },
+  ],
   created_block: defaultBlock,
 }
 
@@ -232,6 +250,37 @@ export const defaultProxy: GQLProxies = {
     turnover24h: "",
     volume24h: "",
   },
+}
+
+export const defaultEvm: GQLEvm = {
+  funTokens: [
+    {
+      bank_denom: "",
+      creation_block: {
+        __typename: undefined,
+        block: 0,
+        block_duration: 0,
+        block_ts: 0,
+        num_txs: 0,
+      },
+      creator: {
+        __typename: undefined,
+        address: "",
+        all_balances: [],
+        balances: [],
+        created_block: {
+          __typename: undefined,
+          block: 0,
+          block_duration: 0,
+          block_ts: 0,
+          num_txs: 0,
+        },
+        is_blocked: undefined,
+      },
+      erc20_contract_address: "",
+      is_made_from_coin: false,
+    },
+  ],
 }
 
 export const defaultStakingHistoryItem: GQLStakingHistoryItem = {
