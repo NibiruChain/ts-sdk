@@ -2,6 +2,7 @@ import {
   GQLBlock,
   GQLDelegation,
   GQLDistributionCommission,
+  GQLEvm,
   GQLFeatureFlags,
   GQLGovDeposit,
   GQLGovProposal,
@@ -249,6 +250,37 @@ export const defaultProxy: GQLProxies = {
     turnover24h: "",
     volume24h: "",
   },
+}
+
+export const defaultEvm: GQLEvm = {
+  funTokens: [
+    {
+      bank_denom: "",
+      creation_block: {
+        __typename: undefined,
+        block: 0,
+        block_duration: 0,
+        block_ts: 0,
+        num_txs: 0,
+      },
+      creator: {
+        __typename: undefined,
+        address: "",
+        all_balances: [],
+        balances: [],
+        created_block: {
+          __typename: undefined,
+          block: 0,
+          block_duration: 0,
+          block_ts: 0,
+          num_txs: 0,
+        },
+        is_blocked: undefined,
+      },
+      erc20_contract_address: "",
+      is_made_from_coin: false,
+    },
+  ],
 }
 
 export const defaultStakingHistoryItem: GQLStakingHistoryItem = {

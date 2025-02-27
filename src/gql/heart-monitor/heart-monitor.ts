@@ -52,6 +52,9 @@ import {
   GQLQueryGqlUserArgs,
   user,
   GqlOutUser,
+  GQLEvm,
+  GqlOutEvm,
+  evm,
 } from ".."
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
@@ -104,6 +107,8 @@ export interface IHeartMonitor {
   >
 
   readonly proxies: (fields: DeepPartial<GQLProxies>) => Promise<GqlOutProxies>
+
+  readonly evm: (fields: DeepPartial<GQLEvm>) => Promise<GqlOutEvm>
 
   readonly GQLQueryGqlBatchHandler: <T>(
     queryQueryStrings: string[]
@@ -195,6 +200,8 @@ export class HeartMonitor implements IHeartMonitor {
 
   proxies = async (fields: DeepPartial<GQLProxies>) =>
     proxies(this.gqlEndpt, fields)
+
+  evm = async (fields: DeepPartial<GQLEvm>) => evm(this.gqlEndpt, fields)
 
   GQLQueryGqlBatchHandler = async <T>(queryQueryStrings: string[]) =>
     <T>queryBatchHandler(queryQueryStrings, this.gqlEndpt)

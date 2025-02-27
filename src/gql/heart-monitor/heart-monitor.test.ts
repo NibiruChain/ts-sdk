@@ -52,6 +52,8 @@ import {
   defaultStakingHistoryItem,
   GQLValidatorOrder,
   GQLQueryGqlUserArgs,
+  GQLEvm,
+  defaultEvm,
 } from ".."
 
 const nibiruUrl = "testnet-1"
@@ -371,6 +373,21 @@ const testProxies = async (fields: GQLProxies) => {
 
 test("proxies", async () => {
   await testProxies(defaultProxy)
+})
+
+const testEvm = async (fields: GQLEvm) => {
+  const resp = await heartMonitor.evm(fields)
+  expect(resp).toHaveProperty("evm")
+
+  if (resp.evm) {
+    const { evm } = resp
+
+    checkFields([evm], ["funTokens"])
+  }
+}
+
+test("evm", async () => {
+  await testEvm(defaultEvm)
 })
 
 test("queryBatchHandler", async () => {

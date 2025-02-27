@@ -4,6 +4,7 @@
 
 export * from "./communityPool"
 export * from "./distributionCommissions"
+export * from "./evm"
 export * from "./featureFlags"
 export * from "./governance"
 export * from "./ibc"
