@@ -1,3 +1,16 @@
+### [6.0.3](https://github.com/NibiruChain/ts-sdk/compare/v6.0.2...v6.0.3) (2025-02-27)
+
+### Bug Fixes
+
+- failing tests ([5e4637c](https://github.com/NibiruChain/ts-sdk/commit/5e4637cd5206ecc2d60d3bc08a73f8128b04a077))
+- setting eth addresses to raw bytes (uint8array) via proto-gen script ([#396](https://github.com/NibiruChain/ts-sdk/issues/396)) ([7723fd4](https://github.com/NibiruChain/ts-sdk/commit/7723fd4305bf4f6d1005287d6e1592bb57aecd12))
+
+### Miscellaneous Chores
+
+- ran proto-gen on lastest from main nibiru ([9fb431b](https://github.com/NibiruChain/ts-sdk/commit/9fb431bb13df8e0dda272ae26a546b7452e06ec2))
+- ran proto-gen on latest v2.0.0-rc.21 ([2654bf0](https://github.com/NibiruChain/ts-sdk/commit/2654bf07365607e27995dc382de0188f03652b3b))
+- updating to latest gql schema ([#399](https://github.com/NibiruChain/ts-sdk/issues/399)) ([ffaba86](https://github.com/NibiruChain/ts-sdk/commit/ffaba861cc1c74194655321a8c164c74b8617dbd))
+
 ### [6.0.2](https://github.com/NibiruChain/ts-sdk/compare/v6.0.1...v6.0.2) (2025-02-04)
 
 ### Miscellaneous Chores
