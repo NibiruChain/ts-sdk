@@ -1,5 +1,10 @@
 directive @goModel(model: String, models: [String!]) on ENUM | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
 
+type Balance {
+  amount: String!
+  token_info: TokenInfo!
+}
+
 type Block {
   block: Int!
   block_duration: Float!
@@ -103,6 +108,10 @@ type EventAttribute {
   value: String!
 }
 
+type Evm {
+  funTokens: [FunToken!]!
+}
+
 type FeatureFlags {
   gov: Boolean!
   oracle: Boolean!
@@ -116,6 +125,14 @@ input FloatFilter {
   gte: Float
   lt: Float
   lte: Float
+}
+
+type FunToken {
+  bank_denom: String!
+  creation_block: Block!
+  creator: User!
+  erc20_contract_address: String!
+  is_made_from_coin: Boolean!
 }
 
 type GovDeposit {
@@ -383,6 +400,7 @@ type Query {
   communityPool(limit: Int, order_by: CommunityPoolOrder, order_desc: Boolean, where: CommunityPoolFilter): [Token!]!
   delegations(limit: Int, order_by: DelegationOrder, order_desc: Boolean, where: DelegationFilter): [Delegation!]! @deprecated(reason: "Moved to staking sub schema")
   distributionCommissions(limit: Int, order_by: DistributionCommissionOrder, order_desc: Boolean, where: DistributionCommissionFilter): [DistributionCommission!]!
+  evm: Evm!
   featureFlags: FeatureFlags!
   governance: Governance!
   ibc: IBC!
@@ -510,6 +528,23 @@ type Token {
   denom: String!
 }
 
+type TokenInfo {
+  bank_denom: String!
+  decimals: Int!
+  erc20_contract_address: String!
+  logo: String!
+  name: String!
+  price: Float!
+  symbol: String!
+  type: TokenType!
+  verified: Boolean!
+}
+
+enum TokenType {
+  bank
+  erc20
+}
+
 type Unbonding {
   amount: Int!
   completion_time: String!
@@ -532,7 +567,8 @@ enum UnbondingOrder {
 
 type User {
   address: String!
-  balances: [Token]!
+  all_balances: [Balance!]!
+  balances: [Token!]!
   created_block: Block!
   is_blocked: Boolean
 }
