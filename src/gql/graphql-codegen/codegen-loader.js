@@ -6,7 +6,7 @@ const { getIntrospectionQuery, buildClientSchema } = require("graphql")
 module.exports = async () => {
   // Logic for loading the GraphQLSchema
 
-  const response = await fetch("https://hm-graphql.testnet-1.nibiru.fi/query", {
+  const response = await fetch("https://hm-graphql.testnet-2.nibiru.fi/query", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

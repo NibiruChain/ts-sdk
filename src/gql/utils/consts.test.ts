@@ -23,7 +23,7 @@ describe("queryBatchHandler tests", () => {
 
         featureFlagsQueryString(true, defaultFeatureFlags),
       ],
-      "https://hm-graphql.testnet-1.nibiru.fi/query"
+      "https://hm-graphql.testnet-2.nibiru.fi/query"
     )
     expect(resp).toHaveProperty("communityPool")
     expect(resp).toHaveProperty("featureFlags")

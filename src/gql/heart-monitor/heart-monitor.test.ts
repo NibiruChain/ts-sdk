@@ -56,7 +56,7 @@ import {
   defaultEvm,
 } from ".."
 
-const nibiruUrl = "testnet-1"
+const nibiruUrl = "testnet-2"
 
 const heartMonitor = new HeartMonitor(
   `https://hm-graphql.${nibiruUrl}.nibiru.fi/query`,
