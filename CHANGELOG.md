@@ -1,3 +1,13 @@
+## [6.1.0](https://github.com/NibiruChain/ts-sdk/compare/v6.0.3...v6.1.0) (2025-03-05)
+
+### Features
+
+- subscription batch handler ([86a92a7](https://github.com/NibiruChain/ts-sdk/commit/86a92a7ed37dc3f6b3e87527257eb8ac714eac11))
+
+### Bug Fixes
+
+- testnet-1 to testnet-2 ([f5478d0](https://github.com/NibiruChain/ts-sdk/commit/f5478d0e7c538b4b53917b204a7043c7913aee4b))
+
 ### [6.0.3](https://github.com/NibiruChain/ts-sdk/compare/v6.0.2...v6.0.3) (2025-02-27)
 
 ### Bug Fixes
