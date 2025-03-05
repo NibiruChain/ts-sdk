@@ -16,14 +16,7 @@ export const oraclePricesSubscriptionQueryString = (
   args: GQLSubscriptionGqlOraclePricesArgs,
   fields: DeepPartial<GQLOraclePrice>
 ) =>
-  `subscription {
-    ${gqlQuery(
-      "oraclePrices",
-      args,
-      convertObjectToPropertiesString(fields),
-      true
-    )}
-  }`
+  gqlQuery("oraclePrices", args, convertObjectToPropertiesString(fields), true)
 
 export const oraclePricesSubscription = async (
   args: GQLSubscriptionGqlOraclePricesArgs,
@@ -33,5 +26,8 @@ export const oraclePricesSubscription = async (
   AsyncIterableIterator<ExecutionResult<GqlOutOraclePrices>> | undefined
 > =>
   client?.iterate({
-    query: oraclePricesSubscriptionQueryString(args, fields),
+    query: `subscription {${oraclePricesSubscriptionQueryString(
+      args,
+      fields
+    )}}`,
   })

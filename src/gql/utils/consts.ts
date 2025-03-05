@@ -1,4 +1,5 @@
 import { fetch } from "cross-fetch"
+import { Client } from "graphql-ws"
 
 type OptionalArrayOr<T, Otherwise> = T extends T[] ? T[] | undefined : Otherwise
 type OptionalUndefinedOr<T, Otherwise> = T extends undefined
@@ -62,6 +63,13 @@ export const queryBatchHandler = async <T>(
   queryQueryStrings: string[],
   endpt: string
 ) => <T>doGqlQuery(`{ ${queryQueryStrings.join("\n")} }`, endpt)
+
+export const subscriptionBatchHandler = async <T>(
+  queryQueryStrings: string[],
+  client?: Client
+) => <T>client?.iterate({
+    query: `subscription {${queryQueryStrings.join("\n")}}`,
+  })
 
 export const arg = <T>(
   name: string,

@@ -66,14 +66,14 @@ describe("useFaucet", () => {
     endptGrpc: "",
     endptHm: "",
     endptWs: "",
-    chainId: "nibiru-testnet-1",
+    chainId: "nibiru-testnet-2",
     chainName: "",
     feeDenom: "",
   }
 
   const grecaptcha = "TEST_GRECAPTCHA_TOKEN"
   const address = "0x1234567890"
-  const expectedUrl = "https://faucet.testnet-1.nibiru.fi/"
+  const expectedUrl = "https://faucet.testnet-2.nibiru.fi/"
 
   test("should request funds from faucet with default amounts", async () => {
     await useFaucet({ address, chain, grecaptcha })
@@ -113,7 +113,7 @@ describe("useFaucet", () => {
         endptGrpc: "",
         endptHm: "",
         endptWs: "",
-        chainId: "nibiru-testnet-1",
+        chainId: "nibiru-testnet-2",
         chainName: "",
         feeDenom: "",
       })
