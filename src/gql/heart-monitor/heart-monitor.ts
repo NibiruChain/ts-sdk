@@ -115,6 +115,10 @@ export interface IHeartMonitor {
     queryQueryStrings: string[]
   ) => Promise<T>
 
+  readonly GQLSubscriptionGqlBatchHandler: <T>(
+    queryQueryStrings: string[]
+  ) => Promise<T>
+
   readonly staking: (
     args: QueryStakingArgs,
     fields: DeepPartial<GQLStakingFields>
