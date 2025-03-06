@@ -1,3 +1,9 @@
+### [6.1.1](https://github.com/NibiruChain/ts-sdk/compare/v6.1.0...v6.1.1) (2025-03-06)
+
+### Bug Fixes
+
+- add missing interface prop ([7aa11ca](https://github.com/NibiruChain/ts-sdk/commit/7aa11caadc4a356f87c91fe1f8e0795a76f30648))
+
 ## [6.1.0](https://github.com/NibiruChain/ts-sdk/compare/v6.0.3...v6.1.0) (2025-03-05)
 
 ### Features
