@@ -55,7 +55,6 @@ import {
   GQLEvm,
   GqlOutEvm,
   evm,
-  subscriptionBatchHandler,
 } from ".."
 
 /** IHeartMonitor is an interface for a Heart Monitor GraphQL API.
@@ -63,7 +62,7 @@ import {
 export interface IHeartMonitor {
   gqlEndpt: string
   defaultGqlEndpt: string
-  subscriptionClient: Client | undefined
+  subscriptionClient?: Client
   closeWebSocket: () => Promise<void | undefined>
 
   readonly communityPool: (
@@ -112,10 +111,6 @@ export interface IHeartMonitor {
   readonly evm: (fields: DeepPartial<GQLEvm>) => Promise<GqlOutEvm>
 
   readonly GQLQueryGqlBatchHandler: <T>(
-    queryQueryStrings: string[]
-  ) => Promise<T>
-
-  readonly GQLSubscriptionGqlBatchHandler: <T>(
     queryQueryStrings: string[]
   ) => Promise<T>
 
@@ -210,9 +205,6 @@ export class HeartMonitor implements IHeartMonitor {
 
   GQLQueryGqlBatchHandler = async <T>(queryQueryStrings: string[]) =>
     <T>queryBatchHandler(queryQueryStrings, this.gqlEndpt)
-
-  GQLSubscriptionGqlBatchHandler = async <T>(queryQueryStrings: string[]) =>
-    <T>subscriptionBatchHandler(queryQueryStrings, this.subscriptionClient)
 
   staking = async (
     args: QueryStakingArgs,
