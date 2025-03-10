@@ -1,3 +1,9 @@
+### [6.1.2](https://github.com/NibiruChain/ts-sdk/compare/v6.1.1...v6.1.2) (2025-03-10)
+
+### Bug Fixes
+
+- remove subscriptionbatchhandler ([cef670b](https://github.com/NibiruChain/ts-sdk/commit/cef670b81f194aa2838872504e70272b3d73468a))
+
 ### [6.1.1](https://github.com/NibiruChain/ts-sdk/compare/v6.1.0...v6.1.1) (2025-03-06)
 
 ### Bug Fixes
