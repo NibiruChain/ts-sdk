@@ -64,13 +64,6 @@ export const queryBatchHandler = async <T>(
   endpt: string
 ) => <T>doGqlQuery(`{ ${queryQueryStrings.join("\n")} }`, endpt)
 
-export const subscriptionBatchHandler = async <T>(
-  queryQueryStrings: string[],
-  client?: Client
-) => <T>client?.iterate({
-    query: `subscription {${queryQueryStrings.join("\n")}}`,
-  })
-
 export const arg = <T>(
   name: string,
   value: unknown,
