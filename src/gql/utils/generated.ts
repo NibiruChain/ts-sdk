@@ -512,7 +512,13 @@ export enum GQLOraclesOrder {
 
 export type GQLProxies = {
   readonly __typename?: 'Proxies';
-  readonly bybit: GQLBybitResponse;
+  readonly bybit?: Maybe<GQLBybitResponse>;
+  readonly unstoppableDomains?: Maybe<GQLUnstoppableDomainsResponse>;
+};
+
+
+export type GQLProxiesGqlUnstoppableDomainsArgs = {
+  domainName: Scalars['String']['input'];
 };
 
 export type GQLQuery = {
@@ -612,6 +618,17 @@ export type GQLQueryGqlValidatorsArgs = {
   order_by?: InputMaybe<GQLValidatorOrder>;
   order_desc?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<GQLValidatorFilter>;
+};
+
+export type GQLRecords = {
+  readonly __typename?: 'Records';
+  readonly cryptoEthAddress?: Maybe<Scalars['String']['output']>;
+  readonly cryptoNibiAddress?: Maybe<Scalars['String']['output']>;
+  readonly ipfsHtmlValue?: Maybe<Scalars['String']['output']>;
+  readonly tokenEvmEthEthAddress?: Maybe<Scalars['String']['output']>;
+  readonly tokenEvmMaticMaticAddress?: Maybe<Scalars['String']['output']>;
+  readonly tokenEvmMaticPolAddress?: Maybe<Scalars['String']['output']>;
+  readonly tokenNibiNibiNibiAddress?: Maybe<Scalars['String']['output']>;
 };
 
 export type GQLRedelegation = {
@@ -823,6 +840,26 @@ export enum GQLUnbondingOrder {
   GQLDelegatorAddress = 'delegator_address',
   GQLValidatorAddress = 'validator_address'
 }
+
+export type GQLUnstoppableDomainsMeta = {
+  readonly __typename?: 'UnstoppableDomainsMeta';
+  readonly blockchain: Scalars['String']['output'];
+  readonly domain: Scalars['String']['output'];
+  readonly namehash: Scalars['String']['output'];
+  readonly networkId: Scalars['Int']['output'];
+  readonly owner: Scalars['String']['output'];
+  readonly registry: Scalars['String']['output'];
+  readonly resolver: Scalars['String']['output'];
+  readonly reverse: Scalars['Boolean']['output'];
+  readonly tokenId: Scalars['String']['output'];
+  readonly type: Scalars['String']['output'];
+};
+
+export type GQLUnstoppableDomainsResponse = {
+  readonly __typename?: 'UnstoppableDomainsResponse';
+  readonly meta: GQLUnstoppableDomainsMeta;
+  readonly records: GQLRecords;
+};
 
 export type GQLUser = {
   readonly __typename?: 'User';

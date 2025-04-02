@@ -16,14 +16,13 @@ export const userQueryString = (
   args: GQLQueryGqlUserArgs,
   excludeParentObject: boolean,
   fields: DeepPartial<GQLUser>
-) => {
-  return gqlQuery(
+) =>
+  gqlQuery(
     "user",
     args,
     convertObjectToPropertiesString(fields),
     excludeParentObject
   )
-}
 
 export const user = async (
   args: GQLQueryGqlUserArgs,
