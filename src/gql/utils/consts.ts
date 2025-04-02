@@ -1,5 +1,4 @@
 import { fetch } from "cross-fetch"
-import { Client } from "graphql-ws"
 
 type OptionalArrayOr<T, Otherwise> = T extends T[] ? T[] | undefined : Otherwise
 type OptionalUndefinedOr<T, Otherwise> = T extends undefined
@@ -163,7 +162,9 @@ export const gqlQuery = <T>(
   delete typedQueryArgs.where
 
   Object.keys(typedQueryArgs).forEach((key) =>
-    queryArgList.push(arg<T>(key, typedQueryArgs[key], true))
+    // key !== "domainName" normally `true`, however domainName is a special case
+    // Will need to future proof this if more special cases arise
+    queryArgList.push(arg<T>(key, typedQueryArgs[key], key !== "domainName"))
   )
 
   const hasQueryList = (char: string) => (queryArgList.length > 0 ? char : "")

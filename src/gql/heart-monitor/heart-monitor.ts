@@ -106,7 +106,10 @@ export interface IHeartMonitor {
     AsyncIterableIterator<ExecutionResult<GqlOutOraclePrices>> | undefined
   >
 
-  readonly proxies: (fields: DeepPartial<GQLProxies>) => Promise<GqlOutProxies>
+  readonly proxies: (
+    fields: DeepPartial<GQLProxies>,
+    domainName?: string
+  ) => Promise<GqlOutProxies>
 
   readonly evm: (fields: DeepPartial<GQLEvm>) => Promise<GqlOutEvm>
 
@@ -198,8 +201,8 @@ export class HeartMonitor implements IHeartMonitor {
     fields: DeepPartial<GQLOraclePrice>
   ) => oraclePricesSubscription(args, fields, this.subscriptionClient)
 
-  proxies = async (fields: DeepPartial<GQLProxies>) =>
-    proxies(this.gqlEndpt, fields)
+  proxies = async (fields: DeepPartial<GQLProxies>, domainName?: string) =>
+    proxies(this.gqlEndpt, fields, domainName)
 
   evm = async (fields: DeepPartial<GQLEvm>) => evm(this.gqlEndpt, fields)
 
