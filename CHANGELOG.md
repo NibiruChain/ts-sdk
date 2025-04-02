@@ -1,3 +1,9 @@
+### [6.1.3](https://github.com/NibiruChain/ts-sdk/compare/v6.1.2...v6.1.3) (2025-04-02)
+
+### Miscellaneous Chores
+
+- unstoppable domain proxy ([#404](https://github.com/NibiruChain/ts-sdk/issues/404)) ([#405](https://github.com/NibiruChain/ts-sdk/issues/405)) ([ace44cb](https://github.com/NibiruChain/ts-sdk/commit/ace44cb6b663482ee68a8420256d387a21cd782f))
+
 ### [6.1.2](https://github.com/NibiruChain/ts-sdk/compare/v6.1.1...v6.1.2) (2025-03-10)
 
 ### Bug Fixes
