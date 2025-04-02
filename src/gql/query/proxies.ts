@@ -12,18 +12,38 @@ export interface GqlOutProxies {
 }
 
 export const proxiesQueryString = (
-  excludeParentObject: boolean,
-  fields: DeepPartial<GQLProxies>
-) =>
-  gqlQuery(
-    "proxies",
-    {},
-    convertObjectToPropertiesString(fields),
-    excludeParentObject
-  )
+  fields: DeepPartial<GQLProxies>,
+  domainName?: string
+) => {
+  const proxiesQuery: string[] = []
+
+  if (fields.bybit) {
+    proxiesQuery.push(
+      gqlQuery("bybit", {}, convertObjectToPropertiesString(fields.bybit), true)
+    )
+  }
+
+  if (fields.unstoppableDomains) {
+    proxiesQuery.push(
+      gqlQuery(
+        "unstoppableDomains",
+        { domainName },
+        convertObjectToPropertiesString(fields.unstoppableDomains),
+        true
+      )
+    )
+  }
+
+  return `{
+    proxies {
+      ${proxiesQuery.join("\n")}
+    }
+  }`
+}
 
 export const proxies = async (
   endpt: string,
-  fields: DeepPartial<GQLProxies>
+  fields: DeepPartial<GQLProxies>,
+  domainName?: string
 ): Promise<GqlOutProxies> =>
-  doGqlQuery(proxiesQueryString(false, fields), endpt)
+  doGqlQuery(proxiesQueryString(fields, domainName), endpt)

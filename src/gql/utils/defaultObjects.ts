@@ -1,5 +1,6 @@
 import {
   GQLBlock,
+  GQLBybitResponse,
   GQLDelegation,
   GQLDistributionCommission,
   GQLEvm,
@@ -235,20 +236,45 @@ export const defaultFeatureFlags: GQLFeatureFlags = {
   wasm: true,
 }
 
+export const defaultBybit: GQLBybitResponse = {
+  ask1Price: "",
+  ask1Size: "",
+  bid1Price: "",
+  bid1Size: "",
+  highPrice24h: "",
+  lastPrice: "",
+  lowPrice24h: "",
+  prevPrice24h: "",
+  price24hPcnt: "",
+  symbol: "",
+  turnover24h: "",
+  volume24h: "",
+}
+
 export const defaultProxy: GQLProxies = {
-  bybit: {
-    ask1Price: "",
-    ask1Size: "",
-    bid1Price: "",
-    bid1Size: "",
-    highPrice24h: "",
-    lastPrice: "",
-    lowPrice24h: "",
-    prevPrice24h: "",
-    price24hPcnt: "",
-    symbol: "",
-    turnover24h: "",
-    volume24h: "",
+  bybit: defaultBybit,
+  unstoppableDomains: {
+    records: {
+      cryptoEthAddress: "",
+      cryptoNibiAddress: "",
+      ipfsHtmlValue: "",
+      tokenEvmEthEthAddress: "",
+      tokenEvmMaticMaticAddress: "",
+      tokenEvmMaticPolAddress: "",
+      tokenNibiNibiNibiAddress: "",
+    },
+    meta: {
+      blockchain: "",
+      domain: "",
+      namehash: "",
+      owner: "",
+      networkId: 0,
+      registry: "",
+      resolver: "",
+      tokenId: "",
+      reverse: false,
+      type: "",
+    },
   },
 }
 

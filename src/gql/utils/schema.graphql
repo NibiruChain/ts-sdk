@@ -393,7 +393,8 @@ enum OraclesOrder {
 }
 
 type Proxies {
-  bybit: BybitResponse!
+  bybit: BybitResponse
+  unstoppableDomains(domainName: String!): UnstoppableDomainsResponse
 }
 
 type Query {
@@ -417,6 +418,16 @@ type Query {
   users(limit: Int, order_by: UserOrder, order_desc: Boolean, where: UsersFilter): [User!]!
   validators(limit: Int, order_by: ValidatorOrder, order_desc: Boolean, where: ValidatorFilter): [Validator!]! @deprecated(reason: "Moved to staking sub schema")
   wasm: Wasm!
+}
+
+type Records {
+  cryptoEthAddress: String
+  cryptoNibiAddress: String
+  ipfsHtmlValue: String
+  tokenEvmEthEthAddress: String
+  tokenEvmMaticMaticAddress: String
+  tokenEvmMaticPolAddress: String
+  tokenNibiNibiNibiAddress: String
 }
 
 type Redelegation {
@@ -563,6 +574,24 @@ enum UnbondingOrder {
   creation_height
   delegator_address
   validator_address
+}
+
+type UnstoppableDomainsMeta {
+  blockchain: String!
+  domain: String!
+  namehash: String!
+  networkId: Int!
+  owner: String!
+  registry: String!
+  resolver: String!
+  reverse: Boolean!
+  tokenId: String!
+  type: String!
+}
+
+type UnstoppableDomainsResponse {
+  meta: UnstoppableDomainsMeta!
+  records: Records!
 }
 
 type User {

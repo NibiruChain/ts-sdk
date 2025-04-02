@@ -42,7 +42,6 @@ import {
   defaultInflationDistribution,
   GQLFeatureFlags,
   defaultFeatureFlags,
-  defaultProxy,
   GQLProxies,
   defaultInflationReward,
   featureFlagsQueryString,
@@ -54,6 +53,8 @@ import {
   GQLQueryGqlUserArgs,
   GQLEvm,
   defaultEvm,
+  defaultBybit,
+  defaultProxy,
 } from ".."
 
 const nibiruUrl = "testnet-2"
@@ -360,19 +361,23 @@ test.skip("oraclePricesSubscription", async () => {
   )
 })
 
-const testProxies = async (fields: GQLProxies) => {
-  const resp = await heartMonitor.proxies(fields)
+const testProxies = async (fields: GQLProxies, domainName?: string) => {
+  const resp = await heartMonitor.proxies(fields, domainName)
   expect(resp).toHaveProperty("proxies")
 
   if (resp.proxies) {
     const { proxies } = resp
 
-    checkFields([proxies], ["bybit"])
+    checkFields(
+      [proxies],
+      ["bybit", ...(domainName ? ["unstoppableDomains"] : [])]
+    )
   }
 }
 
 test("proxies", async () => {
-  await testProxies(defaultProxy)
+  await testProxies(defaultProxy, "cameron.nibi")
+  await testProxies({ bybit: defaultBybit })
 })
 
 const testEvm = async (fields: GQLEvm) => {
