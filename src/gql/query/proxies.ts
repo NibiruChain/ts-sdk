@@ -34,11 +34,11 @@ export const proxiesQueryString = (
     )
   }
 
-  return `{
+  return `
     proxies {
       ${proxiesQuery.join("\n")}
     }
-  }`
+  `
 }
 
 export const proxies = async (
@@ -46,4 +46,9 @@ export const proxies = async (
   fields: DeepPartial<GQLProxies>,
   domainName?: string
 ): Promise<GqlOutProxies> =>
-  doGqlQuery(proxiesQueryString(fields, domainName), endpt)
+  doGqlQuery(
+    `{
+    ${proxiesQueryString(fields, domainName)}
+    }`,
+    endpt
+  )
