@@ -1,3 +1,9 @@
+## [6.2.0](https://github.com/NibiruChain/ts-sdk/compare/v6.1.3...v6.2.0) (2025-04-04)
+
+### Features
+
+- develop -> main ([#406](https://github.com/NibiruChain/ts-sdk/issues/406)) ([3635152](https://github.com/NibiruChain/ts-sdk/commit/363515275d4e1e4efb306dba8ea82032b53b0ff0)), closes [#404](https://github.com/NibiruChain/ts-sdk/issues/404)
+
 ### [6.1.3](https://github.com/NibiruChain/ts-sdk/compare/v6.1.2...v6.1.3) (2025-04-02)
 
 ### Miscellaneous Chores

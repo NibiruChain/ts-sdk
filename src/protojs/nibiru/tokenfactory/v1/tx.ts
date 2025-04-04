@@ -103,6 +103,33 @@ export interface MsgSetDenomMetadata {
 export interface MsgSetDenomMetadataResponse {
 }
 
+/**
+ * MsgSudoSetDenomMetadata: sdk.Msg (TxMsg) enabling Nibiru's "sudoers" to change
+ * bank metadata.
+ * [SUDO] Only callable by sudoers.
+ *
+ * Use Cases:
+ *   - To define metadata for ICS20 assets brought
+ *     over to the chain via IBC, as they don't have metadata by default.
+ *   - To set metadata for Bank Coins created via the Token Factory
+ *     module in case the admin forgets to do so. This is important because of
+ *     the relationship Token Factory assets can have with ERC20s with the
+ *     [FunToken Mechanism].
+ *
+ * [FunToken Mechanism]: https://nibiru.fi/docs/evm/funtoken.html
+ */
+export interface MsgSudoSetDenomMetadata {
+  sender: string;
+  /**
+   * Metadata: Official x/bank metadata for the denom. The "metadata.base" is
+   * the denom.
+   */
+  metadata?: Metadata;
+}
+
+export interface MsgSudoSetDenomMetadataResponse {
+}
+
 /** Burn a native token such as unibi */
 export interface MsgBurnNative {
   sender: string;
@@ -869,6 +896,123 @@ export const MsgSetDenomMetadataResponse = {
   },
 };
 
+function createBaseMsgSudoSetDenomMetadata(): MsgSudoSetDenomMetadata {
+  return { sender: "", metadata: undefined };
+}
+
+export const MsgSudoSetDenomMetadata = {
+  encode(message: MsgSudoSetDenomMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.metadata !== undefined) {
+      Metadata.encode(message.metadata, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSudoSetDenomMetadata {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgSudoSetDenomMetadata();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.sender = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.metadata = Metadata.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgSudoSetDenomMetadata {
+    return {
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      metadata: isSet(object.metadata) ? Metadata.fromJSON(object.metadata) : undefined,
+    };
+  },
+
+  toJSON(message: MsgSudoSetDenomMetadata): unknown {
+    const obj: any = {};
+    message.sender !== undefined && (obj.sender = message.sender);
+    message.metadata !== undefined && (obj.metadata = message.metadata ? Metadata.toJSON(message.metadata) : undefined);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgSudoSetDenomMetadata>, I>>(base?: I): MsgSudoSetDenomMetadata {
+    return MsgSudoSetDenomMetadata.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgSudoSetDenomMetadata>, I>>(object: I): MsgSudoSetDenomMetadata {
+    const message = createBaseMsgSudoSetDenomMetadata();
+    message.sender = object.sender ?? "";
+    message.metadata = (object.metadata !== undefined && object.metadata !== null)
+      ? Metadata.fromPartial(object.metadata)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseMsgSudoSetDenomMetadataResponse(): MsgSudoSetDenomMetadataResponse {
+  return {};
+}
+
+export const MsgSudoSetDenomMetadataResponse = {
+  encode(_: MsgSudoSetDenomMetadataResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSudoSetDenomMetadataResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgSudoSetDenomMetadataResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgSudoSetDenomMetadataResponse {
+    return {};
+  },
+
+  toJSON(_: MsgSudoSetDenomMetadataResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgSudoSetDenomMetadataResponse>, I>>(base?: I): MsgSudoSetDenomMetadataResponse {
+    return MsgSudoSetDenomMetadataResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgSudoSetDenomMetadataResponse>, I>>(_: I): MsgSudoSetDenomMetadataResponse {
+    const message = createBaseMsgSudoSetDenomMetadataResponse();
+    return message;
+  },
+};
+
 function createBaseMsgBurnNative(): MsgBurnNative {
   return { sender: "", coin: undefined };
 }
@@ -997,6 +1141,11 @@ export interface Msg {
   Mint(request: MsgMint): Promise<MsgMintResponse>;
   Burn(request: MsgBurn): Promise<MsgBurnResponse>;
   SetDenomMetadata(request: MsgSetDenomMetadata): Promise<MsgSetDenomMetadataResponse>;
+  /**
+   * SudoSetDenomMetadata: sdk.Msg (TxMsg) enabling Nibiru's "sudoers" to
+   * change bank metadata. [SUDO] Only callable by sudoers.
+   */
+  SudoSetDenomMetadata(request: MsgSudoSetDenomMetadata): Promise<MsgSudoSetDenomMetadataResponse>;
   /** burns a native token such as unibi */
   BurnNative(request: MsgBurnNative): Promise<MsgBurnNativeResponse>;
 }
@@ -1014,6 +1163,7 @@ export class MsgClientImpl implements Msg {
     this.Mint = this.Mint.bind(this);
     this.Burn = this.Burn.bind(this);
     this.SetDenomMetadata = this.SetDenomMetadata.bind(this);
+    this.SudoSetDenomMetadata = this.SudoSetDenomMetadata.bind(this);
     this.BurnNative = this.BurnNative.bind(this);
   }
   CreateDenom(request: MsgCreateDenom): Promise<MsgCreateDenomResponse> {
@@ -1050,6 +1200,12 @@ export class MsgClientImpl implements Msg {
     const data = MsgSetDenomMetadata.encode(request).finish();
     const promise = this.rpc.request(this.service, "SetDenomMetadata", data);
     return promise.then((data) => MsgSetDenomMetadataResponse.decode(_m0.Reader.create(data)));
+  }
+
+  SudoSetDenomMetadata(request: MsgSudoSetDenomMetadata): Promise<MsgSudoSetDenomMetadataResponse> {
+    const data = MsgSudoSetDenomMetadata.encode(request).finish();
+    const promise = this.rpc.request(this.service, "SudoSetDenomMetadata", data);
+    return promise.then((data) => MsgSudoSetDenomMetadataResponse.decode(_m0.Reader.create(data)));
   }
 
   BurnNative(request: MsgBurnNative): Promise<MsgBurnNativeResponse> {
