@@ -74,6 +74,7 @@ import {
 import { MsgWithdrawDelegatorReward } from "cosmjs-types/cosmos/distribution/v1beta1/tx"
 import { SignMode } from "cosmjs-types/cosmos/tx/signing/v1beta1/signing"
 import { TxRaw } from "cosmjs-types/cosmos/tx/v1beta1/tx"
+import { customAminoConverters } from "../aminomsgs"
 
 function createDeliverTxResponseErrorMessage(
   result: DeliverTxResponse
@@ -162,6 +163,7 @@ export class NibiSigningCosmWasmClient extends NibiCosmWasmClient {
       aminoTypes = new AminoTypes({
         ...createDefaultAminoConverters(),
         ...createWasmAminoConverters(),
+        ...customAminoConverters,
       }),
     } = options
     this.registry = registry
