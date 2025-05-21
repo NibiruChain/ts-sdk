@@ -14,7 +14,7 @@ export interface Params {
    */
   voteThreshold: string;
   /**
-   * RewardBand defines a maxium divergence that a price vote can have from the
+   * RewardBand defines a maximum divergence that a price vote can have from the
    * weighted median in the ballot. If a vote lies within the valid range
    * defined by:
    * 	μ := weightedMedian,
