@@ -45,6 +45,10 @@ import {
   GQLProxies,
   GqlOutProxies,
   proxies,
+  QueryMarketingArgs,
+  MarketingFields,
+  GqlOutMarketing,
+  marketing,
   GQLStakingFields,
   GqlOutStaking,
   QueryStakingArgs,
@@ -65,6 +69,10 @@ export interface IHeartMonitor {
   subscriptionClient?: Client
   closeWebSocket: () => Promise<void | undefined>
 
+  readonly GQLQueryGqlBatchHandler: <T>(
+    queryQueryStrings: string[]
+  ) => Promise<T>
+
   readonly communityPool: (
     args: GQLQueryGqlCommunityPoolArgs,
     fields: DeepPartial<GQLToken>
@@ -74,6 +82,8 @@ export interface IHeartMonitor {
     args: GQLQueryGqlDistributionCommissionsArgs,
     fields: DeepPartial<GQLDistributionCommission>
   ) => Promise<GqlOutDistributionCommissions>
+
+  readonly evm: (fields: DeepPartial<GQLEvm>) => Promise<GqlOutEvm>
 
   readonly featureFlags: (
     fields: DeepPartial<GQLFeatureFlags>
@@ -94,6 +104,11 @@ export interface IHeartMonitor {
     fields: DeepPartial<InflationFields>
   ) => Promise<GqlOutInflation>
 
+  readonly marketing: (
+    args: QueryMarketingArgs,
+    fields: DeepPartial<MarketingFields>
+  ) => Promise<GqlOutMarketing>
+
   readonly oracle: (
     args: QueryOracleArgs,
     fields: DeepPartial<OracleFields>
@@ -110,12 +125,6 @@ export interface IHeartMonitor {
     fields: DeepPartial<GQLProxies>,
     domainName?: string
   ) => Promise<GqlOutProxies>
-
-  readonly evm: (fields: DeepPartial<GQLEvm>) => Promise<GqlOutEvm>
-
-  readonly GQLQueryGqlBatchHandler: <T>(
-    queryQueryStrings: string[]
-  ) => Promise<T>
 
   readonly staking: (
     args: QueryStakingArgs,
@@ -165,6 +174,9 @@ export class HeartMonitor implements IHeartMonitor {
     }
   }
 
+  GQLQueryGqlBatchHandler = async <T>(queryQueryStrings: string[]) =>
+    <T>queryBatchHandler(queryQueryStrings, this.gqlEndpt)
+
   closeWebSocket = async () => this.subscriptionClient?.dispose()
 
   communityPool = async (
@@ -176,6 +188,8 @@ export class HeartMonitor implements IHeartMonitor {
     args: GQLQueryGqlDistributionCommissionsArgs,
     fields: DeepPartial<GQLDistributionCommission>
   ) => distributionCommissions(args, this.gqlEndpt, fields)
+
+  evm = async (fields: DeepPartial<GQLEvm>) => evm(this.gqlEndpt, fields)
 
   featureFlags = async (fields: DeepPartial<GQLFeatureFlags>) =>
     featureFlags(this.gqlEndpt, fields)
@@ -193,6 +207,11 @@ export class HeartMonitor implements IHeartMonitor {
     fields: DeepPartial<InflationFields>
   ) => inflation(args, this.gqlEndpt, fields)
 
+  marketing = async (
+    args: QueryMarketingArgs,
+    fields: DeepPartial<MarketingFields>
+  ) => marketing(args, this.gqlEndpt, fields)
+
   oracle = async (args: QueryOracleArgs, fields: DeepPartial<OracleFields>) =>
     oracle(args, this.gqlEndpt, fields)
 
@@ -203,11 +222,6 @@ export class HeartMonitor implements IHeartMonitor {
 
   proxies = async (fields: DeepPartial<GQLProxies>, domainName?: string) =>
     proxies(this.gqlEndpt, fields, domainName)
-
-  evm = async (fields: DeepPartial<GQLEvm>) => evm(this.gqlEndpt, fields)
-
-  GQLQueryGqlBatchHandler = async <T>(queryQueryStrings: string[]) =>
-    <T>queryBatchHandler(queryQueryStrings, this.gqlEndpt)
 
   staking = async (
     args: QueryStakingArgs,
