@@ -17,6 +17,9 @@ describe("setupEthMsgExtension", () => {
     ConvertCoinToEvm: jest.fn().mockResolvedValue({
       test: "Test",
     }),
+    ConvertEvmToCoin: jest.fn().mockResolvedValue({
+      test: "Test",
+    }),
   } as unknown as query.MsgClientImpl)
 
   test("should setup extension correctly", () => {
@@ -63,11 +66,13 @@ describe("setupEthMsgExtension", () => {
           createFuntokenFee: "",
           extraEips: [new Long(0)],
           evmChannels: [""],
+          canonicalWnibi: "",
         },
       })
       expect(msgUpdateParams).toHaveBeenCalledWith({
         authority: "",
         params: {
+          canonicalWnibi: "",
           createFuntokenFee: "",
           extraEips: [new Long(0)],
           evmChannels: [""],
@@ -88,11 +93,13 @@ describe("setupEthMsgExtension", () => {
         fromBankDenom: "",
         fromErc20: "",
         sender: "",
+        allowZeroDecimals: false,
       })
       expect(msgCreateFunToken).toHaveBeenCalledWith({
         fromBankDenom: "",
         fromErc20: "",
         sender: "",
+        allowZeroDecimals: false,
       })
       expect(result).toEqual({ test: "Test" })
     })
@@ -114,6 +121,29 @@ describe("setupEthMsgExtension", () => {
         toEthAddr: "",
         bankCoin: { denom: "", amount: "" },
         sender: "",
+      })
+      expect(result).toEqual({ test: "Test" })
+    })
+  })
+
+  describe("convertEVMToCoin", () => {
+    test("should call MsgConvertEvmToCoin and return the response", async () => {
+      const msgConvertEvmToCoin = jest
+        .spyOn(query.MsgConvertEvmToCoin, "fromPartial")
+        .mockReturnValue({} as query.MsgConvertEvmToCoin)
+
+      const extension = setupEthMsgExtension(mockBaseQueryClient)
+      const result = await extension.convertEvmToCoin({
+        toAddr: "",
+        erc20Addr: "",
+        sender: "",
+        amount: "",
+      })
+      expect(msgConvertEvmToCoin).toHaveBeenCalledWith({
+        toAddr: "",
+        erc20Addr: "",
+        sender: "",
+        amount: "",
       })
       expect(result).toEqual({ test: "Test" })
     })

@@ -215,6 +215,15 @@ export interface MsgCreateFunToken {
   fromBankDenom: string;
   /** Sender: Address for the signer of the transaction. */
   sender: string;
+  /**
+   * Optional flag to allow the `FunToken` mapping to be created with 0 decimals
+   * in the ERC20 sense. Often times, tokens are meant to behave like money and
+   * be divisible, meaning "decimals = 0" is often a mistake. This field defaults
+   * to false as a safety guard against accidental creation of FunTokens with
+   * missing metadata.
+   * Set this to true if the token is truly intended to have 0 decimals.
+   */
+  allowZeroDecimals: boolean;
 }
 
 export interface MsgCreateFunTokenResponse {
@@ -233,6 +242,34 @@ export interface MsgConvertCoinToEvm {
 }
 
 export interface MsgConvertCoinToEvmResponse {
+}
+
+/** MsgConvertEvmToCoin: Arguments to send an ERC20 token to bank coin representation */
+export interface MsgConvertEvmToCoin {
+  /**
+   * Sender: "nibi"-prefixed Bech32 address for the signer of the transaction.
+   * This is also the address whose ERC20 balance will be deducted.
+   */
+  sender: string;
+  /** Hexadecimal address of the ERC20 token to be converted and sent */
+  erc20Addr: string;
+  /** Amount of ERC20 tokens to convert */
+  amount: string;
+  /**
+   * Recipient address for the bank coins in Ethereum hexadecimal or
+   * nibi-prefixed Bech32 format.
+   *
+   * Currently, accounts corresponding to Wasm contracts cannot hold ERC20 tokens
+   * because the function that maps between Bech32 and Eth hex addresses is not
+   * bijective for these types of accounts.
+   *
+   * See [bug(evm): nibid q evm account is not symmetric for wasm
+   * addresses](https://github.com/NibiruChain/nibiru/issues/2138)
+   */
+  toAddr: string;
+}
+
+export interface MsgConvertEvmToCoinResponse {
 }
 
 function createBaseMsgEthereumTx(): MsgEthereumTx {
@@ -1208,7 +1245,7 @@ export const MsgUpdateParamsResponse = {
 };
 
 function createBaseMsgCreateFunToken(): MsgCreateFunToken {
-  return { fromErc20: "", fromBankDenom: "", sender: "" };
+  return { fromErc20: "", fromBankDenom: "", sender: "", allowZeroDecimals: false };
 }
 
 export const MsgCreateFunToken = {
@@ -1221,6 +1258,9 @@ export const MsgCreateFunToken = {
     }
     if (message.sender !== "") {
       writer.uint32(26).string(message.sender);
+    }
+    if (message.allowZeroDecimals === true) {
+      writer.uint32(32).bool(message.allowZeroDecimals);
     }
     return writer;
   },
@@ -1253,6 +1293,13 @@ export const MsgCreateFunToken = {
 
           message.sender = reader.string();
           continue;
+        case 4:
+          if (tag !== 32) {
+            break;
+          }
+
+          message.allowZeroDecimals = reader.bool();
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -1267,6 +1314,7 @@ export const MsgCreateFunToken = {
       fromErc20: isSet(object.fromErc20) ? String(object.fromErc20) : "",
       fromBankDenom: isSet(object.fromBankDenom) ? String(object.fromBankDenom) : "",
       sender: isSet(object.sender) ? String(object.sender) : "",
+      allowZeroDecimals: isSet(object.allowZeroDecimals) ? Boolean(object.allowZeroDecimals) : false,
     };
   },
 
@@ -1275,6 +1323,7 @@ export const MsgCreateFunToken = {
     message.fromErc20 !== undefined && (obj.fromErc20 = message.fromErc20);
     message.fromBankDenom !== undefined && (obj.fromBankDenom = message.fromBankDenom);
     message.sender !== undefined && (obj.sender = message.sender);
+    message.allowZeroDecimals !== undefined && (obj.allowZeroDecimals = message.allowZeroDecimals);
     return obj;
   },
 
@@ -1287,6 +1336,7 @@ export const MsgCreateFunToken = {
     message.fromErc20 = object.fromErc20 ?? "";
     message.fromBankDenom = object.fromBankDenom ?? "";
     message.sender = object.sender ?? "";
+    message.allowZeroDecimals = object.allowZeroDecimals ?? false;
     return message;
   },
 };
@@ -1484,6 +1534,147 @@ export const MsgConvertCoinToEvmResponse = {
   },
 };
 
+function createBaseMsgConvertEvmToCoin(): MsgConvertEvmToCoin {
+  return { sender: "", erc20Addr: "", amount: "", toAddr: "" };
+}
+
+export const MsgConvertEvmToCoin = {
+  encode(message: MsgConvertEvmToCoin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.erc20Addr !== "") {
+      writer.uint32(18).string(message.erc20Addr);
+    }
+    if (message.amount !== "") {
+      writer.uint32(26).string(message.amount);
+    }
+    if (message.toAddr !== "") {
+      writer.uint32(34).string(message.toAddr);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgConvertEvmToCoin {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgConvertEvmToCoin();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.sender = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.erc20Addr = reader.string();
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
+
+          message.amount = reader.string();
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.toAddr = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgConvertEvmToCoin {
+    return {
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      erc20Addr: isSet(object.erc20Addr) ? String(object.erc20Addr) : "",
+      amount: isSet(object.amount) ? String(object.amount) : "",
+      toAddr: isSet(object.toAddr) ? String(object.toAddr) : "",
+    };
+  },
+
+  toJSON(message: MsgConvertEvmToCoin): unknown {
+    const obj: any = {};
+    message.sender !== undefined && (obj.sender = message.sender);
+    message.erc20Addr !== undefined && (obj.erc20Addr = message.erc20Addr);
+    message.amount !== undefined && (obj.amount = message.amount);
+    message.toAddr !== undefined && (obj.toAddr = message.toAddr);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgConvertEvmToCoin>, I>>(base?: I): MsgConvertEvmToCoin {
+    return MsgConvertEvmToCoin.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgConvertEvmToCoin>, I>>(object: I): MsgConvertEvmToCoin {
+    const message = createBaseMsgConvertEvmToCoin();
+    message.sender = object.sender ?? "";
+    message.erc20Addr = object.erc20Addr ?? "";
+    message.amount = object.amount ?? "";
+    message.toAddr = object.toAddr ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgConvertEvmToCoinResponse(): MsgConvertEvmToCoinResponse {
+  return {};
+}
+
+export const MsgConvertEvmToCoinResponse = {
+  encode(_: MsgConvertEvmToCoinResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgConvertEvmToCoinResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgConvertEvmToCoinResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgConvertEvmToCoinResponse {
+    return {};
+  },
+
+  toJSON(_: MsgConvertEvmToCoinResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgConvertEvmToCoinResponse>, I>>(base?: I): MsgConvertEvmToCoinResponse {
+    return MsgConvertEvmToCoinResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgConvertEvmToCoinResponse>, I>>(_: I): MsgConvertEvmToCoinResponse {
+    const message = createBaseMsgConvertEvmToCoinResponse();
+    return message;
+  },
+};
+
 /** Msg defines the evm Msg service. */
 export interface Msg {
   /** EthereumTx defines a method submitting Ethereum transactions. */
@@ -1506,6 +1697,11 @@ export interface Msg {
    * representation.
    */
   ConvertCoinToEvm(request: MsgConvertCoinToEvm): Promise<MsgConvertCoinToEvmResponse>;
+  /**
+   * ConvertEvmToCoin: Sends an ERC20 token with a valid "FunToken" mapping to the
+   * given recipient address as a bank coin.
+   */
+  ConvertEvmToCoin(request: MsgConvertEvmToCoin): Promise<MsgConvertEvmToCoinResponse>;
 }
 
 export const MsgServiceName = "eth.evm.v1.Msg";
@@ -1519,6 +1715,7 @@ export class MsgClientImpl implements Msg {
     this.UpdateParams = this.UpdateParams.bind(this);
     this.CreateFunToken = this.CreateFunToken.bind(this);
     this.ConvertCoinToEvm = this.ConvertCoinToEvm.bind(this);
+    this.ConvertEvmToCoin = this.ConvertEvmToCoin.bind(this);
   }
   EthereumTx(request: MsgEthereumTx): Promise<MsgEthereumTxResponse> {
     const data = MsgEthereumTx.encode(request).finish();
@@ -1542,6 +1739,12 @@ export class MsgClientImpl implements Msg {
     const data = MsgConvertCoinToEvm.encode(request).finish();
     const promise = this.rpc.request(this.service, "ConvertCoinToEvm", data);
     return promise.then((data) => MsgConvertCoinToEvmResponse.decode(_m0.Reader.create(data)));
+  }
+
+  ConvertEvmToCoin(request: MsgConvertEvmToCoin): Promise<MsgConvertEvmToCoinResponse> {
+    const data = MsgConvertEvmToCoin.encode(request).finish();
+    const promise = this.rpc.request(this.service, "ConvertEvmToCoin", data);
+    return promise.then((data) => MsgConvertEvmToCoinResponse.decode(_m0.Reader.create(data)));
   }
 }
 
