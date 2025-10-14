@@ -23,7 +23,7 @@ export const marketingQueryString = (
 ) => {
   const marketingQuery: string[] = []
 
-  if (fields.isTaskCompleted !== undefined) {
+  if (fields.isTaskCompleted) {
     const qArgs =
       args.isTaskCompleted ?? ({} as GQLMarketingGqlIsTaskCompletedArgs)
     const argList = [
