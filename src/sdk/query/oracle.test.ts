@@ -40,6 +40,7 @@ describe("setupOracleExtension", () => {
     exchangeRate: "123",
     blockHeight: Long.fromNumber(420),
     blockTimestampMs: Long.fromNumber(100000),
+    isVintage: false,
   }
   const mockExchangeRate = fromSdkDec(mockExchangeRateResponse.exchangeRate)
   const mockExchangeRatesResponse: query.QueryExchangeRatesResponse = {

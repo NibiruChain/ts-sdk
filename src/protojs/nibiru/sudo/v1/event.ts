@@ -6,7 +6,7 @@ import { Sudoers } from "./state";
 /** EventUpdateSudoers: ABCI event emitted upon execution of "MsgEditSudoers". */
 export interface EventUpdateSudoers {
   sudoers?: Sudoers;
-  /** Action is the type of update that occured to the "sudoers" */
+  /** Action is the type of update that occurred to the "sudoers" */
   action: string;
 }
 

@@ -1,3 +1,14 @@
+"""
+Directs the executor to defer this fragment when the `if` argument is true or undefined.
+"""
+directive @defer(
+  """Deferred when true or undefined."""
+  if: Boolean = true
+
+  """Unique name"""
+  label: String
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
 directive @goModel(model: String, models: [String!]) on ENUM | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
 
 type Balance {
@@ -36,9 +47,9 @@ enum CommunityPoolOrder {
 }
 
 input ContractEventsFilter {
-  block: IntFilter
-  contractAddress: StringFilter
-  type: StringFilter
+  block: IntFilter!
+  contractAddress: StringEqualsFilter
+  type: StringEqualsFilter
 }
 
 enum ContractEventsOrder {
@@ -99,6 +110,7 @@ type Event {
   block: Block!
   contractAddress: String
   eventSeqNo: Int!
+  txHash: String
   txSeqNo: Int!
   type: String!
 }
@@ -328,6 +340,10 @@ type Internal {
   employee(where: EmployeeFilter!): Employee
 }
 
+type Marketing {
+  isTaskCompleted(taskId: String!, userAddress: String!): Boolean!
+}
+
 type Message {
   action: String
   block: Block!
@@ -407,6 +423,7 @@ type Query {
   ibc: IBC!
   inflation: Inflation!
   internal: Internal!
+  marketing: Marketing!
   messages(limit: Int, offset: Int, order_by: MessagesOrder, order_desc: Boolean, where: MessagesFilter): [Message!]!
   oracle: Oracle!
   proxies: Proxies!
@@ -511,6 +528,10 @@ enum StatsVolumeOrder {
   period_start_ts
 }
 
+input StringEqualsFilter {
+  eq: String
+}
+
 input StringFilter {
   eq: String
   like: String
@@ -605,7 +626,6 @@ type User {
 type UserContract {
   contractAddress: String!
   contractType: String!
-  events: [Event!]
   user: User!
 }
 
@@ -690,6 +710,6 @@ enum ValidatorStatus {
 }
 
 type Wasm {
-  contractEvents(limit: Int, offset: Int, order: ContractEventsOrder, orderDesc: Boolean, where: ContractEventsFilter): [Event!]!
+  contractEvents(limit: Int, offset: Int, order: ContractEventsOrder, orderDesc: Boolean, where: ContractEventsFilter!): [Event!]!
   userContracts(limit: Int, offset: Int, order: UserContractsOrder, orderDesc: Boolean, where: UserContractsFilter): [UserContract!]!
 }

@@ -30,7 +30,10 @@ export interface EventTxLog {
   logs: Log[];
 }
 
-/** EventBlockBloom defines an Ethereum block bloom filter event */
+/**
+ * EventBlockBloom contains the bloom filter for an Ethereum block.
+ * The bloom filter encodes logs for efficient event filtering.
+ */
 export interface EventBlockBloom {
   /** bloom is the bloom filter of the block */
   bloom: string;
@@ -44,7 +47,10 @@ export interface EventFunTokenCreated {
   isMadeFromCoin: boolean;
 }
 
-/** ConvertCoinToEvm defines sending fun token to erc20 event. */
+/**
+ * EventConvertCoinToEvm is an event emitted when converting Bank Coins into
+ * ERC20 tokens with the "eth.evm.v1.MsgConvertCoinToEvm" transaction message.
+ */
 export interface EventConvertCoinToEvm {
   sender: string;
   erc20ContractAddress: string;
@@ -69,6 +75,18 @@ export interface EventContractDeployed {
 export interface EventContractExecuted {
   sender: string;
   contractAddr: string;
+}
+
+/**
+ * EventConvertEvmToCoin is an event emitted when converting ERC20 tokens to Bank
+ * Coins with the "eth.evm.v1.MsgConvertEvmToCoin" transaction message.
+ */
+export interface EventConvertEvmToCoin {
+  sender: string;
+  erc20ContractAddress: string;
+  toAddress: string;
+  bankCoin?: Coin;
+  senderEthAddr: string;
 }
 
 function createBaseEventEthereumTx(): EventEthereumTx {
@@ -741,6 +759,118 @@ export const EventContractExecuted = {
     const message = createBaseEventContractExecuted();
     message.sender = object.sender ?? "";
     message.contractAddr = object.contractAddr ?? "";
+    return message;
+  },
+};
+
+function createBaseEventConvertEvmToCoin(): EventConvertEvmToCoin {
+  return { sender: "", erc20ContractAddress: "", toAddress: "", bankCoin: undefined, senderEthAddr: "" };
+}
+
+export const EventConvertEvmToCoin = {
+  encode(message: EventConvertEvmToCoin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.erc20ContractAddress !== "") {
+      writer.uint32(18).string(message.erc20ContractAddress);
+    }
+    if (message.toAddress !== "") {
+      writer.uint32(26).string(message.toAddress);
+    }
+    if (message.bankCoin !== undefined) {
+      Coin.encode(message.bankCoin, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.senderEthAddr !== "") {
+      writer.uint32(50).string(message.senderEthAddr);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): EventConvertEvmToCoin {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEventConvertEvmToCoin();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.sender = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.erc20ContractAddress = reader.string();
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
+
+          message.toAddress = reader.string();
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.bankCoin = Coin.decode(reader, reader.uint32());
+          continue;
+        case 6:
+          if (tag !== 50) {
+            break;
+          }
+
+          message.senderEthAddr = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): EventConvertEvmToCoin {
+    return {
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      erc20ContractAddress: isSet(object.erc20ContractAddress) ? String(object.erc20ContractAddress) : "",
+      toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
+      bankCoin: isSet(object.bankCoin) ? Coin.fromJSON(object.bankCoin) : undefined,
+      senderEthAddr: isSet(object.senderEthAddr) ? String(object.senderEthAddr) : "",
+    };
+  },
+
+  toJSON(message: EventConvertEvmToCoin): unknown {
+    const obj: any = {};
+    message.sender !== undefined && (obj.sender = message.sender);
+    message.erc20ContractAddress !== undefined && (obj.erc20ContractAddress = message.erc20ContractAddress);
+    message.toAddress !== undefined && (obj.toAddress = message.toAddress);
+    message.bankCoin !== undefined && (obj.bankCoin = message.bankCoin ? Coin.toJSON(message.bankCoin) : undefined);
+    message.senderEthAddr !== undefined && (obj.senderEthAddr = message.senderEthAddr);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventConvertEvmToCoin>, I>>(base?: I): EventConvertEvmToCoin {
+    return EventConvertEvmToCoin.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EventConvertEvmToCoin>, I>>(object: I): EventConvertEvmToCoin {
+    const message = createBaseEventConvertEvmToCoin();
+    message.sender = object.sender ?? "";
+    message.erc20ContractAddress = object.erc20ContractAddress ?? "";
+    message.toAddress = object.toAddress ?? "";
+    message.bankCoin = (object.bankCoin !== undefined && object.bankCoin !== null)
+      ? Coin.fromPartial(object.bankCoin)
+      : undefined;
+    message.senderEthAddr = object.senderEthAddr ?? "";
     return message;
   },
 };

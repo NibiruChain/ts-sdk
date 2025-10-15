@@ -55,6 +55,8 @@ import {
   defaultEvm,
   defaultBybit,
   defaultProxy,
+  GQLMarketing,
+  QueryMarketingArgs,
 } from ".."
 
 const nibiruUrl = "testnet-2"
@@ -133,6 +135,21 @@ const testDistributionCommissions = async (
 test("distributionCommissions", async () => {
   await testDistributionCommissions({ limit: 1 }, defaultDistributionCommission)
   await testDistributionCommissions({}, defaultDistributionCommission)
+})
+
+const testEvm = async (fields: GQLEvm) => {
+  const resp = await heartMonitor.evm(fields)
+  expect(resp).toHaveProperty("evm")
+
+  if (resp.evm) {
+    const { evm } = resp
+
+    checkFields([evm], ["funTokens"])
+  }
+}
+
+test("evm", async () => {
+  await testEvm(defaultEvm)
 })
 
 const testFeatureFlags = async (fields: GQLFeatureFlags) => {
@@ -288,6 +305,27 @@ test("inflation", async () => {
   )
 })
 
+const testMarketing = async (
+  args: QueryMarketingArgs,
+  fields: GQLMarketing
+) => {
+  const resp = await heartMonitor.marketing(args, fields)
+  expect(resp).toHaveProperty("marketing")
+
+  if (resp.marketing) {
+    const { marketing } = resp
+
+    checkFields([marketing], ["isTaskCompleted"])
+  }
+}
+
+test("marketing", async () => {
+  await testMarketing(
+    { isTaskCompleted: { taskId: "task-123", userAddress: "nibi1xyz" } },
+    { isTaskCompleted: true }
+  )
+})
+
 const testOracle = async (args: QueryOracleArgs, fields: OracleFields) => {
   const resp = await heartMonitor.oracle(args, fields)
   expect(resp).toHaveProperty("oracle")
@@ -378,21 +416,6 @@ const testProxies = async (fields: GQLProxies, domainName?: string) => {
 test("proxies", async () => {
   await testProxies(defaultProxy, "cameron.nibi")
   await testProxies({ bybit: defaultBybit })
-})
-
-const testEvm = async (fields: GQLEvm) => {
-  const resp = await heartMonitor.evm(fields)
-  expect(resp).toHaveProperty("evm")
-
-  if (resp.evm) {
-    const { evm } = resp
-
-    checkFields([evm], ["funTokens"])
-  }
-}
-
-test("evm", async () => {
-  await testEvm(defaultEvm)
 })
 
 test("queryBatchHandler", async () => {

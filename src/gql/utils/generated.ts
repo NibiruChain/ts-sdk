@@ -54,9 +54,9 @@ export enum GQLCommunityPoolOrder {
 }
 
 export type GQLContractEventsFilter = {
-  readonly block?: InputMaybe<GQLIntFilter>;
-  readonly contractAddress?: InputMaybe<GQLStringFilter>;
-  readonly type?: InputMaybe<GQLStringFilter>;
+  readonly block: GQLIntFilter;
+  readonly contractAddress?: InputMaybe<GQLStringEqualsFilter>;
+  readonly type?: InputMaybe<GQLStringEqualsFilter>;
 };
 
 export enum GQLContractEventsOrder {
@@ -121,6 +121,7 @@ export type GQLEvent = {
   readonly block: GQLBlock;
   readonly contractAddress?: Maybe<Scalars['String']['output']>;
   readonly eventSeqNo: Scalars['Int']['output'];
+  readonly txHash?: Maybe<Scalars['String']['output']>;
   readonly txSeqNo: Scalars['Int']['output'];
   readonly type: Scalars['String']['output'];
 };
@@ -423,6 +424,17 @@ export type GQLInternalGqlEmployeeArgs = {
   where: GQLEmployeeFilter;
 };
 
+export type GQLMarketing = {
+  readonly __typename?: 'Marketing';
+  readonly isTaskCompleted: Scalars['Boolean']['output'];
+};
+
+
+export type GQLMarketingGqlIsTaskCompletedArgs = {
+  taskId: Scalars['String']['input'];
+  userAddress: Scalars['String']['input'];
+};
+
 export type GQLMessage = {
   readonly __typename?: 'Message';
   readonly action?: Maybe<Scalars['String']['output']>;
@@ -533,6 +545,7 @@ export type GQLQuery = {
   readonly ibc: GQLIbc;
   readonly inflation: GQLInflation;
   readonly internal: GQLInternal;
+  readonly marketing: GQLMarketing;
   readonly messages: ReadonlyArray<GQLMessage>;
   readonly oracle: GQLOracle;
   readonly proxies: GQLProxies;
@@ -769,6 +782,10 @@ export enum GQLStatsVolumeOrder {
   GQLPeriodStartTs = 'period_start_ts'
 }
 
+export type GQLStringEqualsFilter = {
+  readonly eq?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type GQLStringFilter = {
   readonly eq?: InputMaybe<Scalars['String']['input']>;
   readonly like?: InputMaybe<Scalars['String']['input']>;
@@ -874,7 +891,6 @@ export type GQLUserContract = {
   readonly __typename?: 'UserContract';
   readonly contractAddress: Scalars['String']['output'];
   readonly contractType: Scalars['String']['output'];
-  readonly events?: Maybe<ReadonlyArray<GQLEvent>>;
   readonly user: GQLUser;
 };
 
@@ -973,7 +989,7 @@ export type GQLWasmGqlContractEventsArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order?: InputMaybe<GQLContractEventsOrder>;
   orderDesc?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<GQLContractEventsFilter>;
+  where: GQLContractEventsFilter;
 };
 
 

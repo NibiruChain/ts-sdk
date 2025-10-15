@@ -27,6 +27,8 @@ export interface QueryExchangeRateResponse {
   blockTimestampMs: Long;
   /** Block height when the oracle came to consensus for this price. */
   blockHeight: Long;
+  /** True if this exchange rate has passed its expiration window. */
+  isVintage: boolean;
 }
 
 /**
@@ -263,7 +265,7 @@ export const QueryExchangeRateRequest = {
 };
 
 function createBaseQueryExchangeRateResponse(): QueryExchangeRateResponse {
-  return { exchangeRate: "", blockTimestampMs: Long.ZERO, blockHeight: Long.UZERO };
+  return { exchangeRate: "", blockTimestampMs: Long.ZERO, blockHeight: Long.UZERO, isVintage: false };
 }
 
 export const QueryExchangeRateResponse = {
@@ -276,6 +278,9 @@ export const QueryExchangeRateResponse = {
     }
     if (!message.blockHeight.isZero()) {
       writer.uint32(24).uint64(message.blockHeight);
+    }
+    if (message.isVintage === true) {
+      writer.uint32(32).bool(message.isVintage);
     }
     return writer;
   },
@@ -308,6 +313,13 @@ export const QueryExchangeRateResponse = {
 
           message.blockHeight = reader.uint64() as Long;
           continue;
+        case 4:
+          if (tag !== 32) {
+            break;
+          }
+
+          message.isVintage = reader.bool();
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -322,6 +334,7 @@ export const QueryExchangeRateResponse = {
       exchangeRate: isSet(object.exchangeRate) ? String(object.exchangeRate) : "",
       blockTimestampMs: isSet(object.blockTimestampMs) ? Long.fromValue(object.blockTimestampMs) : Long.ZERO,
       blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.UZERO,
+      isVintage: isSet(object.isVintage) ? Boolean(object.isVintage) : false,
     };
   },
 
@@ -331,6 +344,7 @@ export const QueryExchangeRateResponse = {
     message.blockTimestampMs !== undefined &&
       (obj.blockTimestampMs = (message.blockTimestampMs || Long.ZERO).toString());
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.UZERO).toString());
+    message.isVintage !== undefined && (obj.isVintage = message.isVintage);
     return obj;
   },
 
@@ -347,6 +361,7 @@ export const QueryExchangeRateResponse = {
     message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
       ? Long.fromValue(object.blockHeight)
       : Long.UZERO;
+    message.isVintage = object.isVintage ?? false;
     return message;
   },
 };

@@ -34,6 +34,8 @@ export interface Params {
    * "evm_denom".
    */
   createFuntokenFee: string;
+  /** Hexadecimal address of the canonical WNIBI contract on Nibiru mainnet */
+  canonicalWnibi: string;
 }
 
 /** State represents a single Storage key value pair item. */
@@ -207,7 +209,7 @@ export const FunToken = {
 };
 
 function createBaseParams(): Params {
-  return { extraEips: [], evmChannels: [], createFuntokenFee: "" };
+  return { extraEips: [], evmChannels: [], createFuntokenFee: "", canonicalWnibi: "" };
 }
 
 export const Params = {
@@ -222,6 +224,9 @@ export const Params = {
     }
     if (message.createFuntokenFee !== "") {
       writer.uint32(74).string(message.createFuntokenFee);
+    }
+    if (message.canonicalWnibi !== "") {
+      writer.uint32(82).string(message.canonicalWnibi);
     }
     return writer;
   },
@@ -264,6 +269,13 @@ export const Params = {
 
           message.createFuntokenFee = reader.string();
           continue;
+        case 10:
+          if (tag !== 82) {
+            break;
+          }
+
+          message.canonicalWnibi = reader.string();
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -278,6 +290,7 @@ export const Params = {
       extraEips: Array.isArray(object?.extraEips) ? object.extraEips.map((e: any) => Long.fromValue(e)) : [],
       evmChannels: Array.isArray(object?.evmChannels) ? object.evmChannels.map((e: any) => String(e)) : [],
       createFuntokenFee: isSet(object.createFuntokenFee) ? String(object.createFuntokenFee) : "",
+      canonicalWnibi: isSet(object.canonicalWnibi) ? String(object.canonicalWnibi) : "",
     };
   },
 
@@ -294,6 +307,7 @@ export const Params = {
       obj.evmChannels = [];
     }
     message.createFuntokenFee !== undefined && (obj.createFuntokenFee = message.createFuntokenFee);
+    message.canonicalWnibi !== undefined && (obj.canonicalWnibi = message.canonicalWnibi);
     return obj;
   },
 
@@ -306,6 +320,7 @@ export const Params = {
     message.extraEips = object.extraEips?.map((e) => Long.fromValue(e)) || [];
     message.evmChannels = object.evmChannels?.map((e) => e) || [];
     message.createFuntokenFee = object.createFuntokenFee ?? "";
+    message.canonicalWnibi = object.canonicalWnibi ?? "";
     return message;
   },
 };
