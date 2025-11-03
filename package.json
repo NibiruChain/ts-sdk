@@ -36,7 +36,7 @@
     "prettier": "prettier --write . --ignore-path .gitignore",
     "eslint": "eslint --fix . --ignore-path .gitignore",
     "semantic-release": "semantic-release",
-    "viem:generate": "wagmi generate",
+    "wagmi:generate": "wagmi generate",
     "prepare": "husky install"
   },
   "dependencies": {
