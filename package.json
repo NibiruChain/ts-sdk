@@ -36,6 +36,7 @@
     "prettier": "prettier --write . --ignore-path .gitignore",
     "eslint": "eslint --fix . --ignore-path .gitignore",
     "semantic-release": "semantic-release",
+    "wagmi:generate": "wagmi generate",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -47,6 +48,7 @@
     "cross-fetch": "4.0.0",
     "graphql": "^16.9.0",
     "graphql-ws": "^5.16.0",
+    "wagmi": "^2.19.2",
     "pako": "^2.1.0"
   },
   "peerDependencies": {
@@ -63,6 +65,7 @@
     "@graphql-codegen/cli": "^4.0.1",
     "@graphql-codegen/client-preset": "^4.0.1",
     "@graphql-codegen/typescript": "^4.0.1",
+    "@nibiruchain/solidity": "^0.0.7",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/jest": "^29.1.2",
@@ -71,6 +74,7 @@
     "@types/pako": "^2.0.3",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
     "@typescript-eslint/parser": "^5.30.7",
+    "@wagmi/cli": "^2.7.1",
     "barrelsby": "^2.8.1",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
@@ -90,7 +94,7 @@
     "typedoc": "^0.24.8",
     "typedoc-plugin-markdown": "^3.14.0",
     "typedoc-plugin-missing-exports": "^2.1.0",
-    "typescript": "^4.4.3",
+    "typescript": "^5.4.5",
     "ws": "^8.14.1"
   },
   "lint-staged": {
