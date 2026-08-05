@@ -218,10 +218,10 @@ export interface MsgCreateFunToken {
   /**
    * Optional flag to allow the `FunToken` mapping to be created with 0 decimals
    * in the ERC20 sense. Often times, tokens are meant to behave like money and
-   * be divisible, meaning "decimals = 0" is often a mistake. This field defaults
-   * to false as a safety guard against accidental creation of FunTokens with
-   * missing metadata.
-   * Set this to true if the token is truly intended to have 0 decimals.
+   * be divisible, meaning "decimals = 0" is often a mistake. This field
+   * defaults to false as a safety guard against accidental creation of
+   * FunTokens with missing metadata. Set this to true if the token is truly
+   * intended to have 0 decimals.
    */
   allowZeroDecimals: boolean;
 }
@@ -244,7 +244,10 @@ export interface MsgConvertCoinToEvm {
 export interface MsgConvertCoinToEvmResponse {
 }
 
-/** MsgConvertEvmToCoin: Arguments to send an ERC20 token to bank coin representation */
+/**
+ * MsgConvertEvmToCoin: Arguments to send an ERC20 token to bank coin
+ * representation
+ */
 export interface MsgConvertEvmToCoin {
   /**
    * Sender: "nibi"-prefixed Bech32 address for the signer of the transaction.
@@ -259,9 +262,9 @@ export interface MsgConvertEvmToCoin {
    * Recipient address for the bank coins in Ethereum hexadecimal or
    * nibi-prefixed Bech32 format.
    *
-   * Currently, accounts corresponding to Wasm contracts cannot hold ERC20 tokens
-   * because the function that maps between Bech32 and Eth hex addresses is not
-   * bijective for these types of accounts.
+   * Currently, accounts corresponding to Wasm contracts cannot hold ERC20
+   * tokens because the function that maps between Bech32 and Eth hex addresses
+   * is not bijective for these types of accounts.
    *
    * See [bug(evm): nibid q evm account is not symmetric for wasm
    * addresses](https://github.com/NibiruChain/nibiru/issues/2138)
@@ -1698,8 +1701,8 @@ export interface Msg {
    */
   ConvertCoinToEvm(request: MsgConvertCoinToEvm): Promise<MsgConvertCoinToEvmResponse>;
   /**
-   * ConvertEvmToCoin: Sends an ERC20 token with a valid "FunToken" mapping to the
-   * given recipient address as a bank coin.
+   * ConvertEvmToCoin: Sends an ERC20 token with a valid "FunToken" mapping to
+   * the given recipient address as a bank coin.
    */
   ConvertEvmToCoin(request: MsgConvertEvmToCoin): Promise<MsgConvertEvmToCoinResponse>;
 }

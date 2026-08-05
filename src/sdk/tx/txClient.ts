@@ -17,6 +17,7 @@ import {
   ethTypes,
   NibiruExtensions,
   setupNibiruExtension,
+  sudoTypes,
   tokenfactoryTypes,
 } from ".."
 import { accountFromNibiru } from "./account"
@@ -29,6 +30,7 @@ export const nibiruRegistryTypes: ReadonlyArray<[string, GeneratedType]> = [
   ...defaultRegistryTypes,
   ...tokenfactoryTypes,
   ...ethTypes,
+  ...sudoTypes,
 ]
 
 export class NibiruTxClient extends SigningStargateClient {

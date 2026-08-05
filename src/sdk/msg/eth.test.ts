@@ -67,6 +67,7 @@ describe("setupEthMsgExtension", () => {
           extraEips: [new Long(0)],
           evmChannels: [""],
           canonicalWnibi: "",
+          wasmPlugins: [{ name: "", addr: "" }],
         },
       })
       expect(msgUpdateParams).toHaveBeenCalledWith({
@@ -76,6 +77,7 @@ describe("setupEthMsgExtension", () => {
           createFuntokenFee: "",
           extraEips: [new Long(0)],
           evmChannels: [""],
+          wasmPlugins: [{ name: "", addr: "" }],
         },
       })
       expect(result).toEqual({ test: "Test" })

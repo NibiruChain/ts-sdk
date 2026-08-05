@@ -249,7 +249,7 @@ describe("wasm", () => {
     const assertHappyPath = async () => {
       const uploadRes = await txClient.wasmClient.upload(
         sender,
-        wasmBinary,
+        new Uint8Array(wasmBinary.buffer),
         fee
       )
       codeId = uploadRes.codeId

@@ -868,7 +868,7 @@ export interface Msg {
   /**
    * DelegateFeedConsent defines a method for delegating oracle voting rights
    * to another address known as a price feeder.
-   * See https://github.com/NibiruChain/pricefeeder.
+   * Deprecated: x/oracle Msg RPCs are disabled on-chain (ErrOracleDeprecated).
    */
   DelegateFeedConsent(request: MsgDelegateFeedConsent): Promise<MsgDelegateFeedConsentResponse>;
   EditOracleParams(request: MsgEditOracleParams): Promise<MsgEditOracleParamsResponse>;
