@@ -41,7 +41,7 @@ export default defineConfig({
     {
       name: "WNIBI",
       abi: readAbi(
-        "./nibiru/x/evm/embeds/artifacts/contracts/WNIBI.sol/WNIBI.json"
+        "./nibiru/evm/embeds/artifacts/contracts/WNIBI.sol/WNIBI.json"
       ),
       address: ADDR_WNIBI,
     },

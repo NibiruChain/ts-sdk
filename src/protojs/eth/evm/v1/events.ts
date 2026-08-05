@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Log } from "./evm";
+import { Log, LogLite } from "./evm";
 
 /** Copyright (c) 2023-2024 Nibi, Inc. */
 
@@ -56,6 +56,7 @@ export interface EventConvertCoinToEvm {
   erc20ContractAddress: string;
   toEthAddr: string;
   bankCoin?: Coin;
+  evmLogs: LogLite[];
 }
 
 /** EventTransfer defines event for EVM transfer */
@@ -78,8 +79,8 @@ export interface EventContractExecuted {
 }
 
 /**
- * EventConvertEvmToCoin is an event emitted when converting ERC20 tokens to Bank
- * Coins with the "eth.evm.v1.MsgConvertEvmToCoin" transaction message.
+ * EventConvertEvmToCoin is an event emitted when converting ERC20 tokens to
+ * Bank Coins with the "eth.evm.v1.MsgConvertEvmToCoin" transaction message.
  */
 export interface EventConvertEvmToCoin {
   sender: string;
@@ -87,6 +88,29 @@ export interface EventConvertEvmToCoin {
   toAddress: string;
   bankCoin?: Coin;
   senderEthAddr: string;
+  evmLogs: LogLite[];
+}
+
+/**
+ * EventWeiBlockDelta is an event emitted when there is a non-zero value for
+ * block delta (change) in wei in the EVM end block handler.
+ */
+export interface EventWeiBlockDelta {
+  /**
+   * net_wei_block_delta is the new sum of all "wei_block_delta" changes up to
+   * this point. It is the value for "NetWeiBlockDelta" in the EVM state.
+   */
+  netWeiBlockDelta: string;
+  /**
+   * WeiBlockDelta is the net sum of all calls of "AddWei" and "SubWei" in the
+   * current block. There is no guarantee in the functional sense that the EVM
+   * State DB will add the same amount it subtracts. It is possible for the
+   * total amount of wei (NIBI) across all accounts to diverge from the initial
+   * supply. "WeiBlockDelta" is a mechanism for recording that if it happens.
+   */
+  weiBlockDelta: string;
+  /** block_number for which this event is emitted during EVM EndBlock */
+  blockNumber: Long;
 }
 
 function createBaseEventEthereumTx(): EventEthereumTx {
@@ -439,7 +463,7 @@ export const EventFunTokenCreated = {
 };
 
 function createBaseEventConvertCoinToEvm(): EventConvertCoinToEvm {
-  return { sender: "", erc20ContractAddress: "", toEthAddr: "", bankCoin: undefined };
+  return { sender: "", erc20ContractAddress: "", toEthAddr: "", bankCoin: undefined, evmLogs: [] };
 }
 
 export const EventConvertCoinToEvm = {
@@ -455,6 +479,9 @@ export const EventConvertCoinToEvm = {
     }
     if (message.bankCoin !== undefined) {
       Coin.encode(message.bankCoin, writer.uint32(34).fork()).ldelim();
+    }
+    for (const v of message.evmLogs) {
+      LogLite.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -494,6 +521,13 @@ export const EventConvertCoinToEvm = {
 
           message.bankCoin = Coin.decode(reader, reader.uint32());
           continue;
+        case 5:
+          if (tag !== 42) {
+            break;
+          }
+
+          message.evmLogs.push(LogLite.decode(reader, reader.uint32()));
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -509,6 +543,7 @@ export const EventConvertCoinToEvm = {
       erc20ContractAddress: isSet(object.erc20ContractAddress) ? String(object.erc20ContractAddress) : "",
       toEthAddr: isSet(object.toEthAddr) ? String(object.toEthAddr) : "",
       bankCoin: isSet(object.bankCoin) ? Coin.fromJSON(object.bankCoin) : undefined,
+      evmLogs: Array.isArray(object?.evmLogs) ? object.evmLogs.map((e: any) => LogLite.fromJSON(e)) : [],
     };
   },
 
@@ -518,6 +553,11 @@ export const EventConvertCoinToEvm = {
     message.erc20ContractAddress !== undefined && (obj.erc20ContractAddress = message.erc20ContractAddress);
     message.toEthAddr !== undefined && (obj.toEthAddr = message.toEthAddr);
     message.bankCoin !== undefined && (obj.bankCoin = message.bankCoin ? Coin.toJSON(message.bankCoin) : undefined);
+    if (message.evmLogs) {
+      obj.evmLogs = message.evmLogs.map((e) => e ? LogLite.toJSON(e) : undefined);
+    } else {
+      obj.evmLogs = [];
+    }
     return obj;
   },
 
@@ -533,6 +573,7 @@ export const EventConvertCoinToEvm = {
     message.bankCoin = (object.bankCoin !== undefined && object.bankCoin !== null)
       ? Coin.fromPartial(object.bankCoin)
       : undefined;
+    message.evmLogs = object.evmLogs?.map((e) => LogLite.fromPartial(e)) || [];
     return message;
   },
 };
@@ -764,7 +805,7 @@ export const EventContractExecuted = {
 };
 
 function createBaseEventConvertEvmToCoin(): EventConvertEvmToCoin {
-  return { sender: "", erc20ContractAddress: "", toAddress: "", bankCoin: undefined, senderEthAddr: "" };
+  return { sender: "", erc20ContractAddress: "", toAddress: "", bankCoin: undefined, senderEthAddr: "", evmLogs: [] };
 }
 
 export const EventConvertEvmToCoin = {
@@ -783,6 +824,9 @@ export const EventConvertEvmToCoin = {
     }
     if (message.senderEthAddr !== "") {
       writer.uint32(50).string(message.senderEthAddr);
+    }
+    for (const v of message.evmLogs) {
+      LogLite.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
@@ -829,6 +873,13 @@ export const EventConvertEvmToCoin = {
 
           message.senderEthAddr = reader.string();
           continue;
+        case 7:
+          if (tag !== 58) {
+            break;
+          }
+
+          message.evmLogs.push(LogLite.decode(reader, reader.uint32()));
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -845,6 +896,7 @@ export const EventConvertEvmToCoin = {
       toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
       bankCoin: isSet(object.bankCoin) ? Coin.fromJSON(object.bankCoin) : undefined,
       senderEthAddr: isSet(object.senderEthAddr) ? String(object.senderEthAddr) : "",
+      evmLogs: Array.isArray(object?.evmLogs) ? object.evmLogs.map((e: any) => LogLite.fromJSON(e)) : [],
     };
   },
 
@@ -855,6 +907,11 @@ export const EventConvertEvmToCoin = {
     message.toAddress !== undefined && (obj.toAddress = message.toAddress);
     message.bankCoin !== undefined && (obj.bankCoin = message.bankCoin ? Coin.toJSON(message.bankCoin) : undefined);
     message.senderEthAddr !== undefined && (obj.senderEthAddr = message.senderEthAddr);
+    if (message.evmLogs) {
+      obj.evmLogs = message.evmLogs.map((e) => e ? LogLite.toJSON(e) : undefined);
+    } else {
+      obj.evmLogs = [];
+    }
     return obj;
   },
 
@@ -871,6 +928,93 @@ export const EventConvertEvmToCoin = {
       ? Coin.fromPartial(object.bankCoin)
       : undefined;
     message.senderEthAddr = object.senderEthAddr ?? "";
+    message.evmLogs = object.evmLogs?.map((e) => LogLite.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseEventWeiBlockDelta(): EventWeiBlockDelta {
+  return { netWeiBlockDelta: "", weiBlockDelta: "", blockNumber: Long.UZERO };
+}
+
+export const EventWeiBlockDelta = {
+  encode(message: EventWeiBlockDelta, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.netWeiBlockDelta !== "") {
+      writer.uint32(10).string(message.netWeiBlockDelta);
+    }
+    if (message.weiBlockDelta !== "") {
+      writer.uint32(18).string(message.weiBlockDelta);
+    }
+    if (!message.blockNumber.isZero()) {
+      writer.uint32(24).uint64(message.blockNumber);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): EventWeiBlockDelta {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEventWeiBlockDelta();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.netWeiBlockDelta = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.weiBlockDelta = reader.string();
+          continue;
+        case 3:
+          if (tag !== 24) {
+            break;
+          }
+
+          message.blockNumber = reader.uint64() as Long;
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): EventWeiBlockDelta {
+    return {
+      netWeiBlockDelta: isSet(object.netWeiBlockDelta) ? String(object.netWeiBlockDelta) : "",
+      weiBlockDelta: isSet(object.weiBlockDelta) ? String(object.weiBlockDelta) : "",
+      blockNumber: isSet(object.blockNumber) ? Long.fromValue(object.blockNumber) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: EventWeiBlockDelta): unknown {
+    const obj: any = {};
+    message.netWeiBlockDelta !== undefined && (obj.netWeiBlockDelta = message.netWeiBlockDelta);
+    message.weiBlockDelta !== undefined && (obj.weiBlockDelta = message.weiBlockDelta);
+    message.blockNumber !== undefined && (obj.blockNumber = (message.blockNumber || Long.UZERO).toString());
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EventWeiBlockDelta>, I>>(base?: I): EventWeiBlockDelta {
+    return EventWeiBlockDelta.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EventWeiBlockDelta>, I>>(object: I): EventWeiBlockDelta {
+    const message = createBaseEventWeiBlockDelta();
+    message.netWeiBlockDelta = object.netWeiBlockDelta ?? "";
+    message.weiBlockDelta = object.weiBlockDelta ?? "";
+    message.blockNumber = (object.blockNumber !== undefined && object.blockNumber !== null)
+      ? Long.fromValue(object.blockNumber)
+      : Long.UZERO;
     return message;
   },
 };

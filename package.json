@@ -37,7 +37,8 @@
     "eslint": "eslint --fix . --ignore-path .gitignore",
     "semantic-release": "semantic-release",
     "wagmi:generate": "wagmi generate",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "git submodule update --init --recursive"
   },
   "dependencies": {
     "@cosmjs/cosmwasm-stargate": "^0.32.3",

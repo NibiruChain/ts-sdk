@@ -1,20 +1,16 @@
 import { WebSocket } from "ws"
 import { Client, ExecutionResult, createClient } from "graphql-ws"
 import {
-  GQLDistributionCommission,
   GQLOraclePrice,
   GQLQueryGqlCommunityPoolArgs,
-  GQLQueryGqlDistributionCommissionsArgs,
   GQLQueryGqlUsersArgs,
   GQLSubscriptionGqlOraclePricesArgs,
   GQLToken,
   GQLUser,
   queryBatchHandler,
   GqlOutCommunityPool,
-  GqlOutDistributionCommissions,
   GqlOutUsers,
   communityPool,
-  distributionCommissions,
   users,
   GqlOutGovernance,
   QueryGovernanceArgs,
@@ -77,11 +73,6 @@ export interface IHeartMonitor {
     args: GQLQueryGqlCommunityPoolArgs,
     fields: DeepPartial<GQLToken>
   ) => Promise<GqlOutCommunityPool>
-
-  readonly distributionCommissions: (
-    args: GQLQueryGqlDistributionCommissionsArgs,
-    fields: DeepPartial<GQLDistributionCommission>
-  ) => Promise<GqlOutDistributionCommissions>
 
   readonly evm: (fields: DeepPartial<GQLEvm>) => Promise<GqlOutEvm>
 
@@ -183,11 +174,6 @@ export class HeartMonitor implements IHeartMonitor {
     args: GQLQueryGqlCommunityPoolArgs,
     fields: DeepPartial<GQLToken>
   ) => communityPool(args, this.gqlEndpt, fields)
-
-  distributionCommissions = async (
-    args: GQLQueryGqlDistributionCommissionsArgs,
-    fields: DeepPartial<GQLDistributionCommission>
-  ) => distributionCommissions(args, this.gqlEndpt, fields)
 
   evm = async (fields: DeepPartial<GQLEvm>) => evm(this.gqlEndpt, fields)
 

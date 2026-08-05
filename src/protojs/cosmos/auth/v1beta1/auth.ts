@@ -23,16 +23,21 @@ export interface ModuleAccount {
 }
 
 /**
- * ModuleCredential represents a unclaimable pubkey for base accounts controlled by modules.
+ * ModuleCredential represents a unclaimable pubkey for base accounts controlled
+ * by modules.
  *
  * Since: cosmos-sdk 0.47
  */
 export interface ModuleCredential {
-  /** module_name is the name of the module used for address derivation (passed into address.Module). */
+  /**
+   * module_name is the name of the module used for address derivation (passed
+   * into address.Module).
+   */
   moduleName: string;
   /**
-   * derivation_keys is for deriving a module account address (passed into address.Module)
-   * adding more keys creates sub-account addresses (passed into address.Derive)
+   * derivation_keys is for deriving a module account address (passed into
+   * address.Module) adding more keys creates sub-account addresses (passed into
+   * address.Derive)
    */
   derivationKeys: Uint8Array[];
 }
