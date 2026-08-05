@@ -23,7 +23,6 @@ jobs:
       - name: Checkout ts-sdk Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
           submodules: true
 
       - name: Setup NodeJS with yarn caching
@@ -64,16 +63,3 @@ jobs:
         uses: MishaKav/jest-coverage-comment@main
         with:
           coverage-summary-path: ./coverage/coverage-summary.json
-
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-      #  Re-enable when we can reliable have green tests
-      # - name: "SonarQube Quality Gate"
-      #   uses: sonarsource/sonarqube-quality-gate-action@master
-      #   timeout-minutes: 5
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
