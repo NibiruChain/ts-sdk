@@ -38,7 +38,7 @@
     "semantic-release": "semantic-release",
     "wagmi:generate": "wagmi generate",
     "prepare": "husky install",
-    "postinstall": "[ -z \"$CI\" ] && git submodule update --init --recursive"
+    "postinstall": "[ -n \"$CI\" ] || git submodule update --init --recursive"
   },
   "dependencies": {
     "@cosmjs/cosmwasm-stargate": "^0.32.3",
