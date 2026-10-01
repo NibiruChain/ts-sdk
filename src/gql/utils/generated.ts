@@ -82,20 +82,6 @@ export enum GQLDelegationOrder {
   GQLValidatorAddress = 'validator_address'
 }
 
-export type GQLDistributionCommission = {
-  readonly __typename?: 'DistributionCommission';
-  readonly commission?: Maybe<GQLToken>;
-  readonly validator: GQLValidator;
-};
-
-export type GQLDistributionCommissionFilter = {
-  readonly validator_address?: InputMaybe<Scalars['String']['input']>;
-};
-
-export enum GQLDistributionCommissionOrder {
-  GQLValidatorAddress = 'validator_address'
-}
-
 export type GQLEmployee = {
   readonly __typename?: 'Employee';
   readonly email: Scalars['String']['output'];
@@ -464,7 +450,6 @@ export enum GQLMessagesOrder {
 export type GQLOracle = {
   readonly __typename?: 'Oracle';
   readonly oraclePrices: ReadonlyArray<GQLOraclePrice>;
-  readonly oracles: ReadonlyArray<GQLOracleEntry>;
 };
 
 
@@ -474,20 +459,6 @@ export type GQLOracleGqlOraclePricesArgs = {
   order_by?: InputMaybe<GQLOraclePricesOrder>;
   order_desc?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<GQLOraclePricesFilter>;
-};
-
-
-export type GQLOracleGqlOraclesArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<GQLOraclesOrder>;
-  order_desc?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<GQLOraclesFilter>;
-};
-
-export type GQLOracleEntry = {
-  readonly __typename?: 'OracleEntry';
-  readonly numVotes: Scalars['Int']['output'];
-  readonly validator: GQLValidator;
 };
 
 export type GQLOraclePrice = {
@@ -512,16 +483,6 @@ export enum GQLOraclePricesOrder {
   GQLSequence = 'sequence'
 }
 
-export type GQLOraclesFilter = {
-  readonly numVotes?: InputMaybe<GQLIntFilter>;
-  readonly validatorAddressEq?: InputMaybe<Scalars['String']['input']>;
-};
-
-export enum GQLOraclesOrder {
-  GQLNumVotes = 'num_votes',
-  GQLValidatorAddress = 'validator_address'
-}
-
 export type GQLProxies = {
   readonly __typename?: 'Proxies';
   readonly bybit?: Maybe<GQLBybitResponse>;
@@ -538,7 +499,6 @@ export type GQLQuery = {
   readonly communityPool: ReadonlyArray<GQLToken>;
   /** @deprecated Moved to staking sub schema */
   readonly delegations: ReadonlyArray<GQLDelegation>;
-  readonly distributionCommissions: ReadonlyArray<GQLDistributionCommission>;
   readonly evm: GQLEvm;
   readonly featureFlags: GQLFeatureFlags;
   readonly governance: GQLGovernance;
@@ -577,14 +537,6 @@ export type GQLQueryGqlDelegationsArgs = {
   order_by?: InputMaybe<GQLDelegationOrder>;
   order_desc?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<GQLDelegationFilter>;
-};
-
-
-export type GQLQueryGqlDistributionCommissionsArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<GQLDistributionCommissionOrder>;
-  order_desc?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<GQLDistributionCommissionFilter>;
 };
 
 

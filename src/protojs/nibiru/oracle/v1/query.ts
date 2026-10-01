@@ -1474,8 +1474,8 @@ export const QueryParamsResponse = {
 /** Query defines the gRPC querier service. */
 export interface Query {
   /**
-   * ExchangeRate returns exchange rate of a pair along with the block height and
-   * block time that the exchange rate was set by the oracle module.
+   * ExchangeRate returns exchange rate of a pair along with the block height
+   * and block time that the exchange rate was set by the oracle module.
    */
   ExchangeRate(request: QueryExchangeRateRequest): Promise<QueryExchangeRateResponse>;
   /** ExchangeRateTwap returns twap exchange rate of a pair */

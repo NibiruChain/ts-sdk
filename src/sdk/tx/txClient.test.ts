@@ -1,5 +1,5 @@
 import { AccountData, parseCoins } from "@cosmjs/proto-signing"
-import { assertIsDeliverTxSuccess } from "@cosmjs/stargate"
+import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
 import {
   NibiruQuerier,
   Localnet,
@@ -7,6 +7,8 @@ import {
   newRandomWallet,
   newSignerFromMnemonic,
   NibiruTxClient,
+  ERR,
+  parseError,
 } from ".."
 
 describe("txClient", () => {
@@ -17,8 +19,7 @@ describe("txClient", () => {
 })
 
 describe("nibid tx bank send", () => {
-  // TODO: Refactor for concurrency
-  test.skip("send tokens from the devnet genesis validator to a random account", async () => {
+  test("send tokens from the devnet genesis validator to a random account", async () => {
     const signer = await newSignerFromMnemonic(TEST_MNEMONIC)
     const [{ address: fromAddr }]: readonly AccountData[] =
       await signer.getAccounts()
@@ -32,16 +33,46 @@ describe("nibid tx bank send", () => {
     const toWallet = await newRandomWallet()
     const [{ address: toAddr }] = await toWallet.getAccounts()
 
-    const resp = await txClient.sendTokens(
+    // Parallel Jest workers share the genesis validator account. Retry when
+    // another test advances the sequence between sign and broadcast.
+    const resp = await sendTokensWithSequenceRetry(
+      txClient,
       fromAddr,
       toAddr,
       parseCoins("1unibi"),
       400000
     )
-    assertIsDeliverTxSuccess(resp)
 
     const querier = await NibiruQuerier.connect(Localnet.endptTm)
     const txQuery = await querier.getTxByHash(resp.transactionHash)
     expect(txQuery.isOk()).toBeTruthy()
   })
 })
+
+async function sendTokensWithSequenceRetry(
+  txClient: NibiruTxClient,
+  fromAddr: string,
+  toAddr: string,
+  amount: ReturnType<typeof parseCoins>,
+  fee: number,
+  maxAttempts = 5
+): Promise<DeliverTxResponse> {
+  let lastError: unknown
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const resp = await txClient.sendTokens(fromAddr, toAddr, amount, fee)
+      assertIsDeliverTxSuccess(resp)
+      return resp
+    } catch (error) {
+      lastError = error
+      const isSequenceMismatch = parseError(error).message.includes(
+        ERR.sequence
+      )
+      if (!isSequenceMismatch || attempt === maxAttempts) {
+        throw error
+      }
+      await txClient.waitForNextBlock()
+    }
+  }
+  throw lastError
+}

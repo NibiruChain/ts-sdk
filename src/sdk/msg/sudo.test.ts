@@ -2,12 +2,15 @@ import { QueryClient } from "@cosmjs/stargate"
 import * as query from "../../protojs/nibiru/sudo/v1/tx"
 import { setupSudoMsgExtension } from "."
 
-describe("setupEthMsgExtension", () => {
+describe("setupSudoMsgExtension", () => {
   const mockBaseQueryClient = {} as QueryClient
 
   jest.spyOn(query, "MsgClientImpl").mockReturnValue({
     EditSudoers: jest.fn().mockResolvedValue({ test: "Test" }),
     ChangeRoot: jest.fn().mockResolvedValue({
+      test: "Test",
+    }),
+    EditZeroGasActors: jest.fn().mockResolvedValue({
       test: "Test",
     }),
   } as unknown as query.MsgClientImpl)
@@ -18,6 +21,7 @@ describe("setupEthMsgExtension", () => {
     expect(extension).toBeDefined()
     expect(extension.editSudoers).toBeInstanceOf(Function)
     expect(extension.changeRoot).toBeInstanceOf(Function)
+    expect(extension.editZeroGasActors).toBeInstanceOf(Function)
   })
 
   describe("editSudoers", () => {
@@ -55,6 +59,33 @@ describe("setupEthMsgExtension", () => {
       expect(msgChangeRoot).toHaveBeenCalledWith({
         sender: "",
         newRoot: "",
+      })
+      expect(result).toEqual({ test: "Test" })
+    })
+  })
+
+  describe("editZeroGasActors", () => {
+    test("should call MsgEditZeroGasActors and return the response", async () => {
+      const msgEditZeroGasActors = jest
+        .spyOn(query.MsgEditZeroGasActors, "fromPartial")
+        .mockReturnValue({} as query.MsgEditZeroGasActors)
+
+      const extension = setupSudoMsgExtension(mockBaseQueryClient)
+      const result = await extension.editZeroGasActors({
+        sender: "",
+        actors: {
+          senders: [""],
+          contracts: [""],
+          alwaysZeroGasContracts: [""],
+        },
+      })
+      expect(msgEditZeroGasActors).toHaveBeenCalledWith({
+        sender: "",
+        actors: {
+          senders: [""],
+          contracts: [""],
+          alwaysZeroGasContracts: [""],
+        },
       })
       expect(result).toEqual({ test: "Test" })
     })

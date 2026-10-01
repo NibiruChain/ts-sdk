@@ -14,13 +14,11 @@ import {
   checkFields,
   cleanResponse,
   defaultDelegations,
-  defaultDistributionCommission,
   defaultGovDeposit,
   defaultGovProposal,
   defaultGovVote,
   defaultIbcChannelsResponse,
   defaultIbcTransfer,
-  defaultOracleEntry,
   defaultOraclePrice,
   defaultRedelegations,
   defaultToken,
@@ -28,10 +26,8 @@ import {
   defaultUser,
   defaultUserContract,
   defaultValidator,
-  GQLDistributionCommission,
   GQLOraclePrice,
   GQLQueryGqlCommunityPoolArgs,
-  GQLQueryGqlDistributionCommissionsArgs,
   GQLQueryGqlUsersArgs,
   GQLSubscriptionGqlOraclePricesArgs,
   GQLToken,
@@ -116,25 +112,6 @@ test("closeWebSocket - no dispose", async () => {
 
 test("communityPool", async () => {
   await testCommunityPool({}, defaultToken)
-})
-
-const testDistributionCommissions = async (
-  args: GQLQueryGqlDistributionCommissionsArgs,
-  fields: GQLDistributionCommission
-) => {
-  const resp = await heartMonitor.distributionCommissions(args, fields)
-  expect(resp).toHaveProperty("distributionCommissions")
-
-  if ((resp.distributionCommissions?.length ?? 0) > 0) {
-    const [distributionCommissions] = resp.distributionCommissions ?? []
-
-    checkFields([distributionCommissions], ["commission", "validator"])
-  }
-}
-
-test("distributionCommissions", async () => {
-  await testDistributionCommissions({ limit: 1 }, defaultDistributionCommission)
-  await testDistributionCommissions({}, defaultDistributionCommission)
 })
 
 const testEvm = async (fields: GQLEvm) => {
@@ -333,7 +310,7 @@ const testOracle = async (args: QueryOracleArgs, fields: OracleFields) => {
   if (resp.oracle) {
     const { oracle } = resp
 
-    checkFields([oracle], ["oraclePrices", "oracles"])
+    checkFields([oracle], ["oraclePrices"])
   }
 }
 
@@ -343,20 +320,15 @@ test("oracle", async () => {
       oraclePrices: {
         limit: 1,
       },
-      oracles: {
-        limit: 1,
-      },
     },
     {
       oraclePrices: defaultOraclePrice,
-      oracles: defaultOracleEntry,
     }
   )
   await testOracle(
     {},
     {
       oraclePrices: defaultOraclePrice,
-      oracles: defaultOracleEntry,
     }
   )
 })

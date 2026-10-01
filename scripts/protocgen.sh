@@ -41,6 +41,7 @@ rm $PKG_OUT_DIR/index.gogoproto.ts
 rm $PKG_OUT_DIR/index.amino.ts
 rm $PKG_OUT_DIR/index.cosmos.msg.v1.ts
 rm $PKG_OUT_DIR/index.cosmos.msg.ts
+rm $PKG_OUT_DIR/index.google.ts
 
 sed 's/export \* as gogoproto from \"\.\/index\.gogoproto\"\;//' $PKG_OUT_DIR/index.ts >tmpfile && mv tmpfile $PKG_OUT_DIR/index.ts
 sed 's/export \* as amino from \"\.\/index\.amino\"\;//' $PKG_OUT_DIR/index.ts >tmpfile && mv tmpfile $PKG_OUT_DIR/index.ts

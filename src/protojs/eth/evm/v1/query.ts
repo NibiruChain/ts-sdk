@@ -8,25 +8,32 @@ import { MsgEthereumTx, MsgEthereumTxResponse } from "./tx";
 
 /** Copyright (c) 2023-2024 Nibi, Inc. */
 
-/** QueryEthAccountRequest is the request type for the Query/Account RPC method. */
+/** QueryEthAccountRequest: Request type for "/eth.evm.v1.Query/EthAccount" */
 export interface QueryEthAccountRequest {
-  /** address is the Ethereum hex address or nibi Bech32 address to query the account for. */
+  /**
+   * address is the Ethereum hex address or nibi Bech32 address to query the
+   * account for.
+   */
   address: string;
 }
 
-/** QueryEthAccountResponse is the response type for the Query/EthAccount RPC method. */
+/** QueryEthAccountResponse: Response type for "/eth.evm.v1.Query/EthAccount" */
 export interface QueryEthAccountResponse {
-  /** balance is the balance of unibi (micronibi). */
-  balance: string;
-  /** balance_wei is the balance of wei (attoether, where NIBI is ether). */
+  /** balance_wei is the balance of wei (attoNIBI, since NIBI is ether). */
   balanceWei: string;
-  /** code_hash is the hex-formatted code bytes from the EOA. */
+  /**
+   * code_hash is the hex-encoded hash of the contract bytecode for the
+   * account. Ethereum defines a code hash as the keccack 256 hash of the bytes.
+   * Note that externally owned accounts (EOAs) have the empty/nil code hash
+   * (`crypto.Keccak256(nil)`).
+   */
   codeHash: string;
   /** nonce is the account's sequence number. */
   nonce: Long;
   /**
-   * eth_address: The hexadecimal-encoded string representing the 20 byte address
-   * of a Nibiru EVM account.
+   * eth_address: The hexadecimal-encoded string representing the 20 byte
+   * address of a Nibiru EVM account. Note that this field may be empty if the
+   * account queried is a Wasm contract (32 byte address).
    */
   ethAddress: string;
   /**
@@ -58,18 +65,53 @@ export interface QueryValidatorAccountResponse {
   accountNumber: Long;
 }
 
-/** QueryBalanceRequest is the request type for the Query/Balance RPC method. */
+/** QueryBalanceRequest: Response type for "/eth.evm.v1.Query/Balance" */
 export interface QueryBalanceRequest {
   /** address is the ethereum hex address to query the balance for. */
   address: string;
+  /**
+   * token is an ERC20 address or bank denom to query alongside the native EVM
+   * balance. Leave empty to query only the native EVM balance.
+   */
+  token: string;
 }
 
-/** QueryBalanceResponse is the response type for the Query/Balance RPC method. */
+/** QueryBalanceResponse: Response type for "/eth.evm.v1.Query/Balance" */
 export interface QueryBalanceResponse {
-  /** balance is the balance of the EVM denomination */
-  balance: string;
-  /** balance is the balance of the EVM denomination in units of wei. */
+  /**
+   * balance is the balance of the EVM denomination in units of wei. 1 wei is 1
+   * attoNIBI.
+   */
   balanceWei: string;
+  /**
+   * bank is the Bank module token balance details when a bank representation is
+   * available for the requested token.
+   */
+  bank?: BalanceBank;
+  /**
+   * erc20 is the ERC20 token balance details when an ERC20 representation is
+   * available for the requested token.
+   */
+  erc20?: BalanceERC20;
+}
+
+/** BalanceBank is the Bank module balance view for a token. */
+export interface BalanceBank {
+  symbol: string;
+  balanceHuman: string;
+  decimals: number;
+  coinDenom: string;
+  balanceBase: string;
+}
+
+/** BalanceERC20 is the ERC20 balance view for a token. */
+export interface BalanceERC20 {
+  address: string;
+  symbol: string;
+  balanceHuman: string;
+  decimals: number;
+  name: string;
+  balanceBase: string;
 }
 
 /** QueryStorageRequest is the request type for the Query/Storage RPC method. */
@@ -214,7 +256,8 @@ export interface QueryBaseFeeRequest {
 
 /**
  * QueryBaseFeeResponse returns the EIP1559 base fee.
- * See https://github.com/ethereum/EIPs/blob/ba6c342c23164072adb500c3136e3ae6eabff306/EIPS/eip-1559.md.
+ * See
+ * https://github.com/ethereum/EIPs/blob/ba6c342c23164072adb500c3136e3ae6eabff306/EIPS/eip-1559.md.
  */
 export interface QueryBaseFeeResponse {
   /** base_fee is the EIP1559 base fee in units of wei. */
@@ -225,8 +268,8 @@ export interface QueryBaseFeeResponse {
 
 export interface QueryFunTokenMappingRequest {
   /**
-   * Either the hexadecimal-encoded ERC20 contract address or denomination of the
-   * Bank Coin.
+   * Either the hexadecimal-encoded ERC20 contract address or denomination of
+   * the Bank Coin.
    */
   token: string;
 }
@@ -293,14 +336,11 @@ export const QueryEthAccountRequest = {
 };
 
 function createBaseQueryEthAccountResponse(): QueryEthAccountResponse {
-  return { balance: "", balanceWei: "", codeHash: "", nonce: Long.UZERO, ethAddress: "", bech32Address: "" };
+  return { balanceWei: "", codeHash: "", nonce: Long.UZERO, ethAddress: "", bech32Address: "" };
 }
 
 export const QueryEthAccountResponse = {
   encode(message: QueryEthAccountResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.balance !== "") {
-      writer.uint32(10).string(message.balance);
-    }
     if (message.balanceWei !== "") {
       writer.uint32(18).string(message.balanceWei);
     }
@@ -326,13 +366,6 @@ export const QueryEthAccountResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.balance = reader.string();
-          continue;
         case 2:
           if (tag !== 18) {
             break;
@@ -379,7 +412,6 @@ export const QueryEthAccountResponse = {
 
   fromJSON(object: any): QueryEthAccountResponse {
     return {
-      balance: isSet(object.balance) ? String(object.balance) : "",
       balanceWei: isSet(object.balanceWei) ? String(object.balanceWei) : "",
       codeHash: isSet(object.codeHash) ? String(object.codeHash) : "",
       nonce: isSet(object.nonce) ? Long.fromValue(object.nonce) : Long.UZERO,
@@ -390,7 +422,6 @@ export const QueryEthAccountResponse = {
 
   toJSON(message: QueryEthAccountResponse): unknown {
     const obj: any = {};
-    message.balance !== undefined && (obj.balance = message.balance);
     message.balanceWei !== undefined && (obj.balanceWei = message.balanceWei);
     message.codeHash !== undefined && (obj.codeHash = message.codeHash);
     message.nonce !== undefined && (obj.nonce = (message.nonce || Long.UZERO).toString());
@@ -405,7 +436,6 @@ export const QueryEthAccountResponse = {
 
   fromPartial<I extends Exact<DeepPartial<QueryEthAccountResponse>, I>>(object: I): QueryEthAccountResponse {
     const message = createBaseQueryEthAccountResponse();
-    message.balance = object.balance ?? "";
     message.balanceWei = object.balanceWei ?? "";
     message.codeHash = object.codeHash ?? "";
     message.nonce = (object.nonce !== undefined && object.nonce !== null) ? Long.fromValue(object.nonce) : Long.UZERO;
@@ -562,13 +592,16 @@ export const QueryValidatorAccountResponse = {
 };
 
 function createBaseQueryBalanceRequest(): QueryBalanceRequest {
-  return { address: "" };
+  return { address: "", token: "" };
 }
 
 export const QueryBalanceRequest = {
   encode(message: QueryBalanceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
+    }
+    if (message.token !== "") {
+      writer.uint32(18).string(message.token);
     }
     return writer;
   },
@@ -587,6 +620,13 @@ export const QueryBalanceRequest = {
 
           message.address = reader.string();
           continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.token = reader.string();
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -597,12 +637,16 @@ export const QueryBalanceRequest = {
   },
 
   fromJSON(object: any): QueryBalanceRequest {
-    return { address: isSet(object.address) ? String(object.address) : "" };
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+      token: isSet(object.token) ? String(object.token) : "",
+    };
   },
 
   toJSON(message: QueryBalanceRequest): unknown {
     const obj: any = {};
     message.address !== undefined && (obj.address = message.address);
+    message.token !== undefined && (obj.token = message.token);
     return obj;
   },
 
@@ -613,21 +657,25 @@ export const QueryBalanceRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryBalanceRequest>, I>>(object: I): QueryBalanceRequest {
     const message = createBaseQueryBalanceRequest();
     message.address = object.address ?? "";
+    message.token = object.token ?? "";
     return message;
   },
 };
 
 function createBaseQueryBalanceResponse(): QueryBalanceResponse {
-  return { balance: "", balanceWei: "" };
+  return { balanceWei: "", bank: undefined, erc20: undefined };
 }
 
 export const QueryBalanceResponse = {
   encode(message: QueryBalanceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.balance !== "") {
-      writer.uint32(10).string(message.balance);
-    }
     if (message.balanceWei !== "") {
       writer.uint32(18).string(message.balanceWei);
+    }
+    if (message.bank !== undefined) {
+      BalanceBank.encode(message.bank, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.erc20 !== undefined) {
+      BalanceERC20.encode(message.erc20, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -639,19 +687,26 @@ export const QueryBalanceResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.balance = reader.string();
-          continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
           message.balanceWei = reader.string();
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
+
+          message.bank = BalanceBank.decode(reader, reader.uint32());
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.erc20 = BalanceERC20.decode(reader, reader.uint32());
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -664,15 +719,17 @@ export const QueryBalanceResponse = {
 
   fromJSON(object: any): QueryBalanceResponse {
     return {
-      balance: isSet(object.balance) ? String(object.balance) : "",
       balanceWei: isSet(object.balanceWei) ? String(object.balanceWei) : "",
+      bank: isSet(object.bank) ? BalanceBank.fromJSON(object.bank) : undefined,
+      erc20: isSet(object.erc20) ? BalanceERC20.fromJSON(object.erc20) : undefined,
     };
   },
 
   toJSON(message: QueryBalanceResponse): unknown {
     const obj: any = {};
-    message.balance !== undefined && (obj.balance = message.balance);
     message.balanceWei !== undefined && (obj.balanceWei = message.balanceWei);
+    message.bank !== undefined && (obj.bank = message.bank ? BalanceBank.toJSON(message.bank) : undefined);
+    message.erc20 !== undefined && (obj.erc20 = message.erc20 ? BalanceERC20.toJSON(message.erc20) : undefined);
     return obj;
   },
 
@@ -682,8 +739,246 @@ export const QueryBalanceResponse = {
 
   fromPartial<I extends Exact<DeepPartial<QueryBalanceResponse>, I>>(object: I): QueryBalanceResponse {
     const message = createBaseQueryBalanceResponse();
-    message.balance = object.balance ?? "";
     message.balanceWei = object.balanceWei ?? "";
+    message.bank = (object.bank !== undefined && object.bank !== null)
+      ? BalanceBank.fromPartial(object.bank)
+      : undefined;
+    message.erc20 = (object.erc20 !== undefined && object.erc20 !== null)
+      ? BalanceERC20.fromPartial(object.erc20)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseBalanceBank(): BalanceBank {
+  return { symbol: "", balanceHuman: "", decimals: 0, coinDenom: "", balanceBase: "" };
+}
+
+export const BalanceBank = {
+  encode(message: BalanceBank, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.symbol !== "") {
+      writer.uint32(10).string(message.symbol);
+    }
+    if (message.balanceHuman !== "") {
+      writer.uint32(18).string(message.balanceHuman);
+    }
+    if (message.decimals !== 0) {
+      writer.uint32(24).uint32(message.decimals);
+    }
+    if (message.coinDenom !== "") {
+      writer.uint32(34).string(message.coinDenom);
+    }
+    if (message.balanceBase !== "") {
+      writer.uint32(42).string(message.balanceBase);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BalanceBank {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBalanceBank();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.symbol = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.balanceHuman = reader.string();
+          continue;
+        case 3:
+          if (tag !== 24) {
+            break;
+          }
+
+          message.decimals = reader.uint32();
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.coinDenom = reader.string();
+          continue;
+        case 5:
+          if (tag !== 42) {
+            break;
+          }
+
+          message.balanceBase = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BalanceBank {
+    return {
+      symbol: isSet(object.symbol) ? String(object.symbol) : "",
+      balanceHuman: isSet(object.balanceHuman) ? String(object.balanceHuman) : "",
+      decimals: isSet(object.decimals) ? Number(object.decimals) : 0,
+      coinDenom: isSet(object.coinDenom) ? String(object.coinDenom) : "",
+      balanceBase: isSet(object.balanceBase) ? String(object.balanceBase) : "",
+    };
+  },
+
+  toJSON(message: BalanceBank): unknown {
+    const obj: any = {};
+    message.symbol !== undefined && (obj.symbol = message.symbol);
+    message.balanceHuman !== undefined && (obj.balanceHuman = message.balanceHuman);
+    message.decimals !== undefined && (obj.decimals = Math.round(message.decimals));
+    message.coinDenom !== undefined && (obj.coinDenom = message.coinDenom);
+    message.balanceBase !== undefined && (obj.balanceBase = message.balanceBase);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<BalanceBank>, I>>(base?: I): BalanceBank {
+    return BalanceBank.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BalanceBank>, I>>(object: I): BalanceBank {
+    const message = createBaseBalanceBank();
+    message.symbol = object.symbol ?? "";
+    message.balanceHuman = object.balanceHuman ?? "";
+    message.decimals = object.decimals ?? 0;
+    message.coinDenom = object.coinDenom ?? "";
+    message.balanceBase = object.balanceBase ?? "";
+    return message;
+  },
+};
+
+function createBaseBalanceERC20(): BalanceERC20 {
+  return { address: "", symbol: "", balanceHuman: "", decimals: 0, name: "", balanceBase: "" };
+}
+
+export const BalanceERC20 = {
+  encode(message: BalanceERC20, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    if (message.symbol !== "") {
+      writer.uint32(18).string(message.symbol);
+    }
+    if (message.balanceHuman !== "") {
+      writer.uint32(26).string(message.balanceHuman);
+    }
+    if (message.decimals !== 0) {
+      writer.uint32(32).uint32(message.decimals);
+    }
+    if (message.name !== "") {
+      writer.uint32(42).string(message.name);
+    }
+    if (message.balanceBase !== "") {
+      writer.uint32(50).string(message.balanceBase);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BalanceERC20 {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBalanceERC20();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.address = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.symbol = reader.string();
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
+
+          message.balanceHuman = reader.string();
+          continue;
+        case 4:
+          if (tag !== 32) {
+            break;
+          }
+
+          message.decimals = reader.uint32();
+          continue;
+        case 5:
+          if (tag !== 42) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        case 6:
+          if (tag !== 50) {
+            break;
+          }
+
+          message.balanceBase = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BalanceERC20 {
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+      symbol: isSet(object.symbol) ? String(object.symbol) : "",
+      balanceHuman: isSet(object.balanceHuman) ? String(object.balanceHuman) : "",
+      decimals: isSet(object.decimals) ? Number(object.decimals) : 0,
+      name: isSet(object.name) ? String(object.name) : "",
+      balanceBase: isSet(object.balanceBase) ? String(object.balanceBase) : "",
+    };
+  },
+
+  toJSON(message: BalanceERC20): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+    message.symbol !== undefined && (obj.symbol = message.symbol);
+    message.balanceHuman !== undefined && (obj.balanceHuman = message.balanceHuman);
+    message.decimals !== undefined && (obj.decimals = Math.round(message.decimals));
+    message.name !== undefined && (obj.name = message.name);
+    message.balanceBase !== undefined && (obj.balanceBase = message.balanceBase);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<BalanceERC20>, I>>(base?: I): BalanceERC20 {
+    return BalanceERC20.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BalanceERC20>, I>>(object: I): BalanceERC20 {
+    const message = createBaseBalanceERC20();
+    message.address = object.address ?? "";
+    message.symbol = object.symbol ?? "";
+    message.balanceHuman = object.balanceHuman ?? "";
+    message.decimals = object.decimals ?? 0;
+    message.name = object.name ?? "";
+    message.balanceBase = object.balanceBase ?? "";
     return message;
   },
 };
@@ -2063,8 +2358,8 @@ export interface Query {
    */
   ValidatorAccount(request: QueryValidatorAccountRequest): Promise<QueryValidatorAccountResponse>;
   /**
-   * Balance queries the balance of a the EVM denomination for a single
-   * EthAccount.
+   * Balance queries the balance of the NIBI (ether for the EVM) in units of wei
+   * for a single EthAccount. 1 wei == 1 attoNIBI == 10^{-18} NIBI.
    */
   Balance(request: QueryBalanceRequest): Promise<QueryBalanceResponse>;
   /** Storage queries the balance of all coins for a single account. */
@@ -2079,7 +2374,10 @@ export interface Query {
   EstimateGas(request: EthCallRequest): Promise<EstimateGasResponse>;
   /** TraceTx implements the `debug_traceTransaction` rpc api */
   TraceTx(request: QueryTraceTxRequest): Promise<QueryTraceTxResponse>;
-  /** TraceBlock implements the `debug_traceBlockByNumber` and `debug_traceBlockByHash` rpc api */
+  /**
+   * TraceBlock implements the `debug_traceBlockByNumber` and
+   * `debug_traceBlockByHash` rpc api
+   */
   TraceBlock(request: QueryTraceBlockRequest): Promise<QueryTraceBlockResponse>;
   /** TraceCall implements the `debug_traceCall` rpc api */
   TraceCall(request: QueryTraceTxRequest): Promise<QueryTraceTxResponse>;

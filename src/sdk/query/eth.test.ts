@@ -13,7 +13,7 @@ describe("setupEpochsExtension", () => {
       validatorAccount: "Test",
     }),
     Balance: jest.fn().mockResolvedValue({
-      balance: "Test",
+      balanceWei: "Test",
     }),
     Storage: jest.fn().mockResolvedValue({
       storage: "Test",
@@ -126,11 +126,13 @@ describe("setupEpochsExtension", () => {
       const extension = setupEthExtension(mockBaseQueryClient)
       const result = await extension.balance({
         address: "",
+        token: "",
       })
       expect(queryBalanceRequest).toHaveBeenCalledWith({
         address: "",
+        token: "",
       })
-      expect(result).toEqual({ balance: "Test" })
+      expect(result).toEqual({ balanceWei: "Test" })
     })
   })
 

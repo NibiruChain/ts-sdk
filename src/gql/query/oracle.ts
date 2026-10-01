@@ -2,9 +2,7 @@ import {
   convertObjectToPropertiesString,
   doGqlQuery,
   gqlQuery,
-  GQLOracleEntry,
   GQLOracleGqlOraclePricesArgs,
-  GQLOracleGqlOraclesArgs,
   GQLOraclePrice,
   GQLQuery,
   DeepPartial,
@@ -12,7 +10,6 @@ import {
 
 export type QueryOracleArgs = {
   oraclePrices?: GQLOracleGqlOraclePricesArgs
-  oracles?: GQLOracleGqlOraclesArgs
 }
 
 export interface GqlOutOracle {
@@ -21,7 +18,6 @@ export interface GqlOutOracle {
 
 export type OracleFields = DeepPartial<{
   oraclePrices?: DeepPartial<GQLOraclePrice>
-  oracles?: DeepPartial<GQLOracleEntry>
 }>
 
 export const oracleQueryString = (
@@ -36,17 +32,6 @@ export const oracleQueryString = (
         "oraclePrices",
         args.oraclePrices ?? {},
         convertObjectToPropertiesString(fields.oraclePrices),
-        true
-      )
-    )
-  }
-
-  if (fields.oracles) {
-    oracleQuery.push(
-      gqlQuery(
-        "oracles",
-        args.oracles ?? {},
-        convertObjectToPropertiesString(fields.oracles),
         true
       )
     )

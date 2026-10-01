@@ -1,14 +1,36 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Sudoers } from "./state";
+import { Sudoers, ZeroGasActors } from "./state";
 
+/**
+ * QuerySudoersRequest is the request type for the gRPC query method,
+ * "/nibiru.sudo.v1.Query/QuerySudoers".
+ */
 export interface QuerySudoersRequest {
 }
 
-/** QuerySudoersResponse indicates the successful execution of MsgEditSudeors. */
+/**
+ * QuerySudoersResponse is the response type for the gRPC query method,
+ * "/nibiru.sudo.v1.Query/QuerySudoers"
+ */
 export interface QuerySudoersResponse {
   sudoers?: Sudoers;
+}
+
+/**
+ * QueryZeroGasActorsRequest is the request type for the gRPC query method,
+ * "/nibiru.sudo.v1.Query/QueryZeroGasActors"
+ */
+export interface QueryZeroGasActorsRequest {
+}
+
+/**
+ * QueryZeroGasActorsResponse is the response type for the gRPC query method,
+ * "/nibiru.sudo.v1.Query/QueryZeroGasActors"
+ */
+export interface QueryZeroGasActorsResponse {
+  actors?: ZeroGasActors;
 }
 
 function createBaseQuerySudoersRequest(): QuerySudoersRequest {
@@ -113,9 +135,117 @@ export const QuerySudoersResponse = {
   },
 };
 
+function createBaseQueryZeroGasActorsRequest(): QueryZeroGasActorsRequest {
+  return {};
+}
+
+export const QueryZeroGasActorsRequest = {
+  encode(_: QueryZeroGasActorsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryZeroGasActorsRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryZeroGasActorsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryZeroGasActorsRequest {
+    return {};
+  },
+
+  toJSON(_: QueryZeroGasActorsRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryZeroGasActorsRequest>, I>>(base?: I): QueryZeroGasActorsRequest {
+    return QueryZeroGasActorsRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryZeroGasActorsRequest>, I>>(_: I): QueryZeroGasActorsRequest {
+    const message = createBaseQueryZeroGasActorsRequest();
+    return message;
+  },
+};
+
+function createBaseQueryZeroGasActorsResponse(): QueryZeroGasActorsResponse {
+  return { actors: undefined };
+}
+
+export const QueryZeroGasActorsResponse = {
+  encode(message: QueryZeroGasActorsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.actors !== undefined) {
+      ZeroGasActors.encode(message.actors, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryZeroGasActorsResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryZeroGasActorsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.actors = ZeroGasActors.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryZeroGasActorsResponse {
+    return { actors: isSet(object.actors) ? ZeroGasActors.fromJSON(object.actors) : undefined };
+  },
+
+  toJSON(message: QueryZeroGasActorsResponse): unknown {
+    const obj: any = {};
+    message.actors !== undefined && (obj.actors = message.actors ? ZeroGasActors.toJSON(message.actors) : undefined);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryZeroGasActorsResponse>, I>>(base?: I): QueryZeroGasActorsResponse {
+    return QueryZeroGasActorsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryZeroGasActorsResponse>, I>>(object: I): QueryZeroGasActorsResponse {
+    const message = createBaseQueryZeroGasActorsResponse();
+    message.actors = (object.actors !== undefined && object.actors !== null)
+      ? ZeroGasActors.fromPartial(object.actors)
+      : undefined;
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   QuerySudoers(request: QuerySudoersRequest): Promise<QuerySudoersResponse>;
+  /**
+   * QueryZeroGasActors returns the "ZeroGasActors" state. Zero gas actors are
+   * a set of accounts that can execute zero gas transactions against a
+   * whitelisted  set of smart contracts.
+   */
+  QueryZeroGasActors(request: QueryZeroGasActorsRequest): Promise<QueryZeroGasActorsResponse>;
 }
 
 export const QueryServiceName = "nibiru.sudo.v1.Query";
@@ -126,11 +256,18 @@ export class QueryClientImpl implements Query {
     this.service = opts?.service || QueryServiceName;
     this.rpc = rpc;
     this.QuerySudoers = this.QuerySudoers.bind(this);
+    this.QueryZeroGasActors = this.QueryZeroGasActors.bind(this);
   }
   QuerySudoers(request: QuerySudoersRequest): Promise<QuerySudoersResponse> {
     const data = QuerySudoersRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "QuerySudoers", data);
     return promise.then((data) => QuerySudoersResponse.decode(_m0.Reader.create(data)));
+  }
+
+  QueryZeroGasActors(request: QueryZeroGasActorsRequest): Promise<QueryZeroGasActorsResponse> {
+    const data = QueryZeroGasActorsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "QueryZeroGasActors", data);
+    return promise.then((data) => QueryZeroGasActorsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

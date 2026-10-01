@@ -3,7 +3,10 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
 
-/** GenesisState represents the messages to be processed during genesis by the genmsg module. */
+/**
+ * GenesisState represents the messages to be processed during genesis by the
+ * genmsg module.
+ */
 export interface GenesisState {
   messages: Any[];
 }

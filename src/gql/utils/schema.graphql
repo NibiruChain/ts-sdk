@@ -74,19 +74,6 @@ enum DelegationOrder {
   validator_address
 }
 
-type DistributionCommission {
-  commission: Token
-  validator: Validator!
-}
-
-input DistributionCommissionFilter {
-  validator_address: String
-}
-
-enum DistributionCommissionOrder {
-  validator_address
-}
-
 type Employee {
   email: String!
   instagram: String!
@@ -371,12 +358,6 @@ enum MessagesOrder {
 
 type Oracle {
   oraclePrices(limit: Int, offset: Int, order_by: OraclePricesOrder, order_desc: Boolean, where: OraclePricesFilter): [OraclePrice!]!
-  oracles(limit: Int, order_by: OraclesOrder, order_desc: Boolean, where: OraclesFilter): [OracleEntry!]!
-}
-
-type OracleEntry {
-  numVotes: Int!
-  validator: Validator!
 }
 
 type OraclePrice {
@@ -398,16 +379,6 @@ enum OraclePricesOrder {
   sequence
 }
 
-input OraclesFilter {
-  numVotes: IntFilter
-  validatorAddressEq: String
-}
-
-enum OraclesOrder {
-  num_votes
-  validator_address
-}
-
 type Proxies {
   bybit: BybitResponse
   unstoppableDomains(domainName: String!): UnstoppableDomainsResponse
@@ -416,7 +387,6 @@ type Proxies {
 type Query {
   communityPool(limit: Int, order_by: CommunityPoolOrder, order_desc: Boolean, where: CommunityPoolFilter): [Token!]!
   delegations(limit: Int, order_by: DelegationOrder, order_desc: Boolean, where: DelegationFilter): [Delegation!]! @deprecated(reason: "Moved to staking sub schema")
-  distributionCommissions(limit: Int, order_by: DistributionCommissionOrder, order_desc: Boolean, where: DistributionCommissionFilter): [DistributionCommission!]!
   evm: Evm!
   featureFlags: FeatureFlags!
   governance: Governance!

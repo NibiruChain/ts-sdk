@@ -9,6 +9,13 @@ describe("setupSudoExtension", () => {
     QuerySudoers: jest
       .fn()
       .mockResolvedValue({ sudoers: ["Test Sudoer 1", "Test Sudoer 2"] }),
+    QueryZeroGasActors: jest.fn().mockResolvedValue({
+      actors: {
+        senders: ["sender"],
+        contracts: ["contract"],
+        alwaysZeroGasContracts: ["always"],
+      },
+    }),
   } as unknown as query.QueryClientImpl)
 
   test("should setup sudo extension correctly", () => {
@@ -16,6 +23,7 @@ describe("setupSudoExtension", () => {
 
     expect(extension).toBeDefined()
     expect(extension.querySudoers).toBeInstanceOf(Function)
+    expect(extension.queryZeroGasActors).toBeInstanceOf(Function)
   })
 
   describe("sudo.querySudoers", () => {
@@ -29,6 +37,26 @@ describe("setupSudoExtension", () => {
 
       expect(querySudoersRequest).toHaveBeenCalledWith({})
       expect(result).toEqual({ sudoers: ["Test Sudoer 1", "Test Sudoer 2"] })
+    })
+  })
+
+  describe("sudo.queryZeroGasActors", () => {
+    test("should call QueryZeroGasActorsRequest and return the response", async () => {
+      const queryZeroGasActorsRequest = jest
+        .spyOn(query.QueryZeroGasActorsRequest, "fromPartial")
+        .mockReturnValue({} as query.QueryZeroGasActorsRequest)
+
+      const extension = setupSudoExtension(mockBaseQueryClient)
+      const result = await extension.queryZeroGasActors()
+
+      expect(queryZeroGasActorsRequest).toHaveBeenCalledWith({})
+      expect(result).toEqual({
+        actors: {
+          senders: ["sender"],
+          contracts: ["contract"],
+          alwaysZeroGasContracts: ["always"],
+        },
+      })
     })
   })
 })

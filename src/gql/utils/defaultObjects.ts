@@ -2,7 +2,6 @@ import {
   GQLBlock,
   GQLBybitResponse,
   GQLDelegation,
-  GQLDistributionCommission,
   GQLEvm,
   GQLFeatureFlags,
   GQLGovDeposit,
@@ -16,7 +15,6 @@ import {
   GQLInflationDistribution,
   GQLInflationInfo,
   GQLInflationRewards,
-  GQLOracleEntry,
   GQLOraclePrice,
   GQLProxies,
   GQLRedelegation,
@@ -131,11 +129,6 @@ export const defaultGovernance: GQLGovernance = {
   govVotes: [defaultGovVote],
 }
 
-export const defaultDistributionCommission: GQLDistributionCommission = {
-  commission: defaultToken,
-  validator: defaultValidator,
-}
-
 export const defaultDelegations: GQLDelegation = {
   amount: 0,
   delegator: defaultUser,
@@ -165,11 +158,6 @@ export const defaultOraclePrice: GQLOraclePrice = {
   eventSeqNo: 0,
   txSeqNo: 0,
   price: 0,
-}
-
-export const defaultOracleEntry: GQLOracleEntry = {
-  numVotes: 0,
-  validator: defaultValidator,
 }
 
 export const defaultIbcChannel: GQLIbcChannel = {

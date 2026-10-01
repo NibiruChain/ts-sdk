@@ -1,13 +1,14 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { ZeroGasActors } from "./state";
 
 /** MsgEditSudoers: Msg to update the "Sudoers" state. */
 export interface MsgEditSudoers {
   /**
    * Action: identifier for the type of edit that will take place. Using this
-   *   action field prevents us from needing to create several similar message
-   *   types.
+   * action field prevents us from needing to create several similar message
+   * types.
    */
   action: string;
   /** Contracts: An input payload. */
@@ -30,6 +31,24 @@ export interface MsgChangeRoot {
 
 /** MsgChangeRootResponse indicates the successful execution of MsgChangeRoot. */
 export interface MsgChangeRootResponse {
+}
+
+/** MsgEditZeroGasActors: Tx msg to update the "ZeroGasActors" state. */
+export interface MsgEditZeroGasActors {
+  /**
+   * Actors that can execute zero gas transactions against a set of
+   * smart contracts.
+   */
+  actors?: ZeroGasActors;
+  /** Sender: Nibiru Bech32 Address for the signer of the transaction. */
+  sender: string;
+}
+
+/**
+ * MsgEditZeroGasActorsResponse indicates the successful execution of
+ * MsgEditZeroGasActors.
+ */
+export interface MsgEditZeroGasActorsResponse {
 }
 
 function createBaseMsgEditSudoers(): MsgEditSudoers {
@@ -279,6 +298,123 @@ export const MsgChangeRootResponse = {
   },
 };
 
+function createBaseMsgEditZeroGasActors(): MsgEditZeroGasActors {
+  return { actors: undefined, sender: "" };
+}
+
+export const MsgEditZeroGasActors = {
+  encode(message: MsgEditZeroGasActors, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.actors !== undefined) {
+      ZeroGasActors.encode(message.actors, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.sender !== "") {
+      writer.uint32(18).string(message.sender);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgEditZeroGasActors {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgEditZeroGasActors();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.actors = ZeroGasActors.decode(reader, reader.uint32());
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.sender = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgEditZeroGasActors {
+    return {
+      actors: isSet(object.actors) ? ZeroGasActors.fromJSON(object.actors) : undefined,
+      sender: isSet(object.sender) ? String(object.sender) : "",
+    };
+  },
+
+  toJSON(message: MsgEditZeroGasActors): unknown {
+    const obj: any = {};
+    message.actors !== undefined && (obj.actors = message.actors ? ZeroGasActors.toJSON(message.actors) : undefined);
+    message.sender !== undefined && (obj.sender = message.sender);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgEditZeroGasActors>, I>>(base?: I): MsgEditZeroGasActors {
+    return MsgEditZeroGasActors.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgEditZeroGasActors>, I>>(object: I): MsgEditZeroGasActors {
+    const message = createBaseMsgEditZeroGasActors();
+    message.actors = (object.actors !== undefined && object.actors !== null)
+      ? ZeroGasActors.fromPartial(object.actors)
+      : undefined;
+    message.sender = object.sender ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgEditZeroGasActorsResponse(): MsgEditZeroGasActorsResponse {
+  return {};
+}
+
+export const MsgEditZeroGasActorsResponse = {
+  encode(_: MsgEditZeroGasActorsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgEditZeroGasActorsResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgEditZeroGasActorsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgEditZeroGasActorsResponse {
+    return {};
+  },
+
+  toJSON(_: MsgEditZeroGasActorsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgEditZeroGasActorsResponse>, I>>(base?: I): MsgEditZeroGasActorsResponse {
+    return MsgEditZeroGasActorsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgEditZeroGasActorsResponse>, I>>(_: I): MsgEditZeroGasActorsResponse {
+    const message = createBaseMsgEditZeroGasActorsResponse();
+    return message;
+  },
+};
+
 /**
  * Msg defines the x/sudo module's Msg service. Protobuf `Msg` services are
  * called from `BaseApp` instances during `DeliverTx`. The `Msg` service will be
@@ -288,6 +424,12 @@ export interface Msg {
   /** EditSudoers updates the "Sudoers" state */
   EditSudoers(request: MsgEditSudoers): Promise<MsgEditSudoersResponse>;
   ChangeRoot(request: MsgChangeRoot): Promise<MsgChangeRootResponse>;
+  /**
+   * EditZeroGasActors updates the "ZeroGasActors" state. Zero gas actors are
+   * a set of accounts that can execute zero gas transactions against a
+   * whitelisted  set of smart contracts.
+   */
+  EditZeroGasActors(request: MsgEditZeroGasActors): Promise<MsgEditZeroGasActorsResponse>;
 }
 
 export const MsgServiceName = "nibiru.sudo.v1.Msg";
@@ -299,6 +441,7 @@ export class MsgClientImpl implements Msg {
     this.rpc = rpc;
     this.EditSudoers = this.EditSudoers.bind(this);
     this.ChangeRoot = this.ChangeRoot.bind(this);
+    this.EditZeroGasActors = this.EditZeroGasActors.bind(this);
   }
   EditSudoers(request: MsgEditSudoers): Promise<MsgEditSudoersResponse> {
     const data = MsgEditSudoers.encode(request).finish();
@@ -310,6 +453,12 @@ export class MsgClientImpl implements Msg {
     const data = MsgChangeRoot.encode(request).finish();
     const promise = this.rpc.request(this.service, "ChangeRoot", data);
     return promise.then((data) => MsgChangeRootResponse.decode(_m0.Reader.create(data)));
+  }
+
+  EditZeroGasActors(request: MsgEditZeroGasActors): Promise<MsgEditZeroGasActorsResponse> {
+    const data = MsgEditZeroGasActors.encode(request).finish();
+    const promise = this.rpc.request(this.service, "EditZeroGasActors", data);
+    return promise.then((data) => MsgEditZeroGasActorsResponse.decode(_m0.Reader.create(data)));
   }
 }
 
