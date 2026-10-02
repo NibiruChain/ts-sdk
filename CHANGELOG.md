@@ -1,3 +1,8 @@
+## <small>6.3.2 (2026-10-02)</small>
+
+- fix: develop -> main (#417) ([553782f](https://github.com/NibiruChain/ts-sdk/commit/553782f)), closes [#417](https://github.com/NibiruChain/ts-sdk/issues/417) [#404](https://github.com/NibiruChain/ts-sdk/issues/404) [#407](https://github.com/NibiruChain/ts-sdk/issues/407) [#412](https://github.com/NibiruChain/ts-sdk/issues/412) [#414](https://github.com/NibiruChain/ts-sdk/issues/414)
+- chore: bring ts-sdk up to date (#415) ([022d8c8](https://github.com/NibiruChain/ts-sdk/commit/022d8c8)), closes [#415](https://github.com/NibiruChain/ts-sdk/issues/415) [#404](https://github.com/NibiruChain/ts-sdk/issues/404) [#407](https://github.com/NibiruChain/ts-sdk/issues/407) [#412](https://github.com/NibiruChain/ts-sdk/issues/412) [#414](https://github.com/NibiruChain/ts-sdk/issues/414)
+
 ### [6.3.1](https://github.com/NibiruChain/ts-sdk/compare/v6.3.0...v6.3.1) (2025-10-15)
 
 ### Miscellaneous Chores

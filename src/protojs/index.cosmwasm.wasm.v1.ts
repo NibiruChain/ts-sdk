@@ -1,3 +1,3 @@
 /* eslint-disable */
 
-export * from "./cosmwasm/wasm/v1/types";
+export * from "./cosmwasm/wasm/v1/ibc";
