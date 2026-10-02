@@ -26,9 +26,10 @@ jobs:
           submodules: true
 
       - name: Setup NodeJS with yarn caching
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "lts/iron"
+          # Keep in sync with .nvmrc / release.yaml — semantic-release@25 needs ^22.14 || >=24.10
+          node-version: "24"
           cache: "yarn"
 
       - name: yarn install
