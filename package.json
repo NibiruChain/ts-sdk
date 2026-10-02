@@ -89,7 +89,7 @@
     "long": "^5.2.0",
     "markdownlint-cli": "^0.28.1",
     "prettier": "^2.4.1",
-    "semantic-release": "19.0.5",
+    "semantic-release": "^25.0.3",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typedoc": "^0.24.8",

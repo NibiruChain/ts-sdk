@@ -13,10 +13,10 @@ jobs:
     env:
       BUF_TOKEN: ${{ secrets.BUF_TOKEN }}
     permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
+      contents: write # publish GitHub release / push release commits
+      issues: write # comment on released issues
+      pull-requests: write # comment on released PRs
+      id-token: write # OIDC for npm trusted publishing + provenance
     steps:
       - name: Checkout ts-sdk Repository
         uses: actions/checkout@v4
@@ -25,9 +25,11 @@ jobs:
           submodules: true
 
       - name: Setup NodeJS and npm
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "lts/iron"
+          # Node 24 ships npm 11.5.1+ required for OIDC trusted publishing.
+          # Do not set registry-url — it writes an .npmrc auth placeholder that breaks OIDC.
+          node-version: "24"
           cache: "yarn"
 
       - name: yarn install
@@ -44,6 +46,7 @@ jobs:
         uses: borales/actions-yarn@v4
         env:
           GITHUB_TOKEN: ${{ secrets.NIBIBOT_GIT_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # No NPM_TOKEN — publish authenticates via OIDC trusted publishing on npmjs.com.
+          # Trusted publisher must name this workflow file exactly: release.yaml
         with:
           cmd: semantic-release
