@@ -23,6 +23,55 @@ type Block {
   num_txs: Int!
 }
 
+"""Sparse execution data retained for one block."""
+type BlockData {
+  """Block height for this retained execution data."""
+  block: Int!
+
+  """
+  All retained events in execution order, including block lifecycle events.
+  """
+  events: [BlockEvent!]!
+
+  """All included Cosmos transactions, ordered by txIdxComet."""
+  txs: [Tx!]!
+}
+
+"""Selects retained transaction and event data by block height."""
+input BlockDataFilter {
+  """An equality or range predicate for the containing block height."""
+  block: IntFilter!
+}
+
+enum BlockDataOrder {
+  block
+}
+
+"""One retained ABCI event."""
+type BlockEvent {
+  """
+  Ordered key/value pairs. Every inner array contains the key followed by its value.
+  """
+  attributes: [[String!]!]!
+
+  """Block-results phase that reported this event."""
+  phase: BlockEventPhase!
+
+  """
+  Zero-based CometBFT transaction position, or null for lifecycle events.
+  """
+  txIdxComet: Int
+
+  """Unmodified ABCI event type."""
+  type: String!
+}
+
+enum BlockEventPhase {
+  BEGIN_BLOCK
+  END_BLOCK
+  TX
+}
+
 type BybitResponse {
   ask1Price: String!
   ask1Size: String!
@@ -109,6 +158,102 @@ type EventAttribute {
 
 type Evm {
   funTokens: [FunToken!]!
+
+  """
+  Looks up an indexed `eth.evm.v1.EventEthereumTx` record. Provide exactly
+  one Ethereum hash or CometBFT transaction hash.
+  """
+  tx(where: EvmTransactionFilter!): EvmTransaction
+}
+
+"""An indexed `eth.evm.v1.EventEthereumTx` record."""
+type EvmTransaction {
+  """Amount string emitted by `eth.evm.v1.EventEthereumTx`."""
+  amount: String!
+
+  """Block that emitted the EVM transaction event."""
+  block: Block!
+
+  """
+  Uppercase hexadecimal CometBFT hash of the enclosing Cosmos transaction.
+  """
+  cometHash: String!
+
+  """Canonical 0x-prefixed Ethereum transaction hash."""
+  ethHash: String!
+
+  """
+  Event sequence number in the Heart Monitor event index, not the block position.
+  """
+  eventSeqNo: Int!
+
+  """Gas used value emitted by `eth.evm.v1.EventEthereumTx`."""
+  gasUsed: Int!
+
+  """Recipient value emitted by `eth.evm.v1.EventEthereumTx`."""
+  recipient: String!
+
+  """Zero-based EVM transaction position reported by EventEthereumTx."""
+  txIdxEvm: Int!
+
+  """
+  Transaction sequence number in the Heart Monitor event index, not the block position.
+  """
+  txSeqNo: Int!
+
+  """
+  EVM execution error emitted by `eth.evm.v1.EventEthereumTx`, or an empty string.
+  """
+  vmError: String!
+}
+
+"""Selects an EVM transaction by exactly one supported hash."""
+input EvmTransactionFilter {
+  """
+  Uppercase hexadecimal CometBFT hash of the enclosing Cosmos transaction.
+  """
+  cometHash: String
+
+  """Canonical 0x-prefixed Ethereum transaction hash."""
+  ethHash: String
+}
+
+"""EVM transaction data decoded from a retained MsgEthereumTx."""
+type EvmTx {
+  chainId: String!
+  from: String!
+
+  """EVM gas limit."""
+  gas: String!
+
+  """Legacy or EIP-2930 gas price."""
+  gasPrice: String
+
+  """EVM gas used reported by EventEthereumTx."""
+  gasUsed: String
+
+  """0x-prefixed EVM call data."""
+  inputHex: String!
+
+  """EIP-1559 maximum fee per gas."""
+  maxFeePerGas: String
+
+  """EIP-1559 maximum priority fee per gas."""
+  maxPriorityFeePerGas: String
+  nonce: String!
+
+  """Recipient address, or null for contract creation."""
+  to: String
+
+  """EVM transaction position reported by EventEthereumTx."""
+  txIdxEvm: Int
+  type: Int!
+  value: String!
+
+  """
+  EVM execution error. An empty string means EventEthereumTx reported success.
+  """
+  vmError: String
 }
 
 type FeatureFlags {
@@ -385,6 +530,10 @@ type Proxies {
 }
 
 type Query {
+  """
+  Returns sparse retained transaction and event data for matching block heights.
+  """
+  blockData(limit: Int, offset: Int, order: BlockDataOrder, orderDesc: Boolean, where: BlockDataFilter!): [BlockData!]!
   communityPool(limit: Int, order_by: CommunityPoolOrder, order_desc: Boolean, where: CommunityPoolFilter): [Token!]!
   delegations(limit: Int, order_by: DelegationOrder, order_desc: Boolean, where: DelegationFilter): [Delegation!]! @deprecated(reason: "Moved to staking sub schema")
   evm: Evm!
@@ -400,6 +549,11 @@ type Query {
   redelegations(limit: Int, order_by: RedelegationOrder, order_desc: Boolean, where: RedelegationFilter): [Redelegation!]! @deprecated(reason: "Moved to staking sub schema")
   staking: Staking!
   stats: Stats! @deprecated(reason: "Will be removed next release")
+
+  """
+  Returns one committed transaction from its CometBFT or EVM transaction hash.
+  """
+  tx(txHash: String!): Tx
   unbondings(limit: Int, order_by: UnbondingOrder, order_desc: Boolean, where: UnbondingFilter): [Unbonding!]! @deprecated(reason: "Moved to staking sub schema")
   user(where: UserFilter!): User
   users(limit: Int, order_by: UserOrder, order_desc: Boolean, where: UsersFilter): [User!]!
@@ -545,6 +699,45 @@ type TokenInfo {
 enum TokenType {
   bank
   erc20
+}
+
+"""One Cosmos transaction retained from a committed block."""
+type Tx {
+  """Containing block height."""
+  block: Int!
+
+  """CometBFT DeliverTx code. Zero means the Cosmos transaction succeeded."""
+  code: Int!
+  codespace: String!
+
+  """Uppercase hexadecimal CometBFT hash of the encoded Cosmos transaction."""
+  cometHash: String!
+
+  """CometBFT DeliverTx data, represented as Base64."""
+  dataBase64: String!
+
+  """Canonical 0x-prefixed EVM hash when this is a MsgEthereumTx."""
+  ethHash: String
+
+  """
+  Retained transaction-origin events, ordered by their source event position.
+  """
+  events: [BlockEvent!]!
+
+  """
+  EVM transaction fields decoded from the archived MsgEthereumTx, when present.
+  """
+  evm: EvmTx
+  gasUsed: Int!
+  gasWanted: Int!
+  info: String!
+  log: String!
+
+  """Complete encoded Cosmos transaction, represented as Base64."""
+  txBytesBase64: String!
+
+  """Zero-based position of this Cosmos transaction in its CometBFT block."""
+  txIdxComet: Int!
 }
 
 type Unbonding {
