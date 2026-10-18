@@ -15,7 +15,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "esModuleInterop": true,
-    "baseUrl": "./",
+    "paths": { "src/*": ["./src/*"] },
     "skipLibCheck": true
   },
   "include": ["src/**/*", "index.ts"],
