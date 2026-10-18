@@ -1,8 +1,5 @@
 import type { Config } from "jest"
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { compilerOptions } = require("./tsconfig")
-
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
@@ -34,7 +31,7 @@ const config: Config = {
   },
   moduleDirectories: ["<rootDir>", "node_modules", "src"],
   moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
-  modulePaths: [compilerOptions.baseUrl], // <-- This will be set to 'baseUrl' value
+  modulePaths: ["<rootDir>"],
   roots: ["<rootDir>"],
   preset: "ts-jest",
   testEnvironment: "node",

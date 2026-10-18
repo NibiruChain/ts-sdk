@@ -37,6 +37,14 @@ jobs:
         with:
           cmd: install
 
+      - name: Set up Bun for type checking
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: .bun-version
+
+      - name: Typecheck TypeScript
+        run: bun run typecheck
+
       - name: yarn build
         uses: borales/actions-yarn@v4
         with:
