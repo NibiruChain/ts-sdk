@@ -45,6 +45,7 @@ The `nibijs` source code can be found in the `src` directory.
 - [Usage](#usage)
   - [Example: Creating a wallet](#example-creating-a-wallet)
   - [Example: Querying](#example-querying)
+  - [Indexer queries](#indexer-queries)
   - [Example: Sending funds](#example-sending-funds)
 - [Codebase structure](#codebase-structure)
 - [Development Quick Start](#development-quick-start)
@@ -66,7 +67,7 @@ npm install @nibiruchain/nibijs # or yarn add
 
 ## Usage
 
-The entrypoint for `nibijs` is the `Sdk` object, which is meant to mimic the root of a command line interface. It can be used for both queries and transactions.
+`NibiruQuerier` reads chain state and `NibiruTxClient` signs and broadcasts transactions. `HeartMonitor` reads the indexer. Wallets come from `newRandomWallet` and `newSignerFromMnemonic`.
 
 ### Example: Creating a wallet
 
@@ -95,11 +96,14 @@ const exampleAddress = "nibi17dz4cdw5fmm2cxd4ht9xvjmpw3ycmpkpcc6js9"
 const balances = await querier.getAllBalances(exampleAddress)
 console.log("balances: %o", balances)
 
-// Query block
-const blockHeight = 200000
-const block = await querier.getBlock(blockHeight)
+// Query the latest block. Pass a height to getBlock when the node still has that block.
+const block = await querier.getBlock()
 console.log("block: %o", block)
 ```
+
+### Indexer queries
+
+Heart Monitor examples for balances, transaction history, IBC transfers, staking, and oracle prices are in [QUERIES.md](https://github.com/NibiruChain/ts-sdk/blob/main/QUERIES.md).
 
 ### Example: Sending funds
 
@@ -125,19 +129,12 @@ let balances = await querier.getAllBalances(exampleAddress)
 console.log("balances: %o", balances)
 
 const tokens = coins(5, "unibi")
-const txResp = await txClient.sendTokens(
-  fromAddr,
-  exampleAddress,
-  tokens,
-  5000 // gas fee 5000 unibi
-)
+// "auto" simulates gas and multiplies it by 1.4. The client prices that gas at 0.025unibi.
+// A number here is that multiplier, not a fee in unibi.
+const txResp = await txClient.sendTokens(fromAddr, exampleAddress, tokens, "auto")
 console.log(txResp)
 
-// Execution could take several seconds
-const delay = (ms) => new Promise((res) => setTimeout(res, ms))
-await delay(10000)
-
-// Check balance after send tokens
+// sendTokens resolves after the transaction is included in a block.
 balances = await querier.getAllBalances(exampleAddress)
 console.log("balances: %o", balances)
 ```
