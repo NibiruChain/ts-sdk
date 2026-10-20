@@ -1,3 +1,7 @@
+## 6.4.0 (2026-10-20)
+
+- feat: usage docs (#420) ([73c9161](https://github.com/NibiruChain/ts-sdk/commit/73c9161)), closes [#420](https://github.com/NibiruChain/ts-sdk/issues/420) [#404](https://github.com/NibiruChain/ts-sdk/issues/404) [#407](https://github.com/NibiruChain/ts-sdk/issues/407) [#412](https://github.com/NibiruChain/ts-sdk/issues/412) [#414](https://github.com/NibiruChain/ts-sdk/issues/414)
+
 ## <small>6.3.3 (2026-10-18)</small>
 
 - chore(types): Use native Bun type checking (#419) ([49b6385](https://github.com/NibiruChain/ts-sdk/commit/49b6385)), closes [#419](https://github.com/NibiruChain/ts-sdk/issues/419)

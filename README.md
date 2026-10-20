@@ -131,7 +131,12 @@ console.log("balances: %o", balances)
 const tokens = coins(5, "unibi")
 // "auto" simulates gas and multiplies it by 1.4. The client prices that gas at 0.025unibi.
 // A number here is that multiplier, not a fee in unibi.
-const txResp = await txClient.sendTokens(fromAddr, exampleAddress, tokens, "auto")
+const txResp = await txClient.sendTokens(
+  fromAddr,
+  exampleAddress,
+  tokens,
+  "auto"
+)
 console.log(txResp)
 
 // sendTokens resolves after the transaction is included in a block.
