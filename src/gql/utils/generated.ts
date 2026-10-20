@@ -29,6 +29,46 @@ export type GQLBlock = {
   readonly num_txs: Scalars['Int']['output'];
 };
 
+/** Sparse execution data retained for one block. */
+export type GQLBlockData = {
+  readonly __typename?: 'BlockData';
+  /** Block height for this retained execution data. */
+  readonly block: Scalars['Int']['output'];
+  /** All retained events in execution order, including block lifecycle events. */
+  readonly events: ReadonlyArray<GQLBlockEvent>;
+  /** All included Cosmos transactions, ordered by txIdxComet. */
+  readonly txs: ReadonlyArray<GQLTx>;
+};
+
+/** Selects retained transaction and event data by block height. */
+export type GQLBlockDataFilter = {
+  /** An equality or range predicate for the containing block height. */
+  readonly block: GQLIntFilter;
+};
+
+export enum GQLBlockDataOrder {
+  GQLBlock = 'block'
+}
+
+/** One retained ABCI event. */
+export type GQLBlockEvent = {
+  readonly __typename?: 'BlockEvent';
+  /** Ordered key/value pairs. Every inner array contains the key followed by its value. */
+  readonly attributes: ReadonlyArray<ReadonlyArray<Scalars['String']['output']>>;
+  /** Block-results phase that reported this event. */
+  readonly phase: GQLBlockEventPhase;
+  /** Zero-based CometBFT transaction position, or null for lifecycle events. */
+  readonly txIdxComet?: Maybe<Scalars['Int']['output']>;
+  /** Unmodified ABCI event type. */
+  readonly type: Scalars['String']['output'];
+};
+
+export enum GQLBlockEventPhase {
+  GQLBeginBlock = 'BEGIN_BLOCK',
+  GQLEndBlock = 'END_BLOCK',
+  GQLTx = 'TX'
+}
+
 export type GQLBybitResponse = {
   readonly __typename?: 'BybitResponse';
   readonly ask1Price: Scalars['String']['output'];
@@ -121,6 +161,77 @@ export type GQLEventAttribute = {
 export type GQLEvm = {
   readonly __typename?: 'Evm';
   readonly funTokens: ReadonlyArray<GQLFunToken>;
+  /**
+   * Looks up an indexed `eth.evm.v1.EventEthereumTx` record. Provide exactly
+   * one Ethereum hash or CometBFT transaction hash.
+   */
+  readonly tx?: Maybe<GQLEvmTransaction>;
+};
+
+
+export type GQLEvmGqlTxArgs = {
+  where: GQLEvmTransactionFilter;
+};
+
+/** An indexed `eth.evm.v1.EventEthereumTx` record. */
+export type GQLEvmTransaction = {
+  readonly __typename?: 'EvmTransaction';
+  /** Amount string emitted by `eth.evm.v1.EventEthereumTx`. */
+  readonly amount: Scalars['String']['output'];
+  /** Block that emitted the EVM transaction event. */
+  readonly block: GQLBlock;
+  /** Uppercase hexadecimal CometBFT hash of the enclosing Cosmos transaction. */
+  readonly cometHash: Scalars['String']['output'];
+  /** Canonical 0x-prefixed Ethereum transaction hash. */
+  readonly ethHash: Scalars['String']['output'];
+  /** Event sequence number in the Heart Monitor event index, not the block position. */
+  readonly eventSeqNo: Scalars['Int']['output'];
+  /** Gas used value emitted by `eth.evm.v1.EventEthereumTx`. */
+  readonly gasUsed: Scalars['Int']['output'];
+  /** Recipient value emitted by `eth.evm.v1.EventEthereumTx`. */
+  readonly recipient: Scalars['String']['output'];
+  /** Zero-based EVM transaction position reported by EventEthereumTx. */
+  readonly txIdxEvm: Scalars['Int']['output'];
+  /** Transaction sequence number in the Heart Monitor event index, not the block position. */
+  readonly txSeqNo: Scalars['Int']['output'];
+  /** EVM execution error emitted by `eth.evm.v1.EventEthereumTx`, or an empty string. */
+  readonly vmError: Scalars['String']['output'];
+};
+
+/** Selects an EVM transaction by exactly one supported hash. */
+export type GQLEvmTransactionFilter = {
+  /** Uppercase hexadecimal CometBFT hash of the enclosing Cosmos transaction. */
+  readonly cometHash?: InputMaybe<Scalars['String']['input']>;
+  /** Canonical 0x-prefixed Ethereum transaction hash. */
+  readonly ethHash?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** EVM transaction data decoded from a retained MsgEthereumTx. */
+export type GQLEvmTx = {
+  readonly __typename?: 'EvmTx';
+  readonly chainId: Scalars['String']['output'];
+  readonly from: Scalars['String']['output'];
+  /** EVM gas limit. */
+  readonly gas: Scalars['String']['output'];
+  /** Legacy or EIP-2930 gas price. */
+  readonly gasPrice?: Maybe<Scalars['String']['output']>;
+  /** EVM gas used reported by EventEthereumTx. */
+  readonly gasUsed?: Maybe<Scalars['String']['output']>;
+  /** 0x-prefixed EVM call data. */
+  readonly inputHex: Scalars['String']['output'];
+  /** EIP-1559 maximum fee per gas. */
+  readonly maxFeePerGas?: Maybe<Scalars['String']['output']>;
+  /** EIP-1559 maximum priority fee per gas. */
+  readonly maxPriorityFeePerGas?: Maybe<Scalars['String']['output']>;
+  readonly nonce: Scalars['String']['output'];
+  /** Recipient address, or null for contract creation. */
+  readonly to?: Maybe<Scalars['String']['output']>;
+  /** EVM transaction position reported by EventEthereumTx. */
+  readonly txIdxEvm?: Maybe<Scalars['Int']['output']>;
+  readonly type: Scalars['Int']['output'];
+  readonly value: Scalars['String']['output'];
+  /** EVM execution error. An empty string means EventEthereumTx reported success. */
+  readonly vmError?: Maybe<Scalars['String']['output']>;
 };
 
 export type GQLFeatureFlags = {
@@ -496,6 +607,8 @@ export type GQLProxiesGqlUnstoppableDomainsArgs = {
 
 export type GQLQuery = {
   readonly __typename?: 'Query';
+  /** Returns sparse retained transaction and event data for matching block heights. */
+  readonly blockData: ReadonlyArray<GQLBlockData>;
   readonly communityPool: ReadonlyArray<GQLToken>;
   /** @deprecated Moved to staking sub schema */
   readonly delegations: ReadonlyArray<GQLDelegation>;
@@ -514,6 +627,8 @@ export type GQLQuery = {
   readonly staking: GQLStaking;
   /** @deprecated Will be removed next release */
   readonly stats: GQLStats;
+  /** Returns one committed transaction from its CometBFT or EVM transaction hash. */
+  readonly tx?: Maybe<GQLTx>;
   /** @deprecated Moved to staking sub schema */
   readonly unbondings: ReadonlyArray<GQLUnbonding>;
   readonly user?: Maybe<GQLUser>;
@@ -521,6 +636,15 @@ export type GQLQuery = {
   /** @deprecated Moved to staking sub schema */
   readonly validators: ReadonlyArray<GQLValidator>;
   readonly wasm: GQLWasm;
+};
+
+
+export type GQLQueryGqlBlockDataArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<GQLBlockDataOrder>;
+  orderDesc?: InputMaybe<Scalars['Boolean']['input']>;
+  where: GQLBlockDataFilter;
 };
 
 
@@ -554,6 +678,11 @@ export type GQLQueryGqlRedelegationsArgs = {
   order_by?: InputMaybe<GQLRedelegationOrder>;
   order_desc?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<GQLRedelegationFilter>;
+};
+
+
+export type GQLQueryGqlTxArgs = {
+  txHash: Scalars['String']['input'];
 };
 
 
@@ -788,6 +917,34 @@ export enum GQLTokenType {
   GQLBank = 'bank',
   GQLErc20 = 'erc20'
 }
+
+/** One Cosmos transaction retained from a committed block. */
+export type GQLTx = {
+  readonly __typename?: 'Tx';
+  /** Containing block height. */
+  readonly block: Scalars['Int']['output'];
+  /** CometBFT DeliverTx code. Zero means the Cosmos transaction succeeded. */
+  readonly code: Scalars['Int']['output'];
+  readonly codespace: Scalars['String']['output'];
+  /** Uppercase hexadecimal CometBFT hash of the encoded Cosmos transaction. */
+  readonly cometHash: Scalars['String']['output'];
+  /** CometBFT DeliverTx data, represented as Base64. */
+  readonly dataBase64: Scalars['String']['output'];
+  /** Canonical 0x-prefixed EVM hash when this is a MsgEthereumTx. */
+  readonly ethHash?: Maybe<Scalars['String']['output']>;
+  /** Retained transaction-origin events, ordered by their source event position. */
+  readonly events: ReadonlyArray<GQLBlockEvent>;
+  /** EVM transaction fields decoded from the archived MsgEthereumTx, when present. */
+  readonly evm?: Maybe<GQLEvmTx>;
+  readonly gasUsed: Scalars['Int']['output'];
+  readonly gasWanted: Scalars['Int']['output'];
+  readonly info: Scalars['String']['output'];
+  readonly log: Scalars['String']['output'];
+  /** Complete encoded Cosmos transaction, represented as Base64. */
+  readonly txBytesBase64: Scalars['String']['output'];
+  /** Zero-based position of this Cosmos transaction in its CometBFT block. */
+  readonly txIdxComet: Scalars['Int']['output'];
+};
 
 export type GQLUnbonding = {
   readonly __typename?: 'Unbonding';
