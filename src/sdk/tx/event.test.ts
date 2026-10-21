@@ -26,6 +26,10 @@ describe("event tests", () => {
     expect(result).toEqual(wasmEvent)
   })
 
+  test("findEvent returns undefined when the type is absent", () => {
+    expect(findEvent([wasmEvent], "missing-event")).toBeUndefined()
+  })
+
   test("parseEventLogs", () => {
     const result = parseEventLogs({
       events: [wasmEvent],

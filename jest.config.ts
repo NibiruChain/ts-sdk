@@ -18,6 +18,8 @@ const config: Config = {
     "!**/src/protojs/**",
     "!jest.config.ts",
     "!**/src/gql/utils/generated.ts",
+    "!**/src/evm-core/generated.ts", // wagmi codegen output
+    "!wagmi.config.ts", // codegen config, not runtime SDK code
     "!**/src/sdk/utils/testutil.ts",
     "!**/src/sdk/core/cosmwasmclient.ts", // Implementation from Cosmjs
     "!**/src/sdk/core/signingcosmwasmclient.ts", // Implementation from Cosmjs

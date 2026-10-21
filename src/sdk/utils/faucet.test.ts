@@ -1,63 +1,41 @@
-import { assertIsDeliverTxSuccess, DeliverTxResponse } from "@cosmjs/stargate"
-import { coins } from "@cosmjs/proto-signing"
 import { fetch } from "cross-fetch"
 import {
   Chain,
   faucetUrlFromChain,
-  newCoinMapFromCoins,
   useFaucet,
   newRandomWallet,
-  newSignerFromMnemonic,
-  NibiruTxClient,
   Localnet,
-  TEST_MNEMONIC,
 } from ".."
 
 jest.mock("cross-fetch", () => ({
   fetch: jest.fn().mockImplementation(() => ({ catch: jest.fn() })),
 }))
 
-// We can't create a test token even with faked recaptcha site
-// and secret tokens. This not only would require a setup to generate
-// a token from the UI, but to also create a fake backend
-// recaptcha check with a test secret.
-// In this case, this test can be skipped and checked it manually.
-// eslint-disable-next-line jest/no-disabled-tests
-test.skip("faucet utility works", async () => {
+test("faucet utility works", async () => {
+  const response = { ok: true } as Response
+  ;(fetch as jest.Mock).mockResolvedValueOnce(response)
+
   const wallet = await newRandomWallet()
-  const [{ address: toAddr }] = await wallet.getAccounts()
-
-  const validator = await newSignerFromMnemonic(TEST_MNEMONIC)
-  const txClient = await NibiruTxClient.connectWithSigner(
-    Localnet.endptTm,
-    validator
-  )
-  const [{ address: fromAddr }] = await validator.getAccounts()
-  await txClient.waitForNextBlock()
-  const txResp: DeliverTxResponse = await txClient.sendTokens(
-    fromAddr,
-    toAddr,
-    coins(100, "unibi"),
-    "auto"
-  )
-  assertIsDeliverTxSuccess(txResp)
-
-  const balancesStart = newCoinMapFromCoins(
-    await txClient.getAllBalances(toAddr)
-  )
+  const [{ address }] = await wallet.getAccounts()
   const faucetResp = await useFaucet({
-    address: toAddr,
+    address,
     chain: Localnet,
     grecaptcha: "",
   })
-  expect(faucetResp?.ok).toBeTruthy()
 
-  const balancesEnd = newCoinMapFromCoins(await txClient.getAllBalances(toAddr))
-  expect(
-    balancesEnd.unusd.minus(balancesStart.unusd).eq(100 * 1e6)
-  ).toBeTruthy()
-  expect(balancesEnd.unibi.minus(balancesStart.unibi).eq(11 * 1e6)).toBeTruthy()
-}, 60_000) // 60 seconds
+  expect(faucetResp).toBe(response)
+  expect(fetch).toHaveBeenCalledWith(
+    "https://faucet.localnet-0.nibiru.fi/",
+    expect.objectContaining({
+      method: "POST",
+      body: JSON.stringify({
+        address,
+        coins: ["10000000unibi"],
+        grecaptcha: "",
+      }),
+    })
+  )
+})
 
 describe("useFaucet", () => {
   const chain: Chain = {

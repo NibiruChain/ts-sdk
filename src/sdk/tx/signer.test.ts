@@ -1,5 +1,10 @@
 import { DirectSecp256k1HdWallet, Registry } from "@cosmjs/proto-signing"
-import { getRegistry, newRandomWallet, newSignerFromMnemonic } from "."
+import {
+  BECH32_PREFIX,
+  getRegistry,
+  newRandomWallet,
+  newSignerFromMnemonic,
+} from "."
 
 describe("signer tests", () => {
   test("getRegistry", () => {
@@ -57,4 +62,19 @@ test("newSignerFromMnemonic", async () => {
   const wallet = await newSignerFromMnemonic(mnemonic)
   const [{ address }] = await wallet.getAccounts()
   expect(address).toEqual(addressForMnemonic)
+})
+
+test("newSignerFromMnemonic uses a validator operator prefix", async () => {
+  const mnemonic =
+    "honey club license water device crew gap hidden prize debate enhance true absent vibrant image pitch audit beef ability shadow dog label fetch cup"
+  const wallet = await newSignerFromMnemonic(mnemonic, BECH32_PREFIX.ADDR_VAL)
+  const [{ address }] = await wallet.getAccounts()
+  expect(address.startsWith(BECH32_PREFIX.ADDR_VAL)).toBe(true)
+})
+
+test("newRandomWallet honors mnemonic length", async () => {
+  const wallet = await newRandomWallet(12, BECH32_PREFIX.ADDR)
+  expect(wallet.mnemonic.split(" ")).toHaveLength(12)
+  const [{ address }] = await wallet.getAccounts()
+  expect(address.startsWith(BECH32_PREFIX.ADDR)).toBe(true)
 })
