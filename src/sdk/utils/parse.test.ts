@@ -12,6 +12,7 @@ describe("toSdkDec - float to sdk.Dec conversion", () => {
     { name: "empty string", in: "", expected: "", shouldFail: true },
     // valid numbers
     { name: "number 0", in: "0", expected: `0${"0".repeat(18)}` },
+    { name: "trailing decimal point", in: "1.", expected: "0" },
     { name: "number 10", in: "10", expected: `10${"0".repeat(18)}` },
     { name: "number 123", in: "123", expected: `123${"0".repeat(18)}` },
     { name: "neg. number 123", in: "-123", expected: `-123${"0".repeat(18)}` },

@@ -2,7 +2,7 @@ import { changeQueryName } from "./codegen"
 
 describe("codegen-loader tests", () => {
   test("changeQueryName", () => {
-    const testResult = changeQueryName("query name")
-    expect(testResult).toEqual("GQLQueryName")
+    expect(changeQueryName("query name")).toEqual("GQLQueryName")
+    expect(changeQueryName("oracle-prices")).toEqual("GQLOraclePrices")
   })
 })
