@@ -82,6 +82,15 @@ describe("accountFromNibiru", () => {
     expect(account.sequence).toEqual(2)
   })
 
+  it("throws when an EthAccount has no base account", () => {
+    const input: Any = {
+      typeUrl: "/eth.types.v1.EthAccount",
+      value: EthAccount.encode({ codeHash: "" }).finish(),
+    }
+
+    expect(() => accountFromNibiru(input)).toThrow()
+  })
+
   it("should handle non-EthAccount typeUrl by calling accountFromAny", () => {
     const mockAccountFromAny = jest
       .spyOn(cosmjs, "accountFromAny")

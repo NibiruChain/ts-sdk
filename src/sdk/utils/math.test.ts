@@ -30,6 +30,7 @@ describe("computeStakingEmissionPerPeriod", () => {
     in: {
       myStake: number
       totalStaked: number
+      addedStake?: number
       params: Params
       epochMintProvision: QueryEpochMintProvisionResponse
     }
@@ -49,6 +50,19 @@ describe("computeStakingEmissionPerPeriod", () => {
         }),
       },
       expected: 5.013974504964393,
+    },
+    {
+      name: "real - added stake",
+      in: {
+        myStake: 10,
+        totalStaked: 10_000_000,
+        addedStake: 10,
+        params,
+        epochMintProvision: QueryEpochMintProvisionResponse.fromPartial({
+          epochMintProvision: { amount: "17827464.906540066004" },
+        }),
+      },
+      expected: 10.027938981989806,
     },
     {
       name: "real - no stake",
@@ -108,7 +122,8 @@ describe("computeStakingEmissionPerPeriod", () => {
         tt.in.params,
         tt.in.epochMintProvision,
         tt.in.totalStaked,
-        tt.in.myStake
+        tt.in.myStake,
+        tt.in.addedStake
       )
       expect(res).toEqual(tt.expected)
     } catch (e) {
