@@ -1,3 +1,3 @@
 /* eslint-disable */
 
-export * from "./eth/types/v1/indexer";
+export * from "./eth/types/v1/account";

@@ -1,3 +1,7 @@
+## <small>6.4.2 (2026-10-27)</small>
+
+- chore: improve test coverage (#421) ([ec92651](https://github.com/NibiruChain/ts-sdk/commit/ec92651)), closes [#421](https://github.com/NibiruChain/ts-sdk/issues/421)
+
 ## <small>6.4.1 (2026-10-23)</small>
 
 - ci(gh-issues): Pin add-to-project to the upstream fix for parallel runs (#422) ([fb5c1d5](https://github.com/NibiruChain/ts-sdk/commit/fb5c1d5)), closes [#422](https://github.com/NibiruChain/ts-sdk/issues/422) [NibiruChain/nibiru#2807](https://github.com/NibiruChain/nibiru/issues/2807)
